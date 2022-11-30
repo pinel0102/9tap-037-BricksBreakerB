@@ -1,0 +1,18 @@
+{
+    "name": "Module.UnityCommonExternals",
+    "rootNamespace": "",
+    "references": [
+        "MessagePack",
+        "MessagePack.Annotations",
+        "SimpleScrollSnap"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

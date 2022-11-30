@@ -1,0 +1,25 @@
+{
+    "name": "Module.UnityCommonFunc",
+    "rootNamespace": "",
+    "references": [
+        "Module.UnityCommonDefine",
+        "Module.UnityCommonAccess",
+        "Module.UnityCommonFactory",
+        "Module.UnityCommonExtension",
+        "Module.UnityCommonExternals",
+        "Unity.RenderPipelines.Universal.Runtime",
+        "Unity.TextMeshPro",
+        "MessagePack",
+        "MessagePack.Annotations",
+        "SimpleScrollSnap"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9bed7b0cc0da472a9c36f5f407c1344, type: 3}
+  m_Name: T_ProjInfoTable
+  m_EditorClassIdentifier: 
+  m_stCompanyInfo:
+    m_oCompany: 9tap
+    m_oPrivacyURL: https://www.ninetap.com/privacy_policy.html
+    m_oServicesURL: https://www.ninetap.com/terms_of_service.html
+    m_oSupportsMail: cs@ninetap.com
+  m_stCommonProjInfo:
+    m_oAppID: lkstudio.dante.sample
+    m_oProjName: 0300010101.Sample_Unity
+    m_oProductName: Sample_Unity
+    m_oExtraProjDirName: 0300010101.Sample_Unity
+  m_stiOSAppleProjInfo:
+    m_oAppID: 
+    m_oStoreAppID: 1309472470
+    m_stBuildVerInfo:
+      m_nNum: 1
+      m_oVer: 0.0.1
+  m_stAndroidGoogleProjInfo:
+    m_oAppID: 
+    m_oStoreAppID: Ninetap
+    m_stBuildVerInfo:
+      m_nNum: 1
+      m_oVer: 0.0.1
+  m_stAndroidAmazonProjInfo:
+    m_oAppID: 
+    m_oStoreAppID: 
+    m_stBuildVerInfo:
+      m_nNum: 1
+      m_oVer: 0.0.1
+  m_stStandaloneMacSteamProjInfo:
+    m_oAppID: 
+    m_oStoreAppID: 
+    m_stBuildVerInfo:
+      m_nNum: 1
+      m_oVer: 0.0.1
+  m_stStandaloneWndsSteamProjInfo:
+    m_oAppID: 
+    m_oStoreAppID: 
+    m_stBuildVerInfo:
+      m_nNum: 1
+      m_oVer: 0.0.1

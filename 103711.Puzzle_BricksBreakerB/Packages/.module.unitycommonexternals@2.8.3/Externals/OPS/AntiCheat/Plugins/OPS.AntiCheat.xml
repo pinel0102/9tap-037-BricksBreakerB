@@ -1,0 +1,1700 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OPS.AntiCheat</name>
+    </assembly>
+    <members>
+        <member name="T:OPS.AntiCheat.Detector.ADetector`1">
+            <summary>
+            A base detector class.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Detector.ADetector`1.FalsePositiveAmount">
+            <summary>
+            Amount of False Positives until a cheat got really detected!
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Detector.ADetector`1.possibleCheatDetectedAmount">
+            <summary>
+            Currently possible cheat amounts detected.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Detector.ADetector`1.ResetAmount">
+            <summary>
+            Amount of checks in a row, where no cheat got detected, to reset the possible cheat counter.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Detector.ADetector`1.impossibleCheatDetectedAmount">
+            <summary>
+            Currently following impossible cheat amounts detected.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Detector.ADetector`1.cheatDetected">
+            <summary>
+            True: A cheat / hack got detected!
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Detector.ADetector`1.CheatDetected">
+            <summary>
+            Getter: Returns true if a cheat got detected.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Detector.ADetector`1.CheatDetectionActive">
+            <summary>
+            Getter: Returns of the cheat detection is active.
+            Setter: Assign if cheat detection is active or deactived.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Detector.ADetector`1.PossibleCheatDetected">
+            <summary>
+            Getter: Returns true if a cheat got detected.
+            Setter: Assign true if a possible cheat got detected, it will increase the cheat indicator. 
+            Assign false if no possible cheat got detected. After a defined amount of following no detection count, 
+            the possible cheat detected amount will be reset.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Detector.ADetector`1.OnCheatDetected">
+            <summary>
+            When a cheat got more than the FalsePositiveAmount detected this method getting called.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Detector.ADetector`1.OnEnable">
+            <summary>
+            Unity OnEnable hook.
+            Attaches to the SceneManager.sceneLoaded hook.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Detector.ADetector`1.OnDisable">
+            <summary>
+            Unity OnDisable hook.
+            Dettaches from the SceneManager.sceneLoaded hook.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Detector.ADetector`1.OnLevelFinishedLoading(UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.LoadSceneMode)">
+            <summary>
+            Event when a new scene got loaded.
+            </summary>
+            <param name="_Scene"></param>
+            <param name="_Mode"></param>
+        </member>
+        <member name="T:OPS.AntiCheat.Detector.OnFieldCheatDetected">
+            <summary>
+            Custom delegate to receive field cheat detection events.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Detector.FieldCheatDetector">
+            <summary>
+            Detect when a cheater / hacker tries to manipulate one of the protected fields.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Detector.FieldCheatDetector.FalsePositiveAmount">
+            <summary>
+            Amount of False Positives until a cheat got really detected!
+            Default: 1 - Because there are no false positive in this case.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Detector.FieldCheatDetector.ResetAmount">
+            <summary>
+            Amount of checks in a row, where no cheat got detected, to reset the possible cheat counter.
+            Default: Int32.Max - Is not required.
+            </summary>
+        </member>
+        <member name="E:OPS.AntiCheat.Detector.FieldCheatDetector.OnFieldCheatDetected">
+            <summary>
+            Event: Attach an OnFieldCheatDetected to get informed when a cheater got detected!
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Detector.FieldCheatDetector.OnCheatDetected">
+            <summary>
+            Override the cheat detection for custom event.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Detector.FieldCheatDetector.OnDestroy">
+            <summary>
+            Clear on destroy.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Field.IProtected">
+            <summary>
+            Base interface for a protected value.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Field.ProtectedBool">
+            <summary>
+            Represents a protected boolean. In almost all cases you can just replace your default type with the protected one.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedBool.securedValue">
+            <summary>
+            The encrypted true value.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedBool.SecuredValue">
+            <summary>
+            Get and set the encrypted true value.
+            MOSTLY YOU DO NOT WANT TO USE THIS. USE THE 'Value' PROPERTY!
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedBool.randomSecret">
+            <summary>
+            A secret key the true value getting encypted with.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedBool.RandomSecret">
+            <summary>
+            A secret key the true value getting encypted with.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedBool.fakeValue">
+            <summary>
+            A honeypot pretending to be the orignal value. If some user tried to change this value via a cheat / hack engine, you will get notified.
+            The protected value will keep its true value.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedBool.OnBeforeSerialize">
+            <summary>
+            Unity serialization hook. So the right values will be serialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedBool.OnAfterDeserialize">
+            <summary>
+            Unity deserialization hook. So the right values will be deserialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedBool.#ctor(System.Boolean)">
+            <summary>
+            Create a new protected boolean with _Value.
+            </summary>
+            <param name="_Value"></param>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedBool.Value">
+            <summary>
+            Set and access the true unencrypted field value.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedBool.Value_WithoutCheck">
+            <summary>
+            Return the value without any possible cheat checking. Is used for the player prefs.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Field.ProtectedDateTime">
+            <summary>
+            Represents a protected date time. In almost all cases you can just replace your default type with the protected one.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedDateTime.securedInt64">
+            <summary>
+            The encrypted true value.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedDateTime.fakeValue">
+            <summary>
+            A honeypot pretending to be the orignal value. If some user tried to change this value via a cheat / hack engine, you will get notified.
+            The protected value will keep its true value.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedDateTime.OnBeforeSerialize">
+            <summary>
+            Unity serialization hook. So the right values will be serialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedDateTime.OnAfterDeserialize">
+            <summary>
+            Unity deserialization hook. So the right values will be deserialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedDateTime.#ctor(System.DateTime)">
+            <summary>
+            Create a new protected DateTime with _Value.
+            </summary>
+            <param name="_Value"></param>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedDateTime.Value">
+            <summary>
+            Set and access the true unencrypted field value.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Field.ProtectedDecimal">
+            <summary>
+            Represents a protected decimal. In almost all cases you can just replace your default type with the protected one.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedDecimal.securedValues">
+            <summary>
+            The encrypted true value.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedDecimal.fakeValue">
+            <summary>
+            A honeypot pretending to be the orignal value. If some user tried to change this value via a cheat / hack engine, you will get notified.
+            The protected value will keep its true value.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedDecimal.OnBeforeSerialize">
+            <summary>
+            Unity serialization hook. So the right values will be serialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedDecimal.OnAfterDeserialize">
+            <summary>
+            Unity deserialization hook. So the right values will be deserialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedDecimal.#ctor(System.Decimal)">
+            <summary>
+            Create a new protected decimal with _Value.
+            </summary>
+            <param name="_Value"></param>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedDecimal.Value">
+            <summary>
+            Set and access the real unencrypted field value.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Field.ProtectedDouble">
+            <summary>
+            Represents a protected double. In almost all cases you can just replace your default type with the protected one.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedDouble.securedValue">
+            <summary>
+            The encrypted true value.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedDouble.SecuredValue">
+            <summary>
+            Get and set the encrypted true value.
+            MOSTLY YOU DO NOT WANT TO USE THIS. USE THE 'Value' PROPERTY!
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedDouble.manager">
+            <summary>
+            Used for calculation if the long / double values for the secured value.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedDouble.randomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedDouble.RandomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedDouble.fakeValue">
+            <summary>
+            A honeypot pretending to be the orignal value. If some user tried to change this value via a cheat / hack engine, you will get notified.
+            The protected value will keep its true value.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedDouble.OnBeforeSerialize">
+            <summary>
+            Unity serialization hook. So the right values will be serialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedDouble.OnAfterDeserialize">
+            <summary>
+            Unity deserialization hook. So the right values will be deserialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedDouble.#ctor(System.Double)">
+            <summary>
+            Create a new protected double with _Value.
+            </summary>
+            <param name="_Value"></param>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedDouble.Value">
+            <summary>
+            Set and access the real unencrypted field value.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Field.ProtectedFieldsSettings">
+            <summary>
+            Global settings for all protected fields.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedFieldsSettings.RandomProvider">
+            <summary>
+            The provider for random numbers.
+            Default: TrueRandom
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Field.ProtectedFloat">
+            <summary>
+            Represents a protected float. In almost all cases you can just replace your default type with the protected one.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedFloat.securedValue">
+            <summary>
+            The encrypted true value.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedFloat.SecuredValue">
+            <summary>
+            Get and set the encrypted true value.
+            MOSTLY YOU DO NOT WANT TO USE THIS. USE THE 'Value' PROPERTY!
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedFloat.manager">
+            <summary>
+            Used for calculation if the int / float values for the secured value.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedFloat.randomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedFloat.RandomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedFloat.fakeValue">
+            <summary>
+            A honeypot pretending to be the orignal value. If some user tried to change this value via a cheat / hack engine, you will get notified.
+            The protected value will keep its true value.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedFloat.OnBeforeSerialize">
+            <summary>
+            Unity serialization hook. So the right values will be serialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedFloat.OnAfterDeserialize">
+            <summary>
+            Unity deserialization hook. So the right values will be deserialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedFloat.#ctor(System.Single)">
+            <summary>
+            Create a new protected float with _Value.
+            </summary>
+            <param name="_Value"></param>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedFloat.Value">
+            <summary>
+            Set and access the real unencrypted field value.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedFloat.Value_WithoutCheck">
+            <summary>
+            Return the value without any possible cheat checking. Is used for the player prefs.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Field.ProtectedInt16">
+            <summary>
+            Represents a protected int16. In almost all cases you can just replace your default type with the protected one.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedInt16.securedValue">
+            <summary>
+            The encrypted true value.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedInt16.randomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedInt16.RandomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedInt16.fakeValue">
+            <summary>
+            A honeypot pretending to be the orignal value. If some user tried to change this value via a cheat / hack engine, you will get notified.
+            The protected value will keep its true value.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedInt16.OnBeforeSerialize">
+            <summary>
+            Unity serialization hook. So the right values will be serialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedInt16.OnAfterDeserialize">
+            <summary>
+            Unity deserialization hook. So the right values will be deserialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedInt16.#ctor(System.Int16)">
+            <summary>
+            Create a new protected Int16 with _Value.
+            </summary>
+            <param name="_Value"></param>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedInt16.Value">
+            <summary>
+            Set and access the real unencrypted field value.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Field.ProtectedInt32">
+            <summary>
+            Represents a protected int32. In almost all cases you can just replace your default type with the protected one.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedInt32.securedValue">
+            <summary>
+            The encrypted true value.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedInt32.SecuredValue">
+            <summary>
+            Get and set the encrypted true value.
+            MOSTLY YOU DO NOT WANT TO USE THIS. USE THE 'Value' PROPERTY!
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedInt32.randomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedInt32.RandomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedInt32.fakeValue">
+            <summary>
+            A honeypot pretending to be the orignal value. If some user tried to change this value via a cheat / hack engine, you will get notified.
+            The protected value will keep its true value.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedInt32.OnBeforeSerialize">
+            <summary>
+            Unity serialization hook. So the right values will be serialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedInt32.OnAfterDeserialize">
+            <summary>
+            Unity deserialization hook. So the right values will be deserialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedInt32.#ctor(System.Int32)">
+            <summary>
+            Create a new protected Int32 with _Value.
+            </summary>
+            <param name="_Value"></param>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedInt32.Value">
+            <summary>
+            Set and access the real unencrypted field value.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedInt32.Value_WithoutCheck">
+            <summary>
+            Return the value without any possible cheat checking. Is used for the player prefs.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Field.ProtectedInt64">
+            <summary>
+            Represents a protected int64. In almost all cases you can just replace your default type with the protected one.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedInt64.securedValue">
+            <summary>
+            The encrypted true value.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedInt64.randomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedInt64.RandomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedInt64.fakeValue">
+            <summary>
+            A honeypot pretending to be the orignal value. If some user tried to change this value via a cheat / hack engine, you will get notified.
+            The protected value will keep its true value.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedInt64.OnBeforeSerialize">
+            <summary>
+            Unity serialization hook. So the right values will be serialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedInt64.OnAfterDeserialize">
+            <summary>
+            Unity deserialization hook. So the right values will be deserialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedInt64.#ctor(System.Int64)">
+            <summary>
+            Create a new protected Int64 with _Value.
+            </summary>
+            <param name="_Value"></param>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedInt64.Value">
+            <summary>
+            Set and access the real unencrypted field value.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Field.ProtectedQuaternion">
+            <summary>
+            Represents a protected quaternion. In almost all cases you can just replace your default type with the protected one.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedQuaternion.securedValueX">
+            <summary>
+            The encrypted true value x.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedQuaternion.securedValueY">
+            <summary>
+            The encrypted true value y.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedQuaternion.securedValueZ">
+            <summary>
+            The encrypted true value z.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedQuaternion.securedValueW">
+            <summary>
+            The encrypted true value w.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedQuaternion.manager">
+            <summary>
+            Used for calculation if the int / float values for the secured value.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedQuaternion.randomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedQuaternion.RandomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedQuaternion.fakeValue">
+            <summary>
+            A honeypot pretending to be the orignal value. If some user tried to change this value via a cheat / hack engine, you will get notified.
+            The protected value will keep its true value.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedQuaternion.OnBeforeSerialize">
+            <summary>
+            Unity serialization hook. So the right values will be serialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedQuaternion.OnAfterDeserialize">
+            <summary>
+            Unity deserialization hook. So the right values will be deserialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedQuaternion.#ctor(UnityEngine.Quaternion)">
+            <summary>
+            Create a new protected Quaternion with _Value.
+            </summary>
+            <param name="_Value"></param>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedQuaternion.Value">
+            <summary>
+            Set and access the real unencrypted field value.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedQuaternion.Value_WithoutCheck">
+            <summary>
+            Return the value without any possible cheat checking. Is used for the player prefs.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Field.ProtectedString">
+            <summary>
+            Represents a protected string. In almost all cases you can just replace your default type with the protected one.
+            The usage of the protected string has some overhead because of the complex encryption and encoding. Use only if necessary. 
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedString.EncryptToUTF8(System.String,System.Int32)">
+            <summary>
+            Encrypts a _String with _Secret and encodes it to UTF8.
+            </summary>
+            <param name="_String">The string you want to protect.</param>
+            <param name="_Secret">The secret key for protection.</param>
+            <returns></returns>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedString.DecryptFromUTF8(System.String,System.Int32)">
+            <summary>
+            Decrypts a protected _String with _Secret and encodes it to UTF8.
+            </summary>
+            <param name="_String">The string you want to unprotect.</param>
+            <param name="_Secret">The secret key for protection.</param>
+            <returns></returns>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedString.securedValue">
+            <summary>
+            The encrypted true value.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedString.SecuredValue">
+            <summary>
+            Get and set the encrypted true value.
+            MOSTLY YOU DO NOT WANT TO USE THIS. USE THE 'Value' PROPERTY!
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedString.randomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedString.RandomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedString.fakeValue">
+            <summary>
+            A honeypot pretending to be the orignal value. If some user tried to change this value via a cheat / hack engine, you will get notified.
+            The protected value will keep its true value.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedString.OnBeforeSerialize">
+            <summary>
+            Unity serialization hook. So the right values will be serialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedString.OnAfterDeserialize">
+            <summary>
+            Unity deserialization hook. So the right values will be deserialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedString.#ctor(System.String)">
+            <summary>
+            Create a new protected string with _Value.
+            </summary>
+            <param name="_Value"></param>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedString.Value">
+            <summary>
+            Set and access the real unencrypted field value.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedString.Value_WithoutCheck">
+            <summary>
+            Return the value without any possible cheat checking. Is used for the player prefs.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Field.ProtectedUInt16">
+            <summary>
+            Represents a protected unsigned int16. In almost all cases you can just replace your default type with the protected one.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedUInt16.securedValue">
+            <summary>
+            The encrypted true value.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedUInt16.randomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedUInt16.RandomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedUInt16.fakeValue">
+            <summary>
+            A honeypot pretending to be the orignal value. If some user tried to change this value via a cheat / hack engine, you will get notified.
+            The protected value will keep its true value.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedUInt16.OnBeforeSerialize">
+            <summary>
+            Unity serialization hook. So the right values will be serialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedUInt16.OnAfterDeserialize">
+            <summary>
+            Unity deserialization hook. So the right values will be deserialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedUInt16.#ctor(System.UInt16)">
+            <summary>
+            Create a new protected UInt16 with _Value.
+            </summary>
+            <param name="_Value"></param>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedUInt16.Value">
+            <summary>
+            Set and access the real unencrypted field value.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Field.ProtectedUInt32">
+            <summary>
+            Represents a protected unsigned int32. In almost all cases you can just replace your default type with the protected one.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedUInt32.securedValue">
+            <summary>
+            The encrypted true value.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedUInt32.randomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedUInt32.RandomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedUInt32.fakeValue">
+            <summary>
+            A honeypot pretending to be the orignal value. If some user tried to change this value via a cheat / hack engine, you will get notified.
+            The protected value will keep its true value.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedUInt32.OnBeforeSerialize">
+            <summary>
+            Unity serialization hook. So the right values will be serialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedUInt32.OnAfterDeserialize">
+            <summary>
+            Unity deserialization hook. So the right values will be deserialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedUInt32.#ctor(System.UInt32)">
+            <summary>
+            Create a new protected UInt32 with _Value.
+            </summary>
+            <param name="_Value"></param>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedUInt32.Value">
+            <summary>
+            Set and access the real unencrypted field value.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Field.ProtectedUInt64">
+            <summary>
+            Represents a protected unsigned int64. In almost all cases you can just replace your default type with the protected one.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedUInt64.securedValue">
+            <summary>
+            The encrypted true value.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedUInt64.randomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedUInt64.RandomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedUInt64.fakeValue">
+            <summary>
+            A honeypot pretending to be the orignal value. If some user tried to change this value via a cheat / hack engine, you will get notified.
+            The protected value will keep its true value.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedUInt64.OnBeforeSerialize">
+            <summary>
+            Unity serialization hook. So the right values will be serialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedUInt64.OnAfterDeserialize">
+            <summary>
+            Unity deserialization hook. So the right values will be deserialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedUInt64.#ctor(System.UInt64)">
+            <summary>
+            Create a new protected UInt64 with _Value.
+            </summary>
+            <param name="_Value"></param>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedUInt64.Value">
+            <summary>
+            Set and access the real unencrypted field value.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Field.ProtectedVector3Int">
+            <summary>
+            Represents a protected vector3 int. In almost all cases you can just replace your default type with the protected one.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector3Int.securedValueX">
+            <summary>
+            The encrypted true value x.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector3Int.securedValueY">
+            <summary>
+            The encrypted true value y.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector3Int.securedValueZ">
+            <summary>
+            The encrypted true value z.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedVector3Int.SecuredValue">
+            <summary>
+            Get and set the encrypted true value.
+            MOSTLY YOU DO NOT WANT TO USE THIS. USE THE 'Value' PROPERTY!
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector3Int.randomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedVector3Int.RandomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector3Int.fakeValue">
+            <summary>
+            A honeypot pretending to be the orignal value. If some user tried to change this value via a cheat / hack engine, you will get notified.
+            The protected value will keep its true value.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedVector3Int.OnBeforeSerialize">
+            <summary>
+            Unity serialization hook. So the right values will be serialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedVector3Int.OnAfterDeserialize">
+            <summary>
+            Unity deserialization hook. So the right values will be deserialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedVector3Int.#ctor(UnityEngine.Vector3Int)">
+            <summary>
+            Create a new protected Vector3Int with _Value.
+            </summary>
+            <param name="_Value"></param>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedVector3Int.Value">
+            <summary>
+            Set and access the real unencrypted field value.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedVector3Int.Value_WithoutCheck">
+            <summary>
+            Return the value without any possible cheat checking. Is used for the player prefs.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Field.ProtectedVector2Int">
+            <summary>
+            Represents a protected vector2 int. In almost all cases you can just replace your default type with the protected one.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector2Int.securedValueX">
+            <summary>
+            The encrypted true value x.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector2Int.securedValueY">
+            <summary>
+            The encrypted true value y.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedVector2Int.SecuredValue">
+            <summary>
+            Get and set the encrypted true value.
+            MOSTLY YOU DO NOT WANT TO USE THIS. USE THE 'Value' PROPERTY!
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector2Int.randomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedVector2Int.RandomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector2Int.fakeValue">
+            <summary>
+            A honeypot pretending to be the orignal value. If some user tried to change this value via a cheat / hack engine, you will get notified.
+            The protected value will keep its true value.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedVector2Int.OnBeforeSerialize">
+            <summary>
+            Unity serialization hook. So the right values will be serialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedVector2Int.OnAfterDeserialize">
+            <summary>
+            Unity deserialization hook. So the right values will be deserialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedVector2Int.#ctor(UnityEngine.Vector2Int)">
+            <summary>
+            Create a new protected Vector2Int with _Value.
+            </summary>
+            <param name="_Value"></param>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedVector2Int.Value">
+            <summary>
+            Set and access the real unencrypted field value.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedVector2Int.Value_WithoutCheck">
+            <summary>
+            Return the value without any possible cheat checking. Is used for the player prefs.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Field.ProtectedVector2">
+            <summary>
+            Represents a protected vector2. In almost all cases you can just replace your default type with the protected one.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector2.securedValueX">
+            <summary>
+            The encrypted true value x.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector2.securedValueY">
+            <summary>
+            The encrypted true value y.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedVector2.SecuredValue">
+            <summary>
+            Get and set the encrypted true value.
+            MOSTLY YOU DO NOT WANT TO USE THIS. USE THE 'Value' PROPERTY!
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector2.manager">
+            <summary>
+            Used for calculation if the int / float values for the secured value.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector2.randomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedVector2.RandomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector2.fakeValue">
+            <summary>
+            A honeypot pretending to be the orignal value. If some user tried to change this value via a cheat / hack engine, you will get notified.
+            The protected value will keep its true value.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedVector2.OnBeforeSerialize">
+            <summary>
+            Unity serialization hook. So the right values will be serialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedVector2.OnAfterDeserialize">
+            <summary>
+            Unity deserialization hook. So the right values will be deserialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedVector2.#ctor(UnityEngine.Vector2)">
+            <summary>
+            Create a new protected Vector2 with _Value.
+            </summary>
+            <param name="_Value"></param>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedVector2.Value">
+            <summary>
+            Set and access the real unencrypted field value.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedVector2.Value_WithoutCheck">
+            <summary>
+            Return the value without any possible cheat checking. Is used for the player prefs.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Field.ProtectedVector3">
+            <summary>
+            Represents a protected vector3. In almost all cases you can just replace your default type with the protected one.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector3.securedValueX">
+            <summary>
+            The encrypted true value x.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector3.securedValueY">
+            <summary>
+            The encrypted true value y.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector3.securedValueZ">
+            <summary>
+            The encrypted true value z.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedVector3.SecuredValue">
+            <summary>
+            Get and set the encrypted true value.
+            MOSTLY YOU DO NOT WANT TO USE THIS. USE THE 'Value' PROPERTY!
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector3.manager">
+            <summary>
+            Used for calculation if the int / float values for the secured value.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector3.randomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedVector3.RandomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector3.fakeValue">
+            <summary>
+            A honeypot pretending to be the orignal value. If some user tried to change this value via a cheat / hack engine, you will get notified.
+            The protected value will keep its true value.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedVector3.OnBeforeSerialize">
+            <summary>
+            Unity serialization hook. So the right values will be serialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedVector3.OnAfterDeserialize">
+            <summary>
+            Unity deserialization hook. So the right values will be deserialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedVector3.#ctor(UnityEngine.Vector3)">
+            <summary>
+            Create a new protected Vector3 with _Value.
+            </summary>
+            <param name="_Value"></param>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedVector3.Value">
+            <summary>
+            Set and access the real unencrypted field value.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedVector3.Value_WithoutCheck">
+            <summary>
+            Return the value without any possible cheat checking. Is used for the player prefs.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Field.ProtectedVector4">
+            <summary>
+            Represents a protected vector4. In almost all cases you can just replace your default type with the protected one.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector4.securedValueX">
+            <summary>
+            The encrypted true value x.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector4.securedValueY">
+            <summary>
+            The encrypted true value y.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector4.securedValueZ">
+            <summary>
+            The encrypted true value z.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector4.securedValueW">
+            <summary>
+            The encrypted true value w.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedVector4.SecuredValue">
+            <summary>
+            Get and set the encrypted true value.
+            MOSTLY YOU DO NOT WANT TO USE THIS. USE THE 'Value' PROPERTY!
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector4.manager">
+            <summary>
+            Used for calculation if the int / float values for the secured value.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector4.randomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedVector4.RandomSecret">
+            <summary>
+            A secret key the true value gets encypted with.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Field.ProtectedVector4.fakeValue">
+            <summary>
+            A honeypot pretending to be the orignal value. If some user tried to change this value via a cheat / hack engine, you will get notified.
+            The protected value will keep its true value.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedVector4.OnBeforeSerialize">
+            <summary>
+            Unity serialization hook. So the right values will be serialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedVector4.OnAfterDeserialize">
+            <summary>
+            Unity deserialization hook. So the right values will be deserialized.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Field.ProtectedVector4.#ctor(UnityEngine.Vector4)">
+            <summary>
+            Create a new protected Vector4 with _Value.
+            </summary>
+            <param name="_Value"></param>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedVector4.Value">
+            <summary>
+            Set and access the real unencrypted field value.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Field.ProtectedVector4.Value_WithoutCheck">
+            <summary>
+            Return the value without any possible cheat checking. Is used for the player prefs.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Field.UIntFloat">
+            <summary>
+            Helper class to parse float to int and the other way around.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Field.ULongDouble">
+            <summary>
+            Helper class to parse double to long and the other way around.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Prefs.EPlayerPrefsType">
+            <summary>
+            Enum over all save and load able PlayerPrefs types.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs">
+            <summary>
+            Thread safe file based protected player prefs.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.FilePath">
+            <summary>
+            Custom file path.
+            Default is: Application.persistentDataPath + System.IO.Path.PathSeparator + "playerprefs.dat" 
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.lockHandle">
+            <summary>
+            Lock for thread safety.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.DataStruct">
+            <summary>
+            Data structure of a single PlayerPrefs entry.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.currentDataStructMapping">
+            <summary>
+            Key to DataStruct Dictionary.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.HasKey(System.String)">
+            <summary>
+            Returns true if key exists in the preferences.
+            </summary>
+            <param name="_Key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.SetInt(System.String,System.Int32)">
+            <summary>
+              <para>Sets the _Value of the preference identified by _Key.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_Value"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.GetInt(System.String,System.Int32)">
+            <summary>
+              <para>Returns the value corresponding to _Key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_DefaultValue"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.GetInt(System.String)">
+            <summary>
+              <para>Returns the value corresponding to _Key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.SetFloat(System.String,System.Single)">
+            <summary>
+              <para>Sets the _Value of the preference identified by _Key.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_Value"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.GetFloat(System.String,System.Single)">
+            <summary>
+              <para>Returns the value corresponding to _Key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_DefaultValue"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.GetFloat(System.String)">
+            <summary>
+              <para>Returns the value corresponding to _Key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.SetString(System.String,System.String)">
+            <summary>
+              <para>Sets the value of the preference identified by key.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_Value"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.GetString(System.String,System.String)">
+            <summary>
+              <para>Returns the value corresponding to key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_DefaultValue"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.GetString(System.String)">
+            <summary>
+              <para>Returns the value corresponding to _Key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.SetBool(System.String,System.Boolean)">
+            <summary>
+              <para>Sets the _Value of the preference identified by _Key.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_Value"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.GetBool(System.String,System.Boolean)">
+            <summary>
+              <para>Returns the value corresponding to _Key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_DefaultValue"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.GetBool(System.String)">
+            <summary>
+              <para>Returns the value corresponding to _Key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.SetVector2(System.String,UnityEngine.Vector2)">
+            <summary>
+              <para>Sets the value of the preference identified by key.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_Value"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.GetVector2(System.String,UnityEngine.Vector2)">
+            <summary>
+              <para>Returns the value corresponding to key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_DefaultValue"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.GetVector2(System.String)">
+            <summary>
+              <para>Returns the value corresponding to _Key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.SetVector3(System.String,UnityEngine.Vector3)">
+            <summary>
+              <para>Sets the value of the preference identified by key.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_Value"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.GetVector3(System.String,UnityEngine.Vector3)">
+            <summary>
+              <para>Returns the value corresponding to key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_DefaultValue"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.GetVector3(System.String)">
+            <summary>
+              <para>Returns the value corresponding to _Key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.SetVector4(System.String,UnityEngine.Vector4)">
+            <summary>
+              <para>Sets the value of the preference identified by key.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_Value"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.GetVector4(System.String,UnityEngine.Vector4)">
+            <summary>
+              <para>Returns the value corresponding to key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_DefaultValue"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.GetVector4(System.String)">
+            <summary>
+              <para>Returns the value corresponding to _Key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.SetQuaternion(System.String,UnityEngine.Quaternion)">
+            <summary>
+              <para>Sets the value of the preference identified by key.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_Value"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.GetQuaternion(System.String)">
+            <summary>
+              <para>Returns the value corresponding to _Key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.DeleteKey(System.String)">
+            <summary>
+            Removes the PlayerPrefs at _Key.
+            </summary>
+            <param name="_Key"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.Load">
+            <summary>
+            Loads the data struct mapping, if not already loaded.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.Save">
+            <summary>
+            Saves the data struct mapping if there is one.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.ReadDataStruct(System.IO.BinaryReader)">
+            <summary>
+            Read a DataStruct from the _Reader.
+            </summary>
+            <param name="_Reader"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.WriteDataStruct(System.IO.BinaryWriter,OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.DataStruct)">
+            <summary>
+            Writes a DataStruct to _Writer.
+            </summary>
+            <param name="_Writer"></param>
+            <param name="_DataStruct"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.ReadString(System.IO.BinaryReader)">
+            <summary>
+            Read a string with length.
+            </summary>
+            <param name="_Reader"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedFileBasedPlayerPrefs.WriteString(System.IO.BinaryWriter,System.String)">
+            <summary>
+            Write string and write the length.
+            </summary>
+            <param name="_Writer"></param>
+            <param name="_String"></param>
+        </member>
+        <member name="T:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs">
+            <summary>
+            Protected version of the unity PlayerPrefs. Contains also additional save and load able types.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.HasKey(System.String)">
+            <summary>
+            Returns true if key exists in the preferences.
+            </summary>
+            <param name="_Key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.SetInt(System.String,System.Int32)">
+            <summary>
+              <para>Sets the _Value of the preference identified by _Key.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_Value"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.GetInt(System.String,System.Int32)">
+            <summary>
+              <para>Returns the value corresponding to _Key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_DefaultValue"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.GetInt(System.String)">
+            <summary>
+              <para>Returns the value corresponding to _Key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.SetFloat(System.String,System.Single)">
+            <summary>
+              <para>Sets the _Value of the preference identified by _Key.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_Value"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.GetFloat(System.String,System.Single)">
+            <summary>
+              <para>Returns the value corresponding to _Key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_DefaultValue"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.GetFloat(System.String)">
+            <summary>
+              <para>Returns the value corresponding to _Key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.SetString(System.String,System.String)">
+            <summary>
+              <para>Sets the value of the preference identified by key.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_Value"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.GetString(System.String,System.String)">
+            <summary>
+              <para>Returns the value corresponding to key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_DefaultValue"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.GetString(System.String)">
+            <summary>
+              <para>Returns the value corresponding to _Key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.SetBool(System.String,System.Boolean)">
+            <summary>
+              <para>Sets the _Value of the preference identified by _Key.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_Value"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.GetBool(System.String,System.Boolean)">
+            <summary>
+              <para>Returns the value corresponding to _Key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_DefaultValue"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.GetBool(System.String)">
+            <summary>
+              <para>Returns the value corresponding to _Key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.SetVector2(System.String,UnityEngine.Vector2)">
+            <summary>
+              <para>Sets the value of the preference identified by key.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_Value"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.GetVector2(System.String,UnityEngine.Vector2)">
+            <summary>
+              <para>Returns the value corresponding to key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_DefaultValue"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.GetVector2(System.String)">
+            <summary>
+              <para>Returns the value corresponding to _Key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.SetVector3(System.String,UnityEngine.Vector3)">
+            <summary>
+              <para>Sets the value of the preference identified by key.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_Value"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.GetVector3(System.String,UnityEngine.Vector3)">
+            <summary>
+              <para>Returns the value corresponding to key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_DefaultValue"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.GetVector3(System.String)">
+            <summary>
+              <para>Returns the value corresponding to _Key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.SetVector4(System.String,UnityEngine.Vector4)">
+            <summary>
+              <para>Sets the value of the preference identified by key.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_Value"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.GetVector4(System.String,UnityEngine.Vector4)">
+            <summary>
+              <para>Returns the value corresponding to key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_DefaultValue"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.GetVector4(System.String)">
+            <summary>
+              <para>Returns the value corresponding to _Key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.SetQuaternion(System.String,UnityEngine.Quaternion)">
+            <summary>
+              <para>Sets the value of the preference identified by key.</para>
+            </summary>
+            <param name="_Key"></param>
+            <param name="_Value"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.GetQuaternion(System.String)">
+            <summary>
+              <para>Returns the value corresponding to _Key in the preference file if it exists.</para>
+            </summary>
+            <param name="_Key"></param>
+        </member>
+        <member name="F:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.AutoSave">
+            <summary>
+            Activate or deactivate force autosaving of modified preferences to the disk.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.Save">
+            <summary>
+            Writes all modified preferences to disk.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Prefs.ProtectedPlayerPrefs.DeleteKey(System.String)">
+            <summary>
+            Removes key and its corresponding value from the preferences.
+            </summary>
+        </member>
+        <member name="T:OPS.AntiCheat.Random.IRandomProvider">
+            <summary>
+            Provider for random values.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Random.IRandomProvider.RandomInt32">
+            <summary>
+            Returns a random number between Int32.MinValue, Int32.MaxValue - 1.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OPS.AntiCheat.Random.IRandomProvider.RandomInt32(System.Int32,System.Int32)">
+            <summary>
+            Returns a random number between _Min, _Max - 1.
+            </summary>
+            <param name="_Min">Inclusive</param>
+            <param name="_Max">Exclusive</param>
+            <returns></returns>
+        </member>
+        <member name="T:OPS.AntiCheat.Random.TrueRandom">
+            <summary>
+            Uses the System.Security.Cryptography.RNGCryptoServiceProvider class to generate random values.
+            It is slower than System.Random but unpredictable because of its crypto-strength seed.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Random.TrueRandom.RandomInt32">
+            <summary>
+            Returns a random number between Int32.MinValue, Int32.MaxValue - 1.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OPS.AntiCheat.Random.TrueRandom.RandomInt32(System.Int32,System.Int32)">
+            <summary>
+            Returns a random number between _Min, _Max - 1.
+            </summary>
+            <param name="_Min">Inclusive</param>
+            <param name="_Max">Exclusive</param>
+            <returns></returns>
+        </member>
+        <member name="T:OPS.AntiCheat.Random.PseudoRandom">
+            <summary>
+            Uses the System.Random class to generate random values.
+            Is very fast but predictable under high effort.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Random.PseudoRandom.RandomInt32">
+            <summary>
+            Returns a random number between Int32.MinValue, Int32.MaxValue - 1.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OPS.AntiCheat.Random.PseudoRandom.RandomInt32(System.Int32,System.Int32)">
+            <summary>
+            Returns a random number between _Min, _Max - 1.
+            </summary>
+            <param name="_Min">Inclusive</param>
+            <param name="_Max">Exclusive</param>
+            <returns></returns>
+        </member>
+        <member name="T:OPS.AntiCheat.PersistentSingleton`1">
+            <summary>
+            A thread safe singleton active in the whole application.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:OPS.AntiCheat.PersistentSingleton`1.singleton">
+            <summary>
+            The singleton itself.
+            </summary>
+        </member>
+        <member name="F:OPS.AntiCheat.PersistentSingleton`1.lockHandle">
+            <summary>
+            Lock for thread safety.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.PersistentSingleton`1.Singleton">
+            <summary>
+            Returns an active singleton of this instance or creates a new one.
+            </summary>
+        </member>
+        <member name="P:OPS.AntiCheat.PersistentSingleton`1.Exists">
+            <summary>
+            Returns if a singleton exists.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OPS.AntiCheat.PersistentSingleton`1.Awake">
+            <summary>
+            On awake, check if there is already a singleton.
+            If there is one and it is not this, delete the gameobject.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.PersistentSingleton`1.Create``1">
+            <summary>
+            Create a GameObject adding T1 and set Singleton to the value T1.
+            </summary>
+            <typeparam name="T1"></typeparam>
+        </member>
+    </members>
+</doc>

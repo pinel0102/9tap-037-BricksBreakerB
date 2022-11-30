@@ -6,6 +6,44 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  m_configObjects: {}
+    path: Assets/00.AutoCreate/Scenes/00.InitScene.unity
+    guid: fff317d3ac56449888416190405263b1
+  - enabled: 1
+    path: Assets/00.AutoCreate/Scenes/00.StartScene.unity
+    guid: 58d9dc251233e43b49e80a667239006c
+  - enabled: 1
+    path: Assets/00.AutoCreate/Scenes/01.AgreeScene.unity
+    guid: b00c79805c4374ae9af31f8704444225
+  - enabled: 1
+    path: Assets/00.AutoCreate/Scenes/01.LateSetupScene.unity
+    guid: 8fc0b8c8a6463451ca939af068004f4d
+  - enabled: 1
+    path: Assets/00.AutoCreate/Scenes/01.SetupScene.unity
+    guid: 748d5db2ab6e34c4db9fa903cf17bbda
+  - enabled: 1
+    path: Assets/01.UnityProject/Scenes/01.TitleScene.unity
+    guid: ff1b7f2e5ea18403baeb349f1f1381bd
+  - enabled: 1
+    path: Assets/01.UnityProject/Scenes/02.MainScene.unity
+    guid: 1688f19a57e94475ebf82cd58fe15b68
+  - enabled: 1
+    path: Assets/01.UnityProject/Scenes/03.GameScene.unity
+    guid: e5c9be94bec024cbeb0d6a8df97ee2b4
+  - enabled: 1
+    path: Assets/01.UnityProject/Scenes/91.LoadingScene.unity
+    guid: 542bbe12099b84337a7303400ff44185
+  - enabled: 1
+    path: Assets/01.UnityProject/Scenes/92.OverlayScene.unity
+    guid: 8750dc933665845668ca7e1e68b7ba5f
+  - enabled: 1
+    path: Assets/01.UnityProject/Scenes/99.TestScene.unity
+    guid: f73362f7767454cbeaefcecaae097e96
+  - enabled: 1
+    path: Assets/03.UnityProjectEditor/Scenes/91.LevelEditorScene.unity
+    guid: 1b6b1695a98ca4ed2a4af8bbb8ee4598
+  m_configObjects:
+    com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000, guid: 1a04f127a053642128d2f7401b387c13, type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 51c09147d993a452ba10a8dd308dda61, type: 2}
+    com.unity.addressableassets: {fileID: 11400000, guid: b65ce8a25df604bbc9aaee091a0f3855, type: 2}
+    com.unity.input.settings: {fileID: 11400000, guid: 9723e3c93ba124b03bde4bcee13d054b, type: 2}
+    com.unity.localization.settings: {fileID: 11400000, guid: dbba1d154c0e549149fceedd0dcafd09, type: 2}

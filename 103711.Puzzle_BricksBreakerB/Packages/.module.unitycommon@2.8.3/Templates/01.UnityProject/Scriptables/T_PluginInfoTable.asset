@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58fe7bf1704a94c71bb2465f76ce9aa9, type: 3}
+  m_Name: T_PluginInfoTable
+  m_EditorClassIdentifier: 
+  m_eAdsPlatform: -1
+  m_eBannerAdsPos: 1
+  m_stiOSAdmobPluginInfo:
+    m_oAppID: 
+    m_oBannerAdsID: 
+    m_oRewardAdsID: 
+    m_oFullscreenAdsID: 
+  m_stAndroidAdmobPluginInfo:
+    m_oAppID: 
+    m_oBannerAdsID: 
+    m_oRewardAdsID: 
+    m_oFullscreenAdsID: 
+  m_stiOSIronSrcPluginInfo:
+    m_bIsEnableBannerAds: 0
+    m_bIsEnableRewardAds: 0
+    m_bIsEnableFullscreenAds: 0
+    m_oAppKey: 
+  m_stAndroidIronSrcPluginInfo:
+    m_bIsEnableBannerAds: 0
+    m_bIsEnableRewardAds: 0
+    m_bIsEnableFullscreenAds: 0
+    m_oAppKey: 
+  m_oiOSFlurryAPIKey: 
+  m_oAndroidFlurryAPIKey: 

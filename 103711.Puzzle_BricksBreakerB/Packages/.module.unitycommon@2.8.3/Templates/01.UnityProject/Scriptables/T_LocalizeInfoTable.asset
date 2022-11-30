@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6ae608603e1042bbb88b0838e81221d, type: 3}
+  m_Name: T_LocalizeInfoTable
+  m_EditorClassIdentifier: 
+  m_oLocalizeInfoList:
+  - m_oCountryCode: 
+    m_eSystemLanguage: 23
+    m_oFontSetInfoList:
+    - m_oPath: Fonts/Global/G_Korean
+      m_eSet: 0
+    - m_oPath: Fonts/Global/G_Korean
+      m_eSet: 1
+  - m_oCountryCode: 
+    m_eSystemLanguage: 10
+    m_oFontSetInfoList:
+    - m_oPath: Fonts & Materials/LiberationSans SDF
+      m_eSet: 0
+    - m_oPath: Fonts/Global/G_English
+      m_eSet: 1

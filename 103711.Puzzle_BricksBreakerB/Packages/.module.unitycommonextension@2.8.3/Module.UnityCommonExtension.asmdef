@@ -1,0 +1,26 @@
+{
+    "name": "Module.UnityCommonExtension",
+    "rootNamespace": "",
+    "references": [
+        "Module.UnityCommonDefine",
+        "Module.UnityCommonAccess",
+        "Module.UnityCommonFactory",
+        "Module.UnityCommonExternals",
+        "Unity.RenderPipelines.Universal.Runtime",
+        "Unity.TextMeshPro",
+        "DOTween.Modules",
+        "DOTweenPro.Scripts",
+        "MessagePack",
+        "MessagePack.Annotations",
+        "SimpleScrollSnap"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,26 @@
+{
+    "name": "Module.UnityCommonAccess",
+    "rootNamespace": "",
+    "references": [
+        "Module.UnityCommonDefine",
+        "Module.UnityCommonExternals",
+        "Unity.InputSystem",
+        "UnityEngine.Purchasing",
+        "UnityEngine.Purchasing.Stores",
+        "Unity.Notifications.iOS",
+        "Unity.Notifications.Android",
+        "Unity.TextMeshPro",
+        "DOTween.Modules",
+        "DOTweenPro.Scripts",
+        "AppleAuth"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

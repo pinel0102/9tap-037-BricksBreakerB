@@ -1,0 +1,18 @@
+{
+    "name": "Module.GoogleSheetsToUnity.Editor",
+    "rootNamespace": "",
+    "references": [
+        "Module.UnityCommonExternals"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5454e4835d96348168664f3a27864cda, type: 3}
+  m_Name: G_DefineSymbolInfoTable
+  m_EditorClassIdentifier: 
+  m_oCommonDefineSymbolList:
+  - MODE_2D_ENABLE
+  - MODE_PORTRAIT_ENABLE
+  - TEX_FMT_CORRECT_ENABLE
+  - SPRITE_PIXELS_PER_UNIT_CORRECT_ENABLE
+  - UNIVERSAL_RENDERING_PIPELINE_MODULE_ENABLE
+  - ADDRESSABLES_MODULE_ENABLE
+  - BURST_COMPILER_MODULE_ENABLE
+  - LOCALIZE_MODULE_ENABLE
+  - SCENE_TEMPLATES_MODULE_ENABLE
+  - EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
+  - PREFAB_TEMPLATES_MODULE_ENABLE
+  - UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+  m_oSubCommonDefineSymbolList:
+  - DEVELOPMENT_PROJ
+  - NINETAP_BUILD_PIPELINE_ENABLE
+  m_oiOSAppleDefineSymbolList: []
+  m_oAndroidDefineSymbolList: []
+  m_oAndroidGoogleDefineSymbolList: []
+  m_oAndroidAmazonDefineSymbolList: []
+  m_oStandaloneDefineSymbolList: []
+  m_oStandaloneMacSteamDefineSymbolList: []
+  m_oStandaloneWndsSteamDefineSymbolList: []

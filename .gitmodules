@@ -1,0 +1,8 @@
+[submodule "103711.Puzzle_BricksBreakerB/NativePlugins"]
+	path = 103711.Puzzle_BricksBreakerB/NativePlugins
+	url = https://gitlab.com/9tapmodule.repository/0300000001.module_nativeplugins_client.git
+    branch = 103711.Puzzle_BricksBreakerB
+[submodule "103711.Puzzle_BricksBreakerB/UnityPackages"]
+	path = 103711.Puzzle_BricksBreakerB/UnityPackages
+	url = https://gitlab.com/9tapmodule.repository/0300000001.module_unitypackages_client.git
+    branch = 103711.Puzzle_BricksBreakerB

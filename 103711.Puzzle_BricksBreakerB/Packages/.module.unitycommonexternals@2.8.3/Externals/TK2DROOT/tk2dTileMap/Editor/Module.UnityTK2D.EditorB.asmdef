@@ -1,0 +1,19 @@
+{
+    "name": "Module.UnityTK2D.EditorB",
+    "rootNamespace": "",
+    "references": [
+        "Module.UnityTK2D.EditorA",
+        "Module.UnityCommonExternals"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

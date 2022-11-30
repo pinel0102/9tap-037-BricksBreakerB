@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c791f5d751bda4c3f9681965b4e93341, type: 3}
+  m_Name: T_OptsInfoTable
+  m_EditorClassIdentifier: 
+  m_stEtcOptsInfo:
+    m_bIsEnableTitleScene: 0
+  m_stSndOptsInfo:
+    m_nNumRealVoices: 32
+    m_nNumVirtualVoices: 512
+  m_stBuildOptsInfo:
+    m_bIsPreBakeCollisionMesh: 0
+    m_bIsPreserveFrameBufferAlpha: 0
+    m_eNormapMapEncoding: 1
+    m_eLightmapper: 0
+    m_stiOSBuildOptsInfo:
+      m_bIsEnableProMotion: 0
+      m_bIsEnableInputSystemMotion: 0
+      m_oCameraDesc: 
+      m_oLocationDesc: 
+      m_oMicrophoneDesc: 
+      m_oInputSystemMotionDesc: 
+    m_stAndroidBuildOptsInfo:
+      m_bIsUseAPKExpansionFiles: 0
+  m_stQualityOptsInfo:
+    m_bIsEnableRealtimeGI: 0
+    m_bIsEnableRealtimeReflectionProbes: 0
+    m_bIsEnableRealtimeEnvironmentLighting: 0
+    m_eQualityLevel: 2
+    m_eMixedLightingMode: 1
+    m_eLightmapEncodingQuality: 1
+    m_stNormQualityRenderingOptsInfo:
+      m_stLightOptsInfo:
+        m_eLightmapMaxSize: 1024
+        m_eLightmapMode: 0
+        m_eShadowmaskMode: 0
+        m_eShadowResolution: 1
+        m_eLightmapCompression: 2
+      m_stUniversalRPOptsInfo:
+        m_eLightCookieResolution: 256
+        m_eMainLightShadowResolution: 1024
+        m_eAdditionalShadowResolution: 1024
+    m_stHighQualityRenderingOptsInfo:
+      m_stLightOptsInfo:
+        m_eLightmapMaxSize: 2048
+        m_eLightmapMode: 1
+        m_eShadowmaskMode: 1
+        m_eShadowResolution: 2
+        m_eLightmapCompression: 3
+      m_stUniversalRPOptsInfo:
+        m_eLightCookieResolution: 512
+        m_eMainLightShadowResolution: 2048
+        m_eAdditionalShadowResolution: 2048
+    m_stUltraQualityRenderingOptsInfo:
+      m_stLightOptsInfo:
+        m_eLightmapMaxSize: 2048
+        m_eLightmapMode: 1
+        m_eShadowmaskMode: 1
+        m_eShadowResolution: 3
+        m_eLightmapCompression: 3
+      m_stUniversalRPOptsInfo:
+        m_eLightCookieResolution: 512
+        m_eMainLightShadowResolution: 2048
+        m_eAdditionalShadowResolution: 2048

@@ -1,0 +1,4 @@
+Description,Replace,ID,Str
+시작 씬 관리자 로딩 텍스트,0,START_SM_LOADING_TEXT,Loading...
+메인 씬 관리자 A 세트 텍스트,0,MAIN_SM_A_SET_TEXT,A Set
+메인 씬 관리자 B 세트 텍스트,0,MAIN_SM_B_SET_TEXT,B Set
