@@ -23,31 +23,31 @@ MonoBehaviour:
     m_oProductName: BricksNBalls
     m_oExtraProjDirName: 103711.Puzzle_BricksBreakerB
   m_stiOSAppleProjInfo:
-    m_oAppID: Bricks n Balls
+    m_oAppID: com.ninetap.bricksnballs
     m_oStoreAppID: 1309472470
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1
   m_stAndroidGoogleProjInfo:
-    m_oAppID: Bricks n Balls
+    m_oAppID: com.ninetap.bricksnballs
     m_oStoreAppID: Ninetap
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1
   m_stAndroidAmazonProjInfo:
-    m_oAppID: Bricks n Balls
+    m_oAppID: com.ninetap.bricksnballs
     m_oStoreAppID: Ninetap
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1
   m_stStandaloneMacSteamProjInfo:
-    m_oAppID: Bricks n Balls Editor
+    m_oAppID: com.ninetap.bricksnballs
     m_oStoreAppID: 
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1
   m_stStandaloneWndsSteamProjInfo:
-    m_oAppID: Bricks n Balls Editor
+    m_oAppID: com.ninetap.bricksnballs
     m_oStoreAppID: 
     m_stBuildVerInfo:
       m_nNum: 1

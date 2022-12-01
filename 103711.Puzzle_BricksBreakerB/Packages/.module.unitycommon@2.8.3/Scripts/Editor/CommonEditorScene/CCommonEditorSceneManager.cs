@@ -119,7 +119,7 @@ public static partial class CCommonEditorSceneManager {
 
 				CCommonEditorSceneManager.SetupTags();
 				CCommonEditorSceneManager.SetupRaycasters();
-				CCommonEditorSceneManager.SetupLightOpts();
+				//CCommonEditorSceneManager.SetupLightOpts();
 				CCommonEditorSceneManager.SetupLocalizeInfos();
 
 #if ADAPTIVE_PERFORMANCE_ENABLE

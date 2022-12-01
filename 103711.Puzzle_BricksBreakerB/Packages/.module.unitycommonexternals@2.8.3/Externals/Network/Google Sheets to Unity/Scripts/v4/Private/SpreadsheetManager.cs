@@ -193,13 +193,15 @@ namespace GoogleSheetsToUnity {
 				yield return request.SendWebRequest();
 
 				// FIXME: dante (에러 여부 설정) {
-				SpreadsheetManager.IsError = request.isNetworkError;
+				SpreadsheetManager.IsError = (request.result == UnityWebRequest.Result.ConnectionError);
 				// FIXME: dante (에러 여부 설정) }
 
 				if(callback != null) {
 					callback();
 				}
 			}
+
+            request.Dispose();
 		}
 
 		/// <summary>

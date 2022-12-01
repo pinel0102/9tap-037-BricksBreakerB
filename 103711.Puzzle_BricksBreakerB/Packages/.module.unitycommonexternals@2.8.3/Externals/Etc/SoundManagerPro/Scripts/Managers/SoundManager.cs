@@ -27,12 +27,12 @@ public partial class SoundManager : antilunchbox.Singleton<SoundManager> {
 	/// <param name='level'>
 	/// Level.
 	/// </param>
-	public void OnLevelWasLoaded(int level)
-	{
-		if(Instance == this)
-			if(!ignoreLevelLoad)
-				HandleLevel(level);
-	}
+	public void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, int level)
+    {
+        if(Instance == this)
+            if(!ignoreLevelLoad)
+                HandleLevel(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+    }
 
 	// Handle app focus
 	private void OnApplicationPause(bool pause)

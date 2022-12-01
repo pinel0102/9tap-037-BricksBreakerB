@@ -347,7 +347,7 @@ public partial class SoundManagerEditor : Editor {
 	{
 		EditorGUI.indentLevel++;
 		{
-			EditorGUILayout.LabelField("Current Scene:", Application.loadedLevelName);
+			EditorGUILayout.LabelField("Current Scene:", UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
 			
 			float crossDuration = script.crossDuration;
 			crossDuration = EditorGUILayout.FloatField(new GUIContent("Cross Duration:","Duration of crossfades for music."),crossDuration);
