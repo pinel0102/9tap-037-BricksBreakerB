@@ -18,36 +18,36 @@ MonoBehaviour:
     m_oServicesURL: https://www.ninetap.com/terms_of_service.html
     m_oSupportsMail: cs@ninetap.com
   m_stCommonProjInfo:
-    m_oAppID: com.ninetap.bricksnballs
+    m_oAppID: com.ninetap.puzzlebricksbreakerb
     m_oProjName: 103711.Puzzle_BricksBreakerB
-    m_oProductName: BricksNBalls
+    m_oProductName: Bricks n Balls
     m_oExtraProjDirName: 103711.Puzzle_BricksBreakerB
   m_stiOSAppleProjInfo:
-    m_oAppID: com.ninetap.bricksnballs
-    m_oStoreAppID: 1309472470
+    m_oAppID: com.ninetap.puzzlebricksbreakerb
+    m_oStoreAppID: 1610049465
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1
   m_stAndroidGoogleProjInfo:
-    m_oAppID: com.ninetap.bricksnballs
-    m_oStoreAppID: Ninetap
+    m_oAppID: com.ninetap.puzzlebricksbreakerb
+    m_oStoreAppID: 
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1
   m_stAndroidAmazonProjInfo:
-    m_oAppID: com.ninetap.bricksnballs
-    m_oStoreAppID: Ninetap
+    m_oAppID: com.ninetap.puzzlebricksbreakerb
+    m_oStoreAppID: 
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1
   m_stStandaloneMacSteamProjInfo:
-    m_oAppID: com.ninetap.bricksnballs
+    m_oAppID: com.ninetap.puzzlebricksbreakerb
     m_oStoreAppID: 
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1
   m_stStandaloneWndsSteamProjInfo:
-    m_oAppID: com.ninetap.bricksnballs
+    m_oAppID: com.ninetap.puzzlebricksbreakerb
     m_oStoreAppID: 
     m_stBuildVerInfo:
       m_nNum: 1

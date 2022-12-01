@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: 9tap
-  productName: BricksNBalls
+  productName: Bricks n Balls
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
@@ -134,7 +134,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 1.0.0
+  bundleVersion: 0.0.1
   preloadedAssets:
   - {fileID: 102900000, guid: fff317d3ac56449888416190405263b1, type: 3}
   - {fileID: 5180236750658298680, guid: a2333665aa644404baf36fe1b507097f, type: 3}
@@ -296,9 +296,9 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.ninetap.bricksnballs
-    Standalone: com.ninetap.bricksnballs
-    iPhone: com.ninetap.bricksnballs
+    Android: com.ninetap.puzzlebricksbreakerb
+    Standalone: com.ninetap.puzzlebricksbreakerb
+    iPhone: com.ninetap.puzzlebricksbreakerb
   buildNumber:
     Standalone: 1
     iPhone: 1
@@ -1077,7 +1077,14 @@ PlayerSettings:
   XboxOneOverrideIdentityName: 
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
-  cloudServicesEnabled: {}
+  cloudServicesEnabled:
+    Build: 0
+    Collab: 0
+    Game Performance: 0
+    Legacy Analytics: 1
+    Purchasing: 0
+    UDP: 0
+    Unity Ads: 0
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
