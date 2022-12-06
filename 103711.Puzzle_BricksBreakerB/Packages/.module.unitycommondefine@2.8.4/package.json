@@ -1,0 +1,12 @@
+{
+  "name": "module.unitycommondefine",
+  "version": "2.8.4",
+  "displayName": "Module.UnityCommonDefine",
+  "author": {
+    "name": "dante",
+    "email": "are2341@nate.com"
+  },
+  "dependencies": {
+    "module.unitycommonexternals": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonexternals_client.git#2.8.4"
+  }
+}
