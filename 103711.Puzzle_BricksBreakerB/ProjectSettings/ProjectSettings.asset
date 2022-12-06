@@ -170,6 +170,7 @@ PlayerSettings:
   - {fileID: 4343727234628468602, guid: ada8fc96974094390827319c7dd7255c, type: 2}
   - {fileID: 4343727234628468602, guid: 1109c299d71da4a4d854ff034bfa2eba, type: 2}
   - {fileID: 6884252962769875886, guid: 4e831fe8fd9294388bae5b94128c1f8d, type: 3}
+  - {fileID: 2183824002408205911, guid: e04a15437e15f46b997f8d392bea62b3, type: 3}
   - {fileID: 11400000, guid: 74e8b9f7032e1450d82ed4fd169476a2, type: 2}
   - {fileID: 8334246944251894886, guid: d577a39a79f4049bda5d38657e4de9f4, type: 3}
   - {fileID: 8019310881375038877, guid: 696e71c034d22403c94a9bdd33aa8b81, type: 3}
@@ -181,9 +182,12 @@ PlayerSettings:
   - {fileID: 11400000, guid: c1a6ec057d9064ebeb6a9fe44459df09, type: 2}
   - {fileID: 6884252962769875886, guid: e7a02632751c34c8daa8c474370424c5, type: 3}
   - {fileID: 6884252962769875886, guid: 9e4653a3ef2a548f7a61fcedd14a4f51, type: 3}
+  - {fileID: 11400000, guid: 1ba9e5314791548adb5fdb50da12acd6, type: 2}
   - {fileID: 8019310881375038877, guid: 73747d435641e4510bb193e3f48592dd, type: 3}
   - {fileID: 8019310881375038877, guid: 5fd77c91dcc214a7b81d6167649ff52b, type: 3}
   - {fileID: 4890085278179872738, guid: 6f524096f528d44be837d032b5590348, type: 2}
+  - {fileID: 7282889018440753118, guid: d9dfc6dc1b4e14979bee9784de3ba44d, type: 3}
+  - {fileID: 11400000, guid: 5d4bd960b187d495b9eec0bd43aad8b0, type: 2}
   - {fileID: 8334246944251894886, guid: c17e85e33f4544c2eb700cc033bde838, type: 3}
   - {fileID: 11400000, guid: 7ebff3bc354b546b6be5f8df9a26b61e, type: 2}
   - {fileID: 4890085278179872738, guid: 3f54e0e6d427744d1aa5ed7b0cc178be, type: 2}
@@ -209,10 +213,16 @@ PlayerSettings:
   - {fileID: 8019310881375038877, guid: 1adcc8e274e2d490e8500691866f7be7, type: 3}
   - {fileID: 8019310881375038877, guid: 6461b21620234419cb53ca33b51e774c, type: 3}
   - {fileID: 4890085278179872738, guid: 6f0bd6ff03f7d4928a7fd17b170c712e, type: 2}
+  - {fileID: 8113187388039015871, guid: da92b7170575c46c8a7eaf4afa14073c, type: 3}
+  - {fileID: 2429724377936249959, guid: 8d93d9d989bd74c4c828ffda97d318cc, type: 3}
   - {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   - {fileID: 7947261922413523823, guid: bf295fb7462644bc78ff8992c0b06c1d, type: 3}
   - {fileID: 2263259457666090574, guid: ccd3d934ada6c4517ace853a0639cf1f, type: 3}
   - {fileID: 4956034379125523778, guid: 966fade78641e4069a914b157a3ac263, type: 3}
+  - {fileID: 2429724377936249959, guid: c30148b79fb434d219397a243def3f80, type: 3}
+  - {fileID: 2429724377936249959, guid: 01c69b87205e64feb99a7a458a90fcfd, type: 3}
+  - {fileID: 2429724377936249959, guid: cc104030c159545d0b759d004286d880, type: 3}
+  - {fileID: 2429724377936249959, guid: f25fc0d4ffc7d4350b9f6ccda3c98d7b, type: 3}
   - {fileID: 2163081430555252783, guid: a01d5cb02063c4689922d3bd5df5fe54, type: 3}
   - {fileID: 4164878208595072810, guid: 0d03b996fb58e4cb9beeb433868044de, type: 3}
   - {fileID: 8639127690170192487, guid: f38793f710e6c4ba795f325315e26a9b, type: 3}
@@ -241,6 +251,15 @@ PlayerSettings:
   - {fileID: 7854453751169407068, guid: d199d00fb85c0438b9af70b2439949cb, type: 3}
   - {fileID: 1515028129432522447, guid: 76ea7e48f833246708a763b3ae3a3b12, type: 3}
   - {fileID: 151844525167847963, guid: cf58fa7c6007f4966bee2dd780e8cc7a, type: 3}
+  - {fileID: 4343727234628468602, guid: ac9327439fdef4212b356ddd254145e2, type: 2}
+  - {fileID: 4343727234628468602, guid: 513b3ae36f05347a1bade433e3d5db13, type: 2}
+  - {fileID: 4343727234628468602, guid: ad19c260d586a466ea8c86d8d003d11d, type: 2}
+  - {fileID: 4343727234628468602, guid: af637a95fab4d43d5b75afad3f6a0465, type: 2}
+  - {fileID: 4343727234628468602, guid: 6c5fb025afd1845cebd5b6f43bb11821, type: 2}
+  - {fileID: 4343727234628468602, guid: 00fb048938bd0486b95824910809af06, type: 2}
+  - {fileID: 4343727234628468602, guid: 75932c8bce6df4a2ba17a3314cd138db, type: 2}
+  - {fileID: 4343727234628468602, guid: 37e4f0e35e32d486a96febd8fb0da4b9, type: 2}
+  - {fileID: 4343727234628468602, guid: 0b64f847148ad444698de2edc210a314, type: 2}
   - {fileID: 2454151896034854386, guid: bf183e465e7cb49c3bc94dbca23ed9c4, type: 3}
   - {fileID: 9122242653978104542, guid: 3219c4d951c0047b48df73ca2fa8d845, type: 3}
   - {fileID: 8644315326884589452, guid: 71462839c90bf471f8efb2044fbe581c, type: 3}
@@ -258,25 +277,6 @@ PlayerSettings:
   - {fileID: 9122242653978104542, guid: 00931c3fd18994280981c7327f6861c4, type: 3}
   - {fileID: 9122242653978104542, guid: e6f94154d63ae4ac08d3f6a01cbdc2a6, type: 3}
   - {fileID: 7854453751169407068, guid: f9cb9a1c318ce486e910af7255a76cf7, type: 3}
-  - {fileID: 11400000, guid: 1ba9e5314791548adb5fdb50da12acd6, type: 2}
-  - {fileID: 11400000, guid: 5d4bd960b187d495b9eec0bd43aad8b0, type: 2}
-  - {fileID: 2183824002408205911, guid: e04a15437e15f46b997f8d392bea62b3, type: 3}
-  - {fileID: 7282889018440753118, guid: d9dfc6dc1b4e14979bee9784de3ba44d, type: 3}
-  - {fileID: 8113187388039015871, guid: da92b7170575c46c8a7eaf4afa14073c, type: 3}
-  - {fileID: 2429724377936249959, guid: 8d93d9d989bd74c4c828ffda97d318cc, type: 3}
-  - {fileID: 2429724377936249959, guid: c30148b79fb434d219397a243def3f80, type: 3}
-  - {fileID: 2429724377936249959, guid: 01c69b87205e64feb99a7a458a90fcfd, type: 3}
-  - {fileID: 2429724377936249959, guid: cc104030c159545d0b759d004286d880, type: 3}
-  - {fileID: 2429724377936249959, guid: f25fc0d4ffc7d4350b9f6ccda3c98d7b, type: 3}
-  - {fileID: 4343727234628468602, guid: ac9327439fdef4212b356ddd254145e2, type: 2}
-  - {fileID: 4343727234628468602, guid: 513b3ae36f05347a1bade433e3d5db13, type: 2}
-  - {fileID: 4343727234628468602, guid: ad19c260d586a466ea8c86d8d003d11d, type: 2}
-  - {fileID: 4343727234628468602, guid: af637a95fab4d43d5b75afad3f6a0465, type: 2}
-  - {fileID: 4343727234628468602, guid: 6c5fb025afd1845cebd5b6f43bb11821, type: 2}
-  - {fileID: 4343727234628468602, guid: 00fb048938bd0486b95824910809af06, type: 2}
-  - {fileID: 4343727234628468602, guid: 75932c8bce6df4a2ba17a3314cd138db, type: 2}
-  - {fileID: 4343727234628468602, guid: 37e4f0e35e32d486a96febd8fb0da4b9, type: 2}
-  - {fileID: 4343727234628468602, guid: 0b64f847148ad444698de2edc210a314, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -887,6 +887,7 @@ PlayerSettings:
   switchNetworkInterfaceManagerInitializeEnabled: 1
   switchPlayerConnectionEnabled: 1
   switchUseNewStyleFilepaths: 0
+  switchUseLegacyFmodPriorities: 1
   switchUseMicroSleepForYield: 1
   switchEnableRamDiskSupport: 0
   switchMicroSleepForYieldTime: 25
