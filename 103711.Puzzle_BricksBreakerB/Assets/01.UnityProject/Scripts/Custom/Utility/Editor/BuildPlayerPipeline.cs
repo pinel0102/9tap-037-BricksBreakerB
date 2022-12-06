@@ -51,7 +51,7 @@ public class BuildPlayerPipelineScript : IActiveBuildTargetChanged
     private static string buildName_MacOS;
     private static string buildName_Windows;
     private const string scriptableObjectFormat = "{0}{1}";
-    private const string scriptableObjectPath = "Assets/02.UnityProject/Scripts/Utility/Editor/Scriptable/";
+    private const string scriptableObjectPath = "Assets/01.UnityProject/Scripts/Editor/Scriptable/";
     private const string scriptableObjectFileName = "BuildPlayerPipeline.asset";
     private const string combinePathFormat = "{0}/{1}";
     private const string combinePathFormatMeta = "{0}/{1}.meta";
