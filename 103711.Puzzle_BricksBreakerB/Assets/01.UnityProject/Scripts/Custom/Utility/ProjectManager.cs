@@ -16,6 +16,7 @@ public static class ProjectManager
     public const string projectName = "103711.Puzzle_BricksBreakerB";
     public const string appIdentifier = "com.ninetap.puzzlebricksbreakerb";
     public const string appStoreConnectId = "1610049465";
+    public const string appStoreAppId = "Ninetap";
 
 #if UNITY_ANDROID
     public const string productName = "Bricks n Balls";

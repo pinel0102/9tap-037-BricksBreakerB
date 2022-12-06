@@ -42,7 +42,7 @@ public class VersionManager
                 productName = "Game Name";
                 appIdentifier = "com.ninetap.gamename";
                 appStoreConnectId = "1569121045";
-
+                appStoreAppId = "Ninetap";
                 companyName = "9tap";
                 servicesURL = "https://www.ninetap.com/terms_of_service.html";
                 privacyURL = "https://www.ninetap.com/privacy_policy.html";
@@ -56,7 +56,7 @@ public class VersionManager
                 productName = ProjectManager.productName;
                 appIdentifier = ProjectManager.appIdentifier;
                 appStoreConnectId = ProjectManager.appStoreConnectId;
-
+                appStoreAppId = ProjectManager.appStoreAppId;
                 companyName = ProjectManager.companyName;
                 servicesURL = ProjectManager.servicesURL_EU;
                 privacyURL = ProjectManager.privacyURL_EU;
@@ -65,7 +65,7 @@ public class VersionManager
                 supportsMail = ProjectManager.supportsMail;
             }
         }
-        public string projectName, productName, appIdentifier, appStoreConnectId;
+        public string projectName, productName, appIdentifier, appStoreConnectId, appStoreAppId;
         public string companyName, servicesURL, privacyURL, storeURLAndroid, storeURLiOS, supportsMail;
     }
         

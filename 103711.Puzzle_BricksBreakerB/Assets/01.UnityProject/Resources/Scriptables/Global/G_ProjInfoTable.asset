@@ -30,13 +30,13 @@ MonoBehaviour:
       m_oVer: 0.0.1
   m_stAndroidGoogleProjInfo:
     m_oAppID: com.ninetap.puzzlebricksbreakerb
-    m_oStoreAppID: 
+    m_oStoreAppID: Ninetap
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1
   m_stAndroidAmazonProjInfo:
     m_oAppID: com.ninetap.puzzlebricksbreakerb
-    m_oStoreAppID: 
+    m_oStoreAppID: Ninetap
     m_stBuildVerInfo:
       m_nNum: 1
       m_oVer: 0.0.1
