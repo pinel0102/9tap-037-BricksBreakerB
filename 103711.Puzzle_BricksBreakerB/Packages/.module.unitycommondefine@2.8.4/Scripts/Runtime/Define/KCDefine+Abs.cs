@@ -140,8 +140,8 @@ public static partial class KCDefine {
 	public const int B_PORTRAIT_SCREEN_HEIGHT = 1280;
 	public const int B_PORTRAIT_DPI_SCREEN_HEIGHT = 1920;
 
-	public const int B_LANDSCAPE_SCREEN_WIDTH = 1280;
-	public const int B_LANDSCAPE_SCREEN_HEIGHT = 720;
+	public const int B_LANDSCAPE_SCREEN_WIDTH = 2560;
+	public const int B_LANDSCAPE_SCREEN_HEIGHT = 1440;
 	public const int B_LANDSCAPE_DPI_SCREEN_HEIGHT = 1080;
 
 #if MODE_PORTRAIT_ENABLE

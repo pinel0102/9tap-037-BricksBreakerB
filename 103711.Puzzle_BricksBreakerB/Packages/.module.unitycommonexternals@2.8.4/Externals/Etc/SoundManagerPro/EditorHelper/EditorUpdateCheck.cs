@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEditor;
 using System.Collections;
+using UnityEngine.Networking;
 
 [AddComponentMenu("")]
 [ExecuteInEditMode()]
@@ -14,7 +15,7 @@ public class EditorUpdateCheck : MonoBehaviour {
 	public bool querying = false;
 	double startTime;
 	double timeout = 30;
-	public WWW www;
+	public UnityWebRequest www;
 	
 	void Awake()
 	{
@@ -73,7 +74,7 @@ public class EditorUpdateCheck : MonoBehaviour {
 	
 	IEnumerator CheckUpdate(WWWForm form)
 	{
-		www = new WWW("http://www.antilunchbox.com/checkupdates-soundmanagerpro.php", form);
+		www = UnityWebRequest.Post("http://www.antilunchbox.com/checkupdates-soundmanagerpro.php", form);
 		yield return www;
 		
 		if(www.error != null) 
@@ -85,7 +86,7 @@ public class EditorUpdateCheck : MonoBehaviour {
 		}  
 		else 
 		{
-			string[] results = www.text.Split('~');
+			string[] results = www.downloadHandler.text.Split('~');
 			int count = results.Length;
 			
 			if(results[0] == "true")
@@ -117,6 +118,8 @@ public class EditorUpdateCheck : MonoBehaviour {
 				}
 			}
 		}
+
+        www.Dispose();
 	}
 	
 	public void StopChecking()

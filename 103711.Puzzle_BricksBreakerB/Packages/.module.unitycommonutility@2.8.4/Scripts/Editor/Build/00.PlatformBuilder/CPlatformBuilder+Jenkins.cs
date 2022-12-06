@@ -105,6 +105,8 @@ public static partial class CPlatformBuilder {
 		// 매개 변수를 설정한다 }
 
 		CEditorFunc.ExecuteCmdLine(oStrBuilder.ToString());
+
+        Debug.Log(oStrBuilder.ToString());
 	}
 	#endregion // 클래스 함수
 }

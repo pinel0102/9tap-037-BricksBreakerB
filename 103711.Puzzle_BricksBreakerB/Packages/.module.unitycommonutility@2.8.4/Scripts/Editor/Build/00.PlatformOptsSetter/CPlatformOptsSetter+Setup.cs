@@ -1281,7 +1281,7 @@ public static partial class CPlatformOptsSetter {
 
 			EditorUserBuildSettings.androidBuildSystem == AndroidBuildSystem.Gradle,
 			EditorUserBuildSettings.androidETC2Fallback == AndroidETC2Fallback.Quality32Bit,
-			EditorUserBuildSettings.androidCreateSymbols == AndroidCreateSymbols.Public,
+			EditorUserBuildSettings.androidCreateSymbols == AndroidCreateSymbols.Disabled,
 			EditorUserBuildSettings.androidBuildSubtarget == MobileTextureSubtarget.Generic,
 
 			(bool)CAccessExtension.ExGetRuntimePropertyVal<PlayerSettings.Android>(null, KCEditorDefine.B_PROPERTY_N_VALIDATE_APP_BUNDLE_SIZE),
@@ -1320,7 +1320,7 @@ public static partial class CPlatformOptsSetter {
 
 			EditorUserBuildSettings.androidBuildSystem = AndroidBuildSystem.Gradle;
 			EditorUserBuildSettings.androidETC2Fallback = AndroidETC2Fallback.Quality32Bit;
-			EditorUserBuildSettings.androidCreateSymbols = AndroidCreateSymbols.Public;
+			EditorUserBuildSettings.androidCreateSymbols = AndroidCreateSymbols.Disabled;
 			EditorUserBuildSettings.androidBuildSubtarget = MobileTextureSubtarget.Generic;
 
 			CAccessExtension.ExSetRuntimePropertyVal<PlayerSettings.Android>(null, KCEditorDefine.B_PROPERTY_N_VALIDATE_APP_BUNDLE_SIZE, true);

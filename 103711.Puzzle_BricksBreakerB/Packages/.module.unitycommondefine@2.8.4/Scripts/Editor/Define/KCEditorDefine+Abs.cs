@@ -291,9 +291,9 @@ public static partial class KCEditorDefine {
 	public const string B_EDITOR_OPTS_JOYSTIC_SRC = "Remote";
 
 #if UNITY_IOS
-	public const string B_EDITOR_OPTS_REMOTE_DEVICE = "Any iOS Device";
+	public const string B_EDITOR_OPTS_REMOTE_DEVICE = "None";
 #elif UNITY_ANDROID
-	public const string B_EDITOR_OPTS_REMOTE_DEVICE = "Any Android Device";
+	public const string B_EDITOR_OPTS_REMOTE_DEVICE = "None";
 #else
 	public const string B_EDITOR_OPTS_REMOTE_DEVICE = "None";
 #endif // #if UNITY_IOS

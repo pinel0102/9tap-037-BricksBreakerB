@@ -33,7 +33,7 @@ public static partial class CPlatformBuilder {
 		oPlayerOpts.options |= a_bIsEnableProfiler ? BuildOptions.ConnectWithProfiler : BuildOptions.None;
 
 		CPlatformOptsSetter.AddDefineSymbol(BuildTargetGroup.Android, KCEditorDefine.DS_DEFINE_S_ADS_TEST_ENABLE);
-		CPlatformBuilder.BuildAndroid(a_eType, oPlayerOpts);
+		CPlatformBuilder.BuildAndroid(a_eType, oPlayerOpts, "Debug");
 	}
 
 	/** 안드로이드를 빌드한다 */
@@ -62,7 +62,7 @@ public static partial class CPlatformBuilder {
 		oPlayerOpts.options = a_bIsAutoPlay ? BuildOptions.AutoRunPlayer : BuildOptions.None;
 
 		CPlatformOptsSetter.AddDefineSymbol(BuildTargetGroup.Android, KCEditorDefine.DS_DEFINE_S_ADS_TEST_ENABLE);
-		CPlatformBuilder.BuildAndroid(a_eType, oPlayerOpts);
+		CPlatformBuilder.BuildAndroid(a_eType, oPlayerOpts, "Release");
 	}
 
 	/** 안드로이드를 빌드한다 */
@@ -87,11 +87,11 @@ public static partial class CPlatformBuilder {
 		EditorUserBuildSettings.buildAppBundle = a_bIsBuildAppBundle;
 
 		CPlatformOptsSetter.AddDefineSymbol(BuildTargetGroup.Android, KCEditorDefine.DS_DEFINE_S_STORE_DIST_BUILD);
-		CPlatformBuilder.BuildAndroid(a_eType, new BuildPlayerOptions());
+		CPlatformBuilder.BuildAndroid(a_eType, new BuildPlayerOptions(), "Store");
 	}
 
 	/** 안드로이드를 빌드한다 */
-	private static void BuildAndroid(EAndroidType a_eType, BuildPlayerOptions a_oPlayerOpts) {
+	private static void BuildAndroid(EAndroidType a_eType, BuildPlayerOptions a_oPlayerOpts, string buildType = "Debug") {
 		CPlatformBuilder.AndroidType = a_eType;
 
 		// 플러그인 파일을 복사한다
@@ -100,12 +100,29 @@ public static partial class CPlatformBuilder {
 		}
 
 		// 빌드 옵션을 설정한다 {
-		string oPlatform = CAccess.GetAndroidName(a_eType);
+        // 프로젝트 정보 테이블이 존재 할 경우
+		if(CPlatformOptsSetter.ProjInfoTable != null) {
+			switch(a_eType) {
+				case EAndroidType.AMAZON: PlayerSettings.bundleVersion = CPlatformOptsSetter.ProjInfoTable.AndroidAmazonProjInfo.m_stBuildVerInfo.m_oVer; break;
+				default: PlayerSettings.bundleVersion = CPlatformOptsSetter.ProjInfoTable.AndroidGoogleProjInfo.m_stBuildVerInfo.m_oVer; break;
+			}
+		}
+
+        string oProjName = CPlatformOptsSetter.ProjInfoTable.CommonProjInfo.m_oProductName;
+        string oPlatform = CAccess.GetAndroidName(a_eType);
+        string oBuildMode = buildType;
+        string oVersion = PlayerSettings.bundleVersion;
+        int oBundleVersion = PlayerSettings.Android.bundleVersionCode;
+
 		string oBuildFileExtension = EditorUserBuildSettings.buildAppBundle ? KCEditorDefine.B_BUILD_FILE_EXTENSION_ANDROID_AAB : KCEditorDefine.B_BUILD_FILE_EXTENSION_ANDROID_APK;
 
 		a_oPlayerOpts.target = BuildTarget.Android;
 		a_oPlayerOpts.targetGroup = BuildTargetGroup.Android;
-		a_oPlayerOpts.locationPathName = string.Format(KCEditorDefine.B_BUILD_P_FMT_ANDROID, oPlatform, string.Format(KCEditorDefine.B_BUILD_FILE_N_FMT_ANDROID, oPlatform, oBuildFileExtension));
+
+        if (SystemInfo.deviceName.ToUpper().Contains("JENKINS"))
+		    a_oPlayerOpts.locationPathName = string.Format(KCEditorDefine.B_BUILD_P_FMT_ANDROID, oPlatform, string.Format(KCEditorDefine.B_BUILD_FILE_N_FMT_ANDROID, oPlatform, oBuildFileExtension));
+        else
+            a_oPlayerOpts.locationPathName = string.Format(KCEditorDefine.B_BUILD_P_FMT_ANDROID, oPlatform, string.Format("{0}_{1}_v{2}_{3}", oProjName, oBuildMode, oVersion, oBundleVersion));
 
 		switch(a_eType) {
 			case EAndroidType.AMAZON: CPlatformOptsSetter.AddDefineSymbol(a_oPlayerOpts.targetGroup, KCEditorDefine.DS_DEFINE_S_ANDROID_AMAZON_PLATFORM); break;
@@ -113,12 +130,12 @@ public static partial class CPlatformBuilder {
 		}
 
 		// 프로젝트 정보 테이블이 존재 할 경우
-		if(CPlatformOptsSetter.ProjInfoTable != null) {
+		/*if(CPlatformOptsSetter.ProjInfoTable != null) {
 			switch(a_eType) {
 				case EAndroidType.AMAZON: PlayerSettings.bundleVersion = CPlatformOptsSetter.ProjInfoTable.AndroidAmazonProjInfo.m_stBuildVerInfo.m_oVer; break;
 				default: PlayerSettings.bundleVersion = CPlatformOptsSetter.ProjInfoTable.AndroidGoogleProjInfo.m_stBuildVerInfo.m_oVer; break;
 			}
-		}
+		}*/
 		// 빌드 옵션을 설정한다 }
 
 		// 플랫폼을 빌드한다
