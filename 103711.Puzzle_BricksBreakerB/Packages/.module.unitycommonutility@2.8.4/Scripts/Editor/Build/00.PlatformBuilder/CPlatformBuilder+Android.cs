@@ -122,7 +122,7 @@ public static partial class CPlatformBuilder {
         if (SystemInfo.deviceName.ToUpper().Contains("JENKINS"))
 		    a_oPlayerOpts.locationPathName = string.Format(KCEditorDefine.B_BUILD_P_FMT_ANDROID, oPlatform, string.Format(KCEditorDefine.B_BUILD_FILE_N_FMT_ANDROID, oPlatform, oBuildFileExtension));
         else
-            a_oPlayerOpts.locationPathName = string.Format(KCEditorDefine.B_BUILD_P_FMT_ANDROID, oPlatform, string.Format("{0}_{1}_v{2}_{3}", oProjName, oBuildMode, oVersion, oBundleVersion));
+            a_oPlayerOpts.locationPathName = string.Format(KCEditorDefine.B_BUILD_P_FMT_ANDROID, oPlatform, string.Format("{0}_{1}_v{2}_{3}.{4}", oProjName, oBuildMode, oVersion, oBundleVersion, oBuildFileExtension));
 
 		switch(a_eType) {
 			case EAndroidType.AMAZON: CPlatformOptsSetter.AddDefineSymbol(a_oPlayerOpts.targetGroup, KCEditorDefine.DS_DEFINE_S_ANDROID_AMAZON_PLATFORM); break;
