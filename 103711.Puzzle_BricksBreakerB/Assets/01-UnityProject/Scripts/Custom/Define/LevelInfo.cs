@@ -6,6 +6,9 @@ using UnityEngine;
 [System.Serializable]
 public struct LevelInfo
 {
+    ///<Summary>식별자.</Summary>
+    public LevelType type;
+
     ///<Summary>격자 크기.</Summary>
     public Vector2Int gridSize;
 

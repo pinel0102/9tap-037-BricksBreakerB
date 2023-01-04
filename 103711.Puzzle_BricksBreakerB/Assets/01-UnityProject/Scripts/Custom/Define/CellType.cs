@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+///<Summary>셀 식별자.</Summary>
 public enum CellType
 {
     EMPTY = 0,
