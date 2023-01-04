@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OPS.AntiCheat.Editor</name>
+    </assembly>
+    <members>
+        <member name="T:OPS.AntiCheat.Editor.ProtectedVector4Drawer">
+            <summary>
+            Custom property drawer for vector4.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Editor.ProtectedVector4Drawer.OnGUIProperty(UnityEngine.Rect,UnityEditor.SerializedProperty,UnityEngine.GUIContent)">
+            <summary>
+            Overrides the custom gui property method to render the bool.
+            </summary>
+            <param name="_Position"></param>
+            <param name="_Property"></param>
+            <param name="_Label"></param>
+        </member>
+        <member name="T:OPS.AntiCheat.Editor.ProtectedVector3IntDrawer">
+            <summary>
+            Custom property drawer for vector3 int.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Editor.ProtectedVector3IntDrawer.OnGUIProperty(UnityEngine.Rect,UnityEditor.SerializedProperty,UnityEngine.GUIContent)">
+            <summary>
+            Overrides the custom gui property method to render the bool.
+            </summary>
+            <param name="_Position"></param>
+            <param name="_Property"></param>
+            <param name="_Label"></param>
+        </member>
+        <member name="T:OPS.AntiCheat.Editor.ProtectedVector3Drawer">
+            <summary>
+            Custom property drawer for vector3.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Editor.ProtectedVector3Drawer.OnGUIProperty(UnityEngine.Rect,UnityEditor.SerializedProperty,UnityEngine.GUIContent)">
+            <summary>
+            Overrides the custom gui property method to render the bool.
+            </summary>
+            <param name="_Position"></param>
+            <param name="_Property"></param>
+            <param name="_Label"></param>
+        </member>
+        <member name="T:OPS.AntiCheat.Editor.ProtectedVector2IntDrawer">
+            <summary>
+            Custom property drawer for vector2 int.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Editor.ProtectedVector2IntDrawer.OnGUIProperty(UnityEngine.Rect,UnityEditor.SerializedProperty,UnityEngine.GUIContent)">
+            <summary>
+            Overrides the custom gui property method to render the bool.
+            </summary>
+            <param name="_Position"></param>
+            <param name="_Property"></param>
+            <param name="_Label"></param>
+        </member>
+        <member name="T:OPS.AntiCheat.Editor.ProtectedVector2Drawer">
+            <summary>
+            Custom property drawer for vector2.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Editor.ProtectedVector2Drawer.OnGUIProperty(UnityEngine.Rect,UnityEditor.SerializedProperty,UnityEngine.GUIContent)">
+            <summary>
+            Overrides the custom gui property method to render the bool.
+            </summary>
+            <param name="_Position"></param>
+            <param name="_Property"></param>
+            <param name="_Label"></param>
+        </member>
+        <member name="T:OPS.AntiCheat.Editor.ProtectedUInt64Drawer">
+            <summary>
+            Custom property drawer for uint64.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Editor.ProtectedUInt64Drawer.OnGUIProperty(UnityEngine.Rect,UnityEditor.SerializedProperty,UnityEngine.GUIContent)">
+            <summary>
+            Overrides the custom gui property method to render the bool.
+            </summary>
+            <param name="_Position"></param>
+            <param name="_Property"></param>
+            <param name="_Label"></param>
+        </member>
+        <member name="T:OPS.AntiCheat.Editor.ProtectedUInt32Drawer">
+            <summary>
+            Custom property drawer for uint32.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Editor.ProtectedUInt32Drawer.OnGUIProperty(UnityEngine.Rect,UnityEditor.SerializedProperty,UnityEngine.GUIContent)">
+            <summary>
+            Overrides the custom gui property method to render the bool.
+            </summary>
+            <param name="_Position"></param>
+            <param name="_Property"></param>
+            <param name="_Label"></param>
+        </member>
+        <member name="T:OPS.AntiCheat.Editor.ProtectedStringDrawer">
+            <summary>
+            Custom property drawer for string.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Editor.ProtectedStringDrawer.OnGUIProperty(UnityEngine.Rect,UnityEditor.SerializedProperty,UnityEngine.GUIContent)">
+            <summary>
+            Overrides the custom gui property method to render the bool.
+            </summary>
+            <param name="_Position"></param>
+            <param name="_Property"></param>
+            <param name="_Label"></param>
+        </member>
+        <member name="T:OPS.AntiCheat.Editor.ProtectedQuaternionDrawer">
+            <summary>
+            Custom property drawer for quaternion.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Editor.ProtectedQuaternionDrawer.OnGUIProperty(UnityEngine.Rect,UnityEditor.SerializedProperty,UnityEngine.GUIContent)">
+            <summary>
+            Overrides the custom gui property method to render the bool.
+            </summary>
+            <param name="_Position"></param>
+            <param name="_Property"></param>
+            <param name="_Label"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Editor.ProtectedQuaternionDrawer.Helper_Vector4ToQuaternion(UnityEngine.Vector4)">
+            <summary>
+            Helper class to convert a Vector4 to a Quaternion.
+            </summary>
+            <param name="_Value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OPS.AntiCheat.Editor.ProtectedQuaternionDrawer.Helper_QuaternionToVector4(UnityEngine.Quaternion)">
+            <summary>
+            Helper class to convert a Quaternion to a Vector4.
+            </summary>
+            <param name="_Value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:OPS.AntiCheat.Editor.ProtectedInt64Drawer">
+            <summary>
+            Custom property drawer for int64.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Editor.ProtectedInt64Drawer.OnGUIProperty(UnityEngine.Rect,UnityEditor.SerializedProperty,UnityEngine.GUIContent)">
+            <summary>
+            Overrides the custom gui property method to render the bool.
+            </summary>
+            <param name="_Position"></param>
+            <param name="_Property"></param>
+            <param name="_Label"></param>
+        </member>
+        <member name="T:OPS.AntiCheat.Editor.ProtectedInt32Drawer">
+            <summary>
+            Custom property drawer for int32.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Editor.ProtectedInt32Drawer.OnGUIProperty(UnityEngine.Rect,UnityEditor.SerializedProperty,UnityEngine.GUIContent)">
+            <summary>
+            Overrides the custom gui property method to render the bool.
+            </summary>
+            <param name="_Position"></param>
+            <param name="_Property"></param>
+            <param name="_Label"></param>
+        </member>
+        <member name="T:OPS.AntiCheat.Editor.ProtectedFloatDrawer">
+            <summary>
+            Custom property drawer for float.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Editor.ProtectedFloatDrawer.OnGUIProperty(UnityEngine.Rect,UnityEditor.SerializedProperty,UnityEngine.GUIContent)">
+            <summary>
+            Overrides the custom gui property method to render the bool.
+            </summary>
+            <param name="_Position"></param>
+            <param name="_Property"></param>
+            <param name="_Label"></param>
+        </member>
+        <member name="T:OPS.AntiCheat.Editor.ProtectedDoubleDrawer">
+            <summary>
+            Custom property drawer for double.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Editor.ProtectedDoubleDrawer.OnGUIProperty(UnityEngine.Rect,UnityEditor.SerializedProperty,UnityEngine.GUIContent)">
+            <summary>
+            Overrides the custom gui property method to render the bool.
+            </summary>
+            <param name="_Position"></param>
+            <param name="_Property"></param>
+            <param name="_Label"></param>
+        </member>
+        <member name="T:OPS.AntiCheat.Editor.ProtectedDecimalDrawer">
+            <summary>
+            Custom property drawer for decimal.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Editor.ProtectedDecimalDrawer.OnGUIProperty(UnityEngine.Rect,UnityEditor.SerializedProperty,UnityEngine.GUIContent)">
+            <summary>
+            Overrides the custom gui property method to render the bool.
+            </summary>
+            <param name="_Position"></param>
+            <param name="_Property"></param>
+            <param name="_Label"></param>
+        </member>
+        <member name="T:OPS.AntiCheat.Editor.ProtectedBoolDrawer">
+            <summary>
+            Custom property drawer for bool.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Editor.ProtectedBoolDrawer.OnGUIProperty(UnityEngine.Rect,UnityEditor.SerializedProperty,UnityEngine.GUIContent)">
+            <summary>
+            Overrides the custom gui property method to render the bool.
+            </summary>
+            <param name="_Position"></param>
+            <param name="_Property"></param>
+            <param name="_Label"></param>
+        </member>
+        <member name="T:OPS.AntiCheat.Editor.ProtectedPropertyDrawer">
+            <summary>
+            Custom property drawers for protected fields.
+            </summary>
+        </member>
+        <member name="M:OPS.AntiCheat.Editor.ProtectedPropertyDrawer.OnGUI(UnityEngine.Rect,UnityEditor.SerializedProperty,UnityEngine.GUIContent)">
+            <summary>
+            Shared gui method for the drawer.
+            </summary>
+            <param name="position"></param>
+            <param name="property"></param>
+            <param name="label"></param>
+        </member>
+        <member name="M:OPS.AntiCheat.Editor.ProtectedPropertyDrawer.OnGUIProperty(UnityEngine.Rect,UnityEditor.SerializedProperty,UnityEngine.GUIContent)">
+            <summary>
+            Custom drawer for a property.
+            </summary>
+            <param name="position"></param>
+            <param name="property"></param>
+            <param name="label"></param>
+        </member>
+    </members>
+</doc>

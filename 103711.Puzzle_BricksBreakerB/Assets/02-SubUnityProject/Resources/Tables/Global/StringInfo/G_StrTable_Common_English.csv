@@ -1,0 +1,78 @@
+Description,Replace,ID,Str
+시작 씬 로딩 텍스트,0,START_SM_LOADING_TEXT,Loading...
+종료 팝업 메세지,0,QUIT_P_MSG,Do you want to quit the game?
+그만두기 팝업 메세지,0,LEAVE_P_MSG,Do you want to leave the game?
+업데이트 팝업 메세지,0,UPDATE_P_MSG,A new version has been released.\nWould you like to update it?
+로드 팝업 메세지,0,LOAD_P_MSG,"Do you want to load progress?\n<color=#ff0000ff><size=24>(When loading, current progress cannot be recovered)</size></color>"
+저장 팝업 메세지,0,SAVE_P_MSG,"Do you want to save progress?\n<color=#ff0000ff><size=24>(When saving, previous progress cannot be recovered)</size></color>"
+추적 설명 팝업 타이틀,0,TRACKING_DP_TITLE,Notice
+추적 설명 팝업 메세지,0,TRACKING_DP_MSG,Allow tracking on the\nnext screen for
+추적 설명 팝업 설명 메세지 1,0,TRACKING_DP_DESC_MSG_01,- Special offers and promotions\njust for you
+추적 설명 팝업 설명 메세지 2,0,TRACKING_DP_DESC_MSG_02,- Advertisements that match\nyour interests
+추적 설명 팝업 설명 메세지 3,0,TRACKING_DP_DESC_MSG_03,- An improved personalized\nexperience over time
+공용 A 세트 텍스트,0,C_A_SET_TEXT,A Set
+공용 B 세트 텍스트,0,C_B_SET_TEXT,B Set
+공용 확인 텍스트,0,C_OK_TEXT,OK
+공용 취소 텍스트,0,C_CANCEL_TEXT,Cancel
+공용 동의 텍스트,0,C_AGREE_TEXT,Agree
+공용 결과 텍스트,0,C_RESULT_TEXT,Result
+공용 획득 텍스트,0,C_GET_TEXT,Get
+공용 상점 텍스트,0,C_STORE_TEXT,Store
+공용 이벤트 텍스트,0,C_EVENT_TEXT,Event
+공용 다음 텍스트,0,C_NEXT_TEXT,Next
+공용 홈 텍스트,0,C_HOME_TEXT,Home
+공용 플레이 텍스트,0,C_PLAY_TEXT,Play
+공용 재시도 텍스트,0,C_RETRY_TEXT,Retry
+공용 나가기 텍스트,0,C_LEAVE_TEXT,Leave
+공용 동기화 텍스트,0,C_SYNC_TEXT,Sync
+공용 로그인 텍스트,0,C_LOGIN_TEXT,Login
+공용 애플 로그인 텍스트,0,C_APPLE_LOGIN_TEXT,Sign in with Apple
+공용 페이스 북 로그인,0,C_FACEBOOK_LOGIN_TEXT,Sign in with Facebook
+공용 로그아웃 텍스트,0,C_LOGOUT_TEXT,Logout
+공용 연결 해제 텍스트,0,C_DISCONNECT_TEXT,Disconnect
+공용 로드 텍스트,0,C_LOAD_TEXT,Load
+공용 저장 텍스트,0,C_SAVE_TEXT,Save
+공용 이어하기 텍스트,0,C_CONTINUE_TEXT,Continue
+공용 알림 텍스트,0,C_NOTI_TEXT,Notice
+공용 평가 텍스트,0,C_REVIEW_TEXT,Review
+공용 지원 텍스트,0,C_SUPPORTS_TEXT,Supports
+공용 배경음 텍스트,0,C_BG_SND_TEXT,BGM
+공용 효과음 텍스트,0,C_FX_SNDS_TEXT,SFX
+공용 광고 시청 텍스트,0,C_WATCH_ADS_TEXT,Watch Ads
+공용 광고 제거 텍스트,0,C_REMOVE_ADS_TEXT,Remove Ads
+공용 결제 복원 텍스트,0,C_RESTORE_PAYMENT_TEXT,Restore Payment
+공용 레벨 텍스트,0,C_LEVEL_TEXT,Level
+공용 스테이지 텍스트,0,C_STAGE_TEXT,Stage
+공용 챕터 텍스트,0,C_CHAPTER_TEXT,Chapter
+공용 설정 텍스트,0,C_SETTINGS_TEXT,Settings
+공용 일일 미션 텍스트,0,C_DAILY_MISSION_TEXT,Daily Mission
+공용 무료 보상 텍스트,0,C_FREE_REWARD_TEXT,Free Reward
+공용 일일 보상 텍스트,0,C_DAILY_REWARD_TEXT,Daily Reward
+공용 코인 상자 텍스트,0,C_COINS_BOX_TEXT,Coins Box
+공용 재개 텍스트,0,C_RESUME_TEXT,Resume
+공용 정지 텍스트,0,C_PAUSE_TEXT,Pause
+공용 초보자 패키지 텍스트,0,C_BEGINNER_PKGS_TEXT,Beginner Pack
+공용 숙련자 패키지 텍스트,0,C_EXPERT_PKGS_TEXT,Expert Pack
+공용 프로 패키지 텍스트,0,C_PRO_PKGS_TEXT,Pro Pack
+공용 레벨 번호 텍스트 형식,0,C_LEVEL_NUM_TEXT_FMT,Level {0}
+공용 스테이지 번호 텍스트 형식,0,C_STAGE_NUM_TEXT_FMT,Stage {0}
+공용 챕터 번호 텍스트 형식,0,C_CHAPTER_NUM_TEXT_FMT,Chapter {0}
+공용 레벨 페이지 텍스트 형식,0,C_LEVEL_PAGE_TEXT_FMT,Level {0}/{1}
+공용 스테이지 페이지 텍스트 형식,0,C_STAGE_PAGE_TEXT_FMT,Stage {0}/{1}
+공용 챕터 페이지 텍스트 형식,0,C_CHAPTER_PAGE_TEXT_FMT,Chapter {0}/{1}
+공용 A 세트 설정 메세지,0,C_SETUP_A_SET_MSG,Do you want to setup A set?
+공용 B 세트 설정 메세지,0,C_SETUP_B_SET_MSG,Do you want to setup B set?
+공용 로그인 성공 메세지,0,C_ON_LOGIN_MSG,You have successfully login
+공용 로그인 실패 메세지,0,C_ON_LOGIN_FAIL_MSG,You have failed to login
+공용 로그아웃 성공 메세지,0,C_ON_LOGOUT_MSG,You have successfully logout
+공용 로그아웃 실패 메세지,0,C_ON_LOGOUT_FAIL_MSG,You have failed to logout
+공용 로드 성공 메세지,0,C_ON_LOAD_MSG,You have successfully loaded progress
+공용 로드 실패 메세지,0,C_ON_LOAD_FAIL_MSG,You have failed to load progress
+공용 저장 성공 메세지,0,C_ON_SAVE_MSG,You have successfully saved progress
+공용 저장 실패 메세지,0,C_ON_SAVE_FAIL_MSG,You have failed to save progress
+공용 결제 성공 메세지,0,C_ON_PURCHASE_MSG,You have successfully purchased this product
+공용 결제 실패 메세지,0,C_ON_PURCHASE_FAIL_MSG,You have failed to purchase this product
+공용 복원 성공 메세지,0,C_ON_RESTORE_MSG,The product has been restored
+공용 복원 실패 메세지,0,C_ON_RESTORE_FAIL_MSG,Failed to restore the product
+공용 테이블 로드 성공 메세지,0,C_ON_TABLE_LOAD_MSG,You have successfully load table
+공용 테이블 로드 실패 메세지,0,C_ON_TABLE_LOAD_FAIL_MSG,You have failed to load table
