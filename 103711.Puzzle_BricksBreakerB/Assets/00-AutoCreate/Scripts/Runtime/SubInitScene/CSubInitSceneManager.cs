@@ -54,6 +54,8 @@ namespace InitScene {
 			CEtcInfoTable.Create();
 			CLevelInfoTable.Create();
 
+            LevelLoader.Create();
+
 			CCalcInfoTable.Create();
 			CMissionInfoTable.Create();
 			CRewardInfoTable.Create();

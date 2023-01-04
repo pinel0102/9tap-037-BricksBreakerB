@@ -413,7 +413,36 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		for(int i = 0; i < oLevelIDList.Count; ++i) {
 			this.AddLevelInfo(this.LoadLevelInfo(oLevelIDList[i].ExULevelIDToLevelID(), oLevelIDList[i].ExULevelIDToStageID(), oLevelIDList[i].ExULevelIDToChapterID()));
 		}
+#else
+        try {
+			oLevelIDList = CFunc.ReadMsgPackJSONObjFromRes<List<long>>(a_oFilePath, false);
+		} finally {
+			CResManager.Inst.RemoveRes<TextAsset>(a_oFilePath, true);
+		}
 #endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+
+        CAccess.Assert(oLevelIDList != null);
+		
+		for(int i = 0; i < oLevelIDList.Count; ++i) {
+            /*int nID = oLevelIDList[i].ExUniqueLevelIDToID();
+			int nStageID = oLevelIDList[i].ExUniqueLevelIDToStageID();
+			int nChapterID = oLevelIDList[i].ExUniqueLevelIDToChapterID();
+
+			var oNumChapterLevelInfosDict = this.NumLevelInfosDictContainer.ExGetVal(nChapterID, null);
+			oNumChapterLevelInfosDict = oNumChapterLevelInfosDict ?? new Dictionary<int, int>();
+
+			int nNumLevelInfos = oNumChapterLevelInfosDict.ExGetVal(nStageID, KCDefine.B_VAL_0_INT);
+			oNumChapterLevelInfosDict.ExReplaceVal(nStageID, nNumLevelInfos + KCDefine.B_VAL_1_INT);
+
+			this.NumLevelInfosDictContainer.ExReplaceVal(nChapterID, oNumChapterLevelInfosDict);
+
+#if UNITY_STANDALONE
+			var oLevelInfo = this.LoadLevelInfo(nID, nStageID, nChapterID);
+			oLevelInfo.m_stIDInfo = CFactory.MakeIDInfo(nID, nStageID, nChapterID);
+
+			this.AddLevelInfo(oLevelInfo);
+#endif*/			// #if UNITY_STANDALONE
+		}
 
 		return this.LevelInfoDictContainer;
 	}
