@@ -51,7 +51,7 @@ public class BuildPlayerPipelineScript : IActiveBuildTargetChanged
     private static string buildName_MacOS;
     private static string buildName_Windows;
     private const string scriptableObjectFormat = "{0}{1}";
-    private const string scriptableObjectPath = "Assets/01-UnityProject/Scripts/Editor/Scriptable/";
+    private const string scriptableObjectPath = "Assets/01-GameEngine/Scripts/Editor/Scriptable/";
     private const string scriptableObjectFileName = "BuildPlayerPipeline.asset";
     private const string combinePathFormat = "{0}/{1}";
     private const string combinePathFormatMeta = "{0}/{1}.meta";
@@ -94,6 +94,8 @@ public class BuildPlayerPipelineScript : IActiveBuildTargetChanged
 
 #region Initialize
 
+#if USE_MENU_ITEMS
+
     static BuildPlayerPipelineScript()
     {
         EditorApplication.delayCall += () =>
@@ -103,6 +105,8 @@ public class BuildPlayerPipelineScript : IActiveBuildTargetChanged
             RefreshCurrentTarget();
         };
     }
+
+#endif
 
     static void CheckScriptableObject()
     {
