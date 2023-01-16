@@ -563,95 +563,95 @@
       "url": "https://packages.unity.com"
     },
     "module.unitycommon": {
-      "version": "file:.module.unitycommon@3.0.0",
+      "version": "file:.module.unitycommon@3.0.1",
       "depth": 0,
       "source": "embedded",
       "dependencies": {
-        "module.unitycommondefine": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommondefine.git#3.0.0",
-        "module.unitycommonaccess": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonaccess.git#3.0.0",
-        "module.unitycommonfactory": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfactory.git#3.0.0",
-        "module.unitycommonextension": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonextension.git#3.0.0",
-        "module.unitycommonfunc": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfunc.git#3.0.0",
-        "module.unitycommonutility": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonutility.git#3.0.0",
-        "module.unitycommonexternals": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonexternals.git#3.0.0"
+        "module.unitycommondefine": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommondefine.git#3.0.1",
+        "module.unitycommonaccess": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonaccess.git#3.0.1",
+        "module.unitycommonfactory": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfactory.git#3.0.1",
+        "module.unitycommonextension": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonextension.git#3.0.1",
+        "module.unitycommonfunc": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfunc.git#3.0.1",
+        "module.unitycommonutility": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonutility.git#3.0.1",
+        "module.unitycommonexternals": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonexternals.git#3.0.1"
       }
     },
     "module.unitycommonaccess": {
-      "version": "file:.module.unitycommonaccess@3.0.0",
+      "version": "file:.module.unitycommonaccess@3.0.1",
       "depth": 0,
       "source": "embedded",
       "dependencies": {
-        "module.unitycommondefine": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommondefine.git#3.0.0",
-        "module.unitycommonexternals": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonexternals.git#3.0.0"
+        "module.unitycommondefine": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommondefine.git#3.0.1",
+        "module.unitycommonexternals": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonexternals.git#3.0.1"
       }
     },
     "module.unitycommondefine": {
-      "version": "file:.module.unitycommondefine@3.0.0",
+      "version": "file:.module.unitycommondefine@3.0.1",
       "depth": 0,
       "source": "embedded",
       "dependencies": {
-        "module.unitycommonexternals": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonexternals.git#3.0.0"
+        "module.unitycommonexternals": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonexternals.git#3.0.1"
       }
     },
     "module.unitycommonextension": {
-      "version": "file:.module.unitycommonextension@3.0.0",
+      "version": "file:.module.unitycommonextension@3.0.1",
       "depth": 0,
       "source": "embedded",
       "dependencies": {
-        "module.unitycommondefine": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommondefine.git#3.0.0",
-        "module.unitycommonaccess": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonaccess.git#3.0.0",
-        "module.unitycommonfactory": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfactory.git#3.0.0",
-        "module.unitycommonexternals": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonexternals.git#3.0.0"
+        "module.unitycommondefine": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommondefine.git#3.0.1",
+        "module.unitycommonaccess": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonaccess.git#3.0.1",
+        "module.unitycommonfactory": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfactory.git#3.0.1",
+        "module.unitycommonexternals": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonexternals.git#3.0.1"
       }
     },
     "module.unitycommonexternals": {
-      "version": "file:.module.unitycommonexternals@3.0.0",
+      "version": "file:.module.unitycommonexternals@3.0.1",
       "depth": 0,
       "source": "embedded",
       "dependencies": {}
     },
     "module.unitycommonfactory": {
-      "version": "file:.module.unitycommonfactory@3.0.0",
+      "version": "file:.module.unitycommonfactory@3.0.1",
       "depth": 0,
       "source": "embedded",
       "dependencies": {
-        "module.unitycommondefine": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommondefine.git#3.0.0",
-        "module.unitycommonaccess": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonaccess.git#3.0.0",
-        "module.unitycommonexternals": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonexternals.git#3.0.0"
+        "module.unitycommondefine": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommondefine.git#3.0.1",
+        "module.unitycommonaccess": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonaccess.git#3.0.1",
+        "module.unitycommonexternals": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonexternals.git#3.0.1"
       }
     },
     "module.unitycommonfunc": {
-      "version": "file:.module.unitycommonfunc@3.0.0",
+      "version": "file:.module.unitycommonfunc@3.0.1",
       "depth": 0,
       "source": "embedded",
       "dependencies": {
-        "module.unitycommondefine": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommondefine.git#3.0.0",
-        "module.unitycommonaccess": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonaccess.git#3.0.0",
-        "module.unitycommonfactory": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfactory.git#3.0.0",
-        "module.unitycommonextension": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonextension.git#3.0.0",
-        "module.unitycommonexternals": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonexternals.git#3.0.0"
+        "module.unitycommondefine": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommondefine.git#3.0.1",
+        "module.unitycommonaccess": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonaccess.git#3.0.1",
+        "module.unitycommonfactory": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfactory.git#3.0.1",
+        "module.unitycommonextension": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonextension.git#3.0.1",
+        "module.unitycommonexternals": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonexternals.git#3.0.1"
       }
     },
     "module.unitycommonimporter": {
-      "version": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonimporter.git#3.0.0",
+      "version": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonimporter.git#3.0.1",
       "depth": 0,
       "source": "git",
       "dependencies": {
-        "module.unitycommon": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommon.git#3.0.0"
+        "module.unitycommon": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommon.git#3.0.1"
       },
-      "hash": "1b04ed7c1aa050f7d35c3c30d6eaed1f5ee4fa72"
+      "hash": "7aa97201dbe58bb4eb77bf37cd24e424f113bfab"
     },
     "module.unitycommonutility": {
-      "version": "file:.module.unitycommonutility@3.0.0",
+      "version": "file:.module.unitycommonutility@3.0.1",
       "depth": 0,
       "source": "embedded",
       "dependencies": {
-        "module.unitycommondefine": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommondefine.git#3.0.0",
-        "module.unitycommonaccess": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonaccess.git#3.0.0",
-        "module.unitycommonfactory": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfactory.git#3.0.0",
-        "module.unitycommonextension": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonextension.git#3.0.0",
-        "module.unitycommonfunc": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfunc.git#3.0.0",
-        "module.unitycommonexternals": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonexternals.git#3.0.0"
+        "module.unitycommondefine": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommondefine.git#3.0.1",
+        "module.unitycommonaccess": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonaccess.git#3.0.1",
+        "module.unitycommonfactory": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfactory.git#3.0.1",
+        "module.unitycommonextension": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonextension.git#3.0.1",
+        "module.unitycommonfunc": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfunc.git#3.0.1",
+        "module.unitycommonexternals": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonexternals.git#3.0.1"
       }
     },
     "com.unity.modules.ai": {

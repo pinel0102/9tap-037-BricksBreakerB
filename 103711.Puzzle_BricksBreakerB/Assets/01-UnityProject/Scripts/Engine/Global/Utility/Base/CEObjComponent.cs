@@ -8,9 +8,17 @@ using UnityEngine.Events;
 namespace NSEngine {
 	/** 엔진 객체 컴포넌트 */
 	public abstract partial class CEObjComponent : CEComponent {
+		/** 식별자 */
+		private enum EKey {
+			NONE = -1,
+			TARGET_SPRITE,
+			[HideInInspector] MAX_VAL
+		}
+
 		/** 콜백 */
 		public enum ECallback {
 			NONE = -1,
+			TARGET_SPRITE,
 			ENGINE_OBJ_EVENT,
 			[HideInInspector] MAX_VAL
 		}
@@ -23,20 +31,28 @@ namespace NSEngine {
 			public Dictionary<ECallback, System.Action<CEObjComponent, EEngineObjEvent, string>> m_oCallbackDict;
 		}
 
-#region 변수
+		#region 변수
+		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
+		#endregion // 변수
 
-#endregion // 변수
-
-#region 프로퍼티
+		#region 프로퍼티
 		public new STParams Params { get; private set; }
 		public CDictWrapper<EAbilityKinds, decimal> AbilityValDictWrapper { get; } = new CDictWrapper<EAbilityKinds, decimal>();
-#endregion // 프로퍼티
 
-#region 함수
+		public SpriteRenderer TargetSprite => m_oSpriteDict[EKey.TARGET_SPRITE];
+		#endregion // 프로퍼티
+
+		#region 함수
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
-			this.SubSetupAwake();
+
+			// 스프라이트를 설정한다
+			CFunc.SetupSprites(new List<(EKey, string, GameObject)>() {
+				(EKey.TARGET_SPRITE, $"{EKey.TARGET_SPRITE}", this.gameObject)
+			}, m_oSpriteDict);
+
+			this.SubAwake();
 		}
 
 		/** 초기화 */
@@ -78,23 +94,33 @@ namespace NSEngine {
 
 			this.AbilityValDictWrapper.m_oDict02.Clear();
 		}
-#endregion // 함수
+		#endregion // 함수
 
-#region 제네릭 접근자 함수
-		/** 제어자를 반환한다 */
-		public T GetController<T>() where T : CEController {
-			return this.Params.m_oController as T;
-		}
-#endregion // 제네릭 접근자 함수
-
-#region 클래스 함수
+		#region 클래스 함수
 		/** 매개 변수를 생성한다 */
 		public static STParams MakeParams(CEngine a_oEngine, CEController a_oController, string a_oObjsPoolKey, Dictionary<CEObjComponent.ECallback, System.Action<CEObjComponent, EEngineObjEvent, string>> a_oCallbackDict = null) {
 			return new STParams() {
 				m_stBaseParams = CEComponent.MakeParams(a_oEngine, a_oObjsPoolKey), m_oController = a_oController, m_oCallbackDict = a_oCallbackDict ?? new Dictionary<CEObjComponent.ECallback, System.Action<CEObjComponent, EEngineObjEvent, string>>()
 			};
 		}
-#endregion // 클래스 함수
+		#endregion // 클래스 함수
+	}
+
+	/** 엔진 객체 컴포넌트 - 접근 */
+	public abstract partial class CEObjComponent : CEComponent {
+		#region 함수
+		/** 어빌리티 값을 반환한다 */
+		public decimal GetAbilityVal(EAbilityKinds a_eAbilityKinds) {
+			return this.AbilityValDictWrapper.m_oDict01.GetValueOrDefault(a_eAbilityKinds);
+		}
+		#endregion // 함수
+
+		#region 제네릭 함수
+		/** 제어자를 반환한다 */
+		public T GetController<T>() where T : CEController {
+			return this.Params.m_oController as T;
+		}
+		#endregion // 제네릭 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

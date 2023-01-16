@@ -7,7 +7,7 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 기본 확장 클래스 */
 public static partial class Extension {
-#region 클래스 함수
+	#region 클래스 함수
 	/** 타겟 정보 고유 식별자 => 종류로 변환한다 */
 	public static int ExUniqueTargetInfoIDToKinds(this ulong a_nSender) {
 		return (int)(a_nSender & uint.MaxValue);
@@ -35,6 +35,6 @@ public static partial class Extension {
 
 		return oTargetInfoDict;
 	}
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

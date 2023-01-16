@@ -39,19 +39,19 @@ namespace NSEngine {
 			public Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>> m_oCallbackDict02;
 		}
 
-#region 변수
+		#region 변수
 		private Dictionary<EKey, int> m_oIntDict = new Dictionary<EKey, int>();
 		private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>();
 
-		private List<CEObj>[,] m_oCellObjLists = null;
 		private List<STGridInfo> m_oGridInfoList = new List<STGridInfo>();
 		private List<LineRenderer> m_oGridLineFXList = new List<LineRenderer>();
 		private Dictionary<ulong, STTargetInfo> m_oClearTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
-#endregion // 변수
+		#endregion // 변수
 
-#region 프로퍼티
+		#region 프로퍼티
 		public STParams Params { get; private set; }
 		public STRecordInfo RecordInfo { get; private set; }
+		public List<CEObj>[,] CellObjLists { get; private set; } = null;
 
 		public List<CEItem> ItemList { get; } = new List<CEItem>();
 		public List<CESkill> SkillList { get; } = new List<CESkill>();
@@ -63,13 +63,13 @@ namespace NSEngine {
 		public Vector3 EpisodeSize => new Vector3(Mathf.Max(CSceneManager.ActiveSceneManager.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x), Mathf.Max(CSceneManager.ActiveSceneManager.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y), CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.z);
 		public Vector3 CameraEpisodeSize => new Vector3(Mathf.Max(CSceneManager.ActiveSceneManager.ScreenWidth, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.x - CSceneManager.ActiveSceneManager.ScreenWidth), Mathf.Max(CSceneManager.ActiveSceneManager.ScreenHeight, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.y - CSceneManager.ActiveSceneManager.ScreenHeight), CGameInfoStorage.Inst.PlayEpisodeInfo.m_stSize.z);
 		public STGridInfo SelGridInfo => m_oGridInfoList[this.SelGridInfoIdx];
-#endregion // 프로퍼티
+		#endregion // 프로퍼티
 
-#region 함수
+		#region 함수
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
-			this.SubSetupAwake();
+			this.SubAwake();
 		}
 
 		/** 초기화 */
@@ -100,8 +100,8 @@ namespace NSEngine {
 		public void HandleTouchEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData, ETouchEvent a_eTouchEvent) {
 			var stTouchPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize);
 
-			// 그리드 영역 일 경우
-			if(m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx) && this.SelGridInfo.m_stViewBounds.Contains(stTouchPos)) {
+			// 그리드가 존재 할 경우
+			if(m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx)) {
 				switch(a_eTouchEvent) {
 					case ETouchEvent.BEGIN: this.HandleTouchBeginEvent(a_oSender, a_oEventData); break;
 					case ETouchEvent.MOVE: this.HandleTouchMoveEvent(a_oSender, a_oEventData); break;
@@ -109,9 +109,9 @@ namespace NSEngine {
 				}
 			}
 		}
-#endregion // 함수
+		#endregion // 함수
 
-#region 클래스 함수
+		#region 클래스 함수
 		/** 매개 변수를 생성한다 */
 		public static STParams MakeParams(GameObject a_oItemRoot, GameObject a_oSkillRoot, GameObject a_oObjRoot, GameObject a_oFXRoot, Dictionary<ECallback, System.Action<CEngine>> a_oCallbackDict01 = null, Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>> a_oCallbackDict02 = null) {
 			return new STParams() {
@@ -123,7 +123,7 @@ namespace NSEngine {
 				m_oCallbackDict02 = a_oCallbackDict02 ?? new Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>>()
 			};
 		}
-#endregion // 클래스 함수
+		#endregion // 클래스 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

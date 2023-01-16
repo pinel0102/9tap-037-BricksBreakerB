@@ -14,23 +14,23 @@ namespace LoadingScene {
 			[HideInInspector] MAX_VAL
 		}
 
-#region 변수
+		#region 변수
 
-#endregion // 변수
+		#endregion // 변수
 
-#region 프로퍼티
+		#region 프로퍼티
 		public override Vector3 LoadingTextPos => KDefine.LS_POS_LOADING_TEXT;
 		public override Vector3 LoadingGaugePos => KDefine.LS_POS_LOADING_GAUGE;
-#endregion // 프로퍼티
+		#endregion // 프로퍼티
 
-#region 함수
+		#region 함수
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
 
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
-				this.SetupAwake();
+				this.SubAwake();
 			}
 		}
 
@@ -40,19 +40,33 @@ namespace LoadingScene {
 
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
-				this.SetupStart();
+				this.SubStart();
 				this.UpdateUIsState();
 			}
 		}
 
-		/** 씬을 설정한다 */
-		private void SetupAwake() {
-			this.SubSetupAwake();
+		/** 제거 되었을 경우 */
+		public override void OnDestroy() {
+			base.OnDestroy();
+
+			try {
+				// 앱이 실행 중 일 경우
+				if(CSceneManager.IsAppRunning) {
+					this.SubOnDestroy();
+				}
+			} catch(System.Exception oException) {
+				CFunc.ShowLogWarning($"CSubLoadingSceneManager.OnDestroy Exception: {oException.Message}");
+			}
 		}
 
-		/** 씬을 설정한다 */
-		private void SetupStart() {
-			this.SubSetupStart();
+		/** 상태를 갱신한다 */
+		public override void OnUpdate(float a_fDeltaTime) {
+			base.OnUpdate(a_fDeltaTime);
+
+			// 앱이 실행 중 일 경우
+			if(CSceneManager.IsAppRunning) {
+				this.SubOnUpdate(a_fDeltaTime);
+			}
 		}
 
 		/** UI 상태를 갱신한다 */
@@ -64,7 +78,7 @@ namespace LoadingScene {
 		protected override void OnUpdateAsyncSceneLoadingState(AsyncOperation a_oAsyncOperation, bool a_bIsComplete) {
 			base.OnUpdateAsyncSceneLoadingState(a_oAsyncOperation, a_bIsComplete);
 		}
-#endregion // 함수
+		#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

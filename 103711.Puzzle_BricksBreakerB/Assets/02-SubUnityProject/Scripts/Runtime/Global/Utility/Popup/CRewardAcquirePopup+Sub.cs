@@ -9,9 +9,9 @@ using TMPro;
 
 /** 보상 획득 팝업 */
 public partial class CRewardAcquirePopup : CSubPopup {
-#region 함수
-	
-#endregion // 함수
+	#region 함수
+
+	#endregion // 함수
 }
 
 /** 서브 보상 획득 팝업 */
@@ -22,17 +22,17 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		[HideInInspector] MAX_VAL
 	}
 
-#region 변수
+	#region 변수
 
-#endregion // 변수
+	#endregion // 변수
 
-#region 프로퍼티
+	#region 프로퍼티
 
-#endregion // 프로퍼티
+	#endregion // 프로퍼티
 
-#region 함수
+	#region 함수
 	/** 팝업을 설정한다 */
-	private void SubSetupAwake() {
+	private void SubAwake() {
 		// Do Something
 	}
 
@@ -51,6 +51,6 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		var oNumText = a_oItemUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_TEXT);
 		oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_CROSS, a_stTargetInfo.m_stValInfo01.m_dmVal), EFontSet._1, false);
 	}
-#endregion // 함수
+	#endregion // 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

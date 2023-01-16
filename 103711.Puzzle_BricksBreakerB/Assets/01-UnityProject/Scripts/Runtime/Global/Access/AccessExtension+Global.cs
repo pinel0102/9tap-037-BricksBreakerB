@@ -7,7 +7,7 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 전역 접근자 확장 클래스 */
 public static partial class AccessExtension {
-#region 클래스 함수
+	#region 클래스 함수
 	/** 유효 여부를 검사한다 */
 	public static bool ExIsValid(this EPlayMode a_eSender) {
 		return a_eSender > EPlayMode.NONE && a_eSender < EPlayMode.MAX_VAL;
@@ -27,7 +27,7 @@ public static partial class AccessExtension {
 	public static bool ExIsValid(this EKindsGroupType a_eSender) {
 		return a_eSender > EKindsGroupType.NONE && a_eSender < EKindsGroupType.MAX_VAL;
 	}
-	
+
 	/** 어빌리티 값을 반환한다 */
 	public static decimal ExGetAbilityVal(this Dictionary<EAbilityKinds, decimal> a_oSender, EAbilityKinds a_eAbilityKinds) {
 		return a_oSender.ExGetAbilityVal(a_eAbilityKinds, a_oSender.GetValueOrDefault(a_eAbilityKinds));
@@ -35,12 +35,12 @@ public static partial class AccessExtension {
 
 	/** 어빌리티 값을 반환한다 */
 	public static decimal ExGetAbilityVal(this Dictionary<EAbilityKinds, decimal> a_oSender, EAbilityKinds a_eAbilityKinds, decimal a_dmVal) {
-		decimal dmAddMultiplyVal = a_oSender.GetValueOrDefault(a_eAbilityKinds + ((int)EEnumVal.SUB_TYPE * (int)EAbilityValType.INCR));
-		decimal dmSubMultiplyVal = a_oSender.GetValueOrDefault(a_eAbilityKinds + ((int)EEnumVal.SUB_TYPE * (int)EAbilityValType.DECR));
+		decimal dmAddMultiplyVal = a_oSender.GetValueOrDefault(a_eAbilityKinds + ((int)EEnumVal.ST * (int)EAbilityValType.INCR));
+		decimal dmSubMultiplyVal = a_oSender.GetValueOrDefault(a_eAbilityKinds + ((int)EEnumVal.ST * (int)EAbilityValType.DECR));
 
 		return System.Math.Clamp(a_dmVal + (a_dmVal * dmAddMultiplyVal) - (a_dmVal * dmSubMultiplyVal), KCDefine.B_VAL_0_INT, decimal.MaxValue);
 	}
-	
+
 	/** 타겟 값을 반환한다 */
 	public static decimal ExGetTargetVal(this Dictionary<ulong, STTargetInfo> a_oSender, ETargetKinds a_eTargetKinds, int a_nKinds) {
 		return a_oSender.ExTryGetTargetInfo(a_eTargetKinds, a_nKinds, out STTargetInfo stTargetInfo) ? stTargetInfo.m_stValInfo01.m_dmVal : KCDefine.B_VAL_0_INT;
@@ -57,7 +57,7 @@ public static partial class AccessExtension {
 			dmPrevMaxTargetVal = dmMaxTargetVal;
 			dmMaxTargetVal = (i * stSkipTargetInfo.m_stValInfo01.m_dmVal) + ((dmPrevMaxTargetVal * stSkipTargetInfo.m_stValInfo02.m_dmVal) / KCDefine.B_UNIT_NORM_VAL_TO_PERCENT);
 		}
-		
+
 		return (a_oSender.ExGetTargetVal(a_eTargetKinds, a_nKinds), dmPrevMaxTargetVal, dmMaxTargetVal);
 	}
 
@@ -102,7 +102,7 @@ public static partial class AccessExtension {
 		a_oOutTargetInfo = a_oSender.ExGetVal((a_oTargetInfo) => a_oTargetInfo.TargetType == a_eTargetType && a_oTargetInfo.GUID.Equals(a_oGUID), null);
 		return a_oOutTargetInfo != null;
 	}
-	
+
 	/** 소유자 타겟 정보를 변경한다 */
 	public static void ExSetOwnerTargetInfo(this CTargetInfo a_oSender, CTargetInfo a_oOwnerTargetInfo, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);
@@ -114,76 +114,76 @@ public static partial class AccessExtension {
 			a_oSender.m_oOwnerTargetInfo = a_oOwnerTargetInfo;
 		}
 	}
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 초기화 씬 접근자 확장 클래스 */
 public static partial class AccessExtension {
-#region 클래스 함수
-	
-#endregion // 클래스 함수
+	#region 클래스 함수
+
+	#endregion // 클래스 함수
 }
 
 /** 시작 씬 접근자 확장 클래스 */
 public static partial class AccessExtension {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 설정 씬 접근자 확장 클래스 */
 public static partial class AccessExtension {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 약관 동의 씬 접근자 확장 클래스 */
 public static partial class AccessExtension {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 지연 설정 씬 접근자 확장 클래스 */
 public static partial class AccessExtension {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 타이틀 씬 접근자 확장 클래스 */
 public static partial class AccessExtension {
-#region 클래스 함수
-	
-#endregion // 클래스 함수
+	#region 클래스 함수
+
+	#endregion // 클래스 함수
 }
 
 /** 메인 씬 접근자 확장 클래스 */
 public static partial class AccessExtension {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 게임 씬 접근자 확장 클래스 */
 public static partial class AccessExtension {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 로딩 씬 접근자 확장 클래스 */
 public static partial class AccessExtension {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 중첩 씬 접근자 확장 클래스 */
 public static partial class AccessExtension {
-#region 클래스 함수
-	
-#endregion // 클래스 함수
+	#region 클래스 함수
+
+	#endregion // 클래스 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

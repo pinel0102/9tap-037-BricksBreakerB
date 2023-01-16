@@ -14,17 +14,17 @@ using MessagePack;
 [MessagePackObject]
 [System.Serializable]
 public partial class CClearInfo : CBaseInfo {
-#region 변수
+	#region 변수
 	[Key(1)] public STRecordInfo m_stRecordInfo;
 	[Key(2)] public STRecordInfo m_stBestRecordInfo;
-	[IgnoreMember][System.NonSerialized] public STIDInfo m_stIDInfo;
-#endregion // 변수
+	[IgnoreMember] [System.NonSerialized] public STIDInfo m_stIDInfo;
+	#endregion // 변수
 
-#region 상수
+	#region 상수
 	private const string KEY_NUM_SYMBOLS = "NumSymbols";
-#endregion // 상수
+	#endregion // 상수
 
-#region 프로퍼티
+	#region 프로퍼티
 	[IgnoreMember]
 	public int NumSymbols {
 		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_NUM_SYMBOLS, KCDefine.B_STR_0_INT)); }
@@ -32,9 +32,9 @@ public partial class CClearInfo : CBaseInfo {
 	}
 
 	[IgnoreMember] public ulong ULevelID => CFactory.MakeULevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
-#endregion // 프로퍼티
+	#endregion // 프로퍼티
 
-#region IMessagePackSerializationCallbackReceiver
+	#region IMessagePackSerializationCallbackReceiver
 	/** 직렬화 될 경우 */
 	public override void OnBeforeSerialize() {
 		base.OnBeforeSerialize();
@@ -49,21 +49,21 @@ public partial class CClearInfo : CBaseInfo {
 			// Do Something
 		}
 	}
-#endregion // IMessagePackSerializationCallbackReceiver
+	#endregion // IMessagePackSerializationCallbackReceiver
 
-#region 함수
+	#region 함수
 	/** 생성자 */
 	public CClearInfo() : base(KDefine.G_VER_CLEAR_INFO) {
 		// Do Something
 	}
-#endregion // 함수
+	#endregion // 함수
 }
 
 /** 캐릭터 게임 정보 */
 [MessagePackObject]
 [System.Serializable]
 public partial class CCharacterGameInfo : CBaseInfo {
-#region 상수
+	#region 상수
 	private const string KEY_IS_AUTO_CONTROL = "IsAutoControl";
 
 	private const string KEY_DAILY_REWARD_ID = "DailyRewardID";
@@ -72,9 +72,9 @@ public partial class CCharacterGameInfo : CBaseInfo {
 	private const string KEY_PREV_FREE_REWARD_TIME = "PrevFreeRewardTime";
 	private const string KEY_PREV_DAILY_REWARD_TIME = "PrevDailyRewardTime";
 	private const string KEY_PREV_DAILY_MISSION_TIME = "PrevDailyMissionTime";
-#endregion // 상수
+	#endregion // 상수
 
-#region 변수
+	#region 변수
 	[Key(51)] public List<ulong> m_oUnlockULevelIDList = new List<ulong>();
 	[Key(52)] public List<ulong> m_oUnlockUStageIDList = new List<ulong>();
 	[Key(53)] public List<ulong> m_oUnlockUChapterIDList = new List<ulong>();
@@ -86,9 +86,9 @@ public partial class CCharacterGameInfo : CBaseInfo {
 	[Key(151)] public Dictionary<ulong, CClearInfo> m_oLevelClearInfoDict = new Dictionary<ulong, CClearInfo>();
 	[Key(152)] public Dictionary<ulong, CClearInfo> m_oStageClearInfoDict = new Dictionary<ulong, CClearInfo>();
 	[Key(153)] public Dictionary<ulong, CClearInfo> m_oChapterClearInfoDict = new Dictionary<ulong, CClearInfo>();
-#endregion // 변수
+	#endregion // 변수
 
-#region 프로퍼티
+	#region 프로퍼티
 	[IgnoreMember]
 	public bool IsAutoControl {
 		get { return bool.Parse(m_oStrDict.GetValueOrDefault(KEY_IS_AUTO_CONTROL, KCDefine.B_TEXT_FALSE)); }
@@ -132,9 +132,9 @@ public partial class CCharacterGameInfo : CBaseInfo {
 	[IgnoreMember] private string CorrectPrevDailyMissionTimeStr => this.PrevDailyMissionTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevDailyMissionTimeStr : this.PrevDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	[IgnoreMember] private string CorrectPrevDailyRewardTimeStr => this.PrevDailyRewardTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevDailyRewardTimeStr : this.PrevDailyRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	[IgnoreMember] private string CorrectPrevFreeRewardTimeStr => this.PrevFreeRewardTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevFreeRewardTimeStr : this.PrevFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
-#endregion // 프로퍼티
+	#endregion // 프로퍼티
 
-#region IMessagePackSerializationCallbackReceiver
+	#region IMessagePackSerializationCallbackReceiver
 	/** 직렬화 될 경우 */
 	public override void OnBeforeSerialize() {
 		base.OnBeforeSerialize();
@@ -161,25 +161,25 @@ public partial class CCharacterGameInfo : CBaseInfo {
 			// Do Something
 		}
 	}
-#endregion // IMessagePackSerializationCallbackReceiver
+	#endregion // IMessagePackSerializationCallbackReceiver
 
-#region 함수
+	#region 함수
 	/** 생성자 */
 	public CCharacterGameInfo() : base(KDefine.G_VER_CHARACTER_GAME_INFO) {
 		// Do Something
 	}
-#endregion // 함수
+	#endregion // 함수
 }
 
 /** 게임 정보 */
 [MessagePackObject]
 [System.Serializable]
 public partial class CGameInfo : CBaseInfo {
-#region 변수
+	#region 변수
 	[Key(91)] public Dictionary<int, CCharacterGameInfo> m_oCharacterGameInfoDict = new Dictionary<int, CCharacterGameInfo>();
-#endregion // 변수
+	#endregion // 변수
 
-#region IMessagePackSerializationCallbackReceiver
+	#region IMessagePackSerializationCallbackReceiver
 	/** 직렬화 될 경우 */
 	public override void OnBeforeSerialize() {
 		base.OnBeforeSerialize();
@@ -195,19 +195,19 @@ public partial class CGameInfo : CBaseInfo {
 			// Do Something
 		}
 	}
-#endregion // IMessagePackSerializationCallbackReceiver
+	#endregion // IMessagePackSerializationCallbackReceiver
 
-#region 함수
+	#region 함수
 	/** 생성자 */
 	public CGameInfo() : base(KDefine.G_VER_GAME_INFO) {
 		// Do Something
 	}
-#endregion // 함수
+	#endregion // 함수
 }
 
 /** 게임 정보 저장소 */
 public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
-#region 프로퍼티
+	#region 프로퍼티
 	public int PlayCharacterID { get; private set; } = KDefine.G_CHARACTER_ID_COMMON;
 	public EPlayMode PlayMode { get; private set; } = EPlayMode.NONE;
 	public STEpisodeInfo PlayEpisodeInfo { get; private set; } = STEpisodeInfo.INVALID;
@@ -223,9 +223,9 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 			}
 		}
 	};
-#endregion // 프로퍼티
+	#endregion // 프로퍼티
 
-#region 함수
+	#region 함수
 	/** 게임 정보를 리셋한다 */
 	public virtual void ResetGameInfo(string a_oBase64Str) {
 		CFunc.ShowLog($"CGameInfoStorage.ResetGameInfo: {a_oBase64Str}");
@@ -302,9 +302,9 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public void SaveGameInfo(string a_oFilePath) {
 		CFunc.WriteMsgPackObj(a_oFilePath, this.GameInfo, true);
 	}
-#endregion // 함수
+	#endregion // 함수
 
-#region 접근자 함수
+	#region 접근자 함수
 	/** 캐릭터 게임 정보를 반환한다 */
 	public CCharacterGameInfo GetCharacterGameInfo(int a_nCharacterID) {
 		bool bIsValid = this.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo);
@@ -374,6 +374,6 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 		this.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo);
 		oCharacterGameInfo.m_oChapterClearInfoDict.TryAdd(a_oClearInfo.m_stIDInfo.UniqueID03, a_oClearInfo);
 	}
-#endregion // 접근자 함수
+	#endregion // 접근자 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

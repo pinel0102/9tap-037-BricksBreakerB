@@ -15,22 +15,26 @@ namespace NSEngine {
 			public CSkillTargetInfo m_oSkillTargetInfo;
 		}
 
-#region 프로퍼티
+		#region 프로퍼티
 		public new STParams Params { get; private set; }
 		public List<CEFX> FXList { get; } = new List<CEFX>();
-#endregion // 프로퍼티
+		#endregion // 프로퍼티
 
-#region 함수
+		#region 함수
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
-			this.SubSetupAwake();
+			this.SubAwake();
 		}
 
 		/** 초기화 */
 		public virtual void Init(STParams a_stParams) {
 			base.Init(a_stParams.m_stBaseParams);
 			this.Params = a_stParams;
+
+			// 스프라이트를 설정한다
+			this.TargetSprite?.ExSetSprite<SpriteRenderer>(Access.GetSprite(a_stParams.m_stSkillInfo.m_eSkillKinds));
+			this.TargetSprite?.ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stSkillInfo.m_eSkillKinds));
 
 			this.SubInit();
 		}
@@ -44,16 +48,16 @@ namespace NSEngine {
 				global::Func.SetupAbilityVals(this.Params.m_stSkillInfo, this.Params.m_oSkillTargetInfo, this.AbilityValDictWrapper.m_oDict02);
 			}
 		}
-#endregion // 함수
+		#endregion // 함수
 
-#region 클래스 함수
+		#region 클래스 함수
 		/** 스킬 매개 변수를 생성한다 */
 		public static STParams MakeParams(CEngine a_oEngine, STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo, CEController a_oController = null, string a_oObjsPoolKey = KCDefine.B_TEXT_EMPTY) {
 			return new STParams() {
 				m_stBaseParams = CEObjComponent.MakeParams(a_oEngine, a_oController, a_oObjsPoolKey), m_stSkillInfo = a_stSkillInfo, m_oSkillTargetInfo = a_oSkillTargetInfo
 			};
 		}
-#endregion // 클래스 함수
+		#endregion // 클래스 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

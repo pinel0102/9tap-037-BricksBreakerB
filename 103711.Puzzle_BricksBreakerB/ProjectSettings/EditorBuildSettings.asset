@@ -7,40 +7,40 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/00-AutoCreate/Scenes/00-InitScene.unity
-    guid: 6008b99d1753941d7b4d7cbed55a54fd
+    guid: b43855c64dd43f647ac558ec5e374eee
   - enabled: 1
     path: Assets/00-AutoCreate/Scenes/00-StartScene.unity
-    guid: 6dff74c923bb64e90918d3ff3d0b93d7
+    guid: 94fc678e2db1a874abe1db871d199c79
   - enabled: 1
     path: Assets/00-AutoCreate/Scenes/01-AgreeScene.unity
-    guid: 67b14fa49b02049509ea5f7584756f28
+    guid: 2255cc24157d42e4395211ecdc5484ad
   - enabled: 1
     path: Assets/00-AutoCreate/Scenes/01-LateSetupScene.unity
-    guid: 192b5925afa7e4c1280153c5783d4bd0
+    guid: 1ad2d6278da73034cbca069e24c6ea7a
   - enabled: 1
     path: Assets/00-AutoCreate/Scenes/01-SetupScene.unity
-    guid: d8940242129d8480fbb588242e1e3465
+    guid: 501aedef82507d241bbf175f42c771fa
   - enabled: 1
     path: Assets/01-UnityProject/Scenes/01-TitleScene.unity
-    guid: 2f82ff8441e6141f38cbfe222af3dcbd
+    guid: 9f5f03dc587625d4d823a129a1e8913f
   - enabled: 1
     path: Assets/01-UnityProject/Scenes/02-MainScene.unity
-    guid: db05a0f8f7c174dd5b05bcb7bffcd743
+    guid: 498dfa5715e485a4588fcf68c4ed49bc
   - enabled: 1
     path: Assets/01-UnityProject/Scenes/03-GameScene.unity
-    guid: e2d63eb82a8724807a3df8e955436a1e
+    guid: ae5a25f7503157c4b92b443666916007
   - enabled: 1
     path: Assets/01-UnityProject/Scenes/91-LoadingScene.unity
-    guid: d3e85837bd62f45acafb6b7083be8071
+    guid: 16036a48693dccd4194c2aa38ccd46cd
   - enabled: 1
     path: Assets/01-UnityProject/Scenes/92-OverlayScene.unity
-    guid: 189ba12dfdea8473a95909a98a7adc47
+    guid: 94ef03ae6a72bd04f9cc1792306233e1
   - enabled: 1
     path: Assets/01-UnityProject/Scenes/99-TestScene.unity
-    guid: 26d715728fbc1471f84dc223c3d65dde
+    guid: b8e9060e135468146b6214cc89de8eb7
   - enabled: 1
     path: Assets/03-UnityProjectEditor/Scenes/91-LevelEditorScene.unity
-    guid: 3c331a0cff8594bec8a64782acc5df40
+    guid: e886762ff1a6d42c39028d620ac78142
   m_configObjects:
     com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000, guid: 1a04f127a053642128d2f7401b387c13, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 51c09147d993a452ba10a8dd308dda61, type: 2}

@@ -44,8 +44,10 @@ public partial class CStorePopup : CSubPopup {
 #endif // #if PURCHASE_MODULE_ENABLE
 	}
 
-#region 변수
-	private Dictionary<EKey, EProductKinds> m_oProductKindsDict = new Dictionary<EKey, EProductKinds>();
+	#region 변수
+	private Dictionary<EKey, EProductKinds> m_oProductKindsDict = new Dictionary<EKey, EProductKinds>() {
+		[EKey.SEL_PRODUCT_KINDS] = EProductKinds.NONE
+	};
 
 #if PURCHASE_MODULE_ENABLE
 	private List<Product> m_oRestoreProductList = new List<Product>();
@@ -53,13 +55,13 @@ public partial class CStorePopup : CSubPopup {
 
 	/** =====> 객체 <===== */
 	[SerializeField] private List<GameObject> m_oProductBuyUIsList = new List<GameObject>();
-#endregion // 변수
+	#endregion // 변수
 
-#region 프로퍼티
+	#region 프로퍼티
 	public STParams Params { get; private set; }
-#endregion // 프로퍼티
+	#endregion // 프로퍼티
 
-#region 함수
+	#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
@@ -69,7 +71,7 @@ public partial class CStorePopup : CSubPopup {
 			(KCDefine.U_OBJ_N_RESTORE_BTN, this.Contents, this.OnTouchRestoreBtn)
 		});
 
-		this.SubSetupAwake();
+		this.SubAwake();
 	}
 
 	/** 초기화 */
@@ -136,16 +138,8 @@ public partial class CStorePopup : CSubPopup {
 			// 텍스트를 갱신한다 }
 
 			// 버튼을 갱신한다 {
-			var oPurchaseBtn = oPriceUIsDict.GetValueOrDefault(EPurchaseType.IN_APP_PURCHASE)?.ExFindComponentInParent<Button>(KCDefine.U_OBJ_N_PURCHASE_BTN);
+			var oPurchaseBtn = oPriceUIsDict[EPurchaseType.IN_APP_PURCHASE]?.ExFindComponentInParent<Button>(KCDefine.U_OBJ_N_PURCHASE_BTN);
 			oPurchaseBtn?.ExAddListener(() => this.OnTouchPurchaseBtn(a_stProductTradeInfo));
-
-#if ADS_MODULE_ENABLE
-			// 보상 광고 상품 일 경우
-			if(a_stProductTradeInfo.m_ePurchaseType == EPurchaseType.ADS) {
-				var oTouchInteractable = oPurchaseBtn?.gameObject.ExAddComponent<CRewardAdsTouchInteractable>();
-				oTouchInteractable?.SetAdsPlatform(CPluginInfoTable.Inst.AdsPlatform);
-			}
-#endif // #if ADS_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
 			var stProductInfo = CProductInfoTable.Inst.GetProductInfo(a_stProductTradeInfo.m_nProductIdx);
@@ -173,7 +167,7 @@ public partial class CStorePopup : CSubPopup {
 		switch(a_stProductTradeInfo.m_ePurchaseType) {
 			case EPurchaseType.ADS: {
 #if ADS_MODULE_ENABLE
-				m_oProductKindsDict.ExReplaceVal(EKey.SEL_PRODUCT_KINDS, a_stProductTradeInfo.m_eProductKinds);
+				m_oProductKindsDict[EKey.SEL_PRODUCT_KINDS] = a_stProductTradeInfo.m_eProductKinds;
 				Func.ShowRewardAds(this.OnCloseRewardAds);
 #endif // #if ADS_MODULE_ENABLE
 
@@ -200,9 +194,9 @@ public partial class CStorePopup : CSubPopup {
 		Func.RestoreProducts(this.OnRestoreProducts);
 #endif // #if PURCHASE_MODULE_ENABLE
 	}
-#endregion // 함수
+	#endregion // 함수
 
-#region 클래스 함수
+	#region 클래스 함수
 	/** 매개 변수를 생성한다 */
 	public static STParams MakeParams(List<STProductTradeInfo> a_oProductTradeInfoList) {
 		return new STParams() {
@@ -218,15 +212,15 @@ public partial class CStorePopup : CSubPopup {
 #endif // #if PURCHASE_MODULE_ENABLE
 		};
 	}
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 
-#region 조건부 함수
+	#region 조건부 함수
 #if ADS_MODULE_ENABLE
 	/** 보상 광고가 닫혔을 경우 */
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
-			var eSelProductKinds = m_oProductKindsDict.GetValueOrDefault(EKey.SEL_PRODUCT_KINDS, EProductKinds.NONE);
+			var eSelProductKinds = m_oProductKindsDict[EKey.SEL_PRODUCT_KINDS];
 			Func.Trade(CGameInfoStorage.Inst.PlayCharacterID, CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(eSelProductKinds));
 		}
 
@@ -256,7 +250,7 @@ public partial class CStorePopup : CSubPopup {
 		}
 
 #if FIREBASE_MODULE_ENABLE
-		this.ExLateCallFunc((a_oCallFuncSender) => Func.LoadTargetInfos(this.OnLoadTargetInfos));
+		this.ExLateCallFunc((a_oFuncSender) => Func.LoadTargetInfos(this.OnLoadTargetInfos));
 #else
 		Func.OnRestoreProducts(a_oSender, a_oProductList, a_bIsSuccess, null);
 #endif // #if FIREBASE_MODULE_ENABLE
@@ -273,7 +267,7 @@ public partial class CStorePopup : CSubPopup {
 			var oTargetInfoDict = a_oJSONStr.ExJSONStrToTargetInfos();
 			Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, oTargetInfoDict, true);
 
-			this.ExLateCallFunc((a_oCallFuncSender) => { oTargetInfoDict.Clear(); Func.SaveTargetInfos(oTargetInfoDict, this.OnSaveTargetInfos); });
+			this.ExLateCallFunc((a_oFuncSender) => { oTargetInfoDict.Clear(); Func.SaveTargetInfos(oTargetInfoDict, this.OnSaveTargetInfos); });
 		} else {
 			Func.OnRestoreProducts(CPurchaseManager.Inst, m_oRestoreProductList, m_oRestoreProductList.ExIsValid(), null);
 		}
@@ -287,6 +281,6 @@ public partial class CStorePopup : CSubPopup {
 	}
 #endif // #if FIREBASE_MODULE_ENABLE
 #endif // #if PURCHASE_MODULE_ENABLE
-#endregion // 조건부 함수
+	#endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

@@ -16,11 +16,11 @@ using Newtonsoft.Json;
 [MessagePackObject]
 [System.Serializable]
 public partial struct STBaseInfo : System.ICloneable, IMessagePackSerializationCallbackReceiver {
-#region 변수
+	#region 변수
 	[Key(0)] public Dictionary<string, string> m_oStrDict;
-#endregion // 변수
+	#endregion // 변수
 
-#region ICloneable
+	#region ICloneable
 	/** 사본 객체를 생성한다 */
 	public object Clone() {
 		var stBaseInfo = new STBaseInfo(null);
@@ -29,9 +29,9 @@ public partial struct STBaseInfo : System.ICloneable, IMessagePackSerializationC
 		stBaseInfo.OnAfterDeserialize();
 		return stBaseInfo;
 	}
-#endregion // ICloneable
+	#endregion // ICloneable
 
-#region IMessagePackSerializationCallbackReceiver
+	#region IMessagePackSerializationCallbackReceiver
 	/** 직렬화 될 경우 */
 	public void OnBeforeSerialize() {
 		// Do Something
@@ -41,9 +41,9 @@ public partial struct STBaseInfo : System.ICloneable, IMessagePackSerializationC
 	public void OnAfterDeserialize() {
 		m_oStrDict = m_oStrDict ?? new Dictionary<string, string>();
 	}
-#endregion // IMessagePackSerializationCallbackReceiver
+	#endregion // IMessagePackSerializationCallbackReceiver
 
-#region 함수
+	#region 함수
 	/** 생성자 */
 	public STBaseInfo(Dictionary<string, string> a_oStrDict) {
 		m_oStrDict = a_oStrDict ?? new Dictionary<string, string>();
@@ -53,9 +53,9 @@ public partial struct STBaseInfo : System.ICloneable, IMessagePackSerializationC
 	private void SetupCloneInst(ref STBaseInfo a_stOutBaseInfo) {
 		m_oStrDict.ExCopyTo(a_stOutBaseInfo.m_oStrDict, (a_oStr) => a_oStr);
 	}
-#endregion // 함수
+	#endregion // 함수
 
-#region 조건부 함수
+	#region 조건부 함수
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	/** 직렬화 될 경우 */
 	[OnSerializing]
@@ -69,7 +69,7 @@ public partial struct STBaseInfo : System.ICloneable, IMessagePackSerializationC
 		this.OnAfterDeserialize();
 	}
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
-#endregion // 조건부 함수
+	#endregion // 조건부 함수
 }
 
 /** 기본 정보 */
@@ -81,16 +81,16 @@ public partial struct STBaseInfo : System.ICloneable, IMessagePackSerializationC
 [MessagePackObject]
 [System.Serializable]
 public abstract partial class CBaseInfo : IMessagePackSerializationCallbackReceiver {
-#region 변수
+	#region 변수
 	[Key(0)] public Dictionary<string, string> m_oStrDict = new Dictionary<string, string>();
-#endregion // 변수
+	#endregion // 변수
 
-#region 상수
+	#region 상수
 	private const string KEY_VER = "Ver";
 	private const string KEY_SAVE_TIME = "SaveTime";
-#endregion // 상수
+	#endregion // 상수
 
-#region 프로퍼티
+	#region 프로퍼티
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	[JsonIgnore]
 	[IgnoreMember]
@@ -106,11 +106,11 @@ public abstract partial class CBaseInfo : IMessagePackSerializationCallbackRecei
 		set { m_oStrDict.ExReplaceVal(KEY_SAVE_TIME, value.ExToLongStr()); }
 	}
 
-	[JsonIgnore][IgnoreMember] public virtual bool IsIgnoreVer => false;
-	[JsonIgnore][IgnoreMember] public virtual bool IsIgnoreSaveTime => false;
+	[JsonIgnore] [IgnoreMember] public virtual bool IsIgnoreVer => false;
+	[JsonIgnore] [IgnoreMember] public virtual bool IsIgnoreSaveTime => false;
 
-	[JsonIgnore][IgnoreMember] private string SaveTimeStr => m_oStrDict.GetValueOrDefault(KEY_SAVE_TIME, string.Empty);
-	[JsonIgnore][IgnoreMember] private string CorrectSaveTimeStr => this.SaveTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.SaveTimeStr : this.SaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
+	[JsonIgnore] [IgnoreMember] private string SaveTimeStr => m_oStrDict.GetValueOrDefault(KEY_SAVE_TIME, string.Empty);
+	[JsonIgnore] [IgnoreMember] private string CorrectSaveTimeStr => this.SaveTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.SaveTimeStr : this.SaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 #else
 	[IgnoreMember]
 	public System.Version Ver {
@@ -130,9 +130,9 @@ public abstract partial class CBaseInfo : IMessagePackSerializationCallbackRecei
 	[IgnoreMember] private string SaveTimeStr => m_oStrDict.GetValueOrDefault(KEY_SAVE_TIME, string.Empty);
 	[IgnoreMember] private string CorrectSaveTimeStr => this.SaveTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.SaveTimeStr : this.SaveTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
-#endregion // 프로퍼티
+	#endregion // 프로퍼티
 
-#region IMessagePackSerializationCallbackReceiver
+	#region IMessagePackSerializationCallbackReceiver
 	/** 직렬화 될 경우 */
 	public virtual void OnBeforeSerialize() {
 		// 버전 무시 모드 일 경우
@@ -152,16 +152,16 @@ public abstract partial class CBaseInfo : IMessagePackSerializationCallbackRecei
 	public virtual void OnAfterDeserialize() {
 		m_oStrDict = m_oStrDict ?? new Dictionary<string, string>();
 	}
-#endregion // IMessagePackSerializationCallbackReceiver
+	#endregion // IMessagePackSerializationCallbackReceiver
 
-#region 함수
+	#region 함수
 	/** 생성자 */
 	public CBaseInfo(System.Version a_stVer) {
 		this.Ver = a_stVer;
 	}
-#endregion // 함수
+	#endregion // 함수
 
-#region 조건부 함수
+	#region 조건부 함수
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	/** 직렬화 될 경우 */
 	[OnSerializing]
@@ -175,6 +175,6 @@ public abstract partial class CBaseInfo : IMessagePackSerializationCallbackRecei
 		this.OnAfterDeserialize();
 	}
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
-#endregion // 조건부 함수
+	#endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

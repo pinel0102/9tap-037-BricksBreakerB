@@ -15,25 +15,29 @@ namespace NSEngine {
 			public CItemTargetInfo m_oItemTargetInfo;
 		}
 
-#region 변수
+		#region 변수
 
-#endregion // 변수
+		#endregion // 변수
 
-#region 프로퍼티
+		#region 프로퍼티
 		public new STParams Params { get; private set; }
-#endregion // 프로퍼티
+		#endregion // 프로퍼티
 
-#region 함수
+		#region 함수
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
-			this.SubSetupAwake();
+			this.SubAwake();
 		}
 
 		/** 초기화 */
 		public virtual void Init(STParams a_stParams) {
 			base.Init(a_stParams.m_stBaseParams);
 			this.Params = a_stParams;
+
+			// 스프라이트를 설정한다
+			this.TargetSprite?.ExSetSprite<SpriteRenderer>(Access.GetSprite(a_stParams.m_stItemInfo.m_eItemKinds));
+			this.TargetSprite?.ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stItemInfo.m_eItemKinds));
 
 			this.SubInit();
 		}
@@ -47,16 +51,16 @@ namespace NSEngine {
 				global::Func.SetupAbilityVals(this.Params.m_stItemInfo, this.Params.m_oItemTargetInfo, this.AbilityValDictWrapper.m_oDict02);
 			}
 		}
-#endregion // 함수
+		#endregion // 함수
 
-#region 클래스 함수
+		#region 클래스 함수
 		/** 매개 변수를 생성한다 */
 		public static STParams MakeParams(CEngine a_oEngine, STItemInfo a_stItemInfo, CItemTargetInfo a_oItemTargetInfo, CEController a_oController = null, string a_oObjsPoolKey = KCDefine.B_TEXT_EMPTY) {
 			return new STParams() {
 				m_stBaseParams = CEObjComponent.MakeParams(a_oEngine, a_oController, a_oObjsPoolKey), m_stItemInfo = a_stItemInfo, m_oItemTargetInfo = a_oItemTargetInfo
 			};
 		}
-#endregion // 클래스 함수
+		#endregion // 클래스 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

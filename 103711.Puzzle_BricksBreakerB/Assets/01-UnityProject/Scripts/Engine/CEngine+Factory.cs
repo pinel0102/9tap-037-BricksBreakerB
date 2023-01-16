@@ -8,7 +8,7 @@ using UnityEngine.Events;
 namespace NSEngine {
 	/** 엔진 - 팩토리 */
 	public partial class CEngine : CComponent {
-#region 함수
+		#region 함수
 		/** 아이템을 생성한다 */
 		public CEItem CreateItem(STItemInfo a_stItemInfo, CItemTargetInfo a_oItemTargetInfo, CEObjComponent a_oOwner = null, bool a_bIsEnableController = true) {
 			var oItem = CSceneManager.ActiveSceneManager.SpawnObj<CEItem>(KDefine.E_OBJ_N_ITEM, KDefine.E_KEY_ITEM_OBJS_POOL);
@@ -64,7 +64,7 @@ namespace NSEngine {
 			// 아이템이 존재 할 경우
 			if(a_oItem != null && a_oItem.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey.ExIsValid()) {
 				this.ItemList.ExRemoveVal(a_oItem);
-				CFactory.RemoveObj(a_oItem.Params.m_stBaseParams.m_oController, false, false);
+				CFunc.RemoveObj(a_oItem.Params.m_stBaseParams.m_oController, false, false);
 				CSceneManager.ActiveSceneManager.DespawnObj(a_oItem.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey, a_oItem.gameObject, a_fDelay);
 			}
 		}
@@ -76,7 +76,7 @@ namespace NSEngine {
 			// 스킬이 존재 할 경우
 			if(a_oSkill != null && a_oSkill.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey.ExIsValid()) {
 				this.SkillList.ExRemoveVal(a_oSkill);
-				CFactory.RemoveObj(a_oSkill.Params.m_stBaseParams.m_oController, false, false);
+				CFunc.RemoveObj(a_oSkill.Params.m_stBaseParams.m_oController, false, false);
 				CSceneManager.ActiveSceneManager.DespawnObj(a_oSkill.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey, a_oSkill.gameObject, a_fDelay);
 			}
 		}
@@ -88,7 +88,7 @@ namespace NSEngine {
 			// 객체가 존재 할 경우
 			if(a_oObj != null && a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey.ExIsValid()) {
 				this.ObjList.ExRemoveVal(a_oObj);
-				CFactory.RemoveObj(a_oObj.Params.m_stBaseParams.m_oController, false, false);
+				CFunc.RemoveObj(a_oObj.Params.m_stBaseParams.m_oController, false, false);
 				CSceneManager.ActiveSceneManager.DespawnObj(a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey, a_oObj.gameObject, a_fDelay);
 			}
 		}
@@ -100,7 +100,7 @@ namespace NSEngine {
 			// 효과가 존재 할 경우
 			if(a_oFX != null && a_oFX.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey.ExIsValid()) {
 				this.FXList.ExRemoveVal(a_oFX);
-				CFactory.RemoveObj(a_oFX.Params.m_stBaseParams.m_oController, false, false);
+				CFunc.RemoveObj(a_oFX.Params.m_stBaseParams.m_oController, false, false);
 				CSceneManager.ActiveSceneManager.DespawnObj(a_oFX.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey, a_oFX.gameObject, a_fDelay);
 			}
 		}
@@ -123,9 +123,10 @@ namespace NSEngine {
 				case KDefine.E_KEY_CELL_OBJ_OBJS_POOL: this.RemoveCellObj(a_oEObjComponent as CEObj); break;
 				case KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL: this.RemovePlayerObj(a_oEObjComponent as CEObj); break;
 				case KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL: this.RemoveEnemyObj(a_oEObjComponent as CEObj); break;
+				case KDefine.E_KEY_BALL_OBJ_OBJS_POOL: this.RemoveBallObj(a_oEObjComponent as CEObj); break;
 			}
 		}
-#endregion // 함수
+		#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

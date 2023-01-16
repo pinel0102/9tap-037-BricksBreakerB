@@ -24,27 +24,27 @@ namespace StartScene {
 			[HideInInspector] MAX_VAL
 		}
 
-#region 변수
+		#region 변수
 
-#endregion // 변수
+		#endregion // 변수
 
-#region 프로퍼티
+		#region 프로퍼티
 		public override bool IsIgnoreLoadingGauge => false;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		public override Vector3 LoadingTextPos => KDefine.SS_POS_LOADING_TEXT;
 		public override Vector3 LoadingGaugePos => KDefine.SS_POS_LOADING_GAUGE;
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
-#endregion // 프로퍼티
+		#endregion // 프로퍼티
 
-#region 함수
+		#region 함수
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
 
 			// 초기화 되었을 경우
 			if(CSceneManager.IsInit) {
-				this.SetupAwake();
+				// Do Something
 			}
 		}
 
@@ -59,16 +59,11 @@ namespace StartScene {
 			base.OnReceiveStartSceneEvent(a_eEvent);
 		}
 
-		/** 씬을 설정한다 */
-		private void SetupAwake() {
-			// Do Something
-		}
-
 		/** 텍스트 상태를 갱신한다 */
 		private void UpdateUIsState() {
 			// Do Something
 		}
-#endregion // 함수
+		#endregion // 함수
 	}
 }
 #endif // #if SCENE_TEMPLATES_MODULE_ENABLE

@@ -10,9 +10,9 @@ using UnityEngine.EventSystems;
 namespace GameScene {
 	/** 서브 게임 씬 관리자 */
 	public partial class CSubGameSceneManager : CGameSceneManager {
-#region 함수
+		#region 함수
 
-#endregion // 함수
+		#endregion // 함수
 	}
 
 	/** 서브 게임 씬 관리자 - 서브 */
@@ -20,6 +20,7 @@ namespace GameScene {
 		/** 서브 식별자 */
 		private enum ESubKey {
 			NONE = -1,
+			DROP_ALL_BALLS_BTN,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -31,18 +32,21 @@ namespace GameScene {
 		}
 #endif // #if DEBUG || DEVELOPMENT_BUILD
 
-#region 변수
+		#region 변수
 		/** =====> UI <===== */
 #if DEBUG || DEVELOPMENT_BUILD
 		[SerializeField] private STSubTestUIs m_stSubTestUIs;
 #endif // #if DEBUG || DEVELOPMENT_BUILD
-#endregion // 변수
 
-#region 프로퍼티
+		[SerializeField] private List<GameObject> m_oIdleUIsList = new List<GameObject>();
+		[SerializeField] private List<GameObject> m_oShootUIsList = new List<GameObject>();
+		#endregion // 변수
 
-#endregion // 프로퍼티
+		#region 프로퍼티
 
-#region 함수
+		#endregion // 프로퍼티
+
+		#region 함수
 		/** 상태를 갱신한다 */
 		public override void OnUpdate(float a_fDeltaTime) {
 			base.OnUpdate(a_fDeltaTime);
@@ -53,6 +57,7 @@ namespace GameScene {
 
 				// UI 갱신이 필요 할 경우
 				if(m_oBoolDict.GetValueOrDefault(EKey.IS_UPDATE_UIS_STATE)) {
+					this.UpdateUIsState();
 					m_oBoolDict.ExReplaceVal(EKey.IS_UPDATE_UIS_STATE, false);
 				}
 			}
@@ -73,14 +78,19 @@ namespace GameScene {
 		}
 
 		/** 씬을 설정한다 */
-		private void SubSetupAwake() {
+		private void SubAwake() {
 #if DEBUG || DEVELOPMENT_BUILD
 			this.SubSetupTestUIs();
 #endif // #if DEBUG || DEVELOPMENT_BUILD
+
+			// 버튼을 설정한다
+			CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
+				($"{ESubKey.DROP_ALL_BALLS_BTN}", this.UIsBase, this.OnTouchDropAllBallsBtn)
+			});
 		}
 
 		/** 씬을 설정한다 */
-		private void SubSetupStart() {
+		private void SubStart() {
 			this.ExLateCallFunc((a_oSender) => {
 				m_oEngine.SetEnableRunning(true);
 				m_oEngine.SetState(NSEngine.CEngine.EState.PLAY);
@@ -89,6 +99,8 @@ namespace GameScene {
 				// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능)
 				m_oEngine.SelPlayerObj.GetController<NSEngine.CEController>().SetState(NSEngine.CEController.EState.IDLE, true);
 #endif // #if NEVER_USE_THIS
+
+				m_oEngine.SetPlayState(NSEngine.CEngine.EPlayState.IDLE);
 			}, KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL);
 		}
 
@@ -97,11 +109,24 @@ namespace GameScene {
 #if DEBUG || DEVELOPMENT_BUILD
 			this.SubUpdateTestUIsState();
 #endif // #if DEBUG || DEVELOPMENT_BUILD
+
+			for(int i = 0; i < m_oIdleUIsList.Count; ++i) {
+				m_oIdleUIsList[i].SetActive(m_oEngine.PlayState == NSEngine.CEngine.EPlayState.IDLE);
+			}
+
+			for(int i = 0; i < m_oShootUIsList.Count; ++i) {
+				m_oShootUIsList[i].SetActive(m_oEngine.PlayState == NSEngine.CEngine.EPlayState.SHOOT);
+			}
 		}
 
 		/** 획득했을 경우 */
 		private void OnReceiveAcquireCallback(NSEngine.CEngine a_oSender, Dictionary<ulong, STTargetInfo> a_oAcquireTargetInfoDict) {
 			// Do Something
+		}
+
+		/** 모든 볼 떨어뜨리기 버튼을 눌렀을 경우 */
+		private void OnTouchDropAllBallsBtn() {
+			m_oEngine.DropAllBalls();
 		}
 
 		/** 선택 아이템을 적용한다 */
@@ -123,9 +148,9 @@ namespace GameScene {
 		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// Do Something
 		}
-#endregion // 함수
+		#endregion // 함수
 
-#region 조건부 함수
+		#region 조건부 함수
 #if UNITY_EDITOR
 		/** 기즈모를 그린다 */
 		public override void OnDrawGizmos() {
@@ -180,7 +205,7 @@ namespace GameScene {
 			}
 		}
 #endif // #if ADS_MODULE_ENABLE
-#endregion // 조건부 함수
+		#endregion // 조건부 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

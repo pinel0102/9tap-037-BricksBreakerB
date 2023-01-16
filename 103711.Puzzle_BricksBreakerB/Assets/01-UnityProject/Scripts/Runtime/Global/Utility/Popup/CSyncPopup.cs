@@ -16,14 +16,14 @@ public partial class CSyncPopup : CSubPopup {
 		[HideInInspector] MAX_VAL
 	}
 
-#region 변수
+	#region 변수
 	private Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>();
 
 	/** =====> 객체 <===== */
 	private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
-#endregion // 변수
+	#endregion // 변수
 
-#region 함수
+	#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
@@ -42,7 +42,7 @@ public partial class CSyncPopup : CSubPopup {
 			(KCDefine.U_OBJ_N_SAVE_BTN, this.Contents, this.OnTouchSaveBtn)
 		});
 
-		this.SubSetupAwake();
+		this.SubAwake();
 	}
 
 	/** 초기화 */
@@ -108,9 +108,9 @@ public partial class CSyncPopup : CSubPopup {
 #endif // #if FIREBASE_MODULE_ENABLE
 		});
 	}
-#endregion // 함수
+	#endregion // 함수
 
-#region 조건부 함수
+	#region 조건부 함수
 #if FIREBASE_MODULE_ENABLE
 	/** 로그인 되었을 경우 */
 	private void OnLogin(CFirebaseManager a_oSender, bool a_bIsSuccess) {
@@ -191,6 +191,6 @@ public partial class CSyncPopup : CSubPopup {
 		}
 	}
 #endif // #if FIREBASE_MODULE_ENABLE
-#endregion // 조건부 함수
+	#endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

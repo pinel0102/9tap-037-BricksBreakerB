@@ -13,12 +13,12 @@ using UnityEditor.iOS.Xcode;
 
 /** 에디터 상수 */
 public static partial class KEditorDefine {
-#region 기본
+	#region 기본
 	// 유니티 패키지
 	public const string B_UNITY_PKGS_ID_FMT = "{0}@{1}";
-#endregion // 기본
+	#endregion // 기본
 
-#region 런타임 상수
+	#region 런타임 상수
 	// 스크립트 순서
 	public static readonly Dictionary<System.Type, int> B_SCRIPT_ORDER_DICT = new Dictionary<System.Type, int>() {
 		[typeof(CValTable)] = KCDefine.U_SCRIPT_O_SINGLETON,
@@ -189,53 +189,53 @@ public static partial class KEditorDefine {
 
 #if DEVELOPMENT_PROJ
 #if ADS_ENABLE || ADS_MODULE_ENABLE
-		["module.unitycommonads"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonads.git#3.0.0",
+		["module.unitycommonads"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonads.git#3.0.1",
 #endif // #if ADS_ENABLE || ADS_MODULE_ENABLE
 
 #if FLURRY_ENABLE || FLURRY_MODULE_ENABLE
-		["module.unitycommonflurry"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonflurry.git#3.0.0",
+		["module.unitycommonflurry"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonflurry.git#3.0.1",
 #endif // #if FLURRY_ENABLE || FLURRY_MODULE_ENABLE
 
 #if FACEBOOK_ENABLE || FACEBOOK_MODULE_ENABLE
-		["module.unitycommonfacebook"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfacebook.git#3.0.0",
+		["module.unitycommonfacebook"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfacebook.git#3.0.1",
 #endif // #if FACEBOOK_ENABLE || FACEBOOK_MODULE_ENABLE
 
 #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
-		["module.unitycommonfirebase"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfirebase.git#3.0.0",
+		["module.unitycommonfirebase"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfirebase.git#3.0.1",
 #endif // #if FIREBASE_ENABLE || FIREBASE_MODULE_ENABLE
 
 #if APPS_FLYER_ENABLE || APPS_FLYER_MODULE_ENABLE
-		["module.unitycommonappsflyer"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonappsflyer.git#3.0.0",
+		["module.unitycommonappsflyer"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonappsflyer.git#3.0.1",
 #endif // #if APPS_FLYER_ENABLE || APPS_FLYER_MODULE_ENABLE
 
 #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
-		["module.unitycommongamecenter"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommongamecenter.git#3.0.0",
+		["module.unitycommongamecenter"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommongamecenter.git#3.0.1",
 #endif // #if GAME_CENTER_ENABLE || GAME_CENTER_MODULE_ENABLE
 
 #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
-		["module.unitycommonpurchase"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonpurchase.git#3.0.0",
+		["module.unitycommonpurchase"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonpurchase.git#3.0.1",
 #endif // #if PURCHASE_ENABLE || PURCHASE_MODULE_ENABLE
 
 #if NOTI_ENABLE || NOTI_MODULE_ENABLE
-		["module.unitycommonnoti"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonnoti.git#3.0.0",
+		["module.unitycommonnoti"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonnoti.git#3.0.1",
 #endif // #if NOTI_ENABLE || NOTI_MODULE_ENABLE
 
 #if PLAYFAB_ENABLE || PLAYFAB_MODULE_ENABLE
-		["module.unitycommonplayfab"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonplayfab.git#3.0.0"
+		["module.unitycommonplayfab"] = "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonplayfab.git#3.0.1"
 #endif // #if PLAYFAB_ENABLE || PLAYFAB_MODULE_ENABLE
 #endif // #if DEVELOPMENT_PROJ
 	};
 	// 유니티 패키지 }
-#endregion // 런타임 상수
+	#endregion // 런타임 상수
 
-#region 조건부 상수
+	#region 조건부 상수
 #if UNITY_IOS
 	// 텍스트
 	public const string B_IOS_USER_TRACKING_USAGE_DESC = "Special offers and promotions just for you\nAdvertisements that match your interests\nAn improved personalized experience over time";
 #endif // #if UNITY_IOS
-#endregion // 조건부 상수
+	#endregion // 조건부 상수
 
-#region 조건부 런타임 상수
+	#region 조건부 런타임 상수
 #if UNITY_IOS
 	// 광고 네트워크 식별자
 	public static readonly List<string> B_IOS_ADS_NETWORK_ID_LIST = new List<string>() {
@@ -397,6 +397,6 @@ public static partial class KEditorDefine {
 #endif // #if PURCHASE_MODULE_ENABLE
 	};
 #endif // #if UNITY_IOS
-#endregion // 조건부 런타임 상수
+	#endregion // 조건부 런타임 상수
 }
 #endif // #if UNITY_EDITOR

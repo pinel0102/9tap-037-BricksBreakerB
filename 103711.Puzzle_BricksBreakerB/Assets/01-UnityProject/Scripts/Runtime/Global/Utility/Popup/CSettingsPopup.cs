@@ -17,12 +17,12 @@ public partial class CSettingsPopup : CSubPopup {
 		[HideInInspector] MAX_VAL
 	}
 
-#region 변수
+	#region 변수
 	/** =====> UI <===== */
 	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
-#endregion // 변수
+	#endregion // 변수
 
-#region 함수
+	#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
@@ -41,7 +41,7 @@ public partial class CSettingsPopup : CSubPopup {
 		}, m_oBtnDict);
 		// 버튼을 설정한다 }
 
-		this.SubSetupAwake();
+		this.SubAwake();
 	}
 
 	/** 초기화 */
@@ -124,6 +124,6 @@ public partial class CSettingsPopup : CSubPopup {
 	private void OnTouchSupportsBtn() {
 		CUnityMsgSender.Inst.SendMailMsg(string.Empty, string.Empty, CProjInfoTable.Inst.CompanyInfo.m_oSupportsMail);
 	}
-#endregion // 함수
+	#endregion // 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

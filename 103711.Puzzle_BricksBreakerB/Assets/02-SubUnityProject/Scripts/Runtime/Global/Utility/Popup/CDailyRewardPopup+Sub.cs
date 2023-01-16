@@ -7,9 +7,9 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 일일 보상 팝업 */
 public partial class CDailyRewardPopup : CSubPopup {
-#region 함수
-	
-#endregion // 함수
+	#region 함수
+
+	#endregion // 함수
 }
 
 /** 서브 일일 보상 팝업 */
@@ -20,17 +20,17 @@ public partial class CDailyRewardPopup : CSubPopup {
 		[HideInInspector] MAX_VAL
 	}
 
-#region 변수
+	#region 변수
 
-#endregion // 변수
+	#endregion // 변수
 
-#region 프로퍼티
+	#region 프로퍼티
 
-#endregion // 프로퍼티
+	#endregion // 프로퍼티
 
-#region 함수
+	#region 함수
 	/** 팝업을 설정한다 */
-	private void SubSetupAwake() {
+	private void SubAwake() {
 		// Do Something
 	}
 
@@ -48,6 +48,6 @@ public partial class CDailyRewardPopup : CSubPopup {
 	private void UpdateRewardUIsState(GameObject a_oRewardUIs, STRewardInfo a_stRewardInfo) {
 		// Do Something
 	}
-#endregion // 함수
+	#endregion // 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

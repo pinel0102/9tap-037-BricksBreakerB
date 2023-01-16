@@ -1,0 +1,15 @@
+{
+  "name": "module.unitycommonextension",
+  "version": "3.0.1",
+  "displayName": "Module.UnityCommonExtension",
+  "author": {
+    "name": "dante",
+    "email": "are2341@nate.com"
+  },
+  "dependencies": {
+    "module.unitycommondefine": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommondefine.git#3.0.1",
+	"module.unitycommonaccess": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonaccess.git#3.0.1",
+	"module.unitycommonfactory": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonfactory.git#3.0.1",
+    "module.unitycommonexternals": "https://gitlab.com/9tapmodule.repository/0300000001.module_unitycommonexternals.git#3.0.1"
+  }
+}

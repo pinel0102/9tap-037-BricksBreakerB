@@ -6,13 +6,6 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace NSEngine {
-	/** 효과 */
-	public partial class CEFX : CEObjComponent {
-#region 함수
-		
-#endregion // 함수
-	}
-
 	/** 서브 효과 */
 	public partial class CEFX : CEObjComponent {
 		/** 서브 식별자 */
@@ -21,17 +14,17 @@ namespace NSEngine {
 			[HideInInspector] MAX_VAL
 		}
 
-#region 변수
+		#region 변수
 
-#endregion // 변수
+		#endregion // 변수
 
-#region 프로퍼티
+		#region 프로퍼티
 
-#endregion // 프로퍼티
+		#endregion // 프로퍼티
 
-#region 함수
+		#region 함수
 		/** 컴포넌트를 설정한다 */
-		private void SubSetupAwake() {
+		private void SubAwake() {
 			// Do Something
 		}
 
@@ -39,7 +32,7 @@ namespace NSEngine {
 		private void SubInit() {
 			// Do Something
 		}
-#endregion // 함수
+		#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

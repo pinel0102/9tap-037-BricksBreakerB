@@ -7,7 +7,7 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE
 /** 서브 전역 접근자 확장 클래스 */
 public static partial class AccessExtension {
-#region 클래스 함수
+	#region 클래스 함수
 	/** 유효 여부를 검사한다 */
 	public static bool ExIsValid(this ERewardQuality a_eSender) {
 		return a_eSender > ERewardQuality.NONE && a_eSender < ERewardQuality.MAX_VAL;
@@ -157,41 +157,41 @@ public static partial class AccessExtension {
 	public static bool ExIsValid(this ESkillApplyKinds a_eSender) {
 		return a_eSender > ESkillApplyKinds.NONE && a_eSender < ESkillApplyKinds.MAX_VAL;
 	}
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 서브 타이틀 씬 접근자 확장 클래스 */
 public static partial class AccessExtension {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 서브 메인 씬 접근자 확장 클래스 */
 public static partial class AccessExtension {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 서브 게임 씬 접근자 확장 클래스 */
 public static partial class AccessExtension {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 서브 로딩 씬 접근자 확장 클래스 */
 public static partial class AccessExtension {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 서브 중첩 씬 접근자 확장 클래스 */
 public static partial class AccessExtension {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE

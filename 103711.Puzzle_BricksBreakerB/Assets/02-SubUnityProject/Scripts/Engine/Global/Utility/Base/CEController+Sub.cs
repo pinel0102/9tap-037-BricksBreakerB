@@ -6,13 +6,6 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace NSEngine {
-	/** 제어자 */
-	public abstract partial class CEController : CEComponent {
-#region 함수
-		
-#endregion // 함수
-	}
-
 	/** 서브 제어자 */
 	public abstract partial class CEController : CEComponent {
 		/** 서브 식별자 */
@@ -39,20 +32,20 @@ namespace NSEngine {
 			[HideInInspector] MAX_VAL
 		}
 
-#region 변수
+		#region 변수
 
-#endregion // 변수
+		#endregion // 변수
 
-#region 프로퍼티
+		#region 프로퍼티
 		public EState State { get; private set; } = EState.NONE;
 		public ESubState SubState { get; private set; } = ESubState.NONE;
 		protected Dictionary<EState, System.Func<bool>> StateCheckerDict { get; } = new Dictionary<EState, System.Func<bool>>();
 		protected Dictionary<ESubState, System.Func<bool>> SubStateCheckerDict { get; } = new Dictionary<ESubState, System.Func<bool>>();
 
 		public virtual bool IsActive => this.State != EState.NONE && this.State != EState.DISAPPEAR;
-#endregion // 프로퍼티
+		#endregion // 프로퍼티
 
-#region 함수
+		#region 함수
 		/** 상태를 갱신한다 */
 		public override void OnUpdate(float a_fDeltaTime) {
 			base.OnUpdate(a_fDeltaTime);
@@ -125,7 +118,7 @@ namespace NSEngine {
 		}
 
 		/** 제어자를 설정한다 */
-		private void SubSetupAwake() {
+		private void SubAwake() {
 			this.StateCheckerDict.TryAdd(EState.MOVE, this.IsEnableMoveState);
 			this.StateCheckerDict.TryAdd(EState.SKILL, this.IsEnableSkillState);
 		}
@@ -137,7 +130,7 @@ namespace NSEngine {
 			this.SetState(EState.NONE);
 			this.SetSubState(ESubState.NONE);
 		}
-#endregion // 함수
+		#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

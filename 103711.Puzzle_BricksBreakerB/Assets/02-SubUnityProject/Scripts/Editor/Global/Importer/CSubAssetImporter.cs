@@ -10,7 +10,7 @@ using UnityEditor;
 /** 서브 에셋 임포터 */
 [InitializeOnLoad]
 public partial class CSubAssetImporter : CAssetImporter {
-#region 함수
+	#region 함수
 	/** 에셋을 추가 할 경우 */
 	public override void OnPreprocessAsset() {
 		// Do Something
@@ -35,6 +35,6 @@ public partial class CSubAssetImporter : CAssetImporter {
 	protected override void SetupTexImporter(AssetImporter a_oImporter) {
 		// Do Something
 	}
-#endregion // 함수
+	#endregion // 함수
 }
 #endif // #if UNITY_EDITOR

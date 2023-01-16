@@ -7,7 +7,7 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 팝업 함수 */
 public static partial class Func {
-#region 클래스 함수
+	#region 클래스 함수
 	/** 상점 팝업을 출력한다 */
 	public static void ShowStorePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
 		Func.ShowPopup<CStorePopup>(KDefine.G_OBJ_N_STORE_POPUP, KCDefine.U_OBJ_P_G_STORE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
@@ -87,9 +87,9 @@ public static partial class Func {
 	public static void ShowTutorialPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
 		Func.ShowPopup<CTutorialPopup>(KDefine.G_OBJ_N_TUTORIAL_POPUP, KCDefine.U_OBJ_P_G_TUTORIAL_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 
-#region 제니릭 클래스 함수
+	#region 제니릭 클래스 함수
 	/** 팝업을 출력한다 */
 	public static void ShowPopup<T>(string a_oName, string a_oObjPath, GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) where T : CPopup {
 		// 팝업이 없을 경우
@@ -100,12 +100,12 @@ public static partial class Func {
 			oPopup.Show(a_oShowCallback, a_oCloseCallback);
 		}
 	}
-#endregion // 제니릭 클래스 함수
+	#endregion // 제니릭 클래스 함수
 }
 
 /** 팝업 함수 - 알림 */
 public static partial class Func {
-#region 클래스 함수
+	#region 클래스 함수
 	/** 경고 팝업을 출력한다 */
 	public static void ShowAlertPopup(CAlertPopup.STParams a_stParams) {
 		// 경고 팝업이 없을 경우
@@ -121,6 +121,6 @@ public static partial class Func {
 			[CAlertPopup.ECallback.OK_CANCEL] = a_oCallback
 		}));
 	}
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

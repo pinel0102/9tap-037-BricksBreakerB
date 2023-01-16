@@ -34,20 +34,20 @@ public partial class CProductBuyPopup : CSubPopup {
 #endif // #if PURCHASE_MODULE_ENABLE
 	}
 
-#region 변수
+	#region 변수
 	/** =====> 객체 <===== */
 	[SerializeField] private List<GameObject> m_oProductBuyUIsList = new List<GameObject>();
-#endregion // 변수
+	#endregion // 변수
 
-#region 프로퍼티
+	#region 프로퍼티
 	public STParams Params { get; private set; }
-#endregion // 프로퍼티
+	#endregion // 프로퍼티
 
-#region 함수
+	#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
-		this.SubSetupAwake();
+		this.SubAwake();
 	}
 
 	/** 초기화 */
@@ -112,6 +112,6 @@ public partial class CProductBuyPopup : CSubPopup {
 		CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.PurchaseProduct(a_stProductTradeInfo.m_eProductKinds, this.OnPurchaseProduct);
 #endif // #if PURCHASE_MODULE_ENABLE
 	}
-#endregion // 함수
+	#endregion // 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

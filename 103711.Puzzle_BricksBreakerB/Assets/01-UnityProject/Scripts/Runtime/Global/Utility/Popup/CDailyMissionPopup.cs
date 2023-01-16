@@ -12,19 +12,19 @@ public partial class CDailyMissionPopup : CMissionPopup {
 		public CMissionPopup.STParams m_stBaseParams;
 	}
 
-#region 변수
+	#region 변수
 
-#endregion // 변수
+	#endregion // 변수
 
-#region 프로퍼티
+	#region 프로퍼티
 	public new STParams Params { get; private set; }
-#endregion // 프로퍼티
+	#endregion // 프로퍼티
 
-#region 함수
+	#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
-		this.SubSetupAwake();
+		this.SubAwake();
 	}
 
 	/** 초기화 */
@@ -45,6 +45,6 @@ public partial class CDailyMissionPopup : CMissionPopup {
 	private void UpdateUIsState() {
 		this.SubUpdateUIsState();
 	}
-#endregion // 함수
+	#endregion // 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

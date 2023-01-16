@@ -14,19 +14,20 @@ namespace NSEngine {
 			public CEngine m_oEngine;
 		}
 
-#region 변수
+		#region 변수
 
-#endregion // 변수
+		#endregion // 변수
 
-#region 프로퍼티
+		#region 프로퍼티
 		public STParams Params { get; private set; }
-#endregion // 프로퍼티
+		public CEngine Engine => this.Params.m_oEngine;
+		#endregion // 프로퍼티
 
-#region 함수
+		#region 함수
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
-			this.SubSetupAwake();
+			this.SubAwake();
 		}
 
 		/** 초기화 */
@@ -34,16 +35,16 @@ namespace NSEngine {
 			this.Params = a_stParams;
 			this.SubInit();
 		}
-#endregion // 함수
+		#endregion // 함수
 
-#region 클래스 함수
+		#region 클래스 함수
 		/** 매개 변수를 생성한다 */
 		public static STParams MakeParams(CEngine a_oEngine, string a_oObjsPoolKey) {
 			return new STParams() {
 				m_oObjsPoolKey = a_oObjsPoolKey, m_oEngine = a_oEngine
 			};
 		}
-#endregion // 클래스 함수
+		#endregion // 클래스 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

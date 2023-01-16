@@ -27,8 +27,10 @@ namespace OverlayScene {
 			[HideInInspector] MAX_VAL
 		}
 
-#region 변수
-		private Dictionary<EKey, string> m_oStrDict = new Dictionary<EKey, string>();
+		#region 변수
+		private Dictionary<EKey, string> m_oStrDict = new Dictionary<EKey, string>() {
+			[EKey.PURCHASE_PRODUCT_ID] = string.Empty
+		};
 
 		/** =====> UI <===== */
 		private Dictionary<EKey, TMP_Text> m_oTextDict = new Dictionary<EKey, TMP_Text>();
@@ -37,20 +39,30 @@ namespace OverlayScene {
 #if PURCHASE_MODULE_ENABLE
 		private Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>> m_oCallbackDict = new Dictionary<ECallback, System.Action<CPurchaseManager, string, bool>>();
 #endif // #if PURCHASE_MODULE_ENABLE
-#endregion // 변수
+		#endregion // 변수
 
-#region 프로퍼티
+		#region 프로퍼티
 		public override STSortingOrderInfo UIsCanvasSortingOrderInfo => KCDefine.U_SORTING_OI_OVERLAY_UIS_CANVAS;
-#endregion // 프로퍼티
+		#endregion // 프로퍼티
 
-#region 함수
+		#region 함수
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
 
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
-				this.SetupAwake();
+				// 텍스트를 설정한다
+				CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
+					(EKey.NUM_NORM_COINS_TEXT, $"{EKey.NUM_NORM_COINS_TEXT}", this.UIsBase)
+				}, m_oTextDict);
+
+				// 버튼을 설정한다
+				CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
+					(EKey.STORE_BTN, $"{EKey.STORE_BTN}", this.UIsBase, this.OnTouchStoreBtn)
+				}, m_oBtnDict);
+
+				this.SubAwake();
 			}
 		}
 
@@ -60,8 +72,32 @@ namespace OverlayScene {
 
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
-				this.SetupStart();
+				this.SubStart();
 				this.UpdateUIsState();
+			}
+		}
+
+		/** 제거 되었을 경우 */
+		public override void OnDestroy() {
+			base.OnDestroy();
+
+			try {
+				// 앱이 실행 중 일 경우
+				if(CSceneManager.IsAppRunning) {
+					this.SubOnDestroy();
+				}
+			} catch(System.Exception oException) {
+				CFunc.ShowLogWarning($"CSubOverlaySceneManager.OnDestroy Exception: {oException.Message}");
+			}
+		}
+
+		/** 상태를 갱신한다 */
+		public override void OnUpdate(float a_fDeltaTime) {
+			base.OnUpdate(a_fDeltaTime);
+
+			// 앱이 실행 중 일 경우
+			if(CSceneManager.IsAppRunning) {
+				this.SubOnUpdate(a_fDeltaTime);
 			}
 		}
 
@@ -83,35 +119,15 @@ namespace OverlayScene {
 			});
 		}
 
-		/** 씬을 설정한다 */
-		private void SetupAwake() {
-			// 텍스트를 설정한다
-			CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
-				(EKey.NUM_NORM_COINS_TEXT, $"{EKey.NUM_NORM_COINS_TEXT}", this.UIsBase)
-			}, m_oTextDict);
-
-			// 버튼을 설정한다
-			CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
-				(EKey.STORE_BTN, $"{EKey.STORE_BTN}", this.UIsBase, this.OnTouchStoreBtn)
-			}, m_oBtnDict);
-
-			this.SubSetupAwake();
-		}
-
-		/** 씬을 설정한다 */
-		private void SetupStart() {
-			this.SubSetupStart();
-		}
-
 		/** UI 상태를 갱신한다 */
 		private void UpdateUIsState() {
+			// 텍스트를 갱신한다
+			m_oTextDict[EKey.NUM_NORM_COINS_TEXT]?.ExSetText($"{Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_NORM_COINS, ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS)}", EFontSet._1, false);
+
 			// UI 상태를 갱신한다
 			CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
 			CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
 			CSceneManager.GetSceneManager<TitleScene.CSubTitleSceneManager>(KCDefine.B_SCENE_N_TITLE)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);
-
-			// 텍스트를 갱신한다
-			m_oTextDict.GetValueOrDefault(EKey.NUM_NORM_COINS_TEXT)?.ExSetText($"{Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_NORM_COINS, ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS)}", EFontSet._1, false);
 
 			this.SubUpdateUIsState();
 		}
@@ -120,9 +136,9 @@ namespace OverlayScene {
 		private void OnTouchStoreBtn() {
 			this.ShowStorePopup();
 		}
-#endregion // 함수
+		#endregion // 함수
 
-#region 조건부 함수
+		#region 조건부 함수
 #if PURCHASE_MODULE_ENABLE
 		/** 상품을 결제한다 */
 		public void PurchaseProduct(int a_nProductIdx, System.Action<CPurchaseManager, string, bool> a_oCallback) {
@@ -140,10 +156,10 @@ namespace OverlayScene {
 			// 결제 되었을 경우
 			if(a_bIsSuccess) {
 				Func.AcquireProduct(a_oProductID);
-				m_oStrDict.ExReplaceVal(EKey.PURCHASE_PRODUCT_ID, a_oProductID);
+				m_oStrDict[EKey.PURCHASE_PRODUCT_ID] = a_oProductID;
 
 #if FIREBASE_MODULE_ENABLE
-				this.ExLateCallFunc((a_oCallFuncSender) => Func.SaveUserInfo(this.OnSaveUserInfo));
+				this.ExLateCallFunc((a_oFuncSender) => Func.SaveUserInfo(this.OnSaveUserInfo));
 #else
 				Func.OnPurchaseProduct(a_oSender, a_oProductID, a_bIsSuccess, null);
 #endif // #if FIREBASE_MODULE_ENABLE
@@ -158,11 +174,11 @@ namespace OverlayScene {
 #if FIREBASE_MODULE_ENABLE
 		/** 유저 정보를 저장했을 경우 */
 		private void OnSaveUserInfo(CFirebaseManager a_oSender, bool a_bIsSuccess) {
-			Func.OnPurchaseProduct(CPurchaseManager.Inst, m_oStrDict.GetValueOrDefault(EKey.PURCHASE_PRODUCT_ID, string.Empty), true, null);
+			Func.OnPurchaseProduct(CPurchaseManager.Inst, m_oStrDict[EKey.PURCHASE_PRODUCT_ID], true, null);
 		}
 #endif // #if FIREBASE_MODULE_ENABLE
 #endif // #if PURCHASE_MODULE_ENABLE
-#endregion // 조건부 함수
+		#endregion // 조건부 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

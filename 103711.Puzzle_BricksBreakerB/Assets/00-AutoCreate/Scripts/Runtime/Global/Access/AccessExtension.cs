@@ -10,7 +10,7 @@ using TMPro;
 
 /** 기본 접근자 확장 클래스 */
 public static partial class AccessExtension {
-#region 클래스 함수
+	#region 클래스 함수
 	/** 컴포넌트 상호 작용 여부를 변경한다 */
 	public static void ExSetInteractable(this Button a_oSender, bool a_bIsEnable, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);
@@ -58,6 +58,6 @@ public static partial class AccessExtension {
 			a_oSender.ExSetText(a_oStr, CLocalizeInfoTable.Inst.GetFontSetInfo(a_eFontSet), a_bIsEnableAssert);
 		}
 	}
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

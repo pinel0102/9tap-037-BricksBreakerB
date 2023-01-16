@@ -20,7 +20,7 @@ using Unity.EditorCoroutines.Editor;
 /** 에디터 씬 관리자 */
 [InitializeOnLoad]
 public static partial class CEditorSceneManager {
-#region 클래스 변수
+	#region 클래스 변수
 	private static bool m_bIsEnableSetup = false;
 	private static bool m_bIsEnableSetupDependencies = false;
 
@@ -31,9 +31,9 @@ public static partial class CEditorSceneManager {
 	private static ListRequest m_oListRequest = null;
 	private static List<string> m_oSampleSceneNameList = new List<string>();
 	private static List<AddRequest> m_oAddRequestList = new List<AddRequest>();
-#endregion // 클래스 변수
+	#endregion // 클래스 변수
 
-#region 클래스 함수
+	#region 클래스 함수
 	/** 생성자 */
 	static CEditorSceneManager() {
 		// 플레이 모드가 아닐 경우
@@ -299,10 +299,10 @@ public static partial class CEditorSceneManager {
 					PrefabUtility.UnpackPrefabInstance(a_oObj, PrefabUnpackMode.OutermostRoot, InteractionMode.AutomatedAction);
 				} while(PrefabUtility.GetPrefabAssetType(a_oObj) != PrefabAssetType.NotAPrefab);
 
-				CEditorFactory.RemoveAsset(oPrefabPath);
+				CEditorFunc.RemoveAsset(oPrefabPath);
 			}
 		}
 	}
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 #endif // #if UNITY_EDITOR

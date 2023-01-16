@@ -7,7 +7,7 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 전역 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 	// 개수
 	public const int G_MAX_NUM_VALS = 10;
 	public const int G_MAX_NUM_VAL_INFOS = 10;
@@ -16,20 +16,20 @@ public static partial class KDefine {
 	// 식별자 {
 	public const int G_CHARACTER_ID_COMMON = byte.MaxValue;
 
-	public const string G_GOOGLE_SHEET_ID_VER_INFO = "1-KGAbcXMnLHXgHpcOtMtvu0FcJT6M7GzB8twHjqpaQQ";
-	public const string G_GOOGLE_SHEET_ID_ETC_INFO = "17c7ZK3-kisMhhWhFuHfYmBFpg5cFDqvmw05Q5eVOxxI";
-	public const string G_GOOGLE_SHEET_ID_MISSION_INFO = "1llcFijdEnBx9E5dyf8hqF9sIySwvvx93xGeMQSNBUUg";
-	public const string G_GOOGLE_SHEET_ID_REWARD_INFO = "18vYxpl_0Y6VurogDMNHHDEDE_5uoQu388i9HiaNPfm4";
-	public const string G_GOOGLE_SHEET_ID_RES_INFO = "19DoxxxlPdVOfOu7J6e-Q_lYgj701wj8DkARVMiEQwEI";
-	public const string G_GOOGLE_SHEET_ID_ITEM_INFO = "1g6hG_nrgRq2gc5sK7iKfA5nOK94BPNqVMSniI5XJOw8";
-	public const string G_GOOGLE_SHEET_ID_SKILL_INFO = "1v1QYGLNVUQ7j5p4FB6ww_Q1XyilGGiHBFNznJTVu2oc";
-	public const string G_GOOGLE_SHEET_ID_OBJ_INFO = "1T9xrG7mZjnKWTWBAHIv7mzZS4EJ2ofU7fb-ElQr16LI";
-	public const string G_GOOGLE_SHEET_ID_ABILITY_INFO = "1XjmdApQzIfJ6VP9-eLd0gZkw8wkN2ipdWlvEArP8hpU";
-	public const string G_GOOGLE_SHEET_ID_PRODUCT_INFO = "1Obdm2KjgzWXkKk1Z93Hy2I5KK0jyUHdgqQMpANbnHZQ";
+	public const string G_GOOGLE_SHEET_ID_VER_INFO = "1CRF4YZKkSAajLI9RAZOYgRsgSU_rbkvNIuHQ6leU2WI";
+	public const string G_GOOGLE_SHEET_ID_ETC_INFO = "1U-_9w6Miat7BAPS4KURhjAYvdqrRLETFpzp7TkT9gpA";
+	public const string G_GOOGLE_SHEET_ID_MISSION_INFO = "1pGsLNHVx9KlXeH9oqWhnT0UL0JBfR-bp2l1YMvqjeyQ";
+	public const string G_GOOGLE_SHEET_ID_REWARD_INFO = "1Y4ytle0IPmmg_YVFa_0BYFNUYmSCuxu8eNUWewnS1ow";
+	public const string G_GOOGLE_SHEET_ID_RES_INFO = "13d01iYX9LxZAau56ntjwjm91HTIzgsx_u9xPaj2UIcw";
+	public const string G_GOOGLE_SHEET_ID_ITEM_INFO = "13FPLZ1K6Izb5_iF8eKTVyNZg5W3tZmyHmh0rn0xoC7g";
+	public const string G_GOOGLE_SHEET_ID_SKILL_INFO = "1uGUgLtpe4dumREa7EocGIuL6YyN7Nzr2tyW8oDjmF7E";
+	public const string G_GOOGLE_SHEET_ID_OBJ_INFO = "1AazL4SGftcKgRFLuEiIIJS7vkgxXNXr5wMw08lcON8Q";
+	public const string G_GOOGLE_SHEET_ID_ABILITY_INFO = "19qOqfIb5u0YQkWgvXR6rAyYgblKz70ke8U_K0HvkL20";
+	public const string G_GOOGLE_SHEET_ID_PRODUCT_INFO = "1Ylk-sHMYuqlRvTS3GJZ-6vNZV2UWOlfmZt6P1K79qlo";
 	// 식별자 }
-#endregion // 기본
+	#endregion // 기본
 
-#region 런타임 상수
+	#region 런타임 상수
 	// 버전 {
 	public static readonly System.Version G_VER_APP_INFO = new System.Version(1, 0, 0);
 	public static readonly System.Version G_VER_GAME_INFO = new System.Version(1, 0, 0);
@@ -492,94 +492,94 @@ public static partial class KDefine {
 		})
 	};
 	// 테이블 정보 }
-#endregion // 런타임 상수
+	#endregion // 런타임 상수
 }
 
 /** 초기화 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 
-#region 런타임 상수
+	#region 런타임 상수
 	// 색상
 	public static readonly Color IS_COLOR_CLEAR = new Color(0x29 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x4c / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x94 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 1.0f);
-#endregion // 런타임 상수
+	#endregion // 런타임 상수
 }
 
 /** 시작 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 
-#region 런타임 상수
+	#region 런타임 상수
 	// 위치
 	public static readonly Vector3 SS_POS_LOADING_TEXT = new Vector3(0.0f, 70.0f, 0.0f);
 	public static readonly Vector3 SS_POS_LOADING_GAUGE = new Vector3(0.0f, -35.0f, 0.0f);
-#endregion // 런타임 상수
+	#endregion // 런타임 상수
 }
 
 /** 설정 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 }
 
 /** 약관 동의 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 }
 
 /** 지연 설정 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 }
 
 /** 타이틀 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 }
 
 /** 메인 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 }
 
 /** 게임 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 	// 이름
 	public const string GS_OBJ_N_ENGINE = "Engine";
-#endregion // 기본
+	#endregion // 기본
 }
 
 /** 로딩 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 
-#region 런타임 상수
+	#region 런타임 상수
 	// 위치
 	public static readonly Vector3 LS_POS_LOADING_TEXT = new Vector3(0.0f, 70.0f, 0.0f);
 	public static readonly Vector3 LS_POS_LOADING_GAUGE = new Vector3(0.0f, -35.0f, 0.0f);
-#endregion // 런타임 상수
+	#endregion // 런타임 상수
 }
 
 /** 중첩 씬 상수 */
 public static partial class KDefine {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

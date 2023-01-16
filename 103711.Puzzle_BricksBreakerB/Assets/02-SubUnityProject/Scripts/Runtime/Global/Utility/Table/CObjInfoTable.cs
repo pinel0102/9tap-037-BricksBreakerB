@@ -26,18 +26,18 @@ public struct STObjInfo {
 	public Dictionary<ulong, STTargetInfo> m_oAbilityTargetInfoDict;
 	public Dictionary<ulong, STTargetInfo> m_oAcquireTargetInfoDict;
 
-#region 상수
+	#region 상수
 	public static STObjInfo INVALID = new STObjInfo() {
 		m_eObjKinds = EObjKinds.NONE, m_ePrevObjKinds = EObjKinds.NONE, m_eNextObjKinds = EObjKinds.NONE
 	};
-#endregion // 상수
+	#endregion // 상수
 
-#region 프로퍼티
+	#region 프로퍼티
 	public EObjType ObjType => (EObjType)((int)m_eObjKinds).ExKindsToType();
 	public EObjKinds BaseObjKinds => (EObjKinds)((int)m_eObjKinds).ExKindsToSubKindsType();
-#endregion // 프로퍼티
+	#endregion // 프로퍼티
 
-#region 함수
+	#region 함수
 	/** 생성자 */
 	public STObjInfo(SimpleJSON.JSONNode a_oObjInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oObjInfo);
@@ -56,9 +56,9 @@ public struct STObjInfo {
 		m_oAbilityTargetInfoDict = Factory.MakeTargetInfos(a_oObjInfo, KCDefine.U_KEY_FMT_ABILITY_TARGET_INFO);
 		m_oAcquireTargetInfoDict = Factory.MakeTargetInfos(a_oObjInfo, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO);
 	}
-#endregion // 함수
+	#endregion // 함수
 
-#region 조건부 함수
+	#region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 객체 정보를 저장한다 */
 	public void SaveObjInfo(SimpleJSON.JSONNode a_oOutObjInfo) {
@@ -82,7 +82,7 @@ public struct STObjInfo {
 		Func.SaveTargetInfos(m_oAcquireTargetInfoDict, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, a_oOutObjInfo);
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-#endregion // 조건부 함수
+	#endregion // 조건부 함수
 }
 
 /** 객체 교환 정보 */
@@ -97,18 +97,18 @@ public struct STObjTradeInfo {
 	public Dictionary<ulong, STTargetInfo> m_oPayTargetInfoDict;
 	public Dictionary<ulong, STTargetInfo> m_oAcquireTargetInfoDict;
 
-#region 상수
+	#region 상수
 	public static STObjTradeInfo INVALID = new STObjTradeInfo() {
 		m_eObjKinds = EObjKinds.NONE, m_ePrevObjKinds = EObjKinds.NONE, m_eNextObjKinds = EObjKinds.NONE
 	};
-#endregion // 상수
+	#endregion // 상수
 
-#region 프로퍼티
+	#region 프로퍼티
 	public EObjType ObjType => (EObjType)((int)m_eObjKinds).ExKindsToType();
 	public EObjKinds BaseObjKinds => (EObjKinds)((int)m_eObjKinds).ExKindsToSubKindsType();
-#endregion // 프로퍼티
+	#endregion // 프로퍼티
 
-#region 함수
+	#region 함수
 	/** 생성자 */
 	public STObjTradeInfo(SimpleJSON.JSONNode a_oObjTradeInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oObjTradeInfo);
@@ -120,9 +120,9 @@ public struct STObjTradeInfo {
 		m_oPayTargetInfoDict = Factory.MakeTargetInfos(a_oObjTradeInfo, KCDefine.U_KEY_FMT_PAY_TARGET_INFO);
 		m_oAcquireTargetInfoDict = Factory.MakeTargetInfos(a_oObjTradeInfo, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO);
 	}
-#endregion // 함수
+	#endregion // 함수
 
-#region 조건부 함수
+	#region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 객체 교환 정보를 저장한다 */
 	public void SaveObjTradeInfo(SimpleJSON.JSONNode a_oOutObjTradeInfo) {
@@ -136,19 +136,19 @@ public struct STObjTradeInfo {
 		Func.SaveTargetInfos(m_oAcquireTargetInfoDict, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO, a_oOutObjTradeInfo);
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-#endregion // 조건부 함수
+	#endregion // 조건부 함수
 }
 
 /** 객체 정보 테이블 */
 public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
-#region 프로퍼티
+	#region 프로퍼티
 	public Dictionary<EObjKinds, STObjInfo> ObjInfoDict { get; } = new Dictionary<EObjKinds, STObjInfo>();
 	public Dictionary<EObjKinds, STObjTradeInfo> BuyObjTradeInfoDict { get; } = new Dictionary<EObjKinds, STObjTradeInfo>();
 	public Dictionary<EObjKinds, STObjTradeInfo> SaleObjTradeInfoDict { get; } = new Dictionary<EObjKinds, STObjTradeInfo>();
 	public Dictionary<EObjKinds, STObjTradeInfo> EnhanceObjTradeInfoDict { get; } = new Dictionary<EObjKinds, STObjTradeInfo>();
-#endregion // 프로퍼티
+	#endregion // 프로퍼티
 
-#region 함수
+	#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
@@ -320,9 +320,9 @@ public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 
 		return (this.ObjInfoDict, this.BuyObjTradeInfoDict, this.SaleObjTradeInfoDict, this.EnhanceObjTradeInfoDict);
 	}
-#endregion // 함수
+	#endregion // 함수
 
-#region 조건부 함수
+	#region 조건부 함수
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
 	/** 객체 정보를 저장한다 */
 	public void SaveObjInfos() {
@@ -408,6 +408,6 @@ public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 		Access.ObjTableInfo.m_oKeyInfoDictContainer[this.GetType()].GetValueOrDefault(KCDefine.B_KEY_ENHANCE_TRADE)?.ExCopyTo(a_oOutEnhanceTradeKeyInfoList, (a_stKeyInfo) => a_stKeyInfo, false, false);
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-#endregion // 조건부 함수
+	#endregion // 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

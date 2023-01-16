@@ -8,13 +8,31 @@ using UnityEngine.Events;
 namespace NSEngine {
 	/** 엔진 - 설정 */
 	public partial class CEngine : CComponent {
-#region 함수
+		#region 함수
 		/** 엔진을 설정한다 */
 		private void SetupEngine() {
+			// 그리드 정보를 설정한다 {
 			m_oGridInfoList.Clear();
-			m_oGridInfoList.ExAddVal((CGameInfoStorage.Inst.PlayLevelInfo != null) ? Factory.MakeGridInfo(KCDefine.B_ANCHOR_MID_CENTER, Vector3.zero, Vector3.zero, CGameInfoStorage.Inst.PlayLevelInfo.NumCells) : STGridInfo.INVALID);
 
-			m_oCellObjLists = new List<CEObj>[CGameInfoStorage.Inst.PlayLevelInfo.NumCells.y, CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x];
+			for(int i = 0; i < KCDefine.B_VAL_1_INT; ++i) {
+				switch(CGameInfoStorage.Inst.PlayLevelInfo.GridPivot) {
+					case EGridPivot.DOWN: {
+						var stGridInfo = Factory.MakeGridInfo(KCDefine.B_ANCHOR_DOWN_CENTER, Vector3.zero, Vector3.zero, CGameInfoStorage.Inst.PlayLevelInfo.NumCells, true);
+						var stOffset = new Vector3(KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL);
+						var stPos = new Vector3(KCDefine.B_VAL_0_REAL, (Access.MaxGridSize.y / -KCDefine.B_VAL_2_REAL) * (KCDefine.B_VAL_1_REAL / stGridInfo.m_stScale.y), KCDefine.B_VAL_0_REAL);
+
+						m_oGridInfoList.ExAddVal(Factory.MakeGridInfo(KCDefine.B_ANCHOR_DOWN_CENTER, stPos, stOffset, CGameInfoStorage.Inst.PlayLevelInfo.NumCells, true));
+						break;
+					}
+					default: {
+						m_oGridInfoList.ExAddVal(Factory.MakeGridInfo(KCDefine.B_ANCHOR_MID_CENTER, Vector3.zero, Vector3.zero, CGameInfoStorage.Inst.PlayLevelInfo.NumCells));
+						break;
+					}
+				}
+			}
+			// 그리드 정보를 설정한다 }
+
+			this.CellObjLists = new List<CEObj>[CGameInfoStorage.Inst.PlayLevelInfo.NumCells.y, CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x];
 			CGameInfoStorage.Inst.PlayEpisodeInfo.m_oClearTargetInfoDict.ExCopyTo(m_oClearTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
 
 			// 객체 풀을 설정한다
@@ -37,7 +55,7 @@ namespace NSEngine {
 				}
 			}
 		}
-#endregion // 함수
+		#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

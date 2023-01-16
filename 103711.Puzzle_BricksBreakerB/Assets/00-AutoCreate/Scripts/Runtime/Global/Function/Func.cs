@@ -98,8 +98,13 @@ public static partial class Func {
 		[HideInInspector] MAX_VAL
 	}
 
-#region 클래스 변수
-	private static Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>();
+	#region 클래스 변수
+	private static Dictionary<EKey, bool> m_oBoolDict = new Dictionary<EKey, bool>() {
+#if ADS_MODULE_ENABLE
+		[EKey.IS_WATCH_REWARD_ADS] = false,
+		[EKey.IS_WATCH_FULLSCREEN_ADS] = false
+#endif // #if ADS_MODULE_ENABLE
+	};
 
 #if ADS_MODULE_ENABLE
 	private static STAdsRewardInfo m_stAdsRewardInfo;
@@ -156,9 +161,9 @@ public static partial class Func {
 	private static Dictionary<ECallback, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>> m_oGoogleSheetCallbackDict03 = new Dictionary<ECallback, System.Action<CServicesManager, STGoogleSheetLoadInfo, Dictionary<string, SimpleJSON.JSONNode>, bool>>();
 	private static Dictionary<ECallback, System.Action<CServicesManager, STGoogleSheetSaveInfo, bool>> m_oGoogleSheetCallbackDict04 = new Dictionary<ECallback, System.Action<CServicesManager, STGoogleSheetSaveInfo, bool>>();
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-#endregion // 클래스 변수
+	#endregion // 클래스 변수
 
-#region 클래스 함수
+	#region 클래스 함수
 	/** 문자열 테이블을 설정한다 */
 	public static void SetupStrTable() {
 		Func.SetupStrTable(CCommonAppInfoStorage.Inst.CountryCode, CCommonAppInfoStorage.Inst.SystemLanguage);
@@ -239,9 +244,9 @@ public static partial class Func {
 		CAccess.Assert(!a_bIsEnableAssert || a_eResKinds.ExIsValid());
 		return CResInfoTable.Inst.TryGetResInfo(a_eResKinds, out STResInfo stResInfo) ? CSndManager.Inst.PlayFXSnds(stResInfo.m_oResPath, a_stPos, a_fVolume, a_bIsLoop, a_bIsEnableAssert) : null;
 	}
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 
-#region 제네릭 클래스 함수
+	#region 제네릭 클래스 함수
 	/** 터치 전달자를 설정한다 */
 	public static void SetupTouchDispatchers<K>(List<(K, GameObject, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>, System.Action<CTouchDispatcher, PointerEventData>)> a_oKeyInfoList, Dictionary<K, CTouchDispatcher> a_oOutTouchDispatcherDict, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || (a_oKeyInfoList.ExIsValid() && a_oOutTouchDispatcherDict != null));
@@ -289,9 +294,9 @@ public static partial class Func {
 			}
 		}
 	}
-#endregion // 제네릭 클래스 함수
+	#endregion // 제네릭 클래스 함수
 
-#region 조건부 클래스 함수
+	#region 조건부 클래스 함수
 #if ADS_MODULE_ENABLE
 	/** 배너 광고를 출력한다 */
 	public static void ShowBannerAds(System.Action<CAdsManager, bool> a_oCallback) {
@@ -332,7 +337,7 @@ public static partial class Func {
 
 			CSceneManager.ActiveSceneManager.ExLateCallFunc((a_oSender) => {
 				Func.m_stAdsRewardInfo = STAdsRewardInfo.INVALID;
-				Func.m_oBoolDict.ExReplaceVal(EKey.IS_WATCH_REWARD_ADS, false);
+				Func.m_oBoolDict[EKey.IS_WATCH_REWARD_ADS] = false;
 				Func.m_oAdsCallbackDict02.ExReplaceVal(ECallback.SHOW_REWARD_ADS, a_oCallback);
 
 				CAdsManager.Inst.ShowRewardAds(a_eAdsPlatform, Func.OnReceiveAdsReward, null, Func.OnCloseRewardAds);
@@ -358,7 +363,7 @@ public static partial class Func {
 
 				// 전면 광고 출력이 가능 할 경우
 				if(CAppInfoStorage.Inst.IsEnableShowFullscreenAds) {
-					Func.m_oBoolDict.ExReplaceVal(EKey.IS_WATCH_FULLSCREEN_ADS, true);
+					Func.m_oBoolDict[EKey.IS_WATCH_FULLSCREEN_ADS] = true;
 					Func.m_oAdsCallbackDict01.ExReplaceVal(ECallback.SHOW_FULLSCREEN_ADS, a_oCallback);
 
 					CAdsManager.Inst.ShowFullscreenAds(a_eAdsPlatform, null, Func.OnCloseFullscreenAds);
@@ -385,13 +390,13 @@ public static partial class Func {
 		Func.IncrRewardAdsWatchTimes(KCDefine.B_VAL_1_INT);
 		CAppInfoStorage.Inst.SaveAppInfo();
 
-		Func.m_oAdsCallbackDict02.GetValueOrDefault(ECallback.SHOW_REWARD_ADS)?.Invoke(a_oSender, Func.m_stAdsRewardInfo, Func.m_oBoolDict.GetValueOrDefault(EKey.IS_WATCH_REWARD_ADS));
+		Func.m_oAdsCallbackDict02.GetValueOrDefault(ECallback.SHOW_REWARD_ADS)?.Invoke(a_oSender, Func.m_stAdsRewardInfo, Func.m_oBoolDict[EKey.IS_WATCH_REWARD_ADS]);
 	}
 
 	/** 광고 보상을 수신했을 경우 */
 	private static void OnReceiveAdsReward(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
 		Func.m_stAdsRewardInfo = a_stAdsRewardInfo;
-		Func.m_oBoolDict.ExReplaceVal(EKey.IS_WATCH_REWARD_ADS, a_bIsSuccess);
+		Func.m_oBoolDict[EKey.IS_WATCH_REWARD_ADS] = a_bIsSuccess;
 	}
 
 	/** 전면 광고가 닫혔을 경우 */
@@ -402,7 +407,7 @@ public static partial class Func {
 		Func.IncrFullscreenAdsWatchTimes(KCDefine.B_VAL_1_INT);
 
 		CAppInfoStorage.Inst.SaveAppInfo();
-		Func.m_oAdsCallbackDict01.GetValueOrDefault(ECallback.SHOW_FULLSCREEN_ADS)?.Invoke(a_oSender, Func.m_oBoolDict.GetValueOrDefault(EKey.IS_WATCH_FULLSCREEN_ADS));
+		Func.m_oAdsCallbackDict01.GetValueOrDefault(ECallback.SHOW_FULLSCREEN_ADS)?.Invoke(a_oSender, Func.m_oBoolDict[EKey.IS_WATCH_FULLSCREEN_ADS]);
 	}
 #endif // #if ADS_MODULE_ENABLE
 
@@ -1219,6 +1224,6 @@ public static partial class Func {
 		return oJSONArray;
 	}
 #endif // #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)
-#endregion // 조건부 클래스 함수
+	#endregion // 조건부 클래스 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

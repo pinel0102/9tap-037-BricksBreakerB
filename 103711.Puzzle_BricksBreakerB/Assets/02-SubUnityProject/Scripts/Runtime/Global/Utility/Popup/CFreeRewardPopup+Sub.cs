@@ -7,9 +7,9 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 무료 보상 팝업 */
 public partial class CFreeRewardPopup : CSubPopup {
-#region 함수
-	
-#endregion // 함수
+	#region 함수
+
+	#endregion // 함수
 }
 
 /** 서브 무료 보상 팝업 */
@@ -20,17 +20,17 @@ public partial class CFreeRewardPopup : CSubPopup {
 		[HideInInspector] MAX_VAL
 	}
 
-#region 변수
+	#region 변수
 
-#endregion // 변수
+	#endregion // 변수
 
-#region 프로퍼티
+	#region 프로퍼티
 
-#endregion // 프로퍼티
+	#endregion // 프로퍼티
 
-#region 함수
+	#region 함수
 	/** 팝업을 설정한다 */
-	private void SubSetupAwake() {
+	private void SubAwake() {
 		// Do Something
 	}
 
@@ -43,6 +43,6 @@ public partial class CFreeRewardPopup : CSubPopup {
 	private void SubUpdateUIsState() {
 		// Do Something
 	}
-#endregion // 함수
+	#endregion // 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

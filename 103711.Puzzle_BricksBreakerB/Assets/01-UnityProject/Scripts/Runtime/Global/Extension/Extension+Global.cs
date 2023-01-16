@@ -9,7 +9,7 @@ using DG.Tweening;
 
 /** 전역 확장 클래스 */
 public static partial class Extension {
-#region 클래스 함수
+	#region 클래스 함수
 	/** 타겟 정보를 추가한다 */
 	public static void ExAddTargetInfo(this List<CTargetInfo> a_oSender, CTargetInfo a_oTargetInfo, bool a_bIsCounting = true, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_oTargetInfo != null));
@@ -102,7 +102,7 @@ public static partial class Extension {
 	public static CTargetInfo ExFindTargetInfo(this List<CTargetInfo> a_oSender, ETargetType a_eTargetType, string a_oGUID) {
 		return a_oSender.ExTryGetTargetInfo(a_eTargetType, a_oGUID, out CTargetInfo oTargetInfo) ? oTargetInfo : null;
 	}
-	
+
 	/** 게이지 애니메이션을 시작한다 */
 	public static Sequence ExStartGaugeAni(this CGaugeHandler a_oSender, System.Action<float> a_oCallback, System.Action<CGaugeHandler, Sequence> a_oCompleteCallback, float a_fStartVal, float a_fEndVal, float a_fDuration, Ease a_eEase = KCDefine.U_EASE_DEF, bool a_bIsRealtime = false, float a_fDelay = KCDefine.B_VAL_0_REAL) {
 		CAccess.Assert(a_oSender != null);
@@ -120,76 +120,76 @@ public static partial class Extension {
 
 		return oJSONNode;
 	}
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 초기화 씬 확장 클래스 */
 public static partial class Extension {
-#region 클래스 함수
-	
-#endregion // 클래스 함수
+	#region 클래스 함수
+
+	#endregion // 클래스 함수
 }
 
 /** 시작 씬 확장 클래스 */
 public static partial class Extension {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 설정 씬 확장 클래스 */
 public static partial class Extension {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 약관 동의 씬 확장 클래스 */
 public static partial class Extension {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 지연 설정 씬 확장 클래스 */
 public static partial class Extension {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 타이틀 씬 확장 클래스 */
 public static partial class Extension {
-#region 클래스 함수
-	
-#endregion // 클래스 함수
+	#region 클래스 함수
+
+	#endregion // 클래스 함수
 }
 
 /** 메인 씬 확장 클래스 */
 public static partial class Extension {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 게임 씬 확장 클래스 */
 public static partial class Extension {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 로딩 씬 확장 클래스 */
 public static partial class Extension {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 중첩 씬 확장 클래스 */
 public static partial class Extension {
-#region 클래스 함수
-	
-#endregion // 클래스 함수
+	#region 클래스 함수
+
+	#endregion // 클래스 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

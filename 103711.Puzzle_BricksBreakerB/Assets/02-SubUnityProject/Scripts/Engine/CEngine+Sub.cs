@@ -3,25 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using DG.Tweening;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 using System.Linq;
 using UnityEngine.EventSystems;
 
 namespace NSEngine {
-	/** 엔진 */
-	public partial class CEngine : CComponent {
-#region 함수
-
-#endregion // 함수
-	}
-
 	/** 서브 엔진 */
 	public partial class CEngine : CComponent {
 		/** 서브 식별자 */
 		private enum ESubKey {
 			NONE = -1,
+			SKIP_TIME,
+			TIME_SCALE,
 			SEL_PLAYER_OBJ_IDX,
+			SHOOT_START_POS,
+			LINE_FX,
+
+			UP_BOUNDS_SPRITE,
+			DOWN_BOUNDS_SPRITE,
+			LEFT_BOUNDS_SPRITE,
+			RIGHT_BOUNDS_SPRITE,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -33,40 +36,77 @@ namespace NSEngine {
 			[HideInInspector] MAX_VAL
 		}
 
-#region 변수
-		private Dictionary<ESubKey, int> m_oSubIntDict = new Dictionary<ESubKey, int>();
-		private Dictionary<EState, System.Func<bool>> m_oStateCheckerDict = new Dictionary<EState, System.Func<bool>>();
-#endregion // 변수
+		/** 플레이 상태 */
+		public enum EPlayState {
+			NONE = -1,
+			IDLE,
+			SHOOT,
+			[HideInInspector] MAX_VAL
+		}
 
-#region 프로퍼티
+		#region 변수
+		private Dictionary<ESubKey, float> m_oSubRealDict = new Dictionary<ESubKey, float>() {
+			[ESubKey.SKIP_TIME] = KCDefine.B_VAL_0_REAL,
+			[ESubKey.TIME_SCALE] = KCDefine.B_VAL_1_REAL
+		};
+
+		private Dictionary<ESubKey, Vector3> m_oSubVec3Dict = new Dictionary<ESubKey, Vector3>() {
+			[ESubKey.SHOOT_START_POS] = Vector3.zero
+		};
+
+		private Dictionary<ESubKey, int> m_oSubIntDict = new Dictionary<ESubKey, int>();
+		private Dictionary<ESubKey, LineRenderer> m_oSubLineFXDict = new Dictionary<ESubKey, LineRenderer>();
+		private Dictionary<ESubKey, SpriteRenderer> m_oSubSpriteDict = new Dictionary<ESubKey, SpriteRenderer>();
+
+		private List<Tween> m_oAniList = new List<Tween>();
+		private List<CEObj> m_oMoveCompleteBallObjList = new List<CEObj>();
+		private Dictionary<EState, System.Func<bool>> m_oStateCheckerDict = new Dictionary<EState, System.Func<bool>>();
+		#endregion // 변수
+
+		#region 프로퍼티
 		public EState State { get; private set; } = EState.NONE;
+		public EPlayState PlayState { get; private set; } = EPlayState.NONE;
+
 		public List<CEObj> PlayerObjList { get; } = new List<CEObj>();
 		public List<CEObj> EnemyObjList { get; } = new List<CEObj>();
+		public List<CEObj> BallObjList { get; } = new List<CEObj>();
 
 		public int SelPlayerObjIdx => m_oSubIntDict.GetValueOrDefault(ESubKey.SEL_PLAYER_OBJ_IDX);
-		public CEObj SelPlayerObj => this.PlayerObjList[this.SelPlayerObjIdx];
-#endregion // 프로퍼티
+		public SpriteRenderer DownBoundsSprite => m_oSubSpriteDict[ESubKey.DOWN_BOUNDS_SPRITE];
 
-#region 함수
+		public CEObj SelPlayerObj => this.PlayerObjList[this.SelPlayerObjIdx];
+		public CEObj SelBallObj => this.BallObjList[KCDefine.B_VAL_0_INT];
+		#endregion // 프로퍼티
+
+		#region 함수
 		/** 상태를 갱신한다 */
 		public override void OnUpdate(float a_fDeltaTime) {
 			base.OnUpdate(a_fDeltaTime);
 
 			// 앱이 실행 중 일 경우
 			if(CSceneManager.IsAppRunning) {
+				float fSkipTime = m_oSubRealDict[ESubKey.SKIP_TIME];
+				m_oSubRealDict.ExReplaceVal(ESubKey.SKIP_TIME, (this.PlayState == EPlayState.IDLE) ? KCDefine.B_VAL_0_REAL : fSkipTime + a_fDeltaTime);
+
+				// 일정 시간이 지났을 경우
+				if(m_oSubRealDict[ESubKey.SKIP_TIME].ExIsGreateEquals(15.0f)) {
+					float fTimeScale = m_oSubRealDict[ESubKey.TIME_SCALE];
+					m_oSubRealDict.ExReplaceVal(ESubKey.TIME_SCALE, Mathf.Min(3.0f, fTimeScale + 1.0f));
+
+					m_oSubRealDict.ExReplaceVal(ESubKey.SKIP_TIME, KCDefine.B_VAL_0_REAL);
+				}
+
 				// 실행 중 일 경우
 				if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
 					switch(this.State) {
-						case EState.PLAY: this.HandlePlayState(a_fDeltaTime); break;
-						case EState.PAUSE: this.HandlePauseState(a_fDeltaTime); break;
+						case EState.PLAY: this.HandlePlayState(a_fDeltaTime * m_oSubRealDict[ESubKey.TIME_SCALE]); break;
+						case EState.PAUSE: this.HandlePauseState(a_fDeltaTime * m_oSubRealDict[ESubKey.TIME_SCALE]); break;
 					}
 
 					// 플레이어 객체가 존재 할 경우
 					if(this.PlayerObjList.ExIsValid()) {
-						var stEpisodeSize = this.CameraEpisodeSize * CAccess.ResolutionUnitScale;
-						var stMainCameraPos = new Vector3(Mathf.Clamp(this.SelPlayerObj.transform.position.x, stEpisodeSize.x / -KCDefine.B_VAL_2_REAL, stEpisodeSize.x / KCDefine.B_VAL_2_REAL), Mathf.Clamp(this.SelPlayerObj.transform.position.y + (KDefine.E_OFFSET_MAIN_CAMERA * CAccess.ResolutionUnitScale), (stEpisodeSize.y / -KCDefine.B_VAL_2_REAL) - ((CSceneManager.ActiveSceneManager.ScreenHeight / KCDefine.B_VAL_3_REAL) * CAccess.ResolutionUnitScale), stEpisodeSize.y / KCDefine.B_VAL_2_REAL), CSceneManager.ActiveSceneMainCamera.transform.position.z);
-
-						CSceneManager.ActiveSceneMainCamera.transform.position = Vector3.Lerp(CSceneManager.ActiveSceneMainCamera.transform.position, stMainCameraPos, a_fDeltaTime * KCDefine.B_VAL_9_REAL);
+						var stMainCameraPos = this.GetMainCameraPos();
+						CSceneManager.ActiveSceneMainCamera.transform.position = Vector3.Lerp(CSceneManager.ActiveSceneMainCamera.transform.position, stMainCameraPos.ExToWorld(this.Params.m_oObjRoot), a_fDeltaTime * KCDefine.B_VAL_9_REAL);
 					}
 				}
 
@@ -85,7 +125,9 @@ namespace NSEngine {
 			try {
 				// 앱이 실행 중 일 경우
 				if(CSceneManager.IsAppRunning) {
-					// Do Something
+					for(int i = 0; i < m_oAniList.Count; ++i) {
+						m_oAniList[i]?.Kill();
+					}
 				}
 			} catch(System.Exception oException) {
 				CFunc.ShowLogWarning($"CEngine.OnDestroy Exception: {oException.Message}");
@@ -94,7 +136,7 @@ namespace NSEngine {
 
 		/** 플레이어 객체 자동 제어 여부를 변경한다 */
 		public void SetIsPlayerObjAutoControl(bool a_bIsAutoControl) {
-			this.SelPlayerObj.GetController<CEPlayerObjController>().SetIsAutoControl(a_bIsAutoControl);
+			this.SelPlayerObj.GetController<CEPlayerObjController>().SetEnableAutoControl(a_bIsAutoControl);
 		}
 
 		/** 플레이어 객체 이동을 처리한다 */
@@ -108,6 +150,33 @@ namespace NSEngine {
 			this.SelPlayerObj.GetController<CEPlayerObjController>().ApplySkill(stSkillInfo, a_oSkillTargetInfo);
 		}
 
+		/** 모든 공을 떨어뜨린다 */
+		public void DropAllBalls() {
+			// 발사 상태 일 경우
+			if(this.PlayState == EPlayState.SHOOT) {
+				var oAniList = CCollectionManager.Inst.SpawnList<Tween>();
+
+				try {
+					var stPos = m_oMoveCompleteBallObjList.ExIsValid() ? m_oMoveCompleteBallObjList[KCDefine.B_VAL_0_INT].transform.localPosition : m_oSubVec3Dict[ESubKey.SHOOT_START_POS];
+					CScheduleManager.Inst.RemoveTimer(this);
+
+					for(int i = 0; i < this.BallObjList.Count; ++i) {
+						this.BallObjList[i].GetController<CEObjController>().SetState(CEController.EState.IDLE, true);
+						oAniList.ExAddVal(this.BallObjList[i].transform.DOLocalMove(stPos, KCDefine.B_VAL_0_5_REAL));
+					}
+
+					m_oAniList.ExAddVal(CFactory.MakeSequence(oAniList, (a_oSender) => {
+						a_oSender?.Kill();
+						oAniList.ExRemoveVal(a_oSender);
+
+						this.SetPlayState(EPlayState.IDLE);
+					}, KCDefine.B_VAL_0_REAL, true));
+				} finally {
+					CCollectionManager.Inst.DespawnList(oAniList);
+				}
+			}
+		}
+
 		/** 초기화한다 */
 		private void SubInit() {
 #if NEVER_USE_THIS
@@ -118,6 +187,39 @@ namespace NSEngine {
 			CSceneManager.ActiveSceneMainCamera.transform.position = new Vector3(this.SelPlayerObj.transform.position.x, this.SelPlayerObj.transform.position.y + (KDefine.E_OFFSET_MAIN_CAMERA * CAccess.ResolutionUnitScale), CSceneManager.ActiveSceneMainCamera.transform.position.z);
 			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 #endif // #if NEVER_USE_THIS
+
+			for(int i = 0; i < CGameInfoStorage.Inst.PlayEpisodeInfo.m_nNumBalls; ++i) {
+				var oBallObj = this.CreateBallObj(CObjInfoTable.Inst.GetObjInfo(EObjKinds.BALL_NORM_01), null);
+				oBallObj.NumText.text = string.Empty;
+				oBallObj.transform.localPosition = this.SelGridInfo.m_stPivotPos + new Vector3(this.SelGridInfo.m_stBounds.size.x / KCDefine.B_VAL_2_REAL, -this.SelGridInfo.m_stBounds.size.y, KCDefine.B_VAL_0_INT);
+				oBallObj.transform.localPosition += new Vector3(KCDefine.B_VAL_0_REAL, oBallObj.TargetSprite.sprite.textureRect.height / KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_INT);
+
+				this.BallObjList.ExAddVal(oBallObj);
+			}
+
+			// 스프라이트를 설정한다 {
+			CFunc.SetupComponents(new List<(ESubKey, string, GameObject, GameObject)>() {
+				(ESubKey.UP_BOUNDS_SPRITE, $"{ESubKey.UP_BOUNDS_SPRITE}", this.Params.m_oObjRoot, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_BOUNDS)),
+				(ESubKey.DOWN_BOUNDS_SPRITE, $"{ESubKey.DOWN_BOUNDS_SPRITE}", this.Params.m_oObjRoot, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_BOUNDS)),
+				(ESubKey.LEFT_BOUNDS_SPRITE, $"{ESubKey.LEFT_BOUNDS_SPRITE}", this.Params.m_oObjRoot, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_BOUNDS)),
+				(ESubKey.RIGHT_BOUNDS_SPRITE, $"{ESubKey.RIGHT_BOUNDS_SPRITE}", this.Params.m_oObjRoot, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_BOUNDS))
+			}, m_oSubSpriteDict);
+
+			float fWidth = m_oSubSpriteDict[ESubKey.UP_BOUNDS_SPRITE].sprite.textureRect.width;
+			float fHeight = m_oSubSpriteDict[ESubKey.UP_BOUNDS_SPRITE].sprite.textureRect.height;
+
+			m_oSubSpriteDict[ESubKey.UP_BOUNDS_SPRITE].transform.localScale = new Vector3(this.SelGridInfo.m_stViewBounds.size.x / fWidth, KCDefine.B_VAL_1_REAL, KCDefine.B_VAL_1_REAL);
+			m_oSubSpriteDict[ESubKey.UP_BOUNDS_SPRITE].transform.localPosition = this.SelGridInfo.m_stViewPivotPos + new Vector3(this.SelGridInfo.m_stViewBounds.size.x / KCDefine.B_VAL_2_REAL, m_oSubSpriteDict[ESubKey.UP_BOUNDS_SPRITE].sprite.textureRect.height / KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_REAL);
+
+			m_oSubSpriteDict[ESubKey.DOWN_BOUNDS_SPRITE].transform.localScale = new Vector3(this.SelGridInfo.m_stViewBounds.size.x / fWidth, KCDefine.B_VAL_1_REAL, KCDefine.B_VAL_1_REAL);
+			m_oSubSpriteDict[ESubKey.DOWN_BOUNDS_SPRITE].transform.localPosition = this.SelGridInfo.m_stViewPivotPos + new Vector3(this.SelGridInfo.m_stViewBounds.size.x / KCDefine.B_VAL_2_REAL, -this.SelGridInfo.m_stViewBounds.size.y - (m_oSubSpriteDict[ESubKey.DOWN_BOUNDS_SPRITE].sprite.textureRect.height / KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL);
+
+			m_oSubSpriteDict[ESubKey.LEFT_BOUNDS_SPRITE].transform.localScale = new Vector3(KCDefine.B_VAL_1_REAL, this.SelGridInfo.m_stViewBounds.size.y / fHeight, KCDefine.B_VAL_1_REAL);
+			m_oSubSpriteDict[ESubKey.LEFT_BOUNDS_SPRITE].transform.localPosition = this.SelGridInfo.m_stViewPivotPos + new Vector3(m_oSubSpriteDict[ESubKey.LEFT_BOUNDS_SPRITE].sprite.textureRect.width / -KCDefine.B_VAL_2_REAL, this.SelGridInfo.m_stViewBounds.size.y / -KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_REAL);
+
+			m_oSubSpriteDict[ESubKey.RIGHT_BOUNDS_SPRITE].transform.localScale = new Vector3(KCDefine.B_VAL_1_REAL, this.SelGridInfo.m_stViewBounds.size.y / fHeight, KCDefine.B_VAL_1_REAL);
+			m_oSubSpriteDict[ESubKey.RIGHT_BOUNDS_SPRITE].transform.localPosition = this.SelGridInfo.m_stViewPivotPos + new Vector3(this.SelGridInfo.m_stViewBounds.size.x + (m_oSubSpriteDict[ESubKey.RIGHT_BOUNDS_SPRITE].sprite.textureRect.width / KCDefine.B_VAL_2_REAL), this.SelGridInfo.m_stViewBounds.size.y / -KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_REAL);
+			// 스프라이트를 설정한다 }
 		}
 
 		/** 상태를 리셋한다 */
@@ -140,13 +242,51 @@ namespace NSEngine {
 		/** 엔진 객체 이벤트를 수신했을 경우 */
 		private void OnReceiveEObjEvent(CEObjComponent a_oSender, EEngineObjEvent a_eEvent, string a_oParams) {
 			switch(a_eEvent) {
+#if NEVER_USE_THIS
 				case EEngineObjEvent.AVOID:
 				case EEngineObjEvent.DAMAGE:
 				case EEngineObjEvent.CRITICAL_DAMAGE: {
 					break;
 				}
+#endif // #if NEVER_USE_THIS
+
+				case EEngineObjEvent.DESTROY: {
+					a_oSender.gameObject.SetActive(false);
+					this.RemoveCellObj(a_oSender as CEObj);
+
+					// 클리어했을 경우
+					if(this.IsClear()) {
+						m_oSubRealDict[ESubKey.TIME_SCALE] = KCDefine.B_VAL_3_REAL;
+					}
+
+					break;
+				}
+				case EEngineObjEvent.MOVE_COMPLETE: {
+					m_oMoveCompleteBallObjList.ExAddVal(a_oSender as CEObj);
+					m_oMoveCompleteBallObjList[KCDefine.B_VAL_0_INT].NumText.text = $"{m_oMoveCompleteBallObjList.Count}";
+
+					var oSequence = CFactory.MakeSequence(a_oSender.transform.DOLocalMove(m_oMoveCompleteBallObjList[KCDefine.B_VAL_0_INT].transform.localPosition, KCDefine.U_DURATION_ANI), (a_oSequenceSender) => {
+						a_oSequenceSender?.Kill();
+					});
+
+					m_oAniList.ExAddVal(oSequence);
+
+					// 모든 공이 이동을 완료했을 경우
+					if(m_oMoveCompleteBallObjList.Count >= this.BallObjList.Count) {
+						// 클리어했을 경우
+						if(this.IsClear()) {
+							// FIXME: 임시
+							CSceneLoader.Inst.LoadScene((CGameInfoStorage.Inst.PlayMode == EPlayMode.TEST) ? KCDefine.B_SCENE_N_LEVEL_EDITOR : KCDefine.B_SCENE_N_MAIN);
+						} else {
+							this.ExLateCallFunc((a_oFuncSender) => this.PlayState = EPlayState.IDLE, KCDefine.B_VAL_1_REAL);
+						}
+					}
+
+					break;
+				}
 			}
 
+#if NEVER_USE_THIS
 			// 체력이 없을 경우
 			if(a_oSender.AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_HP_01) <= KCDefine.B_VAL_0_INT) {
 				// 플레이어 객체 일 경우
@@ -193,20 +333,24 @@ namespace NSEngine {
 			if(m_oClearTargetInfoDict.All((a_stKeyVal) => a_stKeyVal.Value.m_stValInfo01.m_dmVal <= KCDefine.B_VAL_0_INT)) {
 				this.Params.m_oCallbackDict01.GetValueOrDefault(ECallback.CLEAR)?.Invoke(this);
 			}
+#endif // #if NEVER_USE_THIS
 
 			CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).SetEnableUpdateUIsState(true);
 		}
 
 		/** 플레이 상태를 처리한다 */
 		private void HandlePlayState(float a_fDeltaTime) {
+#if NEVER_USE_THIS
 			CFunc.UpdateComponents(this.ItemList, a_fDeltaTime);
 			CFunc.UpdateComponents(this.SkillList, a_fDeltaTime);
 			CFunc.UpdateComponents(this.FXList, a_fDeltaTime);
 			CFunc.UpdateComponents(this.PlayerObjList, a_fDeltaTime);
 			CFunc.UpdateComponents(this.EnemyObjList, a_fDeltaTime);
+#endif // #if NEVER_USE_THIS
 
 			// 실행 중 일 경우
 			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
+#if NEVER_USE_THIS
 				var oNumEnemyObjsDict = CCollectionManager.Inst.SpawnDict<EObjKinds, int>();
 
 				try {
@@ -230,6 +374,9 @@ namespace NSEngine {
 				} finally {
 					CCollectionManager.Inst.DespawnDict(oNumEnemyObjsDict);
 				}
+#endif // #if NEVER_USE_THIS
+
+				CFunc.UpdateComponents(this.BallObjList, a_fDeltaTime);
 			}
 		}
 
@@ -242,11 +389,19 @@ namespace NSEngine {
 		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
 			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
-				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize).ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
+				var stPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize);
+				var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
 
+#if NEVER_USE_THIS
 				// 인덱스가 유효 할 경우
-				if(m_oCellObjLists.ExIsValidIdx(stIdx)) {
+				if(this.CellObjLists.ExIsValidIdx(stIdx)) {
 					// Do Something
+				}
+#endif // #if NEVER_USE_THIS
+
+				// 조준 가능 할 경우
+				if(this.IsEnableAiming(stPos)) {
+					this.HandleTouchMoveEvent(a_oSender, a_oEventData);
 				}
 			}
 		}
@@ -255,11 +410,56 @@ namespace NSEngine {
 		private void HandleTouchMoveEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
 			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
-				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize).ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
+				var stPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize);
+				var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
 
+#if NEVER_USE_THIS
 				// 인덱스가 유효 할 경우
-				if(m_oCellObjLists.ExIsValidIdx(stIdx)) {
+				if(this.CellObjLists.ExIsValidIdx(stIdx)) {
 					// Do Something
+				}
+#endif // #if NEVER_USE_THIS
+
+				// 조준 가능 할 경우
+				if(this.IsEnableAiming(stPos)) {
+					var oPosList = CCollectionManager.Inst.SpawnList<Vector3>();
+					var stDirection = stPos - this.SelBallObj.transform.localPosition;
+
+					try {
+						float fAngle = Vector3.Angle(stDirection, Vector3.right * Mathf.Sign(stDirection.x));
+						fAngle = fAngle.ExIsLess(KDefine.E_MIN_ANGLE_AIMING) ? KDefine.E_MIN_ANGLE_AIMING : fAngle;
+						
+						stDirection = new Vector3(Mathf.Cos(fAngle * Mathf.Deg2Rad) * Mathf.Sign(stDirection.x), Mathf.Sin(fAngle * Mathf.Deg2Rad), KCDefine.B_VAL_0_REAL);
+
+						var stWorldPos = (this.SelBallObj.transform.localPosition + stDirection.normalized).ExToWorld(this.Params.m_oObjRoot);
+						var stRaycastHit = Physics2D.CircleCast(stWorldPos, this.SelBallObj.TargetSprite.sprite.textureRect.size.ExToWorld(this.Params.m_oObjRoot).x / KCDefine.B_VAL_2_REAL, stDirection.normalized);
+
+						oPosList.ExAddVal(this.SelBallObj.transform.localPosition);
+
+						// 충돌체가 존재 할 경우
+						if(stRaycastHit.collider != null) {
+							var stHitPos = (stWorldPos + (stDirection.normalized * stRaycastHit.distance)).ExToLocal(this.Params.m_oObjRoot);
+							var stReflect = Vector3.Reflect(stDirection.normalized, stRaycastHit.normal);
+
+							stWorldPos = (stHitPos + stReflect.normalized).ExToWorld(this.Params.m_oObjRoot, false);
+							stRaycastHit = Physics2D.CircleCast(stWorldPos, this.SelBallObj.TargetSprite.sprite.textureRect.size.ExToWorld(this.Params.m_oObjRoot).x / KCDefine.B_VAL_2_REAL, stReflect.normalized);
+
+							oPosList.ExAddVal(stHitPos);
+
+							// 반사 가능 할 경우
+							if(!Vector3.Dot(stDirection.normalized, stReflect.normalized).ExIsEquals(-KCDefine.B_VAL_1_REAL)) {
+								var stReflectHitPos = (stWorldPos + (stReflect.normalized * stRaycastHit.distance)).ExToLocal(this.Params.m_oObjRoot);
+								oPosList.ExAddVal(stHitPos + (stReflect.normalized * Mathf.Min((stReflectHitPos - stHitPos).magnitude, KDefine.E_LENGTH_LINE)));
+							}
+						}
+
+						m_oSubLineFXDict[ESubKey.LINE_FX].ExSetPositions(oPosList);
+						m_oSubLineFXDict[ESubKey.LINE_FX].gameObject.SetActive(true);
+					} finally {
+						CCollectionManager.Inst.DespawnList(oPosList);
+					}
+				} else {
+					m_oSubLineFXDict[ESubKey.LINE_FX].gameObject.SetActive(false);
 				}
 			}
 		}
@@ -268,17 +468,45 @@ namespace NSEngine {
 		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
 			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
+				var stPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize);
 				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize).ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
 
+#if NEVER_USE_THIS
 				// 인덱스가 유효 할 경우
-				if(m_oCellObjLists.ExIsValidIdx(stIdx)) {
+				if(this.CellObjLists.ExIsValidIdx(stIdx)) {
 					// Do Something
 				}
+#endif // #if NEVER_USE_THIS
+
+				// 조준 가능 할 경우
+				if(this.IsEnableAiming(stPos)) {
+					this.SetPlayState(EPlayState.SHOOT);
+					var stDirection = stPos - this.SelBallObj.transform.localPosition;
+
+					float fAngle = Vector3.Angle(stDirection, Vector3.right * Mathf.Sign(stDirection.x));
+					fAngle = fAngle.ExIsLess(KDefine.E_MIN_ANGLE_AIMING) ? KDefine.E_MIN_ANGLE_AIMING : fAngle;
+
+					int nNumShootBalls = KCDefine.B_VAL_0_INT;
+					m_oMoveCompleteBallObjList.Clear();
+
+					m_oSubRealDict.ExReplaceVal(ESubKey.TIME_SCALE, KCDefine.B_VAL_1_REAL);
+					m_oSubVec3Dict.ExReplaceVal(ESubKey.SHOOT_START_POS, this.SelBallObj.transform.localPosition);
+
+					for(int i = 0; i < this.BallObjList.Count; ++i) {
+						this.BallObjList[i].NumText.text = string.Empty;
+					}
+
+					CScheduleManager.Inst.AddTimer(this, KCDefine.B_VAL_0_0_9_REAL, (uint)this.BallObjList.Count, () => {
+						this.BallObjList[nNumShootBalls++].GetController<CEBallObjController>().Shoot(new Vector3(Mathf.Cos(fAngle * Mathf.Deg2Rad) * Mathf.Sign(stDirection.x), Mathf.Sin(fAngle * Mathf.Deg2Rad), KCDefine.B_VAL_0_REAL) * KDefine.E_SPEED_SHOOT);
+					});
+				}
+
+				m_oSubLineFXDict[ESubKey.LINE_FX].gameObject.SetActive(false);
 			}
 		}
-#endregion // 함수
+		#endregion // 함수
 
-#region 조건부 함수
+		#region 조건부 함수
 #if UNITY_EDITOR
 		/** 기즈모를 그린다 */
 		public virtual void OnDrawGizmos() {
@@ -288,7 +516,7 @@ namespace NSEngine {
 			}
 		}
 #endif // #if UNITY_EDITOR
-#endregion // 조건부 함수
+		#endregion // 조건부 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

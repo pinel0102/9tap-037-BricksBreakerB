@@ -7,9 +7,9 @@ using UnityEngine.Events;
 #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 /** 에디터 열거형 값 */
 public static partial class KEditorEnumVal {
-#region 기본
+	#region 기본
 
-#endregion // 기본
+	#endregion // 기본
 }
 
 #region 기본

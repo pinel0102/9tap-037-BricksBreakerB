@@ -7,7 +7,7 @@ using UnityEngine.Events;
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 전역 팩토리 */
 public static partial class Factory {
-#region 클래스 함수
+	#region 클래스 함수
 	/** 타겟 정보 고유 식별자를 생성한다 */
 	public static ulong MakeUTargetInfoID(ETargetKinds a_eTargetKinds, int a_nKinds) {
 		return ((ulong)a_eTargetKinds << (sizeof(int) * KCDefine.B_UNIT_BITS_PER_BYTE)) | (uint)a_nKinds;
@@ -137,9 +137,9 @@ public static partial class Factory {
 			[Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE)] = new STTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE, new STValInfo(KCDefine.B_VAL_0_INT, EValType.INT))
 		};
 	}
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 
-#region 제네릭 클래스 함수
+	#region 제네릭 클래스 함수
 	/** 값을 생성한다 */
 	public static List<T> MakeVals<T>(SimpleJSON.JSONNode a_oVals, string a_oFmt, System.Func<SimpleJSON.JSONNode, T> a_oCallback, int a_nNumVals = KDefine.G_MAX_NUM_VALS) {
 		var oValList = new List<T>();
@@ -153,76 +153,76 @@ public static partial class Factory {
 
 		return oValList;
 	}
-#endregion // 제네릭 클래스 함수
+	#endregion // 제네릭 클래스 함수
 }
 
 /** 초기화 씬 팩토리 */
 public static partial class Factory {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 시작 씬 팩토리 */
 public static partial class Factory {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 설정 씬 팩토리 */
 public static partial class Factory {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 약관 동의 씬 팩토리 */
 public static partial class Factory {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 지연 설정 씬 팩토리 */
 public static partial class Factory {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 타이틀 씬 팩토리 */
 public static partial class Factory {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 메인 씬 팩토리 */
 public static partial class Factory {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 게임 씬 팩토리 */
 public static partial class Factory {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 로딩 씬 팩토리 */
 public static partial class Factory {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 
 /** 중첩 씬 팩토리 */
 public static partial class Factory {
-#region 클래스 함수
+	#region 클래스 함수
 
-#endregion // 클래스 함수
+	#endregion // 클래스 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

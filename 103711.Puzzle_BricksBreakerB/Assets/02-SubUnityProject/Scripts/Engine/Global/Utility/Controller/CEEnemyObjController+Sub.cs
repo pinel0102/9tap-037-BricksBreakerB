@@ -6,13 +6,6 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace NSEngine {
-	/** 적 객체 제어자 */
-	public partial class CEEnemyObjController : CEObjController {
-#region 함수
-		
-#endregion // 함수
-	}
-
 	/** 서브 적 객체 제어자 */
 	public partial class CEEnemyObjController : CEObjController {
 		/** 서브 식별자 */
@@ -22,15 +15,15 @@ namespace NSEngine {
 			[HideInInspector] MAX_VAL
 		}
 
-#region 변수
+		#region 변수
 		private Dictionary<ESubKey, float> m_oRealDict = new Dictionary<ESubKey, float>();
-#endregion // 변수
+		#endregion // 변수
 
-#region 프로퍼티
+		#region 프로퍼티
 
-#endregion // 프로퍼티
+		#endregion // 프로퍼티
 
-#region 함수
+		#region 함수
 		/** 상태를 갱신한다 */
 		public override void OnUpdate(float a_fDeltaTime) {
 			base.OnUpdate(a_fDeltaTime);
@@ -49,7 +42,7 @@ namespace NSEngine {
 			if(this.IsEnableAttackPlayerObj()) {
 				this.ApplySkill(CSkillInfoTable.Inst.GetSkillInfo(this.GetOwner<CEObj>().Params.m_stObjInfo.m_eActionSkillKinds), null);
 			} else {
-				this.Move(base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.SelPlayerObj.transform.localPosition - this.GetOwner<CEObj>().transform.localPosition);
+				this.Move(this.Engine.SelPlayerObj.transform.localPosition - this.GetOwner<CEObj>().transform.localPosition);
 			}
 		}
 
@@ -62,7 +55,7 @@ namespace NSEngine {
 				this.SetState(EState.IDLE);
 				this.ApplySkill(CSkillInfoTable.Inst.GetSkillInfo(this.GetOwner<CEObj>().Params.m_stObjInfo.m_eActionSkillKinds), null);
 			} else {
-				this.SetMoveDirection(base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.SelPlayerObj.transform.localPosition - this.GetOwner<CEObj>().transform.localPosition);
+				this.SetMoveDirection(this.Engine.SelPlayerObj.transform.localPosition - this.GetOwner<CEObj>().transform.localPosition);
 			}
 		}
 
@@ -89,16 +82,16 @@ namespace NSEngine {
 		protected override void DoApplySkill(STSkillInfo a_stSkillInfo, CSkillTargetInfo a_oSkillTargetInfo) {
 			base.DoApplySkill(a_stSkillInfo, a_oSkillTargetInfo);
 
-			var oSkill = base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.CreateSkill(a_stSkillInfo, a_oSkillTargetInfo, this.GetOwner<CEObj>());
+			var oSkill = this.Engine.CreateSkill(a_stSkillInfo, a_oSkillTargetInfo, this.GetOwner<CEObj>());
 			oSkill.transform.localPosition = this.GetOwner<CEObj>().transform.localPosition;
-			oSkill.GetController<CESkillController>().TargetObjList.ExAddVal(base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.SelPlayerObj);
+			oSkill.GetController<CESkillController>().TargetObjList.ExAddVal(this.Engine.SelPlayerObj);
 
-			base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.SkillList.ExAddVal(oSkill);
+			this.Engine.SkillList.ExAddVal(oSkill);
 			oSkill.GetController<CESkillController>().Apply();
 		}
 
 		/** 제어자를 설정한다 */
-		private void SubSetupAwake() {
+		private void SubAwake() {
 			// Do Something
 		}
 
@@ -109,10 +102,10 @@ namespace NSEngine {
 
 		/** 플레이어 객체 공격 가능 여부를 검사한다 */
 		private bool IsEnableAttackPlayerObj() {
-			var stDelta = base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.SelPlayerObj.transform.localPosition - this.GetOwner<CEObj>().transform.localPosition;
+			var stDelta = this.Engine.SelPlayerObj.transform.localPosition - this.GetOwner<CEObj>().transform.localPosition;
 			return stDelta.sqrMagnitude.ExIsLessEquals(Mathf.Pow((float)this.GetOwner<CEObj>().AbilityValDictWrapper.m_oDict01.ExGetAbilityVal(EAbilityKinds.STAT_ATK_RANGE_01), KCDefine.B_VAL_2_REAL));
 		}
-#endregion // 함수
+		#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

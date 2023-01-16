@@ -6,13 +6,6 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace NSEngine {
-	/** 플레이어 객체 제어자 */
-	public partial class CEPlayerObjController : CEObjController {
-#region 함수
-		
-#endregion // 함수
-	}
-
 	/** 서브 플레이어 객체 제어자 */
 	public partial class CEPlayerObjController : CEObjController {
 		/** 서브 식별자 */
@@ -21,15 +14,15 @@ namespace NSEngine {
 			[HideInInspector] MAX_VAL
 		}
 
-#region 변수
+		#region 변수
 
-#endregion // 변수
+		#endregion // 변수
 
-#region 프로퍼티
+		#region 프로퍼티
 
-#endregion // 프로퍼티
+		#endregion // 프로퍼티
 
-#region 함수
+		#region 함수
 		/** 상태를 갱신한다 */
 		public override void OnUpdate(float a_fDeltaTime) {
 			base.OnUpdate(a_fDeltaTime);
@@ -62,7 +55,7 @@ namespace NSEngine {
 
 			// 자동 제어 모드 일 경우
 			if(this.IsAutoControl) {
-				var oEnemyObj = base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.FindEnemyObj(this.GetOwner<CEObj>().transform.localPosition);
+				var oEnemyObj = this.Engine.FindEnemyObj(this.GetOwner<CEObj>().transform.localPosition);
 
 				// 적 객체 공격이 가능 할 경우
 				if(this.IsEnableAttackEnemyObj(oEnemyObj)) {
@@ -79,7 +72,7 @@ namespace NSEngine {
 
 			// 자동 제어 모드 일 경우
 			if(this.IsAutoControl) {
-				var oEnemyObj = base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.FindEnemyObj(this.GetOwner<CEObj>().transform.localPosition);
+				var oEnemyObj = this.Engine.FindEnemyObj(this.GetOwner<CEObj>().transform.localPosition);
 
 				// 적 객체 공격이 가능 할 경우
 				if(this.IsEnableAttackEnemyObj(oEnemyObj)) {
@@ -107,19 +100,19 @@ namespace NSEngine {
 					case ESkillApplyType.SINGLE: this.SetupSingleSkillTargets(a_stSkillInfo, a_oSkillTargetInfo, oTargetObjList); break;
 				}
 
-				var oSkill = base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.CreateSkill(a_stSkillInfo, a_oSkillTargetInfo, this.GetOwner<CEObj>());
+				var oSkill = this.Engine.CreateSkill(a_stSkillInfo, a_oSkillTargetInfo, this.GetOwner<CEObj>());
 				oSkill.transform.localPosition = this.GetOwner<CEObj>().transform.localPosition;
 				oTargetObjList.ExCopyTo(oSkill.GetController<CESkillController>().TargetObjList, (a_oTargetObj) => a_oTargetObj);
 
 				oSkill.GetController<CESkillController>().Apply();
-				base.Params.m_stBaseParams.m_stBaseParams.m_oEngine.SkillList.ExAddVal(oSkill);
+				this.Engine.SkillList.ExAddVal(oSkill);
 			} finally {
 				CCollectionManager.Inst.DespawnList(oTargetObjList);
 			}
 		}
 
 		/** 제어자를 설정한다 */
-		private void SubSetupAwake() {
+		private void SubAwake() {
 			// Do Something
 		}
 
@@ -148,7 +141,7 @@ namespace NSEngine {
 
 			return false;
 		}
-#endregion // 함수
+		#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

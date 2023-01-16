@@ -8,9 +8,9 @@ using UnityEngine.Events;
 namespace NSEngine {
 	/** 엔진 확장 클래스 */
 	public static partial class Extension {
-#region 클래스 함수
-		
-#endregion // 클래스 함수
+		#region 클래스 함수
+
+		#endregion // 클래스 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

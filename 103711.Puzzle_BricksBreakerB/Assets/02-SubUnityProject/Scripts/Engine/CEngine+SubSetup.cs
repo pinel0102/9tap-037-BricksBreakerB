@@ -6,27 +6,33 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 namespace NSEngine {
-	/** 엔진 - 설정 */
-	public partial class CEngine : CComponent {
-#region 함수
-
-#endregion // 함수
-	}
-
 	/** 서브 엔진 - 설정 */
 	public partial class CEngine : CComponent {
-#region 함수
+		#region 함수
 		/** 엔진을 설정한다 */
-		private void SubSetupAwake() {
+		private void SubAwake() {
 			// Do Something
 		}
 
 		/** 엔진을 설정한다 */
 		private void SubSetupEngine() {
-			// 객체 풀을 설정한다
+			// 라인 효과를 설정한다 {
+			CFunc.SetupComponents(new List<(ESubKey, string, GameObject, GameObject)>() {
+				(ESubKey.LINE_FX, $"{ESubKey.LINE_FX}", this.Params.m_oObjRoot, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_LINE_FX))
+			}, m_oSubLineFXDict);
+
+			m_oSubLineFXDict[ESubKey.LINE_FX].ExSetWidth(KCDefine.B_VAL_5_REAL, KCDefine.B_VAL_5_REAL);
+			m_oSubLineFXDict[ESubKey.LINE_FX].ExSetColor(Color.red, Color.red);
+			m_oSubLineFXDict[ESubKey.LINE_FX].ExSetSortingOrder(KCDefine.U_SORTING_OI_DEF.ExGetExtraOrder(-KCDefine.B_VAL_1_INT));
+			// 라인 효과를 설정한다 }
+
+			// 객체 풀을 설정한다 {
 			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_CELL_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_CELL_OBJ), this.Params.m_oObjRoot, KCDefine.U_SIZE_OBJS_POOL_01, false);
 			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_PLAYER_OBJ), this.Params.m_oObjRoot, KCDefine.B_VAL_1_INT, false);
 			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ENEMY_OBJ), this.Params.m_oObjRoot, KCDefine.U_SIZE_OBJS_POOL_01, false);
+
+			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_BALL_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_BALL_OBJ), this.Params.m_oObjRoot, KCDefine.U_SIZE_OBJS_POOL_01, false);
+			// 객체 풀을 설정한다 }
 		}
 
 		/** 셀을 설정한다 */
@@ -34,17 +40,23 @@ namespace NSEngine {
 			var oCellObjList = new List<CEObj>();
 
 			for(int i = 0; i < a_stCellInfo.m_oCellObjInfoList.Count; ++i) {
-				// Do Something
+				var oCellObj = this.CreateCellObj(CObjInfoTable.Inst.GetObjInfo(a_stCellInfo.m_oCellObjInfoList[i].ObjKinds), null);
+				oCellObj.transform.localPosition = this.SelGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(Access.CellCenterOffset, Access.CellSize);
+
+				oCellObj.SetCellIdx(a_stCellInfo.m_stIdx);
+				oCellObj.SetCellObjInfo((STCellObjInfo)a_stCellInfo.m_oCellObjInfoList[i].Clone());
+
+				oCellObjList.ExAddVal(oCellObj);
 			}
 
-			m_oCellObjLists[a_stCellInfo.m_stIdx.y, a_stCellInfo.m_stIdx.x] = oCellObjList;
+			this.CellObjLists[a_stCellInfo.m_stIdx.y, a_stCellInfo.m_stIdx.x] = oCellObjList;
 		}
 
 		/** 그리드 라인을 설정한다 */
 		private void SetupGridLine() {
 			// Do Something
 		}
-#endregion // 함수
+		#endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
