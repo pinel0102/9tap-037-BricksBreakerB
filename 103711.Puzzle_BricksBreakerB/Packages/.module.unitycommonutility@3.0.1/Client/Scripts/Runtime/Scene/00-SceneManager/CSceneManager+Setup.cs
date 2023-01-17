@@ -210,7 +210,7 @@ public abstract partial class CSceneManager : CComponent {
 
 	/** 주요 씬을 설정한다 */
 	protected virtual void SetupActiveScene() {
-		this.SetupCamera();
+		//this.SetupCamera();
 		this.SetupRootObjs();
 
 		// 이벤트 시스템을 설정한다
@@ -315,7 +315,7 @@ public abstract partial class CSceneManager : CComponent {
 		m_oCanvasDict.ExReplaceVal(EKey.TOPMOST_UIS_CANVAS, this.TopmostUIs.GetComponentInChildren<Canvas>());
 
 		// 최상단 객체를 설정한다
-		this.SetupCamera();
+		//this.SetupCamera();
 		this.SetupRootObjs();
 
 		// 고유 객체를 설정한다 {
