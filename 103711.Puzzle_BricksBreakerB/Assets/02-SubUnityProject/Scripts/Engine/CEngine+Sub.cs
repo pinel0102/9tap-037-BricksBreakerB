@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using DG.Tweening;
+using Timers;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 using System.Linq;
@@ -76,6 +77,8 @@ namespace NSEngine {
 
 		public CEObj SelPlayerObj => this.PlayerObjList[this.SelPlayerObjIdx];
 		public CEObj SelBallObj => this.BallObjList[KCDefine.B_VAL_0_INT];
+
+        public Vector3 shootDirection = Vector3.zero;
 		#endregion // 프로퍼티
 
 		#region 함수
@@ -189,12 +192,14 @@ namespace NSEngine {
 #endif // #if NEVER_USE_THIS
 
 			for(int i = 0; i < CGameInfoStorage.Inst.PlayEpisodeInfo.m_nNumBalls; ++i) {
-				var oBallObj = this.CreateBallObj(CObjInfoTable.Inst.GetObjInfo(EObjKinds.BALL_NORM_01), null);
+                CreateBall();
+
+				/*var oBallObj = this.CreateBallObj(CObjInfoTable.Inst.GetObjInfo(EObjKinds.BALL_NORM_01), null);
 				oBallObj.NumText.text = string.Empty;
 				oBallObj.transform.localPosition = this.SelGridInfo.m_stPivotPos + new Vector3(this.SelGridInfo.m_stBounds.size.x / KCDefine.B_VAL_2_REAL, -this.SelGridInfo.m_stBounds.size.y, KCDefine.B_VAL_0_INT);
 				oBallObj.transform.localPosition += new Vector3(KCDefine.B_VAL_0_REAL, oBallObj.TargetSprite.sprite.textureRect.height / KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_INT);
 
-				this.BallObjList.ExAddVal(oBallObj);
+				this.BallObjList.ExAddVal(oBallObj);*/
 			}
 
 			// 스프라이트를 설정한다 {
@@ -221,6 +226,18 @@ namespace NSEngine {
 			m_oSubSpriteDict[ESubKey.RIGHT_BOUNDS_SPRITE].transform.localPosition = this.SelGridInfo.m_stViewPivotPos + new Vector3(this.SelGridInfo.m_stViewBounds.size.x + (m_oSubSpriteDict[ESubKey.RIGHT_BOUNDS_SPRITE].sprite.textureRect.width / KCDefine.B_VAL_2_REAL), this.SelGridInfo.m_stViewBounds.size.y / -KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_REAL);
 			// 스프라이트를 설정한다 }
 		}
+
+        public void CreateBall()
+        {
+            //TODO: 저장된 position 사용.
+
+            var oBallObj = this.CreateBallObj(CObjInfoTable.Inst.GetObjInfo(EObjKinds.BALL_NORM_01), null);
+            oBallObj.NumText.text = string.Empty;
+            oBallObj.transform.localPosition = this.SelGridInfo.m_stPivotPos + new Vector3(this.SelGridInfo.m_stBounds.size.x / KCDefine.B_VAL_2_REAL, -this.SelGridInfo.m_stBounds.size.y, KCDefine.B_VAL_0_INT);
+            oBallObj.transform.localPosition += new Vector3(KCDefine.B_VAL_0_REAL, oBallObj.TargetSprite.sprite.textureRect.height / KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_INT);
+
+            this.BallObjList.ExAddVal(oBallObj);
+        }
 
 		/** 상태를 리셋한다 */
 		private void SubReset() {
@@ -430,27 +447,27 @@ namespace NSEngine {
 						fAngle = fAngle.ExIsLess(KDefine.E_MIN_ANGLE_AIMING) ? KDefine.E_MIN_ANGLE_AIMING : fAngle;
 						
 						stDirection = new Vector3(Mathf.Cos(fAngle * Mathf.Deg2Rad) * Mathf.Sign(stDirection.x), Mathf.Sin(fAngle * Mathf.Deg2Rad), KCDefine.B_VAL_0_REAL);
-
+                        
 						var stWorldPos = (this.SelBallObj.transform.localPosition + stDirection.normalized).ExToWorld(this.Params.m_oObjRoot);
 						var stRaycastHit = Physics2D.CircleCast(stWorldPos, this.SelBallObj.TargetSprite.sprite.textureRect.size.ExToWorld(this.Params.m_oObjRoot).x / KCDefine.B_VAL_2_REAL, stDirection.normalized);
 
 						oPosList.ExAddVal(this.SelBallObj.transform.localPosition);
 
-						// 충돌체가 존재 할 경우
+                        // 충돌체가 존재 할 경우
 						if(stRaycastHit.collider != null) {
-							var stHitPos = (stWorldPos + (stDirection.normalized * stRaycastHit.distance)).ExToLocal(this.Params.m_oObjRoot);
-							var stReflect = Vector3.Reflect(stDirection.normalized, stRaycastHit.normal);
+                            var stHitPos = (stWorldPos + (stDirection.normalized * stRaycastHit.distance)).ExToLocal(this.Params.m_oObjRoot);
+                            var stReflect = Vector3.Reflect(stDirection.normalized, stRaycastHit.normal);
 
-							stWorldPos = (stHitPos + stReflect.normalized).ExToWorld(this.Params.m_oObjRoot, false);
-							stRaycastHit = Physics2D.CircleCast(stWorldPos, this.SelBallObj.TargetSprite.sprite.textureRect.size.ExToWorld(this.Params.m_oObjRoot).x / KCDefine.B_VAL_2_REAL, stReflect.normalized);
+                            stWorldPos = (stHitPos + stReflect.normalized).ExToWorld(this.Params.m_oObjRoot, false);
+                            stRaycastHit = Physics2D.CircleCast(stWorldPos, this.SelBallObj.TargetSprite.sprite.textureRect.size.ExToWorld(this.Params.m_oObjRoot).x / KCDefine.B_VAL_2_REAL, stReflect.normalized);
 
-							oPosList.ExAddVal(stHitPos);
+                            oPosList.ExAddVal(stHitPos);
 
-							// 반사 가능 할 경우
-							if(!Vector3.Dot(stDirection.normalized, stReflect.normalized).ExIsEquals(-KCDefine.B_VAL_1_REAL)) {
-								var stReflectHitPos = (stWorldPos + (stReflect.normalized * stRaycastHit.distance)).ExToLocal(this.Params.m_oObjRoot);
-								oPosList.ExAddVal(stHitPos + (stReflect.normalized * Mathf.Min((stReflectHitPos - stHitPos).magnitude, KDefine.E_LENGTH_LINE)));
-							}
+                            // 반사 가능 할 경우
+                            if(!Vector3.Dot(stDirection.normalized, stReflect.normalized).ExIsEquals(-KCDefine.B_VAL_1_REAL)) {
+                                var stReflectHitPos = (stWorldPos + (stReflect.normalized * stRaycastHit.distance)).ExToLocal(this.Params.m_oObjRoot);
+                                oPosList.ExAddVal(stHitPos + (stReflect.normalized * Mathf.Min((stReflectHitPos - stHitPos).magnitude, KDefine.E_LENGTH_LINE)));
+                            }
 						}
 
 						m_oSubLineFXDict[ESubKey.LINE_FX].ExSetPositions(oPosList);
@@ -492,18 +509,32 @@ namespace NSEngine {
 					m_oSubRealDict.ExReplaceVal(ESubKey.TIME_SCALE, KCDefine.B_VAL_1_REAL);
 					m_oSubVec3Dict.ExReplaceVal(ESubKey.SHOOT_START_POS, this.SelBallObj.transform.localPosition);
 
-					for(int i = 0; i < this.BallObjList.Count; ++i) {
+                    for(int i = 0; i < this.BallObjList.Count; ++i) {
 						this.BallObjList[i].NumText.text = string.Empty;
 					}
 
-					CScheduleManager.Inst.AddTimer(this, KCDefine.B_VAL_0_0_9_REAL, (uint)this.BallObjList.Count, () => {
+                    shootDirection = new Vector3(Mathf.Cos(fAngle * Mathf.Deg2Rad) * Mathf.Sign(stDirection.x), Mathf.Sin(fAngle * Mathf.Deg2Rad), KCDefine.B_VAL_0_REAL) * KDefine.E_SPEED_SHOOT;
+                    
+                    ShootBalls(nNumShootBalls, this.BallObjList.Count);
+
+					/*CScheduleManager.Inst.AddTimer(this, KCDefine.B_VAL_0_0_9_REAL, (uint)this.BallObjList.Count, () => {
 						this.BallObjList[nNumShootBalls++].GetController<CEBallObjController>().Shoot(new Vector3(Mathf.Cos(fAngle * Mathf.Deg2Rad) * Mathf.Sign(stDirection.x), Mathf.Sin(fAngle * Mathf.Deg2Rad), KCDefine.B_VAL_0_REAL) * KDefine.E_SPEED_SHOOT);
-					});
+					});*/
 				}
 
 				m_oSubLineFXDict[ESubKey.LINE_FX].gameObject.SetActive(false);
 			}
 		}
+
+        public void ShootBalls(int _startIndex, int _count)
+        {
+            Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", shootDirection));
+
+            CScheduleManager.Inst.AddTimer(this, KCDefine.B_VAL_0_0_9_REAL, (uint)_count, () => {
+                //Debug.Log(CodeManager.GetMethodName() + string.Format("BallObjList[{0}]", _startIndex));
+                this.BallObjList[_startIndex++].GetController<CEBallObjController>().Shoot(shootDirection);
+            });
+        }
 		#endregion // 함수
 
 		#region 조건부 함수

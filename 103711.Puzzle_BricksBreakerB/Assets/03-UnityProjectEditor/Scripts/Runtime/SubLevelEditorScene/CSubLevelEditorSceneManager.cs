@@ -330,6 +330,7 @@ namespace LevelEditorScene {
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 
 				CSndManager.Inst.StopBGSnd();
+                CCommonAppInfoStorage.Inst.SetEnableEditor(false);
 			}
 		}
 

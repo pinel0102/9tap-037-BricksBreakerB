@@ -80,18 +80,49 @@ namespace NSEngine {
 			if(stRaycastHit.collider != null && stHitDelta.magnitude.ExIsLessEquals(stVelocity.magnitude)) {
 				var oCellObj = stRaycastHit.collider.GetComponentInParent<CEObj>();
 
-				m_oVec3Dict[EKey.DIRECTION] = Vector3.Reflect(stVelocity.normalized, stRaycastHit.normal).normalized;
-				this.GetOwner<CEObj>().transform.localPosition = stHitPos;
+                //m_oVec3Dict[EKey.DIRECTION] = Vector3.Reflect(stVelocity.normalized, stRaycastHit.normal).normalized;
+				//this.GetOwner<CEObj>().transform.localPosition = stHitPos;
 
-				// 셀 일 존재 할 경우
-				if(oCellObj != null && oCellObj.TryGetComponent<CECellObjController>(out CECellObjController oController)) {
+				// 셀이 존재 할 경우
+				if(oCellObj != null && oCellObj.TryGetComponent<CECellObjController>(out CECellObjController oController)) 
+                {
+                    switch((EObjType)((int)oCellObj.Params.m_stObjInfo.m_eObjKinds).ExKindsToType()) 
+                    {
+                        case EObjType.NORM_BRICKS:
+                        case EObjType.OBSTACLE_BRICKS:
+                            m_oVec3Dict[EKey.DIRECTION] = Vector3.Reflect(stVelocity.normalized, stRaycastHit.normal).normalized;
+				            this.GetOwner<CEObj>().transform.localPosition = stHitPos;
+                            break;
+                        //case EObjType.NORM_BRICKS:
+                        case EObjType.ITEM_BRICKS:
+                        case EObjType.SPECIAL_BRICKS:
+                            // Do Not Reflect
+                            //Debug.Log(CodeManager.GetMethodName() + string.Format("{0} : Do Not Reflect", (EObjType)((int)oCellObj.Params.m_stObjInfo.m_eObjKinds).ExKindsToType()));
+                            this.GetOwner<CEObj>().transform.localPosition += stVelocity;
+                            break;
+                        
+                        default : 
+                            //Debug.Log(CodeManager.GetMethodName() + string.Format("{0} : Do Not Reflect", (EObjType)((int)oCellObj.Params.m_stObjInfo.m_eObjKinds).ExKindsToType()));
+                            this.GetOwner<CEObj>().transform.localPosition += stVelocity;
+                            break;
+                    }
+
 					oController.OnHit(this.GetOwner<CEObj>());
 				}
 				// 하단 영역 일 경우
-				else if(stRaycastHit.collider.gameObject == this.Engine.DownBoundsSprite.gameObject) {
+				else if(stRaycastHit.collider.gameObject == this.Engine.DownBoundsSprite.gameObject) 
+                {   
+                    m_oVec3Dict[EKey.DIRECTION] = Vector3.Reflect(stVelocity.normalized, stRaycastHit.normal).normalized;
+				    this.GetOwner<CEObj>().transform.localPosition = stHitPos;
+
 					this.SetState(EState.IDLE, true);
 					this.GetOwner<CEObj>().Params.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(CEObjComponent.ECallback.ENGINE_OBJ_EVENT)?.Invoke(this.GetOwner<CEObj>(), EEngineObjEvent.MOVE_COMPLETE, string.Empty);
 				}
+                else // 상단 or 좌우 벽일 경우.
+                {
+                    m_oVec3Dict[EKey.DIRECTION] = Vector3.Reflect(stVelocity.normalized, stRaycastHit.normal).normalized;
+				    this.GetOwner<CEObj>().transform.localPosition = stHitPos;
+                }
 			} else {
 				this.GetOwner<CEObj>().transform.localPosition += stVelocity;
 			}

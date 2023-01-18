@@ -44,10 +44,10 @@ public static partial class KDefine {
 		},
 
 		[KCDefine.B_VAL_1_INT] = new List<EObjKinds>() {
-			// EObjKinds.ITEM_BRICKS_BALL_01,
-			// EObjKinds.ITEM_BRICKS_BALL_02,
-			// EObjKinds.ITEM_BRICKS_BALL_03,
-			// EObjKinds.NONE,
+			EObjKinds.ITEM_BRICKS_BALL_01,
+			EObjKinds.ITEM_BRICKS_BALL_02,
+			EObjKinds.ITEM_BRICKS_BALL_03,
+			EObjKinds.NONE,
 
 			// EObjKinds.ITEM_BRICKS_BOOSTER_01,
 			// EObjKinds.NONE,
@@ -56,10 +56,10 @@ public static partial class KDefine {
 		},
 
 		[KCDefine.B_VAL_2_INT] = new List<EObjKinds>() {
-			// EObjKinds.SPECIAL_BRICKS_LAZER_HORIZONTAL_01,
-			// EObjKinds.SPECIAL_BRICKS_LAZER_VERTICAL_01,
-			// EObjKinds.SPECIAL_BRICKS_LAZER_CROSS_01,
-			// EObjKinds.NONE
+			EObjKinds.SPECIAL_BRICKS_LAZER_HORIZONTAL_01,
+			EObjKinds.SPECIAL_BRICKS_LAZER_VERTICAL_01,
+			EObjKinds.SPECIAL_BRICKS_LAZER_CROSS_01,
+			EObjKinds.NONE
 		},
 
 		[KCDefine.B_VAL_3_INT] = new List<EObjKinds>() {

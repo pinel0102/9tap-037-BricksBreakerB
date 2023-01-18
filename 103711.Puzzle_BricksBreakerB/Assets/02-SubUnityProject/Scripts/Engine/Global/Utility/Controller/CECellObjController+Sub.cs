@@ -35,16 +35,22 @@ namespace NSEngine {
 
 		/** 히트 되었을 경우 */
 		public void OnHit(CEObj a_oTarget) {
-			var stCellObjInfo = this.GetOwner<CEObj>().CellObjInfo;
-			stCellObjInfo.HP = Mathf.Max(KCDefine.B_VAL_0_INT, stCellObjInfo.HP - KCDefine.B_VAL_1_INT);
+            var oCellObj = this.GetOwner<CEObj>();
+			var stCellObjInfo = oCellObj.CellObjInfo;
 
-			this.GetOwner<CEObj>().HPText.text = $"{stCellObjInfo.HP}";
-			this.GetOwner<CEObj>().SetCellObjInfo(stCellObjInfo);
+            EObjKinds kinds = oCellObj.Params.m_stObjInfo.m_eObjKinds;
+            EObjType cellType = (EObjType)((int)kinds).ExKindsToType();
 
-			// 체력이 없을 경우
-			if(stCellObjInfo.HP <= KCDefine.B_VAL_0_INT) {
-				this.GetOwner<CEObj>().Params.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(CEObjComponent.ECallback.ENGINE_OBJ_EVENT)?.Invoke(this.GetOwner<CEObj>(), EEngineObjEvent.DESTROY, string.Empty);
-			}
+            switch(cellType) 
+            {
+                case EObjType.NORM_BRICKS: this.GetDamage(stCellObjInfo, kinds, KCDefine.B_VAL_1_INT); break;
+                case EObjType.OBSTACLE_BRICKS: this.GetObstacle(stCellObjInfo, kinds); break;
+                case EObjType.ITEM_BRICKS: this.GetItem(stCellObjInfo, kinds); break;
+                case EObjType.SPECIAL_BRICKS: this.GetSpecial(stCellObjInfo, kinds); break;
+                default : 
+                    Debug.Log(CodeManager.GetMethodName() + string.Format("{0} / {1}", cellType, kinds));
+                    break;
+            }
 		}
 
 		/** 셀 객체를 설정한다 */
@@ -57,6 +63,56 @@ namespace NSEngine {
 			// Do Something
 		}
 		#endregion // 함수
+
+        private void GetDamage(STCellObjInfo stCellObjInfo, EObjKinds kinds, int _ATK)
+        {
+            stCellObjInfo.HP = Mathf.Max(KCDefine.B_VAL_0_INT, stCellObjInfo.HP - _ATK);
+
+			this.GetOwner<CEObj>().HPText.text = $"{stCellObjInfo.HP}";
+			this.GetOwner<CEObj>().SetCellObjInfo(stCellObjInfo);
+
+			// 체력이 없을 경우
+			if(stCellObjInfo.HP <= KCDefine.B_VAL_0_INT) {
+				CellDestroy();
+			}
+        }
+
+        private void GetObstacle(STCellObjInfo stCellObjInfo, EObjKinds kinds)
+        {
+            //
+        }
+
+        private void GetItem(STCellObjInfo stCellObjInfo, EObjKinds kinds)
+        {
+            EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
+
+            switch(kindsType)
+            {
+                case EObjKinds.ITEM_BRICKS_BALL_01:
+                    GetItem_BallPlus(kinds);
+                    break;
+                default:
+                    break;
+            }
+
+            CellDestroy();
+        }
+
+        private void GetSpecial(STCellObjInfo stCellObjInfo, EObjKinds kinds)
+        {
+            switch(kinds)
+            {
+                case EObjKinds.SPECIAL_BRICKS_LAZER_HORIZONTAL_01:
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void CellDestroy()
+        {
+            this.GetOwner<CEObj>().Params.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(CEObjComponent.ECallback.ENGINE_OBJ_EVENT)?.Invoke(this.GetOwner<CEObj>(), EEngineObjEvent.DESTROY, string.Empty);
+        }
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

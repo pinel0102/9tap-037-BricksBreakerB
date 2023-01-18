@@ -9,7 +9,7 @@ namespace NSEngine {
 	/** 서브 엔진 - 팩토리 */
 	public partial class CEngine : CComponent {
 		#region 함수
-		/** 셀 객체를 생성한다 */
+        /** 셀 객체를 생성한다 */
 		public CEObj CreateCellObj(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, CEObjComponent a_oOwner = null, bool a_bIsEnableController = true) {
 			var oObj = CSceneManager.ActiveSceneManager.SpawnObj<CEObj>(KDefine.E_OBJ_N_CELL_OBJ, KDefine.E_KEY_CELL_OBJ_OBJS_POOL);
 			var oController = a_bIsEnableController ? oObj.gameObject.ExAddComponent<CECellObjController>() : null;
@@ -19,6 +19,18 @@ namespace NSEngine {
 
 			this.SetupEObjComponent(oObj, a_oOwner, oController);
 			return oObj;
+		}
+
+        /** 아이템을 생성한다 */
+		public CEItem CreateItemObj(STItemInfo a_stItemInfo, CItemTargetInfo a_oItemTargetInfo, CEObjComponent a_oOwner = null, bool a_bIsEnableController = true) {
+			var oItem = CSceneManager.ActiveSceneManager.SpawnObj<CEItem>(KDefine.E_OBJ_N_ITEM, KDefine.E_KEY_ITEM_OBJS_POOL);
+			var oController = a_bIsEnableController ? oItem.gameObject.ExAddComponent<CEItemController>() : null;
+
+			oItem.Init(CEItem.MakeParams(this, a_stItemInfo, a_oItemTargetInfo, oController, KDefine.E_KEY_ITEM_OBJS_POOL));
+			oController?.Init(CEItemController.MakeParams(this));
+
+			this.SetupEObjComponent(oItem, a_oOwner, oController);
+			return oItem;
 		}
 
 		/** 플레이어 객체를 생성한다 */
@@ -55,6 +67,18 @@ namespace NSEngine {
 				oCellObjList.ExRemoveVal(a_oObj);
 				CFunc.RemoveObj(a_oObj.Params.m_stBaseParams.m_oController, false, false);
 				CSceneManager.ActiveSceneManager.DespawnObj(a_oObj.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey, a_oObj.gameObject, a_fDelay);
+			}
+		}
+
+        /** 아이템을 제거한다 */
+		public void RemoveItemObj(CEItem a_oItem, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsEnableAssert = true) {
+			CAccess.Assert(!a_bIsEnableAssert || (a_oItem != null && a_oItem.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey.ExIsValid()));
+
+			// 아이템이 존재 할 경우
+			if(a_oItem != null && a_oItem.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey.ExIsValid()) {
+				this.ItemList.ExRemoveVal(a_oItem);
+				CFunc.RemoveObj(a_oItem.Params.m_stBaseParams.m_oController, false, false);
+				CSceneManager.ActiveSceneManager.DespawnObj(a_oItem.Params.m_stBaseParams.m_stBaseParams.m_oObjsPoolKey, a_oItem.gameObject, a_fDelay);
 			}
 		}
 

@@ -112,7 +112,7 @@ namespace MainScene {
 #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)
 				// 에디터가 유효 할 경우
 				if(CCommonAppInfoStorage.Inst.IsEnableEditor) {
-					CCommonAppInfoStorage.Inst.SetEnableEditor(false);
+					//CCommonAppInfoStorage.Inst.SetEnableEditor(false);
 					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
 				}
 #endif // #if UNITY_STANDALONE && (DEBUG || DEVELOPMENT_BUILD)

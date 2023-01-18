@@ -171,7 +171,7 @@ public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 
 	/** 객체 정보를 반환한다 */
 	public STObjInfo GetObjInfo(EObjKinds a_eObjKinds) {
-		bool bIsValid = this.TryGetObjInfo(a_eObjKinds, out STObjInfo stObjInfo);
+        bool bIsValid = this.TryGetObjInfo(a_eObjKinds, out STObjInfo stObjInfo);
 		CAccess.Assert(bIsValid);
 
 		return stObjInfo;
@@ -263,7 +263,7 @@ public partial class CObjInfoTable : CSingleton<CObjInfoTable> {
 	/** 객체 정보를 로드한다 */
 	private (Dictionary<EObjKinds, STObjInfo>, Dictionary<EObjKinds, STObjTradeInfo>, Dictionary<EObjKinds, STObjTradeInfo>, Dictionary<EObjKinds, STObjTradeInfo>) LoadObjInfos(string a_oFilePath) {
 		CAccess.Assert(a_oFilePath.ExIsValid());
-		return this.DoLoadObjInfos(this.LoadObjInfosJSONStr(a_oFilePath));
+        return this.DoLoadObjInfos(this.LoadObjInfosJSONStr(a_oFilePath));
 	}
 
 	/** 객체 정보 JSON 문자열을 로드한다 */

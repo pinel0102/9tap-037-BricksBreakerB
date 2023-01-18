@@ -463,14 +463,16 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 	/** 레벨 정보를 로드한다 */
 	private CLevelInfo LoadLevelInfo(string a_oFilePath, int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfo: {a_oFilePath}");
-
+		//CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfo: {a_oFilePath}");
+        
 #if MSG_PACK_SERIALIZE_DESERIALIZE_ENABLE
-		var oLevelInfo = File.Exists(a_oFilePath) ? CFunc.ReadMsgPackObj<CLevelInfo>(a_oFilePath, false) : CFunc.ReadMsgPackObjFromRes<CLevelInfo>(a_oFilePath, false);
+        var oLevelInfo = File.Exists(a_oFilePath) ? CFunc.ReadMsgPackObj<CLevelInfo>(a_oFilePath, false) : CFunc.ReadMsgPackObjFromRes<CLevelInfo>(a_oFilePath, false);
 #elif NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 		a_oFilePath = a_oFilePath.Replace(KCDefine.B_FILE_EXTENSION_BYTES, KCDefine.B_FILE_EXTENSION_JSON);
-		var oLevelInfo = File.Exists(a_oFilePath) ? CFunc.ReadJSONObj<CLevelInfo>(a_oFilePath, false) : CFunc.ReadJSONObjFromRes<CLevelInfo>(a_oFilePath, false);
+        var oLevelInfo = File.Exists(a_oFilePath) ? CFunc.ReadJSONObj<CLevelInfo>(a_oFilePath, false) : CFunc.ReadJSONObjFromRes<CLevelInfo>(a_oFilePath, false);
 #endif // #if MSG_PACK_SERIALIZE_DESERIALIZE_ENABLE
+        
+        CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfo: {a_oFilePath}");
 
 		oLevelInfo.m_stIDInfo = new STIDInfo(a_nLevelID, a_nStageID, a_nChapterID);
 		return oLevelInfo;

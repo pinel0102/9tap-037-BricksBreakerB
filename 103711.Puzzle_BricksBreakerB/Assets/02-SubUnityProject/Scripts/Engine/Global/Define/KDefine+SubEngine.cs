@@ -54,6 +54,14 @@ namespace NSEngine {
 				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_DEF
 			},
 
+            [EObjKinds.ITEM_BRICKS_BALL_01] = new STSortingOrderInfo() {
+				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_DEF
+			},
+
+            [EObjKinds.SPECIAL_BRICKS_LAZER_HORIZONTAL_01] = new STSortingOrderInfo() {
+				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_DEF
+			},
+
 			[EObjKinds.BALL_NORM_01] = new STSortingOrderInfo() {
 				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_DEF
 			}
@@ -89,6 +97,14 @@ namespace NSEngine {
 			[EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_02] = EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_02.ToString(),
 			[EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_03] = EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_03.ToString(),
 			[EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_04] = EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_04.ToString(),
+
+            [EObjKinds.ITEM_BRICKS_BALL_01] = EObjKinds.ITEM_BRICKS_BALL_01.ToString(),
+            [EObjKinds.ITEM_BRICKS_BALL_02] = EObjKinds.ITEM_BRICKS_BALL_02.ToString(),
+            [EObjKinds.ITEM_BRICKS_BALL_03] = EObjKinds.ITEM_BRICKS_BALL_03.ToString(),
+
+            [EObjKinds.SPECIAL_BRICKS_LAZER_HORIZONTAL_01] = EObjKinds.SPECIAL_BRICKS_LAZER_HORIZONTAL_01.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_LAZER_VERTICAL_01] = EObjKinds.SPECIAL_BRICKS_LAZER_VERTICAL_01.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_LAZER_CROSS_01] = EObjKinds.SPECIAL_BRICKS_LAZER_CROSS_01.ToString(),
 
 			[EObjKinds.BALL_NORM_01] = EObjKinds.BALL_NORM_01.ToString(),
 		};

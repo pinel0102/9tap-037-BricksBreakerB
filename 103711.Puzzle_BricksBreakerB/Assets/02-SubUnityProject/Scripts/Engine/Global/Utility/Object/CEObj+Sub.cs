@@ -66,7 +66,7 @@ namespace NSEngine {
 					switch((EObjKinds)((int)this.Params.m_stObjInfo.m_eObjKinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE)) {
 						case EObjKinds.NORM_BRICKS_TRIANGLE_01: this.SetupTriangleCollider(oPosList); break;
 						case EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_01: this.SetupRightTriangleCollider(oPosList); break;
-						default: this.SetupSquareCollider(oPosList); break;
+                        default: this.SetupSquareCollider(oPosList); break;
 					}
 
 					oCollider.SetPath(KCDefine.B_VAL_0_INT, oPosList);
