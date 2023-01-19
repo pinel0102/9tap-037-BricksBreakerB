@@ -16,11 +16,11 @@ namespace NSEngine {
             
             for (int i=0; i < _addCount; i++)
             {
-                this.Engine.CreateBall();
+                this.Engine.AddBall();
                 this.Engine.BallObjList[_oldCount+i].NumText.text = string.Empty;
             }
 
-            this.Engine.ShootBalls(_oldCount, _addCount);
+            this.Engine.AddShootBalls(_oldCount, _addCount);
         }
     }
 }

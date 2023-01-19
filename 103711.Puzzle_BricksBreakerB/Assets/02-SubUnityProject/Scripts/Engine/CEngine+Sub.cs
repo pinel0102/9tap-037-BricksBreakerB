@@ -78,6 +78,8 @@ namespace NSEngine {
 		public CEObj SelPlayerObj => this.PlayerObjList[this.SelPlayerObjIdx];
 		public CEObj SelBallObj => this.BallObjList[KCDefine.B_VAL_0_INT];
 
+        public int currentShootCount = 0;
+        public Vector3 startPosition = Vector3.zero;
         public Vector3 shootDirection = Vector3.zero;
 		#endregion // 프로퍼티
 
@@ -156,7 +158,11 @@ namespace NSEngine {
 		/** 모든 공을 떨어뜨린다 */
 		public void DropAllBalls() {
 			// 발사 상태 일 경우
-			if(this.PlayState == EPlayState.SHOOT) {
+			if(this.PlayState == EPlayState.SHOOT) {                
+                
+                StopAllCoroutines();
+                currentShootCount = 0;
+
 				var oAniList = CCollectionManager.Inst.SpawnList<Tween>();
 
 				try {
@@ -229,13 +235,20 @@ namespace NSEngine {
 
         public void CreateBall()
         {
-            //TODO: 저장된 position 사용.
-
             var oBallObj = this.CreateBallObj(CObjInfoTable.Inst.GetObjInfo(EObjKinds.BALL_NORM_01), null);
             oBallObj.NumText.text = string.Empty;
             oBallObj.transform.localPosition = this.SelGridInfo.m_stPivotPos + new Vector3(this.SelGridInfo.m_stBounds.size.x / KCDefine.B_VAL_2_REAL, -this.SelGridInfo.m_stBounds.size.y, KCDefine.B_VAL_0_INT);
             oBallObj.transform.localPosition += new Vector3(KCDefine.B_VAL_0_REAL, oBallObj.TargetSprite.sprite.textureRect.height / KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_INT);
 
+            this.BallObjList.ExAddVal(oBallObj);
+        }
+
+        public void AddBall()
+        {
+            var oBallObj = this.CreateBallObj(CObjInfoTable.Inst.GetObjInfo(EObjKinds.BALL_NORM_01), null);
+            oBallObj.NumText.text = string.Empty;
+            oBallObj.transform.localPosition = startPosition;
+            
             this.BallObjList.ExAddVal(oBallObj);
         }
 
@@ -439,6 +452,8 @@ namespace NSEngine {
 
 				// 조준 가능 할 경우
 				if(this.IsEnableAiming(stPos)) {
+                    currentShootCount = 0;
+
 					var oPosList = CCollectionManager.Inst.SpawnList<Vector3>();
 					var stDirection = stPos - this.SelBallObj.transform.localPosition;
 
@@ -496,7 +511,9 @@ namespace NSEngine {
 #endif // #if NEVER_USE_THIS
 
 				// 조준 가능 할 경우
-				if(this.IsEnableAiming(stPos)) {
+				if(this.IsEnableAiming(stPos)) {                    
+                    startPosition = SelBallObj.transform.localPosition;
+
 					this.SetPlayState(EPlayState.SHOOT);
 					var stDirection = stPos - this.SelBallObj.transform.localPosition;
 
@@ -515,6 +532,7 @@ namespace NSEngine {
 
                     shootDirection = new Vector3(Mathf.Cos(fAngle * Mathf.Deg2Rad) * Mathf.Sign(stDirection.x), Mathf.Sin(fAngle * Mathf.Deg2Rad), KCDefine.B_VAL_0_REAL) * KDefine.E_SPEED_SHOOT;
                     
+                    currentShootCount = 0;
                     ShootBalls(nNumShootBalls, this.BallObjList.Count);
 
 					/*CScheduleManager.Inst.AddTimer(this, KCDefine.B_VAL_0_0_9_REAL, (uint)this.BallObjList.Count, () => {
@@ -528,12 +546,28 @@ namespace NSEngine {
 
         public void ShootBalls(int _startIndex, int _count)
         {
-            Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", shootDirection));
+            //Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", shootDirection));
 
             CScheduleManager.Inst.AddTimer(this, KCDefine.B_VAL_0_0_9_REAL, (uint)_count, () => {
-                //Debug.Log(CodeManager.GetMethodName() + string.Format("BallObjList[{0}]", _startIndex));
+                Debug.Log(CodeManager.GetMethodName() + string.Format("BallObjList[{0}]", _startIndex));
                 this.BallObjList[_startIndex++].GetController<CEBallObjController>().Shoot(shootDirection);
+                currentShootCount++;
             });
+        }
+
+        public void AddShootBalls(int _startIndex, int _count)
+        {
+            StartCoroutine(CO_WaitShootDelay(_startIndex, _count));
+        }
+
+        private IEnumerator CO_WaitShootDelay(int _startIndex, int _count)
+        {
+            while(currentShootCount < _startIndex)
+            {
+                yield return null;
+            }
+
+            ShootBalls(_startIndex, _count);
         }
 		#endregion // 함수
 
