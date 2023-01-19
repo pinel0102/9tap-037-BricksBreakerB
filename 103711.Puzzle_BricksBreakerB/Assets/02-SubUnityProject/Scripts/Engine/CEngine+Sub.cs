@@ -293,6 +293,12 @@ namespace NSEngine {
 				}
 				case EEngineObjEvent.MOVE_COMPLETE: {
 					m_oMoveCompleteBallObjList.ExAddVal(a_oSender as CEObj);
+
+                    for (int i=1; i < m_oMoveCompleteBallObjList.Count; i++)
+                    {
+                        m_oMoveCompleteBallObjList[i].NumText.text = string.Empty;
+                    }
+
 					m_oMoveCompleteBallObjList[KCDefine.B_VAL_0_INT].NumText.text = $"{m_oMoveCompleteBallObjList.Count}";
 
 					var oSequence = CFactory.MakeSequence(a_oSender.transform.DOLocalMove(m_oMoveCompleteBallObjList[KCDefine.B_VAL_0_INT].transform.localPosition, KCDefine.U_DURATION_ANI), (a_oSequenceSender) => {
@@ -419,7 +425,7 @@ namespace NSEngine {
 		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
 			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
-				var stPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize);
+                var stPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize);
 				var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
 
 #if NEVER_USE_THIS
@@ -431,6 +437,7 @@ namespace NSEngine {
 
 				// 조준 가능 할 경우
 				if(this.IsEnableAiming(stPos)) {
+                    SetCellColliders(false);
 					this.HandleTouchMoveEvent(a_oSender, a_oEventData);
 				}
 			}
@@ -452,6 +459,8 @@ namespace NSEngine {
 
 				// 조준 가능 할 경우
 				if(this.IsEnableAiming(stPos)) {
+
+                    SetCellColliders(false);                    
                     currentShootCount = 0;
 
 					var oPosList = CCollectionManager.Inst.SpawnList<Vector3>();
@@ -500,6 +509,9 @@ namespace NSEngine {
 		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
 			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
+                
+                SetCellColliders(true);
+
 				var stPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize);
 				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize).ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
 
@@ -566,6 +578,27 @@ namespace NSEngine {
             }
 
             ShootBalls(_startIndex, _count);
+        }
+
+        private void SetCellColliders(bool _isEnable)
+        {
+            //Debug.Log(CodeManager.GetMethodName() + _isEnable);
+
+            for(int i = 0; i < this.CellObjLists.GetLength(KCDefine.B_VAL_0_INT); ++i) {
+				for(int j = 0; j < this.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); ++j) {
+					for(int k = 0; k < this.CellObjLists[i, j].Count; ++k) {
+						// 셀이 존재 할 경우
+						if(this.CellObjLists[i, j][k].gameObject.activeSelf) {
+                            CEObj target = this.CellObjLists[i, j][k];
+							
+                            if(target.TargetSprite != null && target.TargetSprite.TryGetComponent<PolygonCollider2D>(out PolygonCollider2D oCollider))
+                            {
+                                oCollider.enabled = _isEnable;
+                            }
+						}
+					}
+				}
+			}
         }
 		#endregion // 함수
 
