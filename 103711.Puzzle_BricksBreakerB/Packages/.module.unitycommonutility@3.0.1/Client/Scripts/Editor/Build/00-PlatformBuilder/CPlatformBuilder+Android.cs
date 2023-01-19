@@ -65,6 +65,18 @@ public static partial class CPlatformBuilder {
 		CPlatformBuilder.BuildAndroid(a_eType, oPlayerOpts, "Release");
 	}
 
+    private static void BuildAndroidPrototype(EAndroidType a_eType, bool a_bIsAutoPlay) {
+		CPlatformBuilder.BuildMode = EBuildMode.RELEASE;
+		EditorUserBuildSettings.buildAppBundle = false;
+
+		// 빌드 옵션을 설정한다
+		var oPlayerOpts = new BuildPlayerOptions();
+		oPlayerOpts.options = a_bIsAutoPlay ? BuildOptions.AutoRunPlayer : BuildOptions.None;
+
+		CPlatformOptsSetter.AddDefineSymbol(BuildTargetGroup.Android, KCEditorDefine.DS_DEFINE_S_ADS_TEST_ENABLE);
+		CPlatformBuilder.BuildAndroid(a_eType, oPlayerOpts, "Prototype");
+	}
+
 	/** 안드로이드를 빌드한다 */
 	private static void BuildAndroidReleaseWithAutoPlay(EAndroidType a_eType) {
 		CPlatformOptsSetter.AddDefineSymbol(BuildTargetGroup.Android, KCEditorDefine.DS_DEFINE_S_PLAY_TEST_ENABLE);
@@ -245,6 +257,12 @@ public static partial class CPlatformBuilder {
 	public static void BuildAndroidGoogleDebugWithProfiler() {
 		CPlatformBuilder.BuildMethod = MethodBase.GetCurrentMethod().Name;
 		CPlatformBuilder.BuildAndroidDebugWithProfiler(EAndroidType.GOOGLE);
+	}
+
+    [MenuItem(KCEditorDefine.B_MENU_TOOLS_BUILD_BASE + "Local/Android/Google/Prototype", false, KCEditorDefine.B_SORTING_O_BUILD_MENU + 1)]
+	public static void BuildAndroidGooglePrototype() {
+		CPlatformBuilder.BuildMethod = MethodBase.GetCurrentMethod().Name;
+		CPlatformBuilder.BuildAndroidPrototype(EAndroidType.GOOGLE, false);
 	}
 
 	/** 안드로이드 구글을 빌드한다 */
