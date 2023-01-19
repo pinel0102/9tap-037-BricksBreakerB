@@ -88,18 +88,18 @@ namespace NSEngine {
             switch(cellType)
             {
                 case EObjType.BALL:
-                    _color = ItemInfo.BricksColor[2];
+                    _color = GlobalDefine.BricksColor[2];
                     break;
                 case EObjType.NORM_BRICKS:
-                    _color = ItemInfo.BricksColor[1];
+                    _color = GlobalDefine.BricksColor[1];
                     break;
                 case EObjType.OBSTACLE_BRICKS:
                 case EObjType.ITEM_BRICKS:
                 case EObjType.SPECIAL_BRICKS:
-                    _color = ItemInfo.BricksColor[0];
+                    _color = GlobalDefine.BricksColor[0];
                     break;
                 default:
-                    _color = ItemInfo.BricksColor[0];
+                    _color = GlobalDefine.BricksColor[0];
                     break;
             }
 

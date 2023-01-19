@@ -107,10 +107,10 @@ namespace NSEngine {
 
             switch(kindsType)
             {
-                case EObjKinds.SPECIAL_BRICKS_LAZER_HORIZONTAL_01:
-                case EObjKinds.SPECIAL_BRICKS_LAZER_VERTICAL_01:
-                case EObjKinds.SPECIAL_BRICKS_LAZER_CROSS_01:
-                    GetSpecial_Lazer(kinds);
+                case EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01:
+                case EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01:
+                case EObjKinds.SPECIAL_BRICKS_LASER_CROSS_01:
+                    GetSpecial_Laser(kinds);
                     break;
                 default:
                     break;

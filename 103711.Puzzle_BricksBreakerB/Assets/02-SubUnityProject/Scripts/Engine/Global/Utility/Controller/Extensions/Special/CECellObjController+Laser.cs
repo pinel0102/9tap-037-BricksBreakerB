@@ -6,20 +6,20 @@ namespace NSEngine {
 	/** 서브 셀 객체 제어자 */
 	public partial class CECellObjController : CEObjController {
 
-        private void GetSpecial_Lazer(EObjKinds kinds)
+        private void GetSpecial_Laser(EObjKinds kinds, int _ATK = KCDefine.B_VAL_1_INT)
         {
             EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
 
             switch(kindsType)
             {
-                case EObjKinds.SPECIAL_BRICKS_LAZER_HORIZONTAL_01:  Lazer_Horizontal(); break;
-                case EObjKinds.SPECIAL_BRICKS_LAZER_VERTICAL_01:    Lazer_Vertical(); break;
-                case EObjKinds.SPECIAL_BRICKS_LAZER_CROSS_01:       Lazer_Cross(); break;
+                case EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01:  Laser_Horizontal(_ATK); break;
+                case EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01:    Laser_Vertical(_ATK); break;
+                case EObjKinds.SPECIAL_BRICKS_LASER_CROSS_01:       Laser_Cross(_ATK); break;
                 default: break;
             }
         }
 
-        private void Lazer_Horizontal()
+        private void Laser_Horizontal(int _ATK = KCDefine.B_VAL_1_INT)
         {
             CEObj myCell = this.GetOwner<CEObj>();
             int _cRow = myCell.row;
@@ -42,7 +42,7 @@ namespace NSEngine {
                             {
                                 case EObjType.NORM_BRICKS: 
                                     //Debug.Log(CodeManager.GetMethodName() + string.Format("CellObjLists[Row:{0}, Col:{1}][{2}]", _cRow, i, _cLastLayer));
-                                    target.GetComponent<CECellObjController>().GetDamage(KCDefine.B_VAL_1_INT); 
+                                    target.GetComponent<CECellObjController>().GetDamage(_ATK); 
                                     break;
                             }
                         }
@@ -50,10 +50,10 @@ namespace NSEngine {
                 }
             }
 
-            ShowEffect_Lazer_Horizontal();
+            ShowEffect_Laser(GlobalDefine.Rotation_Horizontal);
         }
 
-        private void Lazer_Vertical()
+        private void Laser_Vertical(int _ATK = KCDefine.B_VAL_1_INT)
         {
             CEObj myCell = this.GetOwner<CEObj>();
             int _cCol = myCell.column;
@@ -76,7 +76,7 @@ namespace NSEngine {
                             {
                                 case EObjType.NORM_BRICKS: 
                                     //Debug.Log(CodeManager.GetMethodName() + string.Format("CellObjLists[Row:{0}, Col:{1}][{2}]", i, _cCol, _cLastLayer));
-                                    target.GetComponent<CECellObjController>().GetDamage(KCDefine.B_VAL_1_INT); 
+                                    target.GetComponent<CECellObjController>().GetDamage(_ATK); 
                                     break;
                             }
                         }
@@ -84,23 +84,19 @@ namespace NSEngine {
                 }
 			}
 
-            ShowEffect_Lazer_Vertical();
+            ShowEffect_Laser(GlobalDefine.Rotation_Vertictal);
         }
 
-        private void Lazer_Cross()
+        private void Laser_Cross(int _ATK = KCDefine.B_VAL_1_INT)
         {
-            Lazer_Horizontal();
-            Lazer_Vertical();
+            Laser_Horizontal(_ATK);
+            Laser_Vertical(_ATK);
         }
 
-        private void ShowEffect_Lazer_Horizontal()
+        private void ShowEffect_Laser(Vector3 _rotation)
         {
-            //
-        }
-
-        private void ShowEffect_Lazer_Vertical()
-        {
-            //
+            Transform effect = CSceneManager.ActiveSceneManager.SpawnObj<Transform>(KDefine.E_OBJ_N_FX_LASER_OBJ, KDefine.E_KEY_FX_OBJS_POOL, Vector3.one, _rotation, this.transform.position);
+            CSceneManager.ActiveSceneManager.DespawnObj(KDefine.E_KEY_FX_OBJS_POOL, effect.gameObject, GlobalDefine.EffectTime_Laser);
         }
     }
 }

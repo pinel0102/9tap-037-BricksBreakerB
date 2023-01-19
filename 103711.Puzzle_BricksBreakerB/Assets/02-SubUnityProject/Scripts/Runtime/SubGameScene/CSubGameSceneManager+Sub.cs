@@ -125,7 +125,7 @@ namespace GameScene {
 		}
 
 		/** 모든 볼 떨어뜨리기 버튼을 눌렀을 경우 */
-		private void OnTouchDropAllBallsBtn() {
+		public void OnTouchDropAllBallsBtn() {
 			m_oEngine.DropAllBalls();
 		}
 

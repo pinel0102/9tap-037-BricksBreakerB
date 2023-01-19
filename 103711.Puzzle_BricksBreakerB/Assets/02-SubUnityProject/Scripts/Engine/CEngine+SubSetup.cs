@@ -32,6 +32,8 @@ namespace NSEngine {
 			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ENEMY_OBJ), this.Params.m_oObjRoot, KCDefine.U_SIZE_OBJS_POOL_01, false);
 
 			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_BALL_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_BALL_OBJ), this.Params.m_oObjRoot, KCDefine.U_SIZE_OBJS_POOL_01, false);
+
+            CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_FX_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_FX_LASER), this.Params.m_oFXRoot, KCDefine.U_SIZE_OBJS_POOL_01, false);
 			// 객체 풀을 설정한다 }
 		}
 

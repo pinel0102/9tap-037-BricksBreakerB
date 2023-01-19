@@ -56,9 +56,9 @@ public static partial class KDefine {
 		},
 
 		[KCDefine.B_VAL_2_INT] = new List<EObjKinds>() {
-			EObjKinds.SPECIAL_BRICKS_LAZER_HORIZONTAL_01,
-			EObjKinds.SPECIAL_BRICKS_LAZER_VERTICAL_01,
-			EObjKinds.SPECIAL_BRICKS_LAZER_CROSS_01,
+			EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01,
+			EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01,
+			EObjKinds.SPECIAL_BRICKS_LASER_CROSS_01,
 			EObjKinds.NONE
 		},
 

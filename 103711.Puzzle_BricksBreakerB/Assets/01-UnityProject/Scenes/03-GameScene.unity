@@ -147,7 +147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 98515741}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -360, y: 0, z: 0}
+  m_LocalPosition: {x: -1260.3077, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -522,7 +522,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 846901626}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 360, y: 0, z: 0}
+  m_LocalPosition: {x: 1260.3077, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -874,6 +874,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2193938411289031534, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 3064156682918686547, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -897,6 +901,22 @@ PrefabInstance:
     - target: {fileID: 6508481522020832348, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6767429309814067505, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1276200342}
+    - target: {fileID: 6767429309814067505, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnTouchDropAllBallsBtn
+      objectReference: {fileID: 0}
+    - target: {fileID: 6767429309814067505, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameScene.CSubGameSceneManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6767429309814067505, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6796813151750065965, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
       propertyPath: m_Layer
@@ -1021,6 +1041,10 @@ PrefabInstance:
     - target: {fileID: 6993149694324024940, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
       propertyPath: m_SizeDelta.x
       value: 720
+      objectReference: {fileID: 0}
+    - target: {fileID: 8471786313756611258, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
