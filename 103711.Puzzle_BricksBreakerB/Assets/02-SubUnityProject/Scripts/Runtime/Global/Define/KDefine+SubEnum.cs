@@ -458,7 +458,9 @@ public enum EObjKinds {
 	#region 특수 블럭
 	// 1,200,000,000
 	SPECIAL_BRICKS_LAZER_HORIZONTAL_01 = (EEnumVal.T * EObjType.SPECIAL_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+    // 1,200,000,100
 	SPECIAL_BRICKS_LAZER_VERTICAL_01 = (EEnumVal.T * EObjType.SPECIAL_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
+    // 1,200,000,200
 	SPECIAL_BRICKS_LAZER_CROSS_01 = (EEnumVal.T * EObjType.SPECIAL_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 2),
 	#endregion // 특수 블럭
 

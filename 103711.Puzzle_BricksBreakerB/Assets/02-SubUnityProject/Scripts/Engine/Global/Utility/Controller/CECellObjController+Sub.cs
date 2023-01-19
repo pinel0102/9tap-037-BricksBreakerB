@@ -8,7 +8,7 @@ using UnityEngine.Events;
 namespace NSEngine {
 	/** 서브 셀 객체 제어자 */
 	public partial class CECellObjController : CEObjController {
-		/** 서브 식별자 */
+        /** 서브 식별자 */
 		private enum ESubKey {
 			NONE = -1,
 			[HideInInspector] MAX_VAL
@@ -43,10 +43,10 @@ namespace NSEngine {
 
             switch(cellType) 
             {
-                case EObjType.NORM_BRICKS: this.GetDamage(stCellObjInfo, kinds, KCDefine.B_VAL_1_INT); break;
-                case EObjType.OBSTACLE_BRICKS: this.GetObstacle(stCellObjInfo, kinds); break;
-                case EObjType.ITEM_BRICKS: this.GetItem(stCellObjInfo, kinds); break;
-                case EObjType.SPECIAL_BRICKS: this.GetSpecial(stCellObjInfo, kinds); break;
+                case EObjType.NORM_BRICKS: this.GetDamage(KCDefine.B_VAL_1_INT); break;
+                case EObjType.OBSTACLE_BRICKS: this.GetObstacle(kinds); break;
+                case EObjType.ITEM_BRICKS: this.GetItem(kinds); break;
+                case EObjType.SPECIAL_BRICKS: this.GetSpecial(kinds); break;
                 default : 
                     Debug.Log(CodeManager.GetMethodName() + string.Format("{0} / {1}", cellType, kinds));
                     break;
@@ -64,8 +64,11 @@ namespace NSEngine {
 		}
 		#endregion // 함수
 
-        private void GetDamage(STCellObjInfo stCellObjInfo, EObjKinds kinds, int _ATK)
+        public void GetDamage(int _ATK)
         {
+            var oCellObj = this.GetOwner<CEObj>();
+			var stCellObjInfo = oCellObj.CellObjInfo;
+
             stCellObjInfo.HP = Mathf.Max(KCDefine.B_VAL_0_INT, stCellObjInfo.HP - _ATK);
 
 			this.GetOwner<CEObj>().HPText.text = $"{stCellObjInfo.HP}";
@@ -77,12 +80,12 @@ namespace NSEngine {
 			}
         }
 
-        private void GetObstacle(STCellObjInfo stCellObjInfo, EObjKinds kinds)
+        private void GetObstacle(EObjKinds kinds)
         {
             //
         }
 
-        private void GetItem(STCellObjInfo stCellObjInfo, EObjKinds kinds)
+        private void GetItem(EObjKinds kinds)
         {
             EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
 
@@ -98,11 +101,16 @@ namespace NSEngine {
             CellDestroy();
         }
 
-        private void GetSpecial(STCellObjInfo stCellObjInfo, EObjKinds kinds)
+        private void GetSpecial(EObjKinds kinds)
         {
-            switch(kinds)
+            EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
+
+            switch(kindsType)
             {
                 case EObjKinds.SPECIAL_BRICKS_LAZER_HORIZONTAL_01:
+                case EObjKinds.SPECIAL_BRICKS_LAZER_VERTICAL_01:
+                case EObjKinds.SPECIAL_BRICKS_LAZER_CROSS_01:
+                    GetSpecial_Lazer(kinds);
                     break;
                 default:
                     break;

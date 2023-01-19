@@ -26,6 +26,11 @@ namespace NSEngine {
 		private Dictionary<EKey, Vector3Int> m_oVec3IntDict = new Dictionary<EKey, Vector3Int>() {
 			[EKey.CELL_IDX] = new Vector3Int(KCDefine.B_IDX_INVALID, KCDefine.B_IDX_INVALID, KCDefine.B_IDX_INVALID)
 		};
+
+        public int row;
+        public int column;
+        public int layer;
+
 		#endregion // 변수
 
 		#region 프로퍼티
@@ -48,6 +53,8 @@ namespace NSEngine {
 			// 스프라이트를 설정한다
 			this.TargetSprite?.ExSetSprite<SpriteRenderer>(Access.GetSprite(a_stParams.m_stObjInfo.m_eObjKinds));
 			this.TargetSprite?.ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stObjInfo.m_eObjKinds));
+            
+            SetSpriteColor();
 
 			this.SubInit();
 		}
@@ -65,7 +72,39 @@ namespace NSEngine {
 		/** 셀 인덱스를 변경한다 */
 		public void SetCellIdx(Vector3Int a_stCellIdx) {
 			m_oVec3IntDict.ExReplaceVal(EKey.CELL_IDX, a_stCellIdx);
+
+            column = a_stCellIdx.x;
+            row = a_stCellIdx.y;
+            layer = a_stCellIdx.z;
 		}
+
+        public void SetSpriteColor()
+        {
+            EObjKinds kinds = Params.m_stObjInfo.m_eObjKinds;
+            EObjType cellType = (EObjType)((int)kinds).ExKindsToType();
+
+            Color _color = new Color();
+
+            switch(cellType)
+            {
+                case EObjType.BALL:
+                    _color = ItemInfo.BricksColor[2];
+                    break;
+                case EObjType.NORM_BRICKS:
+                    _color = ItemInfo.BricksColor[1];
+                    break;
+                case EObjType.OBSTACLE_BRICKS:
+                case EObjType.ITEM_BRICKS:
+                case EObjType.SPECIAL_BRICKS:
+                    _color = ItemInfo.BricksColor[0];
+                    break;
+                default:
+                    _color = ItemInfo.BricksColor[0];
+                    break;
+            }
+
+            this.TargetSprite.color = _color;
+        }
 		#endregion // 함수
 
 		#region 클래스 함수

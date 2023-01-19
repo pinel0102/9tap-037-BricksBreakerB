@@ -102,11 +102,14 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 65e42cb1ac9e044d7885b93856e5f3f4, type: 3}
   - {fileID: 21300000, guid: a9315504afbfe4d3caad39b17b968a43, type: 3}
   - {fileID: 21300000, guid: 980e5964c361341a4bd61598ffa49316, type: 3}
+  - {fileID: 21300000, guid: b866b27581abc4a8299bfcb28b1b3503, type: 3}
   - {fileID: 21300000, guid: 0a5817e6f16214aed88613b8f678e07a, type: 3}
   - {fileID: 21300000, guid: 49049ae7aed5e425195b6afcd96ff9b2, type: 3}
   - {fileID: 21300000, guid: b6dbff68a10f14590a488033a4518aae, type: 3}
   - {fileID: 21300000, guid: 86a1ce695c0064474ba85ade693f4e2a, type: 3}
+  - {fileID: 21300000, guid: d5b901d91816d4a19abfbffcbbe7c41a, type: 3}
   - {fileID: 21300000, guid: a0425dfa20eab4959b9b20116f81c311, type: 3}
+  - {fileID: 21300000, guid: 00d14e3bdc22241b78ace03f107b16a8, type: 3}
   - {fileID: 21300000, guid: 4bdd635c552e54a9b887d15cfa76adde, type: 3}
   - {fileID: 21300000, guid: 3894e35e1af93493b95d7a95815d2f4c, type: 3}
   - {fileID: 21300000, guid: d21b076eb86c64226ada62323a2c2a28, type: 3}
@@ -115,11 +118,14 @@ SpriteAtlas:
   - ITEM_BRICKS_BALL_02
   - NORM_BRICKS_RIGHT_TRIANGLE_02
   - ITEM_BRICKS_BALL_01
+  - SPECIAL_BRICKS_LAZER_VERTICAL_01
   - NORM_BRICKS_TRIANGLE_04
   - NORM_BRICKS_TRIANGLE_02
   - NORM_BRICKS_RIGHT_TRIANGLE_04
   - ITEM_BRICKS_BALL_03
+  - SPECIAL_BRICKS_LAZER_HORIZONTAL_01
   - NORM_BRICKS_RIGHT_TRIANGLE_01
+  - SPECIAL_BRICKS_LAZER_CROSS_01
   - NORM_BRICKS_TRIANGLE_03
   - NORM_BRICKS_SQUARE_01
   - NORM_BRICKS_RIGHT_TRIANGLE_03

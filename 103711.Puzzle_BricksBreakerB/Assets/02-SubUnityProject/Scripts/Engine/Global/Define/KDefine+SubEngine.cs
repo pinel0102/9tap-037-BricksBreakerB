@@ -62,6 +62,14 @@ namespace NSEngine {
 				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_DEF
 			},
 
+            [EObjKinds.SPECIAL_BRICKS_LAZER_VERTICAL_01] = new STSortingOrderInfo() {
+				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_DEF
+			},
+
+            [EObjKinds.SPECIAL_BRICKS_LAZER_CROSS_01] = new STSortingOrderInfo() {
+				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_DEF
+			},
+
 			[EObjKinds.BALL_NORM_01] = new STSortingOrderInfo() {
 				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_DEF
 			}
