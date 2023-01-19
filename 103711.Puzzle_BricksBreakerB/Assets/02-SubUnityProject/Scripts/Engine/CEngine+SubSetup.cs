@@ -23,7 +23,7 @@ namespace NSEngine {
 
 			m_oSubLineFXDict[ESubKey.LINE_FX].ExSetWidth(KCDefine.B_VAL_5_REAL, KCDefine.B_VAL_5_REAL);
 			m_oSubLineFXDict[ESubKey.LINE_FX].ExSetColor(Color.white, Color.white);
-			m_oSubLineFXDict[ESubKey.LINE_FX].ExSetSortingOrder(KCDefine.U_SORTING_OI_DEF.ExGetExtraOrder(-KCDefine.B_VAL_1_INT));
+			m_oSubLineFXDict[ESubKey.LINE_FX].ExSetSortingOrder(KCDefine.U_SORTING_OI_CELL.ExGetExtraOrder(-KCDefine.B_VAL_1_INT));
 			// 라인 효과를 설정한다 }
 
 			// 객체 풀을 설정한다 {

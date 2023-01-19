@@ -43,35 +43,35 @@ namespace NSEngine {
 			},
 
 			[EObjKinds.NORM_BRICKS_SQUARE_01] = new STSortingOrderInfo() {
-				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_DEF
+				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL
 			},
 
 			[EObjKinds.NORM_BRICKS_TRIANGLE_01] = new STSortingOrderInfo() {
-				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_DEF
+				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL
 			},
 
 			[EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_01] = new STSortingOrderInfo() {
-				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_DEF
+				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL
 			},
 
             [EObjKinds.ITEM_BRICKS_BALL_01] = new STSortingOrderInfo() {
-				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_DEF
+				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL
 			},
 
             [EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01] = new STSortingOrderInfo() {
-				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_DEF
+				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL
 			},
 
             [EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01] = new STSortingOrderInfo() {
-				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_DEF
+				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL
 			},
 
             [EObjKinds.SPECIAL_BRICKS_LASER_CROSS_01] = new STSortingOrderInfo() {
-				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_DEF
+				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL
 			},
 
 			[EObjKinds.BALL_NORM_01] = new STSortingOrderInfo() {
-				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_DEF
+				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_BALL
 			}
 		};
 

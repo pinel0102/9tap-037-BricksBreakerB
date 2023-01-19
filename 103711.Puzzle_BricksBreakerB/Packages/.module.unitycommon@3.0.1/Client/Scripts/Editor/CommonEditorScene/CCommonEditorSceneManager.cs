@@ -58,7 +58,11 @@ public static partial class CCommonEditorSceneManager {
 		[KCDefine.U_SORTING_L_OVERLAY_BACKGROUND] = "OB",
 
 		[KCDefine.U_SORTING_L_OVERLAY_OVERGROUND] = "OO",
-		[KCDefine.U_SORTING_L_OVERLAY_UNDERGROUND] = "OU"
+		[KCDefine.U_SORTING_L_OVERLAY_UNDERGROUND] = "OU",
+
+        [KCDefine.U_SORTING_L_CELL] = "CE",
+        [KCDefine.U_SORTING_L_BALL] = "BA",
+        [KCDefine.U_SORTING_L_EFFECT] = "EF",
 	};
 	#endregion // 클래스 변수
 

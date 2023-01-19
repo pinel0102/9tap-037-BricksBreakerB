@@ -49,11 +49,11 @@ namespace NSEngine {
 
 			// 텍스트를 갱신한다 {
 			(m_oSubTextDict.GetValueOrDefault(ESubKey.HP_TEXT) as TextMeshPro)?.ExSetSortingOrder(new STSortingOrderInfo() {
-				m_nOrder = this.TargetSprite.sortingOrder + KCDefine.B_VAL_1_INT, m_oLayer = this.TargetSprite.sortingLayerName
+				m_nOrder = this.TargetSprite.sortingOrder + KCDefine.B_VAL_1_INT, m_oLayer = KCDefine.U_SORTING_L_DEF
 			});
 
 			(m_oSubTextDict.GetValueOrDefault(ESubKey.NUM_TEXT) as TextMeshPro)?.ExSetSortingOrder(new STSortingOrderInfo() {
-				m_nOrder = this.TargetSprite.sortingOrder + KCDefine.B_VAL_1_INT, m_oLayer = this.TargetSprite.sortingLayerName
+				m_nOrder = this.TargetSprite.sortingOrder + KCDefine.B_VAL_1_INT, m_oLayer = KCDefine.U_SORTING_L_DEF
 			});
 			// 텍스트를 갱신한다 }
 

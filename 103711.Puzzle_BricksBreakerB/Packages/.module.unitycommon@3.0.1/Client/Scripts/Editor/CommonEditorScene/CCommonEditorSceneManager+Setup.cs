@@ -54,7 +54,7 @@ public static partial class CCommonEditorSceneManager {
 
 	/** 태그를 설정한다 */
 	private static void SetupTags() {
-		var oLights = Resources.FindObjectsOfTypeAll<Light>();
+		/*var oLights = Resources.FindObjectsOfTypeAll<Light>();
 		var oCameras = Resources.FindObjectsOfTypeAll<Camera>();
 		var oSceneManagers = Resources.FindObjectsOfTypeAll<CSceneManager>();
 
@@ -86,7 +86,7 @@ public static partial class CCommonEditorSceneManager {
 
 		for(int i = 0; i < oSceneManagers.Length; ++i) {
 			oSceneManagers[i].ExSetTag(KCDefine.U_TAG_SCENE_MANAGER);
-		}
+		}*/
 	}
 
 	/** 콜백을 설정한다 */

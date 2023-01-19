@@ -70,11 +70,13 @@ namespace NSEngine {
 			base.HandleMoveState(a_fDeltaTime);
 
 			var stVelocity = (m_oVec3Dict[EKey.DIRECTION] * m_oRealDict[EKey.SPEED]) * a_fDeltaTime;
-			var stWorldPos = (this.GetOwner<CEObj>().transform.localPosition + (stVelocity.normalized * KCDefine.B_VAL_0_1_REAL)).ExToWorld(this.Engine.Params.m_oObjRoot);
+			//var stWorldPos = (this.GetOwner<CEObj>().transform.localPosition + (stVelocity.normalized * KCDefine.B_VAL_0_1_REAL)).ExToWorld(this.Engine.Params.m_oObjRoot);
+            var stWorldPos = (this.GetOwner<CEObj>().transform.localPosition + stVelocity.normalized).ExToWorld(this.Engine.Params.m_oObjRoot);
 			var stRaycastHit = Physics2D.CircleCast(stWorldPos, this.GetOwner<CEObj>().TargetSprite.sprite.textureRect.size.ExToWorld(this.Engine.Params.m_oObjRoot).x / KCDefine.B_VAL_2_REAL, stVelocity.normalized);
 
 			var stHitPos = (stWorldPos + (stVelocity.normalized * stRaycastHit.distance)).ExToLocal(this.Engine.Params.m_oObjRoot);
-			var stHitDelta = (this.GetOwner<CEObj>().transform.localPosition + (stVelocity.normalized * KCDefine.B_VAL_0_1_REAL)) - stHitPos;
+			//var stHitDelta = (this.GetOwner<CEObj>().transform.localPosition + (stVelocity.normalized * KCDefine.B_VAL_0_1_REAL)) - stHitPos;
+            var stHitDelta = (this.GetOwner<CEObj>().transform.localPosition + stVelocity.normalized) - stHitPos;
 
 			// 충돌체가 존재 할 경우
 			if(stRaycastHit.collider != null && stHitDelta.magnitude.ExIsLessEquals(stVelocity.magnitude)) {
@@ -93,16 +95,15 @@ namespace NSEngine {
                             m_oVec3Dict[EKey.DIRECTION] = Vector3.Reflect(stVelocity.normalized, stRaycastHit.normal).normalized;
 				            this.GetOwner<CEObj>().transform.localPosition = stHitPos;
                             break;
-                        //case EObjType.NORM_BRICKS:
+                        
                         case EObjType.ITEM_BRICKS:
                         case EObjType.SPECIAL_BRICKS:
                             // Do Not Reflect
-                            //Debug.Log(CodeManager.GetMethodName() + string.Format("{0} : Do Not Reflect", (EObjType)((int)oCellObj.Params.m_stObjInfo.m_eObjKinds).ExKindsToType()));
                             this.GetOwner<CEObj>().transform.localPosition += stVelocity;
                             break;
                         
                         default : 
-                            //Debug.Log(CodeManager.GetMethodName() + string.Format("{0} : Do Not Reflect", (EObjType)((int)oCellObj.Params.m_stObjInfo.m_eObjKinds).ExKindsToType()));
+                            Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", (EObjType)((int)oCellObj.Params.m_stObjInfo.m_eObjKinds).ExKindsToType()));
                             this.GetOwner<CEObj>().transform.localPosition += stVelocity;
                             break;
                     }
@@ -120,6 +121,7 @@ namespace NSEngine {
 				}
                 else // 상단 or 좌우 벽일 경우.
                 {
+                    //Debug.Log(CodeManager.GetMethodName() + "Wall");
                     m_oVec3Dict[EKey.DIRECTION] = Vector3.Reflect(stVelocity.normalized, stRaycastHit.normal).normalized;
 				    this.GetOwner<CEObj>().transform.localPosition = stHitPos;
                 }

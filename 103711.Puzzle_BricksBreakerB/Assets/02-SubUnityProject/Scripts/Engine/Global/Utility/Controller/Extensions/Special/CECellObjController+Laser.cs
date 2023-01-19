@@ -95,7 +95,7 @@ namespace NSEngine {
 
         private void ShowEffect_Laser(Vector3 _rotation)
         {
-            Transform effect = CSceneManager.ActiveSceneManager.SpawnObj<Transform>(KDefine.E_OBJ_N_FX_LASER_OBJ, KDefine.E_KEY_FX_OBJS_POOL, Vector3.one, _rotation, this.transform.position);
+            Transform effect = CSceneManager.ActiveSceneManager.SpawnObj<Transform>(KDefine.E_OBJ_N_FX_LASER_OBJ, KDefine.E_KEY_FX_OBJS_POOL, Vector3.one, _rotation, this.transform.localPosition);
             CSceneManager.ActiveSceneManager.DespawnObj(KDefine.E_KEY_FX_OBJS_POOL, effect.gameObject, GlobalDefine.EffectTime_Laser);
         }
     }

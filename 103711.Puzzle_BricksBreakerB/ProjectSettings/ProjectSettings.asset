@@ -220,6 +220,7 @@ PlayerSettings:
   - {fileID: 8113187388039015871, guid: da92b7170575c46c8a7eaf4afa14073c, type: 3}
   - {fileID: 2429724377936249959, guid: 8d93d9d989bd74c4c828ffda97d318cc, type: 3}
   - {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: 11400000, guid: dbba1d154c0e549149fceedd0dcafd09, type: 2}
   - {fileID: 7947261922413523823, guid: 9b2538e22bb2a944a8c4239533322206, type: 3}
   - {fileID: 2263259457666090574, guid: 5c2725e76eefacf49b7bc4eeaed05a08, type: 3}
   - {fileID: 4956034379125523778, guid: 3efd4bff0c63ec14299a7b9b8cf4efd3, type: 3}

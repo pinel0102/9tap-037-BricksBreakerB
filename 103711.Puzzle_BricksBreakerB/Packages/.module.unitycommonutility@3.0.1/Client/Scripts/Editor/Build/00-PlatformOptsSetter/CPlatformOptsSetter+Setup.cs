@@ -236,7 +236,7 @@ public static partial class CPlatformOptsSetter {
 		}
 
 		// 태그 관리자가 존재 할 경우
-		if(CEditorAccess.IsExistsAsset(KCEditorDefine.B_ASSET_P_TAG_MANAGER)) {
+		/*if(CEditorAccess.IsExistsAsset(KCEditorDefine.B_ASSET_P_TAG_MANAGER)) {
 			var oSerializeObj = CEditorFactory.CreateSerializeObj(KCEditorDefine.B_ASSET_P_TAG_MANAGER);
 
 			// 태그를 설정한다
@@ -267,7 +267,7 @@ public static partial class CPlatformOptsSetter {
 					}
 				}
 			});
-		}
+		}*/
 
 		// 퀄리티 설정이 존재 할 경우
 		if(CEditorAccess.IsExistsAsset(KCEditorDefine.B_ASSET_P_QUALITY_SETTINGS)) {

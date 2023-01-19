@@ -620,6 +620,10 @@ public static partial class KCDefine {
 
 	public const string U_SORTING_L_OVERLAY_BACKGROUND = "OverlayBackground";
 	public const string U_SORTING_L_OVERLAY_UNDERGROUND = "OverlayUnderground";
+
+    public const string U_SORTING_L_CELL = "Cell";
+    public const string U_SORTING_L_BALL = "Ball";
+    public const string U_SORTING_L_EFFECT = "Effect";
 	// 정렬 레이어 }
 
 	// 씬 관리자
@@ -736,6 +740,10 @@ public static partial class KCDefine {
 
 	public static readonly STSortingOrderInfo U_SORTING_OI_DEF = new STSortingOrderInfo() {
 		m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_DEF
+	};
+
+    public static readonly STSortingOrderInfo U_SORTING_OI_CELL = new STSortingOrderInfo() {
+		m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL
 	};
 
 	public static readonly STSortingOrderInfo U_SORTING_OI_TOP = new STSortingOrderInfo() {
