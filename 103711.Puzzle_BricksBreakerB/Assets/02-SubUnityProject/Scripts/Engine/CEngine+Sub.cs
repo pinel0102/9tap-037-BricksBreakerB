@@ -66,7 +66,7 @@ namespace NSEngine {
 
 		#region 프로퍼티
 		public EState State { get; private set; } = EState.NONE;
-		public EPlayState PlayState { get; private set; } = EPlayState.NONE;
+		public EPlayState PlayState;
 
 		public List<CEObj> PlayerObjList { get; } = new List<CEObj>();
 		public List<CEObj> EnemyObjList { get; } = new List<CEObj>();
@@ -78,9 +78,11 @@ namespace NSEngine {
 		public CEObj SelPlayerObj => this.PlayerObjList[this.SelPlayerObjIdx];
 		public CEObj SelBallObj => this.BallObjList[KCDefine.B_VAL_0_INT];
 
+        public int currentLevel;
         public int currentShootCount = 0;
         public Vector3 startPosition = Vector3.zero;
         public Vector3 shootDirection = Vector3.zero;
+        private WaitForSeconds dropBallsDelay = new WaitForSeconds(KCDefine.B_VAL_0_5_REAL);
 		#endregion // 프로퍼티
 
 		#region 함수
@@ -182,12 +184,15 @@ namespace NSEngine {
 					}, KCDefine.B_VAL_0_REAL, true));
 				} finally {
 					CCollectionManager.Inst.DespawnList(oAniList);
+                    CheckClear(true);
 				}
 			}
 		}
 
 		/** 초기화한다 */
 		private void SubInit() {
+            currentLevel = (int)CGameInfoStorage.Inst.PlayEpisodeInfo.ULevelID + 1;
+
 #if NEVER_USE_THIS
 			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
 			var stObjInfo = CObjInfoTable.Inst.GetObjInfo(EObjKinds.PLAYABLE_COMMON_CHARACTER_01);
@@ -309,13 +314,16 @@ namespace NSEngine {
 
 					// 모든 공이 이동을 완료했을 경우
 					if(m_oMoveCompleteBallObjList.Count >= this.BallObjList.Count) {
-						// 클리어했을 경우
-						if(this.IsClear()) {
+                        
+                        CheckClear();
+						
+                        // 클리어했을 경우
+						/*if(this.IsClear()) {
 							// FIXME: 임시
 							CSceneLoader.Inst.LoadScene((CGameInfoStorage.Inst.PlayMode == EPlayMode.TEST) ? KCDefine.B_SCENE_N_LEVEL_EDITOR : KCDefine.B_SCENE_N_MAIN);
 						} else {
 							this.ExLateCallFunc((a_oFuncSender) => this.PlayState = EPlayState.IDLE, KCDefine.B_VAL_1_REAL);
-						}
+						}*/
 					}
 
 					break;
@@ -599,6 +607,42 @@ namespace NSEngine {
 					}
 				}
 			}
+        }
+
+        public void CheckClear(bool _waitDelay = false)
+        {
+            // 클리어했을 경우
+            if(this.IsClear()) {
+                CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).SetEnableUpdateUIsState(true);
+
+                if (_waitDelay)
+                    StartCoroutine(CO_Clear());
+                else
+                    LevelClear();                
+            } else {
+                this.ExLateCallFunc((a_oFuncSender) => {
+                    this.PlayState = EPlayState.IDLE;
+                    CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).SetEnableUpdateUIsState(true);
+                    }, KCDefine.B_VAL_0_3_REAL);
+            }
+        }
+
+        private IEnumerator CO_Clear()
+        {
+            yield return dropBallsDelay;
+
+            LevelClear();
+        }
+
+        public void LevelClear()
+        {
+            Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", currentLevel));
+            //Debug.Log(CodeManager.GetMethodName() + string.Format("{0} / {1}", m_oMoveCompleteBallObjList.Count, this.BallObjList.Count));
+            
+            // FIXME: 임시
+            //CSceneLoader.Inst.LoadScene((CGameInfoStorage.Inst.PlayMode == EPlayMode.TEST) ? KCDefine.B_SCENE_N_LEVEL_EDITOR : KCDefine.B_SCENE_N_MAIN);
+
+            Params.m_oCallbackDict01[NSEngine.CEngine.ECallback.CLEAR].Invoke(this);
         }
 		#endregion // 함수
 

@@ -18,8 +18,12 @@ namespace NSEngine {
 					for(int k = 0; k < this.CellObjLists[i, j].Count; ++k) {
 						// 셀이 존재 할 경우
 						if(this.CellObjLists[i, j][k].gameObject.activeSelf) {
-							bIsClear = false;
-							goto EXIT_FOR;
+                            CEObj target = this.CellObjLists[i, j][k];							
+                            if(target != null && (EObjType)((int)target.Params.m_stObjInfo.m_eObjKinds).ExKindsToType() == EObjType.NORM_BRICKS)
+                            {
+                                bIsClear = false;
+							    goto EXIT_FOR;
+                            }
 						}
 					}
 				}

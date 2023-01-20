@@ -50,14 +50,14 @@ namespace GameScene {
 
 		/** =====> 객체 <===== */
 		[SerializeField] private List<GameObject> m_oRewardAdsUIsList = new List<GameObject>();
-		#endregion // 변수
+        #endregion // 변수
 
 		#region 함수
 		/** 초기화 */
 		public override void Awake() {
 			base.Awake();
 
-			// 앱이 초기화 되었을 경우
+            // 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {
 #if DEBUG || DEVELOPMENT_BUILD
 				// 플레이 레벨 정보가 없을 경우
@@ -302,8 +302,13 @@ namespace GameScene {
 			this.ShowResultPopup(false);
 		}
 
+        public void OnTouchClearBtn()
+        {
+            m_oEngine.LevelClear();
+        }
+
 		/** 정지 버튼을 눌렀을 경우 */
-		private void OnTouchPauseBtn() {
+		public void OnTouchPauseBtn() {
 			Func.ShowPausePopup(this.PopupUIs, (a_oSender) => {
 				(a_oSender as CPausePopup).Init(CPausePopup.MakeParams(new Dictionary<CPausePopup.ECallback, System.Action<CPausePopup>>() {
 					[CPausePopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
@@ -312,7 +317,7 @@ namespace GameScene {
 		}
 
 		/** 설정 버튼을 눌렀을 경웅 */
-		private void OnTouchSettingsBtn() {
+		public void OnTouchSettingsBtn() {
 			Func.ShowSettingsPopup(this.PopupUIs, (a_oSender) => {
 				(a_oSender as CSettingsPopup).Init();
 			});
@@ -345,11 +350,22 @@ namespace GameScene {
 
 		/** 레벨을 로드한다 */
 		private void LoadLevel(CPopup a_oPopup, STEpisodeInfo a_stEpisodeInfo) {
-			switch(CGameInfoStorage.Inst.PlayMode) {
+            switch(CGameInfoStorage.Inst.PlayMode) {
 				case EPlayMode.NORM: {
-					// 레벨 로드가 가능 할 경우
-					if(a_stEpisodeInfo.m_stIDInfo.m_nID01 > KCDefine.B_IDX_INVALID && a_stEpisodeInfo.m_stIDInfo.m_nID01 <= Access.GetNumLevelClearInfos(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03)) {
-						Func.SetupPlayEpisodeInfo(CGameInfoStorage.Inst.PlayCharacterID, a_stEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayMode, a_stEpisodeInfo.m_stIDInfo.m_nID02, a_stEpisodeInfo.m_stIDInfo.m_nID03);
+                    //Debug.Log(CodeManager.GetMethodName() + string.Format("{0} <? {1}", m_oEngine.currentLevel, CLevelInfoTable.Inst.levelCount));
+                    //Debug.Log(CodeManager.GetMethodName() + string.Format("a_stEpisodeInfo.m_stIDInfo.m_nID01 : {0}", a_stEpisodeInfo.m_stIDInfo.m_nID01));
+                    //Debug.Log(CodeManager.GetMethodName() + string.Format("Access.GetNumLevelClearInfos() : {0}", Access.GetNumLevelClearInfos(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03)));
+                    //Debug.Log(CodeManager.GetMethodName() + string.Format("PlayCharacterID : {0} / m_stIDInfo.m_nID02 : {1} / m_stIDInfo.m_nID03 : {2}", CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03));
+					
+                    // 레벨 로드가 가능 할 경우
+					//if(a_stEpisodeInfo.m_stIDInfo.m_nID01 > KCDefine.B_IDX_INVALID && a_stEpisodeInfo.m_stIDInfo.m_nID01 <= Access.GetNumLevelClearInfos(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03)) {
+                    //  Func.SetupPlayEpisodeInfo(CGameInfoStorage.Inst.PlayCharacterID, a_stEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayMode, a_stEpisodeInfo.m_stIDInfo.m_nID02, a_stEpisodeInfo.m_stIDInfo.m_nID03);
+                    
+                    if (m_oEngine.currentLevel < 10)//TODO: CLevelInfoTable.Inst.levelCount
+                    {
+                        Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", m_oEngine.currentLevel + 1));
+
+                        Func.SetupPlayEpisodeInfo(CGameInfoStorage.Inst.PlayCharacterID, (int)CGameInfoStorage.Inst.PlayEpisodeInfo.ULevelID + 1, CGameInfoStorage.Inst.PlayMode);
 
 #if ADS_MODULE_ENABLE
 						Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME));

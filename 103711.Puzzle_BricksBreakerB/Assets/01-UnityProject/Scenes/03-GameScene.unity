@@ -249,7 +249,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 305572985}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 773.3333, z: 0}
+  m_LocalPosition: {x: 0, y: 640, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -280,7 +280,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 447852263}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -773.3333, z: 0}
+  m_LocalPosition: {x: 0, y: -640, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -614,6 +614,7 @@ MonoBehaviour:
   - {fileID: 1032853848}
   m_oShootUIsList:
   - {fileID: 219398903}
+  levelText: {fileID: 6993149693766247224}
 --- !u!1 &1376964104
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,7 +640,7 @@ Transform:
   m_GameObject: {fileID: 1376964104}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.82758623, y: 0.82758623, z: 0.82758623}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1538062839}
@@ -874,6 +875,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 347605244453748949, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1276200342}
+    - target: {fileID: 347605244453748949, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnTouchClearBtn
+      objectReference: {fileID: 0}
+    - target: {fileID: 347605244453748949, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameScene.CSubGameSceneManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 347605244453748949, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2193938411289031534, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
@@ -1046,9 +1063,36 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 720
       objectReference: {fileID: 0}
+    - target: {fileID: 7694971174727656266, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1276200342}
+    - target: {fileID: 7694971174727656266, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnTouchPauseBtn
+      objectReference: {fileID: 0}
+    - target: {fileID: 7694971174727656266, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameScene.CSubGameSceneManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7694971174727656266, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8471786313756611258, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+--- !u!114 &6993149693766247224 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 846885207054351768, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+  m_PrefabInstance: {fileID: 6993149693766247223}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

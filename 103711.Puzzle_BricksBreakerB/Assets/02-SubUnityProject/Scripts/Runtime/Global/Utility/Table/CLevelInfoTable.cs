@@ -35,7 +35,7 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 		ObjKinds = EObjKinds.NONE
 	};
 
-	private const string KEY_SIZE_X = "SizeX";
+    private const string KEY_SIZE_X = "SizeX";
 	private const string KEY_SIZE_Y = "SizeY";
 	private const string KEY_SIZE_Z = "SizeZ";
 
@@ -427,6 +427,9 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	public int NumChapterInfos => this.LevelInfoDictContainer.Count;
 #endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+
+    public int levelCount;
+
 	#endregion // 프로퍼티
 
 	#region 함수
@@ -486,6 +489,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		var oLevelIDList = File.Exists(a_oFilePath) ? CFunc.ReadMsgPackJSONObj<List<ulong>>(a_oFilePath, false) : CFunc.ReadMsgPackJSONObjFromRes<List<ulong>>(a_oFilePath, false);
 
+        levelCount = oLevelIDList.Count;
 		for(int i = 0; i < oLevelIDList.Count; ++i) {
 			this.AddLevelInfo(this.LoadLevelInfo(oLevelIDList[i].ExULevelIDToLevelID(), oLevelIDList[i].ExULevelIDToStageID(), oLevelIDList[i].ExULevelIDToChapterID()));
 		}
@@ -735,7 +739,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 	/** 레벨 정보를 반환한다 */
 	public CLevelInfo GetLevelInfo(int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		bool bIsValid = this.TryGetLevelInfo(a_nLevelID, out CLevelInfo oLevelInfo, a_nStageID, a_nChapterID);
+        bool bIsValid = this.TryGetLevelInfo(a_nLevelID, out CLevelInfo oLevelInfo, a_nStageID, a_nChapterID);
 		CAccess.Assert(bIsValid);
 
 		return oLevelInfo;

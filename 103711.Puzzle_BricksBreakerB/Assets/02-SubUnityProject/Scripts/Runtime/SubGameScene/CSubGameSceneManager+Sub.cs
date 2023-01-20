@@ -8,13 +8,6 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 namespace GameScene {
-	/** 서브 게임 씬 관리자 */
-	public partial class CSubGameSceneManager : CGameSceneManager {
-		#region 함수
-
-		#endregion // 함수
-	}
-
 	/** 서브 게임 씬 관리자 - 서브 */
 	public partial class CSubGameSceneManager : CGameSceneManager {
 		/** 서브 식별자 */
@@ -40,6 +33,9 @@ namespace GameScene {
 
 		[SerializeField] private List<GameObject> m_oIdleUIsList = new List<GameObject>();
 		[SerializeField] private List<GameObject> m_oShootUIsList = new List<GameObject>();
+
+        public TMPro.TMP_Text levelText;
+        private const string formatLevelText = "Level {0}";
 		#endregion // 변수
 
 		#region 프로퍼티
@@ -87,6 +83,8 @@ namespace GameScene {
 			CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
 				($"{ESubKey.DROP_ALL_BALLS_BTN}", this.UIsBase, this.OnTouchDropAllBallsBtn)
 			});
+
+            levelText.text = string.Format(formatLevelText, m_oEngine.currentLevel);
 		}
 
 		/** 씬을 설정한다 */

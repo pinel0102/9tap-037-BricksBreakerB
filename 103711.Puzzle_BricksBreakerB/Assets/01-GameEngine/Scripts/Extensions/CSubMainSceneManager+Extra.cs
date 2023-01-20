@@ -14,7 +14,7 @@ namespace MainScene {
 		#region 변수
 		/** =====> 객체 <===== */
 		[SerializeField] private GameObject m_oTempMenuUIs = null;
-		#endregion // 변수
+        #endregion // 변수
 
 		#region 함수
 		/** 씬을 설정한다 */
@@ -30,6 +30,7 @@ namespace MainScene {
 				m_oTempMenuUIs.transform.GetChild(i).GetComponentInChildren<Button>().onClick.AddListener(() => {
 					var oText = m_oTempMenuUIs.transform.GetChild(nIdx).GetComponentInChildren<TMP_Text>();
 					Func.SetupPlayEpisodeInfo(KDefine.G_CHARACTER_ID_COMMON, int.Parse(oText.text) - 1, EPlayMode.NORM);
+                    Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", int.Parse(oText.text)));
 
 					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
 				});
