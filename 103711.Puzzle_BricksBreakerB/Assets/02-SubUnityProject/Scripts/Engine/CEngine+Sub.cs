@@ -203,7 +203,7 @@ namespace NSEngine {
 #endif // #if NEVER_USE_THIS
 
 			for(int i = 0; i < CGameInfoStorage.Inst.PlayEpisodeInfo.m_nNumBalls; ++i) {
-                CreateBall();
+                CreateBall(i);
 
 				/*var oBallObj = this.CreateBallObj(CObjInfoTable.Inst.GetObjInfo(EObjKinds.BALL_NORM_01), null);
 				oBallObj.NumText.text = string.Empty;
@@ -238,9 +238,9 @@ namespace NSEngine {
 			// 스프라이트를 설정한다 }
 		}
 
-        public void CreateBall()
+        public void CreateBall(int _index)
         {
-            var oBallObj = this.CreateBallObj(CObjInfoTable.Inst.GetObjInfo(EObjKinds.BALL_NORM_01), null);
+            var oBallObj = this.CreateBallObj(_index, CObjInfoTable.Inst.GetObjInfo(EObjKinds.BALL_NORM_01), null);
             oBallObj.NumText.text = string.Empty;
             oBallObj.transform.localPosition = this.SelGridInfo.m_stPivotPos + new Vector3(this.SelGridInfo.m_stBounds.size.x / KCDefine.B_VAL_2_REAL, -this.SelGridInfo.m_stBounds.size.y, KCDefine.B_VAL_0_INT);
             oBallObj.transform.localPosition += new Vector3(KCDefine.B_VAL_0_REAL, oBallObj.TargetSprite.sprite.textureRect.height / KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_INT);
@@ -248,9 +248,9 @@ namespace NSEngine {
             this.BallObjList.ExAddVal(oBallObj);
         }
 
-        public void AddBall()
+        public void AddBall(int _index)
         {
-            var oBallObj = this.CreateBallObj(CObjInfoTable.Inst.GetObjInfo(EObjKinds.BALL_NORM_01), null);
+            var oBallObj = this.CreateBallObj(_index, CObjInfoTable.Inst.GetObjInfo(EObjKinds.BALL_NORM_01), null);
             oBallObj.NumText.text = string.Empty;
             oBallObj.transform.localPosition = startPosition;
             

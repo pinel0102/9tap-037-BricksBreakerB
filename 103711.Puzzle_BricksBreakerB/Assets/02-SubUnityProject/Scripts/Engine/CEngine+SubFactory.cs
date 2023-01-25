@@ -112,12 +112,12 @@ namespace NSEngine {
 	public partial class CEngine : CComponent {
 		#region 함수
 		/** 공 객체를 생성한다 */
-		public CEObj CreateBallObj(STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, CEObjComponent a_oOwner = null, bool a_bIsEnableController = true) {
+		public CEObj CreateBallObj(int _index, STObjInfo a_stObjInfo, CObjTargetInfo a_oObjTargetInfo, CEObjComponent a_oOwner = null, bool a_bIsEnableController = true) {
 			var oObj = CSceneManager.ActiveSceneManager.SpawnObj<CEObj>(KDefine.E_OBJ_N_BALL_OBJ, KDefine.E_KEY_BALL_OBJ_OBJS_POOL);
 			var oController = a_bIsEnableController ? oObj.gameObject.ExAddComponent<CEBallObjController>() : null;
 
 			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_BALL_OBJ_OBJS_POOL));
-			oController?.Init(CEBallObjController.MakeParams(this));
+			oController?.Init(CEBallObjController.MakeParams(this), _index);
 
 			this.SetupEObjComponent(oObj, a_oOwner, oController);
 			return oObj;

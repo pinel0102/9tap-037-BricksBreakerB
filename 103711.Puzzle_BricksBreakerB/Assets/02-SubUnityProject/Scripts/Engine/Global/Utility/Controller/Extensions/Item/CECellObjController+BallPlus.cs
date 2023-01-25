@@ -16,7 +16,7 @@ namespace NSEngine {
             
             for (int i=0; i < _addCount; i++)
             {
-                this.Engine.AddBall();
+                this.Engine.AddBall(_oldCount + i);
                 this.Engine.BallObjList[_oldCount+i].NumText.text = string.Empty;
             }
 
