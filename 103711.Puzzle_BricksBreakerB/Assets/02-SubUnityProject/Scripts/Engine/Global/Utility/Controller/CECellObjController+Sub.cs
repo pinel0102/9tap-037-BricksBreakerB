@@ -105,6 +105,8 @@ namespace NSEngine {
         {
             EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
 
+            Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", kindsType));
+
             switch(kindsType)
             {
                 case EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01:

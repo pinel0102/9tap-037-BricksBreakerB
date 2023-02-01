@@ -171,9 +171,11 @@ namespace NSEngine {
 					var stPos = m_oMoveCompleteBallObjList.ExIsValid() ? m_oMoveCompleteBallObjList[KCDefine.B_VAL_0_INT].transform.localPosition : m_oSubVec3Dict[ESubKey.SHOOT_START_POS];
 					CScheduleManager.Inst.RemoveTimer(this);
 
+                    SetBallColliders(false);
+
 					for(int i = 0; i < this.BallObjList.Count; ++i) {
 						this.BallObjList[i].GetController<CEObjController>().SetState(CEController.EState.IDLE, true);
-						oAniList.ExAddVal(this.BallObjList[i].transform.DOLocalMove(stPos, KCDefine.B_VAL_0_5_REAL));
+                        oAniList.ExAddVal(this.BallObjList[i].transform.DOLocalMove(stPos, KCDefine.B_VAL_0_5_REAL));
 					}
 
 					m_oAniList.ExAddVal(CFactory.MakeSequence(oAniList, (a_oSender) => {
@@ -202,7 +204,7 @@ namespace NSEngine {
 			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 #endif // #if NEVER_USE_THIS
 
-			for(int i = 0; i < CGameInfoStorage.Inst.PlayEpisodeInfo.m_nNumBalls; ++i) {
+			for(int i = 0; i < 1/*CGameInfoStorage.Inst.PlayEpisodeInfo.m_nNumBalls*/; ++i) {
                 CreateBall(i);
 
 				/*var oBallObj = this.CreateBallObj(CObjInfoTable.Inst.GetObjInfo(EObjKinds.BALL_NORM_01), null);
@@ -445,6 +447,7 @@ namespace NSEngine {
 
 				// 조준 가능 할 경우
 				if(this.IsEnableAiming(stPos)) {
+                    SetBallColliders(false);
                     SetCellColliders(false);
 					this.HandleTouchMoveEvent(a_oSender, a_oEventData);
 				}
@@ -482,11 +485,12 @@ namespace NSEngine {
                         
 						var stWorldPos = (this.SelBallObj.transform.localPosition + stDirection.normalized).ExToWorld(this.Params.m_oObjRoot);
 						var stRaycastHit = Physics2D.CircleCast(stWorldPos, this.SelBallObj.TargetSprite.sprite.textureRect.size.ExToWorld(this.Params.m_oObjRoot).x / KCDefine.B_VAL_2_REAL, stDirection.normalized);
-
+                        
 						oPosList.ExAddVal(this.SelBallObj.transform.localPosition);
 
                         // 충돌체가 존재 할 경우
 						if(stRaycastHit.collider != null) {
+                            Debug.Log(string.Format("stRaycastHit.collider == {0}", stRaycastHit.collider.name));
                             var stHitPos = (stWorldPos + (stDirection.normalized * stRaycastHit.distance)).ExToLocal(this.Params.m_oObjRoot);
                             var stReflect = Vector3.Reflect(stDirection.normalized, stRaycastHit.normal);
 
@@ -555,7 +559,7 @@ namespace NSEngine {
                     currentShootCount = 0;
                     ShootBalls(nNumShootBalls, this.BallObjList.Count);
 
-					/*CScheduleManager.Inst.AddTimer(this, KCDefine.B_VAL_0_0_9_REAL, (uint)this.BallObjList.Count, () => {
+                    /*CScheduleManager.Inst.AddTimer(this, KCDefine.B_VAL_0_0_9_REAL, (uint)this.BallObjList.Count, () => {
 						this.BallObjList[nNumShootBalls++].GetController<CEBallObjController>().Shoot(new Vector3(Mathf.Cos(fAngle * Mathf.Deg2Rad) * Mathf.Sign(stDirection.x), Mathf.Sin(fAngle * Mathf.Deg2Rad), KCDefine.B_VAL_0_REAL) * KDefine.E_SPEED_SHOOT);
 					});*/
 				}
@@ -586,6 +590,13 @@ namespace NSEngine {
             }
 
             ShootBalls(_startIndex, _count);
+        }
+
+        private void SetBallColliders(bool _isEnable)
+        {
+            for(int i = 0; i < this.BallObjList.Count; ++i) {
+				this.BallObjList[i].GetComponent<CEBallObjController>().SetBallCollider(_isEnable);
+			}
         }
 
         private void SetCellColliders(bool _isEnable)

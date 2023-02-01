@@ -26,11 +26,6 @@ namespace NSEngine {
 		private Dictionary<EKey, Vector3Int> m_oVec3IntDict = new Dictionary<EKey, Vector3Int>() {
 			[EKey.CELL_IDX] = new Vector3Int(KCDefine.B_IDX_INVALID, KCDefine.B_IDX_INVALID, KCDefine.B_IDX_INVALID)
 		};
-
-        public int row;
-        public int column;
-        public int layer;
-
 		#endregion // 변수
 
 		#region 프로퍼티

@@ -34,8 +34,7 @@ namespace NSEngine {
 		#region 프로퍼티
 		public new STParams Params { get; private set; }
 
-        public int myIndex;
-		#endregion // 프로퍼티
+        #endregion // 프로퍼티
 
 		#region 함수
 		/** 초기화 */
@@ -68,14 +67,22 @@ namespace NSEngine {
 
 			m_oRealDict[EKey.SPEED] = a_stVelocity.magnitude;
 			//m_oVec3Dict[EKey.DIRECTION] = a_stVelocity.normalized;
+
+            SetBallCollider(true);
 		}
 
 		/** 이동 상태를 처리한다 */
 		protected override void HandleMoveState(float a_fDeltaTime) {
 			base.HandleMoveState(a_fDeltaTime);
 
+            /*var stVelocity = (this.MoveDirection * m_oRealDict[EKey.SPEED]) * a_fDeltaTime;
+            moveVector = stVelocity;
+            this.GetOwner<CEObj>().transform.localPosition += stVelocity;
+
+            return;*/
+
 			var stVelocity = (this.MoveDirection * m_oRealDict[EKey.SPEED]) * a_fDeltaTime;
-			var stWorldPos = (this.GetOwner<CEObj>().transform.localPosition + stVelocity.normalized).ExToWorld(this.Engine.Params.m_oObjRoot);
+            var stWorldPos = (this.GetOwner<CEObj>().transform.localPosition + stVelocity.normalized).ExToWorld(this.Engine.Params.m_oObjRoot);
 			var stRaycastHit = Physics2D.CircleCast(stWorldPos, this.GetOwner<CEObj>().TargetSprite.sprite.textureRect.size.ExToWorld(this.Engine.Params.m_oObjRoot).x / KCDefine.B_VAL_2_REAL, stVelocity.normalized);
 
 			var stHitPos = (stWorldPos + (stVelocity.normalized * stRaycastHit.distance)).ExToLocal(this.Engine.Params.m_oObjRoot);
