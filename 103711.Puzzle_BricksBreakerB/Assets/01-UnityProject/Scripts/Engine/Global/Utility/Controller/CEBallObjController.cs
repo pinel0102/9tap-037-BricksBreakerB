@@ -120,29 +120,17 @@ namespace NSEngine {
 				}
                 else // 상단 or 좌우 벽일 경우.
                 {
-                    Vector3 oldDirection = new Vector3(MoveDirection.x, MoveDirection.y, MoveDirection.z);
-                    
                     this.GetOwner<CEObj>().transform.localPosition = stHitPos;
                     this.SetMoveDirection(Vector3.Reflect(stVelocity.normalized, stRaycastHit.normal).normalized);
 
-                    if (myIndex == 0)
+                    /*if (myIndex == 0)
                     {
-                        Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>[stHitDelta] {0} : {1} = ({2} + {3}) - {4}</color>", stHitDelta.magnitude, stHitDelta, this.GetOwner<CEObj>().transform.localPosition, stVelocity.normalized, stHitPos));
                         Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>[stVelocity] {0} : {1} = ({2} * {3}) * {4}</color>", stVelocity.magnitude, stVelocity, this.MoveDirection, m_oRealDict[EKey.SPEED], a_fDeltaTime));
+                        Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>[stHitDelta] {0} : {1} = ({2} + {3}) - {4}</color>", stHitDelta.magnitude, stHitDelta, this.GetOwner<CEObj>().transform.localPosition, stVelocity.normalized, stHitPos));
                         Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>collider : {0} / stHitDelta : {1} / stVelocity : {2}</color>", stRaycastHit.collider.name, stHitDelta.magnitude, stVelocity.magnitude));
-                        //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>[WALL] {0} / {1} -> {2}</color>", stRaycastHit.collider.gameObject.name, oldDirection, MoveDirection));
-                    }
+                    }*/
                 }
 			} else {
-                if (myIndex == 0 && this.State != EState.IDLE)
-                {
-                    if (stRaycastHit.collider != null)
-                    {
-                        Debug.Log(CodeManager.GetMethodName() + string.Format("[stHitDelta] {0} : {1} = ({2} + {3}) - {4}", stHitDelta.magnitude, stHitDelta, this.GetOwner<CEObj>().transform.localPosition, stVelocity.normalized, stHitPos));
-                        Debug.Log(CodeManager.GetMethodName() + string.Format("[stVelocity] {0} : {1} = ({2} * {3}) * {4}", stVelocity.magnitude, stVelocity, this.MoveDirection, m_oRealDict[EKey.SPEED], a_fDeltaTime));
-                        Debug.Log(CodeManager.GetMethodName() + string.Format("collider : {0} / stHitDelta : {1} / stVelocity : {2}", stRaycastHit.collider.name, stHitDelta.magnitude, stVelocity.magnitude));
-                    }
-                }
                 this.GetOwner<CEObj>().transform.localPosition += stVelocity;
 			}
 		}

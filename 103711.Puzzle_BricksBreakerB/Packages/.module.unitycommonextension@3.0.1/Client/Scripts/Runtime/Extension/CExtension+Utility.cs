@@ -688,7 +688,7 @@ public static partial class CExtension {
 	/** 효과를 재생한다 */
 	public static Sequence ExPlay(this CFXBase a_oSender, float a_fStartVal, float a_fEndVal, float a_fDuration, System.Action<CFXBase, Sequence> a_oCallback, Ease a_eEase = KCDefine.U_EASE_DEF, bool a_bIsRealtime = false, float a_fDelay = KCDefine.B_VAL_0_REAL) {
 		CAccess.Assert(a_oSender != null);
-		return CFactory.MakeSequence(a_oSender.ExPlay(a_fStartVal, a_fEndVal, a_fDuration, a_eEase, a_bIsRealtime), (a_oSequenceSender) => a_oCallback?.Invoke(a_oSender, a_oSequenceSender), a_fDelay, false, a_bIsRealtime);
+		return CFactory.MakeSequence(a_oSender.ExPlay(a_fStartVal, a_fEndVal, a_fDuration, a_eEase, a_bIsRealtime), (a_oAniSender) => a_oCallback?.Invoke(a_oSender, a_oAniSender), a_fDelay, false, a_bIsRealtime);
 	}
 
 	/** 게이지 애니메이션을 시작한다 */
@@ -702,7 +702,7 @@ public static partial class CExtension {
 	/** 게이지 애니메이션을 시작한다 */
 	public static Sequence ExStartGaugeAni(this Image a_oSender, float a_fStartVal, float a_fEndVal, float a_fDuration, System.Action<Image, Sequence> a_oCallback, Ease a_eEase = KCDefine.U_EASE_DEF, bool a_bIsRealtime = false, float a_fDelay = KCDefine.B_VAL_0_REAL) {
 		CAccess.Assert(a_oSender != null);
-		return CFactory.MakeSequence(a_oSender.ExStartGaugeAni(a_fStartVal, a_fEndVal, a_fDuration, a_eEase, a_bIsRealtime), (a_oSequenceSender) => a_oCallback?.Invoke(a_oSender, a_oSequenceSender), a_fDelay, false, a_bIsRealtime);
+		return CFactory.MakeSequence(a_oSender.ExStartGaugeAni(a_fStartVal, a_fEndVal, a_fDuration, a_eEase, a_bIsRealtime), (a_oAniSender) => a_oCallback?.Invoke(a_oSender, a_oAniSender), a_fDelay, false, a_bIsRealtime);
 	}
 
 	/** 비율 애니메이션을 시작한다 */
@@ -714,7 +714,7 @@ public static partial class CExtension {
 	/** 비율 애니메이션을 시작한다 */
 	public static Sequence ExStartScaleAni(this GameObject a_oSender, Vector3 a_stScale, float a_fDuration, System.Action<GameObject, Sequence> a_oCallback, Ease a_eEase = KCDefine.U_EASE_DEF, bool a_bIsRealtime = false, float a_fDelay = KCDefine.B_VAL_0_REAL) {
 		CAccess.Assert(a_oSender != null);
-		return CFactory.MakeSequence(a_oSender.ExStartScaleAni(a_stScale, a_fDuration, a_eEase, a_bIsRealtime), (a_oSequenceSender) => a_oCallback?.Invoke(a_oSender, a_oSequenceSender), a_fDelay, false, a_bIsRealtime);
+		return CFactory.MakeSequence(a_oSender.ExStartScaleAni(a_stScale, a_fDuration, a_eEase, a_bIsRealtime), (a_oAniSender) => a_oCallback?.Invoke(a_oSender, a_oAniSender), a_fDelay, false, a_bIsRealtime);
 	}
 
 	/** 월드 이동 애니메이션을 시작한다 */
@@ -726,7 +726,7 @@ public static partial class CExtension {
 	/** 월드 이동 애니메이션을 시작한다 */
 	public static Sequence ExStartWorldMoveAni(this GameObject a_oSender, Vector3 a_stPos, float a_fDuration, System.Action<GameObject, Sequence> a_oCallback, Ease a_eEase = KCDefine.U_EASE_DEF, bool a_bIsRealtime = false, float a_fDelay = KCDefine.B_VAL_0_REAL) {
 		CAccess.Assert(a_oSender != null);
-		return CFactory.MakeSequence(a_oSender.ExStartWorldMoveAni(a_stPos, a_fDuration, a_eEase, a_bIsRealtime), (a_oSequenceSender) => a_oCallback?.Invoke(a_oSender, a_oSequenceSender), a_fDelay, false, a_bIsRealtime);
+		return CFactory.MakeSequence(a_oSender.ExStartWorldMoveAni(a_stPos, a_fDuration, a_eEase, a_bIsRealtime), (a_oAniSender) => a_oCallback?.Invoke(a_oSender, a_oAniSender), a_fDelay, false, a_bIsRealtime);
 	}
 
 	/** 로컬 이동 애니메이션을 시작한다 */
@@ -738,7 +738,7 @@ public static partial class CExtension {
 	/** 로컬 이동 애니메이션을 시작한다 */
 	public static Sequence ExStartLocalMoveAni(this GameObject a_oSender, Vector3 a_stPos, float a_fDuration, System.Action<GameObject, Sequence> a_oCallback, Ease a_eEase = KCDefine.U_EASE_DEF, bool a_bIsRealtime = false, float a_fDelay = KCDefine.B_VAL_0_REAL) {
 		CAccess.Assert(a_oSender != null);
-		return CFactory.MakeSequence(a_oSender.ExStartLocalMoveAni(a_stPos, a_fDuration, a_eEase, a_bIsRealtime), (a_oSequenceSender) => a_oCallback?.Invoke(a_oSender, a_oSequenceSender), a_fDelay, false, a_bIsRealtime);
+		return CFactory.MakeSequence(a_oSender.ExStartLocalMoveAni(a_stPos, a_fDuration, a_eEase, a_bIsRealtime), (a_oAniSender) => a_oCallback?.Invoke(a_oSender, a_oAniSender), a_fDelay, false, a_bIsRealtime);
 	}
 
 	/** 월드 경로 애니메이션을 시작한다 */
@@ -752,7 +752,7 @@ public static partial class CExtension {
 	/** 월드 경로 애니메이션을 시작한다 */
 	public static Tween ExStartWorldPathAni(this GameObject a_oSender, List<Vector3> a_oPosList, float a_fDuration, System.Action<GameObject, Sequence> a_oCallback, Ease a_eEase = KCDefine.U_EASE_DEF, bool a_bIsRealtime = false, bool a_bIsLinear = false, float a_fDelay = KCDefine.B_VAL_0_REAL) {
 		CAccess.Assert(a_oSender != null && a_oPosList != null);
-		return CFactory.MakeSequence(a_oSender.ExStartWorldPathAni(a_oPosList, a_fDuration, a_eEase, a_bIsRealtime), (a_oSequenceSender) => a_oCallback?.Invoke(a_oSender, a_oSequenceSender), a_fDelay, false, a_bIsRealtime);
+		return CFactory.MakeSequence(a_oSender.ExStartWorldPathAni(a_oPosList, a_fDuration, a_eEase, a_bIsRealtime), (a_oAniSender) => a_oCallback?.Invoke(a_oSender, a_oAniSender), a_fDelay, false, a_bIsRealtime);
 	}
 
 	/** 로컬 경로 애니메이션을 시작한다 */
@@ -766,7 +766,7 @@ public static partial class CExtension {
 	/** 로컬 경로 애니메이션을 시작한다 */
 	public static Tween ExStartLocalPathAni(this GameObject a_oSender, List<Vector3> a_oPosList, float a_fDuration, System.Action<GameObject, Sequence> a_oCallback, Ease a_eEase = KCDefine.U_EASE_DEF, bool a_bIsRealtime = false, bool a_bIsLinear = false, float a_fDelay = KCDefine.B_VAL_0_REAL) {
 		CAccess.Assert(a_oSender != null && a_oPosList != null);
-		return CFactory.MakeSequence(a_oSender.ExStartLocalPathAni(a_oPosList, a_fDuration, a_eEase, a_bIsRealtime), (a_oSequenceSender) => a_oCallback?.Invoke(a_oSender, a_oSequenceSender), a_fDelay, false, a_bIsRealtime);
+		return CFactory.MakeSequence(a_oSender.ExStartLocalPathAni(a_oPosList, a_fDuration, a_eEase, a_bIsRealtime), (a_oAniSender) => a_oCallback?.Invoke(a_oSender, a_oAniSender), a_fDelay, false, a_bIsRealtime);
 	}
 
 	/** 종류 => 타입으로 변환한다 */
@@ -864,7 +864,7 @@ public static partial class CExtension {
 	/** 로컬 => 월드로 변환한다 */
 	public static Vector3 ExToWorld(this Vector3 a_stSender, GameObject a_oParent, bool a_bIsCoord = true) {
 		CAccess.Assert(a_oParent != null);
-		return a_bIsCoord ? a_oParent.transform.TransformPoint(a_stSender) : a_oParent.transform.TransformDirection(a_stSender);
+		return a_oParent.transform.localToWorldMatrix * new Vector4(a_stSender.x, a_stSender.y, a_stSender.z, a_bIsCoord ? KCDefine.B_VAL_1_REAL : KCDefine.B_VAL_0_REAL);
 	}
 
 	/** 월드 => 로컬로 변환한다 */
@@ -876,7 +876,7 @@ public static partial class CExtension {
 	/** 월드 => 로컬로 변환한다 */
 	public static Vector3 ExToLocal(this Vector3 a_stSender, GameObject a_oParent, bool a_bIsCoord = true) {
 		CAccess.Assert(a_oParent != null);
-		return a_bIsCoord ? a_oParent.transform.InverseTransformPoint(a_stSender) : a_oParent.transform.InverseTransformDirection(a_stSender);
+		return a_oParent.transform.worldToLocalMatrix * new Vector4(a_stSender.x, a_stSender.y, a_stSender.z, a_bIsCoord ? KCDefine.B_VAL_1_REAL : KCDefine.B_VAL_0_REAL);
 	}
 
 	/** 월드 => 캔버스로 변환한다 */
