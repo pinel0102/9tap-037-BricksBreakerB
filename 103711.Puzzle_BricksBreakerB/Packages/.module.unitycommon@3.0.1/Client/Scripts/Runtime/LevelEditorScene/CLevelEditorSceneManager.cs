@@ -17,6 +17,7 @@ namespace LevelEditorScene {
 
 			ME_UIS_MSG_UIS,
 			ME_UIS_INFO_UIS,
+			ME_UIS_EDITOR_MODE_UIS,
 			LE_UIS_AB_SET_UIS,
 
 			OBJ_ROOT,
@@ -36,7 +37,7 @@ namespace LevelEditorScene {
 		public override bool IsIgnoreBGTouchResponder => false;
 
 		public override float ScreenWidth => KCDefine.B_PORTRAIT_SCREEN_WIDTH;
-		public override float ScreenHeight => KCDefine.B_PORTRAIT_SCREEN_HEIGHT;
+		public override float ScreenHeight => KCDefine.B_PORTRAIT_SCREEN_HEIGHT * KCDefine.LES_SCALE_SCREEN_SIZE;
 
 		public override string SceneName => KCDefine.B_SCENE_N_LEVEL_EDITOR;
 		public override EProjection MainCameraProjection => EProjection._3D;
@@ -49,6 +50,7 @@ namespace LevelEditorScene {
 
 		protected GameObject MEUIsMsgUIs => m_oUIsDict[EKey.ME_UIS_MSG_UIS];
 		protected GameObject MEUIsInfoUIs => m_oUIsDict[EKey.ME_UIS_INFO_UIS];
+		protected GameObject MEUIsEditorModeUIs => m_oUIsDict[EKey.ME_UIS_EDITOR_MODE_UIS];
 		protected GameObject LEUIsABSetUIs => m_oUIsDict[EKey.LE_UIS_AB_SET_UIS];
 
 		protected GameObject ObjRoot => m_oObjDict[EKey.OBJ_ROOT];
@@ -72,6 +74,7 @@ namespace LevelEditorScene {
 				CFunc.SetupObjs(new List<(EKey, string, GameObject)>() {
 					(EKey.ME_UIS_MSG_UIS, $"{EKey.ME_UIS_MSG_UIS}", m_oUIsDict[EKey.MID_EDITOR_UIS]),
 					(EKey.ME_UIS_INFO_UIS, $"{EKey.ME_UIS_INFO_UIS}", m_oUIsDict[EKey.MID_EDITOR_UIS]),
+					(EKey.ME_UIS_EDITOR_MODE_UIS, $"{EKey.ME_UIS_EDITOR_MODE_UIS}", m_oUIsDict[EKey.MID_EDITOR_UIS]),
 					(EKey.LE_UIS_AB_SET_UIS, $"{EKey.LE_UIS_AB_SET_UIS}", m_oUIsDict[EKey.LEFT_EDITOR_UIS])
 				}, m_oUIsDict);
 
@@ -83,10 +86,11 @@ namespace LevelEditorScene {
 					(EKey.OBJ_ROOT, $"{EKey.OBJ_ROOT}", m_oObjDict[EKey.EDITOR_OBJ_ROOT], null)
 				}, m_oObjDict);
 
-				CSceneManager.ScreenDebugUIs?.SetActive(false);
 				m_oUIsDict[EKey.ME_UIS_MSG_UIS]?.SetActive(false);
 				m_oObjDict[EKey.EDITOR_OBJ_ROOT]?.ExAddComponent<SpriteRenderer>();
 				// 객체를 설정한다 }
+
+				CSceneManager.ScreenDebugUIs?.SetActive(false);
 			}
 		}
 		#endregion // 함수

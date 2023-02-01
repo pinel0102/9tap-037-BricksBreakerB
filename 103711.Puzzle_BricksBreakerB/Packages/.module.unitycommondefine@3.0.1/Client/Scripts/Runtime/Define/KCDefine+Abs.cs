@@ -319,6 +319,7 @@ public static partial class KCDefine {
 
 	// 명령어 {
 	public const string B_CMD_GET_DEVICE_ID = "GetDeviceID";
+	public const string B_CMD_GET_DEVICE_TYPE = "GetDeviceType";
 	public const string B_CMD_GET_COUNTRY_CODE = "GetCountryCode";
 	public const string B_CMD_GET_STORE_VER = "GetStoreVer";
 

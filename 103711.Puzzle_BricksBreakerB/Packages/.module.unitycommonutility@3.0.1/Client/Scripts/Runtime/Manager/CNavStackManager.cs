@@ -7,8 +7,12 @@ using UnityEngine.Events;
 
 /** 내비게이션 스택 관리자 */
 public partial class CNavStackManager : CSingleton<CNavStackManager> {
-	#region 프로퍼티
+	#region 변수
 	private CListWrapper<STComponentInfo> m_oComponentInfoListWrapper = new CListWrapper<STComponentInfo>();
+	#endregion // 변수
+
+	#region 프로퍼티
+	public Component TopComponent => m_oComponentInfoListWrapper.m_oList01.ExIsValid() ? m_oComponentInfoListWrapper.m_oList01.LastOrDefault().m_oComponent : null;
 	#endregion // 프로퍼티
 
 	#region 함수

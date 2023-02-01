@@ -24,6 +24,21 @@ using UnityEngine.Purchasing;
 
 /** 유틸리티 접근자 */
 public static partial class CAccess {
+	#region 클래스 변수
+	private static Dictionary<RuntimePlatform, EDeviceType> m_oDeviceTypeDict = new Dictionary<RuntimePlatform, EDeviceType>() {
+		[RuntimePlatform.OSXEditor] = EDeviceType.DESKTOP,
+		[RuntimePlatform.OSXPlayer] = EDeviceType.DESKTOP,
+		[RuntimePlatform.WindowsEditor] = EDeviceType.DESKTOP,
+		[RuntimePlatform.WindowsPlayer] = EDeviceType.DESKTOP,
+
+		[RuntimePlatform.PS4] = EDeviceType.CONSOLE,
+		[RuntimePlatform.PS5] = EDeviceType.CONSOLE,
+		[RuntimePlatform.XboxOne] = EDeviceType.CONSOLE,
+
+		[RuntimePlatform.Switch] = EDeviceType.HANDHELD_CONSOLE
+	};
+	#endregion // 클래스 변수
+
 	#region 클래스 프로퍼티
 	public static bool IsNeedsTrackingConsent {
 		get {
@@ -58,27 +73,22 @@ public static partial class CAccess {
 		}
 	}
 
+	public static KeyCode CmdKeyCode {
+		get {
+#if UNITY_STANDALONE_WIN
+			return KeyCode.LeftControl;
+#else
+			return KeyCode.LeftCommand;
+#endif // #if UNITY_STANDALONE_WIN
+		}
+	}
+
 	public static EDeviceType DeviceType {
 		get {
-#if UNITY_IOS
-			return Device.generation.ToString().Contains(KCDefine.U_MODEL_N_IPAD) ? EDeviceType.TABLET : EDeviceType.PHONE;
-#elif UNITY_ANDROID
-			// TODO: 테블릿 여부 검사 로직 구현 필요
+#if UNITY_IOS || UNITY_ANDROID
 			return EDeviceType.PHONE;
 #else
-			switch(Application.platform) {
-				case RuntimePlatform.PS4:
-				case RuntimePlatform.PS5:
-				case RuntimePlatform.XboxOne: {
-					return EDeviceType.CONSOLE;
-				}
-				case RuntimePlatform.Switch:
-				case RuntimePlatform.Stadia: {
-					return EDeviceType.HANDHELD_CONSOLE;
-				}
-			}
-
-			return EDeviceType.UNKNOWN;
+			return CAccess.m_oDeviceTypeDict.GetValueOrDefault(Application.platform, EDeviceType.UNKNOWN);
 #endif // #if UNITY_IOS
 		}
 	}

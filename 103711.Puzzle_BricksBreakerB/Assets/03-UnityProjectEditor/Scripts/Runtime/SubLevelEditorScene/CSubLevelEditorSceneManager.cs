@@ -27,6 +27,7 @@ namespace LevelEditorScene {
 			SEL_TABLE_SRC,
 			SEL_OBJ_KINDS,
 			SEL_INPUT_POPUP,
+			SEL_EDITOR_MODE,
 
 			SEL_SCROLLER,
 			SEL_OBJ_SPRITE,
@@ -35,6 +36,7 @@ namespace LevelEditorScene {
 			ME_UIS_MSG_TEXT,
 			ME_UIS_LEVEL_TEXT,
 			ME_UIS_OBJ_SIZE_TEXT,
+
 			ME_UIS_SEL_OBJ_IMG,
 
 			ME_UIS_PREV_GRID_BTN,
@@ -46,6 +48,9 @@ namespace LevelEditorScene {
 
 			ME_UIS_GRID_SCROLL_BAR_H,
 			ME_UIS_GRID_SCROLL_BAR_V,
+
+			ME_UIS_DRAW_MODE_TOGGLE,
+			ME_UIS_PAINT_MODE_TOGGLE,
 
 			LE_UIS_A_SET_BTN,
 			LE_UIS_B_SET_BTN,
@@ -99,6 +104,14 @@ namespace LevelEditorScene {
 			[HideInInspector] MAX_VAL
 		}
 
+		/** 에디터 모드 */
+		private enum EEditorMode {
+			NONE = -1,
+			DRAW,
+			PAINT,
+			[HideInInspector] MAX_VAL
+		}
+
 		/** 콜백 */
 		private enum ECallback {
 			NONE = -1,
@@ -142,6 +155,10 @@ namespace LevelEditorScene {
 			[EKey.SEL_INPUT_POPUP] = EInputPopup.NONE
 		};
 
+		private Dictionary<EKey, EEditorMode> m_oEditorModeDict = new Dictionary<EKey, EEditorMode>() {
+			[EKey.SEL_EDITOR_MODE] = EEditorMode.NONE
+		};
+
 		private Dictionary<EKey, Vector3Int> m_oVec3IntDict = new Dictionary<EKey, Vector3Int>() {
 			[EKey.PREV_CELL_IDX] = new Vector3Int(KCDefine.B_IDX_INVALID, KCDefine.B_IDX_INVALID, KCDefine.B_IDX_INVALID)
 		};
@@ -173,6 +190,9 @@ namespace LevelEditorScene {
 			[EKey.SEL_SCROLLER] = null
 		};
 
+		private List<InputField> m_oInputList01 = new List<InputField>();
+		private List<InputField> m_oInputList02 = new List<InputField>();
+
 		private List<Button> m_oGridLineBtnHList = new List<Button>();
 		private List<Button> m_oGridLineBtnVList = new List<Button>();
 
@@ -180,13 +200,14 @@ namespace LevelEditorScene {
 		private Dictionary<EKey, InputField> m_oInputDict = new Dictionary<EKey, InputField>();
 		private Dictionary<EKey, Image> m_oImgDict = new Dictionary<EKey, Image>();
 		private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
+		private Dictionary<EKey, Toggle> m_oToggleDict = new Dictionary<EKey, Toggle>();
 		private Dictionary<EKey, Scrollbar> m_oScrollBarDict = new Dictionary<EKey, Scrollbar>();
 		private Dictionary<EKey, SimpleScrollSnap> m_oScrollSnapDict = new Dictionary<EKey, SimpleScrollSnap>();
 		private Dictionary<EKey, STScrollerInfo> m_oScrollerInfoDict = new Dictionary<EKey, STScrollerInfo>();
 
 		/** =====> 객체 <===== */
 		private Dictionary<EKey, GameObject> m_oUIsDict = new Dictionary<EKey, GameObject>();
-        #endregion // 변수
+		#endregion // 변수
 
 		#region 프로퍼티
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -326,11 +347,17 @@ namespace LevelEditorScene {
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 				this.SubStart();
-				this.ExLateCallFunc((a_oSender) => this.UpdateUIsState(), KCDefine.U_DELAY_INIT);
+
+				this.ExLateCallFunc((a_oSender) => {
+					bool bIsValid = KDefine.LES_OBJ_KINDS_DICT_CONTAINER.TryGetValue(KCDefine.B_VAL_0_INT, out List<EObjKinds> oObjKindsList);
+
+					this.SetMEUIsEditorMode(true, false);
+					this.OnTouchREUIsPageUIs02ScrollerCellViewBtn(bIsValid ? oObjKindsList.ExGetVal(KCDefine.B_VAL_0_INT, EObjKinds.NONE) : EObjKinds.NONE);
+				}, KCDefine.U_DELAY_INIT);
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 
 				CSndManager.Inst.StopBGSnd();
-                CCommonAppInfoStorage.Inst.SetEnableEditor(false);
+				CCommonAppInfoStorage.Inst.SetEnableEditor(false);
 			}
 		}
 
@@ -343,8 +370,9 @@ namespace LevelEditorScene {
 				m_oRealDict[EKey.UPDATE_SKIP_TIME] += a_fDeltaTime;
 
 				// 단축키를 눌렀을 경우
-				if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {
+				if(Input.GetKey(KeyCode.LeftShift)) {
 					this.HandleHotKeys();
+					CSceneManager.ActiveSceneEventSystem.SetSelectedGameObject(null);
 				}
 
 				// 메인 카메라가 존재 할 경우
@@ -383,26 +411,67 @@ namespace LevelEditorScene {
 				}
 
 				// 일정 시간이 지났을 경우
-				if(m_oRealDict[EKey.UPDATE_SKIP_TIME].ExIsGreateEquals(KCDefine.B_UNIT_SECS_PER_MINUTE * KCDefine.B_VAL_1_REAL)) {
+				if(m_oRealDict[EKey.UPDATE_SKIP_TIME].ExIsGreateEquals(KCDefine.B_UNIT_SECS_PER_MINUTE * KCDefine.B_VAL_5_REAL)) {
 					m_oRealDict[EKey.UPDATE_SKIP_TIME] = KCDefine.B_VAL_0_REAL;
 					this.OnTouchMEUIsSaveBtn();
 				}
 
-#if UNITY_STANDALONE_WIN
-				// 저장 키를 눌렀을 경우
-				if(Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.S)) {
-					this.OnTouchMEUIsSaveBtn();
-				}
-#else
-				// 저장 키를 눌렀을 경우
-				if(Input.GetKey(KeyCode.LeftCommand) && Input.GetKeyDown(KeyCode.S)) {
-					this.OnTouchMEUIsSaveBtn();
-				}
-#endif // UNITY_STANDALONE_WIN
-
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+				// 저장 키를 눌렀을 경우
+				if(Input.GetKey(CAccess.CmdKeyCode) && Input.GetKeyDown(KeyCode.S)) {
+					this.OnTouchMEUIsSaveBtn();
+				}
+
+				// 모든 셀 채우기 키를 눌렀을 경우
+				if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.F)) {
+					this.OnTouchREUIsPageUIs01FillAllCellsBtn();
+				}
+				// 모든 셀 지우기 키를 눌렀을 경우
+				else if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.C)) {
+					this.OnTouchREUIsPageUIs01ClearAllCellsBtn();
+				}
+				// 선택 셀 지우기 키를 눌렀을 경우
+				else if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.Q)) {
+					this.OnTouchREUIsPageUIs01ClearSelCellsBtn();
+				}
+
+				// 로컬 테이블 로드 키를 눌렀을 경우
+				if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.L)) {
+					this.OnTouchREUIsPageUIs01LoadTableBtn(ETableSrc.LOCAL);
+				}
+				// 원격 테이블 로드 키를 눌렀을 경우
+				else if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.R)) {
+					this.OnTouchREUIsPageUIs01LoadTableBtn(ETableSrc.REMOTE);
+				}
+
 				this.SubOnUpdate(a_fDeltaTime);
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+			}
+		}
+
+		/** 상태를 갱신한다 */
+		public override void OnLateUpdate(float a_fDeltaTime) {
+			base.OnLateUpdate(a_fDeltaTime);
+
+			// 앱이 실행 중 일 경우
+			if(CSceneManager.IsAppRunning && CNavStackManager.Inst.TopComponent == this) {
+				// 탭 키를 눌렀을 경우
+				if(UnityEngine.Input.GetKeyDown(KeyCode.Tab)) {
+					var oInputListContainer = CCollectionManager.Inst.SpawnList<List<InputField>>();
+
+					try {
+						oInputListContainer.ExAddVal(m_oInputList01);
+						oInputListContainer.ExAddVal(m_oInputList02);
+
+						// 페이지 스크롤 스냅이 존재 할 경우
+						if(m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP] != null) {
+							int nIdx = oInputListContainer[m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].SelectedPanel].FindIndex((a_oInput) => a_oInput.gameObject == CSceneManager.ActiveSceneEventSystem.currentSelectedGameObject);
+							CSceneManager.ActiveSceneEventSystem.SetSelectedGameObject(oInputListContainer[m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].SelectedPanel].ExGetVal((nIdx + KCDefine.B_VAL_1_INT) % oInputListContainer[m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].SelectedPanel].Count, null)?.gameObject);
+						}
+					} finally {
+						CCollectionManager.Inst.DespawnList(oInputListContainer);
+					}
+				}
 			}
 		}
 
@@ -480,6 +549,20 @@ namespace LevelEditorScene {
 			}
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+			// 에디터 모드 키를 눌렀을 경우
+			if(Input.GetKeyDown(KeyCode.E)) {
+				this.SetMEUIsEditorMode(m_oEditorModeDict[EKey.SEL_EDITOR_MODE] != EEditorMode.DRAW, m_oEditorModeDict[EKey.SEL_EDITOR_MODE] != EEditorMode.PAINT);
+			}
+
+			// 리셋 키를 눌렀을 경우
+			if(Input.GetKeyDown(KeyCode.R)) {
+				this.OnTouchMEUIsResetBtn();
+			}
+			// 테스트 키를 눌렀을 경우
+			else if(Input.GetKeyDown(KeyCode.T)) {
+				this.OnTouchMEUIsTestBtn();
+			}
+
 			// 이전 레벨 키를 눌렀을 경우
 			if(Input.GetKeyDown(KeyCode.W)) {
 				this.OnTouchMEUIsPrevLevelBtn();
@@ -489,17 +572,22 @@ namespace LevelEditorScene {
 				this.OnTouchMEUIsNextLevelBtn();
 			}
 
-			// 모든 셀 채우기 키를 눌렀을 경우
-			if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.F)) {
-				this.OnTouchREUIsPageUIs01FillAllCellsBtn();
+			// 위쪽 셀 이동 키를 눌렀을 경우
+			if(Input.GetKeyDown(KeyCode.UpArrow)) {
+				this.OnTouchREUIsPageUIs01MoveAllCellsBtn(EDirection.UP);
 			}
-			// 모든 셀 지우기 키를 눌렀을 경우
-			else if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.C)) {
-				this.OnTouchREUIsPageUIs01ClearAllCellsBtn();
+			// 아래쪽 셀 이동 키를 눌렀을 경우
+			else if(Input.GetKeyDown(KeyCode.DownArrow)) {
+				this.OnTouchREUIsPageUIs01MoveAllCellsBtn(EDirection.DOWN);
 			}
-			// 선택 셀 지우기 키를 눌렀을 경우
-			else if(Input.GetKey(KeyCode.RightShift) && Input.GetKeyDown(KeyCode.Q)) {
-				this.OnTouchREUIsPageUIs01ClearSelCellsBtn();
+
+			// 왼쪽 셀 이동 키를 눌렀을 경우
+			if(Input.GetKeyDown(KeyCode.LeftArrow)) {
+				this.OnTouchREUIsPageUIs01MoveAllCellsBtn(EDirection.LEFT);
+			}
+			// 오른쪽 셀 이동 키를 눌렀을 경우
+			else if(Input.GetKeyDown(KeyCode.RightArrow)) {
+				this.OnTouchREUIsPageUIs01MoveAllCellsBtn(EDirection.RIGHT);
 			}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		}
@@ -563,7 +651,7 @@ namespace LevelEditorScene {
 					}
 				}
 			}
-            // 그리드 정보를 설정한다 }
+			// 그리드 정보를 설정한다 }
 
 			// 객체를 설정한다 {
 			this.ObjRoot.transform.localScale = this.SelGridInfo.m_stScale.ExIsValid() ? this.SelGridInfo.m_stScale : Vector3.one;
@@ -575,32 +663,24 @@ namespace LevelEditorScene {
 			// 그리드 라인 효과를 설정한다 {
 			m_oGridLineFXList.Clear();
 
-			for(int i = 0; i <= this.SelLevelInfo.NumCells.x; ++i) {
-				var oLineFX = this.SpawnObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE_FX, KDefine.LES_KEY_LINE_FX_OBJS_POOL);
-				oLineFX.ExSetWidth(KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.x, KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.y);
-				oLineFX.ExSetColor(KDefine.LES_COLOR_GRID_LINE, KDefine.LES_COLOR_GRID_LINE);
-				oLineFX.ExSetSortingOrder(KCDefine.U_SORTING_OI_UNDERGROUND);
+			for(int i = 0; i < this.SelLevelInfo.NumCells.y; ++i) {
+				for(int j = 0; j < this.SelLevelInfo.NumCells.x; ++j) {
+					var oLineFX = this.SpawnObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE_FX, KDefine.LES_KEY_LINE_FX_OBJS_POOL);
+					oLineFX.loop = true;
 
-				oLineFX.ExSetPositions(new List<Vector3>() {
-					this.SelGridInfo.m_stPivotPos + new Vector3(i * NSEngine.Access.CellSize.x, KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL),
-					this.SelGridInfo.m_stPivotPos + new Vector3(i * NSEngine.Access.CellSize.x, -this.SelGridInfo.m_stBounds.size.y, KCDefine.B_VAL_0_REAL)
-				});
+					oLineFX.ExSetWidth(KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.x, KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.y);
+					oLineFX.ExSetColor(KDefine.LES_COLOR_GRID_LINE, KDefine.LES_COLOR_GRID_LINE);
+					oLineFX.ExSetSortingOrder(KCDefine.U_SORTING_OI_UNDERGROUND);
 
-				m_oGridLineFXList.ExAddVal(oLineFX);
-			}
+					oLineFX.ExSetPositions(new List<Vector3>() {
+						this.SelGridInfo.m_stPivotPos + new Vector3(j * NSEngine.Access.CellSize.x, (i + KCDefine.B_VAL_1_INT) * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL),
+						this.SelGridInfo.m_stPivotPos + new Vector3(j * NSEngine.Access.CellSize.x, i * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL),
+						this.SelGridInfo.m_stPivotPos + new Vector3((j + KCDefine.B_VAL_1_INT) * NSEngine.Access.CellSize.x, i * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL),
+						this.SelGridInfo.m_stPivotPos + new Vector3((j + KCDefine.B_VAL_1_INT) * NSEngine.Access.CellSize.x, (i + KCDefine.B_VAL_1_INT) * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL)
+					});
 
-			for(int i = 0; i <= this.SelLevelInfo.NumCells.y; ++i) {
-				var oLineFX = this.SpawnObj<LineRenderer>(KDefine.LES_OBJ_N_GRID_LINE_FX, KDefine.LES_KEY_LINE_FX_OBJS_POOL);
-				oLineFX.ExSetWidth(KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.x, KCDefine.B_VAL_5_REAL / this.ObjRoot.transform.localScale.y);
-				oLineFX.ExSetColor(KDefine.LES_COLOR_GRID_LINE, KDefine.LES_COLOR_GRID_LINE);
-				oLineFX.ExSetSortingOrder(KCDefine.U_SORTING_OI_UNDERGROUND);
-
-				oLineFX.ExSetPositions(new List<Vector3>() {
-					this.SelGridInfo.m_stPivotPos + new Vector3(KCDefine.B_VAL_0_REAL, i * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL),
-					this.SelGridInfo.m_stPivotPos + new Vector3(this.SelGridInfo.m_stBounds.size.x, i * -NSEngine.Access.CellSize.y, KCDefine.B_VAL_0_REAL)
-				});
-
-				m_oGridLineFXList.ExAddVal(oLineFX);
+					m_oGridLineFXList.ExAddVal(oLineFX);
+				}
 			}
 			// 그리드 라인 효과를 설정한다 }
 
@@ -614,7 +694,9 @@ namespace LevelEditorScene {
 				}
 			}
 
-			m_oSpriteDict[EKey.SEL_OBJ_SPRITE]?.ExSetSprite<SpriteRenderer>(Access.GetEditorObjSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+            this.SetupSpriteSliced(m_oSpriteDict[EKey.SEL_OBJ_SPRITE], Access.GetEditorObjSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+			//m_oSpriteDict[EKey.SEL_OBJ_SPRITE]?.ExSetSprite<SpriteRenderer>(Access.GetEditorObjSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+            
 			// 객체 스프라이트를 설정한다 }
 
 			// 에디터 객체 스프라이트를 설정한다 {
@@ -700,8 +782,8 @@ namespace LevelEditorScene {
 				oGridScrollBarH.size = this.SelGridInfo.m_stViewBounds.size.x / this.SelGridInfo.m_stBounds.size.x;
 
 				(oGridScrollBarH.transform as RectTransform).pivot = KCDefine.B_ANCHOR_UP_CENTER;
-				(oGridScrollBarH.transform as RectTransform).sizeDelta = new Vector3(m_oGridBoundsImg.bounds.size.x, (oGridScrollBarH.transform as RectTransform).sizeDelta.y, KCDefine.B_VAL_0_REAL);
-				(oGridScrollBarH.transform as RectTransform).anchoredPosition = new Vector3(KCDefine.B_VAL_0_REAL, ((m_oGridBoundsImg.bounds.size.y / -KCDefine.B_VAL_2_REAL) * this.EditorObjRoot.transform.localScale.y) - (oGridScrollBarH.transform as RectTransform).sizeDelta.y, KCDefine.B_VAL_0_REAL);
+				(oGridScrollBarH.transform as RectTransform).sizeDelta = new Vector3(m_oGridBoundsImg.bounds.size.x * this.EditorObjRoot.transform.localScale.x, (oGridScrollBarH.transform as RectTransform).sizeDelta.y, KCDefine.B_VAL_0_REAL);
+				(oGridScrollBarH.transform as RectTransform).anchoredPosition = new Vector3(KCDefine.B_VAL_0_REAL, ((m_oGridBoundsImg.bounds.size.y / -KCDefine.B_VAL_2_REAL) * this.EditorObjRoot.transform.localScale.y) - ((oGridScrollBarH.transform as RectTransform).sizeDelta.y * KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL);
 			}
 
 			// 수직 그리드 스크롤 바가 존재 할 경우
@@ -709,8 +791,8 @@ namespace LevelEditorScene {
 				oGridScrollBarV.size = this.SelGridInfo.m_stViewBounds.size.y / this.SelGridInfo.m_stBounds.size.y;
 
 				(oGridScrollBarV.transform as RectTransform).pivot = KCDefine.B_ANCHOR_MID_LEFT;
-				(oGridScrollBarV.transform as RectTransform).sizeDelta = new Vector3((oGridScrollBarV.transform as RectTransform).sizeDelta.x, m_oGridBoundsImg.bounds.size.y, KCDefine.B_VAL_0_REAL);
-				(oGridScrollBarV.transform as RectTransform).anchoredPosition = new Vector3(((m_oGridBoundsImg.bounds.size.x / KCDefine.B_VAL_2_REAL) * this.EditorObjRoot.transform.localScale.x) + (oGridScrollBarV.transform as RectTransform).sizeDelta.x, KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL);
+				(oGridScrollBarV.transform as RectTransform).sizeDelta = new Vector3((oGridScrollBarV.transform as RectTransform).sizeDelta.x, m_oGridBoundsImg.bounds.size.y * this.EditorObjRoot.transform.localScale.y, KCDefine.B_VAL_0_REAL);
+				(oGridScrollBarV.transform as RectTransform).anchoredPosition = new Vector3(((m_oGridBoundsImg.bounds.size.x / KCDefine.B_VAL_2_REAL) * this.EditorObjRoot.transform.localScale.x) + ((oGridScrollBarV.transform as RectTransform).sizeDelta.x * KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL);
 			}
 			// 그리드 스크롤 바를 설정한다 }
 		}
@@ -739,21 +821,11 @@ namespace LevelEditorScene {
 
 		/** 객체 스프라이트를 설정한다 */
 		private void SetupObjSprite(STCellInfo a_stCellInfo, STCellObjInfo a_stCellObjInfo, SpriteRenderer a_oOutObjSprite) {
+			this.SetupSpriteSliced(a_oOutObjSprite, Access.GetEditorObjSprite(a_stCellObjInfo.ObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+            //a_oOutObjSprite.sprite = Access.GetEditorObjSprite(a_stCellObjInfo.ObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE);
+			a_oOutObjSprite.transform.localPosition = this.SelGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(NSEngine.Access.CellCenterOffset, NSEngine.Access.CellSize);
 
-            this.PreSetupSprite(a_stCellInfo, a_stCellObjInfo, a_oOutObjSprite);
-
-			/*a_oOutObjSprite.drawMode = SpriteDrawMode.Sliced;
-            a_oOutObjSprite.sprite = Access.GetEditorObjSprite(a_stCellObjInfo.ObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE);
-            
-            if (a_oOutObjSprite.sprite.textureRect.size.x > currentCellSize.x || a_oOutObjSprite.sprite.textureRect.size.y > currentCellSize.y)
-                a_oOutObjSprite.size = currentCellSize;
-            else
-                a_oOutObjSprite.size = a_oOutObjSprite.sprite.textureRect.size;
-            
-            a_oOutObjSprite.transform.localPosition = this.SelGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(NSEngine.Access.CellCenterOffset, NSEngine.Access.CellSize);
-
-			a_oOutObjSprite.ExSetSortingOrder(NSEngine.Access.GetSortingOrderInfo(a_stCellObjInfo.ObjKinds));*/
-
+			a_oOutObjSprite.ExSetSortingOrder(NSEngine.Access.GetSortingOrderInfo(a_stCellObjInfo.ObjKinds));
 			this.SubSetupObjSprite(a_stCellInfo, a_stCellObjInfo, a_oOutObjSprite);
 		}
 
@@ -766,7 +838,10 @@ namespace LevelEditorScene {
 			this.UpdateRightEditorUIsState();
 
 			this.SubUpdateUIsState();
+
+			// 레이아웃을 재배치한다
 			this.RebuildLayouts(this.MEUIsInfoUIs);
+			this.RebuildLayouts(this.MEUIsEditorModeUIs);
 		}
 
 		/** 에디터 리셋 팝업 결과를 수신했을 경우 */
@@ -849,8 +924,8 @@ namespace LevelEditorScene {
 			// 확인 버튼을 눌렀을 경우
 			if(a_bIsOK) {
 				switch(m_oInputPopupDict[EKey.SEL_INPUT_POPUP]) {
-					case EInputPopup.MOVE_LEVEL: this.HandleMoveLevelInputPopupResult(a_oStr); break;
-					case EInputPopup.REMOVE_LEVEL: this.HandleRemoveLevelInputPopupResult(a_oStr); break;
+					case EInputPopup.MOVE_LEVEL: this.HandleMoveLevelEditorInputPopupResult(a_oSender, a_oStr); break;
+					case EInputPopup.REMOVE_LEVEL: this.HandleRemoveLevelEditorInputPopupResult(a_oSender, a_oStr); break;
 				}
 			}
 
@@ -884,13 +959,13 @@ namespace LevelEditorScene {
 						var stIdx = new Vector3Int(a_stIdx.x + j, a_stIdx.y + i, a_stIdx.z);
 						var stCellInfo = this.SelLevelInfo.GetCellInfo(stIdx);
 
-						// 시작 인덱스 일 경우
+						// 기본 인덱스 일 경우
 						if(stIdx.Equals(a_stIdx)) {
 							int nIdx = stCellInfo.m_oCellObjInfoList.FindIndex((a_stFindCellObjInfo) => a_stFindCellObjInfo.ObjKinds == a_stCellObjInfo.ObjKinds);
 
 							// 셀 객체 정보가 존재 할 경우
 							if(stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx) || (!a_bIsEnableOverlay && Input.GetKey(KeyCode.LeftShift))) {
-								this.RemoveCellObjInfo(stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx) ? a_stCellObjInfo.ObjKinds : EObjKinds.NONE, a_stIdx);
+								this.RemoveAllCellObjInfos(stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx) ? a_stCellObjInfo.ObjKinds : EObjKinds.NONE, a_stIdx);
 							}
 
 							#region 추가
@@ -929,7 +1004,7 @@ namespace LevelEditorScene {
 					for(int j = 0; j < stCellObjInfo.m_stSize.x; ++j) {
 						var stIdx = new Vector3Int(a_stIdx.x + j, a_stIdx.y + i, a_stIdx.z);
 
-						// 시작 인덱스 일 경우
+						// 기본 인덱스 일 경우
 						if(stIdx.Equals(a_stIdx)) {
 							this.SelLevelInfo.GetCellInfo(stIdx).m_oCellObjInfoList.ExRemoveVal((a_stCellObjInfo) => a_stCellObjInfo.ObjKinds == stCellObjInfo.ObjKinds);
 						} else {
@@ -937,6 +1012,13 @@ namespace LevelEditorScene {
 						}
 					}
 				}
+			}
+		}
+
+		/** 모든 셀 객체 정보를 제거한다 */
+		private void RemoveAllCellObjInfos(EObjKinds a_eObjKinds, Vector3Int a_stIdx) {
+			while(this.IsEnableRemoveCellObjInfo(a_eObjKinds, a_stIdx)) {
+				this.RemoveCellObjInfo(a_eObjKinds, a_stIdx);
 			}
 		}
 
@@ -1089,16 +1171,16 @@ namespace LevelEditorScene {
 			}, KCDefine.B_VAL_0_REAL, true);
 		}
 
-		/** 에디터 레벨 이동 입력 팝업 결과를 처리한다 */
-		private void HandleMoveLevelInputPopupResult(string a_oStr) {
+		/** 에디터 레벨 이동 에디터 입력 팝업 결과를 처리한다 */
+		private void HandleMoveLevelEditorInputPopupResult(CEditorInputPopup a_oSender, string a_oStr) {
 			// 식별자가 유효 할 경우
 			if(int.TryParse(a_oStr, NumberStyles.Any, null, out int nID)) {
 				this.MoveLevelInfos(m_oScrollerDict[EKey.SEL_SCROLLER], this.SelLevelInfo.m_stIDInfo, nID);
 			}
 		}
 
-		/** 에디터 레벨 제거 입력 팝업 결과를 처리한다 */
-		private void HandleRemoveLevelInputPopupResult(string a_oStr) {
+		/** 에디터 레벨 제거 에디터 입력 팝업 결과를 처리한다 */
+		private void HandleRemoveLevelEditorInputPopupResult(CEditorInputPopup a_oSender, string a_oStr) {
 			var oTokenList = a_oStr.Split(KCDefine.B_TOKEN_DASH).ToList();
 			int nNumLevelInfos = CLevelInfoTable.Inst.GetNumLevelInfos(this.SelLevelInfo.m_stIDInfo.m_nID02, this.SelLevelInfo.m_stIDInfo.m_nID03);
 
@@ -1185,6 +1267,23 @@ namespace LevelEditorScene {
 			return true;
 		}
 
+		/** 모든 셀 이동 가능 여부를 검사한다 */
+		private bool IsEnableMoveAllCells(EDirection a_eDirection) {
+			var stIdx = this.GetGridBaseIdx(a_eDirection);
+			int nNumCells = a_eDirection.ExIsVertical() ? this.SelLevelInfo.NumCells.x : this.SelLevelInfo.NumCells.y;
+
+			for(int i = 0; i < nNumCells; ++i) {
+				var stCellIdx = a_eDirection.ExIsVertical() ? new Vector3Int(stIdx.x + i, stIdx.y, KCDefine.B_VAL_0_INT) : new Vector3Int(stIdx.x, stIdx.y + i, KCDefine.B_VAL_0_INT);
+
+				// 셀 객체 정보가 존재 할 경우
+				if(this.SelLevelInfo.m_oCellInfoDictContainer[stCellIdx.y][stCellIdx.x].m_oCellObjInfoList.ExIsValid()) {
+					return false;
+				}
+			}
+
+			return true;
+		}
+
 		/** 셀 객체 추가 가능 여부를 검사한다 */
 		private bool IsEnableAddCellObjInfo(Vector3Int a_stIdx, Vector3Int a_stSize, EObjKinds a_eObjKinds, bool a_bIsReplace = true, bool a_bIsEnableOverlay = false) {
 			// 셀 정보가 존재 할 경우
@@ -1193,7 +1292,7 @@ namespace LevelEditorScene {
 					for(int j = 0; j < a_stSize.x; ++j) {
 						var stIdx = new Vector3Int(a_stIdx.x + j, a_stIdx.y + i, a_stIdx.z);
 						this.SelLevelInfo.TryGetCellInfo(stIdx, out STCellInfo stExtraCellInfo);
-						
+
 						int nIdx = stExtraCellInfo.m_oCellObjInfoList.FindIndex((a_stCellObjInfo) => !stIdx.Equals(a_stIdx) && !a_stCellObjInfo.m_stBaseIdx.Equals(a_stIdx));
 
 						// 셀 객체 추가가 불가능 할 경우
@@ -1291,10 +1390,20 @@ namespace LevelEditorScene {
 			}, m_oBtnDict);
 			// 버튼을 설정한다 }
 
+			// 토글을 설정한다 {
+			CFunc.SetupToggles(new List<(EKey, string, GameObject, UnityAction<bool>)>() {
+				(EKey.ME_UIS_DRAW_MODE_TOGGLE, $"{EKey.ME_UIS_DRAW_MODE_TOGGLE}", this.MidEditorUIs, this.OnTouchMEUIsEditorModeToggle),
+				(EKey.ME_UIS_PAINT_MODE_TOGGLE, $"{EKey.ME_UIS_PAINT_MODE_TOGGLE}", this.MidEditorUIs, this.OnTouchMEUIsEditorModeToggle)
+			}, m_oToggleDict);
+
+			m_oToggleDict[EKey.ME_UIS_DRAW_MODE_TOGGLE]?.SetIsOnWithoutNotify(true);
+			m_oToggleDict[EKey.ME_UIS_PAINT_MODE_TOGGLE]?.SetIsOnWithoutNotify(false);
+			// 토글을 설정한다 }
+
 			// 스크롤 바를 설정한다
 			CFunc.SetupScrollBars(new List<(EKey, string, GameObject, UnityAction<float>)>() {
-				(EKey.ME_UIS_GRID_SCROLL_BAR_V, $"{EKey.ME_UIS_GRID_SCROLL_BAR_V}", this.MidEditorUIs, (a_fVal) => this.OnChangeMEUIsGridScrollBarVal(m_oScrollBarDict[EKey.ME_UIS_GRID_SCROLL_BAR_V], a_fVal)),
-				(EKey.ME_UIS_GRID_SCROLL_BAR_H, $"{EKey.ME_UIS_GRID_SCROLL_BAR_H}", this.MidEditorUIs, (a_fVal) => this.OnChangeMEUIsGridScrollBarVal(m_oScrollBarDict[EKey.ME_UIS_GRID_SCROLL_BAR_H], a_fVal))
+				(EKey.ME_UIS_GRID_SCROLL_BAR_V, $"{EKey.ME_UIS_GRID_SCROLL_BAR_V}", this.MidEditorUIs, this.OnChangeMEUIsGridScrollBarVal),
+				(EKey.ME_UIS_GRID_SCROLL_BAR_H, $"{EKey.ME_UIS_GRID_SCROLL_BAR_H}", this.MidEditorUIs, this.OnChangeMEUIsGridScrollBarVal)
 			}, m_oScrollBarDict);
 		}
 
@@ -1414,11 +1523,11 @@ namespace LevelEditorScene {
 
 					// 객체 추가가 가능 할 경우
 					if(Input.GetMouseButtonUp((int)EMouseBtn.LEFT) && m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
-						this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx), stIdx, false);
+						this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx), stIdx, Input.GetKey(KeyCode.LeftShift));
 					}
 					// 객체 제거가 가능 할 경우
 					else if(Input.GetMouseButtonUp((int)EMouseBtn.RIGHT) && stCellInfo.m_oCellObjInfoList.ExIsValid()) {
-						this.RemoveCellObjInfo(Input.GetKey(KeyCode.LeftShift) ? m_oObjKindsDict[EKey.SEL_OBJ_KINDS] : EObjKinds.NONE, stIdx);
+						this.RemoveAllCellObjInfos(Input.GetKey(KeyCode.LeftShift) ? m_oObjKindsDict[EKey.SEL_OBJ_KINDS] : EObjKinds.NONE, stIdx);
 					}
 				}
 			}
@@ -1435,11 +1544,11 @@ namespace LevelEditorScene {
 
 					// 객체 추가가 가능 할 경우
 					if(Input.GetMouseButtonUp((int)EMouseBtn.LEFT) && m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
-						this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx), stIdx, false);
+						this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx), stIdx, Input.GetKey(KeyCode.LeftShift));
 					}
 					// 객체 제거가 가능 할 경우
 					else if(Input.GetMouseButtonUp((int)EMouseBtn.RIGHT) && oCellInfoDict[i].m_oCellObjInfoList.ExIsValid()) {
-						this.RemoveCellObjInfo(Input.GetKey(KeyCode.LeftShift) ? m_oObjKindsDict[EKey.SEL_OBJ_KINDS] : EObjKinds.NONE, stIdx);
+						this.RemoveAllCellObjInfos(Input.GetKey(KeyCode.LeftShift) ? m_oObjKindsDict[EKey.SEL_OBJ_KINDS] : EObjKinds.NONE, stIdx);
 					}
 				}
 			}
@@ -1447,8 +1556,16 @@ namespace LevelEditorScene {
 			this.UpdateUIsState();
 		}
 
+		/** 중앙 에디터 UI 에디터 모드 토글을 눌렀을 경우 */
+		private void OnTouchMEUIsEditorModeToggle(bool a_bIsTrue) {
+			bool bIsDraw = m_oToggleDict[EKey.ME_UIS_DRAW_MODE_TOGGLE] != null && m_oToggleDict[EKey.ME_UIS_DRAW_MODE_TOGGLE].isOn;
+			bool bIsPaint = m_oToggleDict[EKey.ME_UIS_PAINT_MODE_TOGGLE] != null && m_oToggleDict[EKey.ME_UIS_PAINT_MODE_TOGGLE].isOn;
+
+			this.SetMEUIsEditorMode(bIsDraw, bIsPaint);
+		}
+
 		/** 중앙 에디터 UI 그리드 스크롤 바 값이 변경 되었을 경우 */
-		private void OnChangeMEUIsGridScrollBarVal(Scrollbar a_oSender, float a_fVal) {
+		private void OnChangeMEUIsGridScrollBarVal(float a_fVal) {
 			float fWidth = Mathf.Max(KCDefine.B_VAL_0_INT, this.SelGridInfo.m_stBounds.size.x - this.SelGridInfo.m_stViewBounds.size.x);
 			float fHeight = Mathf.Max(KCDefine.B_VAL_0_INT, this.SelGridInfo.m_stBounds.size.y - this.SelGridInfo.m_stViewBounds.size.y);
 
@@ -1459,6 +1576,16 @@ namespace LevelEditorScene {
 
 		#region 조건부 접근자 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+		/** 중앙 에디터 UI 에디터 모드를 변경한다 */
+		private void SetMEUIsEditorMode(bool a_bIsDraw, bool a_bIsPaint) {
+			m_oEditorModeDict[EKey.SEL_EDITOR_MODE] = a_bIsDraw ? EEditorMode.DRAW : EEditorMode.PAINT;
+
+			m_oToggleDict[EKey.ME_UIS_DRAW_MODE_TOGGLE]?.SetIsOnWithoutNotify(a_bIsDraw);
+			m_oToggleDict[EKey.ME_UIS_PAINT_MODE_TOGGLE]?.SetIsOnWithoutNotify(a_bIsPaint);
+
+			this.UpdateUIsState();
+		}
+
 		/** 중앙 에디터 UI 그리드 스크롤 간격을 변경한다 */
 		private void SetMEUIsGridScrollDelta(float a_fDeltaX, float a_fDeltaY) {
 			float fWidth = Mathf.Max(KCDefine.B_VAL_0_REAL, this.SelGridInfo.m_stBounds.size.x - this.SelGridInfo.m_stViewBounds.size.x);
@@ -1634,10 +1761,10 @@ namespace LevelEditorScene {
 				(EKey.RE_UIS_PAGE_SCROLL_SNAP, KCDefine.U_OBJ_N_PAGE_VIEW, this.RightEditorUIs, (a_nCenterIdx, a_nSelIdx) => this.UpdateUIsState())
 			}, m_oScrollSnapDict);
 
-			m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP]?.gameObject.SetActive(false);
-
 			// 페이지 스크롤 스냅이 존재 할 경우
 			if(m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP] != null) {
+				m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].gameObject.SetActive(false);
+
 				for(int i = 0; i < m_oScrollSnapDict[EKey.RE_UIS_PAGE_SCROLL_SNAP].NumberOfPanels; ++i) {
 					string oSetupFuncName = string.Format(KDefine.LES_FUNC_N_FMT_SETUP_RE_UIS_PAGE_UIS, i + KCDefine.B_VAL_1_INT);
 					string oUpdateFuncName = string.Format(KDefine.LES_FUNC_N_FMT_UPDATE_RE_UIS_PAGE_UIS, i + KCDefine.B_VAL_1_INT);
@@ -1662,12 +1789,17 @@ namespace LevelEditorScene {
 
 		/** 오른쪽 에디터 UI 페이지 UI 1 를 설정한다 */
 		private void SetupREUIsPageUIs01(GameObject a_oPageUIs) {
-			// 입력 필드를 설정한다
+			// 입력 필드를 설정한다 {
 			CFunc.SetupInputs(new List<(EKey, string, GameObject, UnityAction<string>)>() {
 				(EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs01LevelInputStr),
 				(EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs01NumCellsInputStr),
 				(EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs01NumCellsInputStr)
 			}, m_oInputDict);
+
+			m_oInputList01.ExAddVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT]);
+			m_oInputList01.ExAddVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT]);
+			m_oInputList01.ExAddVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT]);
+			// 입력 필드를 설정한다 }
 
 			// 버튼을 설정한다 {
 			CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
@@ -1693,6 +1825,9 @@ namespace LevelEditorScene {
 				(EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT, $"{EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs02ObjSizeInputStr),
 				(EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT, $"{EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs02ObjSizeInputStr)
 			}, m_oInputDict);
+
+			m_oInputList02.ExAddVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT]);
+			m_oInputList02.ExAddVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT]);
 
 			m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT]?.SetTextWithoutNotify(KCDefine.B_STR_1_INT);
 			m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT]?.SetTextWithoutNotify(KCDefine.B_STR_1_INT);
@@ -1832,6 +1967,7 @@ namespace LevelEditorScene {
 				}, false);
 
 				this.UpdateUIsState();
+				this.SetMEUIsGridScrollDelta(m_oRealDict[EKey.GRID_SCROLL_DELTA_X], m_oRealDict[EKey.GRID_SCROLL_DELTA_Y]);
 			}
 		}
 
@@ -1867,7 +2003,7 @@ namespace LevelEditorScene {
 						// 객체 추가가 가능 할 경우
 						if(m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
 							var stIdx = new Vector3Int(j, i, KCDefine.B_VAL_0_INT);
-							this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx), stIdx, false);
+							this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx), stIdx, Input.GetKey(KeyCode.LeftShift));
 						}
 					}
 				}
@@ -1882,7 +2018,7 @@ namespace LevelEditorScene {
 			if(m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx)) {
 				for(int i = 0; i < this.SelLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
 					for(int j = 0; j < this.SelLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
-						this.SelLevelInfo.m_oCellInfoDictContainer[i][j].m_oCellObjInfoList.Clear();
+						this.RemoveAllCellObjInfos(EObjKinds.NONE, new Vector3Int(j, i, KCDefine.B_VAL_0_INT));
 					}
 				}
 
@@ -1896,11 +2032,37 @@ namespace LevelEditorScene {
 			if(m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid() && m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx)) {
 				for(int i = 0; i < this.SelLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
 					for(int j = 0; j < this.SelLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
-						this.RemoveCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], new Vector3Int(j, i, KCDefine.B_VAL_0_INT));
+						this.RemoveAllCellObjInfos(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], new Vector3Int(j, i, KCDefine.B_VAL_0_INT));
 					}
 				}
 
 				this.UpdateUIsState();
+			}
+		}
+
+		/** 오른쪽 에디터 UI 페이지 UI 1 모든 셀 이동 버튼을 눌렀을 경우 */
+		private void OnTouchREUIsPageUIs01MoveAllCellsBtn(EDirection a_eDirection) {
+			// 모든 셀 이동이 가능 할 경우
+			if(this.IsEnableMoveAllCells(a_eDirection)) {
+				var stIdx = this.GetGridBaseIdx(a_eDirection);
+				var stOffset = stIdx.ExGetNextIdx(a_eDirection) - stIdx;
+
+				for(int i = 0; i < this.SelLevelInfo.NumCells.y; ++i) {
+					for(int j = 0; j < this.SelLevelInfo.NumCells.x; ++j) {
+						var stCellIdx = a_eDirection.ExIsVertical() ? new Vector3Int(stIdx.x + j, stIdx.y + (i * stOffset.y), KCDefine.B_VAL_0_INT) : new Vector3Int(stIdx.x + (j * -stOffset.x), stIdx.y + i, KCDefine.B_VAL_0_INT);
+						var stNextCellIdx = a_eDirection.ExIsVertical() ? new Vector3Int(stIdx.x + j, (stIdx.y + stOffset.y) + (i * stOffset.y), KCDefine.B_VAL_0_INT) : new Vector3Int((stIdx.x - stOffset.x) - (j * stOffset.x), stIdx.y + i, KCDefine.B_VAL_0_INT);
+
+						this.SelLevelInfo.m_oCellInfoDictContainer[stCellIdx.y][stCellIdx.x].m_oCellObjInfoList.Clear();
+
+						// 셀 정보가 존재 할 경우
+						if((a_eDirection.ExIsVertical() && i < this.SelLevelInfo.NumCells.y - KCDefine.B_VAL_1_INT) || (a_eDirection.ExIsHorizontal() && j < this.SelLevelInfo.NumCells.x - KCDefine.B_VAL_1_INT)) {
+							this.SelLevelInfo.m_oCellInfoDictContainer[stNextCellIdx.y][stNextCellIdx.x].m_oCellObjInfoList.ExCopyTo(this.SelLevelInfo.m_oCellInfoDictContainer[stCellIdx.y][stCellIdx.x].m_oCellObjInfoList, (a_stCellObjInfo) => a_stCellObjInfo);
+							this.SelLevelInfo.m_oCellInfoDictContainer[stCellIdx.y][stCellIdx.x].OnAfterDeserialize();
+						}
+					}
+				}
+
+				this.SetMEUIsGridScrollDelta(m_oRealDict[EKey.GRID_SCROLL_DELTA_X] + (stOffset.x * -NSEngine.Access.CellSize.x), m_oRealDict[EKey.GRID_SCROLL_DELTA_Y] + (stOffset.y * -NSEngine.Access.CellSize.y));
 			}
 		}
 
@@ -1919,10 +2081,10 @@ namespace LevelEditorScene {
 				this.SetREUIsPageUIs02ObjSize((int)stObjInfo.m_stSize.x, (int)stObjInfo.m_stSize.y);
 
 				#region 추가
-				decimal dmHP = stObjInfo.m_oAbilityTargetInfoDict.ExGetTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_HP_01);
+				int nHP = int.Parse(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT].text, NumberStyles.Any, null);
 				decimal dmATK = stObjInfo.m_oAbilityTargetInfoDict.ExGetTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ATK_01);
 
-				this.SetREUIsPageUIs02CellObjInfo((int)dmHP, (int)dmATK);
+				this.SetREUIsPageUIs02CellObjInfo(nHP, (int)dmATK);
 				#endregion // 추가
 			}
 
@@ -1955,6 +2117,18 @@ namespace LevelEditorScene {
 
 		#region 조건부 접근자 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+		/** 그리드 기본 인덱스를 반환한다 */
+		private Vector3Int GetGridBaseIdx(EDirection a_eDirection) {
+			switch(a_eDirection) {
+				case EDirection.UP: return new Vector3Int(KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT);
+				case EDirection.DOWN: return new Vector3Int(KCDefine.B_VAL_0_INT, this.SelLevelInfo.NumCells.y - KCDefine.B_VAL_1_INT, KCDefine.B_VAL_0_INT);
+				case EDirection.LEFT: return new Vector3Int(KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT);
+				case EDirection.RIGHT: return new Vector3Int(this.SelLevelInfo.NumCells.x - KCDefine.B_VAL_1_INT, KCDefine.B_VAL_0_INT, KCDefine.B_VAL_0_INT);
+			}
+
+			return KCDefine.B_IDX_INVALID_3D;
+		}
+
 		/** 오른쪽 에디터 UI 페이지 UI 1 셀 개수를 변경한다 */
 		private void SetREUIsPageUIs01NumCells(int a_nNumCellsX, int a_nNumCellsY) {
 			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT]?.SetTextWithoutNotify($"{Mathf.Clamp(a_nNumCellsX, NSEngine.KDefine.E_MIN_NUM_CELLS.x, NSEngine.KDefine.E_MAX_NUM_CELLS.x)}");

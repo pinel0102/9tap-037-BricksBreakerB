@@ -46,6 +46,11 @@ public static partial class CAccessExtension {
 	}
 
 	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid(this EDirection a_eSender) {
+		return a_eSender > EDirection.NONE && a_eSender < EDirection.MAX_VAL;
+	}
+
+	/** 유효 여부를 검사한다 */
 	public static bool ExIsValid(this EDifficulty a_eSender) {
 		return a_eSender > EDifficulty.NONE && a_eSender < EDifficulty.MAX_VAL;
 	}
@@ -85,6 +90,16 @@ public static partial class CAccessExtension {
 	public static bool ExIsValidIdx(this EnhancedScroller a_oSender, int a_nIdx) {
 		CAccess.Assert(a_oSender != null);
 		return a_nIdx > KCDefine.B_IDX_INVALID && a_nIdx < a_oSender.NumberOfCells;
+	}
+
+	/** 수평 여부를 검사한다 */
+	public static bool ExIsHorizontal(this EDirection a_eSender) {
+		return a_eSender == EDirection.LEFT || a_eSender == EDirection.RIGHT || a_eSender == EDirection.HORIZONTAL;
+	}
+
+	/** 수직 여부를 검사한다 */
+	public static bool ExIsVertical(this EDirection a_eSender) {
+		return a_eSender == EDirection.UP || a_eSender == EDirection.DOWN || a_eSender == EDirection.VERTICAL;
 	}
 
 	/** 동일 여부를 검사한다 */

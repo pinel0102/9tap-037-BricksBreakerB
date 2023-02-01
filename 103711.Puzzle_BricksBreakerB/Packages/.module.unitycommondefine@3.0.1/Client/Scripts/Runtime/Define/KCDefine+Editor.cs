@@ -24,6 +24,9 @@ public static partial class KCDefine {
 /** 레벨 에디터 씬 상수 */
 public static partial class KCDefine {
 	#region 기본
+	// 비율
+	public const float LES_SCALE_SCREEN_SIZE = 1.25f;
+
 	// 형식
 	public const string LES_TEXT_FMT_SIZE = "크기 {0}x{1}";
 	public const string LES_TEXT_FMT_LEVEL = "레벨 {0:0000}";

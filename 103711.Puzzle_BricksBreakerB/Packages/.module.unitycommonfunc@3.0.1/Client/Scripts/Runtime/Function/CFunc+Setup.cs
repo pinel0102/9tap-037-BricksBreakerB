@@ -87,6 +87,30 @@ public static partial class CFunc {
 		}
 	}
 
+	/** 토글을 설정한다 */
+	public static void SetupToggles(List<(GameObject, UnityAction<bool>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid()) {
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<Toggle>()?.onValueChanged.AddListener(a_oKeyInfoList[i].Item2);
+			}
+		}
+	}
+
+	/** 토글을 설정한다 */
+	public static void SetupToggles(List<(string, GameObject, UnityAction<bool>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid()) {
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oKeyInfoList[i].Item2?.ExFindComponent<Toggle>(a_oKeyInfoList[i].Item1)?.onValueChanged.AddListener(a_oKeyInfoList[i].Item3);
+			}
+		}
+	}
+
 	/** 스크롤 바를 설정한다 */
 	public static void SetupScrollBars(List<(GameObject, UnityAction<float>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
@@ -508,6 +532,48 @@ public static partial class CFunc {
 
 			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
 				a_oOutBtnDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.onClick.AddListener(a_oKeyInfoList[i].Item5);
+			}
+		}
+	}
+	
+	/** 토글을 설정한다 */
+	public static void SetupToggles<K>(List<(K, GameObject, UnityAction<bool>)> a_oKeyInfoList, Dictionary<K, Toggle> a_oOutBtnDict, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oKeyInfoList.ExIsValid() && a_oOutBtnDict != null));
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid() && a_oOutBtnDict != null) {
+			CFunc.SetupComponents(CFactory.MakeKeyInfos(a_oKeyInfoList), a_oOutBtnDict, a_bIsEnableAssert);
+
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oOutBtnDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.onValueChanged.AddListener(a_oKeyInfoList[i].Item3);
+			}
+		}
+	}
+
+	/** 토글을 설정한다 */
+	public static void SetupToggles<K>(List<(K, string, GameObject, UnityAction<bool>)> a_oKeyInfoList, Dictionary<K, Toggle> a_oOutBtnDict, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oKeyInfoList.ExIsValid() && a_oOutBtnDict != null));
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid() && a_oOutBtnDict != null) {
+			CFunc.SetupComponents(CFactory.MakeKeyInfos(a_oKeyInfoList), a_oOutBtnDict, a_bIsEnableAssert);
+
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oOutBtnDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.onValueChanged.AddListener(a_oKeyInfoList[i].Item4);
+			}
+		}
+	}
+
+	/** 토글을 설정한다 */
+	public static void SetupToggles<K>(List<(K, string, GameObject, GameObject, UnityAction<bool>)> a_oKeyInfoList, Dictionary<K, Toggle> a_oOutBtnDict, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oKeyInfoList.ExIsValid() && a_oOutBtnDict != null));
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid() && a_oOutBtnDict != null) {
+			CFunc.SetupComponents(CFactory.MakeKeyInfos(a_oKeyInfoList), a_oOutBtnDict, a_bIsEnableAssert);
+
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oOutBtnDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.onValueChanged.AddListener(a_oKeyInfoList[i].Item5);
 			}
 		}
 	}

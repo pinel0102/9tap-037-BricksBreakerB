@@ -29,9 +29,7 @@ public static partial class CFactory {
 	/** 경로 정보를 생성한다 */
 	public static CPathInfo MakePathInfo(Vector3Int a_stIdx, int a_nCost = KCDefine.B_VAL_0_INT) {
 		return new CPathInfo() {
-			m_nCost = a_nCost,
-			m_stIdx = a_stIdx,
-			m_oPrevPathInfo = null
+			m_nCost = a_nCost, m_stIdx = a_stIdx, m_oPrevPathInfo = null
 		};
 	}
 
@@ -244,6 +242,18 @@ public static partial class CFactory {
 	}
 
 	/** 키 정보를 생성한다 */
+	public static List<(T, GameObject)> MakeKeyInfos<T>(List<(T, GameObject, UnityAction<bool>)> a_oKeyInfoList) {
+		CAccess.Assert(a_oKeyInfoList != null);
+		var oKeyInfoList = new List<(T, GameObject)>();
+
+		for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+			oKeyInfoList.Add((a_oKeyInfoList[i].Item1, a_oKeyInfoList[i].Item2));
+		}
+
+		return oKeyInfoList;
+	}
+
+	/** 키 정보를 생성한다 */
 	public static List<(T, GameObject)> MakeKeyInfos<T>(List<(T, GameObject, UnityAction<float>)> a_oKeyInfoList) {
 		CAccess.Assert(a_oKeyInfoList != null);
 		var oKeyInfoList = new List<(T, GameObject)>();
@@ -304,6 +314,18 @@ public static partial class CFactory {
 	}
 
 	/** 키 정보를 생성한다 */
+	public static List<(T, string, GameObject)> MakeKeyInfos<T>(List<(T, string, GameObject, UnityAction<bool>)> a_oKeyInfoList) {
+		CAccess.Assert(a_oKeyInfoList != null);
+		var oKeyInfoList = new List<(T, string, GameObject)>();
+
+		for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+			oKeyInfoList.Add((a_oKeyInfoList[i].Item1, a_oKeyInfoList[i].Item2, a_oKeyInfoList[i].Item3));
+		}
+
+		return oKeyInfoList;
+	}
+
+	/** 키 정보를 생성한다 */
 	public static List<(T, string, GameObject)> MakeKeyInfos<T>(List<(T, string, GameObject, UnityAction<float>)> a_oKeyInfoList) {
 		CAccess.Assert(a_oKeyInfoList != null);
 		var oKeyInfoList = new List<(T, string, GameObject)>();
@@ -353,6 +375,18 @@ public static partial class CFactory {
 
 	/** 키 정보를 생성한다 */
 	public static List<(T, string, GameObject, GameObject)> MakeKeyInfos<T>(List<(T, string, GameObject, GameObject, UnityAction)> a_oKeyInfoList) {
+		CAccess.Assert(a_oKeyInfoList != null);
+		var oKeyInfoList = new List<(T, string, GameObject, GameObject)>();
+
+		for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+			oKeyInfoList.Add((a_oKeyInfoList[i].Item1, a_oKeyInfoList[i].Item2, a_oKeyInfoList[i].Item3, a_oKeyInfoList[i].Item4));
+		}
+
+		return oKeyInfoList;
+	}
+
+	/** 키 정보를 생성한다 */
+	public static List<(T, string, GameObject, GameObject)> MakeKeyInfos<T>(List<(T, string, GameObject, GameObject, UnityAction<bool>)> a_oKeyInfoList) {
 		CAccess.Assert(a_oKeyInfoList != null);
 		var oKeyInfoList = new List<(T, string, GameObject, GameObject)>();
 

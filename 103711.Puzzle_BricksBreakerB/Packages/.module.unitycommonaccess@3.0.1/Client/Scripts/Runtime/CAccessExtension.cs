@@ -286,6 +286,16 @@ public static partial class CAccessExtension {
 	}
 
 	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid<T>(this Stack<T> a_oSender) {
+		return a_oSender != null && a_oSender.Count > KCDefine.B_VAL_0_INT;
+	}
+
+	/** 유효 여부를 검사한다 */
+	public static bool ExIsValid<T>(this Queue<T> a_oSender) {
+		return a_oSender != null && a_oSender.Count > KCDefine.B_VAL_0_INT;
+	}
+
+	/** 유효 여부를 검사한다 */
 	public static bool ExIsValid<K, V>(this Dictionary<K, V> a_oSender) {
 		return a_oSender != null && a_oSender.Count > KCDefine.B_VAL_0_INT;
 	}

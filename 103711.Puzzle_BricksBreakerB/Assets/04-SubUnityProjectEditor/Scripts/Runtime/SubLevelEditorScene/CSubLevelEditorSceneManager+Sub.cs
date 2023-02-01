@@ -7,8 +7,8 @@ using UnityEngine.Events;
 #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 using System.Globalization;
 using UnityEngine.EventSystems;
-using EnhancedUI.EnhancedScroller;
 using TMPro;
+using EnhancedUI.EnhancedScroller;
 
 namespace LevelEditorScene {
 	/** 서브 레벨 에디터 씬 관리자 - 서브 */
@@ -122,7 +122,14 @@ namespace LevelEditorScene {
 
 			// 인덱스가 유효 할 경우
 			if(this.SelLevelInfo.m_oCellInfoDictContainer.ExIsValidIdx(stIdx) && !stIdx.Equals(m_oVec3IntDict[EKey.PREV_CELL_IDX])) {
-				// Do Something
+				bool bIsValid01 = this.TryGetCellObjInfo(stIdx, EObjKinds.NONE, out STCellObjInfo stCellObjInfo);
+				bool bIsValid02 = Input.GetKey(CAccess.CmdKeyCode) && Input.GetMouseButtonDown((int)EMouseBtn.LEFT);
+
+				// 셀 객체 정보가 존재 할 경우
+				if(bIsValid01 && bIsValid02 && stCellObjInfo.ObjKinds != EObjKinds.BG_PLACEHOLDER_01) {
+					this.OnTouchREUIsPageUIs02ScrollerCellViewBtn(stCellObjInfo.ObjKinds);
+					this.SetREUIsPageUIs02ObjSize(stCellObjInfo.m_stSize.x, stCellObjInfo.m_stSize.y);
+				}
 			}
 
 			this.HandleTouchMoveEvent(a_oSender, a_oEventData);
@@ -135,15 +142,9 @@ namespace LevelEditorScene {
 
 			// 인덱스가 유효 할 경우
 			if(this.SelLevelInfo.m_oCellInfoDictContainer.ExIsValidIdx(stIdx) && !stIdx.Equals(m_oVec3IntDict[EKey.PREV_CELL_IDX])) {
-				var stCellInfo = this.SelLevelInfo.GetCellInfo(stIdx);
-
-				// 객체 추가가 가능 할 경우
-				if(Input.GetMouseButton((int)EMouseBtn.LEFT) && m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
-					this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx), stIdx);
-				}
-				// 객체 제거가 가능 할 경우
-				else if(Input.GetMouseButton((int)EMouseBtn.RIGHT) && stCellInfo.m_oCellObjInfoList.ExIsValid()) {
-					this.RemoveCellObjInfo(Input.GetKey(KeyCode.LeftShift) ? m_oObjKindsDict[EKey.SEL_OBJ_KINDS] : EObjKinds.NONE, stIdx);
+				switch(m_oEditorModeDict[EKey.SEL_EDITOR_MODE]) {
+					case EEditorMode.DRAW: this.HandleDrawEditorModeTouchMoveEvent(a_oSender, a_oEventData); break;
+					case EEditorMode.PAINT: this.HandlePaintEditorModeTouchMoveEvent(a_oSender, a_oEventData); break;
 				}
 
 				this.UpdateUIsState();
@@ -162,6 +163,68 @@ namespace LevelEditorScene {
 			}
 
 			m_oVec3IntDict[EKey.PREV_CELL_IDX] = KCDefine.B_IDX_INVALID_3D;
+		}
+
+		/** 그리기 에디터 모드 터치 이동 이벤트를 처리한다 */
+		private void HandleDrawEditorModeTouchMoveEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+			var stPos = a_oEventData.ExGetLocalPos(this.ObjRoot, this.ScreenSize);
+			var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, NSEngine.Access.CellSize);
+
+			var stCellInfo = this.SelLevelInfo.GetCellInfo(stIdx);
+
+			// 객체 추가가 가능 할 경우
+			if(Input.GetMouseButton((int)EMouseBtn.LEFT) && m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
+				this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx), stIdx);
+			}
+			// 객체 제거가 가능 할 경우
+			else if(Input.GetMouseButton((int)EMouseBtn.RIGHT) && stCellInfo.m_oCellObjInfoList.ExIsValid()) {
+				this.RemoveCellObjInfo(Input.GetKey(KeyCode.LeftShift) ? m_oObjKindsDict[EKey.SEL_OBJ_KINDS] : EObjKinds.NONE, stIdx);
+			}
+		}
+
+		/** 페인트 에디터 모드 터치 이동 이벤트를 처리한다 */
+		private void HandlePaintEditorModeTouchMoveEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+			var oIdxList = CCollectionManager.Inst.SpawnList<Vector3Int>();
+
+			try {
+				var stPos = a_oEventData.ExGetLocalPos(this.ObjRoot, this.ScreenSize);
+				var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, NSEngine.Access.CellSize);
+
+				oIdxList.ExAddVal(stIdx);
+				this.TryGetCellObjInfo(stIdx, EObjKinds.NONE, out STCellObjInfo stCellObjInfo);
+
+				while(oIdxList.ExIsValid()) {
+					stIdx = oIdxList[KCDefine.B_VAL_0_INT];
+					oIdxList.ExRemoveValAt(KCDefine.B_VAL_0_INT);
+
+					var stSize = this.GetEditorObjSize();
+					var eObjKinds = Input.GetKey(KeyCode.LeftShift) ? m_oObjKindsDict[EKey.SEL_OBJ_KINDS] : stCellObjInfo.ObjKinds;
+
+					bool bIsValid01 = this.IsEnableAddCellObjInfo(stIdx, stSize, m_oObjKindsDict[EKey.SEL_OBJ_KINDS], false);
+					bool bIsValid02 = this.IsEnableRemoveCellObjInfo(eObjKinds, stIdx);
+
+					// 객체 추가가 가능 할 경우
+					if(Input.GetMouseButton((int)EMouseBtn.LEFT) && bIsValid01 && m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
+						this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], stSize, stIdx), stIdx, false);
+
+						oIdxList.ExAddVal(new Vector3Int(stIdx.x, stIdx.y - stSize.y, stIdx.z));
+						oIdxList.ExAddVal(new Vector3Int(stIdx.x, stIdx.y + stSize.y, stIdx.z));
+						oIdxList.ExAddVal(new Vector3Int(stIdx.x - stSize.x, stIdx.y, stIdx.z));
+						oIdxList.ExAddVal(new Vector3Int(stIdx.x + stSize.x, stIdx.y, stIdx.z));
+					}
+					// 객체 제거가 가능 할 경우
+					else if(Input.GetMouseButton((int)EMouseBtn.RIGHT) && bIsValid02 && this.TryGetCellObjInfo(stIdx, eObjKinds, out stCellObjInfo)) {
+						this.RemoveCellObjInfo(eObjKinds, stIdx);
+
+						oIdxList.ExAddVal(new Vector3Int(stIdx.x, stIdx.y - stCellObjInfo.m_stSize.y, stIdx.z));
+						oIdxList.ExAddVal(new Vector3Int(stIdx.x, stIdx.y + stCellObjInfo.m_stSize.y, stIdx.z));
+						oIdxList.ExAddVal(new Vector3Int(stIdx.x - stCellObjInfo.m_stSize.x, stIdx.y, stIdx.z));
+						oIdxList.ExAddVal(new Vector3Int(stIdx.x + stCellObjInfo.m_stSize.x, stIdx.y, stIdx.z));
+					}
+				}
+			} finally {
+				CCollectionManager.Inst.DespawnList(oIdxList);
+			}
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		#endregion // 조건부 함수
@@ -242,6 +305,9 @@ namespace LevelEditorScene {
 				(ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT, $"{ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs02CellObjInfoInputStr),
 				(ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT, $"{ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs02CellObjInfoInputStr)
 			}, m_oSubInputDict);
+
+			m_oInputList02.ExAddVal(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT]);
+			m_oInputList02.ExAddVal(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT]);
 
 			m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT]?.SetTextWithoutNotify(KCDefine.B_STR_0_INT);
 			m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT]?.SetTextWithoutNotify(KCDefine.B_STR_0_INT);
