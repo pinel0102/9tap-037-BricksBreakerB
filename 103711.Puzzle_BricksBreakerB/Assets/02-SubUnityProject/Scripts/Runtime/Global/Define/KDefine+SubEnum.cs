@@ -443,6 +443,9 @@ public enum EObjKinds {
 	NORM_BRICKS_RIGHT_TRIANGLE_02,
 	NORM_BRICKS_RIGHT_TRIANGLE_03,
 	NORM_BRICKS_RIGHT_TRIANGLE_04,
+
+    // 1,030,000,000
+    NORM_BRICKS_DIAMOND_01 = (EEnumVal.T * EObjType.NORM_BRICKS) + (EEnumVal.ST * 3) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	#endregion // 일반 블럭
 
 	#region 아이템 블럭

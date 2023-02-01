@@ -573,6 +573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 378034986aaefff46b9d1de62f62dd3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentCellSize: {x: 1, y: 1}
   m_oSubCellObjHPBtnUIs: {fileID: 260558317}
   m_oSubCellObjATKBtnUIs: {fileID: 2113637901}
 --- !u!1 &1296374608

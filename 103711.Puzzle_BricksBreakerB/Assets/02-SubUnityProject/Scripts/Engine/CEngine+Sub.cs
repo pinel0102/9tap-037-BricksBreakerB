@@ -566,7 +566,7 @@ namespace NSEngine {
 
         public void ShootBalls(int _startIndex, int _count)
         {
-            CScheduleManager.Inst.AddTimer(this, KCDefine.B_VAL_0_0_9_REAL, (uint)_count, () => {
+            CScheduleManager.Inst.AddTimer(this, GlobalDefine.SHOOT_BALL_DELAY, (uint)_count, () => {
                 //Debug.Log(CodeManager.GetMethodName() + string.Format("BallObjList[{0}]", _startIndex));
                 this.BallObjList[_startIndex++].GetController<CEBallObjController>().Shoot(shootDirection);
                 currentShootCount++;

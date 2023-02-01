@@ -66,6 +66,7 @@ namespace NSEngine {
 					switch((EObjKinds)((int)this.Params.m_stObjInfo.m_eObjKinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE)) {
 						case EObjKinds.NORM_BRICKS_TRIANGLE_01: this.SetupTriangleCollider(oPosList); break;
 						case EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_01: this.SetupRightTriangleCollider(oPosList); break;
+                        case EObjKinds.NORM_BRICKS_DIAMOND_01: this.SetupDiamondCollider(oPosList); break;
                         default: this.SetupSquareCollider(oPosList); break;
 					}
 
@@ -82,6 +83,14 @@ namespace NSEngine {
 			a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / -KCDefine.B_VAL_2_REAL, Access.CellSize.y / KCDefine.B_VAL_2_REAL));
 			a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / KCDefine.B_VAL_2_REAL, Access.CellSize.y / KCDefine.B_VAL_2_REAL));
 			a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / KCDefine.B_VAL_2_REAL, Access.CellSize.y / -KCDefine.B_VAL_2_REAL));
+		}
+
+        /** 마름모 충돌체를 설정한다 */
+		private void SetupDiamondCollider(List<Vector2> a_oOutPosList) {
+            a_oOutPosList.ExAddVal(new Vector2(0, Access.CellSize.y / -KCDefine.B_VAL_2_REAL));
+            a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / KCDefine.B_VAL_2_REAL, 0));
+			a_oOutPosList.ExAddVal(new Vector2(0, Access.CellSize.y / KCDefine.B_VAL_2_REAL));
+			a_oOutPosList.ExAddVal(new Vector2(-Access.CellSize.x / KCDefine.B_VAL_2_REAL, 0));
 		}
 
 		/** 삼각형 충돌체를 설정한다 */

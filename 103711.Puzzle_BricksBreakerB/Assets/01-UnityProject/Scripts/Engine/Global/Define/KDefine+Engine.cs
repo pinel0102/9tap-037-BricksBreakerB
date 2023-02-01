@@ -38,7 +38,7 @@ namespace NSEngine {
 		// 개수
 		public static readonly Vector3Int E_MIN_NUM_CELLS = new Vector3Int(1, 1, 1);
 		public static readonly Vector3Int E_MAX_NUM_CELLS = new Vector3Int(20, 40, 1);
-		public static readonly Vector3Int E_DEF_NUM_CELLS = new Vector3Int(10, 12, 1);
+		public static readonly Vector3Int E_DEF_NUM_CELLS = new Vector3Int(11, 11, 1);
 
 		// 간격 {
 		public static readonly Vector3 E_OFFSET_BOTTOM = new Vector3(0.0f, 150.0f, 0.0f);

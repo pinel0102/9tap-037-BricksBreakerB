@@ -103,6 +103,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: a9315504afbfe4d3caad39b17b968a43, type: 3}
   - {fileID: 21300000, guid: 980e5964c361341a4bd61598ffa49316, type: 3}
   - {fileID: 21300000, guid: b866b27581abc4a8299bfcb28b1b3503, type: 3}
+  - {fileID: 21300000, guid: b25c8d069286e4d24a970aae1b6f9376, type: 3}
   - {fileID: 21300000, guid: 0a5817e6f16214aed88613b8f678e07a, type: 3}
   - {fileID: 21300000, guid: 49049ae7aed5e425195b6afcd96ff9b2, type: 3}
   - {fileID: 21300000, guid: b6dbff68a10f14590a488033a4518aae, type: 3}
@@ -119,6 +120,7 @@ SpriteAtlas:
   - NORM_BRICKS_RIGHT_TRIANGLE_02
   - ITEM_BRICKS_BALL_01
   - SPECIAL_BRICKS_LASER_VERTICAL_01
+  - NORM_BRICKS_DIAMOND_01
   - NORM_BRICKS_TRIANGLE_04
   - NORM_BRICKS_TRIANGLE_02
   - NORM_BRICKS_RIGHT_TRIANGLE_04

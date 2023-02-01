@@ -40,7 +40,9 @@ public static partial class KDefine {
 			EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_01,
 			EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_02,
 			EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_03,
-			EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_04
+			EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_04,
+
+            EObjKinds.NORM_BRICKS_DIAMOND_01,
 		},
 
 		[KCDefine.B_VAL_1_INT] = new List<EObjKinds>() {

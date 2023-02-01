@@ -54,6 +54,10 @@ namespace NSEngine {
 				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL
 			},
 
+            [EObjKinds.NORM_BRICKS_DIAMOND_01] = new STSortingOrderInfo() {
+				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL
+			},
+
             [EObjKinds.ITEM_BRICKS_BALL_01] = new STSortingOrderInfo() {
 				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL
 			},
@@ -105,6 +109,8 @@ namespace NSEngine {
 			[EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_02] = EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_02.ToString(),
 			[EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_03] = EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_03.ToString(),
 			[EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_04] = EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_04.ToString(),
+
+            [EObjKinds.NORM_BRICKS_DIAMOND_01] = EObjKinds.NORM_BRICKS_DIAMOND_01.ToString(),
 
             [EObjKinds.ITEM_BRICKS_BALL_01] = EObjKinds.ITEM_BRICKS_BALL_01.ToString(),
             [EObjKinds.ITEM_BRICKS_BALL_02] = EObjKinds.ITEM_BRICKS_BALL_02.ToString(),
