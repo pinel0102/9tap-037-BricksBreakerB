@@ -159,7 +159,7 @@ namespace GameScene {
 
 			this.CellRoot.transform.localScale = (bIsValid01 && bIsValid02 && bIsValid03) ? m_oEngine.SelGridInfo.m_stScale : Vector3.one;
             this.ObjRoot.transform.localScale = (bIsValid01 && bIsValid02 && bIsValid03) ? m_oEngine.SelGridInfo.m_stScale : Vector3.one;
-			// 비율을 설정한다 }
+            // 비율을 설정한다 }
 
 			// 스프라이트를 설정한다 {
 			var oSpriteInfoDict = new Dictionary<EKey, (Sprite, STSortingOrderInfo)>() {
@@ -235,7 +235,7 @@ namespace GameScene {
 			};
 
 			m_oEngine = CFactory.CreateObj<NSEngine.CEngine>(KDefine.GS_OBJ_N_ENGINE, this.gameObject);
-			m_oEngine.Init(NSEngine.CEngine.MakeParams(this.CellRoot, this.ItemRoot, this.SkillRoot, this.ObjRoot, this.FXRoot, oCallbackDict01, oCallbackDict02));
+			m_oEngine.Init(NSEngine.CEngine.MakeParams(this.CellRoot, this.ItemRoot, this.SkillRoot, this.ObjRoot, this.WallRoot, this.FXRoot, oCallbackDict01, oCallbackDict02));
 
             AssignEngine();
 		}

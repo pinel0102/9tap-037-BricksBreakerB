@@ -186,6 +186,7 @@ namespace NSEngine {
 		/** 초기화한다 */
 		private void SubInit() {
             
+            InitResoulution();
             InitCellRoot();
             InitLayerMask();
 
@@ -206,26 +207,29 @@ namespace NSEngine {
 
 			// 스프라이트를 설정한다 {
 			CFunc.SetupComponents(new List<(ESubKey, string, GameObject, GameObject)>() {
-				(ESubKey.UP_BOUNDS_SPRITE, $"{ESubKey.UP_BOUNDS_SPRITE}", this.Params.m_oObjRoot, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_BOUNDS)),
-				(ESubKey.DOWN_BOUNDS_SPRITE, $"{ESubKey.DOWN_BOUNDS_SPRITE}", this.Params.m_oObjRoot, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_BOUNDS)),
-				(ESubKey.LEFT_BOUNDS_SPRITE, $"{ESubKey.LEFT_BOUNDS_SPRITE}", this.Params.m_oObjRoot, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_BOUNDS)),
-				(ESubKey.RIGHT_BOUNDS_SPRITE, $"{ESubKey.RIGHT_BOUNDS_SPRITE}", this.Params.m_oObjRoot, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_BOUNDS))
+				(ESubKey.UP_BOUNDS_SPRITE, $"{ESubKey.UP_BOUNDS_SPRITE}", this.Params.m_oWallRoot, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_BOUNDS)),
+				(ESubKey.DOWN_BOUNDS_SPRITE, $"{ESubKey.DOWN_BOUNDS_SPRITE}", this.Params.m_oWallRoot, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_BOUNDS)),
+				(ESubKey.LEFT_BOUNDS_SPRITE, $"{ESubKey.LEFT_BOUNDS_SPRITE}", this.Params.m_oWallRoot, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_BOUNDS)),
+				(ESubKey.RIGHT_BOUNDS_SPRITE, $"{ESubKey.RIGHT_BOUNDS_SPRITE}", this.Params.m_oWallRoot, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_BOUNDS))
 			}, m_oSubSpriteDict);
 
-			float fWidth = m_oSubSpriteDict[ESubKey.UP_BOUNDS_SPRITE].sprite.textureRect.width;
-			float fHeight = m_oSubSpriteDict[ESubKey.UP_BOUNDS_SPRITE].sprite.textureRect.height;
+			float texWidth = m_oSubSpriteDict[ESubKey.UP_BOUNDS_SPRITE].sprite.textureRect.width;
+			float texHeight = m_oSubSpriteDict[ESubKey.UP_BOUNDS_SPRITE].sprite.textureRect.height;
+            
+            float horizontalWidth = reWidth / texWidth;
+            float veticalHeight = ((reHeight - uiAreaTop - uiAreaBottom) / texHeight);
 
-			m_oSubSpriteDict[ESubKey.UP_BOUNDS_SPRITE].transform.localScale = new Vector3(this.SelGridInfo.m_stViewBounds.size.x / fWidth, KCDefine.B_VAL_1_REAL, KCDefine.B_VAL_1_REAL);
-			m_oSubSpriteDict[ESubKey.UP_BOUNDS_SPRITE].transform.localPosition = this.SelGridInfo.m_stViewPivotPos + new Vector3(this.SelGridInfo.m_stViewBounds.size.x / KCDefine.B_VAL_2_REAL, m_oSubSpriteDict[ESubKey.UP_BOUNDS_SPRITE].sprite.textureRect.height / KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_REAL) + new Vector3(0, this.SelGridInfo.aimAdjustHeight * 0.5f, 0);
+			m_oSubSpriteDict[ESubKey.UP_BOUNDS_SPRITE].transform.localScale = new Vector3(horizontalWidth, KCDefine.B_VAL_1_REAL, KCDefine.B_VAL_1_REAL);
+			m_oSubSpriteDict[ESubKey.UP_BOUNDS_SPRITE].transform.localPosition = new Vector3(0, (reHeight * 0.5f) - uiAreaTop + (m_oSubSpriteDict[ESubKey.UP_BOUNDS_SPRITE].sprite.textureRect.height / KCDefine.B_VAL_2_REAL), 0);
 
-			m_oSubSpriteDict[ESubKey.DOWN_BOUNDS_SPRITE].transform.localScale = new Vector3(this.SelGridInfo.m_stViewBounds.size.x / fWidth, KCDefine.B_VAL_1_REAL, KCDefine.B_VAL_1_REAL);
-			m_oSubSpriteDict[ESubKey.DOWN_BOUNDS_SPRITE].transform.localPosition = this.SelGridInfo.m_stViewPivotPos + new Vector3(this.SelGridInfo.m_stViewBounds.size.x / KCDefine.B_VAL_2_REAL, -this.SelGridInfo.m_stViewBounds.size.y - (m_oSubSpriteDict[ESubKey.DOWN_BOUNDS_SPRITE].sprite.textureRect.height / KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL) - new Vector3(0, this.SelGridInfo.aimAdjustHeight * 0.5f, 0);
+			m_oSubSpriteDict[ESubKey.DOWN_BOUNDS_SPRITE].transform.localScale = new Vector3(horizontalWidth, KCDefine.B_VAL_1_REAL, KCDefine.B_VAL_1_REAL);
+			m_oSubSpriteDict[ESubKey.DOWN_BOUNDS_SPRITE].transform.localPosition = new Vector3(0, -((reHeight * 0.5f) - uiAreaBottom) - (m_oSubSpriteDict[ESubKey.DOWN_BOUNDS_SPRITE].sprite.textureRect.height / KCDefine.B_VAL_2_REAL), 0);
 
-			m_oSubSpriteDict[ESubKey.LEFT_BOUNDS_SPRITE].transform.localScale = new Vector3(KCDefine.B_VAL_1_REAL, (this.SelGridInfo.m_stViewBounds.size.y + this.SelGridInfo.aimAdjustHeight) / fHeight, KCDefine.B_VAL_1_REAL);
-			m_oSubSpriteDict[ESubKey.LEFT_BOUNDS_SPRITE].transform.localPosition = this.SelGridInfo.m_stViewPivotPos + new Vector3(m_oSubSpriteDict[ESubKey.LEFT_BOUNDS_SPRITE].sprite.textureRect.width / -KCDefine.B_VAL_2_REAL, this.SelGridInfo.m_stViewBounds.size.y / -KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_REAL);
+			m_oSubSpriteDict[ESubKey.LEFT_BOUNDS_SPRITE].transform.localScale = new Vector3(KCDefine.B_VAL_1_REAL, veticalHeight, KCDefine.B_VAL_1_REAL);
+			m_oSubSpriteDict[ESubKey.LEFT_BOUNDS_SPRITE].transform.localPosition = new Vector3((-reWidth * 0.5f) - (m_oSubSpriteDict[ESubKey.LEFT_BOUNDS_SPRITE].sprite.textureRect.width / KCDefine.B_VAL_2_REAL), 0, 0);
 
-			m_oSubSpriteDict[ESubKey.RIGHT_BOUNDS_SPRITE].transform.localScale = new Vector3(KCDefine.B_VAL_1_REAL, (this.SelGridInfo.m_stViewBounds.size.y + this.SelGridInfo.aimAdjustHeight) / fHeight, KCDefine.B_VAL_1_REAL);
-			m_oSubSpriteDict[ESubKey.RIGHT_BOUNDS_SPRITE].transform.localPosition = this.SelGridInfo.m_stViewPivotPos + new Vector3(this.SelGridInfo.m_stViewBounds.size.x + (m_oSubSpriteDict[ESubKey.RIGHT_BOUNDS_SPRITE].sprite.textureRect.width / KCDefine.B_VAL_2_REAL), this.SelGridInfo.m_stViewBounds.size.y / -KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_REAL);
+			m_oSubSpriteDict[ESubKey.RIGHT_BOUNDS_SPRITE].transform.localScale = new Vector3(KCDefine.B_VAL_1_REAL, veticalHeight, KCDefine.B_VAL_1_REAL);
+			m_oSubSpriteDict[ESubKey.RIGHT_BOUNDS_SPRITE].transform.localPosition = new Vector3((reWidth * 0.5f) + (m_oSubSpriteDict[ESubKey.RIGHT_BOUNDS_SPRITE].sprite.textureRect.width / KCDefine.B_VAL_2_REAL), 0, 0);
 			// 스프라이트를 설정한다 }
 		}
 

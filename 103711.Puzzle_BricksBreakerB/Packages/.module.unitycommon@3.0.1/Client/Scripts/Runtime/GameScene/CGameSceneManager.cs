@@ -14,6 +14,7 @@ namespace GameScene {
 			ITEM_ROOT,
 			SKILL_ROOT,
 			OBJ_ROOT,
+            WALL_ROOT,
 			FX_ROOT,
 			[HideInInspector] MAX_VAL
 		}
@@ -35,7 +36,8 @@ namespace GameScene {
 		protected GameObject ItemRoot => m_oObjDict[EKey.ITEM_ROOT];
 		protected GameObject SkillRoot => m_oObjDict[EKey.SKILL_ROOT];
 		protected GameObject ObjRoot => m_oObjDict[EKey.OBJ_ROOT];
-		protected GameObject FXRoot => m_oObjDict[EKey.FX_ROOT];
+        protected GameObject WallRoot => m_oObjDict[EKey.WALL_ROOT];
+		protected GameObject FXRoot => m_oObjDict[EKey.FX_ROOT];        
 		#endregion // 프로퍼티
 
 		#region 함수
@@ -51,6 +53,7 @@ namespace GameScene {
 					(EKey.ITEM_ROOT, $"{EKey.ITEM_ROOT}", this.Objs, null),
 					(EKey.SKILL_ROOT, $"{EKey.SKILL_ROOT}", this.Objs, null),
 					(EKey.OBJ_ROOT, $"{EKey.OBJ_ROOT}", this.Objs, null),
+                    (EKey.WALL_ROOT, $"{EKey.WALL_ROOT}", this.Objs, null),
 					(EKey.FX_ROOT, $"{EKey.FX_ROOT}", this.Objs, null)
 				}, m_oObjDict);
 			}

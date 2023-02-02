@@ -11,7 +11,8 @@ namespace NSEngine {
 		#region 함수
 		/** 엔진을 설정한다 */
 		private void SetupEngine() {
-			// 그리드 정보를 설정한다 {
+
+            // 그리드 정보를 설정한다 {
 			m_oGridInfoList.Clear();
 
 			for(int i = 0; i < KCDefine.B_VAL_1_INT; ++i) {

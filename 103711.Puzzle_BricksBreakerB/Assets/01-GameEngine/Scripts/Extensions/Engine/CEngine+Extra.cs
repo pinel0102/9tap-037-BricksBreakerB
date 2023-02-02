@@ -5,6 +5,9 @@ using UnityEngine;
 namespace NSEngine {
     public partial class CEngine : CComponent
     {
+        [Header("★ [Parameter] Options")]
+        public bool isGoldAim;
+
         [Header("★ [Parameter] Live")]
         public bool isLevelFail;
         public bool isGridMoving;
@@ -14,6 +17,21 @@ namespace NSEngine {
         public Vector3 startPosition = Vector3.zero;
         public Vector3 shootDirection = Vector3.zero;
         public Vector3 cellRootMoveVector = Vector3.zero;
+
+        [Header("★ [Parameter] Live Resolution")]
+        // 디바이스 해상도.
+        public float screenMultiplier;
+        public float f_width;
+        public float f_height;
+        public float overAreaHeight;
+        public float currentRatio;
+        // 720p 환산.            
+        public float uiAreaTop;
+        public float uiAreaBottom;
+        public float reWidth;
+        public float reHeight;
+        public float gridWidth;
+        public float gridHeight;
 
         /// <Summary>(반사 O) 벽.</Summary>
         [HideInInspector] public int layerWall;
@@ -29,16 +47,34 @@ namespace NSEngine {
         [Header("★ [Parameter] Privates")]
         private WaitForSeconds dropBallsDelay = new WaitForSeconds(KCDefine.B_VAL_0_5_REAL);
         private WaitForSeconds cellRootMoveDelay = new WaitForSeconds(KCDefine.B_VAL_0_0_1_REAL);
-        public WaitForSeconds hitEffectDelay = new WaitForSeconds(KCDefine.B_VAL_0_0_2_REAL);
+        [HideInInspector] public WaitForSeconds hitEffectDelay = new WaitForSeconds(KCDefine.B_VAL_0_0_2_REAL);
 
-#region Extra Methods
+#region Initialize
+
+        private void InitResoulution()
+        {
+            // 디바이스 해상도.
+            screenMultiplier = (float)Screen.height / KCDefine.B_PORTRAIT_SCREEN_HEIGHT;
+            f_height = (float)Screen.height;
+            f_width = (f_height / (float)Screen.width) < ((float)KCDefine.B_PORTRAIT_SCREEN_HEIGHT / (float)KCDefine.B_PORTRAIT_SCREEN_WIDTH) ? (float)KCDefine.B_PORTRAIT_SCREEN_WIDTH * screenMultiplier : (float)Screen.width;
+            overAreaHeight = f_height - (KCDefine.B_PORTRAIT_SCREEN_HEIGHT * screenMultiplier);
+            currentRatio = f_height / f_width; 
+
+            // 720p 환산.            
+            uiAreaTop = GlobalDefine.GRID_PANEL_HEIGHT_TOP + ((overAreaHeight * 0.5f) / screenMultiplier);
+            uiAreaBottom = GlobalDefine.GRID_PANEL_HEIGHT_BOTTOM + ((overAreaHeight * 0.5f) / screenMultiplier);
+            reWidth = f_width / screenMultiplier;
+            reHeight = f_height / screenMultiplier;
+            gridWidth =  Access.CellSize.x * CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x * SelGridInfo.m_stScale.x;
+            gridHeight = Access.CellSize.y * CGameInfoStorage.Inst.PlayLevelInfo.NumCells.y * SelGridInfo.m_stScale.y;
+        }
 
         private void InitCellRoot()
         {
             isGridMoving = false;
-            cellRootMoveVector = new Vector3(0, -Access.CellSize.y, 0);
+            cellRootMoveVector = new Vector3(0, -(Access.CellSize.y * SelGridInfo.m_stScale.y), 0);
 
-            this.Params.m_oCellRoot.transform.localPosition = new Vector3(0, this.SelGridInfo.aimAdjustHeight * 0.5f, 0);
+            this.Params.m_oCellRoot.transform.localPosition = new Vector3(0, (((reHeight - Mathf.Min(reWidth, gridHeight)) * 0.5f) - uiAreaTop), 0);
         }
 
         private void InitLayerMask()
@@ -49,7 +85,8 @@ namespace NSEngine {
             layerThrough = 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_ITEM) | 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_SPECIAL);
             layerBall = 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_BALL);
 
-            SetAimLayer(false);
+            isGoldAim = false;
+            SetAimLayer(isGoldAim);
         }
 
         private void InitCellLayer(CEObj oCellObj)
@@ -75,28 +112,20 @@ namespace NSEngine {
             }
         }
 
+#endregion Initialize
+
+
+#region Public Methods
+
+        public void ToggleAimLayer()
+        {
+            isGoldAim = !isGoldAim;
+            SetAimLayer(isGoldAim);
+        }
+
         public void SetAimLayer(bool _reflectBricks)
         {
             currentAimLayer = _reflectBricks ? layerWallAndBricks : layerWall;
-        }
-
-        private void CreateBall(int _index)
-        {
-            var oBallObj = this.CreateBallObj(_index, CObjInfoTable.Inst.GetObjInfo(EObjKinds.BALL_NORM_01), null);
-            oBallObj.NumText.text = string.Empty;
-            oBallObj.transform.localPosition = this.SelGridInfo.m_stPivotPos + new Vector3(this.SelGridInfo.m_stBounds.size.x / KCDefine.B_VAL_2_REAL, -this.SelGridInfo.m_stBounds.size.y, KCDefine.B_VAL_0_INT) - new Vector3(0, this.SelGridInfo.aimAdjustHeight * 0.5f, 0);
-            oBallObj.transform.localPosition += new Vector3(KCDefine.B_VAL_0_REAL, oBallObj.TargetSprite.sprite.textureRect.height / KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_INT);
-
-            this.BallObjList.ExAddVal(oBallObj);
-        }
-
-        private void ShootBalls(int _startIndex, int _count)
-        {
-            CScheduleManager.Inst.AddTimer(this, GlobalDefine.SHOOT_BALL_DELAY, (uint)_count, () => {
-                //Debug.Log(CodeManager.GetMethodName() + string.Format("BallObjList[{0}]", _startIndex));
-                this.BallObjList[_startIndex++].GetController<CEBallObjController>().Shoot(shootDirection);
-                currentShootCount++;
-            });
         }
 
         public void AddBall(int _index)
@@ -133,7 +162,47 @@ namespace NSEngine {
             }
         }
 
-#endregion Extra Methods
+#endregion Public Methods
+
+
+#region Private Methods
+
+        private void CreateBall(int _index)
+        {
+            var oBallObj = this.CreateBallObj(_index, CObjInfoTable.Inst.GetObjInfo(EObjKinds.BALL_NORM_01), null);
+            oBallObj.NumText.text = string.Empty;
+            //oBallObj.transform.localPosition = this.SelGridInfo.m_stPivotPos + new Vector3(this.SelGridInfo.m_stBounds.size.x / KCDefine.B_VAL_2_REAL, -this.SelGridInfo.m_stBounds.size.y, KCDefine.B_VAL_0_INT) - new Vector3(0, this.SelGridInfo.aimAdjustHeight * 0.5f, 0);
+            oBallObj.transform.localPosition = new Vector3(0, (-(reHeight * 0.5f) + uiAreaBottom) / SelGridInfo.m_stScale.y, 0);
+            oBallObj.transform.localPosition += new Vector3(KCDefine.B_VAL_0_REAL, oBallObj.TargetSprite.sprite.textureRect.height / KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_INT);
+
+            this.BallObjList.ExAddVal(oBallObj);
+        }
+
+        private void ShootBalls(int _startIndex, int _count)
+        {
+            CScheduleManager.Inst.AddTimer(this, GlobalDefine.SHOOT_BALL_DELAY, (uint)_count, () => {
+                //Debug.Log(CodeManager.GetMethodName() + string.Format("BallObjList[{0}]", _startIndex));
+                this.BallObjList[_startIndex++].GetController<CEBallObjController>().Shoot(shootDirection);
+                currentShootCount++;
+            });
+        }
+
+        private void ChangeLayer(Transform trans, int newLayer)
+        {
+            ChangeLayersRecursively(trans, newLayer);
+        }
+        
+        private void ChangeLayersRecursively(Transform trans, int newLayer)
+        {
+            trans.gameObject.ExSetLayer(newLayer);
+            foreach(Transform child in trans)
+            {
+                ChangeLayersRecursively(child, newLayer);
+            }
+        }
+
+
+#endregion Private Methods
 
 
 #region Coroutines
@@ -181,21 +250,7 @@ namespace NSEngine {
 #endregion Coroutines
 
 
-#region Private Methods
-
-        private void ChangeLayer(Transform trans, int newLayer)
-        {
-            ChangeLayersRecursively(trans, newLayer);
-        }
-        
-        private void ChangeLayersRecursively(Transform trans, int newLayer)
-        {
-            trans.gameObject.ExSetLayer(newLayer);
-            foreach(Transform child in trans)
-            {
-                ChangeLayersRecursively(child, newLayer);
-            }
-        }
+#region Deprecated
 
         private void SetBallColliders(bool _isEnable)
         {
@@ -223,7 +278,7 @@ namespace NSEngine {
 			}
         }
 
-#endregion Private Methods
+#endregion Deprecated
 
     }
 }

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public static class GlobalDefine
 {
-    // 아래로 여유 3칸.
-    public const float GRID_BLANK_CELL = 3f;
+    // 위 아래 UI 공간.
+    public const float GRID_PANEL_HEIGHT_TOP = 180f;
+    public const float GRID_PANEL_HEIGHT_BOTTOM = 180f;
 
     // [Item] Ball Plus
     public readonly static int[] GetItem_BallPlus = new int[4]
@@ -52,4 +53,9 @@ public static class GlobalDefine
     public const int HitEffect_Order = 100;
     public const int HPText_Order = 200;
     public const int NumText_Order = 10;
+
+    // [UI] Strings : Aim Button
+    public const string formatAimText = "AIM\n{0}";
+    public const string textON = "ON";
+    public const string textOFF = "OFF";
 }

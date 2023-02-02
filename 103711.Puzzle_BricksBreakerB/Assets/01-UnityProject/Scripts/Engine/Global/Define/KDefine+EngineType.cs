@@ -16,7 +16,7 @@ namespace NSEngine {
 
         // 조준 영역은 그리드 하단 여유 공간만큼 늘린다.
         public Bounds m_stAimBounds;
-        public float aimAdjustHeight;
+        public float gridHeight;
 
 		public Vector3 m_stScale;
 		public Vector3 m_stPivotPos;

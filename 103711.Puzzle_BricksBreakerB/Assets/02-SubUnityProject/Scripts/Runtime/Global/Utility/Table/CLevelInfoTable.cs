@@ -355,6 +355,8 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 		if(this.Ver.CompareTo(KDefine.G_VER_LEVEL_INFO) < KCDefine.B_COMPARE_EQUALS) {
 			// Do Something
 		}
+
+        this.GridPivot = EGridPivot.DOWN;
 	}
 
 	/** 셀 객체 정보를 설정한다 */

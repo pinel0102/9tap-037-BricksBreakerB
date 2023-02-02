@@ -34,6 +34,7 @@ namespace NSEngine {
             public GameObject m_oItemRoot;
 			public GameObject m_oSkillRoot;
 			public GameObject m_oObjRoot;
+            public GameObject m_oWallRoot;
 			public GameObject m_oFXRoot;
 
 			public Dictionary<ECallback, System.Action<CEngine>> m_oCallbackDict01;
@@ -116,13 +117,14 @@ namespace NSEngine {
 
 		#region 클래스 함수
 		/** 매개 변수를 생성한다 */
-		public static STParams MakeParams(GameObject a_oCellRoot, GameObject a_oItemRoot, GameObject a_oSkillRoot, GameObject a_oObjRoot, GameObject a_oFXRoot, Dictionary<ECallback, System.Action<CEngine>> a_oCallbackDict01 = null, Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>> a_oCallbackDict02 = null) {
+		public static STParams MakeParams(GameObject a_oCellRoot, GameObject a_oItemRoot, GameObject a_oSkillRoot, GameObject a_oObjRoot, GameObject a_oWallRoot, GameObject a_oFXRoot, Dictionary<ECallback, System.Action<CEngine>> a_oCallbackDict01 = null, Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>> a_oCallbackDict02 = null) {
 			return new STParams() {
                 m_oCellRoot = a_oCellRoot,
 				m_oItemRoot = a_oItemRoot,
 				m_oSkillRoot = a_oSkillRoot,
 				m_oObjRoot = a_oObjRoot,
-				m_oFXRoot = a_oFXRoot,
+				m_oWallRoot = a_oWallRoot,
+                m_oFXRoot = a_oFXRoot,
 				m_oCallbackDict01 = a_oCallbackDict01 ?? new Dictionary<ECallback, System.Action<CEngine>>(),
 				m_oCallbackDict02 = a_oCallbackDict02 ?? new Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>>()
 			};
