@@ -10,6 +10,7 @@ namespace GameScene {
 		/** 식별자 */
 		private enum EKey {
 			NONE = -1,
+            CELL_ROOT,
 			ITEM_ROOT,
 			SKILL_ROOT,
 			OBJ_ROOT,
@@ -30,6 +31,7 @@ namespace GameScene {
 		public override string SceneName => KCDefine.B_SCENE_N_GAME;
 
 		/** =====> 객체 <===== */
+        protected GameObject CellRoot => m_oObjDict[EKey.CELL_ROOT];
 		protected GameObject ItemRoot => m_oObjDict[EKey.ITEM_ROOT];
 		protected GameObject SkillRoot => m_oObjDict[EKey.SKILL_ROOT];
 		protected GameObject ObjRoot => m_oObjDict[EKey.OBJ_ROOT];
@@ -45,6 +47,7 @@ namespace GameScene {
 			if(CSceneManager.IsAppInit) {
 				// 객체를 설정한다
 				CFunc.SetupObjs(new List<(EKey, string, GameObject, GameObject)>() {
+                    (EKey.CELL_ROOT, $"{EKey.CELL_ROOT}", this.Objs, null),
 					(EKey.ITEM_ROOT, $"{EKey.ITEM_ROOT}", this.Objs, null),
 					(EKey.SKILL_ROOT, $"{EKey.SKILL_ROOT}", this.Objs, null),
 					(EKey.OBJ_ROOT, $"{EKey.OBJ_ROOT}", this.Objs, null),

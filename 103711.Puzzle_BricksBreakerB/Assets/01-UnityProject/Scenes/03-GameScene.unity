@@ -891,6 +891,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 2058630176705606086, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 1276200342}
     - target: {fileID: 2193938411289031534, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25

@@ -14,6 +14,10 @@ namespace NSEngine {
 		public Bounds m_stBounds;
 		public Bounds m_stViewBounds;
 
+        // 조준 영역은 그리드 하단 여유 공간만큼 늘린다.
+        public Bounds m_stAimBounds;
+        public float aimAdjustHeight;
+
 		public Vector3 m_stScale;
 		public Vector3 m_stPivotPos;
 		public Vector3 m_stViewPivotPos;

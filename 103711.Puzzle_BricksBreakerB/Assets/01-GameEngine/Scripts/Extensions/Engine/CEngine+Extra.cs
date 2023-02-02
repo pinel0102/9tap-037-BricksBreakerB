@@ -6,11 +6,14 @@ namespace NSEngine {
     public partial class CEngine : CComponent
     {
         [Header("★ [Parameter] Live")]
+        public bool isLevelFail;
+        public bool isGridMoving;
         public int currentLevel;
         public int currentShootCount = 0;
         public int currentAimLayer;
         public Vector3 startPosition = Vector3.zero;
         public Vector3 shootDirection = Vector3.zero;
+        public Vector3 cellRootMoveVector = Vector3.zero;
 
         /// <Summary>(반사 O) 벽.</Summary>
         [HideInInspector] public int layerWall;
@@ -25,9 +28,18 @@ namespace NSEngine {
 
         [Header("★ [Parameter] Privates")]
         private WaitForSeconds dropBallsDelay = new WaitForSeconds(KCDefine.B_VAL_0_5_REAL);
+        private WaitForSeconds cellRootMoveDelay = new WaitForSeconds(KCDefine.B_VAL_0_0_1_REAL);
         public WaitForSeconds hitEffectDelay = new WaitForSeconds(KCDefine.B_VAL_0_0_2_REAL);
 
 #region Extra Methods
+
+        private void InitCellRoot()
+        {
+            isGridMoving = false;
+            cellRootMoveVector = new Vector3(0, -Access.CellSize.y, 0);
+
+            this.Params.m_oCellRoot.transform.localPosition = new Vector3(0, this.SelGridInfo.aimAdjustHeight * 0.5f, 0);
+        }
 
         private void InitLayerMask()
         {
@@ -72,7 +84,7 @@ namespace NSEngine {
         {
             var oBallObj = this.CreateBallObj(_index, CObjInfoTable.Inst.GetObjInfo(EObjKinds.BALL_NORM_01), null);
             oBallObj.NumText.text = string.Empty;
-            oBallObj.transform.localPosition = this.SelGridInfo.m_stPivotPos + new Vector3(this.SelGridInfo.m_stBounds.size.x / KCDefine.B_VAL_2_REAL, -this.SelGridInfo.m_stBounds.size.y, KCDefine.B_VAL_0_INT);
+            oBallObj.transform.localPosition = this.SelGridInfo.m_stPivotPos + new Vector3(this.SelGridInfo.m_stBounds.size.x / KCDefine.B_VAL_2_REAL, -this.SelGridInfo.m_stBounds.size.y, KCDefine.B_VAL_0_INT) - new Vector3(0, this.SelGridInfo.aimAdjustHeight * 0.5f, 0);
             oBallObj.transform.localPosition += new Vector3(KCDefine.B_VAL_0_REAL, oBallObj.TargetSprite.sprite.textureRect.height / KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_INT);
 
             this.BallObjList.ExAddVal(oBallObj);
@@ -99,7 +111,32 @@ namespace NSEngine {
         public void AddShootBalls(int _startIndex, int _count)
         {
             StartCoroutine(CO_WaitShootDelay(_startIndex, _count));
+        }        
+
+        public void CheckClear(bool _waitDelay = false)
+        {
+            // 클리어했을 경우
+            if(this.IsClear()) 
+            {
+                CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).SetEnableUpdateUIsState(true);
+
+                if (_waitDelay)
+                    StartCoroutine(CO_Clear());
+                else
+                    LevelClear();                
+            } 
+            else if (!isLevelFail && !isGridMoving)
+            {
+                this.ExLateCallFunc((a_oFuncSender) => {
+                    StartCoroutine(CO_MoveCellRoot(KCDefine.B_VAL_1_INT));
+                    }, KCDefine.B_VAL_0_3_REAL);
+            }
         }
+
+#endregion Extra Methods
+
+
+#region Coroutines
 
         private IEnumerator CO_WaitShootDelay(int _startIndex, int _count)
         {
@@ -111,24 +148,6 @@ namespace NSEngine {
             ShootBalls(_startIndex, _count);
         }
 
-        public void CheckClear(bool _waitDelay = false)
-        {
-            // 클리어했을 경우
-            if(this.IsClear()) {
-                CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).SetEnableUpdateUIsState(true);
-
-                if (_waitDelay)
-                    StartCoroutine(CO_Clear());
-                else
-                    LevelClear();                
-            } else {
-                this.ExLateCallFunc((a_oFuncSender) => {
-                    this.PlayState = EPlayState.IDLE;
-                    CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).SetEnableUpdateUIsState(true);
-                    }, KCDefine.B_VAL_0_3_REAL);
-            }
-        }
-
         private IEnumerator CO_Clear()
         {
             yield return dropBallsDelay;
@@ -136,7 +155,30 @@ namespace NSEngine {
             LevelClear();
         }
 
-#endregion Extra Methods
+        private IEnumerator CO_MoveCellRoot(int _moveCount = KCDefine.B_VAL_1_INT)
+        {
+            isGridMoving = true;
+
+            CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).HideShootUIs();
+
+            Vector3 endPosition = this.Params.m_oCellRoot.transform.localPosition + (cellRootMoveVector * _moveCount);
+
+            while(Mathf.Abs(this.Params.m_oCellRoot.transform.localPosition.y - endPosition.y) > GlobalDefine.CELL_ROOT_MOVE_SPEED.y)
+            {
+                yield return cellRootMoveDelay;
+
+                this.Params.m_oCellRoot.transform.localPosition -= GlobalDefine.CELL_ROOT_MOVE_SPEED;
+            }
+
+            this.Params.m_oCellRoot.transform.localPosition = endPosition;
+
+            this.PlayState = EPlayState.IDLE;
+            CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).SetEnableUpdateUIsState(true);
+            
+            isGridMoving = false;
+        }
+
+#endregion Coroutines
 
 
 #region Private Methods

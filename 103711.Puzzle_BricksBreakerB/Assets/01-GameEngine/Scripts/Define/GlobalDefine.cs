@@ -4,6 +4,9 @@ using UnityEngine;
 
 public static class GlobalDefine
 {
+    // 아래로 여유 3칸.
+    public const float GRID_BLANK_CELL = 3f;
+
     // [Item] Ball Plus
     public readonly static int[] GetItem_BallPlus = new int[4]
     {
@@ -23,6 +26,8 @@ public static class GlobalDefine
 
     /// <Summary>셀 스프라이트 크기 보정.</Summary>
     public static Vector3 CELL_SPRITE_ADJUSTMENT = new Vector3(-4, -4, 0);
+    /// <Summary>셀 루트가 내려오는 속도.</Summary>
+    public static Vector3 CELL_ROOT_MOVE_SPEED = new Vector3(0, 5f, 0);
 
     // [Engine] Timer Delay
     public const float SHOOT_BALL_DELAY = 0.09f;
@@ -41,9 +46,10 @@ public static class GlobalDefine
     public const string LAYER_CELL_OBSTACLE = "Cell_Obstacle";
     public const string LAYER_CELL_ITEM = "Cell_Item";
     public const string LAYER_CELL_SPECIAL = "Cell_Special";
-    public const float RAYCAST_DISTANCE = 1000f;
+    public const float RAYCAST_DISTANCE = 3000f;
 
     // [ETC] Sorting Order
     public const int HitEffect_Order = 100;
     public const int HPText_Order = 200;
+    public const int NumText_Order = 10;
 }

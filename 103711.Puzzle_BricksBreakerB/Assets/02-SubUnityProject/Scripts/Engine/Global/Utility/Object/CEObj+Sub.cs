@@ -53,7 +53,7 @@ namespace NSEngine {
 			});
 
 			(m_oSubTextDict.GetValueOrDefault(ESubKey.NUM_TEXT) as TextMeshPro)?.ExSetSortingOrder(new STSortingOrderInfo() {
-				m_nOrder = this.TargetSprite.sortingOrder + GlobalDefine.HPText_Order, m_oLayer = KCDefine.U_SORTING_L_CELL
+				m_nOrder = this.TargetSprite.sortingOrder + GlobalDefine.NumText_Order, m_oLayer = KCDefine.U_SORTING_L_DEF
 			});
 			// 텍스트를 갱신한다 }
 

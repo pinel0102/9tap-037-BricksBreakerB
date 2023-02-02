@@ -66,11 +66,11 @@ public partial class CResultPopup : CSubPopup {
 		}, m_oTextDict);
 
 		// 버튼을 설정한다
-		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
+		/*CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
 			(KCDefine.U_OBJ_N_NEXT_BTN, this.Contents, this.OnTouchNextBtn),
 			(KCDefine.U_OBJ_N_RETRY_BTN, this.Contents, this.OnTouchRetryBtn),
-			(KCDefine.U_OBJ_N_LEAVE_BTN, this.Contents, this.OnTouchLeaveBtn)
-		});
+            (KCDefine.U_OBJ_N_LEAVE_BTN, this.Contents, this.OnTouchLeaveBtn)
+		});*/
 
 		this.SubAwake();
 	}
@@ -111,17 +111,17 @@ public partial class CResultPopup : CSubPopup {
 	}
 
 	/** 다음 버튼을 눌렀을 경우 */
-	private void OnTouchNextBtn() {
+	public void OnTouchNextBtn() {
 		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.NEXT)?.Invoke(this);
 	}
 
 	/** 재시도 버튼을 눌렀을 경우 */
-	private void OnTouchRetryBtn() {
+	public void OnTouchRetryBtn() {
 		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.RETRY)?.Invoke(this);
 	}
 
 	/** 나가기 버튼을 눌렀을 경우 */
-	private void OnTouchLeaveBtn() {
+	public void OnTouchLeaveBtn() {
 		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.LEAVE)?.Invoke(this);
 	}
 	#endregion // 함수

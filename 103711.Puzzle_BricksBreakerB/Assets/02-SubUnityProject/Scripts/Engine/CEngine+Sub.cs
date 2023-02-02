@@ -186,6 +186,7 @@ namespace NSEngine {
 		/** 초기화한다 */
 		private void SubInit() {
             
+            InitCellRoot();
             InitLayerMask();
 
             currentLevel = (int)CGameInfoStorage.Inst.PlayEpisodeInfo.ULevelID + 1;
@@ -215,15 +216,15 @@ namespace NSEngine {
 			float fHeight = m_oSubSpriteDict[ESubKey.UP_BOUNDS_SPRITE].sprite.textureRect.height;
 
 			m_oSubSpriteDict[ESubKey.UP_BOUNDS_SPRITE].transform.localScale = new Vector3(this.SelGridInfo.m_stViewBounds.size.x / fWidth, KCDefine.B_VAL_1_REAL, KCDefine.B_VAL_1_REAL);
-			m_oSubSpriteDict[ESubKey.UP_BOUNDS_SPRITE].transform.localPosition = this.SelGridInfo.m_stViewPivotPos + new Vector3(this.SelGridInfo.m_stViewBounds.size.x / KCDefine.B_VAL_2_REAL, m_oSubSpriteDict[ESubKey.UP_BOUNDS_SPRITE].sprite.textureRect.height / KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_REAL);
+			m_oSubSpriteDict[ESubKey.UP_BOUNDS_SPRITE].transform.localPosition = this.SelGridInfo.m_stViewPivotPos + new Vector3(this.SelGridInfo.m_stViewBounds.size.x / KCDefine.B_VAL_2_REAL, m_oSubSpriteDict[ESubKey.UP_BOUNDS_SPRITE].sprite.textureRect.height / KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_REAL) + new Vector3(0, this.SelGridInfo.aimAdjustHeight * 0.5f, 0);
 
 			m_oSubSpriteDict[ESubKey.DOWN_BOUNDS_SPRITE].transform.localScale = new Vector3(this.SelGridInfo.m_stViewBounds.size.x / fWidth, KCDefine.B_VAL_1_REAL, KCDefine.B_VAL_1_REAL);
-			m_oSubSpriteDict[ESubKey.DOWN_BOUNDS_SPRITE].transform.localPosition = this.SelGridInfo.m_stViewPivotPos + new Vector3(this.SelGridInfo.m_stViewBounds.size.x / KCDefine.B_VAL_2_REAL, -this.SelGridInfo.m_stViewBounds.size.y - (m_oSubSpriteDict[ESubKey.DOWN_BOUNDS_SPRITE].sprite.textureRect.height / KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL);
+			m_oSubSpriteDict[ESubKey.DOWN_BOUNDS_SPRITE].transform.localPosition = this.SelGridInfo.m_stViewPivotPos + new Vector3(this.SelGridInfo.m_stViewBounds.size.x / KCDefine.B_VAL_2_REAL, -this.SelGridInfo.m_stViewBounds.size.y - (m_oSubSpriteDict[ESubKey.DOWN_BOUNDS_SPRITE].sprite.textureRect.height / KCDefine.B_VAL_2_REAL), KCDefine.B_VAL_0_REAL) - new Vector3(0, this.SelGridInfo.aimAdjustHeight * 0.5f, 0);
 
-			m_oSubSpriteDict[ESubKey.LEFT_BOUNDS_SPRITE].transform.localScale = new Vector3(KCDefine.B_VAL_1_REAL, this.SelGridInfo.m_stViewBounds.size.y / fHeight, KCDefine.B_VAL_1_REAL);
+			m_oSubSpriteDict[ESubKey.LEFT_BOUNDS_SPRITE].transform.localScale = new Vector3(KCDefine.B_VAL_1_REAL, (this.SelGridInfo.m_stViewBounds.size.y + this.SelGridInfo.aimAdjustHeight) / fHeight, KCDefine.B_VAL_1_REAL);
 			m_oSubSpriteDict[ESubKey.LEFT_BOUNDS_SPRITE].transform.localPosition = this.SelGridInfo.m_stViewPivotPos + new Vector3(m_oSubSpriteDict[ESubKey.LEFT_BOUNDS_SPRITE].sprite.textureRect.width / -KCDefine.B_VAL_2_REAL, this.SelGridInfo.m_stViewBounds.size.y / -KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_REAL);
 
-			m_oSubSpriteDict[ESubKey.RIGHT_BOUNDS_SPRITE].transform.localScale = new Vector3(KCDefine.B_VAL_1_REAL, this.SelGridInfo.m_stViewBounds.size.y / fHeight, KCDefine.B_VAL_1_REAL);
+			m_oSubSpriteDict[ESubKey.RIGHT_BOUNDS_SPRITE].transform.localScale = new Vector3(KCDefine.B_VAL_1_REAL, (this.SelGridInfo.m_stViewBounds.size.y + this.SelGridInfo.aimAdjustHeight) / fHeight, KCDefine.B_VAL_1_REAL);
 			m_oSubSpriteDict[ESubKey.RIGHT_BOUNDS_SPRITE].transform.localPosition = this.SelGridInfo.m_stViewPivotPos + new Vector3(this.SelGridInfo.m_stViewBounds.size.x + (m_oSubSpriteDict[ESubKey.RIGHT_BOUNDS_SPRITE].sprite.textureRect.width / KCDefine.B_VAL_2_REAL), this.SelGridInfo.m_stViewBounds.size.y / -KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_REAL);
 			// 스프라이트를 설정한다 }
 		}
@@ -541,6 +542,15 @@ namespace NSEngine {
             //CSceneLoader.Inst.LoadScene((CGameInfoStorage.Inst.PlayMode == EPlayMode.TEST) ? KCDefine.B_SCENE_N_LEVEL_EDITOR : KCDefine.B_SCENE_N_MAIN);
 
             Params.m_oCallbackDict01[NSEngine.CEngine.ECallback.CLEAR].Invoke(this);
+        }
+
+        public void LevelFail()
+        {
+            Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", currentLevel));
+
+            isLevelFail = true;
+
+            Params.m_oCallbackDict01[NSEngine.CEngine.ECallback.CLEAR_FAIL].Invoke(this);
         }
 		#endregion // 함수
 

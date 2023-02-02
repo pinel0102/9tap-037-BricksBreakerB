@@ -38,7 +38,8 @@ EXIT_FOR:
 			var stIdx = a_stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
 			var stDirection = a_stPos - this.SelBallObj.transform.localPosition;
 
-			return this.PlayState == EPlayState.IDLE && stDirection.y.ExIsGreate(KCDefine.B_VAL_0_REAL) && this.CellObjLists.ExIsValidIdx(stIdx) && this.SelGridInfo.m_stViewBounds.Contains(a_stPos);
+			//return this.PlayState == EPlayState.IDLE && stDirection.y.ExIsGreate(KCDefine.B_VAL_0_REAL) && this.CellObjLists.ExIsValidIdx(stIdx) && this.SelGridInfo.m_stAimBounds.Contains(a_stPos);
+            return this.PlayState == EPlayState.IDLE && stDirection.y.ExIsGreate(KCDefine.B_VAL_0_REAL) && this.SelGridInfo.m_stAimBounds.Contains(a_stPos);
 		}
 
 		/** 발사 가능 여부를 검사한다 */
