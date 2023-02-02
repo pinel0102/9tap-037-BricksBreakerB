@@ -422,11 +422,23 @@ namespace GameScene {
 
 		/** 플레이 레벨을 떠난다 */
 		private void LeavePlayLevel(CPopup a_oPopup) {
+            switch(CGameInfoStorage.Inst.PlayMode) {
+				case EPlayMode.NORM:
+                case EPlayMode.TUTORIAL: {
 #if ADS_MODULE_ENABLE
 			Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN));
 #else
 			CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
 #endif // #if ADS_MODULE_ENABLE
+					break;
+				}
+				case EPlayMode.TEST: {
+#if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
+					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_LEVEL_EDITOR);
+#endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE
+					break;
+				}
+            }
 		}
 
 		/** 이어하기 팝업을 출력한다 */

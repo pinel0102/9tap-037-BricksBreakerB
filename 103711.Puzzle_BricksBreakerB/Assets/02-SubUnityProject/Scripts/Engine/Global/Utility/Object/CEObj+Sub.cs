@@ -49,11 +49,11 @@ namespace NSEngine {
 
 			// 텍스트를 갱신한다 {
 			(m_oSubTextDict.GetValueOrDefault(ESubKey.HP_TEXT) as TextMeshPro)?.ExSetSortingOrder(new STSortingOrderInfo() {
-				m_nOrder = this.TargetSprite.sortingOrder + KCDefine.B_VAL_1_INT, m_oLayer = KCDefine.U_SORTING_L_DEF
+				m_nOrder = this.TargetSprite.sortingOrder + GlobalDefine.HPText_Order, m_oLayer = KCDefine.U_SORTING_L_CELL
 			});
 
 			(m_oSubTextDict.GetValueOrDefault(ESubKey.NUM_TEXT) as TextMeshPro)?.ExSetSortingOrder(new STSortingOrderInfo() {
-				m_nOrder = this.TargetSprite.sortingOrder + KCDefine.B_VAL_1_INT, m_oLayer = KCDefine.U_SORTING_L_DEF
+				m_nOrder = this.TargetSprite.sortingOrder + GlobalDefine.HPText_Order, m_oLayer = KCDefine.U_SORTING_L_CELL
 			});
 			// 텍스트를 갱신한다 }
 
@@ -167,10 +167,12 @@ namespace NSEngine {
 		public void SetCellObjInfo(STCellObjInfo a_stCellObjInfo) {
 			this.CellObjInfo = a_stCellObjInfo;
 
-			// 체력 텍스트가 존재 할 경우
-			if(m_oSubTextDict.GetValueOrDefault(ESubKey.HP_TEXT) != null) {
-				m_oSubTextDict.GetValueOrDefault(ESubKey.HP_TEXT).text = $"{a_stCellObjInfo.HP}";
-			}
+            // 체력 텍스트가 존재 할 경우
+            /*if(m_oSubTextDict.GetValueOrDefault(ESubKey.HP_TEXT) != null) {
+                m_oSubTextDict.GetValueOrDefault(ESubKey.HP_TEXT).text = $"{a_stCellObjInfo.HP}";
+            }*/
+
+			RefreshText();
 		}
 		#endregion // 접근자 함수
 	}

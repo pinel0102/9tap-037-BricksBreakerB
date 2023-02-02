@@ -16,7 +16,7 @@ public static partial class KDefine {
 public static partial class KDefine {
 	#region 기본
 	// 형식
-	public const string LES_TEXT_FMT_HP_INFO = "히트 {0}";
+	public const string LES_TEXT_FMT_HP_INFO = "체력 {0}";
 	public const string LES_TEXT_FMT_ATK_INFO = "공격력 {0}";
 	#endregion // 기본
 
@@ -49,6 +49,7 @@ public static partial class KDefine {
 			EObjKinds.ITEM_BRICKS_BALL_01,
 			EObjKinds.ITEM_BRICKS_BALL_02,
 			EObjKinds.ITEM_BRICKS_BALL_03,
+            EObjKinds.ITEM_BRICKS_BALL_04,
 			EObjKinds.NONE,
 
 			// EObjKinds.ITEM_BRICKS_BOOSTER_01,

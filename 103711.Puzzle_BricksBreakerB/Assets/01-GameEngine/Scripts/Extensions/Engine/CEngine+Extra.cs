@@ -25,6 +25,7 @@ namespace NSEngine {
 
         [Header("★ [Parameter] Privates")]
         private WaitForSeconds dropBallsDelay = new WaitForSeconds(KCDefine.B_VAL_0_5_REAL);
+        public WaitForSeconds hitEffectDelay = new WaitForSeconds(KCDefine.B_VAL_0_0_2_REAL);
 
 #region Extra Methods
 

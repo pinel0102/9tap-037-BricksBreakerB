@@ -51,7 +51,17 @@ namespace NSEngine {
 
             if (this.TargetSprite != null)
             {
-                this.TargetSprite.size = Access.CellSize;
+                this.TargetSprite.size = Access.CellSize + GlobalDefine.CELL_SPRITE_ADJUSTMENT;
+            }
+
+            // Cell HitSprite 설정.
+            if (this.HitSprite != null)
+            {
+                this.HitSprite?.ExSetSprite<SpriteRenderer>(Access.GetSprite(a_stParams.m_stObjInfo.m_eObjKinds));
+			    this.HitSprite.sortingOrder = this.TargetSprite.sortingOrder + GlobalDefine.HitEffect_Order;
+                this.HitSprite.size = Access.CellSize + GlobalDefine.CELL_SPRITE_ADJUSTMENT;
+
+                ToggleHitSprite(false);
             }
             
             SetSpriteColor();
@@ -77,34 +87,6 @@ namespace NSEngine {
             row = a_stCellIdx.y;
             layer = a_stCellIdx.z;
 		}
-
-        public void SetSpriteColor()
-        {
-            EObjKinds kinds = Params.m_stObjInfo.m_eObjKinds;
-            EObjType cellType = (EObjType)((int)kinds).ExKindsToType();
-
-            Color _color = new Color();
-
-            switch(cellType)
-            {
-                case EObjType.BALL:
-                    _color = GlobalDefine.BricksColor[2];
-                    break;
-                case EObjType.NORM_BRICKS:
-                    _color = GlobalDefine.BricksColor[1];
-                    break;
-                case EObjType.OBSTACLE_BRICKS:
-                case EObjType.ITEM_BRICKS:
-                case EObjType.SPECIAL_BRICKS:
-                    _color = GlobalDefine.BricksColor[0];
-                    break;
-                default:
-                    _color = GlobalDefine.BricksColor[0];
-                    break;
-            }
-
-            this.TargetSprite.color = _color;
-        }
 		#endregion // 함수
 
 		#region 클래스 함수

@@ -63,66 +63,6 @@ namespace NSEngine {
 			// Do Something
 		}
 		#endregion // 함수
-
-        public void GetDamage(int _ATK)
-        {
-            var oCellObj = this.GetOwner<CEObj>();
-			var stCellObjInfo = oCellObj.CellObjInfo;
-
-            stCellObjInfo.HP = Mathf.Max(KCDefine.B_VAL_0_INT, stCellObjInfo.HP - _ATK);
-
-			this.GetOwner<CEObj>().HPText.text = $"{stCellObjInfo.HP}";
-			this.GetOwner<CEObj>().SetCellObjInfo(stCellObjInfo);
-
-			// 체력이 없을 경우
-			if(stCellObjInfo.HP <= KCDefine.B_VAL_0_INT) {
-				CellDestroy();
-			}
-        }
-
-        private void GetObstacle(EObjKinds kinds)
-        {
-            //
-        }
-
-        private void GetItem(EObjKinds kinds)
-        {
-            EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
-
-            switch(kindsType)
-            {
-                case EObjKinds.ITEM_BRICKS_BALL_01:
-                    GetItem_BallPlus(kindsType, kinds);
-                    break;
-                default:
-                    Debug.Log(CodeManager.GetMethodName() + string.Format("<color=red>{0}</color>", kindsType));
-                    break;
-            }
-
-            CellDestroy();
-        }
-
-        private void GetSpecial(EObjKinds kinds)
-        {
-            EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
-
-            switch(kindsType)
-            {
-                case EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01:
-                case EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01:
-                case EObjKinds.SPECIAL_BRICKS_LASER_CROSS_01:
-                    GetSpecial_Laser(kindsType, kinds);
-                    break;
-                default:
-                    Debug.Log(CodeManager.GetMethodName() + string.Format("<color=red>{0}</color>", kindsType));
-                    break;
-            }
-        }
-
-        private void CellDestroy()
-        {
-            this.GetOwner<CEObj>().Params.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(CEObjComponent.ECallback.ENGINE_OBJ_EVENT)?.Invoke(this.GetOwner<CEObj>(), EEngineObjEvent.DESTROY, string.Empty);
-        }
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

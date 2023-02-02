@@ -107,7 +107,9 @@ namespace LevelEditorScene {
 			var oInfoText = a_oOutObjSprite.gameObject.GetComponentInChildren<TMP_Text>();
 			oInfoText = oInfoText ?? CFactory.CreateCloneObj<TMP_Text>(KCDefine.U_OBJ_N_TMP_TEXT, CResManager.Inst.GetRes<GameObject>(KDefine.LES_OBJ_P_TMP_TEXT), a_oOutObjSprite.gameObject);
 
-			oInfoText.SetText($"{a_stCellObjInfo.HP}\n{a_stCellObjInfo.ATK}");
+			//oInfoText.SetText($"{a_stCellObjInfo.HP}\n{a_stCellObjInfo.ATK}");
+            RefreshText(a_stCellObjInfo, oInfoText);
+
 			oInfoText.gameObject.SetActive(a_stCellObjInfo.ObjKinds != EObjKinds.BG_PLACEHOLDER_01);
 
 			(oInfoText as TextMeshPro).ExSetSortingOrder(new STSortingOrderInfo() {

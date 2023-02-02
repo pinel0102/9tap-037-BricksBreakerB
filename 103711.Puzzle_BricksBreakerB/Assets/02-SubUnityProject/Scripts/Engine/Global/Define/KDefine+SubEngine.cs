@@ -115,6 +115,7 @@ namespace NSEngine {
             [EObjKinds.ITEM_BRICKS_BALL_01] = EObjKinds.ITEM_BRICKS_BALL_01.ToString(),
             [EObjKinds.ITEM_BRICKS_BALL_02] = EObjKinds.ITEM_BRICKS_BALL_02.ToString(),
             [EObjKinds.ITEM_BRICKS_BALL_03] = EObjKinds.ITEM_BRICKS_BALL_03.ToString(),
+            [EObjKinds.ITEM_BRICKS_BALL_04] = EObjKinds.ITEM_BRICKS_BALL_04.ToString(),
 
             [EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01] = EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01.ToString(),
             [EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01] = EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01.ToString(),

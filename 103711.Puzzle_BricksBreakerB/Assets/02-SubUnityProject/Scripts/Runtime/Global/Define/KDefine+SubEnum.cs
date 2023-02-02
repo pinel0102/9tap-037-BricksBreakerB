@@ -453,6 +453,7 @@ public enum EObjKinds {
 	ITEM_BRICKS_BALL_01 = (EEnumVal.T * EObjType.ITEM_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	ITEM_BRICKS_BALL_02,
 	ITEM_BRICKS_BALL_03,
+    ITEM_BRICKS_BALL_04,
 
 	// 1,100,100,000
 	ITEM_BRICKS_BOOSTER_01 = (EEnumVal.T * EObjType.ITEM_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 0),

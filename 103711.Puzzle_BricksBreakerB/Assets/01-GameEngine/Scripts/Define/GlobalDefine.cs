@@ -21,6 +21,10 @@ public static class GlobalDefine
         new Color(1f, 0, 0, 1f)
     };
 
+    /// <Summary>셀 스프라이트 크기 보정.</Summary>
+    public static Vector3 CELL_SPRITE_ADJUSTMENT = new Vector3(-4, -4, 0);
+
+    // [Engine] Timer Delay
     public const float SHOOT_BALL_DELAY = 0.09f;
 
     // [Effect] Laser
@@ -38,4 +42,8 @@ public static class GlobalDefine
     public const string LAYER_CELL_ITEM = "Cell_Item";
     public const string LAYER_CELL_SPECIAL = "Cell_Special";
     public const float RAYCAST_DISTANCE = 1000f;
+
+    // [ETC] Sorting Order
+    public const int HitEffect_Order = 100;
+    public const int HPText_Order = 200;
 }

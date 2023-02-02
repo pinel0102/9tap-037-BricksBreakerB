@@ -114,6 +114,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 4bdd635c552e54a9b887d15cfa76adde, type: 3}
   - {fileID: 21300000, guid: 3894e35e1af93493b95d7a95815d2f4c, type: 3}
   - {fileID: 21300000, guid: d21b076eb86c64226ada62323a2c2a28, type: 3}
+  - {fileID: 21300000, guid: 630e8bae89c32403daca00318efcbddb, type: 3}
   m_PackedSpriteNamesToIndex:
   - NORM_BRICKS_TRIANGLE_01
   - ITEM_BRICKS_BALL_02
@@ -131,6 +132,7 @@ SpriteAtlas:
   - NORM_BRICKS_TRIANGLE_03
   - NORM_BRICKS_SQUARE_01
   - NORM_BRICKS_RIGHT_TRIANGLE_03
+  - ITEM_BRICKS_BALL_04
   m_RenderDataMap: {}
   m_Tag: G_SpriteAtlas_03
   m_IsVariant: 0
