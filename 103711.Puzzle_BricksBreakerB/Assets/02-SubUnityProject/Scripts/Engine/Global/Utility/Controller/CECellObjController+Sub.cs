@@ -92,9 +92,10 @@ namespace NSEngine {
             switch(kindsType)
             {
                 case EObjKinds.ITEM_BRICKS_BALL_01:
-                    GetItem_BallPlus(kinds);
+                    GetItem_BallPlus(kindsType, kinds);
                     break;
                 default:
+                    Debug.Log(CodeManager.GetMethodName() + string.Format("<color=red>{0}</color>", kindsType));
                     break;
             }
 
@@ -105,16 +106,15 @@ namespace NSEngine {
         {
             EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
 
-            Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", kindsType));
-
             switch(kindsType)
             {
                 case EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01:
                 case EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01:
                 case EObjKinds.SPECIAL_BRICKS_LASER_CROSS_01:
-                    GetSpecial_Laser(kinds);
+                    GetSpecial_Laser(kindsType, kinds);
                     break;
                 default:
+                    Debug.Log(CodeManager.GetMethodName() + string.Format("<color=red>{0}</color>", kindsType));
                     break;
             }
         }

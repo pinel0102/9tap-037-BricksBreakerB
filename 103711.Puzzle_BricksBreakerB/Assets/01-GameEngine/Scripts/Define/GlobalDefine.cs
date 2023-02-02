@@ -27,4 +27,15 @@ public static class GlobalDefine
     public static Vector3 Rotation_Horizontal = new Vector3(0, 0, 90f);
     public static Vector3 Rotation_Vertictal = Vector3.zero;
     public const float EffectTime_Laser = 0.01f;
+
+    // [Layer] LayerMask
+    public const string LAYER_FX = "FX";
+    public const string LAYER_BALL = "Ball";
+    public const string LAYER_WALL = "Wall";
+    public const string LAYER_CELL_EMPTY = "Cell_Empty";
+    public const string LAYER_CELL_BRICK = "Cell_Brick";
+    public const string LAYER_CELL_OBSTACLE = "Cell_Obstacle";
+    public const string LAYER_CELL_ITEM = "Cell_Item";
+    public const string LAYER_CELL_SPECIAL = "Cell_Special";
+    public const float RAYCAST_DISTANCE = 1000f;
 }

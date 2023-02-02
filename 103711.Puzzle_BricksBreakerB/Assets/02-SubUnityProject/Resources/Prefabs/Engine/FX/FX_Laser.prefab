@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8713423691042477017}
   - component: {fileID: 3093253909533092453}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TARGET_SPRITE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1820056066167777563}
   - component: {fileID: 3280284944162170458}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FX_Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}

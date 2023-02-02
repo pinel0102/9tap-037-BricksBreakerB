@@ -17,14 +17,14 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - FX
+  - Ball
+  - Wall
+  - Cell_Empty
+  - Cell_Brick
+  - Cell_Obstacle
+  - Cell_Item
+  - Cell_Special
   - 
   - 
   - 

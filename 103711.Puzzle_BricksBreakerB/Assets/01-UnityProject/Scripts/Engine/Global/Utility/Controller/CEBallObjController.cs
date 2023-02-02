@@ -75,16 +75,10 @@ namespace NSEngine {
 		protected override void HandleMoveState(float a_fDeltaTime) {
 			base.HandleMoveState(a_fDeltaTime);
 
-            /*var stVelocity = (this.MoveDirection * m_oRealDict[EKey.SPEED]) * a_fDeltaTime;
-            moveVector = stVelocity;
-            this.GetOwner<CEObj>().transform.localPosition += stVelocity;
-
-            return;*/
-
-			var stVelocity = (this.MoveDirection * m_oRealDict[EKey.SPEED]) * a_fDeltaTime;
+            var stVelocity = (this.MoveDirection * m_oRealDict[EKey.SPEED]) * a_fDeltaTime;
             var stWorldPos = (this.GetOwner<CEObj>().transform.localPosition + stVelocity.normalized).ExToWorld(this.Engine.Params.m_oObjRoot);
-			var stRaycastHit = Physics2D.CircleCast(stWorldPos, this.GetOwner<CEObj>().TargetSprite.sprite.textureRect.size.ExToWorld(this.Engine.Params.m_oObjRoot).x / KCDefine.B_VAL_2_REAL, stVelocity.normalized);
-
+			var stRaycastHit = Physics2D.CircleCast(stWorldPos, this.GetOwner<CEObj>().TargetSprite.sprite.textureRect.size.ExToWorld(this.Engine.Params.m_oObjRoot).x / KCDefine.B_VAL_2_REAL, stVelocity.normalized, GlobalDefine.RAYCAST_DISTANCE, Engine.layerWallAndBricks);
+            
 			var stHitPos = (stWorldPos + (stVelocity.normalized * stRaycastHit.distance)).ExToLocal(this.Engine.Params.m_oObjRoot);
 			var stHitDelta = (this.GetOwner<CEObj>().transform.localPosition + stVelocity.normalized) - stHitPos;
 
@@ -102,14 +96,8 @@ namespace NSEngine {
                             this.GetOwner<CEObj>().transform.localPosition = stHitPos;
                             this.SetMoveDirection(Vector3.Reflect(stVelocity.normalized, stRaycastHit.normal).normalized);
                             break;
-                        
-                        case EObjType.ITEM_BRICKS:
-                        case EObjType.SPECIAL_BRICKS:
-                            // Do Not Reflect
-                            this.GetOwner<CEObj>().transform.localPosition += stVelocity;
-                            break;
-                        
-                        default : 
+                        default:
+                            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=red>{0}</color>", (EObjType)((int)oCellObj.Params.m_stObjInfo.m_eObjKinds).ExKindsToType()));
                             this.GetOwner<CEObj>().transform.localPosition += stVelocity;
                             break;
                     }
@@ -129,13 +117,6 @@ namespace NSEngine {
                 {
                     this.GetOwner<CEObj>().transform.localPosition = stHitPos;
                     this.SetMoveDirection(Vector3.Reflect(stVelocity.normalized, stRaycastHit.normal).normalized);
-
-                    /*if (myIndex == 0)
-                    {
-                        Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>[stVelocity] {0} : {1} = ({2} * {3}) * {4}</color>", stVelocity.magnitude, stVelocity, this.MoveDirection, m_oRealDict[EKey.SPEED], a_fDeltaTime));
-                        Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>[stHitDelta] {0} : {1} = ({2} + {3}) - {4}</color>", stHitDelta.magnitude, stHitDelta, this.GetOwner<CEObj>().transform.localPosition, stVelocity.normalized, stHitPos));
-                        Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>collider : {0} / stHitDelta : {1} / stVelocity : {2}</color>", stRaycastHit.collider.name, stHitDelta.magnitude, stVelocity.magnitude));
-                    }*/
                 }
 			} else {
                 this.GetOwner<CEObj>().transform.localPosition += stVelocity;

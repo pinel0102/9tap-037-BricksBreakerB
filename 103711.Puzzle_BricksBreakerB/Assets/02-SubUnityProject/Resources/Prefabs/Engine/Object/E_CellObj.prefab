@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2161632991726356803}
   - component: {fileID: 566020170059100411}
   - component: {fileID: 2161632991726356812}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: E_CellObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,7 +81,7 @@ GameObject:
   - component: {fileID: 3825846443980830064}
   - component: {fileID: 2242322614738524142}
   - component: {fileID: 7079814525662485889}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TARGET_SPRITE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -197,7 +197,7 @@ GameObject:
   - component: {fileID: 4592572097236274242}
   - component: {fileID: 5120024551091625767}
   - component: {fileID: 2181073758015747344}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HP_TEXT
   m_TagString: Untagged
   m_Icon: {fileID: 0}

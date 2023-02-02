@@ -77,12 +77,6 @@ namespace NSEngine {
 
 		public CEObj SelPlayerObj => this.PlayerObjList[this.SelPlayerObjIdx];
 		public CEObj SelBallObj => this.BallObjList[KCDefine.B_VAL_0_INT];
-
-        public int currentLevel;
-        public int currentShootCount = 0;
-        public Vector3 startPosition = Vector3.zero;
-        public Vector3 shootDirection = Vector3.zero;
-        private WaitForSeconds dropBallsDelay = new WaitForSeconds(KCDefine.B_VAL_0_5_REAL);
 		#endregion // 프로퍼티
 
 		#region 함수
@@ -171,9 +165,7 @@ namespace NSEngine {
 					var stPos = m_oMoveCompleteBallObjList.ExIsValid() ? m_oMoveCompleteBallObjList[KCDefine.B_VAL_0_INT].transform.localPosition : m_oSubVec3Dict[ESubKey.SHOOT_START_POS];
 					CScheduleManager.Inst.RemoveTimer(this);
 
-                    SetBallColliders(false);
-
-					for(int i = 0; i < this.BallObjList.Count; ++i) {
+                    for(int i = 0; i < this.BallObjList.Count; ++i) {
 						this.BallObjList[i].GetController<CEObjController>().SetState(CEController.EState.IDLE, true);
                         oAniList.ExAddVal(this.BallObjList[i].transform.DOLocalMove(stPos, KCDefine.B_VAL_0_5_REAL));
 					}
@@ -193,6 +185,9 @@ namespace NSEngine {
 
 		/** 초기화한다 */
 		private void SubInit() {
+            
+            InitLayerMask();
+
             currentLevel = (int)CGameInfoStorage.Inst.PlayEpisodeInfo.ULevelID + 1;
 
 #if NEVER_USE_THIS
@@ -204,15 +199,8 @@ namespace NSEngine {
 			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 #endif // #if NEVER_USE_THIS
 
-			for(int i = 0; i < 1/*CGameInfoStorage.Inst.PlayEpisodeInfo.m_nNumBalls*/; ++i) {
+			for(int i = 0; i < CGameInfoStorage.Inst.PlayEpisodeInfo.m_nNumBalls; ++i) {
                 CreateBall(i);
-
-				/*var oBallObj = this.CreateBallObj(CObjInfoTable.Inst.GetObjInfo(EObjKinds.BALL_NORM_01), null);
-				oBallObj.NumText.text = string.Empty;
-				oBallObj.transform.localPosition = this.SelGridInfo.m_stPivotPos + new Vector3(this.SelGridInfo.m_stBounds.size.x / KCDefine.B_VAL_2_REAL, -this.SelGridInfo.m_stBounds.size.y, KCDefine.B_VAL_0_INT);
-				oBallObj.transform.localPosition += new Vector3(KCDefine.B_VAL_0_REAL, oBallObj.TargetSprite.sprite.textureRect.height / KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_INT);
-
-				this.BallObjList.ExAddVal(oBallObj);*/
 			}
 
 			// 스프라이트를 설정한다 {
@@ -240,26 +228,7 @@ namespace NSEngine {
 			// 스프라이트를 설정한다 }
 		}
 
-        public void CreateBall(int _index)
-        {
-            var oBallObj = this.CreateBallObj(_index, CObjInfoTable.Inst.GetObjInfo(EObjKinds.BALL_NORM_01), null);
-            oBallObj.NumText.text = string.Empty;
-            oBallObj.transform.localPosition = this.SelGridInfo.m_stPivotPos + new Vector3(this.SelGridInfo.m_stBounds.size.x / KCDefine.B_VAL_2_REAL, -this.SelGridInfo.m_stBounds.size.y, KCDefine.B_VAL_0_INT);
-            oBallObj.transform.localPosition += new Vector3(KCDefine.B_VAL_0_REAL, oBallObj.TargetSprite.sprite.textureRect.height / KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_INT);
-
-            this.BallObjList.ExAddVal(oBallObj);
-        }
-
-        public void AddBall(int _index)
-        {
-            var oBallObj = this.CreateBallObj(_index, CObjInfoTable.Inst.GetObjInfo(EObjKinds.BALL_NORM_01), null);
-            oBallObj.NumText.text = string.Empty;
-            oBallObj.transform.localPosition = startPosition;
-            
-            this.BallObjList.ExAddVal(oBallObj);
-        }
-
-		/** 상태를 리셋한다 */
+        /** 상태를 리셋한다 */
 		private void SubReset() {
 			this.SetState(EState.NONE);
 		}
@@ -447,9 +416,7 @@ namespace NSEngine {
 
 				// 조준 가능 할 경우
 				if(this.IsEnableAiming(stPos)) {
-                    SetBallColliders(false);
-                    SetCellColliders(false);
-					this.HandleTouchMoveEvent(a_oSender, a_oEventData);
+                    this.HandleTouchMoveEvent(a_oSender, a_oEventData);
 				}
 			}
 		}
@@ -471,7 +438,6 @@ namespace NSEngine {
 				// 조준 가능 할 경우
 				if(this.IsEnableAiming(stPos)) {
 
-                    SetCellColliders(false);                    
                     currentShootCount = 0;
 
 					var oPosList = CCollectionManager.Inst.SpawnList<Vector3>();
@@ -484,18 +450,18 @@ namespace NSEngine {
 						stDirection = new Vector3(Mathf.Cos(fAngle * Mathf.Deg2Rad) * Mathf.Sign(stDirection.x), Mathf.Sin(fAngle * Mathf.Deg2Rad), KCDefine.B_VAL_0_REAL);
                         
 						var stWorldPos = (this.SelBallObj.transform.localPosition + stDirection.normalized).ExToWorld(this.Params.m_oObjRoot);
-						var stRaycastHit = Physics2D.CircleCast(stWorldPos, this.SelBallObj.TargetSprite.sprite.textureRect.size.ExToWorld(this.Params.m_oObjRoot).x / KCDefine.B_VAL_2_REAL, stDirection.normalized);
+						var stRaycastHit = Physics2D.CircleCast(stWorldPos, this.SelBallObj.TargetSprite.sprite.textureRect.size.ExToWorld(this.Params.m_oObjRoot).x / KCDefine.B_VAL_2_REAL, stDirection.normalized, GlobalDefine.RAYCAST_DISTANCE, currentAimLayer);
                         
 						oPosList.ExAddVal(this.SelBallObj.transform.localPosition);
 
                         // 충돌체가 존재 할 경우
 						if(stRaycastHit.collider != null) {
-                            Debug.Log(string.Format("stRaycastHit.collider == {0}", stRaycastHit.collider.name));
+                            //Debug.Log(string.Format("stRaycastHit.collider == {0}", stRaycastHit.collider.name));
                             var stHitPos = (stWorldPos + (stDirection.normalized * stRaycastHit.distance)).ExToLocal(this.Params.m_oObjRoot);
                             var stReflect = Vector3.Reflect(stDirection.normalized, stRaycastHit.normal);
 
                             stWorldPos = (stHitPos + stReflect.normalized).ExToWorld(this.Params.m_oObjRoot, false);
-                            stRaycastHit = Physics2D.CircleCast(stWorldPos, this.SelBallObj.TargetSprite.sprite.textureRect.size.ExToWorld(this.Params.m_oObjRoot).x / KCDefine.B_VAL_2_REAL, stReflect.normalized);
+                            stRaycastHit = Physics2D.CircleCast(stWorldPos, this.SelBallObj.TargetSprite.sprite.textureRect.size.ExToWorld(this.Params.m_oObjRoot).x / KCDefine.B_VAL_2_REAL, stReflect.normalized, GlobalDefine.RAYCAST_DISTANCE, currentAimLayer);
 
                             oPosList.ExAddVal(stHitPos);
 
@@ -522,9 +488,7 @@ namespace NSEngine {
 			// 구동 모드 일 경우
 			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
                 
-                SetCellColliders(true);
-
-				var stPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize);
+                var stPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize);
 				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize).ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
 
 #if NEVER_USE_THIS
@@ -567,83 +531,6 @@ namespace NSEngine {
 				m_oSubLineFXDict[ESubKey.LINE_FX].gameObject.SetActive(false);
 			}
 		}
-
-        public void ShootBalls(int _startIndex, int _count)
-        {
-            CScheduleManager.Inst.AddTimer(this, GlobalDefine.SHOOT_BALL_DELAY, (uint)_count, () => {
-                //Debug.Log(CodeManager.GetMethodName() + string.Format("BallObjList[{0}]", _startIndex));
-                this.BallObjList[_startIndex++].GetController<CEBallObjController>().Shoot(shootDirection);
-                currentShootCount++;
-            });
-        }
-
-        public void AddShootBalls(int _startIndex, int _count)
-        {
-            StartCoroutine(CO_WaitShootDelay(_startIndex, _count));
-        }
-
-        private IEnumerator CO_WaitShootDelay(int _startIndex, int _count)
-        {
-            while(currentShootCount < _startIndex)
-            {
-                yield return null;
-            }
-
-            ShootBalls(_startIndex, _count);
-        }
-
-        private void SetBallColliders(bool _isEnable)
-        {
-            for(int i = 0; i < this.BallObjList.Count; ++i) {
-				this.BallObjList[i].GetComponent<CEBallObjController>().SetBallCollider(_isEnable);
-			}
-        }
-
-        private void SetCellColliders(bool _isEnable)
-        {
-            //Debug.Log(CodeManager.GetMethodName() + _isEnable);
-
-            for(int i = 0; i < this.CellObjLists.GetLength(KCDefine.B_VAL_0_INT); ++i) {
-				for(int j = 0; j < this.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); ++j) {
-					for(int k = 0; k < this.CellObjLists[i, j].Count; ++k) {
-						// 셀이 존재 할 경우
-						if(this.CellObjLists[i, j][k].gameObject.activeSelf) {
-                            CEObj target = this.CellObjLists[i, j][k];
-							
-                            if(target.TargetSprite != null && target.TargetSprite.TryGetComponent<PolygonCollider2D>(out PolygonCollider2D oCollider))
-                            {
-                                oCollider.enabled = _isEnable;
-                            }
-						}
-					}
-				}
-			}
-        }
-
-        public void CheckClear(bool _waitDelay = false)
-        {
-            // 클리어했을 경우
-            if(this.IsClear()) {
-                CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).SetEnableUpdateUIsState(true);
-
-                if (_waitDelay)
-                    StartCoroutine(CO_Clear());
-                else
-                    LevelClear();                
-            } else {
-                this.ExLateCallFunc((a_oFuncSender) => {
-                    this.PlayState = EPlayState.IDLE;
-                    CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).SetEnableUpdateUIsState(true);
-                    }, KCDefine.B_VAL_0_3_REAL);
-            }
-        }
-
-        private IEnumerator CO_Clear()
-        {
-            yield return dropBallsDelay;
-
-            LevelClear();
-        }
 
         public void LevelClear()
         {

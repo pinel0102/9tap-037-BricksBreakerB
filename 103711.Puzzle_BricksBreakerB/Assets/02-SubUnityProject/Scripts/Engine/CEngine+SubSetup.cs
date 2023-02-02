@@ -48,6 +48,8 @@ namespace NSEngine {
 				oCellObj.SetCellIdx(a_stCellInfo.m_stIdx);
 				oCellObj.SetCellObjInfo((STCellObjInfo)a_stCellInfo.m_oCellObjInfoList[i].Clone());
 
+                InitCellLayer(oCellObj);
+
 				oCellObjList.ExAddVal(oCellObj);
 			}
 
