@@ -35,8 +35,6 @@ namespace NSEngine {
 
         public void SetBallCollider(bool _enabled)
         {
-            return;
-            
             if (_collider == null)
                 _collider = GetComponent<CircleCollider2D>();
             

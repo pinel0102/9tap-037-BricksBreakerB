@@ -66,9 +66,6 @@ namespace NSEngine {
             this.SetMoveDirection(a_stVelocity.normalized);
 
 			m_oRealDict[EKey.SPEED] = a_stVelocity.magnitude;
-			//m_oVec3Dict[EKey.DIRECTION] = a_stVelocity.normalized;
-
-            SetBallCollider(true);
 		}
 
 		/** 이동 상태를 처리한다 */
