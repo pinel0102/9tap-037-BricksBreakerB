@@ -314,6 +314,7 @@ namespace GameScene {
 		public void OnTouchPauseBtn() {
 			Func.ShowPausePopup(this.PopupUIs, (a_oSender) => {
 				(a_oSender as CPausePopup).Init(CPausePopup.MakeParams(new Dictionary<CPausePopup.ECallback, System.Action<CPausePopup>>() {
+                    [CPausePopup.ECallback.RETRY] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.RETRY),
 					[CPausePopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
 				}));
 			});
@@ -364,7 +365,7 @@ namespace GameScene {
 					//if(a_stEpisodeInfo.m_stIDInfo.m_nID01 > KCDefine.B_IDX_INVALID && a_stEpisodeInfo.m_stIDInfo.m_nID01 <= Access.GetNumLevelClearInfos(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03)) {
                     //  Func.SetupPlayEpisodeInfo(CGameInfoStorage.Inst.PlayCharacterID, a_stEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayMode, a_stEpisodeInfo.m_stIDInfo.m_nID02, a_stEpisodeInfo.m_stIDInfo.m_nID03);
                     
-                    if (m_oEngine.currentLevel < 10)//TODO: CLevelInfoTable.Inst.levelCount
+                    if (m_oEngine.currentLevel < 15)//TODO: CLevelInfoTable.Inst.levelCount
                     {
                         Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", m_oEngine.currentLevel + 1));
 

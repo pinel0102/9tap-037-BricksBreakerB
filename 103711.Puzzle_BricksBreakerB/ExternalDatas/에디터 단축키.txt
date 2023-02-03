@@ -1,0 +1,62 @@
+최종 수정 : 2023.02.03
+
+
+단축키 및 편리 기능
+
+
+레벨 저장
+- Left Command + S (윈도우즈는 Left Ctrl + S)
+
+레벨 리셋
+- Left Shift + R
+
+레벨 테스트
+- Left Shift + T
+
+이전 또는 다음 레벨 이동
+- Left Shift + W or D
+
+이전 또는 다음 컨트롤 페이지 이동
+- Left Shift + A or D
+
+지정 컨트롤 페이지 이동
+- Left Shift + 1 ~ 9
+
+모든 셀 채우기
+- Right Shift + F (+ Left Shift 키 입력 시 기존 배치 되어있는 블럭을 무시하고 새로운 블럭으로 채움)
+
+모든 셀 지우기
+- Right Shift + C
+
+선택 블럭 셀 모두 지우기
+- Right Shift + Q
+
+행 또는 열 채우기
+- 행 또는 열 번호 마우스 좌 클릭 (+ Left Shift 키 입력 시 기존 배치 되어있는 블럭을 무시하고 새로운 블럭으로 채움)
+
+행 또는 열 지우기
+- 행 또는 열 번호 마우스 우 클릭 (+ Left Shift 키 입력 시 현재 선택 블럭만 지움)
+
+모든 셀 좌/우 이동
+- Left Shift + Left Arrow or Right Arrow
+
+모든 셀 상/하 이동
+- Left Shift + Up Arrow or Down Arrow
+
+현재 셀 정보 복사
+- Left Command + 마우스 좌 클릭 (윈도우즈는 Left Ctrl + 마우스 좌 클릭)
+
+블럭 배치
+- 마우스 좌 클릭 및 드래그 (+ Left Shift 키 입력 시 기존 배치 되어있는 블럭 무시하고 새로운 블럭 배치)
+
+블럭 지우기
+- 마우스 우 클릭 및 드래그 (+ Left Shift 키 입력 시 현재 선택 블럭만 지움)
+
+그리기 모드 or 페인트 모드 변경
+- Left Shift + E
+
+플레이 모드에서 에디터 진입
+- Left Shift + E
+
+에디터 창 크기 갱신 (UI 잘리는 현상 발생시 새로고침)
+- Left Shift + U

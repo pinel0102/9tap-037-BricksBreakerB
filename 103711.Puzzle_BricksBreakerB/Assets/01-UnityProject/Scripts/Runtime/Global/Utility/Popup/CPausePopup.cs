@@ -10,6 +10,7 @@ public partial class CPausePopup : CSubPopup {
 	/** 식별자 */
 	public enum EKey {
 		NONE = -1,
+        RETRY_BTN,
 		LEAVE_BTN,
 		[HideInInspector] MAX_VAL
 	}
@@ -17,6 +18,7 @@ public partial class CPausePopup : CSubPopup {
 	/** 콜백 */
 	public enum ECallback {
 		NONE = -1,
+        RETRY,
 		LEAVE,
 		[HideInInspector] MAX_VAL
 	}
@@ -41,6 +43,7 @@ public partial class CPausePopup : CSubPopup {
 
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
+            ($"{EKey.RETRY_BTN}", this.gameObject, this.OnTouchRetryBtn),
 			($"{EKey.LEAVE_BTN}", this.gameObject, this.OnTouchLeaveBtn)
 		});
 
@@ -64,6 +67,11 @@ public partial class CPausePopup : CSubPopup {
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
 		this.SubUpdateUIsState();
+	}
+
+    /** 재시도 버튼을 눌렀을 경우 */
+	public void OnTouchRetryBtn() {
+		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.RETRY)?.Invoke(this);
 	}
 
 	/** 나가기 버튼을 눌렀을 경우 */

@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 544093559019688426}
   - component: {fileID: 9148067713091339689}
   m_Layer: 5
-  m_Name: RETRY_BTN
+  m_Name: RETRY_BTN_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -163,19 +163,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4021079486980230277}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4562253536444449591}
-        m_TargetAssemblyTypeName: CResultPopup, Assembly-CSharp
-        m_MethodName: OnTouchRetryBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &9160773040265483470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1140,19 +1128,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6586825455877964740}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4562253536444449591}
-        m_TargetAssemblyTypeName: CResultPopup, Assembly-CSharp
-        m_MethodName: OnTouchLeaveBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &6412927231527954159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1315,19 +1291,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3890466987137750877}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4562253536444449591}
-        m_TargetAssemblyTypeName: CResultPopup, Assembly-CSharp
-        m_MethodName: OnTouchRetryBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2892371767300456106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1606,19 +1570,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1805892898666706358}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4562253536444449591}
-        m_TargetAssemblyTypeName: CResultPopup, Assembly-CSharp
-        m_MethodName: OnTouchNextBtn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &6747615651524560616
 MonoBehaviour:
   m_ObjectHideFlags: 0
