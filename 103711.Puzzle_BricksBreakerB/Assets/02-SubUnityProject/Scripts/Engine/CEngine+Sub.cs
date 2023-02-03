@@ -218,18 +218,19 @@ namespace NSEngine {
             
             float horizontalWidth = reWidth / texWidth;
             float veticalHeight = ((reHeight - uiAreaTop - uiAreaBottom) / texHeight);
+            float objScale = CSceneManager.ObjsRootScale.x;
 
-			m_oSubSpriteDict[ESubKey.UP_BOUNDS_SPRITE].transform.localScale = new Vector3(horizontalWidth, KCDefine.B_VAL_1_REAL, KCDefine.B_VAL_1_REAL);
+			m_oSubSpriteDict[ESubKey.UP_BOUNDS_SPRITE].transform.localScale = new Vector3(horizontalWidth / objScale, KCDefine.B_VAL_1_REAL, KCDefine.B_VAL_1_REAL);
 			m_oSubSpriteDict[ESubKey.UP_BOUNDS_SPRITE].transform.localPosition = new Vector3(0, (reHeight * 0.5f) - uiAreaTop + (m_oSubSpriteDict[ESubKey.UP_BOUNDS_SPRITE].sprite.textureRect.height / KCDefine.B_VAL_2_REAL), 0);
 
-			m_oSubSpriteDict[ESubKey.DOWN_BOUNDS_SPRITE].transform.localScale = new Vector3(horizontalWidth, KCDefine.B_VAL_1_REAL, KCDefine.B_VAL_1_REAL);
+			m_oSubSpriteDict[ESubKey.DOWN_BOUNDS_SPRITE].transform.localScale = new Vector3(horizontalWidth / objScale, KCDefine.B_VAL_1_REAL, KCDefine.B_VAL_1_REAL);
 			m_oSubSpriteDict[ESubKey.DOWN_BOUNDS_SPRITE].transform.localPosition = new Vector3(0, -((reHeight * 0.5f) - uiAreaBottom) - (m_oSubSpriteDict[ESubKey.DOWN_BOUNDS_SPRITE].sprite.textureRect.height / KCDefine.B_VAL_2_REAL), 0);
 
 			m_oSubSpriteDict[ESubKey.LEFT_BOUNDS_SPRITE].transform.localScale = new Vector3(KCDefine.B_VAL_1_REAL, veticalHeight, KCDefine.B_VAL_1_REAL);
-			m_oSubSpriteDict[ESubKey.LEFT_BOUNDS_SPRITE].transform.localPosition = new Vector3((-reWidth * 0.5f) - (m_oSubSpriteDict[ESubKey.LEFT_BOUNDS_SPRITE].sprite.textureRect.width / KCDefine.B_VAL_2_REAL), 0, 0);
+			m_oSubSpriteDict[ESubKey.LEFT_BOUNDS_SPRITE].transform.localPosition = new Vector3(((-reWidth * 0.5f) - (m_oSubSpriteDict[ESubKey.LEFT_BOUNDS_SPRITE].sprite.textureRect.width / KCDefine.B_VAL_2_REAL)) / objScale, 0, 0);
 
 			m_oSubSpriteDict[ESubKey.RIGHT_BOUNDS_SPRITE].transform.localScale = new Vector3(KCDefine.B_VAL_1_REAL, veticalHeight, KCDefine.B_VAL_1_REAL);
-			m_oSubSpriteDict[ESubKey.RIGHT_BOUNDS_SPRITE].transform.localPosition = new Vector3((reWidth * 0.5f) + (m_oSubSpriteDict[ESubKey.RIGHT_BOUNDS_SPRITE].sprite.textureRect.width / KCDefine.B_VAL_2_REAL), 0, 0);
+			m_oSubSpriteDict[ESubKey.RIGHT_BOUNDS_SPRITE].transform.localPosition = new Vector3(((reWidth * 0.5f) + (m_oSubSpriteDict[ESubKey.RIGHT_BOUNDS_SPRITE].sprite.textureRect.width / KCDefine.B_VAL_2_REAL)) / objScale, 0, 0);
 			// 스프라이트를 설정한다 }
 		}
 

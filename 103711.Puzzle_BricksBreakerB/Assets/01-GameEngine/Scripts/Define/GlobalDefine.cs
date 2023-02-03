@@ -28,7 +28,7 @@ public static class GlobalDefine
     /// <Summary>셀 스프라이트 크기 보정.</Summary>
     public static Vector3 CELL_SPRITE_ADJUSTMENT = new Vector3(-4, -4, 0);
     /// <Summary>셀 루트가 내려오는 속도.</Summary>
-    public static Vector3 CELL_ROOT_MOVE_SPEED = new Vector3(0, 5f, 0);
+    public static Vector3 CELL_ROOT_MOVE_SPEED = new Vector3(0, 10f, 0);
 
     // [Engine] Timer Delay
     public const float SHOOT_BALL_DELAY = 0.09f;

@@ -74,7 +74,7 @@ namespace NSEngine {
             isGridMoving = false;
             cellRootMoveVector = new Vector3(0, -(Access.CellSize.y * SelGridInfo.m_stScale.y), 0);
 
-            this.Params.m_oCellRoot.transform.localPosition = new Vector3(0, (((reHeight - Mathf.Min(reWidth, gridHeight)) * 0.5f) - uiAreaTop), 0);
+            this.Params.m_oCellRoot.transform.localPosition = new Vector3(0, (((reHeight - Mathf.Min(gridWidth, gridHeight)) * 0.5f) - uiAreaTop), 0);
         }
 
         private void InitLayerMask()
@@ -232,9 +232,12 @@ namespace NSEngine {
 
             Vector3 endPosition = this.Params.m_oCellRoot.transform.localPosition + (cellRootMoveVector * _moveCount);
 
-            while(Mathf.Abs(this.Params.m_oCellRoot.transform.localPosition.y - endPosition.y) > GlobalDefine.CELL_ROOT_MOVE_SPEED.y)
+            while(this.Params.m_oCellRoot.transform.localPosition.y - GlobalDefine.CELL_ROOT_MOVE_SPEED.y > endPosition.y)
             {
                 yield return cellRootMoveDelay;
+
+                if (isLevelFail)
+                    yield break;
 
                 this.Params.m_oCellRoot.transform.localPosition -= GlobalDefine.CELL_ROOT_MOVE_SPEED;
             }
