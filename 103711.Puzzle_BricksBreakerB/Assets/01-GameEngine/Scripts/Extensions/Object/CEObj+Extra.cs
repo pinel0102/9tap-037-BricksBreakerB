@@ -13,19 +13,17 @@ namespace NSEngine {
         public int column;
         public int layer;
 
-        public void SetSpriteColor(EObjType cellType, string _colorHex = GlobalDefine.COLOR_CELL_DEFAULT)
+        public void SetSpriteColor(EObjType cellType)
         {
-            this.TargetSprite.color = GlobalDefine.GetCellColor(cellType, _colorHex);
+            this.TargetSprite.color = GlobalDefine.GetCellColor(cellType, CellObjInfo.ColorHex);
         }
 
-        public void RefreshText()
+        public void RefreshText(EObjType cellType)
         {
             TMPro.TMP_Text _text = m_oSubTextDict.GetValueOrDefault(ESubKey.HP_TEXT);
 
             if(_text != null)
             {
-                EObjType cellType = (EObjType)((int)CellObjInfo.ObjKinds).ExKindsToType();
-
                 switch(cellType)
                 {
                     case EObjType.NORM_BRICKS:

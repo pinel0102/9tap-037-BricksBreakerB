@@ -64,9 +64,7 @@ namespace NSEngine {
                 ToggleHitSprite(false);
             }
             
-            SetSpriteColor(a_stParams.m_stObjInfo.ObjType, CellObjInfo.ColorHex);
-
-			this.SubInit();
+            this.SubInit();
 		}
 
 		/** 어빌리티 값을 설정한다 */

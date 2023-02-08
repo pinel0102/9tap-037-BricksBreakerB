@@ -49,17 +49,6 @@ public static class GlobalDefine
     public const string textOFF = "OFF";
 
 
-    // [Bricks] Color
-    /*public readonly static Color[] BricksColor = new Color[3]
-    {
-        // Item & Special
-        new Color(1f, 1f, 1f, 1f),
-        // Bricks
-        new Color(64f/255f, 122f/255f, 217f/255f, 1f),
-        // Ball
-        new Color(1f, 0, 0, 1f)
-    };*/
-
     // [JSON] Cell Color
     public const string COLOR_CELL_DEFAULT = "#FFFFFFFF";
     public const string COLOR_BRICKS_DEFAULT = "#407AD9FF";
@@ -80,9 +69,6 @@ public static class GlobalDefine
         }
 
         //Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", _colorHex));
-
-        if (!ColorUtility.TryParseHtmlString(_colorHex, out Color _color2))
-            Debug.Log(CodeManager.GetMethodName() + string.Format("Fail : {0}", _colorHex));
 
         return ColorUtility.TryParseHtmlString(_colorHex, out Color _color) ? _color : Color.white;
     }

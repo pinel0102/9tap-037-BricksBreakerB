@@ -1748,7 +1748,7 @@ namespace LevelEditorScene {
 		private void SetupRightEditorUIs() {
 
             listScrollerCellView.Clear();
-            
+
 			// 텍스트를 설정한다
 			CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
 				(EKey.RE_UIS_PAGE_TEXT, $"{EKey.RE_UIS_PAGE_TEXT}", this.RightEditorUIs),

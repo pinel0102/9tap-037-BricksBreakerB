@@ -166,13 +166,11 @@ namespace NSEngine {
 		/** 셀 객체 정보를 변경한다 */
 		public void SetCellObjInfo(STCellObjInfo a_stCellObjInfo) {
 			this.CellObjInfo = a_stCellObjInfo;
+            
+            EObjType cellType = (EObjType)((int)CellObjInfo.ObjKinds).ExKindsToType();
 
-            // 체력 텍스트가 존재 할 경우
-            /*if(m_oSubTextDict.GetValueOrDefault(ESubKey.HP_TEXT) != null) {
-                m_oSubTextDict.GetValueOrDefault(ESubKey.HP_TEXT).text = $"{a_stCellObjInfo.HP}";
-            }*/
-
-			RefreshText();
+            SetSpriteColor(cellType);
+			RefreshText(cellType);
 		}
 		#endregion // 접근자 함수
 	}
