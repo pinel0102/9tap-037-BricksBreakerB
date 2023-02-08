@@ -694,7 +694,7 @@ namespace LevelEditorScene {
 				}
 			}
 
-            this.SetupSpriteGrid(EObjKinds.NONE, m_oSpriteDict[EKey.SEL_OBJ_SPRITE], Access.GetEditorObjSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+            this.SetupSpriteGrid(EObjType.NONE, m_oSpriteDict[EKey.SEL_OBJ_SPRITE], Access.GetEditorObjSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
 			//m_oSpriteDict[EKey.SEL_OBJ_SPRITE]?.ExSetSprite<SpriteRenderer>(Access.GetEditorObjSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
             
 			// 객체 스프라이트를 설정한다 }
@@ -821,7 +821,7 @@ namespace LevelEditorScene {
 
 		/** 객체 스프라이트를 설정한다 */
 		private void SetupObjSprite(STCellInfo a_stCellInfo, STCellObjInfo a_stCellObjInfo, SpriteRenderer a_oOutObjSprite) {
-			this.SetupSpriteGrid(a_stCellObjInfo.ObjKinds, a_oOutObjSprite, Access.GetEditorObjSprite(a_stCellObjInfo.ObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+			this.SetupSpriteGrid((EObjType)((int)a_stCellObjInfo.ObjKinds).ExKindsToType(), a_oOutObjSprite, Access.GetEditorObjSprite(a_stCellObjInfo.ObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE), a_stCellObjInfo.ColorHex);
             //a_oOutObjSprite.sprite = Access.GetEditorObjSprite(a_stCellObjInfo.ObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE);
 			a_oOutObjSprite.transform.localPosition = this.SelGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(NSEngine.Access.CellCenterOffset, NSEngine.Access.CellSize);
 
@@ -975,7 +975,7 @@ namespace LevelEditorScene {
 
 							stCellInfo.m_oCellObjInfoList.ExAddVal(a_stCellObjInfo);
 						} else {
-							stCellInfo.m_oCellObjInfoList.ExAddVal(Factory.MakeEditorCellObjInfo(EObjKinds.BG_PLACEHOLDER_01, Vector3Int.one, a_stIdx, drawCellColor));
+							stCellInfo.m_oCellObjInfoList.ExAddVal(Factory.MakeEditorCellObjInfo(EObjKinds.BG_PLACEHOLDER_01, Vector3Int.one, a_stIdx, drawCellColorHex));
 						}
 					}
 				}
@@ -1419,7 +1419,7 @@ namespace LevelEditorScene {
 			m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG]?.gameObject.SetActive(m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid());
 			m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG]?.ExSetSprite<Image>(Access.GetEditorObjSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
 
-            SetupSpriteREUIs(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG]);
+            SetupSpriteREUIs((EObjType)((int)m_oObjKindsDict[EKey.SEL_OBJ_KINDS]).ExKindsToType(), m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG], drawCellColorHex);
 
 			// 버튼을 갱신한다 {
 			m_oBtnDict[EKey.ME_UIS_PREV_GRID_BTN]?.ExSetInteractable(m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx - KCDefine.B_VAL_1_INT));
@@ -1525,7 +1525,7 @@ namespace LevelEditorScene {
 
 					// 객체 추가가 가능 할 경우
 					if(Input.GetMouseButtonUp((int)EMouseBtn.LEFT) && m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
-						this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx, drawCellColor), stIdx, Input.GetKey(KeyCode.LeftShift));
+						this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx, drawCellColorHex), stIdx, Input.GetKey(KeyCode.LeftShift));
 					}
 					// 객체 제거가 가능 할 경우
 					else if(Input.GetMouseButtonUp((int)EMouseBtn.RIGHT) && stCellInfo.m_oCellObjInfoList.ExIsValid()) {
@@ -1546,7 +1546,7 @@ namespace LevelEditorScene {
 
 					// 객체 추가가 가능 할 경우
 					if(Input.GetMouseButtonUp((int)EMouseBtn.LEFT) && m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
-						this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx, drawCellColor), stIdx, Input.GetKey(KeyCode.LeftShift));
+						this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx, drawCellColorHex), stIdx, Input.GetKey(KeyCode.LeftShift));
 					}
 					// 객체 제거가 가능 할 경우
 					else if(Input.GetMouseButtonUp((int)EMouseBtn.RIGHT) && oCellInfoDict[i].m_oCellObjInfoList.ExIsValid()) {
@@ -1746,6 +1746,9 @@ namespace LevelEditorScene {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		/** 오른족 에디터 UI 를 설정한다 */
 		private void SetupRightEditorUIs() {
+
+            listScrollerCellView.Clear();
+            
 			// 텍스트를 설정한다
 			CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
 				(EKey.RE_UIS_PAGE_TEXT, $"{EKey.RE_UIS_PAGE_TEXT}", this.RightEditorUIs),
@@ -1822,6 +1825,7 @@ namespace LevelEditorScene {
 
 		/** 오른쪽 에디터 UI 페이지 UI 2 를 설정한다 */
 		private void SetupREUIsPageUIs02(GameObject a_oPageUIs) {
+            
 			// 입력 필드를 설정한다 {
 			CFunc.SetupInputs(new List<(EKey, string, GameObject, UnityAction<string>)>() {
 				(EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT, $"{EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs02ObjSizeInputStr),
@@ -1884,7 +1888,9 @@ namespace LevelEditorScene {
 					oBtn.image.ExSetEnable(eObjKinds != EObjKinds.NONE);
 					oBtn.image.sprite = Access.GetEditorObjSprite(eObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE);
 
-                    SetupSpriteREUIs(eObjKinds, oBtn.image);
+                    EObjType cellType = (EObjType)((int)eObjKinds).ExKindsToType();
+                    SetupSpriteREUIs(cellType, oBtn.image, drawCellColorHex);
+                    listScrollerCellView.Add(new KeyValuePair<EObjType, Button>(cellType, oBtn));
 
 					oBtn.onClick.AddListener(() => this.OnTouchREUIsPageUIs02ScrollerCellViewBtn(eObjKinds));
 				}
@@ -2007,7 +2013,7 @@ namespace LevelEditorScene {
 						// 객체 추가가 가능 할 경우
 						if(m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
 							var stIdx = new Vector3Int(j, i, KCDefine.B_VAL_0_INT);
-							this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx, drawCellColor), stIdx, Input.GetKey(KeyCode.LeftShift));
+							this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx, drawCellColorHex), stIdx, Input.GetKey(KeyCode.LeftShift));
 						}
 					}
 				}

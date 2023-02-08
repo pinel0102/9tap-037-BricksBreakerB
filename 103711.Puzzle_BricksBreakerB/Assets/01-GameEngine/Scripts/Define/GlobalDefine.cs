@@ -14,17 +14,6 @@ public static class GlobalDefine
         1, 2, 3, 10
     };
 
-    // [Bricks] Color
-    public readonly static Color[] BricksColor = new Color[3]
-    {
-        // Item & Special
-        new Color(1f, 1f, 1f, 1f),
-        // Bricks
-        new Color(64f/255f, 122f/255f, 217f/255f, 1f),
-        // Ball
-        new Color(1f, 0, 0, 1f)
-    };
-
     /// <Summary>셀 스프라이트 크기 보정.</Summary>
     public static Vector3 CELL_SPRITE_ADJUSTMENT = new Vector3(-4, -4, 0);
     /// <Summary>셀 루트가 내려오는 속도.</Summary>
@@ -59,6 +48,42 @@ public static class GlobalDefine
     public const string textON = "ON";
     public const string textOFF = "OFF";
 
-    // [JSON] Cell Info
-    public const string CELL_COLOR_DEFAULT = "#FFFFFFFF";
+
+    // [Bricks] Color
+    /*public readonly static Color[] BricksColor = new Color[3]
+    {
+        // Item & Special
+        new Color(1f, 1f, 1f, 1f),
+        // Bricks
+        new Color(64f/255f, 122f/255f, 217f/255f, 1f),
+        // Ball
+        new Color(1f, 0, 0, 1f)
+    };*/
+
+    // [JSON] Cell Color
+    public const string COLOR_CELL_DEFAULT = "#FFFFFFFF";
+    public const string COLOR_BRICKS_DEFAULT = "#407AD9FF";
+    public const string COLOR_BALL_DEFAULT = "#FF0000FF";
+
+    public static Color GetCellColor(EObjType cellType, string _colorHex = GlobalDefine.COLOR_CELL_DEFAULT)
+    {
+        switch(cellType)
+        {
+            case EObjType.BALL:
+                _colorHex = GlobalDefine.COLOR_BALL_DEFAULT;
+                break;
+            case EObjType.NORM_BRICKS:
+                break;
+            default:
+                _colorHex = GlobalDefine.COLOR_CELL_DEFAULT;
+                break;
+        }
+
+        //Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", _colorHex));
+
+        if (!ColorUtility.TryParseHtmlString(_colorHex, out Color _color2))
+            Debug.Log(CodeManager.GetMethodName() + string.Format("Fail : {0}", _colorHex));
+
+        return ColorUtility.TryParseHtmlString(_colorHex, out Color _color) ? _color : Color.white;
+    }
 }

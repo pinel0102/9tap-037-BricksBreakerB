@@ -13,32 +13,9 @@ namespace NSEngine {
         public int column;
         public int layer;
 
-        public void SetSpriteColor()
+        public void SetSpriteColor(EObjType cellType, string _colorHex = GlobalDefine.COLOR_CELL_DEFAULT)
         {
-            EObjKinds kinds = Params.m_stObjInfo.m_eObjKinds;
-            EObjType cellType = (EObjType)((int)kinds).ExKindsToType();
-
-            Color _color = new Color();
-
-            switch(cellType)
-            {
-                case EObjType.BALL:
-                    _color = GlobalDefine.BricksColor[2];
-                    break;
-                case EObjType.NORM_BRICKS:
-                    _color = GlobalDefine.BricksColor[1];
-                    break;
-                case EObjType.OBSTACLE_BRICKS:
-                case EObjType.ITEM_BRICKS:
-                case EObjType.SPECIAL_BRICKS:
-                    _color = GlobalDefine.BricksColor[0];
-                    break;
-                default:
-                    _color = GlobalDefine.BricksColor[0];
-                    break;
-            }
-
-            this.TargetSprite.color = _color;
+            this.TargetSprite.color = GlobalDefine.GetCellColor(cellType, _colorHex);
         }
 
         public void RefreshText()

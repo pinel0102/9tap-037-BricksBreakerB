@@ -42,7 +42,7 @@ public struct STObjInfo {
 	public STObjInfo(SimpleJSON.JSONNode a_oObjInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oObjInfo);
 		m_stSize = a_oObjInfo[KCDefine.U_KEY_SIZE].ExIsValid() ? new Vector3(a_oObjInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_0_INT].AsFloat, a_oObjInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_1_INT].AsFloat, a_oObjInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_2_INT].AsFloat) : Vector3.zero;
-
+        
 		m_eObjKinds = a_oObjInfo[KCDefine.U_KEY_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_OBJ_KINDS].AsInt : EObjKinds.NONE;
 		m_ePrevObjKinds = a_oObjInfo[KCDefine.U_KEY_PREV_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_PREV_OBJ_KINDS].AsInt : EObjKinds.NONE;
 		m_eNextObjKinds = a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].AsInt : EObjKinds.NONE;

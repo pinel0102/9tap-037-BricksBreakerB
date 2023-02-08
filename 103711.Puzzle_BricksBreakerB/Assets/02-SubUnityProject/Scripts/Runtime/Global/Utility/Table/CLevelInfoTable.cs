@@ -24,11 +24,9 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	[JsonIgnore] [IgnoreMember] [System.NonSerialized] public Vector3Int m_stSize;
 	[JsonIgnore] [IgnoreMember] [System.NonSerialized] public Vector3Int m_stBaseIdx;
-    [JsonIgnore] [IgnoreMember] [System.NonSerialized] public Color m_stColor;
 #else
 	[IgnoreMember] [System.NonSerialized] public Vector3Int m_stSize;
 	[IgnoreMember] [System.NonSerialized] public Vector3Int m_stBaseIdx;
-    [IgnoreMember] [System.NonSerialized] public Color m_stColor;
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	#endregion // 변수
 
@@ -95,7 +93,7 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
     [JsonIgnore]
 	[IgnoreMember]
 	public string ColorHex {
-		get { return m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_COLOR, GlobalDefine.CELL_COLOR_DEFAULT); }
+		get { return m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_COLOR, GlobalDefine.COLOR_BRICKS_DEFAULT); }
 		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_COLOR, $"{value}"); }
 	}
 #else
@@ -153,9 +151,6 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 	/** 역직렬화 되었을 경우 */
 	public void OnAfterDeserialize() {
 		m_stSize = new Vector3Int(this.SizeX, this.SizeY, this.SizeZ);
-        
-        if(!ColorUtility.TryParseHtmlString(this.ColorHex, out m_stColor))
-            m_stColor = Color.white;
 	}
 	#endregion // IMessagePackSerializationCallbackReceiver
 

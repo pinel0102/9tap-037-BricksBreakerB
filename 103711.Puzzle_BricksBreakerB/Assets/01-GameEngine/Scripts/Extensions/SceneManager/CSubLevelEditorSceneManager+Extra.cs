@@ -14,27 +14,16 @@ namespace LevelEditorScene {
     public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate
     {
         public Vector2 currentCellSize => new Vector2(NSEngine.Access.MaxGridSize.x / (float)NSEngine.KDefine.E_DEF_NUM_CELLS.x, NSEngine.Access.MaxGridSize.y / (float)NSEngine.KDefine.E_DEF_NUM_CELLS.y);
+        public string drawCellColorHex => string.Format(FORMAT_HEX, ColorUtility.ToHtmlStringRGBA(drawCellColor));
         public Color drawCellColor = Color.white;
         public Color drawCellColorOld = Color.white;
 
-        private void SetCellColor(string _newColorHex)
-        {
-            drawCellColorOld = drawCellColor;
-
-            if(!ColorUtility.TryParseHtmlString(_newColorHex, out drawCellColor))
-                drawCellColor = Color.white;
-        }
-
-        private void SetCellColor(Color _newColor)
-        {
-            drawCellColorOld = drawCellColor;
-            drawCellColor = _newColor;
-        }
-
+        private List<KeyValuePair<EObjType, Button>> listScrollerCellView = new List<KeyValuePair<EObjType, Button>>();
+        private const string FORMAT_HEX = "#{0}";
 
 #region Initialize
 
-        private void SetupSpriteGrid(EObjKinds kinds, SpriteRenderer a_oOutObjSprite, Sprite _sprite)
+        private void SetupSpriteGrid(EObjType cellType, SpriteRenderer a_oOutObjSprite, Sprite _sprite, string _colorHex = GlobalDefine.COLOR_CELL_DEFAULT)
         {
             a_oOutObjSprite.drawMode = SpriteDrawMode.Sliced;
             a_oOutObjSprite.sprite = _sprite;
@@ -47,69 +36,54 @@ namespace LevelEditorScene {
             else
                 a_oOutObjSprite.size = a_oOutObjSprite.sprite.textureRect.size;
 
-            SetSpriteColor(kinds, a_oOutObjSprite);
+            a_oOutObjSprite.color = GlobalDefine.GetCellColor(cellType, _colorHex);
         }
 
-        private void SetupSpriteREUIs(EObjKinds kinds, Image _image)
+        private void SetupSpriteREUIs(EObjType cellType, Image _image, string _colorHex = GlobalDefine.COLOR_BRICKS_DEFAULT)
         {
-            SetSpriteColor(kinds, _image);
+            _image.color = GlobalDefine.GetCellColor(cellType, _colorHex);
         }
 
 #endregion Initialize
 
-        private void SetSpriteColor(EObjKinds kinds, SpriteRenderer _spriteRenderer)
+
+#region Cell Color
+
+        public void SetDrawCellColor(string _newColorHex)
         {
-            EObjType cellType = (EObjType)((int)kinds).ExKindsToType();
+            drawCellColorOld = drawCellColor;
 
-            Color _color = new Color();
+            if(!ColorUtility.TryParseHtmlString(_newColorHex, out drawCellColor))
+                drawCellColor = Color.white;
 
-            switch(cellType)
-            {
-                case EObjType.BALL:
-                    _color = GlobalDefine.BricksColor[2];
-                    break;
-                case EObjType.NORM_BRICKS:
-                    _color = GlobalDefine.BricksColor[1];
-                    break;
-                case EObjType.OBSTACLE_BRICKS:
-                case EObjType.ITEM_BRICKS:
-                case EObjType.SPECIAL_BRICKS:
-                    _color = GlobalDefine.BricksColor[0];
-                    break;
-                default:
-                    _color = GlobalDefine.BricksColor[0];
-                    break;
-            }
+            Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", drawCellColorHex));
 
-            _spriteRenderer.color = _color;
+            UpdateUIsState();
+            UpdateRightUIsColor();
         }
 
-        private void SetSpriteColor(EObjKinds kinds, Image _image)
+        public void SetDrawCellColor(Color _newColor)
         {
-            EObjType cellType = (EObjType)((int)kinds).ExKindsToType();
+            drawCellColorOld = drawCellColor;
+            drawCellColor = _newColor;
 
-            Color _color = new Color();
+            Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", drawCellColorHex));
 
-            switch(cellType)
-            {
-                case EObjType.BALL:
-                    _color = GlobalDefine.BricksColor[2];
-                    break;
-                case EObjType.NORM_BRICKS:
-                    _color = GlobalDefine.BricksColor[1];
-                    break;
-                case EObjType.OBSTACLE_BRICKS:
-                case EObjType.ITEM_BRICKS:
-                case EObjType.SPECIAL_BRICKS:
-                    _color = GlobalDefine.BricksColor[0];
-                    break;
-                default:
-                    _color = GlobalDefine.BricksColor[0];
-                    break;
-            }
-
-            _image.color = _color;
+            UpdateUIsState();
+            UpdateRightUIsColor();
         }
+
+        private void UpdateRightUIsColor()
+        {
+            for(int i = 0; i < listScrollerCellView.Count; ++i) {
+                SetupSpriteREUIs(listScrollerCellView[i].Key, listScrollerCellView[i].Value.image, drawCellColorHex);
+			}
+        }
+
+#endregion Cell Color
+
+
+#region Cell Text
 
         public void RefreshText(STCellObjInfo CellObjInfo, TMP_Text _text)
         {
@@ -153,6 +127,9 @@ namespace LevelEditorScene {
                 }
             }
         }
+
+#endregion Cell Text
+
     }
 }
 #endif
