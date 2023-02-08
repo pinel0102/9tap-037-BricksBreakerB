@@ -58,4 +58,7 @@ public static class GlobalDefine
     public const string formatAimText = "AIM\n{0}";
     public const string textON = "ON";
     public const string textOFF = "OFF";
+
+    // [JSON] Cell Info
+    public const string CELL_COLOR_DEFAULT = "#FFFFFFFF";
 }

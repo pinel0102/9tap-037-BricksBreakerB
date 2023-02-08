@@ -14,6 +14,25 @@ namespace LevelEditorScene {
     public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate
     {
         public Vector2 currentCellSize => new Vector2(NSEngine.Access.MaxGridSize.x / (float)NSEngine.KDefine.E_DEF_NUM_CELLS.x, NSEngine.Access.MaxGridSize.y / (float)NSEngine.KDefine.E_DEF_NUM_CELLS.y);
+        public Color drawCellColor = Color.white;
+        public Color drawCellColorOld = Color.white;
+
+        private void SetCellColor(string _newColorHex)
+        {
+            drawCellColorOld = drawCellColor;
+
+            if(!ColorUtility.TryParseHtmlString(_newColorHex, out drawCellColor))
+                drawCellColor = Color.white;
+        }
+
+        private void SetCellColor(Color _newColor)
+        {
+            drawCellColorOld = drawCellColor;
+            drawCellColor = _newColor;
+        }
+
+
+#region Initialize
 
         private void SetupSpriteGrid(EObjKinds kinds, SpriteRenderer a_oOutObjSprite, Sprite _sprite)
         {
@@ -35,6 +54,8 @@ namespace LevelEditorScene {
         {
             SetSpriteColor(kinds, _image);
         }
+
+#endregion Initialize
 
         private void SetSpriteColor(EObjKinds kinds, SpriteRenderer _spriteRenderer)
         {
