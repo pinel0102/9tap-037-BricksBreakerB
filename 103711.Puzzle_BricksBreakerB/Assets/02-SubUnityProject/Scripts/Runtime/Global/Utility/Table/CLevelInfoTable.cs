@@ -275,6 +275,10 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	#region 상수
 	private const string KEY_GRID_PIVOT = "GridPivot";
 	private const string KEY_CELL_INFO_VER = "CellInfoVer";
+
+    private const string KEY_VIEW_SIZE_X = "ViewSizeX";
+    private const string KEY_VIEW_SIZE_Y = "ViewSizeY";
+    private const string KEY_VIEW_SIZE_Z = "ViewSizeZ";
 	#endregion // 상수
 
 	#region 프로퍼티
@@ -293,7 +297,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 		set { m_oStrDict.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
 
-	[JsonIgnore] [IgnoreMember] public Dictionary<ulong, STTargetInfo> ClearTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
+    [JsonIgnore] [IgnoreMember] public Dictionary<ulong, STTargetInfo> ClearTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
 	[JsonIgnore] [IgnoreMember] public Dictionary<ulong, STTargetInfo> UnlockTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
 
 	[JsonIgnore] [IgnoreMember] public ulong ULevelID => CFactory.MakeULevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
@@ -311,7 +315,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 		set { m_oStrDict.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
 
-	[IgnoreMember] public Dictionary<ulong, STTargetInfo> ClearTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
+    [IgnoreMember] public Dictionary<ulong, STTargetInfo> ClearTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
 	[IgnoreMember] public Dictionary<ulong, STTargetInfo> UnlockTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
 
 	[IgnoreMember] public ulong ULevelID => CFactory.MakeULevelID(m_stIDInfo.m_nID01, m_stIDInfo.m_nID02, m_stIDInfo.m_nID03);
@@ -356,7 +360,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 			// Do Something
 		}
 
-        this.GridPivot = EGridPivot.DOWN;
+        this.SetExtraValues();
 	}
 
 	/** 셀 객체 정보를 설정한다 */
