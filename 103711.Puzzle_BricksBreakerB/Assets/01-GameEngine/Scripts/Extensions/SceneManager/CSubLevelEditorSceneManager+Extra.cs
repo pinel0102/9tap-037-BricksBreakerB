@@ -13,6 +13,8 @@ using TMPro;
 namespace LevelEditorScene {
     public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate
     {
+        public GameObject colorPickerObject;
+        public ColorPicker colorPicker;
         public Vector2 currentCellSize => new Vector2(NSEngine.Access.MaxGridSize.x / (float)NSEngine.KDefine.E_DEF_NUM_CELLS.x, NSEngine.Access.MaxGridSize.y / (float)NSEngine.KDefine.E_DEF_NUM_CELLS.y);
         public string drawCellColorHex => string.Format(FORMAT_HEX, ColorUtility.ToHtmlStringRGBA(drawCellColor));
         public Color drawCellColor = Color.white;
@@ -22,6 +24,14 @@ namespace LevelEditorScene {
         private const string FORMAT_HEX = "#{0}";
 
 #region Initialize
+
+        private void ExtraStart()
+        {
+            OnCloseColorPicker();
+
+            colorPicker.onColorChanged += SetDrawCellColor;
+            colorPicker.awakeColor = drawCellColor;
+        }
 
         private void SetupSpriteGrid(EObjType cellType, SpriteRenderer a_oOutObjSprite, Sprite _sprite, string _colorHex = GlobalDefine.COLOR_CELL_DEFAULT)
         {
@@ -49,6 +59,18 @@ namespace LevelEditorScene {
 
 #region Cell Color
 
+        public void OnToggleColorPicker()
+        {
+            colorPicker.OnClickRevert();
+            colorPickerObject.SetActive(!colorPickerObject.activeInHierarchy);
+        }
+
+        public void OnCloseColorPicker()
+        {
+            colorPicker.OnClickRevert();
+            colorPickerObject.SetActive(false);
+        }
+
         public void SetDrawCellColor(string _newColorHex)
         {
             drawCellColorOld = drawCellColor;
@@ -56,7 +78,7 @@ namespace LevelEditorScene {
             if(!ColorUtility.TryParseHtmlString(_newColorHex, out drawCellColor))
                 drawCellColor = Color.white;
 
-            Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", drawCellColorHex));
+            //Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", drawCellColorHex));
 
             UpdateUIsState();
             UpdateRightUIsColor();
@@ -67,7 +89,7 @@ namespace LevelEditorScene {
             drawCellColorOld = drawCellColor;
             drawCellColor = _newColor;
 
-            Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", drawCellColorHex));
+            //Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", drawCellColorHex));
 
             UpdateUIsState();
             UpdateRightUIsColor();

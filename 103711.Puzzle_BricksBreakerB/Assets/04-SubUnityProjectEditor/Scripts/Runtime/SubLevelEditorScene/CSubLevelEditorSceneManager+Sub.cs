@@ -87,7 +87,7 @@ namespace LevelEditorScene {
 
 		/** 초기화 */
 		private void SubStart() {
-			// Do Something
+			ExtraStart();
 		}
 
 		/** 상태를 갱신한다 */

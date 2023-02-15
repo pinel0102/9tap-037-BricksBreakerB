@@ -29,7 +29,6 @@ public class ColorPicker : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
     float h, s, v;
 
     public Color awakeColor = Color.white;
-    public float alpha;
     public string colorHex => string.Format(FORMAT_HEX, ColorUtility.ToHtmlStringRGBA(color));
     private const string FORMAT_HEX = "#{0}";
 
@@ -43,6 +42,8 @@ public class ColorPicker : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
     }
 
     public event Action<Color> onColorChanged;
+    public event Action onColorApply;
+    public event Action onColorRevert;
 
     private void Awake()
     {
@@ -50,7 +51,6 @@ public class ColorPicker : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
         image = GetComponent<Image>();
 
         h = s = v = 0;
-        alpha = 1f;
 
         Color.RGBToHSV(awakeColor, out h, out s, out v);
 
@@ -145,6 +145,16 @@ public class ColorPicker : MonoBehaviour, IPointerDownHandler, IDragHandler, IPo
     public void OnPointerUp(PointerEventData eventData)
     {
         pointerDownLocation = PointerDownLocation.Outside;
+    }
+
+    public void OnClickApply()
+    {
+        onColorApply?.Invoke();
+    }
+
+    public void OnClickRevert()
+    {
+        onColorRevert?.Invoke();
     }
 
     private void ApplyColor()
