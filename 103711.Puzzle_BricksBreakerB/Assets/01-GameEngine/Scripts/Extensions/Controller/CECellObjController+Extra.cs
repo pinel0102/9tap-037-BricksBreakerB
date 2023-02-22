@@ -5,6 +5,8 @@ using UnityEngine;
 namespace NSEngine {
     public partial class CECellObjController : CEObjController
     {
+        public bool hideReserved;
+
         private Coroutine hitCoroutine;
 
         public void GetDamage(int _ATK)
@@ -64,6 +66,20 @@ namespace NSEngine {
                     Debug.Log(CodeManager.GetMethodName() + string.Format("<color=red>{0}</color>", kindsType));
                     break;
             }
+        }
+
+        ///<Summary>셀 숨기기가 예약되었으면 셀을 숨긴다.</Summary>
+        public void HideReservedCell()
+        {
+            if (hideReserved)
+                CellDestroy();
+        }
+
+        ///<Summary>턴 종료시 셀 숨기기를 예약한다.</Summary>
+        private void SetHideReserved(bool _hideAfterTurnEnd = true)
+        {
+            if (hideReserved != _hideAfterTurnEnd)
+                hideReserved = _hideAfterTurnEnd;
         }
         
         private void HitEffect()

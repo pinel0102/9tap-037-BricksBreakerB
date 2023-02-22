@@ -156,6 +156,8 @@ namespace NSEngine {
             } 
             else if (!isLevelFail && !isGridMoving)
             {
+                this.TurnEndAction();
+
                 this.ExLateCallFunc((a_oFuncSender) => {
                     StartCoroutine(CO_MoveCellRoot(KCDefine.B_VAL_1_INT));
                     }, KCDefine.B_VAL_0_3_REAL);
@@ -201,6 +203,36 @@ namespace NSEngine {
             }
         }
 
+        ///<Summary>턴 종료시 셀이 내려오기 전에 발동.</Summary>
+        private void TurnEndAction()
+        {
+            for(int i = 0; i < this.CellObjLists.GetLength(KCDefine.B_VAL_0_INT); ++i) {
+				for(int j = 0; j < this.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); ++j) {
+					for(int k = 0; k < this.CellObjLists[i, j].Count; ++k) {
+						// 셀이 존재 할 경우
+						if(this.CellObjLists[i, j][k].gameObject.activeSelf) {
+                            CEObj target = this.CellObjLists[i, j][k];
+                            if (target != null)
+                            {
+                                EObjKinds kindsType = (EObjKinds)((int)target.CellObjInfo.ObjKinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
+                                
+                                switch(kindsType)
+                                {
+                                    case EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01:
+                                    case EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01:
+                                    case EObjKinds.SPECIAL_BRICKS_LASER_CROSS_01:
+                                        if(target.TryGetComponent<CECellObjController>(out CECellObjController oController))
+                                        {
+                                            oController.HideReservedCell();
+                                        }
+                                        break;
+                                }
+                            }
+						}
+					}
+				}
+			}
+        }
 
 #endregion Private Methods
 

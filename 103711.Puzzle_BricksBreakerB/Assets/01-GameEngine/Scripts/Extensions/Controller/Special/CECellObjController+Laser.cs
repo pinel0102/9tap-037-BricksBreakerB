@@ -17,6 +17,8 @@ namespace NSEngine {
                 case EObjKinds.SPECIAL_BRICKS_LASER_CROSS_01:       Laser_Cross(_ATK); break;
                 default: break;
             }
+
+            this.SetHideReserved();
         }
 
         private void Laser_Horizontal(int _ATK = KCDefine.B_VAL_1_INT)

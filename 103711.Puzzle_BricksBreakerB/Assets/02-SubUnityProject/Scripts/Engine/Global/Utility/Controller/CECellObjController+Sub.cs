@@ -60,7 +60,7 @@ namespace NSEngine {
 
 		/** 초기화한다 */
 		private void SubInit() {
-			// Do Something
+			this.SetHideReserved(false);
 		}
 		#endregion // 함수
 	}
