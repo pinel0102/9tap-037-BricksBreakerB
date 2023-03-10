@@ -317,3 +317,10 @@ namespace NSEngine {
 
     }
 }
+
+public enum FXType
+{
+    NONE,
+    LASER,
+    FIREBALL,
+}

@@ -13,9 +13,9 @@ namespace NSEngine {
         public int column;
         public int layer;
 
-        public void SetSpriteColor(EObjType cellType)
+        public void SetSpriteColor(EObjKinds cellKinds)
         {
-            this.TargetSprite.color = GlobalDefine.GetCellColor(cellType, CellObjInfo.ColorHex);
+            this.TargetSprite.color = GlobalDefine.GetCellColor(cellKinds, CellObjInfo.ColorHex);
         }
 
         public void RefreshText(EObjType cellType)

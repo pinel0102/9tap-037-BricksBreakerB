@@ -46,7 +46,10 @@ public partial class CResultPopup : CSubPopup {
 	public STParams Params { get; private set; }
 	public override bool IsIgnoreCloseBtn => true;
 
-    private const string U_OBJ_N_RETRY_BTN_2 = "RETRY_BTN_2";
+    public TMP_Text[] levelText;
+    private const string formatLevel = "Level {0}";
+
+    private const string U_OBJ_N_LEAVE_BTN_2 = "LEAVE_BTN_2";    
 	#endregion // 프로퍼티
 
 	#region 함수
@@ -72,7 +75,7 @@ public partial class CResultPopup : CSubPopup {
 			(KCDefine.U_OBJ_N_NEXT_BTN, this.Contents, this.OnTouchNextBtn),
 			(KCDefine.U_OBJ_N_RETRY_BTN, this.Contents, this.OnTouchRetryBtn),
             (KCDefine.U_OBJ_N_LEAVE_BTN, this.Contents, this.OnTouchLeaveBtn),
-            (U_OBJ_N_RETRY_BTN_2, this.Contents, this.OnTouchRetryBtn)
+            (U_OBJ_N_LEAVE_BTN_2, this.Contents, this.OnTouchLeaveBtn)
 		});
 
 		this.SubAwake();
@@ -82,6 +85,8 @@ public partial class CResultPopup : CSubPopup {
 	public virtual void Init(STParams a_stParams) {
 		base.Init();
 		this.Params = a_stParams;
+
+        levelText[0].text = levelText[1].text = string.Format(formatLevel, CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).Engine.currentLevel);
 
 		this.SubInit();
 	}

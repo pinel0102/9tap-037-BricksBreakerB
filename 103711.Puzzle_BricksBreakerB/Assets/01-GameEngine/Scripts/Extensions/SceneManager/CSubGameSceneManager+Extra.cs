@@ -8,11 +8,16 @@ namespace GameScene {
         public NSEngine.CEngine Engine = null;
         
         [Header("★ [Reference] Extra")]
-        public TMPro.TMP_Text aimText;
-
+        public GameObject goldenAimOn;
+        public GameObject[] darkModeButton;
+        public GameObject[] darkModeBackground;
+        
         private void AssignEngine()
         {
             Engine = m_oEngine;
+            
+            ApplyDarkMode(CUserInfoStorage.Inst.UserInfo.Settings_DarkMode);
+            goldenAimOn.SetActive(Engine.isGoldAim);
         }
 
         public void HideShootUIs()
@@ -26,7 +31,23 @@ namespace GameScene {
         {
             Engine.ToggleAimLayer();
 
-            aimText.SetText(string.Format(GlobalDefine.formatAimText, Engine.isGoldAim ? GlobalDefine.textON : GlobalDefine.textOFF));
+            goldenAimOn.SetActive(Engine.isGoldAim);
+        }
+
+        public void SetDarkMode(bool isDarkMode)
+        {
+            CUserInfoStorage.Inst.UserInfo.Settings_DarkMode = isDarkMode;
+            CUserInfoStorage.Inst.SaveUserInfo();
+
+            ApplyDarkMode(isDarkMode);
+        }
+
+        private void ApplyDarkMode(bool isDarkMode)
+        {
+            darkModeButton[0].SetActive(!isDarkMode);
+            darkModeButton[1].SetActive(isDarkMode);
+            darkModeBackground[0].SetActive(isDarkMode);
+            darkModeBackground[1].SetActive(!isDarkMode);
         }
     }
 }

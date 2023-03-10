@@ -51,6 +51,7 @@ namespace LevelEditorScene {
 
 			ME_UIS_DRAW_MODE_TOGGLE,
 			ME_UIS_PAINT_MODE_TOGGLE,
+            ME_UIS_SELECT_MODE_TOGGLE,
 
 			LE_UIS_A_SET_BTN,
 			LE_UIS_B_SET_BTN,
@@ -109,6 +110,7 @@ namespace LevelEditorScene {
 			NONE = -1,
 			DRAW,
 			PAINT,
+            SELECT,
 			[HideInInspector] MAX_VAL
 		}
 
@@ -351,7 +353,7 @@ namespace LevelEditorScene {
 				this.ExLateCallFunc((a_oSender) => {
 					bool bIsValid = KDefine.LES_OBJ_KINDS_DICT_CONTAINER.TryGetValue(KCDefine.B_VAL_0_INT, out List<EObjKinds> oObjKindsList);
 
-					this.SetMEUIsEditorMode(true, false);
+					this.SetMEUIsEditorMode(true, false, false);
 					this.OnTouchREUIsPageUIs02ScrollerCellViewBtn(bIsValid ? oObjKindsList.ExGetVal(KCDefine.B_VAL_0_INT, EObjKinds.NONE) : EObjKinds.NONE);
 				}, KCDefine.U_DELAY_INIT);
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -551,7 +553,7 @@ namespace LevelEditorScene {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			// 에디터 모드 키를 눌렀을 경우
 			if(Input.GetKeyDown(KeyCode.E)) {
-				this.SetMEUIsEditorMode(m_oEditorModeDict[EKey.SEL_EDITOR_MODE] != EEditorMode.DRAW, m_oEditorModeDict[EKey.SEL_EDITOR_MODE] != EEditorMode.PAINT);
+				this.SetMEUIsEditorMode(m_oEditorModeDict[EKey.SEL_EDITOR_MODE] != EEditorMode.DRAW, m_oEditorModeDict[EKey.SEL_EDITOR_MODE] != EEditorMode.PAINT, m_oEditorModeDict[EKey.SEL_EDITOR_MODE] != EEditorMode.SELECT);
 			}
 
 			// 리셋 키를 눌렀을 경우
@@ -694,7 +696,7 @@ namespace LevelEditorScene {
 				}
 			}
 
-            this.SetupSpriteGrid(EObjType.NONE, m_oSpriteDict[EKey.SEL_OBJ_SPRITE], Access.GetEditorObjSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+            this.SetupSpriteGrid(EObjType.NONE, EObjKinds.NONE, m_oSpriteDict[EKey.SEL_OBJ_SPRITE], Access.GetEditorObjSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
 			//m_oSpriteDict[EKey.SEL_OBJ_SPRITE]?.ExSetSprite<SpriteRenderer>(Access.GetEditorObjSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
             
 			// 객체 스프라이트를 설정한다 }
@@ -821,7 +823,7 @@ namespace LevelEditorScene {
 
 		/** 객체 스프라이트를 설정한다 */
 		private void SetupObjSprite(STCellInfo a_stCellInfo, STCellObjInfo a_stCellObjInfo, SpriteRenderer a_oOutObjSprite) {
-			this.SetupSpriteGrid((EObjType)((int)a_stCellObjInfo.ObjKinds).ExKindsToType(), a_oOutObjSprite, Access.GetEditorObjSprite(a_stCellObjInfo.ObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE), a_stCellObjInfo.ColorHex);
+			this.SetupSpriteGrid((EObjType)((int)a_stCellObjInfo.ObjKinds).ExKindsToType(), a_stCellObjInfo.ObjKinds, a_oOutObjSprite, Access.GetEditorObjSprite(a_stCellObjInfo.ObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE), a_stCellObjInfo.ColorHex);
             //a_oOutObjSprite.sprite = Access.GetEditorObjSprite(a_stCellObjInfo.ObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE);
 			a_oOutObjSprite.transform.localPosition = this.SelGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(NSEngine.Access.CellCenterOffset, NSEngine.Access.CellSize);
 
@@ -1393,11 +1395,13 @@ namespace LevelEditorScene {
 			// 토글을 설정한다 {
 			CFunc.SetupToggles(new List<(EKey, string, GameObject, UnityAction<bool>)>() {
 				(EKey.ME_UIS_DRAW_MODE_TOGGLE, $"{EKey.ME_UIS_DRAW_MODE_TOGGLE}", this.MidEditorUIs, this.OnTouchMEUIsEditorModeToggle),
-				(EKey.ME_UIS_PAINT_MODE_TOGGLE, $"{EKey.ME_UIS_PAINT_MODE_TOGGLE}", this.MidEditorUIs, this.OnTouchMEUIsEditorModeToggle)
+				(EKey.ME_UIS_PAINT_MODE_TOGGLE, $"{EKey.ME_UIS_PAINT_MODE_TOGGLE}", this.MidEditorUIs, this.OnTouchMEUIsEditorModeToggle),
+                (EKey.ME_UIS_SELECT_MODE_TOGGLE, $"{EKey.ME_UIS_SELECT_MODE_TOGGLE}", this.MidEditorUIs, this.OnTouchMEUIsEditorModeToggle)
 			}, m_oToggleDict);
 
 			m_oToggleDict[EKey.ME_UIS_DRAW_MODE_TOGGLE]?.SetIsOnWithoutNotify(true);
 			m_oToggleDict[EKey.ME_UIS_PAINT_MODE_TOGGLE]?.SetIsOnWithoutNotify(false);
+            m_oToggleDict[EKey.ME_UIS_SELECT_MODE_TOGGLE]?.SetIsOnWithoutNotify(false);
 			// 토글을 설정한다 }
 
 			// 스크롤 바를 설정한다
@@ -1419,7 +1423,7 @@ namespace LevelEditorScene {
 			m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG]?.gameObject.SetActive(m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid());
 			m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG]?.ExSetSprite<Image>(Access.GetEditorObjSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
 
-            SetupSpriteREUIs((EObjType)((int)m_oObjKindsDict[EKey.SEL_OBJ_KINDS]).ExKindsToType(), m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG], drawCellColorHex);
+            SetupSpriteREUIs(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG], drawCellColorHex);
 
 			// 버튼을 갱신한다 {
 			m_oBtnDict[EKey.ME_UIS_PREV_GRID_BTN]?.ExSetInteractable(m_oGridInfoList.ExIsValidIdx(this.SelGridInfoIdx - KCDefine.B_VAL_1_INT));
@@ -1562,8 +1566,9 @@ namespace LevelEditorScene {
 		private void OnTouchMEUIsEditorModeToggle(bool a_bIsTrue) {
 			bool bIsDraw = m_oToggleDict[EKey.ME_UIS_DRAW_MODE_TOGGLE] != null && m_oToggleDict[EKey.ME_UIS_DRAW_MODE_TOGGLE].isOn;
 			bool bIsPaint = m_oToggleDict[EKey.ME_UIS_PAINT_MODE_TOGGLE] != null && m_oToggleDict[EKey.ME_UIS_PAINT_MODE_TOGGLE].isOn;
+            bool bIsSelect = m_oToggleDict[EKey.ME_UIS_SELECT_MODE_TOGGLE] != null && m_oToggleDict[EKey.ME_UIS_SELECT_MODE_TOGGLE].isOn;
 
-			this.SetMEUIsEditorMode(bIsDraw, bIsPaint);
+			this.SetMEUIsEditorMode(bIsDraw, bIsPaint, bIsSelect);
 		}
 
 		/** 중앙 에디터 UI 그리드 스크롤 바 값이 변경 되었을 경우 */
@@ -1579,11 +1584,12 @@ namespace LevelEditorScene {
 		#region 조건부 접근자 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		/** 중앙 에디터 UI 에디터 모드를 변경한다 */
-		private void SetMEUIsEditorMode(bool a_bIsDraw, bool a_bIsPaint) {
-			m_oEditorModeDict[EKey.SEL_EDITOR_MODE] = a_bIsDraw ? EEditorMode.DRAW : EEditorMode.PAINT;
+		private void SetMEUIsEditorMode(bool a_bIsDraw, bool a_bIsPaint, bool a_bIsSelect) {
+			m_oEditorModeDict[EKey.SEL_EDITOR_MODE] = a_bIsDraw ? EEditorMode.DRAW : (a_bIsPaint ? EEditorMode.PAINT : EEditorMode.SELECT);
 
 			m_oToggleDict[EKey.ME_UIS_DRAW_MODE_TOGGLE]?.SetIsOnWithoutNotify(a_bIsDraw);
 			m_oToggleDict[EKey.ME_UIS_PAINT_MODE_TOGGLE]?.SetIsOnWithoutNotify(a_bIsPaint);
+            m_oToggleDict[EKey.ME_UIS_SELECT_MODE_TOGGLE]?.SetIsOnWithoutNotify(a_bIsSelect);
 
 			this.UpdateUIsState();
 		}
@@ -1888,11 +1894,26 @@ namespace LevelEditorScene {
 					oBtn.image.ExSetEnable(eObjKinds != EObjKinds.NONE);
 					oBtn.image.sprite = Access.GetEditorObjSprite(eObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE);
 
-                    EObjType cellType = (EObjType)((int)eObjKinds).ExKindsToType();
-                    SetupSpriteREUIs(cellType, oBtn.image, drawCellColorHex);
-                    listScrollerCellView.Add(new KeyValuePair<EObjType, Button>(cellType, oBtn));
+                    //EObjType cellType = (EObjType)((int)eObjKinds).ExKindsToType();
+                    SetupSpriteREUIs(eObjKinds, oBtn.image, drawCellColorHex);
+                    listScrollerCellView.Add(new KeyValuePair<EObjKinds, Button>(eObjKinds, oBtn));
 
 					oBtn.onClick.AddListener(() => this.OnTouchREUIsPageUIs02ScrollerCellViewBtn(eObjKinds));
+
+                    Text _text = oBtn.GetComponentInChildren<Text>();
+                    if (_text != null)
+                    {
+                        EObjKinds kindsType = (EObjKinds)((int)eObjKinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
+                        switch(kindsType)
+                        {
+                            case EObjKinds.ITEM_BRICKS_BALL_01:
+                                _text.text = string.Format("+{0}", GlobalDefine.GetItem_BallPlus[((int)eObjKinds).ExKindsToDetailSubKindsTypeVal()]);
+                                break;
+                            default:
+                                _text.text = string.Empty;
+                                break;
+                        }
+                    }
 				}
 			}
 		}

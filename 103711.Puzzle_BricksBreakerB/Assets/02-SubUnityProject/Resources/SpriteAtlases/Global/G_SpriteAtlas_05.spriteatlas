@@ -114,7 +114,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 9b7ca9e112299459e98e07edafd5279e, type: 3}
   - {fileID: 21300000, guid: 645071f1c9d9e4006b554c5ee12f4f1a, type: 3}
   - {fileID: 21300000, guid: a387dff1bff85495592bede68be5c8a5, type: 3}
-  - {fileID: 21300000, guid: aaf429220361d4fa7a258f2e8e557b1e, type: 3}
   - {fileID: 21300000, guid: 0ab01e22d1e444655996c7a0a9053f4e, type: 3}
   - {fileID: 21300000, guid: e3dcd432bd81141cbbc517f0aca4597a, type: 3}
   - {fileID: 21300000, guid: e681394201e514d0c83f5e80bf192191, type: 3}
@@ -122,7 +121,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 49985872328ae4431ab6a9c2ec0a69cf, type: 3}
   - {fileID: 21300000, guid: 62b9139282dd24d4bb06e9d719d1ff77, type: 3}
   - {fileID: 21300000, guid: ac8f06e277929444dbfd190521c4f7e0, type: 3}
-  - {fileID: 21300000, guid: 2aa9d803712b145aebf89b60dcb1d900, type: 3}
   - {fileID: 21300000, guid: 2ac1b913720d84c5e94f435e1205354c, type: 3}
   - {fileID: 21300000, guid: 5c78cb633e6dd44a0af6471b2a24ec57, type: 3}
   - {fileID: 21300000, guid: 09d62a7382dc24c1c92d489e84354306, type: 3}
@@ -134,12 +132,10 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 750ed6f4b58f64c5a9414bc54cbd6c88, type: 3}
   - {fileID: 21300000, guid: d9e170159ead046ba9527a6822f5810c, type: 3}
   - {fileID: 21300000, guid: 8b2be7350fb7b47f3b3279b34c317a81, type: 3}
-  - {fileID: 21300000, guid: f3a239459e2314450a3e958656cbd1f1, type: 3}
   - {fileID: 21300000, guid: e7202cc5d55dc452dbdfb230a7f1b38f, type: 3}
   - {fileID: 21300000, guid: 4b418bd52d9f24ebaab648af1ee3665a, type: 3}
   - {fileID: 21300000, guid: 3e30b9e5f509245d2a1141fda297abe2, type: 3}
   - {fileID: 21300000, guid: af1adfe543fd749b2b3f6d4c8140fbea, type: 3}
-  - {fileID: 21300000, guid: 56dd3e164a3a44c4d9202773d0816d6a, type: 3}
   - {fileID: 21300000, guid: cea8d246e20264e2984281e796227f89, type: 3}
   - {fileID: 21300000, guid: 96d077b61a4394698bb0c5402029bc6e, type: 3}
   - {fileID: 21300000, guid: 91c0dab6927824443ad3cdf5651a5ca8, type: 3}
@@ -151,7 +147,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 12db66d834ed54ef28cafe481b7e0fd7, type: 3}
   - {fileID: 21300000, guid: 832c7bd8900204ed28794b8c40ad7a59, type: 3}
   - {fileID: 21300000, guid: 90de4cd8e5f8140f9ab3768a78151621, type: 3}
-  - {fileID: 21300000, guid: 66af5cd8011c04da088a8ada5073755d, type: 3}
   - {fileID: 21300000, guid: 87c893f8701574322a6944f5fffaad71, type: 3}
   - {fileID: 21300000, guid: 2ac10d091bcd14c538ad7d3280ced6d2, type: 3}
   - {fileID: 21300000, guid: facbc329ce6b5463f8ca69f265ca4e14, type: 3}
@@ -179,7 +174,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 9ee0078b111984289bcd7d0a265893a1, type: 3}
   - {fileID: 21300000, guid: f8f72a8b46cea45cba36b40dde862419, type: 3}
   - {fileID: 21300000, guid: d639b8abb0a8c4298b8397f12ff901e1, type: 3}
-  - {fileID: 21300000, guid: 9ac669cb71dca474a963251cef7ec5e3, type: 3}
   - {fileID: 21300000, guid: 3ba3470cc801547d5baae2fc1d5b170e, type: 3}
   - {fileID: 21300000, guid: 3a3dcb1ca1e2b42f08be314149616bae, type: 3}
   - {fileID: 21300000, guid: a08ecc1c704884a3c8a08f1e2c4167a6, type: 3}
@@ -222,7 +216,6 @@ SpriteAtlas:
   - UI_Icon_Jump
   - UI_Ingame_Item_GoldenAim
   - UI_Icon_Map
-  - UI_Ingame_Middle_Item_Laser01
   - UI_Img_Ingame_Gauge_BG
   - UI_Btn_Ingame_Item
   - UI_Icon_EditProfile
@@ -230,7 +223,6 @@ SpriteAtlas:
   - UI_Btn_Popup_Exit
   - UI_BG_Rounded_12
   - UI_Btn_Ingame_Pause
-  - UI_Ingame_Middle_Item_Steel02
   - UI_Icon_Hard_Locked
   - UI_Icon_Next
   - UI_Icon_Ingame_BringTheBall
@@ -242,12 +234,10 @@ SpriteAtlas:
   - UI_Btn_Ingame_Ball
   - UI_Profile_Img03
   - UI_Img_Triangle60
-  - UI_Ingame_Middle_Item_Steel01
   - UI_Profile_Img04
   - UI_Img_Effect_Glow
   - UI_Icon_Setting
   - UI_Icon_Star
-  - UI_Ingame_Middle_Item_Laser02
   - UI_Icon_FastForward
   - UI_Btn_Ingame_Info
   - UI_Ingame_Item_AddBall
@@ -259,7 +249,6 @@ SpriteAtlas:
   - UI_Icon_Normal_Opened
   - UI_Icon_Coin02
   - UI_Img_Ingame_Gauge_Full
-  - UI_Ingame_Middle_Item_FireBall
   - UI_Icon_Lobby_Leaderboard
   - UI_Img_BallGuideLine
   - UI_Icon_GoldenAim
@@ -287,7 +276,6 @@ SpriteAtlas:
   - UI_Icon_Lobby_Album
   - UI_Btn_Ingame_Item_Empty
   - UI_Profile_Img10
-  - "\x10UI_Img_Check"
   - UI_Btn_Ingame_lightmode
   - UI_Icon_Facebook
   - UI_Icon_Replay

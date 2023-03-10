@@ -26,29 +26,29 @@ MonoBehaviour:
     m_oAppID: com.ninetap.puzzlebricksbreakerb
     m_oStoreAppID: 1610049465
     m_stBuildVerInfo:
-      m_nNum: 3
-      m_oVer: 0.0.3
+      m_nNum: 4
+      m_oVer: 0.0.4
   m_stAndroidGoogleProjInfo:
     m_oAppID: com.ninetap.puzzlebricksbreakerb
     m_oStoreAppID: 
     m_stBuildVerInfo:
-      m_nNum: 3
-      m_oVer: 0.0.3
+      m_nNum: 4
+      m_oVer: 0.0.4
   m_stAndroidAmazonProjInfo:
     m_oAppID: com.ninetap.puzzlebricksbreakerb
     m_oStoreAppID: 
     m_stBuildVerInfo:
-      m_nNum: 3
-      m_oVer: 0.0.3
+      m_nNum: 4
+      m_oVer: 0.0.4
   m_stStandaloneMacSteamProjInfo:
     m_oAppID: com.ninetap.puzzlebricksbreakerb
     m_oStoreAppID: 
     m_stBuildVerInfo:
-      m_nNum: 3
-      m_oVer: 0.0.3
+      m_nNum: 4
+      m_oVer: 0.0.4
   m_stStandaloneWndsSteamProjInfo:
     m_oAppID: com.ninetap.puzzlebricksbreakerb
     m_oStoreAppID: 
     m_stBuildVerInfo:
-      m_nNum: 3
-      m_oVer: 0.0.3
+      m_nNum: 4
+      m_oVer: 0.0.4

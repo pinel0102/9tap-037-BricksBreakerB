@@ -20,7 +20,7 @@ namespace LevelEditorScene {
         public Color drawCellColor = Color.white;
         public Color drawCellColorOld = Color.white;
 
-        private List<KeyValuePair<EObjType, Button>> listScrollerCellView = new List<KeyValuePair<EObjType, Button>>();
+        private List<KeyValuePair<EObjKinds, Button>> listScrollerCellView = new List<KeyValuePair<EObjKinds, Button>>();
         private const string FORMAT_HEX = "#{0}";
 
 #region Initialize
@@ -33,7 +33,7 @@ namespace LevelEditorScene {
             colorPicker.awakeColor = drawCellColor;
         }
 
-        private void SetupSpriteGrid(EObjType cellType, SpriteRenderer a_oOutObjSprite, Sprite _sprite, string _colorHex = GlobalDefine.COLOR_CELL_DEFAULT)
+        private void SetupSpriteGrid(EObjType cellType, EObjKinds cellKinds, SpriteRenderer a_oOutObjSprite, Sprite _sprite, string _colorHex = GlobalDefine.COLOR_CELL_DEFAULT)
         {
             a_oOutObjSprite.drawMode = SpriteDrawMode.Sliced;
             a_oOutObjSprite.sprite = _sprite;
@@ -46,12 +46,12 @@ namespace LevelEditorScene {
             else
                 a_oOutObjSprite.size = a_oOutObjSprite.sprite.textureRect.size;
 
-            a_oOutObjSprite.color = GlobalDefine.GetCellColor(cellType, _colorHex);
+            a_oOutObjSprite.color = GlobalDefine.GetCellColor(cellKinds, _colorHex);
         }
 
-        private void SetupSpriteREUIs(EObjType cellType, Image _image, string _colorHex = GlobalDefine.COLOR_BRICKS_DEFAULT)
+        private void SetupSpriteREUIs(EObjKinds cellKinds, Image _image, string _colorHex = GlobalDefine.COLOR_BRICKS_DEFAULT)
         {
-            _image.color = GlobalDefine.GetCellColor(cellType, _colorHex);
+            _image.color = GlobalDefine.GetCellColor(cellKinds, _colorHex);
         }
 
 #endregion Initialize

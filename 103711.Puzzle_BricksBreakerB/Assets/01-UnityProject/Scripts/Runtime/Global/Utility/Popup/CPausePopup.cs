@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+using TMPro;
+
 /** 정지 팝업 */
 public partial class CPausePopup : CSubPopup {
 	/** 식별자 */
@@ -34,6 +36,9 @@ public partial class CPausePopup : CSubPopup {
 
 	#region 프로퍼티
 	public STParams Params { get; private set; }
+
+    public TMP_Text levelText;
+    private const string formatLevel = "Level {0}";
 	#endregion // 프로퍼티
 
 	#region 함수
@@ -54,6 +59,8 @@ public partial class CPausePopup : CSubPopup {
 	public virtual void Init(STParams a_stParams) {
 		base.Init();
 		this.Params = a_stParams;
+
+        levelText.text = string.Format(formatLevel, CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).Engine.currentLevel);
 
 		this.SubInit();
 	}

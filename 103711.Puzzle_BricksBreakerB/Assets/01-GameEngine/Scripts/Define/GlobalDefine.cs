@@ -53,15 +53,34 @@ public static class GlobalDefine
     public const string COLOR_CELL_DEFAULT = "#FFFFFFFF";
     public const string COLOR_BRICKS_DEFAULT = "#407AD9FF";
     public const string COLOR_BALL_DEFAULT = "#FF0000FF";
+    public const string COLOR_ITEM_BALLPLUS = "#FF6B3FFF";
+    public const string COLOR_FX_LASER = "#CCFF74FF";
 
-    public static Color GetCellColor(EObjType cellType, string _colorHex = GlobalDefine.COLOR_CELL_DEFAULT)
+    public static Color GetCellColor(EObjKinds kinds, string _colorHex = GlobalDefine.COLOR_CELL_DEFAULT)
     {
+        EObjType cellType = (EObjType)((int)kinds).ExKindsToType();
+        EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
+
         switch(cellType)
         {
             case EObjType.BALL:
                 _colorHex = GlobalDefine.COLOR_BALL_DEFAULT;
                 break;
             case EObjType.NORM_BRICKS:
+                break;
+            case EObjType.ITEM_BRICKS:
+                switch(kindsType)
+                {
+                    case EObjKinds.ITEM_BRICKS_BALL_01:
+                        _colorHex = GlobalDefine.COLOR_ITEM_BALLPLUS; 
+                        break;
+                    default: 
+                        _colorHex = GlobalDefine.COLOR_CELL_DEFAULT; 
+                        break;
+                }
+                break;
+            case EObjType.SPECIAL_BRICKS:
+                _colorHex = GlobalDefine.COLOR_CELL_DEFAULT;
                 break;
             default:
                 _colorHex = GlobalDefine.COLOR_CELL_DEFAULT;

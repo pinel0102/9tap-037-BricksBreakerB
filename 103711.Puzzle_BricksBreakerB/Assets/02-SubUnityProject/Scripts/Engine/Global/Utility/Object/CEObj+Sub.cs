@@ -167,10 +167,13 @@ namespace NSEngine {
 		public void SetCellObjInfo(STCellObjInfo a_stCellObjInfo) {
 			this.CellObjInfo = a_stCellObjInfo;
             
-            EObjType cellType = (EObjType)((int)CellObjInfo.ObjKinds).ExKindsToType();
-
-            SetSpriteColor(cellType);
-			RefreshText(cellType);
+            if (a_stCellObjInfo.ObjKinds != EObjKinds.NONE)
+            {
+                EObjType cellType = (EObjType)((int)CellObjInfo.ObjKinds).ExKindsToType();
+                
+                SetSpriteColor(CellObjInfo.ObjKinds);
+                RefreshText(cellType);
+            }
 		}
 		#endregion // 접근자 함수
 	}
