@@ -120,6 +120,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 4b2021727782140d0b90583ef305092b, type: 3}
   - {fileID: 21300000, guid: 49985872328ae4431ab6a9c2ec0a69cf, type: 3}
   - {fileID: 21300000, guid: 62b9139282dd24d4bb06e9d719d1ff77, type: 3}
+  - {fileID: 21300000, guid: e51d2a925545e446a8175099e2e89ba3, type: 3}
   - {fileID: 21300000, guid: ac8f06e277929444dbfd190521c4f7e0, type: 3}
   - {fileID: 21300000, guid: 2ac1b913720d84c5e94f435e1205354c, type: 3}
   - {fileID: 21300000, guid: 5c78cb633e6dd44a0af6471b2a24ec57, type: 3}
@@ -173,7 +174,9 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 0a8a8b7b276734c6483e030a7920b54e, type: 3}
   - {fileID: 21300000, guid: 9ee0078b111984289bcd7d0a265893a1, type: 3}
   - {fileID: 21300000, guid: f8f72a8b46cea45cba36b40dde862419, type: 3}
+  - {fileID: 21300000, guid: c8cc8c8b65a664af7a87769009578edb, type: 3}
   - {fileID: 21300000, guid: d639b8abb0a8c4298b8397f12ff901e1, type: 3}
+  - {fileID: 21300000, guid: 9ac669cb71dca474a963251cef7ec5e3, type: 3}
   - {fileID: 21300000, guid: 3ba3470cc801547d5baae2fc1d5b170e, type: 3}
   - {fileID: 21300000, guid: 3a3dcb1ca1e2b42f08be314149616bae, type: 3}
   - {fileID: 21300000, guid: a08ecc1c704884a3c8a08f1e2c4167a6, type: 3}
@@ -194,6 +197,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 47e300cef1486486280b5135574f823a, type: 3}
   - {fileID: 21300000, guid: 1bc4890f1ab4040c7b9514f2c0e59ed2, type: 3}
   - {fileID: 21300000, guid: 238c503fd425f4363b2452ea591e6fd9, type: 3}
+  - {fileID: 21300000, guid: 23f6395f8d04d43518131a1caf331de3, type: 3}
   - {fileID: 21300000, guid: 6a49919fc663e4806a20825eb0793b15, type: 3}
   - {fileID: 21300000, guid: d96b65af2431b49909996b3e45ca7a05, type: 3}
   - {fileID: 21300000, guid: 2cd006af9fe434ff8abcef2ab7fa5cea, type: 3}
@@ -222,6 +226,7 @@ SpriteAtlas:
   - UI_Ingame_Item_Lightning
   - UI_Btn_Popup_Exit
   - UI_BG_Rounded_12
+  - UI_IMG_Rounded_06
   - UI_Btn_Ingame_Pause
   - UI_Icon_Hard_Locked
   - UI_Icon_Next
@@ -275,7 +280,9 @@ SpriteAtlas:
   - UI_Bg_Ingame_Light
   - UI_Icon_Lobby_Album
   - UI_Btn_Ingame_Item_Empty
+  - UI_IMG_Agree_Check
   - UI_Profile_Img10
+  - "\x10UI_Img_Check"
   - UI_Btn_Ingame_lightmode
   - UI_Icon_Facebook
   - UI_Icon_Replay
@@ -296,6 +303,7 @@ SpriteAtlas:
   - UI_Icon_Locked
   - UI_Img_Square60
   - UI_Icon_Play
+  - UI_IMG_Rounded_12
   - UI_Icon_TransferAccount
   - UI_Icon_Profile
   - UI_Icon_AD_Block
