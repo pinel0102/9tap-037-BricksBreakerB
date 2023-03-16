@@ -42,41 +42,39 @@ namespace NSEngine {
 				m_nOrder = KCDefine.U_SORTING_O_BACKGROUND, m_oLayer = KCDefine.U_SORTING_L_BACKGROUND
 			},
 
-			[EObjKinds.NORM_BRICKS_SQUARE_01] = new STSortingOrderInfo() {
-				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL
-			},
+			[EObjKinds.NORM_BRICKS_SQUARE_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
+			[EObjKinds.NORM_BRICKS_TRIANGLE_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
+			[EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            [EObjKinds.NORM_BRICKS_DIAMOND_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
 
-			[EObjKinds.NORM_BRICKS_TRIANGLE_01] = new STSortingOrderInfo() {
-				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL
-			},
+            [EObjKinds.ITEM_BRICKS_BALL_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            [EObjKinds.ITEM_BRICKS_COINS_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            
+            [EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            [EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            [EObjKinds.SPECIAL_BRICKS_LASER_CROSS_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            [EObjKinds.SPECIAL_BRICKS_MISSILE_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            [EObjKinds.SPECIAL_BRICKS_EXPLOSION_HORIZONTAL_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            [EObjKinds.SPECIAL_BRICKS_EXPLOSION_VERTICAL_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            [EObjKinds.SPECIAL_BRICKS_EXPLOSION_CROSS_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            [EObjKinds.SPECIAL_BRICKS_EXPLOSION_AROUND_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            [EObjKinds.SPECIAL_BRICKS_BALL_DIFFUSION_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            [EObjKinds.SPECIAL_BRICKS_BALL_AMPLIFICATION_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            [EObjKinds.SPECIAL_BRICKS_POWERBALL_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            [EObjKinds.SPECIAL_BRICKS_ADD_BALL_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            [EObjKinds.SPECIAL_BRICKS_LIGHTNING_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            [EObjKinds.SPECIAL_BRICKS_ARROW_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            
+            [EObjKinds.OBSTACLE_BRICKS_KEY_01] = new STSortingOrderInfo() { m_nOrder = 10, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            [EObjKinds.OBSTACLE_BRICKS_LOCK_01] = new STSortingOrderInfo() { m_nOrder = 10, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            [EObjKinds.OBSTACLE_BRICKS_WARP_IN_01] = new STSortingOrderInfo() { m_nOrder = 10, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            [EObjKinds.OBSTACLE_BRICKS_WARP_OUT_01] = new STSortingOrderInfo() { m_nOrder = 10, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            [EObjKinds.OBSTACLE_BRICKS_FIX_01] = new STSortingOrderInfo() { m_nOrder = 10, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            [EObjKinds.OBSTACLE_BRICKS_OPEN_01] = new STSortingOrderInfo() { m_nOrder = 10, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            [EObjKinds.OBSTACLE_BRICKS_CLOSE_01] = new STSortingOrderInfo() { m_nOrder = 10, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            [EObjKinds.OBSTACLE_BRICKS_WOODBOX_01] = new STSortingOrderInfo() { m_nOrder = 10, m_oLayer = KCDefine.U_SORTING_L_CELL },
 
-			[EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_01] = new STSortingOrderInfo() {
-				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL
-			},
-
-            [EObjKinds.NORM_BRICKS_DIAMOND_01] = new STSortingOrderInfo() {
-				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL
-			},
-
-            [EObjKinds.ITEM_BRICKS_BALL_01] = new STSortingOrderInfo() {
-				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL
-			},
-
-            [EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01] = new STSortingOrderInfo() {
-				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL
-			},
-
-            [EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01] = new STSortingOrderInfo() {
-				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL
-			},
-
-            [EObjKinds.SPECIAL_BRICKS_LASER_CROSS_01] = new STSortingOrderInfo() {
-				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL
-			},
-
-			[EObjKinds.BALL_NORM_01] = new STSortingOrderInfo() {
-				m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_BALL
-			}
+			[EObjKinds.BALL_NORM_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_BALL }
 		};
 
 		public static readonly Dictionary<EFXKinds, STSortingOrderInfo> E_SORTING_OI_FX_DICT = new Dictionary<EFXKinds, STSortingOrderInfo>() {
@@ -98,28 +96,59 @@ namespace NSEngine {
 
 		public static readonly Dictionary<EObjKinds, string> E_IMG_P_OBJ_DICT = new Dictionary<EObjKinds, string>() {
 			[EObjKinds.BG_PLACEHOLDER_01] = EObjKinds.BG_PLACEHOLDER_01.ToString(),
-			[EObjKinds.NORM_BRICKS_SQUARE_01] = EObjKinds.NORM_BRICKS_SQUARE_01.ToString(),
-
+			
+            [EObjKinds.NORM_BRICKS_SQUARE_01] = EObjKinds.NORM_BRICKS_SQUARE_01.ToString(),
 			[EObjKinds.NORM_BRICKS_TRIANGLE_01] = EObjKinds.NORM_BRICKS_TRIANGLE_01.ToString(),
 			[EObjKinds.NORM_BRICKS_TRIANGLE_02] = EObjKinds.NORM_BRICKS_TRIANGLE_02.ToString(),
 			[EObjKinds.NORM_BRICKS_TRIANGLE_03] = EObjKinds.NORM_BRICKS_TRIANGLE_03.ToString(),
 			[EObjKinds.NORM_BRICKS_TRIANGLE_04] = EObjKinds.NORM_BRICKS_TRIANGLE_04.ToString(),
-
 			[EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_01] = EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_01.ToString(),
 			[EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_02] = EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_02.ToString(),
 			[EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_03] = EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_03.ToString(),
 			[EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_04] = EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_04.ToString(),
-
             [EObjKinds.NORM_BRICKS_DIAMOND_01] = EObjKinds.NORM_BRICKS_DIAMOND_01.ToString(),
 
             [EObjKinds.ITEM_BRICKS_BALL_01] = EObjKinds.ITEM_BRICKS_BALL_01.ToString(),
             [EObjKinds.ITEM_BRICKS_BALL_02] = EObjKinds.ITEM_BRICKS_BALL_02.ToString(),
             [EObjKinds.ITEM_BRICKS_BALL_03] = EObjKinds.ITEM_BRICKS_BALL_03.ToString(),
             [EObjKinds.ITEM_BRICKS_BALL_04] = EObjKinds.ITEM_BRICKS_BALL_04.ToString(),
+            [EObjKinds.ITEM_BRICKS_COINS_01] = EObjKinds.ITEM_BRICKS_COINS_01.ToString(),
 
             [EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01] = EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01.ToString(),
             [EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01] = EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01.ToString(),
             [EObjKinds.SPECIAL_BRICKS_LASER_CROSS_01] = EObjKinds.SPECIAL_BRICKS_LASER_CROSS_01.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_BALL_DIFFUSION_01] = EObjKinds.SPECIAL_BRICKS_BALL_DIFFUSION_01.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_BALL_AMPLIFICATION_01] = EObjKinds.SPECIAL_BRICKS_BALL_AMPLIFICATION_01.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_POWERBALL_01] = EObjKinds.SPECIAL_BRICKS_POWERBALL_01.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_ADD_BALL_01] = EObjKinds.SPECIAL_BRICKS_ADD_BALL_01.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_ADD_BALL_02] = EObjKinds.SPECIAL_BRICKS_ADD_BALL_02.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_ADD_BALL_03] = EObjKinds.SPECIAL_BRICKS_ADD_BALL_03.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_MISSILE_01] = EObjKinds.SPECIAL_BRICKS_MISSILE_01.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_MISSILE_02] = EObjKinds.SPECIAL_BRICKS_MISSILE_02.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_LIGHTNING_01] = EObjKinds.SPECIAL_BRICKS_LIGHTNING_01.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_EXPLOSION_HORIZONTAL_01] = EObjKinds.SPECIAL_BRICKS_EXPLOSION_HORIZONTAL_01.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_EXPLOSION_VERTICAL_01] = EObjKinds.SPECIAL_BRICKS_EXPLOSION_VERTICAL_01.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_EXPLOSION_CROSS_01] = EObjKinds.SPECIAL_BRICKS_EXPLOSION_CROSS_01.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_EXPLOSION_AROUND_01] = EObjKinds.SPECIAL_BRICKS_EXPLOSION_AROUND_01.ToString(),            
+            [EObjKinds.SPECIAL_BRICKS_ARROW_01] = EObjKinds.SPECIAL_BRICKS_ARROW_01.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_ARROW_02] = EObjKinds.SPECIAL_BRICKS_ARROW_02.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_ARROW_03] = EObjKinds.SPECIAL_BRICKS_ARROW_03.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_ARROW_04] = EObjKinds.SPECIAL_BRICKS_ARROW_04.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_ARROW_05] = EObjKinds.SPECIAL_BRICKS_ARROW_05.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_ARROW_06] = EObjKinds.SPECIAL_BRICKS_ARROW_06.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_ARROW_07] = EObjKinds.SPECIAL_BRICKS_ARROW_07.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_ARROW_08] = EObjKinds.SPECIAL_BRICKS_ARROW_08.ToString(),
+
+            [EObjKinds.OBSTACLE_BRICKS_KEY_01] = EObjKinds.OBSTACLE_BRICKS_KEY_01.ToString(),
+            [EObjKinds.OBSTACLE_BRICKS_LOCK_01] = EObjKinds.OBSTACLE_BRICKS_LOCK_01.ToString(),
+            [EObjKinds.OBSTACLE_BRICKS_WARP_IN_01] = EObjKinds.OBSTACLE_BRICKS_WARP_IN_01.ToString(),
+            [EObjKinds.OBSTACLE_BRICKS_WARP_OUT_01] = EObjKinds.OBSTACLE_BRICKS_WARP_OUT_01.ToString(),
+            [EObjKinds.OBSTACLE_BRICKS_WOODBOX_01] = EObjKinds.OBSTACLE_BRICKS_WOODBOX_01.ToString(),
+            [EObjKinds.OBSTACLE_BRICKS_FIX_01] = EObjKinds.OBSTACLE_BRICKS_FIX_01.ToString(),
+            [EObjKinds.OBSTACLE_BRICKS_FIX_02] = EObjKinds.OBSTACLE_BRICKS_FIX_02.ToString(),
+            [EObjKinds.OBSTACLE_BRICKS_FIX_03] = EObjKinds.OBSTACLE_BRICKS_FIX_03.ToString(),
+            [EObjKinds.OBSTACLE_BRICKS_OPEN_01] = EObjKinds.OBSTACLE_BRICKS_OPEN_01.ToString(),
+            [EObjKinds.OBSTACLE_BRICKS_CLOSE_01] = EObjKinds.OBSTACLE_BRICKS_CLOSE_01.ToString(),
 
 			[EObjKinds.BALL_NORM_01] = EObjKinds.BALL_NORM_01.ToString(),
 		};

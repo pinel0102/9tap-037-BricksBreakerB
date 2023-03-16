@@ -50,43 +50,59 @@ public static partial class KDefine {
 			EObjKinds.ITEM_BRICKS_BALL_02,
 			EObjKinds.ITEM_BRICKS_BALL_03,
             EObjKinds.ITEM_BRICKS_BALL_04,
-			EObjKinds.NONE,
 
-			// EObjKinds.ITEM_BRICKS_BOOSTER_01,
-			// EObjKinds.NONE,
-			// EObjKinds.NONE,
-			// EObjKinds.NONE
+            EObjKinds.ITEM_BRICKS_COINS_01,
+			EObjKinds.NONE,
 		},
 
 		[KCDefine.B_VAL_2_INT] = new List<EObjKinds>() {
 			EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01,
 			EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01,
 			EObjKinds.SPECIAL_BRICKS_LASER_CROSS_01,
-			EObjKinds.NONE
+            EObjKinds.SPECIAL_BRICKS_BALL_DIFFUSION_01,
+
+            EObjKinds.SPECIAL_BRICKS_ADD_BALL_01,
+            EObjKinds.SPECIAL_BRICKS_ADD_BALL_02,
+            EObjKinds.SPECIAL_BRICKS_ADD_BALL_03,
+            EObjKinds.SPECIAL_BRICKS_BALL_AMPLIFICATION_01,
+
+            EObjKinds.SPECIAL_BRICKS_MISSILE_01,
+            EObjKinds.SPECIAL_BRICKS_MISSILE_02,
+            EObjKinds.SPECIAL_BRICKS_LIGHTNING_01,
+            EObjKinds.SPECIAL_BRICKS_POWERBALL_01,
+
+            EObjKinds.SPECIAL_BRICKS_EXPLOSION_HORIZONTAL_01,
+            EObjKinds.SPECIAL_BRICKS_EXPLOSION_VERTICAL_01,
+            EObjKinds.SPECIAL_BRICKS_EXPLOSION_CROSS_01,
+            EObjKinds.SPECIAL_BRICKS_EXPLOSION_AROUND_01,   
 		},
 
 		[KCDefine.B_VAL_3_INT] = new List<EObjKinds>() {
-			// EObjKinds.OBSTACLE_BRICKS_KEY_01,
-			// EObjKinds.OBSTACLE_BRICKS_LOCK_01,
+			
+            EObjKinds.SPECIAL_BRICKS_ARROW_01,
+            EObjKinds.SPECIAL_BRICKS_ARROW_02,
+            EObjKinds.SPECIAL_BRICKS_ARROW_03,
+            EObjKinds.SPECIAL_BRICKS_ARROW_04,
 
-			// EObjKinds.OBSTACLE_BRICKS_FADE_IN_01,
-			// EObjKinds.OBSTACLE_BRICKS_FADE_OUT_01,
-
-			// EObjKinds.OBSTACLE_BRICKS_WARP_IN_01,
-			// EObjKinds.OBSTACLE_BRICKS_WARP_IN_02,
-			// EObjKinds.OBSTACLE_BRICKS_WARP_IN_03,
-			// EObjKinds.OBSTACLE_BRICKS_WARP_IN_04,
-			// EObjKinds.OBSTACLE_BRICKS_WARP_IN_05,
-
-			// EObjKinds.OBSTACLE_BRICKS_WARP_OUT_01,
-			// EObjKinds.OBSTACLE_BRICKS_WARP_OUT_02,
-			// EObjKinds.OBSTACLE_BRICKS_WARP_OUT_03,
-			// EObjKinds.OBSTACLE_BRICKS_WARP_OUT_04,
-			// EObjKinds.OBSTACLE_BRICKS_WARP_OUT_05
+            EObjKinds.SPECIAL_BRICKS_ARROW_05,
+            EObjKinds.SPECIAL_BRICKS_ARROW_06,
+            EObjKinds.SPECIAL_BRICKS_ARROW_07,
+            EObjKinds.SPECIAL_BRICKS_ARROW_08,
 		},
 
 		[KCDefine.B_VAL_4_INT] = new List<EObjKinds>() {
-			// Do Something
+			EObjKinds.OBSTACLE_BRICKS_KEY_01,
+			EObjKinds.OBSTACLE_BRICKS_LOCK_01,
+			EObjKinds.OBSTACLE_BRICKS_WARP_IN_01,
+			EObjKinds.OBSTACLE_BRICKS_WARP_OUT_01,
+
+            EObjKinds.OBSTACLE_BRICKS_WOODBOX_01,
+            EObjKinds.OBSTACLE_BRICKS_FIX_01,
+            EObjKinds.OBSTACLE_BRICKS_FIX_02,
+            EObjKinds.OBSTACLE_BRICKS_FIX_03,
+            
+            EObjKinds.OBSTACLE_BRICKS_OPEN_01,
+            EObjKinds.OBSTACLE_BRICKS_CLOSE_01,
 		}
 	};
 	#endregion // 런타임 상수
