@@ -71,9 +71,6 @@ public static class GlobalDefine
             case EObjType.ITEM_BRICKS:
                 switch(kindsType)
                 {
-                    case EObjKinds.ITEM_BRICKS_BALL_01:
-                        _colorHex = GlobalDefine.COLOR_ITEM_BALLPLUS; 
-                        break;
                     default: 
                         _colorHex = GlobalDefine.COLOR_CELL_DEFAULT; 
                         break;

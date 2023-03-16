@@ -20,6 +20,8 @@ MonoBehaviour:
       m_eSet: 0
     - m_oPath: Fonts/Global/G_Korean
       m_eSet: 1
+    - m_oPath: Fonts/Global/G_Korean
+      m_eSet: 2
   - m_oCountryCode: 
     m_eSystemLanguage: 10
     m_oFontSetInfoList:
@@ -27,3 +29,5 @@ MonoBehaviour:
       m_eSet: 0
     - m_oPath: Fonts/Global/G_English
       m_eSet: 1
+    - m_oPath: Fonts & Materials/AgencyFB_Bold SDF
+      m_eSet: 2

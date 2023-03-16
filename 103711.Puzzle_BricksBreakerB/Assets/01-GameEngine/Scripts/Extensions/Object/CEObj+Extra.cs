@@ -39,7 +39,8 @@ namespace NSEngine {
                             case EObjKinds.ITEM_BRICKS_BALL_02:
                             case EObjKinds.ITEM_BRICKS_BALL_03:
                             case EObjKinds.ITEM_BRICKS_BALL_04:
-                                _text.text = $"+{GlobalDefine.GetItem_BallPlus[((int)CellObjInfo.ObjKinds).ExKindsToDetailSubKindsTypeVal()]}";
+                                //_text.text = $"+{GlobalDefine.GetItem_BallPlus[((int)CellObjInfo.ObjKinds).ExKindsToDetailSubKindsTypeVal()]}";
+                                _text.text = string.Empty;
                                 break;
                         }
                         break;

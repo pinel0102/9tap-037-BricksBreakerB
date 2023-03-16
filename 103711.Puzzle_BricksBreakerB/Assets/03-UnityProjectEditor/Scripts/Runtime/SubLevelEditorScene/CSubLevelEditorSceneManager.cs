@@ -1906,9 +1906,6 @@ namespace LevelEditorScene {
                         EObjKinds kindsType = (EObjKinds)((int)eObjKinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
                         switch(kindsType)
                         {
-                            case EObjKinds.ITEM_BRICKS_BALL_01:
-                                _text.text = string.Format("+{0}", GlobalDefine.GetItem_BallPlus[((int)eObjKinds).ExKindsToDetailSubKindsTypeVal()]);
-                                break;
                             default:
                                 _text.text = string.Empty;
                                 break;

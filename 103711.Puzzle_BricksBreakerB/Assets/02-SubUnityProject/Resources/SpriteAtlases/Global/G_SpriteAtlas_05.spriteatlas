@@ -176,7 +176,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: f8f72a8b46cea45cba36b40dde862419, type: 3}
   - {fileID: 21300000, guid: c8cc8c8b65a664af7a87769009578edb, type: 3}
   - {fileID: 21300000, guid: d639b8abb0a8c4298b8397f12ff901e1, type: 3}
-  - {fileID: 21300000, guid: 9ac669cb71dca474a963251cef7ec5e3, type: 3}
   - {fileID: 21300000, guid: 3ba3470cc801547d5baae2fc1d5b170e, type: 3}
   - {fileID: 21300000, guid: 3a3dcb1ca1e2b42f08be314149616bae, type: 3}
   - {fileID: 21300000, guid: a08ecc1c704884a3c8a08f1e2c4167a6, type: 3}
@@ -282,7 +281,6 @@ SpriteAtlas:
   - UI_Btn_Ingame_Item_Empty
   - UI_IMG_Agree_Check
   - UI_Profile_Img10
-  - "\x10UI_Img_Check"
   - UI_Btn_Ingame_lightmode
   - UI_Icon_Facebook
   - UI_Icon_Replay
