@@ -457,15 +457,32 @@ public enum EObjKinds {
 
 	// 1,100,100,000
 	ITEM_BRICKS_BOOSTER_01 = (EEnumVal.T * EObjType.ITEM_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 0),
+
+    // 1,100,200,000
+    ITEM_BRICKS_COINS_01 = (EEnumVal.T * EObjType.ITEM_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 2) + (EEnumVal.SKT * 0), 
 	#endregion // 아이템 블럭
 
 	#region 특수 블럭
 	// 1,200,000,000
 	SPECIAL_BRICKS_LASER_HORIZONTAL_01 = (EEnumVal.T * EObjType.SPECIAL_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+    SPECIAL_BRICKS_LAZER_HORIZONTAL_02,
     // 1,200,000,100
 	SPECIAL_BRICKS_LASER_VERTICAL_01 = (EEnumVal.T * EObjType.SPECIAL_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
+    SPECIAL_BRICKS_LASER_VERTICAL_02,
     // 1,200,000,200
 	SPECIAL_BRICKS_LASER_CROSS_01 = (EEnumVal.T * EObjType.SPECIAL_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 2),
+    SPECIAL_BRICKS_LASER_CROSS_02,
+
+    // 1,200,100,000
+    SPECIAL_BRICKS_MISSILE_01 = (EEnumVal.T * EObjType.SPECIAL_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 0),
+
+    // 1,200,200,000
+    SPECIAL_BRICKS_EXPLOSION_HORIZONTAL_01 = (EEnumVal.T * EObjType.SPECIAL_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 2) + (EEnumVal.SKT * 0),
+    SPECIAL_BRICKS_EXPLOSION_VERTICAL_01 = (EEnumVal.T * EObjType.SPECIAL_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 2) + (EEnumVal.SKT * 1),
+    SPECIAL_BRICKS_EXPLOSION_CROSS_01 = (EEnumVal.T * EObjType.SPECIAL_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 2) + (EEnumVal.SKT * 2),
+    SPECIAL_BRICKS_EXPLOSION_AROUND_01 = (EEnumVal.T * EObjType.SPECIAL_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 2) + (EEnumVal.SKT * 3),
+    SPECIAL_BRICKS_EXPLOSION_ALL_01 = (EEnumVal.T * EObjType.SPECIAL_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 2) + (EEnumVal.SKT * 4), 
+
 	#endregion // 특수 블럭
 
 	#region 장애물 블럭
@@ -490,6 +507,23 @@ public enum EObjKinds {
 	OBSTACLE_BRICKS_WARP_OUT_04,
 	OBSTACLE_BRICKS_WARP_OUT_05,
 	// 1,300,200,000 }
+
+    // 1,300,300,000
+    OBSTACLE_BRICKS_FIX_01 = (EEnumVal.T * EObjType.OBSTACLE_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 3) + (EEnumVal.SKT * 0),
+    OBSTACLE_BRICKS_FIX_02,
+    // 1,300,400,000
+
+    OBSTACLE_BRICKS_OPEN_01 = (EEnumVal.T * EObjType.OBSTACLE_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 4) + (EEnumVal.SKT * 0),
+    OBSTACLE_BRICKS_CLOSE_01 = (EEnumVal.T * EObjType.OBSTACLE_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 4) + (EEnumVal.SKT * 1),
+
+    // 1,300,500,000
+    OBSTACLE_BRICKS_RAND_01 = (EEnumVal.T * EObjType.OBSTACLE_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 5) + (EEnumVal.SKT * 0),
+    OBSTACLE_BRICKS_RAND_02,
+    OBSTACLE_BRICKS_RAND_03,
+    OBSTACLE_BRICKS_RAND_04,
+
+    // 1,300,600,000
+    OBSTACLE_BRICKS_REFRACT_01 = (EEnumVal.T * EObjType.OBSTACLE_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 6) + (EEnumVal.SKT * 0),
 	#endregion // 장애물 블럭
 
 	#region 공
