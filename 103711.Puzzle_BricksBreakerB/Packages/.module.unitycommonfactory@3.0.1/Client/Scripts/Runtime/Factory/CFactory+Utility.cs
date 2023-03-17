@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+
 using DG.Tweening;
 using DG.Tweening.Core;
 using EnhancedUI.EnhancedScroller;
@@ -65,20 +66,20 @@ public static partial class CFactory {
 
 	/** 시퀀스를 생성한다 */
 	public static Sequence MakeSequence(List<DG.Tweening.Tween> a_oAniList, System.Action<Sequence> a_oCallback, float a_fDelay = KCDefine.B_VAL_0_REAL, bool a_bIsJoin = false, bool a_bIsRealtime = false) {
-		CAccess.Assert(a_oAniList.ExIsValid());
-		var oSequence = DOTween.Sequence().SetAutoKill().SetUpdate(a_bIsRealtime);
+		CAccess.Assert(a_oAniList != null);
+		var oAni = DOTween.Sequence().SetAutoKill().SetUpdate(a_bIsRealtime);
 
 		for(int i = 0; i < a_oAniList.Count; ++i) {
 			// 조인 모드 일 경우
 			if(a_bIsJoin) {
-				oSequence.Join(a_oAniList[i]);
+				oAni.Join(a_oAniList[i]);
 			} else {
-				oSequence.Append(a_oAniList[i]);
+				oAni.Append(a_oAniList[i]);
 			}
 		}
 
-		var oDelaySequence = DOTween.Sequence().SetAutoKill().SetDelay(a_fDelay).SetUpdate(a_bIsRealtime).Append(oSequence);
-		return oDelaySequence.AppendCallback(() => a_oCallback?.Invoke(oDelaySequence));
+		var oSequence = DOTween.Sequence().SetAutoKill().SetDelay(a_fDelay).SetUpdate(a_bIsRealtime).Append(oAni);
+		return oSequence.AppendCallback(() => a_oCallback?.Invoke(oSequence));
 	}
 
 	/** 메쉬를 생성한다 */
@@ -226,6 +227,21 @@ public static partial class CFactory {
 		CAccess.Assert(a_oOrigin != null);
 		return new ObjectPool(a_oOrigin, a_oParent?.transform, a_nNumObjs);
 	}
+
+	/** 객체를 제거한다 */
+	public static void RemoveObj(Object a_oObj, bool a_bIsRemoveAsset = false, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oObj != null);
+
+		// 객체가 존재 할 경우
+		if(a_oObj != null) {
+			// 앱이 실행 중 일 경우
+			if(Application.isPlaying) {
+				GameObject.Destroy(a_oObj);
+			} else {
+				GameObject.DestroyImmediate(a_oObj, a_bIsRemoveAsset);
+			}
+		}
+	}
 	#endregion // 클래스 함수
 
 	#region 제네릭 클래스 함수
@@ -243,6 +259,18 @@ public static partial class CFactory {
 
 	/** 키 정보를 생성한다 */
 	public static List<(T, GameObject)> MakeKeyInfos<T>(List<(T, GameObject, UnityAction<bool>)> a_oKeyInfoList) {
+		CAccess.Assert(a_oKeyInfoList != null);
+		var oKeyInfoList = new List<(T, GameObject)>();
+
+		for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+			oKeyInfoList.Add((a_oKeyInfoList[i].Item1, a_oKeyInfoList[i].Item2));
+		}
+
+		return oKeyInfoList;
+	}
+
+	/** 키 정보를 생성한다 */
+	public static List<(T, GameObject)> MakeKeyInfos<T>(List<(T, GameObject, UnityAction<int>)> a_oKeyInfoList) {
 		CAccess.Assert(a_oKeyInfoList != null);
 		var oKeyInfoList = new List<(T, GameObject)>();
 
@@ -326,6 +354,18 @@ public static partial class CFactory {
 	}
 
 	/** 키 정보를 생성한다 */
+	public static List<(T, string, GameObject)> MakeKeyInfos<T>(List<(T, string, GameObject, UnityAction<int>)> a_oKeyInfoList) {
+		CAccess.Assert(a_oKeyInfoList != null);
+		var oKeyInfoList = new List<(T, string, GameObject)>();
+
+		for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+			oKeyInfoList.Add((a_oKeyInfoList[i].Item1, a_oKeyInfoList[i].Item2, a_oKeyInfoList[i].Item3));
+		}
+
+		return oKeyInfoList;
+	}
+
+	/** 키 정보를 생성한다 */
 	public static List<(T, string, GameObject)> MakeKeyInfos<T>(List<(T, string, GameObject, UnityAction<float>)> a_oKeyInfoList) {
 		CAccess.Assert(a_oKeyInfoList != null);
 		var oKeyInfoList = new List<(T, string, GameObject)>();
@@ -387,6 +427,18 @@ public static partial class CFactory {
 
 	/** 키 정보를 생성한다 */
 	public static List<(T, string, GameObject, GameObject)> MakeKeyInfos<T>(List<(T, string, GameObject, GameObject, UnityAction<bool>)> a_oKeyInfoList) {
+		CAccess.Assert(a_oKeyInfoList != null);
+		var oKeyInfoList = new List<(T, string, GameObject, GameObject)>();
+
+		for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+			oKeyInfoList.Add((a_oKeyInfoList[i].Item1, a_oKeyInfoList[i].Item2, a_oKeyInfoList[i].Item3, a_oKeyInfoList[i].Item4));
+		}
+
+		return oKeyInfoList;
+	}
+
+	/** 키 정보를 생성한다 */
+	public static List<(T, string, GameObject, GameObject)> MakeKeyInfos<T>(List<(T, string, GameObject, GameObject, UnityAction<int>)> a_oKeyInfoList) {
 		CAccess.Assert(a_oKeyInfoList != null);
 		var oKeyInfoList = new List<(T, string, GameObject, GameObject)>();
 
@@ -526,7 +578,7 @@ public static partial class CFactory {
 	/** 컴포넌트를 추가한다 */
 	private static T ExAddComponent<T>(this GameObject a_oSender, bool a_bIsEnableAssert = true) where T : Component {
 		CAccess.Assert(!a_bIsEnableAssert || a_oSender != null);
-		return (a_oSender != null) ? a_oSender.TryGetComponent<T>(out T oComponent) ? oComponent : a_oSender.AddComponent<T>() : null;
+		return (a_oSender != null) ? a_oSender.TryGetComponent(out T oComponent) ? oComponent : a_oSender.AddComponent<T>() : null;
 	}
 	#endregion // 제네릭 클래스 함수
 

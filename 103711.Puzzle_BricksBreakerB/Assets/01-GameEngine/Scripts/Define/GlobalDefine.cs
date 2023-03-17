@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class GlobalDefine
+public static partial class GlobalDefine
 {
     // 위 아래 UI 공간.
     public const float GRID_PANEL_HEIGHT_TOP = 180f;
@@ -46,46 +46,5 @@ public static class GlobalDefine
     // [UI] Strings : Aim Button
     public const string formatAimText = "AIM\n{0}";
     public const string textON = "ON";
-    public const string textOFF = "OFF";
-
-
-    // [JSON] Cell Color
-    public const string COLOR_CELL_DEFAULT = "#FFFFFFFF";
-    public const string COLOR_BRICKS_DEFAULT = "#407AD9FF";
-    public const string COLOR_BALL_DEFAULT = "#FF0000FF";
-    public const string COLOR_ITEM_BALLPLUS = "#FF6B3FFF";
-    public const string COLOR_FX_LASER = "#CCFF74FF";
-
-    public static Color GetCellColor(EObjKinds kinds, string _colorHex = GlobalDefine.COLOR_CELL_DEFAULT)
-    {
-        EObjType cellType = (EObjType)((int)kinds).ExKindsToType();
-        EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
-
-        switch(cellType)
-        {
-            case EObjType.BALL:
-                _colorHex = GlobalDefine.COLOR_BALL_DEFAULT;
-                break;
-            case EObjType.NORM_BRICKS:
-                break;
-            case EObjType.ITEM_BRICKS:
-                switch(kindsType)
-                {
-                    default: 
-                        _colorHex = GlobalDefine.COLOR_CELL_DEFAULT; 
-                        break;
-                }
-                break;
-            case EObjType.SPECIAL_BRICKS:
-                _colorHex = GlobalDefine.COLOR_CELL_DEFAULT;
-                break;
-            default:
-                _colorHex = GlobalDefine.COLOR_CELL_DEFAULT;
-                break;
-        }
-
-        //Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", _colorHex));
-
-        return ColorUtility.TryParseHtmlString(_colorHex, out Color _color) ? _color : Color.white;
-    }
+    public const string textOFF = "OFF";    
 }

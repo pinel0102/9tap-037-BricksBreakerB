@@ -11,6 +11,54 @@ using DanielLochner.Assets.SimpleScrollSnap;
 /** 설정 함수 */
 public static partial class CFunc {
 	#region 클래스 함수
+    /** 드롭을 설정한다 */
+	public static void SetupDrops(List<(GameObject, UnityAction<int>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid()) {
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<Dropdown>()?.onValueChanged.AddListener(a_oKeyInfoList[i].Item2);
+			}
+		}
+	}
+
+	/** 드롭을 설정한다 */
+	public static void SetupDrops(List<(string, GameObject, UnityAction<int>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid()) {
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oKeyInfoList[i].Item2?.ExFindComponent<Dropdown>(a_oKeyInfoList[i].Item1)?.onValueChanged.AddListener(a_oKeyInfoList[i].Item3);
+			}
+		}
+	}
+
+	/** 드롭을 설정한다 */
+	public static void SetupTMPDrops(List<(GameObject, UnityAction<int>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid()) {
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oKeyInfoList[i].Item1?.GetComponentInChildren<TMP_Dropdown>()?.onValueChanged.AddListener(a_oKeyInfoList[i].Item2);
+			}
+		}
+	}
+
+	/** 드롭을 설정한다 */
+	public static void SetupTMPDrops(List<(string, GameObject, UnityAction<int>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid()) {
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oKeyInfoList[i].Item2?.ExFindComponent<TMP_Dropdown>(a_oKeyInfoList[i].Item1)?.onValueChanged.AddListener(a_oKeyInfoList[i].Item3);
+			}
+		}
+	}
+    
 	/** 입력을 설정한다 */
 	public static void SetupInputs(List<(GameObject, UnityAction<string>)> a_oKeyInfoList, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || a_oKeyInfoList.ExIsValid());
@@ -358,6 +406,90 @@ public static partial class CFunc {
 				} else {
 					a_oOutComponentDict.ExReplaceVal(a_oKeyInfoList[i].Item1, ((a_oKeyInfoList[i].Item4 == null) ? CFactory.CreateObj<V1>(a_oKeyInfoList[i].Item2, a_oKeyInfoList[i].Item3) : CFactory.CreateCloneObj<V1>(a_oKeyInfoList[i].Item2, a_oKeyInfoList[i].Item4, a_oKeyInfoList[i].Item3), a_oKeyInfoList[i].Item5));
 				}
+			}
+		}
+	}
+
+    /** 드롭을 설정한다 */
+	public static void SetupDrops<K>(List<(K, GameObject, UnityAction<int>)> a_oKeyInfoList, Dictionary<K, Dropdown> a_oOutInputDict, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oKeyInfoList.ExIsValid() && a_oOutInputDict != null));
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid() && a_oOutInputDict != null) {
+			CFunc.SetupComponents(CFactory.MakeKeyInfos(a_oKeyInfoList), a_oOutInputDict, a_bIsEnableAssert);
+
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oOutInputDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.onValueChanged.AddListener(a_oKeyInfoList[i].Item3);
+			}
+		}
+	}
+
+	/** 드롭을 설정한다 */
+	public static void SetupDrops<K>(List<(K, string, GameObject, UnityAction<int>)> a_oKeyInfoList, Dictionary<K, Dropdown> a_oOutInputDict, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oKeyInfoList.ExIsValid() && a_oOutInputDict != null));
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid() && a_oOutInputDict != null) {
+			CFunc.SetupComponents(CFactory.MakeKeyInfos(a_oKeyInfoList), a_oOutInputDict, a_bIsEnableAssert);
+
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oOutInputDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.onValueChanged.AddListener(a_oKeyInfoList[i].Item4);
+			}
+		}
+	}
+
+	/** 드롭을 설정한다 */
+	public static void SetupDrops<K>(List<(K, string, GameObject, GameObject, UnityAction<int>)> a_oKeyInfoList, Dictionary<K, Dropdown> a_oOutInputDict, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oKeyInfoList.ExIsValid() && a_oOutInputDict != null));
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid() && a_oOutInputDict != null) {
+			CFunc.SetupComponents(CFactory.MakeKeyInfos(a_oKeyInfoList), a_oOutInputDict, a_bIsEnableAssert);
+
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oOutInputDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.onValueChanged.AddListener(a_oKeyInfoList[i].Item5);
+			}
+		}
+	}
+
+	/** 드롭을 설정한다 */
+	public static void SetupTMPDrops<K>(List<(K, GameObject, UnityAction<int>)> a_oKeyInfoList, Dictionary<K, TMP_Dropdown> a_oOutInputDict, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oKeyInfoList.ExIsValid() && a_oOutInputDict != null));
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid() && a_oOutInputDict != null) {
+			CFunc.SetupComponents(CFactory.MakeKeyInfos(a_oKeyInfoList), a_oOutInputDict, a_bIsEnableAssert);
+
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oOutInputDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.onValueChanged.AddListener(a_oKeyInfoList[i].Item3);
+			}
+		}
+	}
+
+	/** 드롭을 설정한다 */
+	public static void SetupTMPDrops<K>(List<(K, string, GameObject, UnityAction<int>)> a_oKeyInfoList, Dictionary<K, TMP_Dropdown> a_oOutInputDict, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oKeyInfoList.ExIsValid() && a_oOutInputDict != null));
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid() && a_oOutInputDict != null) {
+			CFunc.SetupComponents(CFactory.MakeKeyInfos(a_oKeyInfoList), a_oOutInputDict, a_bIsEnableAssert);
+
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oOutInputDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.onValueChanged.AddListener(a_oKeyInfoList[i].Item4);
+			}
+		}
+	}
+
+	/** 드롭을 설정한다 */
+	public static void SetupTMPDrops<K>(List<(K, string, GameObject, GameObject, UnityAction<int>)> a_oKeyInfoList, Dictionary<K, TMP_Dropdown> a_oOutInputDict, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oKeyInfoList.ExIsValid() && a_oOutInputDict != null));
+
+		// 키 정보가 존재 할 경우
+		if(a_oKeyInfoList.ExIsValid() && a_oOutInputDict != null) {
+			CFunc.SetupComponents(CFactory.MakeKeyInfos(a_oKeyInfoList), a_oOutInputDict, a_bIsEnableAssert);
+
+			for(int i = 0; i < a_oKeyInfoList.Count; ++i) {
+				a_oOutInputDict.GetValueOrDefault(a_oKeyInfoList[i].Item1)?.onValueChanged.AddListener(a_oKeyInfoList[i].Item5);
 			}
 		}
 	}

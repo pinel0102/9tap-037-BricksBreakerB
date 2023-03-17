@@ -14,10 +14,11 @@ public static partial class Factory {
 	#region 조건부 클래스 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 	/** 에디터 셀 객체 정보를 생성한다 */
-	public static STCellObjInfo MakeEditorCellObjInfo(EObjKinds a_eObjKinds, Vector3Int a_stSize, Vector3Int a_stBaseIdx, string a_stColorHex) {
+	public static STCellObjInfo MakeEditorCellObjInfo(EObjKinds a_eObjKinds, Vector3Int a_stSize, Vector3Int a_stBaseIdx, int _colorID) {
 		var stCellObjInfo = new STCellObjInfo(null) {
 			ObjKinds = a_eObjKinds, SizeX = a_stSize.x, SizeY = a_stSize.y, SizeZ = a_stSize.z, m_stBaseIdx = a_stBaseIdx,
-            ColorHex = a_stColorHex
+            //ColorHex = a_stColorHex,
+            ColorID = _colorID
 		};
 
 		stCellObjInfo.OnAfterDeserialize();

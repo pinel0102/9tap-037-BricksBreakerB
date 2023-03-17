@@ -18,6 +18,7 @@ public static partial class KDefine {
 	// 형식
 	public const string LES_TEXT_FMT_HP_INFO = "체력 {0}";
 	public const string LES_TEXT_FMT_ATK_INFO = "공격력 {0}";
+    public const string LES_TEXT_FMT_COLOR_INFO = "색상 {0}";
 	#endregion // 기본
 
 	#region 런타임 상수
@@ -74,11 +75,8 @@ public static partial class KDefine {
             EObjKinds.SPECIAL_BRICKS_EXPLOSION_HORIZONTAL_01,
             EObjKinds.SPECIAL_BRICKS_EXPLOSION_VERTICAL_01,
             EObjKinds.SPECIAL_BRICKS_EXPLOSION_CROSS_01,
-            EObjKinds.SPECIAL_BRICKS_EXPLOSION_AROUND_01,   
-		},
+            EObjKinds.SPECIAL_BRICKS_EXPLOSION_AROUND_01,
 
-		[KCDefine.B_VAL_3_INT] = new List<EObjKinds>() {
-			
             EObjKinds.SPECIAL_BRICKS_ARROW_01,
             EObjKinds.SPECIAL_BRICKS_ARROW_02,
             EObjKinds.SPECIAL_BRICKS_ARROW_03,
@@ -90,8 +88,9 @@ public static partial class KDefine {
             EObjKinds.SPECIAL_BRICKS_ARROW_08,
 		},
 
-		[KCDefine.B_VAL_4_INT] = new List<EObjKinds>() {
-			EObjKinds.OBSTACLE_BRICKS_KEY_01,
+		[KCDefine.B_VAL_3_INT] = new List<EObjKinds>() {
+			
+            EObjKinds.OBSTACLE_BRICKS_KEY_01,
 			EObjKinds.OBSTACLE_BRICKS_LOCK_01,
 			EObjKinds.OBSTACLE_BRICKS_WARP_IN_01,
 			EObjKinds.OBSTACLE_BRICKS_WARP_OUT_01,
@@ -103,6 +102,10 @@ public static partial class KDefine {
             
             EObjKinds.OBSTACLE_BRICKS_OPEN_01,
             EObjKinds.OBSTACLE_BRICKS_CLOSE_01,
+		},
+
+		[KCDefine.B_VAL_4_INT] = new List<EObjKinds>() {
+			
 		}
 	};
 	#endregion // 런타임 상수

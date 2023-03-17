@@ -15,7 +15,7 @@ namespace NSEngine {
 
         public void SetSpriteColor(EObjKinds cellKinds)
         {
-            this.TargetSprite.color = GlobalDefine.GetCellColor(cellKinds, CellObjInfo.ColorHex);
+            this.TargetSprite.color = GlobalDefine.GetCellColor(cellKinds, Params.m_stObjInfo.m_bIsEnableColor, CellObjInfo.ColorID, CellObjInfo.HP);
         }
 
         public void RefreshText(EObjType cellType)

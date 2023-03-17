@@ -243,6 +243,7 @@ public static partial class KCDefine {
 	public const string U_KEY_FMT_PRICE = "Price_{0:00}";
 	public const string U_KEY_FMT_FX_KINDS = "FXKinds_{0:00}";
 	public const string U_KEY_FMT_OBJ_KINDS = "ObjKinds_{0:00}";
+    public const string U_KEY_FMT_EXTRA_OBJ_KINDS = "ExtraObjKinds_{0:00}";
 	public const string U_KEY_FMT_RES_KINDS = "ResKinds_{0:00}";
 	public const string U_KEY_FMT_ITEM_KINDS = "ItemKinds_{0:00}";
 	public const string U_KEY_FMT_SKILL_KINDS = "SkillKinds_{0:00}";

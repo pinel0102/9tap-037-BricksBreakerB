@@ -13,18 +13,40 @@ public struct STObjInfo {
 	public STCommonInfo m_stCommonInfo;
 	public Vector3 m_stSize;
 
+    public bool m_bIsOverlay;
+	public bool m_bIsClearTarget;
+
 	public EObjKinds m_eObjKinds;
 	public EObjKinds m_ePrevObjKinds;
 	public EObjKinds m_eNextObjKinds;
 	public ESkillKinds m_eActionSkillKinds;
 
 	public List<EResKinds> m_oResKindsList;
+    public List<EObjKinds> m_oExtraObjKindsList;
 
 	public Dictionary<ulong, STTargetInfo> m_oDropItemTargetInfoDict;
 	public Dictionary<ulong, STTargetInfo> m_oEquipItemTargetInfoDict;
 	public Dictionary<ulong, STTargetInfo> m_oSkillTargetInfoDict;
 	public Dictionary<ulong, STTargetInfo> m_oAbilityTargetInfoDict;
 	public Dictionary<ulong, STTargetInfo> m_oAcquireTargetInfoDict;
+
+    public bool m_bIsOnce;
+	public bool m_bIsRand;
+	public bool m_bIsTransparent;
+	public bool m_bIsSkillTarget;
+
+	public bool m_bIsEnableHit;
+	public bool m_bIsEnableColor;
+	public bool m_bIsEnableChange;
+	public bool m_bIsEnableReflect;
+	public bool m_bIsEnableRefract;
+	public bool m_bIsEnableMoveDown;
+
+	public EColliderType m_eColliderType;
+	public ESkillKinds m_eHitSkillKinds;
+	public ESkillKinds m_eDestroySkillKinds;
+
+	public Vector3 m_stColliderSize;
 
 	#region 상수
 	public static STObjInfo INVALID = new STObjInfo() {
@@ -42,19 +64,43 @@ public struct STObjInfo {
 	public STObjInfo(SimpleJSON.JSONNode a_oObjInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oObjInfo);
 		m_stSize = a_oObjInfo[KCDefine.U_KEY_SIZE].ExIsValid() ? new Vector3(a_oObjInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_0_INT].AsFloat, a_oObjInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_1_INT].AsFloat, a_oObjInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_2_INT].AsFloat) : Vector3.zero;
-        
+
+		m_bIsOverlay = a_oObjInfo[KDefine.G_KEY_IS_OVERLAY].ExIsValid() ? a_oObjInfo[KDefine.G_KEY_IS_OVERLAY].AsInt != KCDefine.B_VAL_0_INT : false;
+		m_bIsClearTarget = a_oObjInfo[KDefine.G_KEY_IS_CLEAR_TARGET].ExIsValid() ? a_oObjInfo[KDefine.G_KEY_IS_CLEAR_TARGET].AsInt != KCDefine.B_VAL_0_INT : false;
+
 		m_eObjKinds = a_oObjInfo[KCDefine.U_KEY_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_OBJ_KINDS].AsInt : EObjKinds.NONE;
 		m_ePrevObjKinds = a_oObjInfo[KCDefine.U_KEY_PREV_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_PREV_OBJ_KINDS].AsInt : EObjKinds.NONE;
 		m_eNextObjKinds = a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].ExIsValid() ? (EObjKinds)a_oObjInfo[KCDefine.U_KEY_NEXT_OBJ_KINDS].AsInt : EObjKinds.NONE;
 		m_eActionSkillKinds = a_oObjInfo[KCDefine.U_KEY_ACTION_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oObjInfo[KCDefine.U_KEY_ACTION_SKILL_KINDS].AsInt : ESkillKinds.NONE;
 
 		m_oResKindsList = Factory.MakeVals(a_oObjInfo, KCDefine.U_KEY_FMT_RES_KINDS, (a_oJSONNode) => (EResKinds)a_oJSONNode.AsInt);
+		m_oExtraObjKindsList = Factory.MakeVals(a_oObjInfo, KCDefine.U_KEY_FMT_EXTRA_OBJ_KINDS, (a_oJSONNode) => (EObjKinds)a_oJSONNode.AsInt);
 
 		m_oDropItemTargetInfoDict = Factory.MakeTargetInfos(a_oObjInfo, KCDefine.U_KEY_FMT_DROP_ITEM_TARGET_INFO);
 		m_oEquipItemTargetInfoDict = Factory.MakeTargetInfos(a_oObjInfo, KCDefine.U_KEY_FMT_EQUIP_ITEM_TARGET_INFO);
 		m_oSkillTargetInfoDict = Factory.MakeTargetInfos(a_oObjInfo, KCDefine.U_KEY_FMT_SKILL_TARGET_INFO);
 		m_oAbilityTargetInfoDict = Factory.MakeTargetInfos(a_oObjInfo, KCDefine.U_KEY_FMT_ABILITY_TARGET_INFO);
 		m_oAcquireTargetInfoDict = Factory.MakeTargetInfos(a_oObjInfo, KCDefine.U_KEY_FMT_ACQUIRE_TARGET_INFO);
+
+		#region 추가
+		m_bIsOnce = a_oObjInfo[KDefine.G_KEY_IS_ONCE].ExIsValid() ? a_oObjInfo[KDefine.G_KEY_IS_ONCE].AsInt != KCDefine.B_VAL_0_INT : false;
+		m_bIsRand = a_oObjInfo[KDefine.G_KEY_IS_RAND].ExIsValid() ? a_oObjInfo[KDefine.G_KEY_IS_RAND].AsInt != KCDefine.B_VAL_0_INT : false;
+		m_bIsTransparent = a_oObjInfo[KDefine.G_KEY_IS_TRANSPARENT].ExIsValid() ? a_oObjInfo[KDefine.G_KEY_IS_TRANSPARENT].AsInt != KCDefine.B_VAL_0_INT : false;
+		m_bIsSkillTarget = a_oObjInfo[KDefine.G_KEY_IS_SKILL_TARGET].ExIsValid() ? a_oObjInfo[KDefine.G_KEY_IS_SKILL_TARGET].AsInt != KCDefine.B_VAL_0_INT : false;
+
+		m_bIsEnableHit = a_oObjInfo[KDefine.G_KEY_IS_ENABLE_HIT].ExIsValid() ? a_oObjInfo[KDefine.G_KEY_IS_ENABLE_HIT].AsInt != KCDefine.B_VAL_0_INT : false;
+		m_bIsEnableColor = a_oObjInfo[KDefine.G_KEY_IS_ENABLE_COLOR].ExIsValid() ? a_oObjInfo[KDefine.G_KEY_IS_ENABLE_COLOR].AsInt != KCDefine.B_VAL_0_INT : false;
+		m_bIsEnableChange = a_oObjInfo[KDefine.G_KEY_IS_ENABLE_CHANGE].ExIsValid() ? a_oObjInfo[KDefine.G_KEY_IS_ENABLE_CHANGE].AsInt != KCDefine.B_VAL_0_INT : false;
+		m_bIsEnableReflect = a_oObjInfo[KDefine.G_KEY_IS_ENABLE_REFLECT].ExIsValid() ? a_oObjInfo[KDefine.G_KEY_IS_ENABLE_REFLECT].AsInt != KCDefine.B_VAL_0_INT : false;
+		m_bIsEnableRefract = a_oObjInfo[KDefine.G_KEY_IS_ENABLE_REFRACT].ExIsValid() ? a_oObjInfo[KDefine.G_KEY_IS_ENABLE_REFRACT].AsInt != KCDefine.B_VAL_0_INT : false;
+		m_bIsEnableMoveDown = a_oObjInfo[KDefine.G_KEY_IS_ENABLE_MOVE_DOWN].ExIsValid() ? a_oObjInfo[KDefine.G_KEY_IS_ENABLE_MOVE_DOWN].AsInt != KCDefine.B_VAL_0_INT : false;
+
+		m_eColliderType = a_oObjInfo[KDefine.G_KEY_COLLIDER_TYPE].ExIsValid() ? (EColliderType)a_oObjInfo[KDefine.G_KEY_COLLIDER_TYPE].AsInt : EColliderType.NONE;
+		m_eHitSkillKinds = a_oObjInfo[KDefine.G_KEY_HIT_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oObjInfo[KDefine.G_KEY_HIT_SKILL_KINDS].AsInt : ESkillKinds.NONE;
+		m_eDestroySkillKinds = a_oObjInfo[KDefine.G_KEY_DESTROY_SKILL_KINDS].ExIsValid() ? (ESkillKinds)a_oObjInfo[KDefine.G_KEY_DESTROY_SKILL_KINDS].AsInt : ESkillKinds.NONE;
+
+		m_stColliderSize = a_oObjInfo[KDefine.G_KEY_COLLIDER_SIZE].ExIsValid() ? new Vector3(a_oObjInfo[KDefine.G_KEY_COLLIDER_SIZE][KCDefine.B_VAL_0_INT].AsFloat, a_oObjInfo[KDefine.G_KEY_COLLIDER_SIZE][KCDefine.B_VAL_1_INT].AsFloat, a_oObjInfo[KDefine.G_KEY_COLLIDER_SIZE][KCDefine.B_VAL_2_INT].AsFloat) : Vector3.zero;
+	#endregion // 추가
 	}
 	#endregion // 함수
 

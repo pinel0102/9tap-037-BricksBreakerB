@@ -43,7 +43,7 @@ namespace NSEngine {
 
             switch(cellType) 
             {
-                case EObjType.NORM_BRICKS: this.GetDamage(KCDefine.B_VAL_1_INT); break;
+                case EObjType.NORM_BRICKS: this.GetDamage(KCDefine.B_VAL_1_INT); oCellObj.SetSpriteColor(oCellObj.CellObjInfo.ObjKinds); break;
                 case EObjType.OBSTACLE_BRICKS: this.GetObstacle(kinds); break;
                 case EObjType.ITEM_BRICKS: this.GetItem(kinds); break;
                 case EObjType.SPECIAL_BRICKS: this.GetSpecial(kinds); break;

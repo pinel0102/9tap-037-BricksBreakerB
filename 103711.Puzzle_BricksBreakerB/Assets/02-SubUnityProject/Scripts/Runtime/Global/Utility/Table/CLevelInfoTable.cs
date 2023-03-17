@@ -44,6 +44,7 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 	private const string KEY_OBJ_KINDS = "ObjKinds";
 
     private const string KEY_COLOR = "Color";
+    private const string KEY_COLOR_ID = "ColorID";
 	#endregion // 상수
 
 	#region 프로퍼티
@@ -96,6 +97,14 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 		get { return m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_COLOR, GlobalDefine.COLOR_BRICKS_DEFAULT); }
 		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_COLOR, $"{value}"); }
 	}
+
+    [JsonIgnore]
+	[IgnoreMember]
+	public int ColorID {
+		get { return int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_COLOR_ID, KCDefine.B_STR_0_INT)); }
+		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_COLOR_ID, $"{value}"); }
+	}
+    
 #else
 	[IgnoreMember]
 	public int SizeX {
@@ -126,6 +135,12 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 		get { return m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_COLOR, GlobalDefine.CELL_COLOR_DEFAULT); }
 		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_COLOR, $"{value}"); }
 	}
+
+    [IgnoreMember]
+	public int ColorID {
+		get { return int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_COLOR_ID, KCDefine.B_STR_0_INT)); }
+		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_COLOR_ID, $"{value}"); }
+	}
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	#endregion // 프로퍼티
 
@@ -151,6 +166,11 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 	/** 역직렬화 되었을 경우 */
 	public void OnAfterDeserialize() {
 		m_stSize = new Vector3Int(this.SizeX, this.SizeY, this.SizeZ);
+	}
+
+    public void OnAfterDeserialize(Vector3Int a_stIdx) {
+		m_stSize = new Vector3Int(this.SizeX, this.SizeY, this.SizeZ);
+		m_stBaseIdx = a_stIdx;
 	}
 	#endregion // IMessagePackSerializationCallbackReceiver
 

@@ -16,16 +16,20 @@ namespace LevelEditorScene {
 		/** 서브 식별자 */
 		private enum ESubKey {
 			NONE = -1,
-			ME_UIS_CELL_OBJ_HP_TEXT,
+            ME_UIS_CELL_OBJ_HP_TEXT,
 			ME_UIS_CELL_OBJ_ATK_TEXT,
+            ME_UIS_CELL_OBJ_COLOR_TEXT,
+            RE_UIS_PAGE_UIS_02_CELL_OBJ_COLOR_DROP,
 			RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT,
 			RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT,
+			
 			[HideInInspector] MAX_VAL
 		}
 
 		#region 변수
 		/** =====> UI <===== */
 		private Dictionary<ESubKey, Text> m_oSubTextDict = new Dictionary<ESubKey, Text>();
+        private Dictionary<ESubKey, Dropdown> m_oSubDropDict = new Dictionary<ESubKey, Dropdown>();
 		private Dictionary<ESubKey, InputField> m_oSubInputDict = new Dictionary<ESubKey, InputField>();
 
 		/** =====> 객체 <===== */
@@ -104,13 +108,21 @@ namespace LevelEditorScene {
 
 		/** 객체 스프라이트를 설정한다 */
 		private void SubSetupObjSprite(STCellInfo a_stCellInfo, STCellObjInfo a_stCellObjInfo, SpriteRenderer a_oOutObjSprite) {
+            CObjInfoTable.Inst.TryGetObjInfo(a_stCellObjInfo.ObjKinds, out STObjInfo stObjInfo);
+
 			var oInfoText = a_oOutObjSprite.gameObject.GetComponentInChildren<TMP_Text>();
 			oInfoText = oInfoText ?? CFactory.CreateCloneObj<TMP_Text>(KCDefine.U_OBJ_N_TMP_TEXT, CResManager.Inst.GetRes<GameObject>(KDefine.LES_OBJ_P_TMP_TEXT), a_oOutObjSprite.gameObject);
 
-			//oInfoText.SetText($"{a_stCellObjInfo.HP}\n{a_stCellObjInfo.ATK}");
-            RefreshText(a_stCellObjInfo, oInfoText);
+            // 타격 및 제거 스킬이 없을 경우
+			/*if(stObjInfo.m_eHitSkillKinds == ESkillKinds.NONE && stObjInfo.m_eDestroySkillKinds == ESkillKinds.NONE) {
+				oInfoText.SetText($"{a_stCellObjInfo.HP}");
+			} else {
+				oInfoText.SetText($"{a_stCellObjInfo.HP}\n{a_stCellObjInfo.ATK}");
+			}*/
 
-			oInfoText.gameObject.SetActive(a_stCellObjInfo.ObjKinds != EObjKinds.BG_PLACEHOLDER_01);
+			RefreshText(a_stCellObjInfo, oInfoText);
+
+			oInfoText.gameObject.SetActive(a_stCellObjInfo.ObjKinds != EObjKinds.BG_PLACEHOLDER_01 && stObjInfo.m_eColliderType != EColliderType.NONE);
 
 			(oInfoText as TextMeshPro).ExSetSortingOrder(new STSortingOrderInfo() {
 				m_nOrder = a_oOutObjSprite.sortingOrder + KCDefine.B_VAL_1_INT, m_oLayer = a_oOutObjSprite.sortingLayerName
@@ -130,6 +142,7 @@ namespace LevelEditorScene {
 				// 셀 객체 정보가 존재 할 경우
 				if(bIsValid01 && bIsValid02 && stCellObjInfo.ObjKinds != EObjKinds.BG_PLACEHOLDER_01) {
 					this.OnTouchREUIsPageUIs02ScrollerCellViewBtn(stCellObjInfo.ObjKinds);
+                    this.SetREUIsPageUIs02CellObjColor(stCellObjInfo.ColorID);
 					this.SetREUIsPageUIs02ObjSize(stCellObjInfo.m_stSize.x, stCellObjInfo.m_stSize.y);
 				}
 			}
@@ -176,7 +189,7 @@ namespace LevelEditorScene {
 
 			// 객체 추가가 가능 할 경우
 			if(Input.GetMouseButton((int)EMouseBtn.LEFT) && m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
-				this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx, drawCellColorHex), stIdx);
+				this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], this.GetEditorObjSize(), stIdx, currentColorID), stIdx);
 			}
 			// 객체 제거가 가능 할 경우
 			else if(Input.GetMouseButton((int)EMouseBtn.RIGHT) && stCellInfo.m_oCellObjInfoList.ExIsValid()) {
@@ -207,7 +220,7 @@ namespace LevelEditorScene {
 
 					// 객체 추가가 가능 할 경우
 					if(Input.GetMouseButton((int)EMouseBtn.LEFT) && bIsValid01 && m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
-						this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], stSize, stIdx, drawCellColorHex), stIdx, false);
+						this.AddCellObjInfo(Factory.MakeEditorCellObjInfo(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], stSize, stIdx, currentColorID), stIdx, false);
 
 						oIdxList.ExAddVal(new Vector3Int(stIdx.x, stIdx.y - stSize.y, stIdx.z));
 						oIdxList.ExAddVal(new Vector3Int(stIdx.x, stIdx.y + stSize.y, stIdx.z));
@@ -241,14 +254,20 @@ namespace LevelEditorScene {
 			// 텍스트를 설정한다
 			CFunc.SetupComponents(new List<(ESubKey, string, GameObject)>() {
 				(ESubKey.ME_UIS_CELL_OBJ_HP_TEXT, $"{ESubKey.ME_UIS_CELL_OBJ_HP_TEXT}", this.MEUIsInfoUIs),
-				(ESubKey.ME_UIS_CELL_OBJ_ATK_TEXT, $"{ESubKey.ME_UIS_CELL_OBJ_ATK_TEXT}", this.MEUIsInfoUIs)
+				(ESubKey.ME_UIS_CELL_OBJ_ATK_TEXT, $"{ESubKey.ME_UIS_CELL_OBJ_ATK_TEXT}", this.MEUIsInfoUIs),
+                (ESubKey.ME_UIS_CELL_OBJ_COLOR_TEXT, $"{ESubKey.ME_UIS_CELL_OBJ_COLOR_TEXT}", this.MEUIsInfoUIs)
 			}, m_oSubTextDict);
 		}
 
 		/** 중앙 에디터 UI 상태를 갱신한다 */
 		private void SubUpdateMidEditorUIsState() {
+            Color stColor = GlobalDefine.colorList[m_oSubDropDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_COLOR_DROP].value][0];
+            
 			m_oSubTextDict[ESubKey.ME_UIS_CELL_OBJ_HP_TEXT].text = string.Format(KDefine.LES_TEXT_FMT_HP_INFO, m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT].text);
 			m_oSubTextDict[ESubKey.ME_UIS_CELL_OBJ_ATK_TEXT].text = string.Format(KDefine.LES_TEXT_FMT_ATK_INFO, m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT].text);
+            m_oSubTextDict[ESubKey.ME_UIS_CELL_OBJ_COLOR_TEXT].text = string.Format(KDefine.LES_TEXT_FMT_COLOR_INFO, m_oSubDropDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_COLOR_DROP].captionText.text.ExGetColorFmtStr(stColor));
+
+            UpdateRightUIsColor();
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		#endregion // 조건부 함수
@@ -302,6 +321,11 @@ namespace LevelEditorScene {
 
 		/** 오른쪽 에디터 UI 페이지 UI 2 를 설정한다 */
 		private void SubSetupREUIsPageUIs02(GameObject a_oPageUIs) {
+            // 드롭을 설정한다
+			CFunc.SetupDrops(new List<(ESubKey, string, GameObject, UnityAction<int>)>() {
+				(ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_COLOR_DROP, $"{ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_COLOR_DROP}", a_oPageUIs, this.OnChangeREUIsPageUIs02CellObjColorVal)
+			}, m_oSubDropDict);
+
 			// 입력을 설정한다 {
 			CFunc.SetupInputs(new List<(ESubKey, string, GameObject, UnityAction<string>)>() {
 				(ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT, $"{ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs02CellObjInfoInputStr),
@@ -361,7 +385,17 @@ namespace LevelEditorScene {
 			// 정보 갱신이 가능 할 경우
 			if(bIsValid01 && (bIsValid02 || bIsValid03)) {
 				this.SetREUIsPageUIs02CellObjInfo((bIsValid02 && a_oBtn.transform.parent.gameObject == m_oSubCellObjHPBtnUIs) ? nHP + nExtraVal : nHP, (bIsValid03 && a_oBtn.transform.parent.gameObject == m_oSubCellObjATKBtnUIs) ? nATK + nExtraVal : nATK);
+
+                if (a_oBtn.transform.parent.gameObject == m_oSubCellObjHPBtnUIs)
+                {
+                    m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT].onValueChanged.Invoke($"{Mathf.Max(nHP + nExtraVal, KCDefine.B_VAL_0_INT)}");
+                }
 			}
+		}
+
+        /** 오른쪽 에디터 UI 페이지 UI 2 셀 객체 색상 값이 변경 되었을 경우 */
+		private void OnChangeREUIsPageUIs02CellObjColorVal(int a_nIdx) {
+			this.SetREUIsPageUIs02CellObjColor(a_nIdx);
 		}
 
 		/** 오른쪽 에디터 UI 페이지 UI 2 셀 객체 정보 문자열을 변경했을 경우 */
@@ -376,6 +410,12 @@ namespace LevelEditorScene {
 
 		#region 조건부 접근자 함수
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+        /** 오른쪽 에디터 UI 페이지 UI 2 셀 객체 색상을 변경한다 */
+		private void SetREUIsPageUIs02CellObjColor(int a_nIdx) {
+			m_oSubDropDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_COLOR_DROP].SetValueWithoutNotify(Mathf.Clamp(a_nIdx, KCDefine.B_VAL_0_INT, GlobalDefine.colorList.Count - KCDefine.B_VAL_1_INT));
+			this.UpdateUIsState();
+		}
+        
 		/** 오른쪽 에디터 UI 페이지 UI 2 셀 객체 정보를 변경한다 */
 		private void SetREUIsPageUIs02CellObjInfo(int a_nHP, int a_nATK) {
 			m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT].SetTextWithoutNotify($"{Mathf.Max(a_nHP, KCDefine.B_VAL_0_INT)}");
