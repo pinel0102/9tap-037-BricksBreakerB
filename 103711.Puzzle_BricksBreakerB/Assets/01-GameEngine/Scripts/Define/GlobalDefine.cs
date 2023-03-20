@@ -47,4 +47,6 @@ public static partial class GlobalDefine
     public const string formatAimText = "AIM\n{0}";
     public const string textON = "ON";
     public const string textOFF = "OFF";    
+
+    public static Vector2 CustomSize_Diffusion = new Vector2(30f, 30f);
 }

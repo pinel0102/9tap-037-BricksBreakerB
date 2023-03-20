@@ -67,6 +67,8 @@ namespace NSEngine {
 						case EObjKinds.NORM_BRICKS_TRIANGLE_01: this.SetupTriangleCollider(oPosList); break;
 						case EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_01: this.SetupRightTriangleCollider(oPosList); break;
                         case EObjKinds.NORM_BRICKS_DIAMOND_01: this.SetupDiamondCollider(oPosList); break;
+                        case EObjKinds.SPECIAL_BRICKS_BALL_DIFFUSION_01: this.SetupDiamondCollider(oPosList, GlobalDefine.CustomSize_Diffusion); break;
+                        case EObjKinds.SPECIAL_BRICKS_BALL_AMPLIFICATION_01: this.SetupTriangleCollider(oPosList); break;
                         default: this.SetupSquareCollider(oPosList); break;
 					}
 
@@ -93,10 +95,19 @@ namespace NSEngine {
 			a_oOutPosList.ExAddVal(new Vector2(-Access.CellSize.x / KCDefine.B_VAL_2_REAL, 0));
 		}
 
+        /** 마름모 충돌체를 설정한다 */
+		private void SetupDiamondCollider(List<Vector2> a_oOutPosList, Vector2 customSize) {
+            a_oOutPosList.ExAddVal(new Vector2(0, customSize.y / -KCDefine.B_VAL_2_REAL));
+            a_oOutPosList.ExAddVal(new Vector2(customSize.x / KCDefine.B_VAL_2_REAL, 0));
+			a_oOutPosList.ExAddVal(new Vector2(0, customSize.y / KCDefine.B_VAL_2_REAL));
+			a_oOutPosList.ExAddVal(new Vector2(-customSize.x / KCDefine.B_VAL_2_REAL, 0));
+		}
+
 		/** 삼각형 충돌체를 설정한다 */
 		private void SetupTriangleCollider(List<Vector2> a_oOutPosList) {
 			switch(this.Params.m_stObjInfo.m_eObjKinds) {
-				case EObjKinds.NORM_BRICKS_TRIANGLE_01: {
+				case EObjKinds.NORM_BRICKS_TRIANGLE_01:
+                case EObjKinds.SPECIAL_BRICKS_BALL_AMPLIFICATION_01: {
 					a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / -KCDefine.B_VAL_2_REAL, Access.CellSize.y / -KCDefine.B_VAL_2_REAL));
 					a_oOutPosList.ExAddVal(new Vector2(KCDefine.B_VAL_0_REAL, Access.CellSize.y / KCDefine.B_VAL_2_REAL));
 					a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / KCDefine.B_VAL_2_REAL, Access.CellSize.y / -KCDefine.B_VAL_2_REAL));

@@ -6,7 +6,7 @@ namespace NSEngine {
 	/** 서브 셀 객체 제어자 */
 	public partial class CECellObjController : CEObjController {
 
-        private void GetItem_BallPlus(EObjKinds kindsType, EObjKinds kinds)
+        private void GetItem_BallPlus(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds)
         {
             int _oldCount = this.Engine.BallObjList.Count;
             int _index = ((int)kinds).ExKindsToDetailSubKindsTypeVal();            

@@ -119,7 +119,7 @@ namespace NSEngine {
 			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_BALL_OBJ_OBJS_POOL));
 			oObj.SetSpriteColor(EObjKinds.BALL_NORM_01);
 
-            oController?.Init(CEBallObjController.MakeParams(this), _index);
+            oController?.Init(oObj, CEBallObjController.MakeParams(this), _index);
 
 			this.SetupEObjComponent(oObj, a_oOwner, oController);
 			return oObj;

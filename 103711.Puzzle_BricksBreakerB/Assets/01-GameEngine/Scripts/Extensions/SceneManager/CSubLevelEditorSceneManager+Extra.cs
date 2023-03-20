@@ -144,7 +144,7 @@ namespace LevelEditorScene {
                             case EObjKinds.ITEM_BRICKS_BALL_02:
                             case EObjKinds.ITEM_BRICKS_BALL_03:
                             case EObjKinds.ITEM_BRICKS_BALL_04:
-                                //_text.text = $"+{GlobalDefine.GetItem_BallPlus[((int)CellObjInfo.ObjKinds).ExKindsToDetailSubKindsTypeVal()]}";
+                            default:
                                 _text.text = string.Empty;
                                 break;
                         }
@@ -155,6 +155,7 @@ namespace LevelEditorScene {
                             case EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01:
                             case EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01:
                             case EObjKinds.SPECIAL_BRICKS_LASER_CROSS_01:
+                            default:
                                 _text.text = string.Empty;
                                 break;
                         }

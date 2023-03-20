@@ -165,8 +165,12 @@ namespace NSEngine {
 					var stPos = m_oMoveCompleteBallObjList.ExIsValid() ? m_oMoveCompleteBallObjList[KCDefine.B_VAL_0_INT].transform.localPosition : m_oSubVec3Dict[ESubKey.SHOOT_START_POS];
 					CScheduleManager.Inst.RemoveTimer(this);
 
+                    CheckRemoveBalls();
+                    
                     for(int i = 0; i < this.BallObjList.Count; ++i) {
-						this.BallObjList[i].GetController<CEObjController>().SetState(CEController.EState.IDLE, true);
+						//this.BallObjList[i].GetController<CEObjController>().SetState(CEController.EState.IDLE, true);
+                        CEBallObjController ballController = this.BallObjList[i].GetController<CEBallObjController>();
+                        ballController.Initialize();
                         oAniList.ExAddVal(this.BallObjList[i].transform.DOLocalMove(stPos, KCDefine.B_VAL_0_5_REAL));
 					}
 
@@ -291,7 +295,9 @@ namespace NSEngine {
 
 					// 모든 공이 이동을 완료했을 경우
 					if(m_oMoveCompleteBallObjList.Count >= this.BallObjList.Count) {
-                        
+
+                        CheckRemoveBalls();
+                        this.SetPlayState(EPlayState.IDLE);
                         CheckClear();
 						
                         // 클리어했을 경우

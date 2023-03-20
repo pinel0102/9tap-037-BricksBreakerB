@@ -9,16 +9,6 @@ namespace NSEngine {
 	/** 서브 엔진 상수 */
 	public static partial class KDefine {
 		#region 기본
-		// 속도
-		public const float E_SPEED_SHOOT = 1250.0f;
-
-		// 길이
-		public const float E_LENGTH_LINE = 100.0f;
-		public const float E_MAX_LENGTH_LINE = 450.0f;
-
-		// 각도
-		public const float E_MIN_ANGLE_AIMING = 5.0f;
-
 		// 식별자
 		public const string E_KEY_BALL_OBJ_OBJS_POOL = "BallObjObjsPool";
 

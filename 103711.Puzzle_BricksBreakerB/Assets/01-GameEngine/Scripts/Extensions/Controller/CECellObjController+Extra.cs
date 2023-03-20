@@ -9,7 +9,7 @@ namespace NSEngine {
 
         private Coroutine hitCoroutine;
 
-        public void GetDamage(int _ATK)
+        public void GetDamage(CEBallObjController ballController, int _ATK)
         {
             var oCellObj = this.GetOwner<CEObj>();
 			var stCellObjInfo = oCellObj.CellObjInfo;
@@ -29,19 +29,19 @@ namespace NSEngine {
             }
         }
 
-        private void GetObstacle(EObjKinds kinds)
+        private void GetObstacle(CEBallObjController ballController, EObjKinds kinds)
         {
             //
         }
 
-        private void GetItem(EObjKinds kinds)
+        private void GetItem(CEBallObjController ballController, EObjKinds kinds)
         {
             EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
 
             switch(kindsType)
             {
                 case EObjKinds.ITEM_BRICKS_BALL_01:
-                    GetItem_BallPlus(kindsType, kinds);
+                    GetItem_BallPlus(ballController, kindsType, kinds);
                     break;
                 default:
                     Debug.Log(CodeManager.GetMethodName() + string.Format("<color=red>{0}</color>", kindsType));
@@ -51,7 +51,7 @@ namespace NSEngine {
             CellDestroy();
         }
 
-        private void GetSpecial(EObjKinds kinds)
+        private void GetSpecial(CEBallObjController ballController, EObjKinds kinds)
         {
             EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
 
@@ -60,7 +60,14 @@ namespace NSEngine {
                 case EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01:
                 case EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01:
                 case EObjKinds.SPECIAL_BRICKS_LASER_CROSS_01:
-                    GetSpecial_Laser(kindsType, kinds);
+                    GetSpecial_Laser(ballController, kindsType, kinds);
+                    break;
+                case EObjKinds.SPECIAL_BRICKS_BALL_DIFFUSION_01:
+                case EObjKinds.SPECIAL_BRICKS_BALL_AMPLIFICATION_01:
+                    GetSpecial_Refract(ballController, kindsType, kinds);
+                    break;
+                case EObjKinds.SPECIAL_BRICKS_POWERBALL_01:
+                    GetSpecial_PowerBall(ballController, kindsType, kinds);
                     break;
                 default:
                     Debug.Log(CodeManager.GetMethodName() + string.Format("<color=red>{0}</color>", kindsType));

@@ -34,19 +34,21 @@ namespace NSEngine {
 		}
 
 		/** 히트 되었을 경우 */
-		public void OnHit(CEObj a_oTarget) {
+		public void OnHit(CEObj a_oTarget, CEBallObjController ballController) {
             var oCellObj = this.GetOwner<CEObj>();
 			var stCellObjInfo = oCellObj.CellObjInfo;
 
             EObjKinds kinds = oCellObj.Params.m_stObjInfo.m_eObjKinds;
             EObjType cellType = (EObjType)((int)kinds).ExKindsToType();
 
+            int ATK = KCDefine.B_VAL_1_INT + ballController.extraATK;
+
             switch(cellType) 
             {
-                case EObjType.NORM_BRICKS: this.GetDamage(KCDefine.B_VAL_1_INT); oCellObj.SetSpriteColor(oCellObj.CellObjInfo.ObjKinds); break;
-                case EObjType.OBSTACLE_BRICKS: this.GetObstacle(kinds); break;
-                case EObjType.ITEM_BRICKS: this.GetItem(kinds); break;
-                case EObjType.SPECIAL_BRICKS: this.GetSpecial(kinds); break;
+                case EObjType.NORM_BRICKS: this.GetDamage(ballController, ATK); oCellObj.SetSpriteColor(oCellObj.CellObjInfo.ObjKinds); break;
+                case EObjType.OBSTACLE_BRICKS: this.GetObstacle(ballController, kinds); break;
+                case EObjType.ITEM_BRICKS: this.GetItem(ballController, kinds); break;
+                case EObjType.SPECIAL_BRICKS: this.GetSpecial(ballController, kinds); break;
                 default : 
                     Debug.Log(CodeManager.GetMethodName() + string.Format("{0} / {1}", cellType, kinds));
                     break;

@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public static partial class KDefine {
 	#region 기본
-	// 식별자 {
+    // 식별자 {
 	public const string G_KEY_IS_ONCE = "IsOnce";
 	public const string G_KEY_IS_RAND = "IsRandom";
 	public const string G_KEY_IS_OVERLAY = "IsOverlay";
@@ -36,6 +36,28 @@ public static partial class KDefine {
 	// 색상
 	public static readonly Color PS_CLEAR_COLOR = new Color(0x17 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x17 / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 0x2a / (float)KCDefine.B_UNIT_NORM_VAL_TO_BYTE, 1.0f);
 	#endregion // 런타임 상수
+}
+
+namespace NSEngine {
+	/** 추가 상수 - 엔진 */
+	public static partial class KDefine {
+        // 단위 {
+        public const int E_MAX_BOOSTER = 100;
+        public const int E_EXTRA_NUM_CELLS_Y = 4;
+
+        public const float E_SPEED_SHOOT = 1250.0f;
+        public const float E_SCALE_BRICKS = 0.95f;
+
+        public const float E_LENGTH_LINE = 100.0f;
+        public const float E_MAX_LENGTH_LINE = 450.0f;
+
+        public const float E_MIN_ANGLE_AIMING = 5.0f;
+        public const float E_MAX_ANGLE_REFRACT = 60.0f;
+
+        public const float E_DELTA_T_TIME_SCALE = 10.0f;
+        public const float E_DURATION_MOVE_DOWN_ANI = 0.25f;
+        // 단위 }
+    }
 }
 
 /** 그리드 뷰 사이즈 */

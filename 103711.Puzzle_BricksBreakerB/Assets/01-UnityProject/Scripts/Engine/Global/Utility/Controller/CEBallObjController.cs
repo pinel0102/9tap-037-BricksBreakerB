@@ -43,11 +43,14 @@ namespace NSEngine {
 		}
 
 		/** 초기화 */
-		public virtual void Init(STParams a_stParams, int _index) {
+		public virtual void Init(CEObj oObj, STParams a_stParams, int _index) {
 			base.Init(a_stParams.m_stBaseParams);
 			this.Params = a_stParams;
 
             this.myIndex = _index;
+            
+            this.SaveDefaultState(oObj);
+            this.Initialize();
 		}
 
 		/** 상태를 갱신한다 */
@@ -99,16 +102,18 @@ namespace NSEngine {
                             break;
                     }
 
-					oController.OnHit(this.GetOwner<CEObj>());
+					oController.OnHit(this.GetOwner<CEObj>(), this);
 				}
 				// 하단 영역 일 경우
 				else if(stRaycastHit.collider.gameObject == this.Engine.DownBoundsSprite.gameObject) 
-                {
+                {   
                     this.GetOwner<CEObj>().transform.localPosition = stHitPos;
                     this.SetMoveDirection(Vector3.Reflect(stVelocity.normalized, stRaycastHit.normal).normalized);
 
-					this.SetState(EState.IDLE, true);
-					this.GetOwner<CEObj>().Params.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(CEObjComponent.ECallback.ENGINE_OBJ_EVENT)?.Invoke(this.GetOwner<CEObj>(), EEngineObjEvent.MOVE_COMPLETE, string.Empty);
+                    this.SetState(EState.IDLE, true);
+                    this.Initialize();
+
+                    this.GetOwner<CEObj>().Params.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(CEObjComponent.ECallback.ENGINE_OBJ_EVENT)?.Invoke(this.GetOwner<CEObj>(), EEngineObjEvent.MOVE_COMPLETE, string.Empty);
 				}
                 else // 상단 or 좌우 벽일 경우.
                 {

@@ -168,6 +168,19 @@ namespace NSEngine {
 
 
 #region Private Methods
+        private void CheckRemoveBalls()
+        {
+            for(int i=this.BallObjList.Count - 1; i >= 0; i--)
+            {
+                if (this.BallObjList[i].GetController<CEBallObjController>().isRemoveMoveEnd)
+                {
+                    GameObject.Destroy(this.BallObjList[i].gameObject);
+                    this.BallObjList.Remove(this.BallObjList[i]);
+                }
+            }
+
+            //Debug.Log("this.BallObjList.Count : " + this.BallObjList.Count);
+        }
 
         private void CreateBall(int _index)
         {
