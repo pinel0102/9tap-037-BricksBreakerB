@@ -77,7 +77,7 @@ namespace NSEngine {
 
             var stVelocity = (this.MoveDirection * m_oRealDict[EKey.SPEED]) * a_fDeltaTime;
             var stWorldPos = (this.GetOwner<CEObj>().transform.localPosition + stVelocity.normalized).ExToWorld(this.Engine.Params.m_oObjRoot);
-			var stRaycastHit = Physics2D.CircleCast(stWorldPos, this.GetOwner<CEObj>().TargetSprite.sprite.textureRect.size.ExToWorld(this.Engine.Params.m_oObjRoot).x / KCDefine.B_VAL_2_REAL, stVelocity.normalized, GlobalDefine.RAYCAST_DISTANCE, Engine.layerWallAndBricks);
+			var stRaycastHit = Physics2D.CircleCast(stWorldPos, this.GetOwner<CEObj>().TargetSprite.sprite.textureRect.size.ExToWorld(this.Engine.Params.m_oObjRoot).x / KCDefine.B_VAL_2_REAL, stVelocity.normalized, GlobalDefine.RAYCAST_DISTANCE, Engine.layerAll);
             
 			var stHitPos = (stWorldPos + (stVelocity.normalized * stRaycastHit.distance)).ExToLocal(this.Engine.Params.m_oObjRoot);
 			var stHitDelta = (this.GetOwner<CEObj>().transform.localPosition + stVelocity.normalized) - stHitPos;
@@ -89,7 +89,11 @@ namespace NSEngine {
                 // 셀이 존재 할 경우
 				if(oCellObj != null && oCellObj.TryGetComponent<CECellObjController>(out CECellObjController oController)) 
                 {
-                    switch((EObjType)((int)oCellObj.Params.m_stObjInfo.m_eObjKinds).ExKindsToType()) 
+                    /*EObjKinds kinds = oCellObj.Params.m_stObjInfo.m_eObjKinds;
+                    EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
+                    
+                    EObjType cellType = (EObjType)((int)oCellObj.Params.m_stObjInfo.m_eObjKinds).ExKindsToType();
+                    switch(cellType) 
                     {
                         case EObjType.NORM_BRICKS:
                         case EObjType.OBSTACLE_BRICKS:
@@ -100,9 +104,18 @@ namespace NSEngine {
                             Debug.Log(CodeManager.GetMethodName() + string.Format("<color=red>{0}</color>", (EObjType)((int)oCellObj.Params.m_stObjInfo.m_eObjKinds).ExKindsToType()));
                             this.GetOwner<CEObj>().transform.localPosition += stVelocity;
                             break;
-                    }
+                    }*/
 
-					oController.OnHit(this.GetOwner<CEObj>(), this);
+                    if (oCellObj.Params.m_stObjInfo.m_bIsEnableReflect)
+                    {
+                        this.GetOwner<CEObj>().transform.localPosition = stHitPos;
+                        this.SetMoveDirection(Vector3.Reflect(stVelocity.normalized, stRaycastHit.normal).normalized);
+                        oController.OnHit(this.GetOwner<CEObj>(), this);
+                    }
+                    else
+                    {
+                        this.GetOwner<CEObj>().transform.localPosition += stVelocity;
+                    }
 				}
 				// 하단 영역 일 경우
 				else if(stRaycastHit.collider.gameObject == this.Engine.DownBoundsSprite.gameObject) 

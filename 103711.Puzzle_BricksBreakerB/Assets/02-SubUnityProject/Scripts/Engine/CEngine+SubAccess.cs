@@ -19,7 +19,7 @@ namespace NSEngine {
 						// 셀이 존재 할 경우
 						if(this.CellObjLists[i, j][k].gameObject.activeSelf) {
                             CEObj target = this.CellObjLists[i, j][k];							
-                            if(target != null && (EObjType)((int)target.Params.m_stObjInfo.m_eObjKinds).ExKindsToType() == EObjType.NORM_BRICKS)
+                            if(target != null && target.Params.m_stObjInfo.m_bIsClearTarget)
                             {
                                 bIsClear = false;
 							    goto EXIT_FOR;

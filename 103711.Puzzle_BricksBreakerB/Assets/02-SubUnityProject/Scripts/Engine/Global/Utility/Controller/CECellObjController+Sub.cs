@@ -39,18 +39,19 @@ namespace NSEngine {
 			var stCellObjInfo = oCellObj.CellObjInfo;
 
             EObjKinds kinds = oCellObj.Params.m_stObjInfo.m_eObjKinds;
+            EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
             EObjType cellType = (EObjType)((int)kinds).ExKindsToType();
 
             int ATK = KCDefine.B_VAL_1_INT + ballController.extraATK;
 
             switch(cellType) 
             {
-                case EObjType.NORM_BRICKS: this.GetDamage(ballController, ATK); oCellObj.SetSpriteColor(oCellObj.CellObjInfo.ObjKinds); break;
-                case EObjType.OBSTACLE_BRICKS: this.GetObstacle(ballController, kinds); break;
-                case EObjType.ITEM_BRICKS: this.GetItem(ballController, kinds); break;
-                case EObjType.SPECIAL_BRICKS: this.GetSpecial(ballController, kinds); break;
+                case EObjType.NORM_BRICKS: this.GetDamage(ballController, kindsType, kinds, ATK); break;
+                case EObjType.OBSTACLE_BRICKS: this.GetObstacle(ballController, kindsType, kinds, ATK); break;
+                case EObjType.ITEM_BRICKS: this.GetItem(ballController, kindsType, kinds, ATK); break;
+                case EObjType.SPECIAL_BRICKS: this.GetSpecial(ballController, kindsType, kinds, ATK); break;
                 default : 
-                    Debug.Log(CodeManager.GetMethodName() + string.Format("{0} / {1}", cellType, kinds));
+                    Debug.Log(CodeManager.GetMethodName() + string.Format("{0} / {1} / {2}", cellType, kindsType, kinds));
                     break;
             }
 		}

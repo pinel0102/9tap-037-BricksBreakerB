@@ -1912,16 +1912,13 @@ namespace LevelEditorScene {
 
 					oBtn.onClick.AddListener(() => this.OnTouchREUIsPageUIs02ScrollerCellViewBtn(eObjKinds));
 
-                    Text _text = oBtn.GetComponentInChildren<Text>();
-                    if (_text != null)
+                    if(CObjInfoTable.Inst.TryGetObjInfo(eObjKinds, out STObjInfo stObjInfo))
                     {
-                        EObjKinds kindsType = (EObjKinds)((int)eObjKinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
-                        switch(kindsType)
-                        {
-                            default:
-                                _text.text = string.Empty;
-                                break;
-                        }
+                        oBtn.GetComponent<ExtraTooltip>().Initialize(tooltipObject, tooltipText, GlobalDefine.GetTooltipText(eObjKinds));
+                    }
+                    else
+                    {
+                        oBtn.GetComponent<ExtraTooltip>().Initialize(tooltipObject, tooltipText, string.Empty);
                     }
 				}
 			}

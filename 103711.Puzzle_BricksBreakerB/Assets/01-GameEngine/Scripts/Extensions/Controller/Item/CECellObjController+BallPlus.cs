@@ -9,7 +9,7 @@ namespace NSEngine {
         private void GetItem_BallPlus(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds)
         {
             int _oldCount = this.Engine.BallObjList.Count;
-            int _index = ((int)kinds).ExKindsToDetailSubKindsTypeVal();            
+            int _index = ((int)kinds).ExKindsToDetailSubKindsTypeVal();
             int _addCount = GlobalDefine.GetItem_BallPlus[_index];
 
             Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0} : +{1}</color>", kinds, _addCount));

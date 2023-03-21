@@ -22,39 +22,6 @@ public static partial class GlobalDefine
     public const string COLOR_BALL_DEFAULT = "#FF0000FF";
     public const string COLOR_FX_LASER = "#CCFF74FF";
 
-    /*public static Color GetCellColor(STCellInfo a_stCellInfo, EObjKinds kinds, string _colorHex = GlobalDefine.COLOR_CELL_DEFAULT)
-    {
-        EObjType cellType = (EObjType)((int)kinds).ExKindsToType();
-        EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
-
-        switch(cellType)
-        {
-            case EObjType.BALL:
-                _colorHex = GlobalDefine.COLOR_BALL_DEFAULT;
-                break;
-            case EObjType.NORM_BRICKS:
-                break;
-            case EObjType.ITEM_BRICKS:
-                switch(kindsType)
-                {
-                    default: 
-                        _colorHex = GlobalDefine.COLOR_CELL_DEFAULT; 
-                        break;
-                }
-                break;
-            case EObjType.SPECIAL_BRICKS:
-                _colorHex = GlobalDefine.COLOR_CELL_DEFAULT;
-                break;
-            default:
-                _colorHex = GlobalDefine.COLOR_CELL_DEFAULT;
-                break;
-        }
-
-        //Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", _colorHex));
-
-        return ColorUtility.TryParseHtmlString(_colorHex, out Color _color) ? _color : Color.white;
-    }*/
-
     public static Color GetCellColor(EObjKinds kinds, bool isEnableColor, int _colorID = 0, int _HP = 100)
     {
         EObjType cellType = (EObjType)((int)kinds).ExKindsToType();

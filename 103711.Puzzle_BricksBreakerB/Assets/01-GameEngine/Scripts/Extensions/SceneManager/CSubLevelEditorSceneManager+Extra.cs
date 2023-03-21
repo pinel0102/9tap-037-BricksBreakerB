@@ -13,6 +13,8 @@ using TMPro;
 namespace LevelEditorScene {
     public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate
     {
+        public GameObject tooltipObject;
+        public Text tooltipText;
         public GameObject colorPickerObject;
         //public ColorPicker colorPicker;
         public Vector2 currentCellSize => new Vector2(NSEngine.Access.MaxGridSize.x / (float)NSEngine.KDefine.E_DEF_NUM_CELLS.x, NSEngine.Access.MaxGridSize.y / (float)NSEngine.KDefine.E_DEF_NUM_CELLS.y);
@@ -31,6 +33,8 @@ namespace LevelEditorScene {
 
         private void ExtraStart()
         {
+            GetDevList();
+            
             //OnCloseColorPicker();
 
             //colorPicker.onColorChanged += SetDrawCellColor;
@@ -56,6 +60,11 @@ namespace LevelEditorScene {
         private void SetupSpriteREUIs(EObjKinds cellKinds, Image _image)
         {
             _image.color = GlobalDefine.GetCellColor(cellKinds, currentColorID, currentHP);
+        }
+
+        private void GetDevList()
+        {
+            //GlobalDefine.devComplete
         }
 
 #endregion Initialize
@@ -123,49 +132,10 @@ namespace LevelEditorScene {
 
 #region Cell Text
 
-        public void RefreshText(STCellObjInfo CellObjInfo, TMP_Text _text)
+        public void RefreshText(STCellObjInfo CellObjInfo, STObjInfo stObjInfo, TMP_Text _text)
         {
-            if(_text != null)
-            {
-                EObjType cellType = (EObjType)((int)CellObjInfo.ObjKinds).ExKindsToType();
-
-                switch(cellType)
-                {
-                    case EObjType.NORM_BRICKS:
-                        _text.text = $"{CellObjInfo.HP}";
-                        break;
-                    case EObjType.OBSTACLE_BRICKS:
-                        _text.text = string.Empty;
-                        break;                
-                    case EObjType.ITEM_BRICKS:
-                        switch(CellObjInfo.ObjKinds)
-                        {
-                            case EObjKinds.ITEM_BRICKS_BALL_01:
-                            case EObjKinds.ITEM_BRICKS_BALL_02:
-                            case EObjKinds.ITEM_BRICKS_BALL_03:
-                            case EObjKinds.ITEM_BRICKS_BALL_04:
-                            default:
-                                _text.text = string.Empty;
-                                break;
-                        }
-                        break;
-                    case EObjType.SPECIAL_BRICKS:
-                        switch(CellObjInfo.ObjKinds)
-                        {
-                            case EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01:
-                            case EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01:
-                            case EObjKinds.SPECIAL_BRICKS_LASER_CROSS_01:
-                            default:
-                                _text.text = string.Empty;
-                                break;
-                        }
-                        break;
-                    default:
-                        Debug.Log(CodeManager.GetMethodName() + string.Format("<color=red>{0}</color>", cellType));
-                        _text.text = string.Empty;
-                        break;
-                }
-            }
+            if (_text != null)
+                _text.text = stObjInfo.m_bIsEnableHit && stObjInfo.m_bIsEnableReflect ? $"{CellObjInfo.HP}" : string.Empty;
         }
 
 #endregion Cell Text

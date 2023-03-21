@@ -9,7 +9,7 @@ namespace NSEngine {
         public Vector3 defaultBallScale;
 
         public bool isRemoveMoveEnd;
-        public bool isNotAffect;
+        public bool isOn_Amplification;
         public int extraATK;
         
         public CircleCollider2D _collider;
@@ -38,22 +38,24 @@ namespace NSEngine {
             SetState(EState.IDLE, true);
             
             SetBallSize(1f);            
-            isNotAffect = false;
+            isOn_Amplification = false;
             extraATK = 0;
         }
 
+        // 반사되지 않는 셀은 1번만 효과를 발동해야 하므로 여기에서 처리한다.
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (this.State == EState.IDLE || isNotAffect) return;
+            if (this.State == EState.IDLE) return;
 
-            CECellObjController oController = other.GetComponentInParent<CECellObjController>();
-
-            if(oController != null)
+            var oCellObj = other.GetComponentInParent<CEObj>();
+            if(oCellObj != null && oCellObj.TryGetComponent<CECellObjController>(out CECellObjController oController)) 
             {
-                EObjKinds kinds =  oController.GetOwner<CEObj>().Params.m_stObjInfo.m_eObjKinds;
+                if (oCellObj.Params.m_stObjInfo.m_bIsEnableReflect)
+                    return;
+               
+                EObjKinds kinds =  oCellObj.Params.m_stObjInfo.m_eObjKinds;
                 EObjType cellType = (EObjType)((int)kinds).ExKindsToType();
-
-                switch(cellType) 
+                switch(cellType)
                 {
                     case EObjType.ITEM_BRICKS:
                     case EObjType.SPECIAL_BRICKS:

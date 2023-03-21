@@ -22,11 +22,11 @@ TagManager:
   - Wall
   - Cell_Empty
   - Cell_Brick
-  - Cell_Obstacle
+  - Cell_Obstacle_Reflect
+  - Cell_Obstacle_Through
+  - Cell_Special_Reflect
+  - Cell_Special_Through
   - Cell_Item
-  - Cell_Special
-  - 
-  - 
   - 
   - 
   - 

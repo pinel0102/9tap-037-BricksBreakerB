@@ -12,16 +12,16 @@ namespace NSEngine {
             
             switch(kindsType)
             {
-                case EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01:  Laser_Horizontal(ballController, _ATK); break;
-                case EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01:    Laser_Vertical(ballController, _ATK); break;
-                case EObjKinds.SPECIAL_BRICKS_LASER_CROSS_01:       Laser_Cross(ballController, _ATK); break;
+                case EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01:  Laser_Horizontal(ballController, kindsType, kinds, _ATK); break;
+                case EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01:    Laser_Vertical(ballController, kindsType, kinds, _ATK); break;
+                case EObjKinds.SPECIAL_BRICKS_LASER_CROSS_01:       Laser_Cross(ballController, kindsType, kinds, _ATK); break;
                 default: break;
             }
 
             this.SetHideReserved();
         }
 
-        private void Laser_Horizontal(CEBallObjController ballController, int _ATK = KCDefine.B_VAL_1_INT)
+        private void Laser_Horizontal(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds, int _ATK = KCDefine.B_VAL_1_INT)
         {
             CEObj myCell = this.GetOwner<CEObj>();
             int _cRow = myCell.row;
@@ -39,14 +39,8 @@ namespace NSEngine {
                         CEObj target = this.Engine.CellObjLists[_cRow, i][_cLastLayer];
                         if (target != null)
                         {
-                            EObjType cellType = (EObjType)((int)target.CellObjInfo.ObjKinds).ExKindsToType();
-                            switch(cellType) 
-                            {
-                                case EObjType.NORM_BRICKS: 
-                                    //Debug.Log(CodeManager.GetMethodName() + string.Format("CellObjLists[Row:{0}, Col:{1}][{2}]", _cRow, i, _cLastLayer));
-                                    target.GetComponent<CECellObjController>().GetDamage(ballController, _ATK); 
-                                    break;
-                            }
+                            if (target.Params.m_stObjInfo.m_bIsSkillTarget)
+                                target.GetComponent<CECellObjController>().GetDamage(ballController, kindsType, kinds, _ATK);
                         }
                     }
                 }
@@ -55,7 +49,7 @@ namespace NSEngine {
             ShowEffect_Laser(GlobalDefine.Rotation_Horizontal);
         }
 
-        private void Laser_Vertical(CEBallObjController ballController, int _ATK = KCDefine.B_VAL_1_INT)
+        private void Laser_Vertical(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds, int _ATK = KCDefine.B_VAL_1_INT)
         {
             CEObj myCell = this.GetOwner<CEObj>();
             int _cCol = myCell.column;
@@ -73,14 +67,8 @@ namespace NSEngine {
                         CEObj target = this.Engine.CellObjLists[i, _cCol][_cLastLayer];
                         if (target != null)
                         {
-                            EObjType cellType = (EObjType)((int)target.CellObjInfo.ObjKinds).ExKindsToType();
-                            switch(cellType) 
-                            {
-                                case EObjType.NORM_BRICKS: 
-                                    //Debug.Log(CodeManager.GetMethodName() + string.Format("CellObjLists[Row:{0}, Col:{1}][{2}]", i, _cCol, _cLastLayer));
-                                    target.GetComponent<CECellObjController>().GetDamage(ballController, _ATK); 
-                                    break;
-                            }
+                            if (target.Params.m_stObjInfo.m_bIsSkillTarget)
+                                target.GetComponent<CECellObjController>().GetDamage(ballController, kindsType, kinds, _ATK);
                         }
                     }
                 }
@@ -89,10 +77,10 @@ namespace NSEngine {
             ShowEffect_Laser(GlobalDefine.Rotation_Vertictal);
         }
 
-        private void Laser_Cross(CEBallObjController ballController, int _ATK = KCDefine.B_VAL_1_INT)
+        private void Laser_Cross(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds, int _ATK = KCDefine.B_VAL_1_INT)
         {
-            Laser_Horizontal(ballController, _ATK);
-            Laser_Vertical(ballController, _ATK);
+            Laser_Horizontal(ballController, kinds, kindsType, _ATK);
+            Laser_Vertical(ballController, kinds, kindsType, _ATK);
         }
 
         private void ShowEffect_Laser(Vector3 _rotation)

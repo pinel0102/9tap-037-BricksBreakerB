@@ -120,7 +120,7 @@ namespace LevelEditorScene {
 				oInfoText.SetText($"{a_stCellObjInfo.HP}\n{a_stCellObjInfo.ATK}");
 			}*/
 
-			RefreshText(a_stCellObjInfo, oInfoText);
+			RefreshText(a_stCellObjInfo, stObjInfo, oInfoText);
 
 			oInfoText.gameObject.SetActive(a_stCellObjInfo.ObjKinds != EObjKinds.BG_PLACEHOLDER_01 && stObjInfo.m_eColliderType != EColliderType.NONE);
 
@@ -335,7 +335,7 @@ namespace LevelEditorScene {
 			m_oInputList02.ExAddVal(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT]);
 			m_oInputList02.ExAddVal(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT]);
 
-			m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT]?.SetTextWithoutNotify(KCDefine.B_STR_0_INT);
+			m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT]?.SetTextWithoutNotify(10.ToString());
 			m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT]?.SetTextWithoutNotify(KCDefine.B_STR_0_INT);
 			// 입력을 설정한다 }
 

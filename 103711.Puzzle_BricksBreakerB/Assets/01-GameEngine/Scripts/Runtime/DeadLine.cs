@@ -15,20 +15,10 @@ namespace GameScene {
 
                 if(oController != null)
                 {
-                    EObjKinds kinds =  oController.GetOwner<NSEngine.CEObj>().Params.m_stObjInfo.m_eObjKinds;
-                    EObjType cellType = (EObjType)((int)kinds).ExKindsToType();
+                    STObjInfo objInfo = oController.GetOwner<NSEngine.CEObj>().Params.m_stObjInfo;
 
-                    //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", cellType));
-
-                    switch(cellType)
-                    {
-                        case EObjType.NORM_BRICKS:
-                        case EObjType.OBSTACLE_BRICKS:
-                            manager.Engine.LevelFail();
-                            break;
-                        default:
-                            break;
-                    }
+                    if (objInfo.m_bIsClearTarget)
+                        manager.Engine.LevelFail();
                 }
             }
         }

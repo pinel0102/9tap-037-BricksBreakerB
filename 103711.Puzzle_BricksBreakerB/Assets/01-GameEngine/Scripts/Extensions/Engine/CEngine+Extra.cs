@@ -38,9 +38,11 @@ namespace NSEngine {
         /// <Summary>(반사 O) 블럭.</Summary>
         [HideInInspector] public int layerBricks;
         /// <Summary>(반사 O) 벽 or 블럭.</Summary>
-        [HideInInspector] public int layerWallAndBricks;
+        [HideInInspector] public int layerReflect;
         /// <Summary>(반사 X) 아이템 블럭 or 스페셜 블럭.</Summary>
         [HideInInspector] public int layerThrough;
+        /// <Summary>(반사 O/X) 벽 or 블럭.</Summary>
+        [HideInInspector] public int layerAll;
         /// <Summary>(반사 X) 볼.</Summary>
         [HideInInspector] public int layerBall;
 
@@ -80,9 +82,13 @@ namespace NSEngine {
         private void InitLayerMask()
         {
             layerWall = 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_WALL);
-            layerBricks = 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_BRICK) | 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_OBSTACLE);
-            layerWallAndBricks = 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_BRICK) | 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_OBSTACLE) | 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_WALL);
-            layerThrough = 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_ITEM) | 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_SPECIAL);
+            layerBricks = 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_BRICK) | 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_OBSTACLE_REFLECT);
+            layerReflect = 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_WALL) | 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_BRICK) | 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_OBSTACLE_REFLECT) | 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_SPECIAL_REFLECT);
+            layerThrough = 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_ITEM) | 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_OBSTACLE_THROUGH)| 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_SPECIAL_THROUGH);
+            layerAll = 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_WALL) 
+                     | 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_BRICK) | 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_ITEM)
+                     | 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_OBSTACLE_REFLECT) | 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_SPECIAL_REFLECT)
+                     | 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_OBSTACLE_THROUGH)| 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_SPECIAL_THROUGH);
             layerBall = 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_BALL);
 
             isGoldAim = false;
@@ -96,14 +102,20 @@ namespace NSEngine {
                 case EObjType.NORM_BRICKS:
                     ChangeLayer(oCellObj.transform, LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_BRICK));
                     break;
-                case EObjType.OBSTACLE_BRICKS:
-                    ChangeLayer(oCellObj.transform, LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_OBSTACLE));
-                    break;                
                 case EObjType.ITEM_BRICKS:
                     ChangeLayer(oCellObj.transform, LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_ITEM));
                     break;
+                case EObjType.OBSTACLE_BRICKS:
+                    if (oCellObj.Params.m_stObjInfo.m_bIsEnableReflect)
+                        ChangeLayer(oCellObj.transform, LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_OBSTACLE_REFLECT));
+                    else
+                        ChangeLayer(oCellObj.transform, LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_OBSTACLE_THROUGH));
+                    break;
                 case EObjType.SPECIAL_BRICKS:
-                    ChangeLayer(oCellObj.transform, LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_SPECIAL));
+                    if (oCellObj.Params.m_stObjInfo.m_bIsEnableReflect)
+                        ChangeLayer(oCellObj.transform, LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_SPECIAL_REFLECT));
+                    else
+                        ChangeLayer(oCellObj.transform, LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_SPECIAL_THROUGH));
                     break;
                 default:
                     Debug.Log(CodeManager.GetMethodName() + string.Format("<color=red>{0}</color>", (EObjType)((int)oCellObj.Params.m_stObjInfo.m_eObjKinds).ExKindsToType()));
@@ -125,7 +137,7 @@ namespace NSEngine {
 
         public void SetAimLayer(bool _reflectBricks)
         {
-            currentAimLayer = _reflectBricks ? layerWallAndBricks : layerWall;
+            currentAimLayer = _reflectBricks ? layerReflect : layerWall;
         }
 
         public void AddBall(int _index)
@@ -140,10 +152,22 @@ namespace NSEngine {
         public void AddShootBalls(int _startIndex, int _count)
         {
             StartCoroutine(CO_WaitShootDelay(_startIndex, _count));
-        }        
+        }
+
+        public void RefreshBallText()
+        {
+            for (int i=1; i < this.BallObjList.Count; i++)
+            {
+                this.BallObjList[i].NumText.text = string.Empty;
+            }
+
+            this.BallObjList[0].NumText.text = this.BallObjList.Count.ToString();
+        }
 
         public void CheckClear(bool _waitDelay = false)
         {
+            RefreshBallText();
+
             // 클리어했을 경우
             if(this.IsClear()) 
             {

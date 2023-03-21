@@ -14,6 +14,12 @@ public static partial class GlobalDefine
         1, 2, 3, 10
     };
 
+    // [Item] Ball Plus
+    public readonly static int[] GetSpecial_AddBall = new int[3]
+    {
+        10, 20, 30
+    };
+
     /// <Summary>셀 스프라이트 크기 보정.</Summary>
     public static Vector3 CELL_SPRITE_ADJUSTMENT = new Vector3(-4, -4, 0);
     /// <Summary>셀 루트가 내려오는 속도.</Summary>
@@ -33,9 +39,11 @@ public static partial class GlobalDefine
     public const string LAYER_WALL = "Wall";
     public const string LAYER_CELL_EMPTY = "Cell_Empty";
     public const string LAYER_CELL_BRICK = "Cell_Brick";
-    public const string LAYER_CELL_OBSTACLE = "Cell_Obstacle";
+    public const string LAYER_CELL_OBSTACLE_REFLECT = "Cell_Obstacle_Reflect";
+    public const string LAYER_CELL_OBSTACLE_THROUGH = "Cell_Obstacle_Through";
+    public const string LAYER_CELL_SPECIAL_REFLECT = "Cell_Special_Reflect";
+    public const string LAYER_CELL_SPECIAL_THROUGH = "Cell_Special_Through";
     public const string LAYER_CELL_ITEM = "Cell_Item";
-    public const string LAYER_CELL_SPECIAL = "Cell_Special";
     public const float RAYCAST_DISTANCE = 3000f;
 
     // [ETC] Sorting Order
