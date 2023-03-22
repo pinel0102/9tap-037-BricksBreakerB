@@ -23,11 +23,17 @@ namespace NSEngine {
             oCellObj.HPText.text = $"{stCellObjInfo.HP}";
 			oCellObj.SetCellObjInfo(stCellObjInfo);
             oCellObj.SetSpriteColor(oCellObj.CellObjInfo.ObjKinds);
+
+            if (ballController.isOn_PowerBall)
+            {
+                GlobalDefine.ShowEffect(EFXSet.FX_POWER_BALL_HIT, this.transform.position);
+            }
 			
 			// 체력이 없을 경우
 			if(stCellObjInfo.HP <= KCDefine.B_VAL_0_INT) 
             {
                 CellAfterEffect(ballController, kindsType, kinds);
+                GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, GlobalDefine.GetCellColor(oCellObj.CellObjInfo.ObjKinds, oCellObj.Params.m_stObjInfo.m_bIsEnableColor, oCellObj.CellObjInfo.ColorID), oCellObj.transform.position);
 				CellDestroy();
 			}
             else

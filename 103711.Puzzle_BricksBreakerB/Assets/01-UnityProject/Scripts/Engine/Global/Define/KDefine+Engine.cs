@@ -30,8 +30,7 @@ namespace NSEngine {
 		public const string E_OBJ_N_PLAYER_OBJ = "PLAYER_OBJ";
 		public const string E_OBJ_N_ENEMY_OBJ = "ENEMY_OBJ";
 
-        public const string E_OBJ_N_FX_LASER_OBJ = "FX_LASER";
-		// 이름 }
+        // 이름 }
 		#endregion // 기본
 
 		#region 런타임 상수
@@ -61,8 +60,7 @@ namespace NSEngine {
 		public static readonly string E_OBJ_P_PLAYER_OBJ = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_PlayerObj";
 		public static readonly string E_OBJ_P_ENEMY_OBJ = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_EnemyObj";
 
-        public static readonly string E_OBJ_P_FX_LASER = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}FX/FX_Laser";
-		// 경로 }
+        // 경로 }
 		#endregion // 런타임 상수
 	}
 }

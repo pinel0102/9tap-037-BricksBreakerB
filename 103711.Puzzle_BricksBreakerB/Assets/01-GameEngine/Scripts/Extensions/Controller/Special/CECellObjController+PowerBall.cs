@@ -23,6 +23,7 @@ namespace NSEngine {
         private void PowerBall(CEBallObjController ballController, int _extraATK = KCDefine.B_VAL_1_INT)
         {
             ballController.extraATK = _extraATK;
+            ballController.isOn_PowerBall = true;
             ballController.SetBallSize(2f);
         }
     }

@@ -21,6 +21,20 @@ public abstract partial class CSceneManager : CComponent {
 		return this.SpawnObj(a_oName, a_oObjsPoolKey, Vector3.one, Vector3.zero, a_stPos);
 	}
 
+    /** 객체를 활성화한다 */
+	public GameObject SpawnObj(string a_oName, string a_oObjsPoolKey, Vector3 a_stPos, bool _isWorldPosition = false) {
+		CAccess.Assert(a_oName.ExIsValid() && a_oObjsPoolKey.ExIsValid() && m_oObjsPoolDict.ContainsKey(a_oObjsPoolKey));
+
+		var oObj = m_oObjsPoolDict[a_oObjsPoolKey].Spawn(a_oName);
+		
+        if (_isWorldPosition)
+            oObj.transform.position = a_stPos;
+        else
+		    oObj.transform.localPosition = a_stPos;
+
+		return oObj;
+	}
+
 	/** 객체를 활성화한다 */
 	public GameObject SpawnObj(string a_oName, string a_oObjsPoolKey, Vector3 a_stScale, Vector3 a_stAngle, Vector3 a_stPos, bool _isWorldPosition = false) {
 		CAccess.Assert(a_oName.ExIsValid() && a_oObjsPoolKey.ExIsValid() && m_oObjsPoolDict.ContainsKey(a_oObjsPoolKey));
@@ -80,6 +94,12 @@ public abstract partial class CSceneManager : CComponent {
 	public T SpawnObj<T>(string a_oName, string a_oObjsPoolKey, Vector3 a_stPos) where T : Component {
 		CAccess.Assert(a_oName.ExIsValid() && a_oObjsPoolKey.ExIsValid());
 		return this.SpawnObj<T>(a_oName, a_oObjsPoolKey, Vector3.one, Vector3.zero, a_stPos);
+	}
+
+    /** 객체를 활성화한다 */
+	public T SpawnObj<T>(string a_oName, string a_oObjsPoolKey, Vector3 a_stPos, bool _isWorldPosition = false) where T : Component {
+		CAccess.Assert(a_oName.ExIsValid() && a_oObjsPoolKey.ExIsValid());
+		return this.SpawnObj(a_oName, a_oObjsPoolKey, a_stPos, _isWorldPosition)?.GetComponentInChildren<T>();
 	}
 
 	/** 객체를 활성화한다 */

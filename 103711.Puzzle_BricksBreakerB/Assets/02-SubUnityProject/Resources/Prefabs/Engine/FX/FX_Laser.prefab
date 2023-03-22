@@ -93,7 +93,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1820056066167777563}
-  - component: {fileID: 3280284944162170458}
   m_Layer: 6
   m_Name: FX_Laser
   m_TagString: Untagged
@@ -117,19 +116,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3280284944162170458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7205182486073598133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e99a3302cab57eb4eb7c2e26e13868d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HitSprite: {fileID: 0}
-  row: 0
-  column: 0
-  layer: 0

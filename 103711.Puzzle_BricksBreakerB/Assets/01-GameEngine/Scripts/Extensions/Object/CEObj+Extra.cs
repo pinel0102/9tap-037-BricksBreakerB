@@ -8,6 +8,7 @@ namespace NSEngine {
 	/** 서브 객체 */
 	public partial class CEObj : CEObjComponent 
     {
+        public Transform FXRoot;
         public SpriteRenderer HitSprite;
         public int row;
         public int column;
@@ -26,6 +27,21 @@ namespace NSEngine {
         public void ToggleHitSprite(bool _show)
         {
             HitSprite.gameObject.SetActive(_show);
+        }
+
+        public void AddCellEffect(EObjKinds kindsType)
+        {
+            switch(kindsType)
+            {
+                case EObjKinds.SPECIAL_BRICKS_EXPLOSION_HORIZONTAL_01:
+                case EObjKinds.SPECIAL_BRICKS_EXPLOSION_VERTICAL_01:
+                case EObjKinds.SPECIAL_BRICKS_EXPLOSION_CROSS_01:
+                    GlobalDefine.AddCellEffect(EFXSet.FX_BOMB_FLAME, FXRoot, GlobalDefine.FXBombFlame_Position_Default);
+                    break;
+                case EObjKinds.SPECIAL_BRICKS_EXPLOSION_AROUND_01:
+                    GlobalDefine.AddCellEffect(EFXSet.FX_BOMB_FLAME, FXRoot, GlobalDefine.FXBombFlame_Position_3x3);
+                    break;
+            }
         }
     }
 }

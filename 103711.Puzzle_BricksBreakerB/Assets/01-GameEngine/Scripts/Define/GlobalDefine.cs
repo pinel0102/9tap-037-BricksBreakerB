@@ -28,10 +28,7 @@ public static partial class GlobalDefine
     // [Engine] Timer Delay
     public const float SHOOT_BALL_DELAY = 0.09f;
 
-    // [Effect] Laser
-    public static Vector3 Rotation_Horizontal = new Vector3(0, 0, 90f);
-    public static Vector3 Rotation_Vertictal = Vector3.zero;
-    public const float EffectTime_Laser = 0.01f;
+    
 
     // [Layer] LayerMask
     public const string LAYER_FX = "FX";

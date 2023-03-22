@@ -33,7 +33,11 @@ namespace NSEngine {
 
 			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_BALL_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_BALL_OBJ), this.Params.m_oObjRoot, KCDefine.U_SIZE_OBJS_POOL_01, false);
 
-            CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_FX_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_FX_LASER), this.Params.m_oFXRoot, KCDefine.U_SIZE_OBJS_POOL_01, false);
+            foreach (KeyValuePair<EFXSet, KeyValuePair<string, float>> item in GlobalDefine.FXContainer)
+            {
+                CSceneManager.ActiveSceneManager.AddObjsPool(item.Value.Key, CResManager.Inst.GetRes<GameObject>(string.Format(GlobalDefine.formatFXPath, item.Value.Key)), this.Params.m_oFXRoot, KCDefine.U_SIZE_OBJS_POOL_01, false);
+            }
+
 			// 객체 풀을 설정한다 }
 		}
 
@@ -47,6 +51,9 @@ namespace NSEngine {
 
 				oCellObj.SetCellIdx(a_stCellInfo.m_stIdx);
 				oCellObj.SetCellObjInfo((STCellObjInfo)a_stCellInfo.m_oCellObjInfoList[i].Clone());
+
+                EObjKinds kindsType = (EObjKinds)((int)oCellObj.CellObjInfo.ObjKinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
+                oCellObj.AddCellEffect(kindsType);
 
                 InitCellLayer(oCellObj);
 

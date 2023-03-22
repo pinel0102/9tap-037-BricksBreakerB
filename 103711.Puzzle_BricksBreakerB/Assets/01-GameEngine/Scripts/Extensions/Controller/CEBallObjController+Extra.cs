@@ -10,6 +10,7 @@ namespace NSEngine {
 
         public bool isRemoveMoveEnd;
         public bool isOn_Amplification;
+        public bool isOn_PowerBall;
         public int extraATK;
         
         public CircleCollider2D _collider;
@@ -39,6 +40,7 @@ namespace NSEngine {
             
             SetBallSize(1f);            
             isOn_Amplification = false;
+            isOn_PowerBall = false;
             extraATK = 0;
         }
 

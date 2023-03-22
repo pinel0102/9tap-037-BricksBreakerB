@@ -4,30 +4,20 @@ using UnityEngine;
 
 public class FXObj : MonoBehaviour
 {
-    public FXType fxType;
+    public List<ParticleSystem> _particleList = new List<ParticleSystem>();
+    public List<SpriteRenderer> _spriteList = new List<SpriteRenderer>();
     
-    private NSEngine.CEObj ceObj;
-    private string _colorHex = GlobalDefine.COLOR_CELL_DEFAULT;
-
-    public void Initialize()
+    public void SetColor(Color _startColor)
     {
-        if (ceObj == null)
-            ceObj = GetComponent<NSEngine.CEObj>();
-        
-        SetSpriteColor();
-    }
-
-    private void SetSpriteColor()
-    {
-        switch(fxType)
+        for (int i=0; i < _particleList.Count; i++)
         {
-            case FXType.LASER:
-                _colorHex = GlobalDefine.COLOR_FX_LASER;
-                break;
-            default:
-                break;
+            var main = _particleList[i].main;
+            main.startColor = _startColor;
         }
 
-        ceObj.TargetSprite.color = ColorUtility.TryParseHtmlString(_colorHex, out Color _color) ? _color : Color.white;
+        for (int i=0; i < _spriteList.Count; i++)
+        {
+            _spriteList[i].color = _startColor;
+        }
     }
 }

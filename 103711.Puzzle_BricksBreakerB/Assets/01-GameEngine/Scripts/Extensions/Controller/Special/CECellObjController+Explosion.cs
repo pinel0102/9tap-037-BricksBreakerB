@@ -42,13 +42,16 @@ namespace NSEngine {
                         if (target != null)
                         {
                             if (target.Params.m_stObjInfo.m_bIsSkillTarget)
+                            {
+                                GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID), target.transform.position);
                                 target.GetComponent<CECellObjController>().CellDestroy();
+                            }
                         }
                     }
                 }
             }
 
-            ShowEffect_Explosion(GlobalDefine.Rotation_Horizontal);
+            ShowEffect_Explosion(GlobalDefine.FXLaser_Rotation_Horizontal);
         }
 
         ///<Summary>세로 폭탄.</Summary>
@@ -71,13 +74,16 @@ namespace NSEngine {
                         if (target != null)
                         {
                             if (target.Params.m_stObjInfo.m_bIsSkillTarget)
+                            {
+                                GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID), target.transform.position);
                                 target.GetComponent<CECellObjController>().CellDestroy();
+                            }
                         }
                     }
                 }
 			}
 
-            ShowEffect_Explosion(GlobalDefine.Rotation_Vertictal);
+            ShowEffect_Explosion(GlobalDefine.FXLaser_Rotation_Vertictal);
         }
 
         ///<Summary>십자 폭탄.</Summary>
@@ -110,24 +116,28 @@ namespace NSEngine {
                             if (target != null)
                             {
                                 if (target.Params.m_stObjInfo.m_bIsSkillTarget)
+                                {
+                                    GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID), target.transform.position);
                                     target.GetComponent<CECellObjController>().CellDestroy();
+                                }
                             }
                         }
                     }
                 }
             }
+
+            ShowEffect_Explosion_Around();
         }
 
         private void ShowEffect_Explosion(Vector3 _rotation)
         {
-            Transform effect = CSceneManager.ActiveSceneManager.SpawnObj<Transform>(KDefine.E_OBJ_N_FX_LASER_OBJ, KDefine.E_KEY_FX_OBJS_POOL, Vector3.one, _rotation, this.transform.position, true);
-            CSceneManager.ActiveSceneManager.DespawnObj(KDefine.E_KEY_FX_OBJS_POOL, effect.gameObject, GlobalDefine.EffectTime_Laser);
+            //Transform effect = CSceneManager.ActiveSceneManager.SpawnObj<Transform>(GlobalDefine.FX_LASER, KDefine.E_KEY_FX_OBJS_POOL, Vector3.one, _rotation, this.transform.position, true);
+            //CSceneManager.ActiveSceneManager.DespawnObj(KDefine.E_KEY_FX_OBJS_POOL, effect.gameObject, GlobalDefine.FXTime_LASER);
         }
 
-        private void ShowEffect_Explosion_Around(Vector3 _rotation)
+        private void ShowEffect_Explosion_Around()
         {
-            Transform effect = CSceneManager.ActiveSceneManager.SpawnObj<Transform>(KDefine.E_OBJ_N_FX_LASER_OBJ, KDefine.E_KEY_FX_OBJS_POOL, Vector3.one, _rotation, this.transform.position, true);
-            CSceneManager.ActiveSceneManager.DespawnObj(KDefine.E_KEY_FX_OBJS_POOL, effect.gameObject, GlobalDefine.EffectTime_Laser);
+            GlobalDefine.ShowEffect(EFXSet.FX_EXPLOSION_3x3, this.transform.position);
         }
     }
 }

@@ -46,7 +46,7 @@ namespace NSEngine {
                 }
             }
 
-            ShowEffect_Laser(GlobalDefine.Rotation_Horizontal);
+            ShowEffect_Laser(GlobalDefine.FXLaser_Rotation_Horizontal);
         }
 
         private void Laser_Vertical(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds, int _ATK = KCDefine.B_VAL_1_INT)
@@ -74,7 +74,7 @@ namespace NSEngine {
                 }
 			}
 
-            ShowEffect_Laser(GlobalDefine.Rotation_Vertictal);
+            ShowEffect_Laser(GlobalDefine.FXLaser_Rotation_Vertictal);
         }
 
         private void Laser_Cross(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds, int _ATK = KCDefine.B_VAL_1_INT)
@@ -85,8 +85,7 @@ namespace NSEngine {
 
         private void ShowEffect_Laser(Vector3 _rotation)
         {
-            Transform effect = CSceneManager.ActiveSceneManager.SpawnObj<Transform>(KDefine.E_OBJ_N_FX_LASER_OBJ, KDefine.E_KEY_FX_OBJS_POOL, Vector3.one, _rotation, this.transform.position, true);
-            CSceneManager.ActiveSceneManager.DespawnObj(KDefine.E_KEY_FX_OBJS_POOL, effect.gameObject, GlobalDefine.EffectTime_Laser);
+            GlobalDefine.ShowEffect(EFXSet.FX_LASER, Vector3.one, _rotation, this.transform.position);
         }
     }
 }
