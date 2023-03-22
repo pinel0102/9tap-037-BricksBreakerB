@@ -5,6 +5,9 @@ using UnityEngine;
 namespace NSEngine {
     public partial class CEngine : CComponent
     {
+        [Header("★ [Live] Parameter")]
+        public Transform lastCell;
+
         [Header("★ [Parameter] Options")]
         public bool isGoldAim;
 
@@ -50,6 +53,8 @@ namespace NSEngine {
         private WaitForSeconds dropBallsDelay = new WaitForSeconds(KCDefine.B_VAL_0_5_REAL);
         private WaitForSeconds cellRootMoveDelay = new WaitForSeconds(KCDefine.B_VAL_0_0_1_REAL);
         [HideInInspector] public WaitForSeconds hitEffectDelay = new WaitForSeconds(KCDefine.B_VAL_0_0_2_REAL);
+
+        private GameScene.CSubGameSceneManager subGameSceneManager => CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME);
 
 #region Initialize
 
@@ -171,7 +176,7 @@ namespace NSEngine {
             // 클리어했을 경우
             if(this.IsClear()) 
             {
-                CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).SetEnableUpdateUIsState(true);
+                subGameSceneManager.SetEnableUpdateUIsState(true);
 
                 if (_waitDelay)
                     StartCoroutine(CO_Clear());
@@ -243,16 +248,18 @@ namespace NSEngine {
         ///<Summary>턴 종료시 셀이 내려오기 전에 발동.</Summary>
         private void TurnEndAction()
         {
-            for(int i = 0; i < this.CellObjLists.GetLength(KCDefine.B_VAL_0_INT); ++i) {
-				for(int j = 0; j < this.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); ++j) {
+            lastCell = null;
+            bool isLastCellAssigned = false;
+
+            for(int i = this.CellObjLists.GetLength(KCDefine.B_VAL_0_INT) - 1; i >= 0 ; i--) {
+				for(int j = this.CellObjLists.GetLength(KCDefine.B_VAL_1_INT) - 1; j >= 0 ; j--) {
 					for(int k = 0; k < this.CellObjLists[i, j].Count; ++k) {
 						// 셀이 존재 할 경우
 						if(this.CellObjLists[i, j][k].gameObject.activeSelf) {
                             CEObj target = this.CellObjLists[i, j][k];
                             if (target != null)
                             {
-                                EObjKinds kindsType = (EObjKinds)((int)target.CellObjInfo.ObjKinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
-                                
+                                EObjKinds kindsType = (EObjKinds)((int)target.CellObjInfo.ObjKinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);                                
                                 switch(kindsType)
                                 {
                                     case EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01:
@@ -264,11 +271,46 @@ namespace NSEngine {
                                         }
                                         break;
                                 }
+
+                                if (!isLastCellAssigned)
+                                {
+                                    if (target.Params.m_stObjInfo.m_bIsClearTarget)
+                                    {
+                                        lastCell = target.transform;
+                                        isLastCellAssigned = true;
+                                    }
+                                }
                             }
 						}
 					}
 				}
 			}
+        }
+
+        private void CheckDeadLine()
+        {
+            if (lastCell != null)
+            {
+                Vector2 distanceVector = subGameSceneManager.mainCanvas.WorldToCanvas(lastCell.position - subGameSceneManager.deadLine.position);
+
+                float cellsizeY = Access.CellSize.y * SelGridInfo.m_stScale.y;
+                float distance = distanceVector.y - (cellsizeY * 0.5f);
+
+                //Debug.Log(CodeManager.GetMethodName() + string.Format("distance : {0} / {1}", distance, cellsizeY));
+
+                if (distance >= (cellsizeY * 2f))
+                {
+                    subGameSceneManager.warningObject.SetActive(false);
+                }            
+                else if ((distance >= (cellsizeY * 1f)) && (distance < (cellsizeY * 2f)))
+                {
+                    subGameSceneManager.warningObject.SetActive(true);
+                }
+                else
+                {
+                    LevelFail();
+                }
+            }
         }
 
 #endregion Private Methods
@@ -297,7 +339,7 @@ namespace NSEngine {
         {
             isGridMoving = true;
 
-            CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).HideShootUIs();
+            subGameSceneManager.HideShootUIs();
 
             Vector3 endPosition = this.Params.m_oCellRoot.transform.localPosition + (cellRootMoveVector * _moveCount);
 
@@ -314,43 +356,14 @@ namespace NSEngine {
             this.Params.m_oCellRoot.transform.localPosition = endPosition;
 
             this.PlayState = EPlayState.IDLE;
-            CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).SetEnableUpdateUIsState(true);
+            subGameSceneManager.SetEnableUpdateUIsState(true);
             
             isGridMoving = false;
+
+            CheckDeadLine();
         }
 
 #endregion Coroutines
-
-
-#region Deprecated
-
-        private void SetBallColliders(bool _isEnable)
-        {
-            for(int i = 0; i < this.BallObjList.Count; ++i) {
-				this.BallObjList[i].GetComponent<CEBallObjController>().SetBallCollider(_isEnable);
-			}
-        }
-
-        private void SetCellColliders(bool _isEnable)
-        {
-            for(int i = 0; i < this.CellObjLists.GetLength(KCDefine.B_VAL_0_INT); ++i) {
-				for(int j = 0; j < this.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); ++j) {
-					for(int k = 0; k < this.CellObjLists[i, j].Count; ++k) {
-						// 셀이 존재 할 경우
-						if(this.CellObjLists[i, j][k].gameObject.activeSelf) {
-                            CEObj target = this.CellObjLists[i, j][k];
-							
-                            if(target.TargetSprite != null && target.TargetSprite.TryGetComponent<PolygonCollider2D>(out PolygonCollider2D oCollider))
-                            {
-                                oCollider.enabled = _isEnable;
-                            }
-						}
-					}
-				}
-			}
-        }
-
-#endregion Deprecated
 
     }
 }

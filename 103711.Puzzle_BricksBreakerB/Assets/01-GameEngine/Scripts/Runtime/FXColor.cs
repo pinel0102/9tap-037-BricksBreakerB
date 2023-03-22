@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FXObj : MonoBehaviour
+public class FXColor : MonoBehaviour
 {
     public List<ParticleSystem> _particleList = new List<ParticleSystem>();
     public List<SpriteRenderer> _spriteList = new List<SpriteRenderer>();

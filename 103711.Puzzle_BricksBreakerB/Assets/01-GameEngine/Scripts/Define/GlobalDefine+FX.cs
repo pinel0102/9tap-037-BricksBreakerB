@@ -44,7 +44,7 @@ public partial class GlobalDefine
     {
         KeyValuePair<string, float> _kv = FXContainer[_effect];
         Transform effect = CSceneManager.ActiveSceneManager.SpawnObj<Transform>(_kv.Key, _kv.Key, _position, _isWorldPosition);
-        effect.GetComponent<FXObj>().SetColor(_startColor);
+        effect.GetComponent<FXColor>().SetColor(_startColor);
         CSceneManager.ActiveSceneManager.DespawnObj(_kv.Key, effect.gameObject, _kv.Value);
     }
 

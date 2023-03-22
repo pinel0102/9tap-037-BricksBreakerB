@@ -8,6 +8,9 @@ namespace GameScene {
         public NSEngine.CEngine Engine = null;
         
         [Header("★ [Reference] Extra")]
+        public Canvas mainCanvas;
+        public Transform deadLine;
+        public GameObject warningObject;
         public GameObject goldenAimOn;
         public GameObject[] darkModeButton;
         public GameObject[] darkModeBackground;
@@ -17,6 +20,7 @@ namespace GameScene {
             Engine = m_oEngine;
             
             ApplyDarkMode(CUserInfoStorage.Inst.UserInfo.Settings_DarkMode);
+            warningObject.SetActive(false);
             goldenAimOn.SetActive(Engine.isGoldAim);
         }
 

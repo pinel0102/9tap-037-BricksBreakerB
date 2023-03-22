@@ -732,6 +732,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Engine: {fileID: 0}
+  mainCanvas: {fileID: 1840138989}
+  deadLine: {fileID: 1728720620}
+  warningObject: {fileID: 6993149693766247225}
   goldenAimOn: {fileID: 79677497}
   darkModeButton:
   - {fileID: 1794609407}
@@ -938,9 +941,19 @@ Transform:
   m_Father: {fileID: 1376964105}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &1728720620 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8959619711302643076, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+  m_PrefabInstance: {fileID: 6993149693766247223}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1794609407 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5673331648582053830, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+  m_PrefabInstance: {fileID: 6993149693766247223}
+  m_PrefabAsset: {fileID: 0}
+--- !u!223 &1840138989 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 6993149694154224069, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
   m_PrefabInstance: {fileID: 6993149693766247223}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1932059472
@@ -1549,3 +1562,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &6993149693766247225 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3235285228959558215, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+  m_PrefabInstance: {fileID: 6993149693766247223}
+  m_PrefabAsset: {fileID: 0}
