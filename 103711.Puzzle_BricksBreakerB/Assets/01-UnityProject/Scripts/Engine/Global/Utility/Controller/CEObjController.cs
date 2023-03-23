@@ -80,6 +80,21 @@ namespace NSEngine {
 			this.ResetApplySkillInfo();
 		}
 
+        /** 객체 정보를 리셋한다 */
+		public virtual void ResetObjInfo(STObjInfo a_stObjInfo) {
+            // 리셋 가능 할 경우
+			if(a_stObjInfo.m_eObjKinds != this.GetOwner<CEObj>().Params.m_stObjInfo.m_eObjKinds) {
+				var stParams = this.GetOwner<CEObj>().Params;
+
+                stParams.m_stObjInfo = a_stObjInfo;
+
+                this.GetOwner<CEObj>().Init(stParams);
+                this.GetOwner<CEObj>().RefreshText(a_stObjInfo.ObjType);                
+			}
+
+			this.SubResetObjInfo(a_stObjInfo);
+		}
+
 		/** 적용 스킬 정보를 리셋한다 */
 		public virtual void ResetApplySkillInfo() {
 			m_oSkillInfoDict[EKey.APPLY_SKILL_INFO] = STSkillInfo.INVALID;

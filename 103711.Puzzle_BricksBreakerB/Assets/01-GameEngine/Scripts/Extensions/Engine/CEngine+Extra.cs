@@ -257,9 +257,9 @@ namespace NSEngine {
 						// 셀이 존재 할 경우
 						if(this.CellObjLists[i, j][k].gameObject.activeSelf) {
                             CEObj target = this.CellObjLists[i, j][k];
-                            if (target != null)
+                            if (target != null && target.TryGetComponent<CECellObjController>(out CECellObjController oController))
                             {
-                                EObjKinds kindsType = (EObjKinds)((int)target.CellObjInfo.ObjKinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);                                
+                                /*EObjKinds kindsType = (EObjKinds)((int)target.CellObjInfo.ObjKinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);                                
                                 switch(kindsType)
                                 {
                                     case EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01:
@@ -270,7 +270,13 @@ namespace NSEngine {
                                             oController.HideReservedCell();
                                         }
                                         break;
-                                }
+                                }*/
+
+                                if (target.Params.m_stObjInfo.m_bIsOnce)
+                                    oController.HideReservedCell();
+
+                                if (target.Params.m_stObjInfo.m_bIsEnableChange)
+                                    oController.ChangeCell(target.Params.m_stObjInfo.m_bIsRand);
 
                                 if (!isLastCellAssigned)
                                 {

@@ -81,7 +81,7 @@ namespace NSEngine {
 		public void SetCellIdx(Vector3Int a_stCellIdx) {
 			m_oVec3IntDict.ExReplaceVal(EKey.CELL_IDX, a_stCellIdx);
 
-            column = a_stCellIdx.x;
+            col = a_stCellIdx.x;
             row = a_stCellIdx.y;
             layer = a_stCellIdx.z;
 		}

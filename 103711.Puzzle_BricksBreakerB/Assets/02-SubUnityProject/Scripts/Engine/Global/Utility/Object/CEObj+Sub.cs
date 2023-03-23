@@ -25,8 +25,8 @@ namespace NSEngine {
 
 		#region 프로퍼티
 		public STCellObjInfo CellObjInfo { get; private set; }
-
-		/** =====> UI <===== */
+        
+        /** =====> UI <===== */
 		public TMP_Text HPText => m_oSubTextDict[ESubKey.HP_TEXT];
 		public TMP_Text NumText => m_oSubTextDict[ESubKey.NUM_TEXT];
 		#endregion // 프로퍼티
@@ -34,7 +34,7 @@ namespace NSEngine {
 		#region 함수
 		/** 컴포넌트를 설정한다 */
 		private void SubAwake() {
-			this.SetCellObjInfo(STCellObjInfo.INVALID);
+            this.SetCellObjInfo(STCellObjInfo.INVALID);
 
 			// 텍스트를 설정한다
 			CFunc.SetupComponents(new List<(ESubKey, string, GameObject)>() {
@@ -187,6 +187,24 @@ namespace NSEngine {
             }
 		}
 		#endregion // 접근자 함수
+
+        /** 원본 객체 정보를 설정한다 */
+		/*public void SetOriginObjInfo(STObjInfo a_stObjInfo) {
+			this.OriginObjInfo = a_stObjInfo;
+		}*/
+
+        public void SetExtraObjKindsList(STObjInfo a_stObjInfo)
+        {
+            if(base.Params.m_stBaseParams.m_oObjsPoolKey.Equals(KDefine.E_KEY_CELL_OBJ_OBJS_POOL)) {
+				a_stObjInfo.m_oExtraObjKindsList.ExCopyTo(this.GetController<CECellObjController>().ExtraObjKindsList, (a_eObjKinds) => a_eObjKinds);
+				this.GetController<CECellObjController>().ExtraObjKindsList.ExRemoveVals((a_eObjKinds) => a_eObjKinds == EObjKinds.NONE);
+
+				// 랜덤 모드 일 경우
+				if(a_stObjInfo.m_bIsRand) {
+					this.GetController<CECellObjController>().ExtraObjKindsList.ExShuffle();
+				}
+			}
+        }
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

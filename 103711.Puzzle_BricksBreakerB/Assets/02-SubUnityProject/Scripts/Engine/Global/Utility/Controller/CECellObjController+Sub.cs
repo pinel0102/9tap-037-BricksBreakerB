@@ -11,15 +11,23 @@ namespace NSEngine {
         /** 서브 식별자 */
 		private enum ESubKey {
 			NONE = -1,
+            IS_HIT,
+            EXTRA_OBJ_KINDS_IDX,
 			[HideInInspector] MAX_VAL
 		}
 
 		#region 변수
+        private Dictionary<ESubKey, bool> m_oSubBoolDict = new Dictionary<ESubKey, bool>() {
+			[ESubKey.IS_HIT] = false
+		};
 
+		private Dictionary<ESubKey, int> m_oSubIntDict = new Dictionary<ESubKey, int>() {
+			[ESubKey.EXTRA_OBJ_KINDS_IDX] = KCDefine.B_VAL_0_INT
+		};
 		#endregion // 변수
 
 		#region 프로퍼티
-
+        public List<EObjKinds> ExtraObjKindsList { get; } = new List<EObjKinds>();
 		#endregion // 프로퍼티
 
 		#region 함수
@@ -64,6 +72,11 @@ namespace NSEngine {
 		/** 초기화한다 */
 		private void SubInit() {
 			this.SetHideReserved(false);
+		}
+
+        /** 객체 정보를 리셋한다 */
+		private void SubResetObjInfo(STObjInfo a_stObjInfo, STCellObjInfo a_stCellObjInfo) {
+			// Do Something
 		}
 		#endregion // 함수
 	}

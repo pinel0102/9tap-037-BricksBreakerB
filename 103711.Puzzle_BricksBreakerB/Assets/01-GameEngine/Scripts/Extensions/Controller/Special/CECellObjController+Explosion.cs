@@ -8,7 +8,7 @@ namespace NSEngine {
 
         private void GetSpecial_Explosion(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds, int _ATK = KCDefine.B_VAL_1_INT)
         {
-            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kindsType));
+            //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kindsType));
             
             switch(kindsType)
             {
@@ -32,23 +32,7 @@ namespace NSEngine {
 
             for(int i = 0; i < this.Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); ++i) 
             {
-                int _count = this.Engine.CellObjLists[_cRow, i].Count;
-                if (_count > 0)
-                {
-                    int _cLastLayer = _count - 1;
-                    if(this.Engine.CellObjLists[_cRow, i][_cLastLayer].gameObject.activeSelf) 
-                    {
-                        CEObj target = this.Engine.CellObjLists[_cRow, i][_cLastLayer];
-                        if (target != null)
-                        {
-                            if (target.Params.m_stObjInfo.m_bIsSkillTarget)
-                            {
-                                GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID), target.transform.position);
-                                target.GetComponent<CECellObjController>().CellDestroy();
-                            }
-                        }
-                    }
-                }
+                CellDestroy_SkillTarget(_cRow, i);
             }
 
             ShowEffect_Explosion(GlobalDefine.FXLaser_Rotation_Horizontal);
@@ -58,29 +42,13 @@ namespace NSEngine {
         private void Explosion_Vertical(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds)
         {
             CEObj myCell = this.GetOwner<CEObj>();
-            int _cCol = myCell.column;
+            int _cCol = myCell.col;
 
             //Debug.Log(CodeManager.GetMethodName() + string.Format("Row:{0}, Col:{1}, {2}", myCell.row, myCell.column, myCell.layer));
 
             for(int i = 0; i < this.Engine.CellObjLists.GetLength(KCDefine.B_VAL_0_INT); ++i) 
             {
-                int _count = this.Engine.CellObjLists[i, _cCol].Count;
-                if (_count > 0)
-                {
-                    int _cLastLayer = _count - 1;
-                    if(this.Engine.CellObjLists[i, _cCol][_cLastLayer].gameObject.activeSelf) 
-                    {
-                        CEObj target = this.Engine.CellObjLists[i, _cCol][_cLastLayer];
-                        if (target != null)
-                        {
-                            if (target.Params.m_stObjInfo.m_bIsSkillTarget)
-                            {
-                                GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID), target.transform.position);
-                                target.GetComponent<CECellObjController>().CellDestroy();
-                            }
-                        }
-                    }
-                }
+                CellDestroy_SkillTarget(i, _cCol);
 			}
 
             ShowEffect_Explosion(GlobalDefine.FXLaser_Rotation_Vertictal);
@@ -98,31 +66,15 @@ namespace NSEngine {
         {
             CEObj myCell = this.GetOwner<CEObj>();
             int _cRow = myCell.row;
-            int _cCol = myCell.column;
+            int _cCol = myCell.col;
 
-            Debug.Log(CodeManager.GetMethodName() + string.Format("Row:{0}, Col:{1}, {2}", myCell.row, myCell.column, myCell.layer));
+            Debug.Log(CodeManager.GetMethodName() + string.Format("Row:{0}, Col:{1}, {2}", myCell.row, myCell.col, myCell.layer));
 
             for (int i = Mathf.Max(0, _cRow - 1); i < Mathf.Min(_cRow + 2, this.Engine.CellObjLists.GetLength(KCDefine.B_VAL_0_INT)); i++)
             {
                 for (int j = Mathf.Max(0, _cCol - 1); j < Mathf.Min(_cCol + 2, this.Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT)); j++)
                 {
-                    int _count = this.Engine.CellObjLists[i, j].Count;
-                    if (_count > 0)
-                    {
-                        int _cLastLayer = _count - 1;
-                        if(this.Engine.CellObjLists[i, j][_cLastLayer].gameObject.activeSelf) 
-                        {
-                            CEObj target = this.Engine.CellObjLists[i, j][_cLastLayer];
-                            if (target != null)
-                            {
-                                if (target.Params.m_stObjInfo.m_bIsSkillTarget)
-                                {
-                                    GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID), target.transform.position);
-                                    target.GetComponent<CECellObjController>().CellDestroy();
-                                }
-                            }
-                        }
-                    }
+                    CellDestroy_SkillTarget(i, j);
                 }
             }
 

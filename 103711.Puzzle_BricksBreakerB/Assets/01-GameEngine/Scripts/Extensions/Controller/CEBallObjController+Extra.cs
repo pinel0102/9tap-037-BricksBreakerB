@@ -38,7 +38,8 @@ namespace NSEngine {
         {
             SetState(EState.IDLE, true);
             
-            SetBallSize(1f);            
+            //SetBallSize(1f);
+            FXToggle_PowerBall(false);
             isOn_Amplification = false;
             isOn_PowerBall = false;
             extraATK = 0;
@@ -78,10 +79,16 @@ namespace NSEngine {
             _collider.enabled = _enabled;
         }
 
-        public void SetBallSize(float multiplier)
+        /*public void SetBallSize(float multiplier)
         {
             _collider.radius = defaultRadius * multiplier;
             _ceObj.TargetSprite.transform.localScale = defaultBallScale * multiplier;
+        }*/
+
+        public void FXToggle_PowerBall(bool _isOn)
+        {
+            _ceObj.FXPowerBall.SetActive(_isOn);
+            _collider.radius = _isOn ? defaultRadius * GlobalDefine.FXPowerBall_Size : defaultRadius;
         }
     }
 }

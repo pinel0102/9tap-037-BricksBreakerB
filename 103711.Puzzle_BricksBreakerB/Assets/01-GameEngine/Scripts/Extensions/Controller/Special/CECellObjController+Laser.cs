@@ -8,7 +8,7 @@ namespace NSEngine {
 
         private void GetSpecial_Laser(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds, int _ATK = KCDefine.B_VAL_1_INT)
         {
-            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kindsType));
+            //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kindsType));
             
             switch(kindsType)
             {
@@ -52,7 +52,7 @@ namespace NSEngine {
         private void Laser_Vertical(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds, int _ATK = KCDefine.B_VAL_1_INT)
         {
             CEObj myCell = this.GetOwner<CEObj>();
-            int _cCol = myCell.column;
+            int _cCol = myCell.col;
 
             //Debug.Log(CodeManager.GetMethodName() + string.Format("Row:{0}, Col:{1}, {2}", myCell.row, myCell.column, myCell.layer));
 

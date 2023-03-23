@@ -8,7 +8,7 @@ namespace NSEngine {
 
         private void GetSpecial_PowerBall(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds, int _ATK = KCDefine.B_VAL_1_INT)
         {
-            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kindsType));
+            //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kindsType));
             
             switch(kindsType)
             {
@@ -24,7 +24,8 @@ namespace NSEngine {
         {
             ballController.extraATK = _extraATK;
             ballController.isOn_PowerBall = true;
-            ballController.SetBallSize(2f);
+            ballController.FXToggle_PowerBall(true);
+            //ballController.SetBallSize(2f);
         }
     }
 }

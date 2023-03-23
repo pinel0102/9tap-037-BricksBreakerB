@@ -8,10 +8,16 @@ namespace NSEngine {
 	/** 서브 객체 */
 	public partial class CEObj : CEObjComponent 
     {
+        [Header("★ [Reference] Ball")]
+        public GameObject FXPowerBall;
+
+        [Header("★ [Reference] Cell")]
         public Transform FXRoot;
         public SpriteRenderer HitSprite;
+
+        [Header("★ [Live] Cell Info")]
         public int row;
-        public int column;
+        public int col;
         public int layer;
 
         public void SetSpriteColor(EObjKinds cellKinds)

@@ -46,13 +46,17 @@ namespace NSEngine {
 			var oCellObjList = new List<CEObj>();
 
 			for(int i = 0; i < a_stCellInfo.m_oCellObjInfoList.Count; ++i) {
-				var oCellObj = this.CreateCellObj(CObjInfoTable.Inst.GetObjInfo(a_stCellInfo.m_oCellObjInfoList[i].ObjKinds), null);
+                EObjKinds kinds = a_stCellInfo.m_oCellObjInfoList[i].ObjKinds;
+                EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
+                STObjInfo stObjInfo = CObjInfoTable.Inst.GetObjInfo(kinds);
+
+				var oCellObj = this.CreateCellObj(CObjInfoTable.Inst.GetObjInfo(kinds), null);
+                
 				oCellObj.transform.localPosition = this.SelGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(Access.CellCenterOffset, Access.CellSize);
-
-				oCellObj.SetCellIdx(a_stCellInfo.m_stIdx);
+                //oCellObj.SetOriginObjInfo(stObjInfo);
+                oCellObj.SetCellIdx(a_stCellInfo.m_stIdx);
 				oCellObj.SetCellObjInfo((STCellObjInfo)a_stCellInfo.m_oCellObjInfoList[i].Clone());
-
-                EObjKinds kindsType = (EObjKinds)((int)oCellObj.CellObjInfo.ObjKinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
+                oCellObj.SetExtraObjKindsList(stObjInfo);
                 oCellObj.AddCellEffect(kindsType);
 
                 InitCellLayer(oCellObj);

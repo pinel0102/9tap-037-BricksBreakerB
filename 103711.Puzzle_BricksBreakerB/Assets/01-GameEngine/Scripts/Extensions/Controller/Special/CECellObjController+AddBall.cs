@@ -8,7 +8,7 @@ namespace NSEngine {
 
         private void GetSpecial_AddBall(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds, int _ATK = KCDefine.B_VAL_1_INT)
         {
-            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kindsType));
+            //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kindsType));
 
             int _index = ((int)kinds).ExKindsToDetailSubKindsTypeVal();
             int _addCount = GlobalDefine.GetSpecial_AddBall[_index];

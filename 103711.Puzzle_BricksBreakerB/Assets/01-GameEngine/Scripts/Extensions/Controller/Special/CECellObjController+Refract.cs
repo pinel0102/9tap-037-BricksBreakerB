@@ -15,14 +15,14 @@ namespace NSEngine {
             switch(kindsType)
             {
                 case EObjKinds.SPECIAL_BRICKS_BALL_DIFFUSION_01:
-                    Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kindsType));
+                    //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kindsType));
                     ballController.transform.position = transform.position;
                     Refract_Diffusion(ballController); 
                     break;
                 case EObjKinds.SPECIAL_BRICKS_BALL_AMPLIFICATION_01:
                     if (ballController.isOn_Amplification)
                         return;
-                    Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kindsType));
+                    //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kindsType));
                     ballController.transform.position = transform.position;
                     Refract_Amplification(ballController); 
                     break;

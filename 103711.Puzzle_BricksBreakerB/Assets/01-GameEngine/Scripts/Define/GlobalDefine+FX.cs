@@ -12,6 +12,9 @@ public partial class GlobalDefine
     public static Vector3 FXBombFlame_Position_Default = new Vector3(25f, 25f, 0);
     public static Vector3 FXBombFlame_Position_3x3 = new Vector3(25f, 20f, 0);
 
+    // [Ball Effect] Power Ball
+    public const float FXPowerBall_Size = 2f;
+
     public const string formatFXPath = "Prefabs/Engine/FX/{0}";
     
     public static readonly Dictionary<EFXSet, KeyValuePair<string, float>> FXContainer = new Dictionary<EFXSet, KeyValuePair<string, float>>()
