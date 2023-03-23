@@ -511,6 +511,15 @@ public enum EObjKinds {
     SPECIAL_BRICKS_ARROW_07,
     SPECIAL_BRICKS_ARROW_08,
 
+    // 1,200,900,000
+    SPECIAL_BRICKS_EARTHQUAKE_01 = (EEnumVal.T * EObjType.SPECIAL_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 9) + (EEnumVal.SKT * 0),
+
+    // 1,201,000,000
+    SPECIAL_BRICKS_MORPH_01 = (EEnumVal.T * EObjType.OBSTACLE_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 10) + (EEnumVal.SKT * 0),
+    SPECIAL_BRICKS_MORPH_02,
+    SPECIAL_BRICKS_MORPH_03,
+    SPECIAL_BRICKS_MORPH_04,
+
 	#endregion // 특수 블럭
 
 	#region 장애물 블럭
@@ -556,7 +565,8 @@ public enum EObjKinds {
 
     // 1,300,700,000
     OBSTACLE_BRICKS_WOODBOX_01 = (EEnumVal.T * EObjType.OBSTACLE_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 7) + (EEnumVal.SKT * 0),
-	#endregion // 장애물 블럭
+
+    #endregion // 장애물 블럭
 
 	#region 공
 	// 2,000,000,000

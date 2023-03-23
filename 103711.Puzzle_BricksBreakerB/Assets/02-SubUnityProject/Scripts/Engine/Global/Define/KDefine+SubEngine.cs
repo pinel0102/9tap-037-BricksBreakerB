@@ -54,6 +54,8 @@ namespace NSEngine {
             [EObjKinds.SPECIAL_BRICKS_ADD_BALL_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
             [EObjKinds.SPECIAL_BRICKS_LIGHTNING_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
             [EObjKinds.SPECIAL_BRICKS_ARROW_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            [EObjKinds.SPECIAL_BRICKS_EARTHQUAKE_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
+            [EObjKinds.SPECIAL_BRICKS_MORPH_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
             
             [EObjKinds.OBSTACLE_BRICKS_KEY_01] = new STSortingOrderInfo() { m_nOrder = 10, m_oLayer = KCDefine.U_SORTING_L_CELL },
             [EObjKinds.OBSTACLE_BRICKS_LOCK_01] = new STSortingOrderInfo() { m_nOrder = 10, m_oLayer = KCDefine.U_SORTING_L_CELL },
@@ -128,6 +130,11 @@ namespace NSEngine {
             [EObjKinds.SPECIAL_BRICKS_ARROW_06] = EObjKinds.SPECIAL_BRICKS_ARROW_06.ToString(),
             [EObjKinds.SPECIAL_BRICKS_ARROW_07] = EObjKinds.SPECIAL_BRICKS_ARROW_07.ToString(),
             [EObjKinds.SPECIAL_BRICKS_ARROW_08] = EObjKinds.SPECIAL_BRICKS_ARROW_08.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_EARTHQUAKE_01] = EObjKinds.SPECIAL_BRICKS_EARTHQUAKE_01.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_MORPH_01] = EObjKinds.SPECIAL_BRICKS_MORPH_01.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_MORPH_02] = EObjKinds.SPECIAL_BRICKS_MORPH_02.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_MORPH_03] = EObjKinds.SPECIAL_BRICKS_MORPH_03.ToString(),
+            [EObjKinds.SPECIAL_BRICKS_MORPH_04] = EObjKinds.SPECIAL_BRICKS_MORPH_04.ToString(),
 
             [EObjKinds.OBSTACLE_BRICKS_KEY_01] = EObjKinds.OBSTACLE_BRICKS_KEY_01.ToString(),
             [EObjKinds.OBSTACLE_BRICKS_LOCK_01] = EObjKinds.OBSTACLE_BRICKS_LOCK_01.ToString(),

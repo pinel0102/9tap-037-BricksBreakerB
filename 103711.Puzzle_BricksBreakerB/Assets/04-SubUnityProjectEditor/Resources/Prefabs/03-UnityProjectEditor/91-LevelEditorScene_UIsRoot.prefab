@@ -4430,7 +4430,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD2B9\uC218"
+  m_Text: "\uD2B9\uC2181"
 --- !u!114 &4213746093047791420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4977,7 +4977,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBC29\uD574"
+  m_Text: "\uD2B9\uC2182"
 --- !u!114 &4213746093128795212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17059,7 +17059,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uAE30\uD0C0"
+  m_Text: "\uBC29\uD574"
 --- !u!114 &4213746094437538139
 MonoBehaviour:
   m_ObjectHideFlags: 0

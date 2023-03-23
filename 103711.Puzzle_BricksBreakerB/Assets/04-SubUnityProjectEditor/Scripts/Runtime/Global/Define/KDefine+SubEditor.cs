@@ -29,7 +29,7 @@ public static partial class KDefine {
 	public static readonly Dictionary<int, List<EObjKinds>> LES_OBJ_KINDS_DICT_CONTAINER = new Dictionary<int, List<EObjKinds>>() {
 		[KCDefine.B_VAL_0_INT] = new List<EObjKinds>() {
 			EObjKinds.NORM_BRICKS_SQUARE_01,
-			EObjKinds.NONE,
+			EObjKinds.NORM_BRICKS_DIAMOND_01,
 			EObjKinds.NONE,
 			EObjKinds.NONE,
 
@@ -42,8 +42,6 @@ public static partial class KDefine {
 			EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_02,
 			EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_03,
 			EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_04,
-
-            EObjKinds.NORM_BRICKS_DIAMOND_01,
 		},
 
 		[KCDefine.B_VAL_1_INT] = new List<EObjKinds>() {
@@ -60,22 +58,30 @@ public static partial class KDefine {
 			EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01,
 			EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01,
 			EObjKinds.SPECIAL_BRICKS_LASER_CROSS_01,
+            EObjKinds.NONE,
+
             EObjKinds.SPECIAL_BRICKS_BALL_DIFFUSION_01,
+            EObjKinds.SPECIAL_BRICKS_BALL_AMPLIFICATION_01,
+            EObjKinds.SPECIAL_BRICKS_POWERBALL_01,
+            EObjKinds.NONE,
 
             EObjKinds.SPECIAL_BRICKS_ADD_BALL_01,
             EObjKinds.SPECIAL_BRICKS_ADD_BALL_02,
             EObjKinds.SPECIAL_BRICKS_ADD_BALL_03,
-            EObjKinds.SPECIAL_BRICKS_BALL_AMPLIFICATION_01,
+            EObjKinds.NONE,     
+		},
 
-            EObjKinds.SPECIAL_BRICKS_MISSILE_01,
-            EObjKinds.SPECIAL_BRICKS_MISSILE_02,
-            EObjKinds.SPECIAL_BRICKS_LIGHTNING_01,
-            EObjKinds.SPECIAL_BRICKS_POWERBALL_01,
+		[KCDefine.B_VAL_3_INT] = new List<EObjKinds>() {
 
             EObjKinds.SPECIAL_BRICKS_EXPLOSION_HORIZONTAL_01,
             EObjKinds.SPECIAL_BRICKS_EXPLOSION_VERTICAL_01,
             EObjKinds.SPECIAL_BRICKS_EXPLOSION_CROSS_01,
             EObjKinds.SPECIAL_BRICKS_EXPLOSION_AROUND_01,
+			
+            EObjKinds.SPECIAL_BRICKS_MISSILE_01,
+            EObjKinds.SPECIAL_BRICKS_MISSILE_02,
+            EObjKinds.SPECIAL_BRICKS_LIGHTNING_01,
+            EObjKinds.SPECIAL_BRICKS_EARTHQUAKE_01,
 
             EObjKinds.SPECIAL_BRICKS_ARROW_01,
             EObjKinds.SPECIAL_BRICKS_ARROW_02,
@@ -85,11 +91,16 @@ public static partial class KDefine {
             EObjKinds.SPECIAL_BRICKS_ARROW_05,
             EObjKinds.SPECIAL_BRICKS_ARROW_06,
             EObjKinds.SPECIAL_BRICKS_ARROW_07,
-            EObjKinds.SPECIAL_BRICKS_ARROW_08,
+            EObjKinds.SPECIAL_BRICKS_ARROW_08,            
+
+            //EObjKinds.SPECIAL_BRICKS_MORPH_01,
+            //EObjKinds.SPECIAL_BRICKS_MORPH_02,
+            //EObjKinds.SPECIAL_BRICKS_MORPH_03,
+            //EObjKinds.SPECIAL_BRICKS_MORPH_04,
 		},
 
-		[KCDefine.B_VAL_3_INT] = new List<EObjKinds>() {
-			
+		[KCDefine.B_VAL_4_INT] = new List<EObjKinds>() {
+
             EObjKinds.OBSTACLE_BRICKS_KEY_01,
 			EObjKinds.OBSTACLE_BRICKS_LOCK_01,
 			EObjKinds.OBSTACLE_BRICKS_WARP_IN_01,
@@ -101,11 +112,7 @@ public static partial class KDefine {
             EObjKinds.OBSTACLE_BRICKS_FIX_03,
             
             EObjKinds.OBSTACLE_BRICKS_OPEN_01,
-            EObjKinds.OBSTACLE_BRICKS_CLOSE_01,
-		},
-
-		[KCDefine.B_VAL_4_INT] = new List<EObjKinds>() {
-			
+            EObjKinds.OBSTACLE_BRICKS_CLOSE_01,			
 		}
 	};
 	#endregion // 런타임 상수

@@ -134,6 +134,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: d9e170159ead046ba9527a6822f5810c, type: 3}
   - {fileID: 21300000, guid: 8b2be7350fb7b47f3b3279b34c317a81, type: 3}
   - {fileID: 21300000, guid: e7202cc5d55dc452dbdfb230a7f1b38f, type: 3}
+  - {fileID: 21300000, guid: e58346d586cfc4209be9fa128711cf8e, type: 3}
   - {fileID: 21300000, guid: 4b418bd52d9f24ebaab648af1ee3665a, type: 3}
   - {fileID: 21300000, guid: 3e30b9e5f509245d2a1141fda297abe2, type: 3}
   - {fileID: 21300000, guid: af1adfe543fd749b2b3f6d4c8140fbea, type: 3}
@@ -239,6 +240,7 @@ SpriteAtlas:
   - UI_Profile_Img03
   - UI_Img_Triangle60
   - UI_Profile_Img04
+  - UI_Img_Check
   - UI_Img_Effect_Glow
   - UI_Icon_Setting
   - UI_Icon_Star
