@@ -8,7 +8,7 @@ namespace NSEngine {
 
         private void GetSpecial_Earthquake(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds, int _ATK = KCDefine.B_VAL_1_INT)
         {
-            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kinds));
+            //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kinds));
 
             List<CEObj> excludeList = new List<CEObj>();
             excludeList.Add(this.GetOwner<CEObj>());

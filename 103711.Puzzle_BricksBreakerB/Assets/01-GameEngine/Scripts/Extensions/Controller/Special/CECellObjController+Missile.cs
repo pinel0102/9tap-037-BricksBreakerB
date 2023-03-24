@@ -8,7 +8,7 @@ namespace NSEngine {
 
         private void GetSpecial_Missile(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds, int _ATK = KCDefine.B_VAL_1_INT)
         {
-            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kinds));
+            //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kinds));
 
             List<CEObj> excludeList = new List<CEObj>();
             excludeList.Add(this.GetOwner<CEObj>());
@@ -38,7 +38,7 @@ namespace NSEngine {
         {
             if(target != null && target.TryGetComponent<CECellObjController>(out CECellObjController oController))
             {
-                float fxAngle = GetAngle(this.transform.position, target.transform.position) + GlobalDefine.FXMissile_AngleOffset;
+                float fxAngle = GlobalDefine.GetAngle(this.transform.position, target.transform.position) + GlobalDefine.FXMissile_AngleOffset;
                 float distance = Vector2.Distance(this.transform.position, target.transform.position);
                 
                 GlobalDefine.ShowEffect(EFXSet.FX_MISSILE_BULLET, this.transform.position, fxAngle, target.transform, GlobalDefine.FXMissile_Time);
