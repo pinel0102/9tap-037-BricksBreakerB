@@ -137,51 +137,22 @@ namespace LevelEditorScene {
 			// 인덱스가 유효 할 경우
 			if(this.SelLevelInfo.m_oCellInfoDictContainer.ExIsValidIdx(stIdx) && !stIdx.Equals(m_oVec3IntDict[EKey.PREV_CELL_IDX])) {
 				bool bIsValid01 = this.TryGetCellObjInfo(stIdx, EObjKinds.NONE, out STCellObjInfo stCellObjInfo);
-				bool bIsValid02 = Input.GetKey(CAccess.CmdKeyCode) && Input.GetMouseButtonDown((int)EMouseBtn.LEFT);
-
-				// 셀 객체 정보가 존재 할 경우
-				if(bIsValid01 && bIsValid02 && stCellObjInfo.ObjKinds != EObjKinds.BG_PLACEHOLDER_01) {
-                    this.HandleTouchSelectEvent(a_oSender, a_oEventData);
+                bool bIsValid02 = Input.GetKey(CAccess.CmdKeyCode) && Input.GetMouseButtonDown((int)EMouseBtn.LEFT);
+                bool bIsValid03 = Input.GetKey(KeyCode.M) && Input.GetMouseButtonDown((int)EMouseBtn.LEFT);
+				
+                // 셀 객체 정보가 존재 할 경우
+				if(bIsValid01 && stCellObjInfo.ObjKinds != EObjKinds.BG_PLACEHOLDER_01) 
+                {
+                    if (bIsValid02)
+                        this.CopyCurrentCellInfo(a_oSender, a_oEventData);
+                    else if (bIsValid03)
+                        this.ModifyCurrentCellInfo(a_oSender, a_oEventData);
+                    
                     return;
 				}
 			}
 
 			this.HandleTouchMoveEvent(a_oSender, a_oEventData);
-		}
-
-        private void HandleTouchSelectEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
-			var stPos = a_oEventData.ExGetLocalPos(this.ObjRoot, this.ScreenSize);
-			var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, NSEngine.Access.CellSize);
-
-			// 인덱스가 유효 할 경우
-			if(this.SelLevelInfo.m_oCellInfoDictContainer.ExIsValidIdx(stIdx) && !stIdx.Equals(m_oVec3IntDict[EKey.PREV_CELL_IDX])) {
-				var stCellInfo = this.SelLevelInfo.GetCellInfo(stIdx);
-
-                // 셀 정보 복사.
-                if(Input.GetMouseButton((int)EMouseBtn.LEFT) && m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
-                    int index = stCellInfo.m_oCellObjInfoList.Count - 1;
-                    if (index >= 0)
-                    {
-                        STCellObjInfo cellInfo = stCellInfo.m_oCellObjInfoList[stCellInfo.m_oCellObjInfoList.Count - 1];                        
-                        CObjInfoTable.Inst.TryGetObjInfo(cellInfo.ObjKinds, out STObjInfo stObjInfo);
-                        
-                        m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT].text = cellInfo.HP.ToString();
-                        m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT].text = cellInfo.ATK.ToString();
-
-                        if(stObjInfo.m_bIsEnableColor)
-                        {
-                            m_oSubDropDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_COLOR_DROP].value = cellInfo.ColorID;
-                            this.SetREUIsPageUIs02CellObjColor(cellInfo.ColorID);
-                        }
-
-                        this.OnTouchREUIsPageUIs02ScrollerCellViewBtn(cellInfo.ObjKinds);
-					    this.SetREUIsPageUIs02ObjSize(cellInfo.m_stSize.x, cellInfo.m_stSize.y);
-                    }
-                }
-
-				this.UpdateUIsState();
-				m_oVec3IntDict[EKey.PREV_CELL_IDX] = stIdx;
-			}
 		}
 
 		/** 터치 이동 이벤트를 처리한다 */

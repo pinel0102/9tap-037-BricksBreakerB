@@ -13,6 +13,7 @@ using TMPro;
 namespace LevelEditorScene {
     public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate
     {
+        public ModifyCell modifyCell;
         public GameObject tooltipObject;
         public Text tooltipText;
         public GameObject colorPickerObject;
@@ -34,6 +35,8 @@ namespace LevelEditorScene {
         private void ExtraStart()
         {
             GetDevList();
+
+            modifyCell.onModifyComplete += ModifyCellUpdate;
             
             //OnCloseColorPicker();
 
@@ -140,6 +143,69 @@ namespace LevelEditorScene {
 
 #endregion Cell Text
 
+        private void CopyCurrentCellInfo(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+			var stPos = a_oEventData.ExGetLocalPos(this.ObjRoot, this.ScreenSize);
+			var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, NSEngine.Access.CellSize);
+
+			// 인덱스가 유효 할 경우
+			if(this.SelLevelInfo.m_oCellInfoDictContainer.ExIsValidIdx(stIdx) && !stIdx.Equals(m_oVec3IntDict[EKey.PREV_CELL_IDX])) {
+				var stCellInfo = this.SelLevelInfo.GetCellInfo(stIdx);
+
+                // 셀 정보 복사.
+                if(m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
+                    int index = stCellInfo.m_oCellObjInfoList.Count - 1;
+                    if (index >= 0)
+                    {
+                        STCellObjInfo cellInfo = stCellInfo.m_oCellObjInfoList[stCellInfo.m_oCellObjInfoList.Count - 1];                        
+                        CObjInfoTable.Inst.TryGetObjInfo(cellInfo.ObjKinds, out STObjInfo stObjInfo);
+                        
+                        m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT].text = cellInfo.HP.ToString();
+                        m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT].text = cellInfo.ATK.ToString();
+
+                        if(stObjInfo.m_bIsEnableColor)
+                        {
+                            m_oSubDropDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_COLOR_DROP].value = cellInfo.ColorID;
+                            this.SetREUIsPageUIs02CellObjColor(cellInfo.ColorID);
+                        }
+
+                        this.OnTouchREUIsPageUIs02ScrollerCellViewBtn(cellInfo.ObjKinds);
+					    this.SetREUIsPageUIs02ObjSize(cellInfo.m_stSize.x, cellInfo.m_stSize.y);
+                    }
+                }
+
+				this.UpdateUIsState();
+				m_oVec3IntDict[EKey.PREV_CELL_IDX] = stIdx;
+			}
+		}
+
+        private void ModifyCurrentCellInfo(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
+			var stPos = a_oEventData.ExGetLocalPos(this.ObjRoot, this.ScreenSize);
+			var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, NSEngine.Access.CellSize);
+
+			// 인덱스가 유효 할 경우
+			if(this.SelLevelInfo.m_oCellInfoDictContainer.ExIsValidIdx(stIdx) && !stIdx.Equals(m_oVec3IntDict[EKey.PREV_CELL_IDX])) {
+				var stCellInfo = this.SelLevelInfo.GetCellInfo(stIdx);
+
+                // 셀 정보 복사.
+                if(m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid()) {
+                    int index = stCellInfo.m_oCellObjInfoList.Count - 1;
+                    if (index >= 0)
+                    {
+                        STCellObjInfo cellInfo = stCellInfo.m_oCellObjInfoList[stCellInfo.m_oCellObjInfoList.Count - 1];
+
+                        modifyCell.OpenModifyWindow(cellInfo);
+                    }
+                }
+
+				this.UpdateUIsState();
+				m_oVec3IntDict[EKey.PREV_CELL_IDX] = stIdx;
+			}
+		}
+
+        private void ModifyCellUpdate()
+        {
+            this.UpdateUIsState();
+        }
     }
 }
 #endif
