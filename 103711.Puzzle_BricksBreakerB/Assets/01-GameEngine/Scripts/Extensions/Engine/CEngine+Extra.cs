@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace NSEngine {
     public partial class CEngine : CComponent
@@ -52,9 +53,10 @@ namespace NSEngine {
         [Header("★ [Parameter] Privates")]
         private WaitForSeconds dropBallsDelay = new WaitForSeconds(KCDefine.B_VAL_0_5_REAL);
         private WaitForSeconds cellRootMoveDelay = new WaitForSeconds(KCDefine.B_VAL_0_0_1_REAL);
-        [HideInInspector] public WaitForSeconds hitEffectDelay = new WaitForSeconds(KCDefine.B_VAL_0_0_2_REAL);
+        public WaitForSeconds hitEffectDelay = new WaitForSeconds(KCDefine.B_VAL_0_0_2_REAL);
+        public WaitForSeconds fxMissileDelay = new WaitForSeconds(GlobalDefine.FXMissile_Time);
 
-        private GameScene.CSubGameSceneManager subGameSceneManager => CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME);
+        public GameScene.CSubGameSceneManager subGameSceneManager => CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME);
 
 #region Initialize
 
@@ -191,6 +193,69 @@ namespace NSEngine {
                     StartCoroutine(CO_MoveCellRoot(KCDefine.B_VAL_1_INT));
                     }, KCDefine.B_VAL_0_3_REAL);
             }
+        }
+
+        public List<CEObj> GetRandomCells_SkillTarget(int count, List<CEObj> excludeList)
+        {
+            List<CEObj> cellList = new List<CEObj>();
+
+            for (int row = 0; row < this.CellObjLists.GetLength(KCDefine.B_VAL_0_INT); row++)
+            {
+                for (int col = 0; col < this.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); col++)
+                {
+                    int _count = this.CellObjLists[row, col].Count;
+                    if (_count > 0)
+                    {
+                        int _cLastLayer = _count - 1;
+                        if(this.CellObjLists[row, col][_cLastLayer].gameObject.activeSelf) 
+                        {
+                            CEObj target = this.CellObjLists[row, col][_cLastLayer];
+                            if (target != null)
+                            {
+                                if (target.Params.m_stObjInfo.m_bIsSkillTarget)
+                                {
+                                    cellList.Add(target);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return cellList.OrderBy(g => System.Guid.NewGuid())
+                            .Where(i => !excludeList.Contains(i))
+                            .Take(count).ToList();
+        }
+
+        public List<CEObj> GetAllCells_SkillTarget(List<CEObj> excludeList)
+        {
+            List<CEObj> cellList = new List<CEObj>();
+
+            for (int row = 0; row < this.CellObjLists.GetLength(KCDefine.B_VAL_0_INT); row++)
+            {
+                for (int col = 0; col < this.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); col++)
+                {
+                    int _count = this.CellObjLists[row, col].Count;
+                    if (_count > 0)
+                    {
+                        int _cLastLayer = _count - 1;
+                        if(this.CellObjLists[row, col][_cLastLayer].gameObject.activeSelf) 
+                        {
+                            CEObj target = this.CellObjLists[row, col][_cLastLayer];
+                            if (target != null)
+                            {
+                                if (target.Params.m_stObjInfo.m_bIsSkillTarget)
+                                {
+                                    cellList.Add(target);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return cellList.OrderBy(g => System.Guid.NewGuid())
+                            .Where(i => !excludeList.Contains(i)).ToList();
         }
 
 #endregion Public Methods

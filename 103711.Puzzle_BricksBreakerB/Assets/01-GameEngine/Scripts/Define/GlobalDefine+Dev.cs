@@ -29,8 +29,8 @@ public static partial class GlobalDefine
         [EObjKinds.OBSTACLE_BRICKS_FIX_02]                  = new KeyValuePair<string, bool>("고정 나무 상자", false),
         [EObjKinds.OBSTACLE_BRICKS_FIX_03]                  = new KeyValuePair<string, bool>("고정 강철 블럭", false),
 
-        [EObjKinds.SPECIAL_BRICKS_MISSILE_01]               = new KeyValuePair<string, bool>("미사일 x1", false),
-        [EObjKinds.SPECIAL_BRICKS_MISSILE_02]               = new KeyValuePair<string, bool>("미사일 x4", false),
+        [EObjKinds.SPECIAL_BRICKS_MISSILE_01]               = new KeyValuePair<string, bool>("미사일 x1", true),
+        [EObjKinds.SPECIAL_BRICKS_MISSILE_02]               = new KeyValuePair<string, bool>("미사일 x4", true),
         [EObjKinds.SPECIAL_BRICKS_EXPLOSION_HORIZONTAL_01]  = new KeyValuePair<string, bool>("가로 폭탄", true),
         [EObjKinds.SPECIAL_BRICKS_EXPLOSION_VERTICAL_01]    = new KeyValuePair<string, bool>("세로 폭탄", true),
         [EObjKinds.SPECIAL_BRICKS_EXPLOSION_CROSS_01]       = new KeyValuePair<string, bool>("십자 폭탄", true),
@@ -38,8 +38,8 @@ public static partial class GlobalDefine
         [EObjKinds.SPECIAL_BRICKS_ADD_BALL_01]              = new KeyValuePair<string, bool>("볼 블럭 +10", true),
         [EObjKinds.SPECIAL_BRICKS_ADD_BALL_02]              = new KeyValuePair<string, bool>("볼 블럭 +20", true),
         [EObjKinds.SPECIAL_BRICKS_ADD_BALL_03]              = new KeyValuePair<string, bool>("볼 블럭 +30", true),
-        [EObjKinds.SPECIAL_BRICKS_LIGHTNING_01]             = new KeyValuePair<string, bool>("번개", false),
-        [EObjKinds.SPECIAL_BRICKS_EARTHQUAKE_01]            = new KeyValuePair<string, bool>("지진", false),
+        [EObjKinds.SPECIAL_BRICKS_LIGHTNING_01]             = new KeyValuePair<string, bool>("번개", true),
+        [EObjKinds.SPECIAL_BRICKS_EARTHQUAKE_01]            = new KeyValuePair<string, bool>("지진", true),
         [EObjKinds.SPECIAL_BRICKS_ARROW_01]                 = new KeyValuePair<string, bool>("화살", true),
         [EObjKinds.SPECIAL_BRICKS_ARROW_02]                 = new KeyValuePair<string, bool>("화살", true),
         [EObjKinds.SPECIAL_BRICKS_ARROW_03]                 = new KeyValuePair<string, bool>("화살", true),
@@ -64,7 +64,7 @@ public static partial class GlobalDefine
         [EObjKinds.ITEM_BRICKS_BALL_02]                     = new KeyValuePair<string, bool>("볼 추가 +2", true),
         [EObjKinds.ITEM_BRICKS_BALL_03]                     = new KeyValuePair<string, bool>("볼 추가 +3", true),
         [EObjKinds.ITEM_BRICKS_BALL_04]                     = new KeyValuePair<string, bool>("볼 추가 +10", true),
-        [EObjKinds.ITEM_BRICKS_COINS_01]                    = new KeyValuePair<string, bool>("보석 획득", false),
+        [EObjKinds.ITEM_BRICKS_COINS_01]                    = new KeyValuePair<string, bool>("보석 획득", true),
     };
 
     private const string formatDevTooltip = "{0}{1}";

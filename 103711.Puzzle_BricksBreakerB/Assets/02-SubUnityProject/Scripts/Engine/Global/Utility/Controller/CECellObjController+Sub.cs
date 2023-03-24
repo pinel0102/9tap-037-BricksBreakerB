@@ -71,7 +71,8 @@ namespace NSEngine {
 
 		/** 초기화한다 */
 		private void SubInit() {
-			this.SetHideReserved(false);
+			this.hideReserved = false;
+            this.missileReserved = false;
 		}
 
         /** 객체 정보를 리셋한다 */

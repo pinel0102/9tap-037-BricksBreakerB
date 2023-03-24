@@ -6,6 +6,7 @@ namespace NSEngine {
     public partial class CECellObjController : CEObjController
     {
         public bool hideReserved;
+        public bool missileReserved;
 
         private Coroutine hitCoroutine;
 
@@ -30,12 +31,22 @@ namespace NSEngine {
             {
                 GlobalDefine.ShowEffect(EFXSet.FX_POWER_BALL_HIT, this.transform.position);
             }
+
+            // [특수 블럭] 히트시 발동.
+            switch(kindsType)
+            {
+                case EObjKinds.SPECIAL_BRICKS_LIGHTNING_01:
+                    GetSpecial_Lightning(ballController, kindsType, kinds, _ATK);
+                    break;
+                default:
+                    break;
+            }
 			
 			// 체력이 없을 경우
 			if(stCellObjInfo.HP <= KCDefine.B_VAL_0_INT) 
             {
                 CellAfterEffect(ballController, kindsType, kinds);
-                GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, GlobalDefine.GetCellColor(oCellObj.CellObjInfo.ObjKinds, oCellObj.Params.m_stObjInfo.m_bIsEnableColor, oCellObj.CellObjInfo.ColorID), oCellObj.transform.position);
+                GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, oCellObj.transform.position, GlobalDefine.GetCellColor(oCellObj.CellObjInfo.ObjKinds, oCellObj.Params.m_stObjInfo.m_bIsEnableColor, oCellObj.CellObjInfo.ColorID));
 				CellDestroy();
 			}
             else
@@ -53,6 +64,7 @@ namespace NSEngine {
             }
             else
             {
+                // [특수 블럭] 통과시 발동.
                 switch(kindsType)
                 {
                     case EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01:
@@ -101,6 +113,9 @@ namespace NSEngine {
             {
                 case EObjKinds.ITEM_BRICKS_BALL_01:
                     GetItem_BallPlus(ballController, kindsType, kinds);
+                    break;
+                case EObjKinds.ITEM_BRICKS_COINS_01:
+                    GetItem_Ruby(ballController, kindsType, kinds);
                     break;
                 default:
                     Debug.Log(CodeManager.GetMethodName() + string.Format("<color=red>{0}</color>", kindsType));
@@ -202,11 +217,54 @@ namespace NSEngine {
                 case EObjKinds.SPECIAL_BRICKS_ARROW_08:
                     GetSpecial_Arrow(ballController, kindsType, kinds);
                     break;
+                case EObjKinds.SPECIAL_BRICKS_MISSILE_01:
+                case EObjKinds.SPECIAL_BRICKS_MISSILE_02:
+                    GetSpecial_Missile(ballController, kindsType, kinds);
+                    break;
+                case EObjKinds.SPECIAL_BRICKS_EARTHQUAKE_01:
+                    GetSpecial_Earthquake(ballController, kindsType, kinds);
+                    break;
                 case EObjKinds.OBSTACLE_BRICKS_KEY_01:
                     break;
                 default:
                     //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=red>{0}</color>", kindsType));
                     break;
+            }
+        }
+
+        ///<Summary>볼이 아닌 특수 효과로 셀을 공격. (셀 효과 미발동.)</Summary>
+        private void CellDamage_SkillTarget(CEObj target, CEBallObjController ballController, int _ATK)
+        {
+            if (target != null)
+            {
+                EObjKinds kinds = target.Params.m_stObjInfo.m_eObjKinds;
+                EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
+                
+                if (target.Params.m_stObjInfo.m_bIsSkillTarget)
+                {
+                    if (target.CellObjInfo.HP > _ATK)
+                        target.GetComponent<CECellObjController>().GetDamage(ballController, kindsType, kinds, _ATK);
+                    else
+                    {
+                        GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, target.transform.position, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID));
+                        target.GetComponent<CECellObjController>().CellDestroy();
+                    }
+                }
+            }
+        }
+
+        ///<Summary>볼이 아닌 특수 효과로 셀을 공격. (셀 효과 미발동.)</Summary>
+        private void CellDamage_SkillTarget(int row, int col, CEBallObjController ballController, int _ATK)
+        {
+            int _count = this.Engine.CellObjLists[row, col].Count;
+            if (_count > 0)
+            {
+                int _cLastLayer = _count - 1;
+                if(this.Engine.CellObjLists[row, col][_cLastLayer].gameObject.activeSelf) 
+                {
+                    CEObj target = this.Engine.CellObjLists[row, col][_cLastLayer];
+                    CellDamage_SkillTarget(target, ballController, _ATK);
+                }
             }
         }
 
@@ -224,7 +282,7 @@ namespace NSEngine {
                     {
                         if (target.Params.m_stObjInfo.m_bIsSkillTarget)
                         {
-                            GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID), target.transform.position);
+                            GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, target.transform.position, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID));
                             target.GetComponent<CECellObjController>().CellDestroy();
                         }
                     }
@@ -235,8 +293,7 @@ namespace NSEngine {
         ///<Summary>셀 파괴. (열쇠 효과만 발동.)</Summary>
         private void CellDestroy()
         {
-            if (hitCoroutine != null)
-                StopCoroutine(hitCoroutine);
+            StopAllCoroutines();
 
             CEObj _ceObj = this.GetOwner<CEObj>();
             EObjKinds kinds = _ceObj.Params.m_stObjInfo.m_eObjKinds;

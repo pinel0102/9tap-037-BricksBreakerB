@@ -4,9 +4,15 @@ using UnityEngine;
 
 public static partial class GlobalDefine
 {
+    public const float SCREEN_WIDTH = 720f;
+    public const float SCREEN_HEIGHT = 1280f;
+
     // 위 아래 UI 공간.
     public const float GRID_PANEL_HEIGHT_TOP = 180f;
     public const float GRID_PANEL_HEIGHT_BOTTOM = 180f;
+
+    // [Item] Ruby
+    public const int GetItem_Ruby = 1;
 
     // [Item] Ball Plus
     public readonly static int[] GetItem_BallPlus = new int[4]
