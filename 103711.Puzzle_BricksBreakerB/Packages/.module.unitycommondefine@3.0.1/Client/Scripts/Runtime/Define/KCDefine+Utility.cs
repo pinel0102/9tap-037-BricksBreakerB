@@ -722,7 +722,7 @@ public static partial class KCDefine {
 
 	// 크기
 	public static readonly Vector3 U_SIZE_BANNER_ADS = new Vector3(320.0f, 50.0f, 0.0f);
-	public static readonly Vector3 U_MIN_SIZE_ALERT_POPUP = new Vector3(400.0f, 300.0f, 0.0f);
+	public static readonly Vector3 U_MIN_SIZE_ALERT_POPUP = new Vector3(580.0f, 300.0f, 0.0f);
 
 	// 태그
 	public static readonly List<string> U_TAG_LIST = new List<string>() {
