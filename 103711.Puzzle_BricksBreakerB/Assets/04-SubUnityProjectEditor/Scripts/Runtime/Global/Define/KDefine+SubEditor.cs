@@ -17,6 +17,7 @@ public static partial class KDefine {
 	#region 기본
 	// 형식
 	public const string LES_TEXT_FMT_HP_INFO = "체력 {0}";
+    public const string LES_TEXT_FMT_SHIELD_INFO = "실드 {0}";
 	public const string LES_TEXT_FMT_ATK_INFO = "공격력 {0}";
     public const string LES_TEXT_FMT_COLOR_INFO = "색상 {0}";
 	#endregion // 기본
@@ -107,9 +108,9 @@ public static partial class KDefine {
 			EObjKinds.OBSTACLE_BRICKS_WARP_OUT_01,
 
             EObjKinds.OBSTACLE_BRICKS_FIX_01,
-            EObjKinds.OBSTACLE_BRICKS_FIX_02,            
+            EObjKinds.OBSTACLE_BRICKS_FIX_02,
             EObjKinds.OBSTACLE_BRICKS_OPEN_01,
-            EObjKinds.OBSTACLE_BRICKS_CLOSE_01,			
+            EObjKinds.OBSTACLE_BRICKS_CLOSE_01,
 
             EObjKinds.OBSTACLE_BRICKS_WOODBOX_01,
             EObjKinds.OBSTACLE_BRICKS_WOODBOX_02,

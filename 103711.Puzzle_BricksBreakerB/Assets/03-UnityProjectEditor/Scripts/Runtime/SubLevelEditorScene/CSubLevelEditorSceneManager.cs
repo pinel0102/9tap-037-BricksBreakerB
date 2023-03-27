@@ -1000,6 +1000,7 @@ namespace LevelEditorScene {
 
 							#region 추가
 							a_stCellObjInfo.HP = int.Parse(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT].text);
+                            a_stCellObjInfo.SHIELD = GlobalDefine.IsShieldCell(a_stCellObjInfo.ObjKinds) ? int.Parse(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SHIELD_INPUT].text) : 0;
 							a_stCellObjInfo.ATK = int.Parse(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT].text);
                             a_stCellObjInfo.ColorID = m_oSubDropDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_COLOR_DROP].value;
 							#endregion // 추가
@@ -2160,9 +2161,10 @@ namespace LevelEditorScene {
 
 				#region 추가
 				int nHP = int.Parse(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT].text, NumberStyles.Any, null);
+                int nShield = int.Parse(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SHIELD_INPUT].text, NumberStyles.Any, null);
 				decimal dmATK = stObjInfo.m_oAbilityTargetInfoDict.ExGetTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ATK_01);
 
-				this.SetREUIsPageUIs02CellObjInfo(nHP, (int)dmATK);
+				this.SetREUIsPageUIs02CellObjInfo(nHP, nShield, (int)dmATK);
 				#endregion // 추가
 			}
 

@@ -8,7 +8,7 @@ namespace NSEngine {
 
         private void GetObstacle_Key(EObjKinds kindsType)
         {
-            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kindsType));
+            //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kindsType));
             
             switch(kindsType)
             {

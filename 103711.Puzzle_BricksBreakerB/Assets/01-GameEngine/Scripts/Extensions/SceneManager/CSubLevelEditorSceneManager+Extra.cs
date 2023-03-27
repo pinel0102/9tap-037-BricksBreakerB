@@ -136,7 +136,7 @@ namespace LevelEditorScene {
         public void RefreshText(STCellObjInfo CellObjInfo, STObjInfo stObjInfo, TMP_Text _text)
         {
             if (_text != null)
-                _text.text = (stObjInfo.m_bIsEnableHit || GlobalDefine.IsExtraObjEnableHit(stObjInfo.m_oExtraObjKindsList)) && stObjInfo.m_bIsEnableReflect ? $"{CellObjInfo.HP}" : string.Empty;
+                _text.text = (stObjInfo.m_bIsEnableHit || GlobalDefine.IsExtraObjEnableHit(stObjInfo.m_oExtraObjKindsList)) && stObjInfo.m_bIsEnableReflect ? ((GlobalDefine.IsShieldCell(CellObjInfo.ObjKinds) && CellObjInfo.SHIELD > 0) ? CellObjInfo.SHIELD.ToString() : CellObjInfo.HP.ToString()) : string.Empty;
         }
         
 #endregion Cell Text
@@ -158,6 +158,7 @@ namespace LevelEditorScene {
                         CObjInfoTable.Inst.TryGetObjInfo(cellInfo.ObjKinds, out STObjInfo stObjInfo);
                         
                         m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT].text = cellInfo.HP.ToString();
+                        m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SHIELD_INPUT].text = GlobalDefine.IsShieldCell(cellInfo.ObjKinds) ? cellInfo.SHIELD.ToString() : 0.ToString();
                         m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT].text = cellInfo.ATK.ToString();
 
                         if(stObjInfo.m_bIsEnableColor)

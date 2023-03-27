@@ -177,14 +177,14 @@ namespace NSEngine {
 		#region 접근자 함수
 		/** 셀 객체 정보를 변경한다 */
 		public void SetCellObjInfo(STCellObjInfo a_stCellObjInfo) {
-			this.CellObjInfo = a_stCellObjInfo;
+            this.CellObjInfo = a_stCellObjInfo;
             
             if (a_stCellObjInfo.ObjKinds != EObjKinds.NONE)
             {
                 EObjType cellType = (EObjType)((int)CellObjInfo.ObjKinds).ExKindsToType();
                 
                 SetSpriteColor(CellObjInfo.ObjKinds);
-                RefreshText(cellType);
+                RefreshText(CellObjInfo.ObjKinds);
             }
 		}
 		#endregion // 접근자 함수

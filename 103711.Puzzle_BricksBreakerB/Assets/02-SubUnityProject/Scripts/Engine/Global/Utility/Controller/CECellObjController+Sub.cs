@@ -51,7 +51,7 @@ namespace NSEngine {
             EObjType cellType = (EObjType)((int)kinds).ExKindsToType();
 
             int ATK = KCDefine.B_VAL_1_INT + ballController.extraATK;
-
+            
             switch(cellType) 
             {
                 case EObjType.NORM_BRICKS: this.GetDamage(ballController, kindsType, kinds, ATK); break;
@@ -70,9 +70,10 @@ namespace NSEngine {
 		}
 
 		/** 초기화한다 */
-		private void SubInit() {
+		private void SubInit(EObjKinds kinds) {
 			this.hideReserved = false;
             this.missileReserved = false;
+            this.isShieldCell = GlobalDefine.IsShieldCell(kinds);
 		}
 
         /** 객체 정보를 리셋한다 */

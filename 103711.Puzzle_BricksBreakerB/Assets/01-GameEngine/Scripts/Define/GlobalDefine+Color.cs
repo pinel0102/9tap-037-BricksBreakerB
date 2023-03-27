@@ -22,7 +22,7 @@ public static partial class GlobalDefine
     public const string COLOR_BALL_DEFAULT = "#FF0000FF";
     public const string COLOR_FX_LASER = "#CCFF74FF";
 
-    public static Color GetCellColor(EObjKinds kinds, bool isEnableColor, int _colorID = 0, int _HP = 100)
+    public static Color GetCellColor(EObjKinds kinds, bool isShield, bool isEnableColor, int _colorID = 0, int _HP = 100)
     {
         EObjType cellType = (EObjType)((int)kinds).ExKindsToType();
         switch(cellType)
@@ -33,7 +33,7 @@ public static partial class GlobalDefine
                 break;
         }
 
-        return isEnableColor ? colorList[_colorID][GetHPColorIndex(_HP)] : Color.white;
+        return (!isShield && isEnableColor) ? colorList[_colorID][GetHPColorIndex(_HP)] : Color.white;
     }
 
     public static Color GetCellColorEditor(EObjKinds kinds, int _colorID = 0, int _HP = 100)
@@ -43,7 +43,7 @@ public static partial class GlobalDefine
         if (CObjInfoTable.Inst.TryGetObjInfo(kinds, out STObjInfo stObjInfo))
             isEnableColor = stObjInfo.m_bIsEnableColor || IsExtraObjEnableColor(stObjInfo.m_oExtraObjKindsList);
         
-        return GetCellColor(kinds, isEnableColor, _colorID, _HP);
+        return GetCellColor(kinds, false, isEnableColor, _colorID, _HP);
     }
 
     public static Color COLOR_WHITE = Color.white;

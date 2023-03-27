@@ -36,9 +36,18 @@ public static partial class GlobalDefine
     {
         switch(kinds)
         {
-            //case EObjKinds.OBSTACLE_BRICKS_LOCK_01:
             case EObjKinds.OBSTACLE_BRICKS_OPEN_01:
             case EObjKinds.OBSTACLE_BRICKS_FIX_01:
+                return true;
+            default:
+                return false;
+        }
+    }
+    
+    public static bool IsShieldCell(EObjKinds kinds)
+    {
+        switch(kinds)
+        {
             case EObjKinds.OBSTACLE_BRICKS_WOODBOX_01:
             case EObjKinds.OBSTACLE_BRICKS_WOODBOX_02:
                 return true;

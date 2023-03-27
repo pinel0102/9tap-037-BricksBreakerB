@@ -5,6 +5,7 @@ using UnityEngine;
 namespace NSEngine {
     public partial class CECellObjController : CEObjController
     {
+        public bool isShieldCell;
         public bool hideReserved;
         public bool missileReserved;
 
@@ -21,37 +22,61 @@ namespace NSEngine {
 
 			var stCellObjInfo = oCellObj.CellObjInfo;
 
-            stCellObjInfo.HP = Mathf.Max(KCDefine.B_VAL_0_INT, stCellObjInfo.HP - _ATK);
-            
-            oCellObj.HPText.text = $"{stCellObjInfo.HP}";
-			oCellObj.SetCellObjInfo(stCellObjInfo);
-            oCellObj.SetSpriteColor(oCellObj.CellObjInfo.ObjKinds);
+            if (isShieldCell && stCellObjInfo.SHIELD > 0)
+            {
+                stCellObjInfo.SHIELD = Mathf.Max(KCDefine.B_VAL_0_INT, stCellObjInfo.SHIELD - _ATK);
+                oCellObj.HPText.text = $"{stCellObjInfo.SHIELD}";
+                oCellObj.SetCellObjInfo(stCellObjInfo);
 
-            if (ballController.isOn_PowerBall)
-            {
-                GlobalDefine.ShowEffect(EFXSet.FX_POWER_BALL_HIT, this.transform.position);
-            }
+                if (ballController.isOn_PowerBall)
+                {
+                    GlobalDefine.ShowEffect(EFXSet.FX_POWER_BALL_HIT, this.transform.position);
+                }
 
-            // [특수 블럭] 히트시 발동.
-            switch(kindsType)
-            {
-                case EObjKinds.SPECIAL_BRICKS_LIGHTNING_01:
-                    GetSpecial_Lightning(ballController, kindsType, kinds, _ATK);
-                    break;
-                default:
-                    break;
+                // 실드가 없을 경우
+                if(stCellObjInfo.SHIELD <= KCDefine.B_VAL_0_INT) 
+                {
+                    ShieldAfterEffect(kindsType, kinds);
+                    GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, oCellObj.transform.position, GlobalDefine.GetCellColor(oCellObj.CellObjInfo.ObjKinds, true, false));
+                    //CellDestroy();
+                }
+                else
+                {
+                    HitEffect();
+                }
             }
-			
-			// 체력이 없을 경우
-			if(stCellObjInfo.HP <= KCDefine.B_VAL_0_INT) 
-            {
-                CellAfterEffect(ballController, kindsType, kinds);
-                GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, oCellObj.transform.position, GlobalDefine.GetCellColor(oCellObj.CellObjInfo.ObjKinds, oCellObj.Params.m_stObjInfo.m_bIsEnableColor, oCellObj.CellObjInfo.ColorID));
-				CellDestroy();
-			}
             else
             {
-                HitEffect();
+                stCellObjInfo.HP = Mathf.Max(KCDefine.B_VAL_0_INT, stCellObjInfo.HP - _ATK);
+            
+                oCellObj.HPText.text = $"{stCellObjInfo.HP}";
+                oCellObj.SetCellObjInfo(stCellObjInfo);
+                oCellObj.SetSpriteColor(oCellObj.CellObjInfo.ObjKinds);
+
+                if (ballController.isOn_PowerBall)
+                {
+                    GlobalDefine.ShowEffect(EFXSet.FX_POWER_BALL_HIT, this.transform.position);
+                }
+
+                // [특수 블럭] 히트시 발동.
+                switch(kindsType)
+                {
+                    case EObjKinds.SPECIAL_BRICKS_LIGHTNING_01:
+                        GetSpecial_Lightning(ballController, kindsType, kinds, _ATK);
+                        break;
+                }
+                
+                // 체력이 없을 경우
+                if(stCellObjInfo.HP <= KCDefine.B_VAL_0_INT) 
+                {
+                    CellAfterEffect(ballController, kindsType, kinds);
+                    GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, oCellObj.transform.position, GlobalDefine.GetCellColor(oCellObj.CellObjInfo.ObjKinds, false, oCellObj.Params.m_stObjInfo.m_bIsEnableColor, oCellObj.CellObjInfo.ColorID));
+                    CellDestroy();
+                }
+                else
+                {
+                    HitEffect();
+                }
             }
         }
 
@@ -230,6 +255,21 @@ namespace NSEngine {
             }
         }
 
+        ///<Summary>셀의 실드가 0이 되어 파괴시 발동하는 효과.</Summary>
+        private void ShieldAfterEffect(EObjKinds kindsType, EObjKinds kinds)
+        {
+            switch(kindsType)
+            {
+                case EObjKinds.OBSTACLE_BRICKS_WOODBOX_01:
+                case EObjKinds.OBSTACLE_BRICKS_WOODBOX_02:
+                    GetObstacle_WoodBox(kindsType, kinds);
+                    break;
+                default:
+                    //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=red>{0}</color>", kindsType));
+                    break;
+            }
+        }
+
         ///<Summary>볼이 아닌 특수 효과로 셀을 공격. (셀 효과 미발동.)</Summary>
         private void CellDamage_SkillTarget(CEObj target, CEBallObjController ballController, int _ATK)
         {
@@ -240,12 +280,25 @@ namespace NSEngine {
                 
                 if (target.Params.m_stObjInfo.m_bIsSkillTarget)
                 {
-                    if (target.CellObjInfo.HP > _ATK)
-                        target.GetComponent<CECellObjController>().GetDamage(ballController, kindsType, kinds, _ATK);
+                    if (target.GetComponent<CECellObjController>().isShieldCell && target.CellObjInfo.SHIELD > 0)
+                    {
+                        if (target.CellObjInfo.SHIELD > _ATK)
+                            target.GetComponent<CECellObjController>().GetDamage(ballController, kindsType, kinds, _ATK);
+                        else
+                        {
+                            GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, target.transform.position, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, true, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID));
+                            target.GetComponent<CECellObjController>().CellDestroy();
+                        }
+                    }
                     else
                     {
-                        GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, target.transform.position, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID));
-                        target.GetComponent<CECellObjController>().CellDestroy();
+                        if (target.CellObjInfo.HP > _ATK)
+                            target.GetComponent<CECellObjController>().GetDamage(ballController, kindsType, kinds, _ATK);
+                        else
+                        {
+                            GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, target.transform.position, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, false, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID));
+                            target.GetComponent<CECellObjController>().CellDestroy();
+                        }
                     }
                 }
             }
@@ -280,7 +333,7 @@ namespace NSEngine {
                     {
                         if (target.Params.m_stObjInfo.m_bIsSkillTarget)
                         {
-                            GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, target.transform.position, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID));
+                            GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, target.transform.position, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, target.GetComponent<CECellObjController>().isShieldCell && target.CellObjInfo.SHIELD > 0, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID));
                             target.GetComponent<CECellObjController>().CellDestroy();
                         }
                     }
@@ -296,10 +349,20 @@ namespace NSEngine {
             CEObj _ceObj = this.GetOwner<CEObj>();
             EObjKinds kinds = _ceObj.Params.m_stObjInfo.m_eObjKinds;
             EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
+            var stCellObjInfo = _ceObj.CellObjInfo;
+
             switch(kindsType)
             {
                 case EObjKinds.OBSTACLE_BRICKS_KEY_01:
                     GetObstacle_Key(kindsType);
+                    break;
+                case EObjKinds.OBSTACLE_BRICKS_WOODBOX_01:
+                case EObjKinds.OBSTACLE_BRICKS_WOODBOX_02:
+                    if (isShieldCell && stCellObjInfo.SHIELD > 0)
+                    {
+                        GetObstacle_WoodBox(kindsType, kinds);
+                        return;
+                    }
                     break;
             }
             

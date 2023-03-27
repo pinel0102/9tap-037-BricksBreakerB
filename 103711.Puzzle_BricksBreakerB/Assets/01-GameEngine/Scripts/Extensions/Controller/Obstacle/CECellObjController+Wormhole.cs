@@ -27,6 +27,10 @@ namespace NSEngine {
         private void Wormhole(CEBallObjController ballController, EObjKinds targetType)
         {
             List<CEObj> targetList = Engine.GetAllCells(targetType);
+            
+            if (targetList.Count < 1) 
+                return;
+            
             CEObj target = Engine.GetRandomCell(targetList);
 
             ballController.transform.position = target.transform.position;

@@ -18,10 +18,12 @@ namespace LevelEditorScene {
 		private enum ESubKey {
 			NONE = -1,
             ME_UIS_CELL_OBJ_HP_TEXT,
+            ME_UIS_CELL_OBJ_SHIELD_TEXT,
 			ME_UIS_CELL_OBJ_ATK_TEXT,
             ME_UIS_CELL_OBJ_COLOR_TEXT,
             RE_UIS_PAGE_UIS_02_CELL_OBJ_COLOR_DROP,
 			RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT,
+            RE_UIS_PAGE_UIS_02_CELL_OBJ_SHIELD_INPUT,
 			RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT,
 			
 			[HideInInspector] MAX_VAL
@@ -35,6 +37,7 @@ namespace LevelEditorScene {
 
 		/** =====> 객체 <===== */
 		[SerializeField] private GameObject m_oSubCellObjHPBtnUIs = null;
+        [SerializeField] private GameObject m_oSubCellObjShieldBtnUIs = null;
 		[SerializeField] private GameObject m_oSubCellObjATKBtnUIs = null;
 		#endregion // 변수
 
@@ -275,6 +278,7 @@ namespace LevelEditorScene {
 			// 텍스트를 설정한다
 			CFunc.SetupComponents(new List<(ESubKey, string, GameObject)>() {
 				(ESubKey.ME_UIS_CELL_OBJ_HP_TEXT, $"{ESubKey.ME_UIS_CELL_OBJ_HP_TEXT}", this.MEUIsInfoUIs),
+                (ESubKey.ME_UIS_CELL_OBJ_SHIELD_TEXT, $"{ESubKey.ME_UIS_CELL_OBJ_SHIELD_TEXT}", this.MEUIsInfoUIs),
 				(ESubKey.ME_UIS_CELL_OBJ_ATK_TEXT, $"{ESubKey.ME_UIS_CELL_OBJ_ATK_TEXT}", this.MEUIsInfoUIs),
                 (ESubKey.ME_UIS_CELL_OBJ_COLOR_TEXT, $"{ESubKey.ME_UIS_CELL_OBJ_COLOR_TEXT}", this.MEUIsInfoUIs)
 			}, m_oSubTextDict);
@@ -285,6 +289,7 @@ namespace LevelEditorScene {
             Color stColor = GlobalDefine.colorList[m_oSubDropDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_COLOR_DROP].value][0];
             
 			m_oSubTextDict[ESubKey.ME_UIS_CELL_OBJ_HP_TEXT].text = string.Format(KDefine.LES_TEXT_FMT_HP_INFO, m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT].text);
+            m_oSubTextDict[ESubKey.ME_UIS_CELL_OBJ_SHIELD_TEXT].text = string.Format(KDefine.LES_TEXT_FMT_SHIELD_INFO, m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SHIELD_INPUT].text);
 			m_oSubTextDict[ESubKey.ME_UIS_CELL_OBJ_ATK_TEXT].text = string.Format(KDefine.LES_TEXT_FMT_ATK_INFO, m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT].text);
             m_oSubTextDict[ESubKey.ME_UIS_CELL_OBJ_COLOR_TEXT].text = string.Format(KDefine.LES_TEXT_FMT_COLOR_INFO, m_oSubDropDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_COLOR_DROP].captionText.text.ExGetColorFmtStr(stColor));
 
@@ -350,19 +355,27 @@ namespace LevelEditorScene {
 			// 입력을 설정한다 {
 			CFunc.SetupInputs(new List<(ESubKey, string, GameObject, UnityAction<string>)>() {
 				(ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT, $"{ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs02CellObjInfoInputStr),
+                (ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SHIELD_INPUT, $"{ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SHIELD_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs02CellObjInfoInputStr),
 				(ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT, $"{ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs02CellObjInfoInputStr)
 			}, m_oSubInputDict);
 
 			m_oInputList02.ExAddVal(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT]);
+            m_oInputList02.ExAddVal(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SHIELD_INPUT]);
 			m_oInputList02.ExAddVal(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT]);
 
 			m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT]?.SetTextWithoutNotify(10.ToString());
+            m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SHIELD_INPUT]?.SetTextWithoutNotify(10.ToString());
 			m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT]?.SetTextWithoutNotify(KCDefine.B_STR_0_INT);
 			// 입력을 설정한다 }
 
 			// 버튼을 설정한다 {
 			for(int i = 0; i < m_oSubCellObjHPBtnUIs.transform.childCount; ++i) {
 				var oBtn = m_oSubCellObjHPBtnUIs.transform.GetChild(i).GetComponentInChildren<Button>();
+				oBtn.onClick.AddListener(() => this.OnTouchREUIsPageUIs02CellObjInfoBtn(oBtn));
+			}
+
+            for(int i = 0; i < m_oSubCellObjShieldBtnUIs.transform.childCount; ++i) {
+				var oBtn = m_oSubCellObjShieldBtnUIs.transform.GetChild(i).GetComponentInChildren<Button>();
 				oBtn.onClick.AddListener(() => this.OnTouchREUIsPageUIs02CellObjInfoBtn(oBtn));
 			}
 
@@ -401,15 +414,23 @@ namespace LevelEditorScene {
 
 			bool bIsValid01 = int.TryParse(oText.text, NumberStyles.Any, null, out int nExtraVal);
 			bool bIsValid02 = int.TryParse(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT].text, NumberStyles.Any, null, out int nHP);
-			bool bIsValid03 = int.TryParse(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT].text, NumberStyles.Any, null, out int nATK);
+            bool bIsValid03 = int.TryParse(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SHIELD_INPUT].text, NumberStyles.Any, null, out int nShield);
+			bool bIsValid04 = int.TryParse(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT].text, NumberStyles.Any, null, out int nATK);
 
 			// 정보 갱신이 가능 할 경우
-			if(bIsValid01 && (bIsValid02 || bIsValid03)) {
-				this.SetREUIsPageUIs02CellObjInfo((bIsValid02 && a_oBtn.transform.parent.gameObject == m_oSubCellObjHPBtnUIs) ? nHP + nExtraVal : nHP, (bIsValid03 && a_oBtn.transform.parent.gameObject == m_oSubCellObjATKBtnUIs) ? nATK + nExtraVal : nATK);
+			if(bIsValid01 && (bIsValid02 || bIsValid03 || bIsValid04)) {
+				this.SetREUIsPageUIs02CellObjInfo((bIsValid02 && a_oBtn.transform.parent.gameObject == m_oSubCellObjHPBtnUIs) ? nHP + nExtraVal : nHP, 
+                                                    (bIsValid03 && a_oBtn.transform.parent.gameObject == m_oSubCellObjShieldBtnUIs) ? nShield + nExtraVal : nShield, 
+                                                    (bIsValid04 && a_oBtn.transform.parent.gameObject == m_oSubCellObjATKBtnUIs) ? nATK + nExtraVal : nATK);
 
                 if (a_oBtn.transform.parent.gameObject == m_oSubCellObjHPBtnUIs)
                 {
                     m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT].onValueChanged.Invoke($"{Mathf.Max(nHP + nExtraVal, KCDefine.B_VAL_0_INT)}");
+                }
+
+                if (a_oBtn.transform.parent.gameObject == m_oSubCellObjShieldBtnUIs)
+                {
+                    m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SHIELD_INPUT].onValueChanged.Invoke($"{Mathf.Max(nShield + nExtraVal, KCDefine.B_VAL_0_INT)}");
                 }
 			}
 		}
@@ -422,9 +443,10 @@ namespace LevelEditorScene {
 		/** 오른쪽 에디터 UI 페이지 UI 2 셀 객체 정보 문자열을 변경했을 경우 */
 		private void OnChangeREUIsPageUIs02CellObjInfoInputStr(string a_oStr) {
 			bool bIsValid01 = int.TryParse(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT].text, NumberStyles.Any, null, out int nHP);
-			bool bIsValid02 = int.TryParse(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT].text, NumberStyles.Any, null, out int nATK);
+            bool bIsValid02 = int.TryParse(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SHIELD_INPUT].text, NumberStyles.Any, null, out int nShield);
+			bool bIsValid03 = int.TryParse(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT].text, NumberStyles.Any, null, out int nATK);
 
-			this.SetREUIsPageUIs02CellObjInfo(bIsValid01 ? nHP : KCDefine.B_VAL_0_INT, bIsValid02 ? nATK : KCDefine.B_VAL_0_INT);
+			this.SetREUIsPageUIs02CellObjInfo(bIsValid01 ? nHP : KCDefine.B_VAL_0_INT, bIsValid02 ? nShield : KCDefine.B_VAL_0_INT, bIsValid03 ? nATK : KCDefine.B_VAL_0_INT);
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		#endregion // 조건부 함수
@@ -438,8 +460,9 @@ namespace LevelEditorScene {
 		}
         
 		/** 오른쪽 에디터 UI 페이지 UI 2 셀 객체 정보를 변경한다 */
-		private void SetREUIsPageUIs02CellObjInfo(int a_nHP, int a_nATK) {
+		private void SetREUIsPageUIs02CellObjInfo(int a_nHP, int a_nShield, int a_nATK) {
 			m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT].SetTextWithoutNotify($"{Mathf.Max(a_nHP, KCDefine.B_VAL_0_INT)}");
+            m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SHIELD_INPUT].SetTextWithoutNotify($"{Mathf.Max(a_nShield, KCDefine.B_VAL_0_INT)}");
 			m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT].SetTextWithoutNotify($"{Mathf.Max(a_nATK, KCDefine.B_VAL_0_INT)}");
 
 			this.UpdateUIsState();

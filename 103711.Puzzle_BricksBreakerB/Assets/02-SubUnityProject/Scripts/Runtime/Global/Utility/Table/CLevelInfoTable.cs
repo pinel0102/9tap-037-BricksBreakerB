@@ -40,6 +40,7 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 	private const string KEY_SIZE_Z = "SizeZ";
 
 	private const string KEY_HP = "HP";
+    private const string KEY_SHIELD = "SHIELD";
 	private const string KEY_ATK = "ATK";
 	private const string KEY_OBJ_KINDS = "ObjKinds";
 
@@ -75,6 +76,13 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
 	public int HP {
 		get { return int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_HP, KCDefine.B_STR_0_INT)); }
 		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_HP, $"{value}"); }
+	}
+
+    [JsonIgnore]
+	[IgnoreMember]
+	public int SHIELD {
+		get { return int.Parse(m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_SHIELD, KCDefine.B_STR_0_INT)); }
+		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_SHIELD, $"{value}"); }
 	}
 
 	[JsonIgnore]

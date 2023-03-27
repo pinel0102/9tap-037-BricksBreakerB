@@ -8,18 +8,23 @@ public class ModifyCell : MonoBehaviour
 {
     [Header("★ [Reference] Modify Cell")]
     public GameObject modifyWindow;
+    public GameObject ShieldInputObject;
     public Image cellImage;
     public Image subImage;
     public Text cellHPText;
+    public Text cellShieldText;
     public Dropdown colorDropdown;
     public InputField HPInputField;    
+    public InputField ShieldInputField;
 
     [Header("★ [Live] Parameter")]
     public EObjKinds currentKinds;
+    public bool isShieldCell;
     public bool isEnableColor;
     public bool isEnableHit;
     public int currentColorID;
     public int currentHP;
+    public int currentShield;
 
     public event Action onModifyComplete;    
     private STCellObjInfo currentCellInfo;    
@@ -32,10 +37,12 @@ public class ModifyCell : MonoBehaviour
     private void Initialize()
     {
         currentKinds = EObjKinds.NONE;
+        isShieldCell = false;
         isEnableColor = false;
         isEnableHit = false;
         currentColorID = 0;
         currentHP = 0;
+        currentShield = 0;
         
         modifyWindow.SetActive(false);
     }
@@ -47,6 +54,15 @@ public class ModifyCell : MonoBehaviour
         currentHP = currentCellInfo.HP;
         currentColorID = currentCellInfo.ColorID;
 
+        isShieldCell = GlobalDefine.IsShieldCell(currentKinds);
+        ShieldInputObject.SetActive(isShieldCell);
+        cellShieldText.gameObject.SetActive(isShieldCell);
+
+        if (isShieldCell)
+            currentShield = currentCellInfo.SHIELD;
+        else
+            currentShield = 0;
+
         if(CObjInfoTable.Inst.TryGetObjInfo(currentKinds, out STObjInfo stObjInfo))
         {
             isEnableHit = stObjInfo.m_bIsEnableHit || GlobalDefine.IsExtraObjEnableHit(stObjInfo.m_oExtraObjKindsList);
@@ -55,6 +71,7 @@ public class ModifyCell : MonoBehaviour
 
         colorDropdown.value = isEnableColor ? currentColorID : 0;
         HPInputField.text = isEnableHit ? currentHP.ToString() : 0.ToString();
+        ShieldInputField.text = isShieldCell ? currentShield.ToString() : 0.ToString();
 
         RefreshCellImage();
 
@@ -66,20 +83,23 @@ public class ModifyCell : MonoBehaviour
         if (GlobalDefine.IsNeedSubSprite(currentKinds))
         {
             cellImage.sprite = Access.GetEditorObjSprite(EObjKinds.NORM_BRICKS_SQUARE_01, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE);
-            cellImage.color = GlobalDefine.GetCellColor(currentKinds, isEnableColor, currentColorID, currentHP);
+            cellImage.color = GlobalDefine.GetCellColorEditor(currentKinds, currentColorID, currentHP);
             subImage.sprite = Access.GetEditorObjSprite(currentKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE);
             subImage.gameObject.SetActive(true);
         }
         else
         {
             cellImage.sprite = Access.GetEditorObjSprite(currentKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE);
-            cellImage.color = GlobalDefine.GetCellColor(currentKinds, isEnableColor, currentColorID, currentHP);
+            cellImage.color = GlobalDefine.GetCellColorEditor(currentKinds, currentColorID, currentHP);
             subImage.sprite = Access.GetEditorObjSprite(EObjKinds.NORM_BRICKS_SQUARE_01, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE);
             subImage.gameObject.SetActive(false);
         }
         
         cellHPText.text = currentHP.ToString();
         cellHPText.gameObject.SetActive(isEnableHit);
+
+        cellShieldText.text = currentShield.ToString();
+        cellShieldText.gameObject.SetActive(isShieldCell);
     }
 
     private void ApplyCellInfo()
@@ -90,6 +110,9 @@ public class ModifyCell : MonoBehaviour
         if (isEnableHit)
             currentCellInfo.HP = currentHP;
 
+        if (isShieldCell)
+            currentCellInfo.SHIELD = currentShield;
+        
         RefreshCellImage();
 
         onModifyComplete.Invoke();
@@ -122,6 +145,14 @@ public class ModifyCell : MonoBehaviour
         if(int.TryParse(value, out int valueInt))
         {
             currentHP = valueInt;
+        }
+    }
+
+    public void OnValueChanged_Shield(string value)
+    {
+        if(int.TryParse(value, out int valueInt))
+        {
+            currentShield = valueInt;
         }
     }
 

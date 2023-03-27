@@ -15,7 +15,7 @@ namespace NSEngine {
 			var oController = a_bIsEnableController ? oObj.gameObject.ExAddComponent<CECellObjController>() : null;
 
 			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_CELL_OBJ_OBJS_POOL));
-			oController?.Init(CECellObjController.MakeParams(this));
+			oController?.Init(CECellObjController.MakeParams(this), a_stObjInfo.m_eObjKinds);
 
 			this.SetupEObjComponent(oObj, a_oOwner, oController);
 			return oObj;

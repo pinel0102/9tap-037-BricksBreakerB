@@ -89,7 +89,7 @@ namespace NSEngine {
                 stParams.m_stObjInfo = a_stObjInfo;
 
                 this.GetOwner<CEObj>().Init(stParams);
-                this.GetOwner<CEObj>().RefreshText(a_stObjInfo.ObjType);                
+                this.GetOwner<CEObj>().RefreshText(a_stObjInfo.m_eObjKinds);                
 			}
 
 			this.SubResetObjInfo(a_stObjInfo);

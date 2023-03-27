@@ -46,11 +46,11 @@ namespace NSEngine {
 		}
 
 		/** 초기화 */
-		public virtual void Init(STParams a_stParams) {
+		public virtual void Init(STParams a_stParams, EObjKinds kinds) {
 			base.Init(a_stParams.m_stBaseParams);
 			this.Params = a_stParams;
 
-			this.SubInit();
+			this.SubInit(kinds);
 		}
 
         /** 객체 정보를 리셋한다 */

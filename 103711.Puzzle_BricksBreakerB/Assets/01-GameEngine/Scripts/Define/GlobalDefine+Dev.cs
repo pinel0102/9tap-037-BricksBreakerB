@@ -26,8 +26,8 @@ public static partial class GlobalDefine
         [EObjKinds.OBSTACLE_BRICKS_CLOSE_01]                = new KeyValuePair<string, bool>("강철 블럭 (닫힘)", true),
         [EObjKinds.OBSTACLE_BRICKS_FIX_01]                  = new KeyValuePair<string, bool>("고정 블럭", true),
         [EObjKinds.OBSTACLE_BRICKS_FIX_02]                  = new KeyValuePair<string, bool>("고정 강철 블럭", true),
-        [EObjKinds.OBSTACLE_BRICKS_WOODBOX_01]              = new KeyValuePair<string, bool>("나무 상자", false),
-        [EObjKinds.OBSTACLE_BRICKS_WOODBOX_02]              = new KeyValuePair<string, bool>("고정 나무 상자", false),
+        [EObjKinds.OBSTACLE_BRICKS_WOODBOX_01]              = new KeyValuePair<string, bool>("나무 상자", true),
+        [EObjKinds.OBSTACLE_BRICKS_WOODBOX_02]              = new KeyValuePair<string, bool>("고정 나무 상자", true),
 
         [EObjKinds.SPECIAL_BRICKS_MISSILE_01]               = new KeyValuePair<string, bool>("미사일 x1", true),
         [EObjKinds.SPECIAL_BRICKS_MISSILE_02]               = new KeyValuePair<string, bool>("미사일 x4", true),

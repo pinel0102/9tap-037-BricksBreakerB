@@ -42,15 +42,20 @@ namespace NSEngine {
 
 		/** 초기화 */
 		public virtual void Init(STParams a_stParams) {
-			base.Init(a_stParams.m_stBaseParams);
+            base.Init(a_stParams.m_stBaseParams);
 			this.Params = a_stParams;
-
             this.kinds = a_stParams.m_stObjInfo.m_eObjKinds;
             
 			SetTargetSprite();
             
             this.SubInit();
 		}
+
+        public void RefreshStdInfo(STParams a_stParams)
+        {
+            this.Params = a_stParams;
+            this.kinds = a_stParams.m_stObjInfo.m_eObjKinds;
+        }
 
 		/** 어빌리티 값을 설정한다 */
 		protected override void DoSetupAbilityVals(bool a_bIsReset = true) {

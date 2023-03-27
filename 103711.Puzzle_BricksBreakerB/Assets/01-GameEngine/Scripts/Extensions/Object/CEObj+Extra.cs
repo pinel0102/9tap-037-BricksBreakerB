@@ -18,16 +18,18 @@ namespace NSEngine {
 
         [Header("★ [Live] Cell Info")]
         public EObjKinds kinds;
-        public bool isNeedSubSprite;
         public int row;
         public int col;
         public int layer;
 
         private void SetTargetSprite()
         {
-            this.isNeedSubSprite = GlobalDefine.IsNeedSubSprite(kinds);
+            InitSprite(GlobalDefine.IsNeedSubSprite(kinds));
+        }
 
-            if (isNeedSubSprite)
+        public void InitSprite(bool _needSubSprite)
+        {
+            if (_needSubSprite)
             {
                 SetSprite(TargetSprite, EObjKinds.NORM_BRICKS_SQUARE_01);
                 SetHitSprite(EObjKinds.NORM_BRICKS_SQUARE_01);
@@ -40,7 +42,7 @@ namespace NSEngine {
                 SetHitSprite(kinds);
             }
 
-            ToggleUpperSprite(isNeedSubSprite);
+            ToggleUpperSprite(_needSubSprite);
         }
 
         private void SetSprite(SpriteRenderer _sprite, EObjKinds _kinds)
@@ -71,12 +73,12 @@ namespace NSEngine {
 
         public void SetSpriteColor(EObjKinds cellKinds)
         {
-            this.TargetSprite.color = GlobalDefine.GetCellColor(cellKinds, Params.m_stObjInfo.m_bIsEnableColor, CellObjInfo.ColorID, CellObjInfo.HP);
+            this.TargetSprite.color = GlobalDefine.GetCellColor(cellKinds, GlobalDefine.IsShieldCell(cellKinds) && CellObjInfo.SHIELD > 0, Params.m_stObjInfo.m_bIsEnableColor, CellObjInfo.ColorID, CellObjInfo.HP);
         }
 
-        public void RefreshText(EObjType cellType)
+        public void RefreshText(EObjKinds kinds)
         {
-            HPText.text = Params.m_stObjInfo.m_bIsEnableHit && Params.m_stObjInfo.m_bIsEnableReflect ? $"{CellObjInfo.HP}" : string.Empty;
+            HPText.text = Params.m_stObjInfo.m_bIsEnableHit && Params.m_stObjInfo.m_bIsEnableReflect ? ((GlobalDefine.IsShieldCell(kinds) && CellObjInfo.SHIELD > 0) ? CellObjInfo.SHIELD.ToString() : CellObjInfo.HP.ToString()) : string.Empty;
         }
 
         public void ToggleHitSprite(bool _show)

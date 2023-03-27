@@ -29,7 +29,7 @@ Puzzle - BricksBreakerB 클라이언트 프로젝트
 # ChangeLog
 
 <details>
-<summary markdown="span"><em>last update : 0.0.6</em></summary>
+<summary markdown="span"><em>last update : 0.0.7</em></summary>
 <br>
 
 ---
