@@ -20,7 +20,7 @@ namespace NSEngine {
             }
 
 
-            //this.SetHideReserved();
+            this.SetHideReserved();
         }
 
         ///<Summary>지진.</Summary>

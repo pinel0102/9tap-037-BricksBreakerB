@@ -106,13 +106,13 @@ public static partial class KDefine {
 			EObjKinds.OBSTACLE_BRICKS_WARP_IN_01,
 			EObjKinds.OBSTACLE_BRICKS_WARP_OUT_01,
 
-            EObjKinds.OBSTACLE_BRICKS_WOODBOX_01,
             EObjKinds.OBSTACLE_BRICKS_FIX_01,
-            EObjKinds.OBSTACLE_BRICKS_FIX_02,
-            EObjKinds.OBSTACLE_BRICKS_FIX_03,
-            
+            EObjKinds.OBSTACLE_BRICKS_FIX_02,            
             EObjKinds.OBSTACLE_BRICKS_OPEN_01,
             EObjKinds.OBSTACLE_BRICKS_CLOSE_01,			
+
+            EObjKinds.OBSTACLE_BRICKS_WOODBOX_01,
+            EObjKinds.OBSTACLE_BRICKS_WOODBOX_02,
 		}
 	};
 	#endregion // 런타임 상수

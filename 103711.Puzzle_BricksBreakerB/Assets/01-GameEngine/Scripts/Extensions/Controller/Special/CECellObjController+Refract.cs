@@ -29,7 +29,7 @@ namespace NSEngine {
                 default: break;
             }
 
-            //this.SetHideReserved();
+            this.SetHideReserved();
         }
 
         ///<Summary>볼 확산.</Summary>

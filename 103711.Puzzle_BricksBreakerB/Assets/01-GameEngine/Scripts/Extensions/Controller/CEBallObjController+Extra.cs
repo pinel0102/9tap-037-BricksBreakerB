@@ -11,6 +11,7 @@ namespace NSEngine {
         public bool isRemoveMoveEnd;
         public bool isOn_Amplification;
         public bool isOn_PowerBall;
+        public bool isOn_Wormhole;
         public int extraATK;
         
         public CircleCollider2D _collider;
@@ -42,6 +43,7 @@ namespace NSEngine {
             FXToggle_PowerBall(false);
             isOn_Amplification = false;
             isOn_PowerBall = false;
+            isOn_Wormhole = false;
             extraATK = 0;
         }
 
@@ -62,6 +64,7 @@ namespace NSEngine {
                 {
                     case EObjType.ITEM_BRICKS:
                     case EObjType.SPECIAL_BRICKS:
+                    case EObjType.OBSTACLE_BRICKS:
                         oController.OnHit(this.GetOwner<CEObj>(), this);
                         break;
                     default:

@@ -98,10 +98,10 @@ namespace NSEngine {
                 switch(kindsType)
                 {
                     case EObjKinds.OBSTACLE_BRICKS_WARP_IN_01:
-                        Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kindsType));
+                        GetObstacle_Wormhole(ballController, kindsType, kinds);
                         break;
                     default:
-                        Debug.Log(CodeManager.GetMethodName() + string.Format("<color=red>{0}</color>", kindsType));
+                        //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=red>{0}</color>", kindsType));
                         break;
                 }
             }
@@ -137,8 +137,8 @@ namespace NSEngine {
                 CellDestroy();
         }
 
-        ///<Summary>셀 숨기기가 예약되었으면 셀을 숨긴다.</Summary>
-        public void ChangeCell(bool _isRandom)
+        ///<Summary>변경되는 셀이면 셀을 변경한다.</Summary>
+        public void ChangeCell()
         {
             //Debug.Log(CodeManager.GetMethodName() + string.Format("FROM <color=green>{0}</color>", this.GetOwner<CEObj>().Params.m_stObjInfo.m_eObjKinds));
 
@@ -168,10 +168,10 @@ namespace NSEngine {
 #region Privates
 
         ///<Summary>턴 종료시 셀 숨기기를 예약한다.</Summary>
-        private void SetHideReserved(bool _hideAfterTurnEnd = true)
+        private void SetHideReserved()
         {
-            if (hideReserved != _hideAfterTurnEnd)
-                hideReserved = _hideAfterTurnEnd;
+            if (this.GetOwner<CEObj>().Params.m_stObjInfo.m_bIsOnce)
+                hideReserved = true;
         }
 
         private void HitEffect()
@@ -223,8 +223,6 @@ namespace NSEngine {
                     break;
                 case EObjKinds.SPECIAL_BRICKS_EARTHQUAKE_01:
                     GetSpecial_Earthquake(ballController, kindsType, kinds);
-                    break;
-                case EObjKinds.OBSTACLE_BRICKS_KEY_01:
                     break;
                 default:
                     //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=red>{0}</color>", kindsType));
@@ -301,7 +299,7 @@ namespace NSEngine {
             switch(kindsType)
             {
                 case EObjKinds.OBSTACLE_BRICKS_KEY_01:
-                    Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0} : Key-UnLock Effect</color>", kindsType));
+                    GetObstacle_Key(kindsType);
                     break;
             }
             

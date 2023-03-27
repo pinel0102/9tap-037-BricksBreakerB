@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System.Linq;
 
 #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 using System.Globalization;
@@ -110,22 +111,37 @@ namespace LevelEditorScene {
 		private void SubSetupObjSprite(STCellInfo a_stCellInfo, STCellObjInfo a_stCellObjInfo, SpriteRenderer a_oOutObjSprite) {
             CObjInfoTable.Inst.TryGetObjInfo(a_stCellObjInfo.ObjKinds, out STObjInfo stObjInfo);
 
+            var subSprite = a_oOutObjSprite.gameObject.GetComponentsInChildren<SpriteRenderer>(true).FirstOrDefault(x => x.gameObject != a_oOutObjSprite.gameObject);
+		    subSprite = subSprite ?? CFactory.CreateCloneObj<SpriteRenderer>(GlobalDefine.OBJECTNAME_SUB_SPRITE, CResManager.Inst.GetRes<GameObject>(GlobalDefine.PREFAB_SUB_SPRITE), a_oOutObjSprite.gameObject);
+            
+            if (GlobalDefine.IsNeedSubSprite(a_stCellObjInfo.ObjKinds))
+            {
+                this.SetupSpriteGrid(a_stCellObjInfo, a_stCellObjInfo.ObjKinds, subSprite, Access.GetEditorObjSprite(a_stCellObjInfo.ObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+                subSprite.color = GlobalDefine.COLOR_WHITE;
+                subSprite.gameObject.SetActive(true);
+
+                this.SetupSpriteGrid(a_stCellObjInfo, EObjKinds.NORM_BRICKS_SQUARE_01, a_oOutObjSprite, Access.GetEditorObjSprite(EObjKinds.NORM_BRICKS_SQUARE_01, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+            }
+            else
+            {
+                this.SetupSpriteGrid(a_stCellObjInfo, EObjKinds.NORM_BRICKS_SQUARE_01, subSprite, Access.GetEditorObjSprite(EObjKinds.NORM_BRICKS_SQUARE_01, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+                subSprite.color = GlobalDefine.COLOR_WHITE;
+                subSprite.gameObject.SetActive(false);
+            }
+
 			var oInfoText = a_oOutObjSprite.gameObject.GetComponentInChildren<TMP_Text>();
 			oInfoText = oInfoText ?? CFactory.CreateCloneObj<TMP_Text>(KCDefine.U_OBJ_N_TMP_TEXT, CResManager.Inst.GetRes<GameObject>(KDefine.LES_OBJ_P_TMP_TEXT), a_oOutObjSprite.gameObject);
 
-            // 타격 및 제거 스킬이 없을 경우
-			/*if(stObjInfo.m_eHitSkillKinds == ESkillKinds.NONE && stObjInfo.m_eDestroySkillKinds == ESkillKinds.NONE) {
-				oInfoText.SetText($"{a_stCellObjInfo.HP}");
-			} else {
-				oInfoText.SetText($"{a_stCellObjInfo.HP}\n{a_stCellObjInfo.ATK}");
-			}*/
-
-			RefreshText(a_stCellObjInfo, stObjInfo, oInfoText);
+            RefreshText(a_stCellObjInfo, stObjInfo, oInfoText);
 
 			oInfoText.gameObject.SetActive(a_stCellObjInfo.ObjKinds != EObjKinds.BG_PLACEHOLDER_01 && stObjInfo.m_eColliderType != EColliderType.NONE);
 
-			(oInfoText as TextMeshPro).ExSetSortingOrder(new STSortingOrderInfo() {
+            (subSprite as SpriteRenderer).ExSetSortingOrder(new STSortingOrderInfo() {
 				m_nOrder = a_oOutObjSprite.sortingOrder + KCDefine.B_VAL_1_INT, m_oLayer = a_oOutObjSprite.sortingLayerName
+			});
+
+			(oInfoText as TextMeshPro).ExSetSortingOrder(new STSortingOrderInfo() {
+				m_nOrder = a_oOutObjSprite.sortingOrder + KCDefine.B_VAL_2_INT, m_oLayer = a_oOutObjSprite.sortingLayerName
 			});
 		}
 

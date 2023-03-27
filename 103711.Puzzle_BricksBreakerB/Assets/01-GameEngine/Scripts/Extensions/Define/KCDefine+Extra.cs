@@ -55,7 +55,7 @@ namespace NSEngine {
         public const float E_MAX_ANGLE_REFRACT = 60.0f;
 
         public const float E_DELTA_T_TIME_SCALE = 10.0f;
-        public const float E_DURATION_MOVE_DOWN_ANI = 0.25f;
+        public const float E_DURATION_MOVE_DOWN_ANI = 0.10f;
         // 단위 }
     }
 }

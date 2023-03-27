@@ -51,6 +51,9 @@ MonoBehaviour:
   FXPowerBall: {fileID: 3202173864512380103}
   FXRoot: {fileID: 8977285871504974911}
   HitSprite: {fileID: 0}
+  UpperSprite: {fileID: 0}
+  kinds: 0
+  isNeedUpperSprite: 0
   row: 0
   col: 0
   layer: 0

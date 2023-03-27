@@ -69,6 +69,7 @@ namespace NSEngine {
                         case EObjKinds.NORM_BRICKS_DIAMOND_01: this.SetupDiamondCollider(oPosList); break;
                         case EObjKinds.SPECIAL_BRICKS_BALL_DIFFUSION_01: this.SetupDiamondCollider(oPosList, GlobalDefine.CustomSize_Diffusion); break;
                         case EObjKinds.SPECIAL_BRICKS_BALL_AMPLIFICATION_01: this.SetupTriangleCollider(oPosList); break;
+                        case EObjKinds.OBSTACLE_BRICKS_WARP_IN_01: this.SetupDiamondCollider(oPosList, GlobalDefine.CustomSize_Wormhole); break;
                         default: this.SetupSquareCollider(oPosList); break;
 					}
 
@@ -197,9 +198,9 @@ namespace NSEngine {
         {
             if(base.Params.m_stBaseParams.m_oObjsPoolKey.Equals(KDefine.E_KEY_CELL_OBJ_OBJS_POOL)) {
 				a_stObjInfo.m_oExtraObjKindsList.ExCopyTo(this.GetController<CECellObjController>().ExtraObjKindsList, (a_eObjKinds) => a_eObjKinds);
-				this.GetController<CECellObjController>().ExtraObjKindsList.ExRemoveVals((a_eObjKinds) => a_eObjKinds == EObjKinds.NONE);
+                this.GetController<CECellObjController>().ExtraObjKindsList.ExRemoveVals((a_eObjKinds) => a_eObjKinds == EObjKinds.NONE);
 
-				// 랜덤 모드 일 경우
+                // 랜덤 모드 일 경우
 				if(a_stObjInfo.m_bIsRand) {
 					this.GetController<CECellObjController>().ExtraObjKindsList.ExShuffle();
 				}

@@ -14,6 +14,8 @@ public static partial class GlobalDefine
     // [Item] Ruby
     public const int GetItem_Ruby = 1;
 
+    public const int GRID_DOWN_OFFSET = 10;
+
     // [Item] Ball Plus
     public readonly static int[] GetItem_BallPlus = new int[4]
     {
@@ -50,14 +52,10 @@ public static partial class GlobalDefine
     public const float RAYCAST_DISTANCE = 3000f;
 
     // [ETC] Sorting Order
-    public const int HitEffect_Order = 100;
+    public const int HitEffect_Order = 1;
     public const int HPText_Order = 200;
     public const int NumText_Order = 10;
 
-    // [UI] Strings : Aim Button
-    public const string formatAimText = "AIM\n{0}";
-    public const string textON = "ON";
-    public const string textOFF = "OFF";    
-
     public static Vector2 CustomSize_Diffusion = new Vector2(30f, 30f);
+    public static Vector2 CustomSize_Wormhole = new Vector2(30f, 30f);
 }

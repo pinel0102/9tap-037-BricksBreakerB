@@ -19,7 +19,7 @@ namespace NSEngine {
                 default: break;
             }
 
-            //this.SetHideReserved();
+            this.SetHideReserved();
         }
 
         ///<Summary>가로 폭탄.</Summary>

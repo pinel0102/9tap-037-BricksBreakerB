@@ -27,7 +27,7 @@ namespace NSEngine {
                 default: break;
             }
 
-            //this.SetHideReserved();
+            this.SetHideReserved();
         }
 
         private void Arrow_Left(int _cCol, int _cRow)

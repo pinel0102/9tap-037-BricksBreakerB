@@ -54,7 +54,8 @@ namespace NSEngine {
                 
 				oCellObj.transform.localPosition = this.SelGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(Access.CellCenterOffset, Access.CellSize);
                 //oCellObj.SetOriginObjInfo(stObjInfo);
-                oCellObj.SetCellIdx(a_stCellInfo.m_stIdx);
+                oCellObj.GetController<CECellObjController>().SetIdx(a_stCellInfo.m_stIdx);
+                oCellObj.SetCellIdx(a_stCellInfo.m_stIdx, kinds);
 				oCellObj.SetCellObjInfo((STCellObjInfo)a_stCellInfo.m_oCellObjInfoList[i].Clone());
                 oCellObj.SetExtraObjKindsList(stObjInfo);
                 oCellObj.AddCellEffect(kindsType);
@@ -66,6 +67,17 @@ namespace NSEngine {
 
 			this.CellObjLists[a_stCellInfo.m_stIdx.y, a_stCellInfo.m_stIdx.x] = oCellObjList;
 		}
+
+        private void SetupOffsetCell()
+        {
+            for(int i=CGameInfoStorage.Inst.PlayLevelInfo.NumCells.y; i < CGameInfoStorage.Inst.PlayLevelInfo.NumCells.y + GlobalDefine.GRID_DOWN_OFFSET; i++)
+            {
+                for(int j=0; j < CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x; j++)
+                {
+                    this.CellObjLists[i, j] = new List<CEObj>();
+                }
+            }
+        }
 
 		/** 그리드 라인을 설정한다 */
 		private void SetupGridLine() {

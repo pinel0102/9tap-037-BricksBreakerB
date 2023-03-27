@@ -140,12 +140,12 @@ namespace NSEngine {
             [EObjKinds.OBSTACLE_BRICKS_LOCK_01] = EObjKinds.OBSTACLE_BRICKS_LOCK_01.ToString(),
             [EObjKinds.OBSTACLE_BRICKS_WARP_IN_01] = EObjKinds.OBSTACLE_BRICKS_WARP_IN_01.ToString(),
             [EObjKinds.OBSTACLE_BRICKS_WARP_OUT_01] = EObjKinds.OBSTACLE_BRICKS_WARP_OUT_01.ToString(),
-            [EObjKinds.OBSTACLE_BRICKS_WOODBOX_01] = EObjKinds.OBSTACLE_BRICKS_WOODBOX_01.ToString(),
             [EObjKinds.OBSTACLE_BRICKS_FIX_01] = EObjKinds.OBSTACLE_BRICKS_FIX_01.ToString(),
             [EObjKinds.OBSTACLE_BRICKS_FIX_02] = EObjKinds.OBSTACLE_BRICKS_FIX_02.ToString(),
-            [EObjKinds.OBSTACLE_BRICKS_FIX_03] = EObjKinds.OBSTACLE_BRICKS_FIX_03.ToString(),
             [EObjKinds.OBSTACLE_BRICKS_OPEN_01] = EObjKinds.OBSTACLE_BRICKS_OPEN_01.ToString(),
             [EObjKinds.OBSTACLE_BRICKS_CLOSE_01] = EObjKinds.OBSTACLE_BRICKS_CLOSE_01.ToString(),
+            [EObjKinds.OBSTACLE_BRICKS_WOODBOX_01] = EObjKinds.OBSTACLE_BRICKS_WOODBOX_01.ToString(),
+            [EObjKinds.OBSTACLE_BRICKS_WOODBOX_02] = EObjKinds.OBSTACLE_BRICKS_WOODBOX_02.ToString(),
 
 			[EObjKinds.BALL_NORM_01] = EObjKinds.BALL_NORM_01.ToString(),
 		};

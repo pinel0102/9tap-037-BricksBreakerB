@@ -34,6 +34,7 @@ namespace LevelEditorScene {
 
 			SEL_SCROLLER,
 			SEL_OBJ_SPRITE,
+            SEL_OBJ_SPRITE_SUB,
 			SEL_LEVEL_INFO,
 
 			ME_UIS_MSG_TEXT,
@@ -41,6 +42,7 @@ namespace LevelEditorScene {
 			ME_UIS_OBJ_SIZE_TEXT,
 
 			ME_UIS_SEL_OBJ_IMG,
+            ME_UIS_SEL_OBJ_IMG_SUB,
 
 			ME_UIS_PREV_GRID_BTN,
 			ME_UIS_NEXT_GRID_BTN,
@@ -306,7 +308,7 @@ namespace LevelEditorScene {
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 
 				// 객체 풀을 설정한다 {
-				this.AddObjsPool(KDefine.LES_KEY_SPRITE_OBJS_POOL, CFactory.CreateObjsPool(KCDefine.U_OBJ_P_SPRITE, this.ObjRoot));
+				this.AddObjsPool(KDefine.LES_KEY_SPRITE_OBJS_POOL, CFactory.CreateObjsPool(GlobalDefine.PREFAB_EDITOR_CURSOR, this.ObjRoot));
 				this.AddObjsPool(KDefine.LES_KEY_LINE_FX_OBJS_POOL, CFactory.CreateObjsPool(KCDefine.U_OBJ_P_LINE_FX, this.ObjRoot));
 
 				this.AddObjsPool(KDefine.LES_KEY_BTN_OBJS_POOL, CFactory.CreateObjsPool(KCDefine.U_OBJ_P_TEXT_BTN, this.MidEditorUIs));
@@ -318,11 +320,14 @@ namespace LevelEditorScene {
 
 				// 스프라이트를 설정한다 {
 				CFunc.SetupComponents(new List<(EKey, string, GameObject, GameObject)>() {
-					(EKey.SEL_OBJ_SPRITE, $"{EKey.SEL_OBJ_SPRITE}", this.ObjRoot, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_SPRITE))
+					(EKey.SEL_OBJ_SPRITE, $"{EKey.SEL_OBJ_SPRITE}", this.ObjRoot, CResManager.Inst.GetRes<GameObject>(GlobalDefine.PREFAB_EDITOR_CURSOR))
 				}, m_oSpriteDict);
 
 				m_oSpriteDict[EKey.SEL_OBJ_SPRITE]?.gameObject.SetActive(false);
 				m_oSpriteDict[EKey.SEL_OBJ_SPRITE]?.ExSetSortingOrder(KCDefine.U_SORTING_OI_OVERGROUND);
+
+                cursorSubSprite = m_oSpriteDict[EKey.SEL_OBJ_SPRITE].transform.GetChild(0).GetComponent<SpriteRenderer>();
+                cursorSubSprite.sortingOrder = m_oSpriteDict[EKey.SEL_OBJ_SPRITE].sortingOrder + 1;
 				// 스프라이트를 설정한다 }
 
 #if GOOGLE_SHEET_ENABLE
@@ -418,6 +423,8 @@ namespace LevelEditorScene {
 						m_oSpriteDict[EKey.SEL_OBJ_SPRITE]?.gameObject.SetActive(bIsValid01 && bIsValid02);
 						m_oSpriteDict[EKey.SEL_OBJ_SPRITE]?.gameObject.ExSetLocalPos(this.SelGridInfo.m_stPivotPos + stIdx.ExToPos(NSEngine.Access.CellCenterOffset, NSEngine.Access.CellSize));
 						m_oSpriteDict[EKey.SEL_OBJ_SPRITE]?.ExSetColor<SpriteRenderer>(stColor.ExGetAlphaColor(KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL));
+                        cursorSubSprite?.ExSetColor<SpriteRenderer>(stColor.ExGetAlphaColor(KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL));
+                        
 					} else {
 						m_oSpriteDict[EKey.SEL_OBJ_SPRITE]?.gameObject.SetActive(false);
 					}
@@ -707,8 +714,18 @@ namespace LevelEditorScene {
 				}
 			}
 
-            this.SetupSpriteGrid(STCellObjInfo.INVALID, EObjKinds.NONE, m_oSpriteDict[EKey.SEL_OBJ_SPRITE], Access.GetEditorObjSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
-			//m_oSpriteDict[EKey.SEL_OBJ_SPRITE]?.ExSetSprite<SpriteRenderer>(Access.GetEditorObjSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+            if (GlobalDefine.IsNeedSubSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS]))
+            {
+                this.SetupSpriteGrid(STCellObjInfo.INVALID, EObjKinds.NONE, m_oSpriteDict[EKey.SEL_OBJ_SPRITE], Access.GetEditorObjSprite(EObjKinds.NORM_BRICKS_SQUARE_01, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+                this.SetupSpriteGrid(STCellObjInfo.INVALID, EObjKinds.NONE, cursorSubSprite, Access.GetEditorObjSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+                cursorSubSprite.gameObject.SetActive(true);
+            }
+            else
+            {
+                this.SetupSpriteGrid(STCellObjInfo.INVALID, EObjKinds.NONE, m_oSpriteDict[EKey.SEL_OBJ_SPRITE], Access.GetEditorObjSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+                this.SetupSpriteGrid(STCellObjInfo.INVALID, EObjKinds.NONE, cursorSubSprite, Access.GetEditorObjSprite(EObjKinds.NORM_BRICKS_SQUARE_01, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+                cursorSubSprite.gameObject.SetActive(false);
+            }
             
 			// 객체 스프라이트를 설정한다 }
 
@@ -823,12 +840,12 @@ namespace LevelEditorScene {
 			a_oOutObjSpriteInfoList = new List<STObjSpriteInfo>();
 
 			for(int i = 0; i < a_stCellInfo.m_oCellObjInfoList.Count; ++i) {
-				var oObjSprite = this.SpawnObj<SpriteRenderer>(KDefine.LES_OBJ_N_OBJ_SPRITE, KDefine.LES_KEY_SPRITE_OBJS_POOL);
-				this.SetupObjSprite(a_stCellInfo, a_stCellInfo.m_oCellObjInfoList[i], oObjSprite);
+                var oObjSprite = this.SpawnObj<SpriteRenderer>(KDefine.LES_OBJ_N_OBJ_SPRITE, KDefine.LES_KEY_SPRITE_OBJS_POOL);
+                this.SetupObjSprite(a_stCellInfo, a_stCellInfo.m_oCellObjInfoList[i], oObjSprite);
 
-				a_oOutObjSpriteInfoList.ExAddVal(new STObjSpriteInfo() {
-					m_eObjKinds = a_stCellInfo.m_oCellObjInfoList[i].ObjKinds, m_oSprite = oObjSprite
-				});
+                a_oOutObjSpriteInfoList.ExAddVal(new STObjSpriteInfo() {
+                    m_eObjKinds = a_stCellInfo.m_oCellObjInfoList[i].ObjKinds, m_oSprite = oObjSprite
+                    });
 			}
 		}
 
@@ -1383,7 +1400,8 @@ namespace LevelEditorScene {
 
 			// 이미지를 설정한다
 			CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
-				(EKey.ME_UIS_SEL_OBJ_IMG, $"{EKey.ME_UIS_SEL_OBJ_IMG}", this.MidEditorUIs)
+				(EKey.ME_UIS_SEL_OBJ_IMG, $"{EKey.ME_UIS_SEL_OBJ_IMG}", this.MidEditorUIs),
+                (EKey.ME_UIS_SEL_OBJ_IMG_SUB, $"{EKey.ME_UIS_SEL_OBJ_IMG_SUB}", this.MidEditorUIs)
 			}, m_oImgDict);
 
 			// 버튼을 설정한다 {
@@ -1433,7 +1451,18 @@ namespace LevelEditorScene {
 
 			// 이미지를 갱신한다
 			m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG]?.gameObject.SetActive(m_oObjKindsDict[EKey.SEL_OBJ_KINDS].ExIsValid());
-			m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG]?.ExSetSprite<Image>(Access.GetEditorObjSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+
+            if (GlobalDefine.IsNeedSubSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS]))
+            {
+			    m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG]?.ExSetSprite<Image>(Access.GetEditorObjSprite(EObjKinds.NORM_BRICKS_SQUARE_01, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+                m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG_SUB]?.ExSetSprite<Image>(Access.GetEditorObjSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+                m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG_SUB].gameObject.SetActive(true);
+            }
+            else
+            {
+                m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG]?.ExSetSprite<Image>(Access.GetEditorObjSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+                m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG_SUB].gameObject.SetActive(false);
+            }
 
             SetupSpriteREUIs(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], m_oImgDict[EKey.ME_UIS_SEL_OBJ_IMG]);
 
@@ -1904,7 +1933,19 @@ namespace LevelEditorScene {
 					oBtn.ExSetInteractable(eObjKinds != EObjKinds.NONE);
 
 					oBtn.image.ExSetEnable(eObjKinds != EObjKinds.NONE);
-					oBtn.image.sprite = Access.GetEditorObjSprite(eObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE);
+
+                    Image subImage = oBtn.transform.GetChild(0).GetComponent<Image>();
+                    if (GlobalDefine.IsNeedSubSprite(eObjKinds))
+                    {
+                        oBtn.image.sprite = Access.GetEditorObjSprite(EObjKinds.NORM_BRICKS_SQUARE_01, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE);
+                        subImage.sprite = Access.GetEditorObjSprite(eObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE);
+                        subImage.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+					    oBtn.image.sprite = Access.GetEditorObjSprite(eObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE);
+                        subImage.gameObject.SetActive(false);
+                    }
 
                     //EObjType cellType = (EObjType)((int)eObjKinds).ExKindsToType();
                     SetupSpriteREUIs(eObjKinds, oBtn.image);
@@ -2115,7 +2156,7 @@ namespace LevelEditorScene {
 
 			// 객체 정보가 존재 할 경우
 			if(Input.GetMouseButtonUp((int)EMouseBtn.LEFT) && CObjInfoTable.Inst.TryGetObjInfo(a_eObjKinds, out STObjInfo stObjInfo)) {
-				this.SetREUIsPageUIs02ObjSize((int)stObjInfo.m_stSize.x, (int)stObjInfo.m_stSize.y);
+				this.SetREUIsPageUIs02ObjSize(stObjInfo.m_stSize.x, stObjInfo.m_stSize.y);
 
 				#region 추가
 				int nHP = int.Parse(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT].text, NumberStyles.Any, null);

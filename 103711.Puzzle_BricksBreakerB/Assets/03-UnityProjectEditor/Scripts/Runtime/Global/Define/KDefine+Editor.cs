@@ -43,6 +43,7 @@ public static partial class KDefine {
 
 	// 이름 {
 	public const string LES_OBJ_N_OBJ_SPRITE = "OBJ_SPRITE";
+    public const string LES_OBJ_N_UPPER_SPRITE = "UPPER_SPRITE";
 	public const string LES_OBJ_N_GRID_LINE_FX = "GRID_LINE_FX";
 
 	public const string LES_OBJ_N_GRID_LINE_BTN = "GRID_LINE_BTN";

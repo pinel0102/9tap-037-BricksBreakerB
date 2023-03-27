@@ -14,11 +14,60 @@ namespace NSEngine {
         [Header("★ [Reference] Cell")]
         public Transform FXRoot;
         public SpriteRenderer HitSprite;
+        public SpriteRenderer UpperSprite;
 
         [Header("★ [Live] Cell Info")]
+        public EObjKinds kinds;
+        public bool isNeedSubSprite;
         public int row;
         public int col;
         public int layer;
+
+        private void SetTargetSprite()
+        {
+            this.isNeedSubSprite = GlobalDefine.IsNeedSubSprite(kinds);
+
+            if (isNeedSubSprite)
+            {
+                SetSprite(TargetSprite, EObjKinds.NORM_BRICKS_SQUARE_01);
+                SetHitSprite(EObjKinds.NORM_BRICKS_SQUARE_01);
+
+                SetSprite(UpperSprite, kinds);
+            }
+            else
+            {
+                SetSprite(TargetSprite, kinds);
+                SetHitSprite(kinds);
+            }
+
+            ToggleUpperSprite(isNeedSubSprite);
+        }
+
+        private void SetSprite(SpriteRenderer _sprite, EObjKinds _kinds)
+        {
+            // 스프라이트를 설정한다
+            _sprite?.ExSetSprite<SpriteRenderer>(Access.GetSprite(_kinds));
+            _sprite?.ExSetSortingOrder(Access.GetSortingOrderInfo(_kinds));
+
+            if (_sprite != null)
+            {
+                _sprite.size = Access.CellSize + GlobalDefine.CELL_SPRITE_ADJUSTMENT;
+                this.SetSpriteColor(_kinds);
+            }
+        }
+
+        private void SetHitSprite(EObjKinds _kinds)
+        {
+            // Cell HitSprite 설정.
+            if (this.HitSprite != null)
+            {
+                this.HitSprite?.ExSetSprite<SpriteRenderer>(Access.GetSprite(_kinds));
+                this.HitSprite.sortingOrder = this.TargetSprite.sortingOrder + GlobalDefine.HitEffect_Order;
+                this.HitSprite.size = Access.CellSize + GlobalDefine.CELL_SPRITE_ADJUSTMENT;
+
+                ToggleHitSprite(false);
+            }
+        }
 
         public void SetSpriteColor(EObjKinds cellKinds)
         {
@@ -32,7 +81,14 @@ namespace NSEngine {
 
         public void ToggleHitSprite(bool _show)
         {
-            HitSprite.gameObject.SetActive(_show);
+            if (HitSprite != null)
+                HitSprite.gameObject.SetActive(_show);
+        }
+
+        public void ToggleUpperSprite(bool _show)
+        {
+            if (UpperSprite != null)
+                UpperSprite.gameObject.SetActive(_show);
         }
 
         public void AddCellEffect(EObjKinds kindsType)

@@ -33,7 +33,7 @@ namespace NSEngine {
 			}
 			// 그리드 정보를 설정한다 }
 
-			this.CellObjLists = new List<CEObj>[CGameInfoStorage.Inst.PlayLevelInfo.NumCells.y, CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x];
+			this.CellObjLists = new List<CEObj>[CGameInfoStorage.Inst.PlayLevelInfo.NumCells.y + GlobalDefine.GRID_DOWN_OFFSET, CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x];
 			CGameInfoStorage.Inst.PlayEpisodeInfo.m_oClearTargetInfoDict.ExCopyTo(m_oClearTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
 
 			// 객체 풀을 설정한다
@@ -54,6 +54,11 @@ namespace NSEngine {
 						this.SetupCell(CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer[i][j], this.SelGridInfo);
 					}
 				}
+
+                for(int i=0; i < GlobalDefine.GRID_DOWN_OFFSET; i++)
+                {
+                    this.SetupOffsetCell();
+                }
 			}
 		}
 		#endregion // 함수

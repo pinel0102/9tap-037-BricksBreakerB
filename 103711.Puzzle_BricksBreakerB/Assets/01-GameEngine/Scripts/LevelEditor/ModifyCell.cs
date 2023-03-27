@@ -9,6 +9,7 @@ public class ModifyCell : MonoBehaviour
     [Header("★ [Reference] Modify Cell")]
     public GameObject modifyWindow;
     public Image cellImage;
+    public Image subImage;
     public Text cellHPText;
     public Dropdown colorDropdown;
     public InputField HPInputField;    
@@ -48,8 +49,8 @@ public class ModifyCell : MonoBehaviour
 
         if(CObjInfoTable.Inst.TryGetObjInfo(currentKinds, out STObjInfo stObjInfo))
         {
-            isEnableHit = stObjInfo.m_bIsEnableHit;
-            isEnableColor = stObjInfo.m_bIsEnableColor;
+            isEnableHit = stObjInfo.m_bIsEnableHit || GlobalDefine.IsExtraObjEnableHit(stObjInfo.m_oExtraObjKindsList);
+            isEnableColor = stObjInfo.m_bIsEnableColor || GlobalDefine.IsExtraObjEnableColor(stObjInfo.m_oExtraObjKindsList);
         }
 
         colorDropdown.value = isEnableColor ? currentColorID : 0;
@@ -62,8 +63,21 @@ public class ModifyCell : MonoBehaviour
 
     private void RefreshCellImage()
     {
-        cellImage.sprite = Access.GetEditorObjSprite(currentKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE);
-        cellImage.color = GlobalDefine.GetCellColor(currentKinds, isEnableColor, currentColorID, currentHP);
+        if (GlobalDefine.IsNeedSubSprite(currentKinds))
+        {
+            cellImage.sprite = Access.GetEditorObjSprite(EObjKinds.NORM_BRICKS_SQUARE_01, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE);
+            cellImage.color = GlobalDefine.GetCellColor(currentKinds, isEnableColor, currentColorID, currentHP);
+            subImage.sprite = Access.GetEditorObjSprite(currentKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE);
+            subImage.gameObject.SetActive(true);
+        }
+        else
+        {
+            cellImage.sprite = Access.GetEditorObjSprite(currentKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE);
+            cellImage.color = GlobalDefine.GetCellColor(currentKinds, isEnableColor, currentColorID, currentHP);
+            subImage.sprite = Access.GetEditorObjSprite(EObjKinds.NORM_BRICKS_SQUARE_01, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE);
+            subImage.gameObject.SetActive(false);
+        }
+        
         cellHPText.text = currentHP.ToString();
         cellHPText.gameObject.SetActive(isEnableHit);
     }

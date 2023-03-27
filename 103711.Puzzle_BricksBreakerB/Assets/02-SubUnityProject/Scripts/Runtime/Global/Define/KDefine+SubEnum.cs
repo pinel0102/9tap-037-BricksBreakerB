@@ -548,7 +548,6 @@ public enum EObjKinds {
     // 1,300,300,000
     OBSTACLE_BRICKS_FIX_01 = (EEnumVal.T * EObjType.OBSTACLE_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 3) + (EEnumVal.SKT * 0),
     OBSTACLE_BRICKS_FIX_02,
-    OBSTACLE_BRICKS_FIX_03,
     
     // 1,300,400,000
     OBSTACLE_BRICKS_OPEN_01 = (EEnumVal.T * EObjType.OBSTACLE_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 4) + (EEnumVal.SKT * 0),
@@ -565,6 +564,7 @@ public enum EObjKinds {
 
     // 1,300,700,000
     OBSTACLE_BRICKS_WOODBOX_01 = (EEnumVal.T * EObjType.OBSTACLE_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 7) + (EEnumVal.SKT * 0),
+    OBSTACLE_BRICKS_WOODBOX_02,
 
     #endregion // 장애물 블럭
 

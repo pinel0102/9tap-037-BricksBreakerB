@@ -190,7 +190,7 @@ namespace NSEngine {
                 this.TurnEndAction();
 
                 this.ExLateCallFunc((a_oFuncSender) => {
-                    StartCoroutine(CO_MoveCellRoot(KCDefine.B_VAL_1_INT));
+                    MoveDownAllCells();
                     }, KCDefine.B_VAL_0_3_REAL);
             }
         }
@@ -258,6 +258,47 @@ namespace NSEngine {
                             .Where(i => !excludeList.Contains(i)).ToList();
         }
 
+        public CEObj GetRandomCell(List<CEObj> cellList)
+        {
+            return GetRandomCells(cellList, 1)[0];
+        }
+
+        public List<CEObj> GetRandomCells(List<CEObj> cellList, int count)
+        {
+            return cellList.OrderBy(g => System.Guid.NewGuid())
+                            .Take(count).ToList();
+        }
+
+        public List<CEObj> GetAllCells(EObjKinds kindsToGet)
+        {
+            List<CEObj> cellList = new List<CEObj>();
+
+            for (int row = 0; row < this.CellObjLists.GetLength(KCDefine.B_VAL_0_INT); row++)
+            {
+                for (int col = 0; col < this.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); col++)
+                {
+                    int _count = this.CellObjLists[row, col].Count;
+                    if (_count > 0)
+                    {
+                        int _cLastLayer = _count - 1;
+                        if(this.CellObjLists[row, col][_cLastLayer].gameObject.activeSelf) 
+                        {
+                            CEObj target = this.CellObjLists[row, col][_cLastLayer];
+                            if (target != null)
+                            {
+                                if (target.Params.m_stObjInfo.m_eObjKinds == kindsToGet)
+                                {
+                                    cellList.Add(target);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return cellList;
+        }
+
 #endregion Public Methods
 
 
@@ -310,54 +351,6 @@ namespace NSEngine {
             }
         }
 
-        ///<Summary>턴 종료시 셀이 내려오기 전에 발동.</Summary>
-        private void TurnEndAction()
-        {
-            lastCell = null;
-            bool isLastCellAssigned = false;
-
-            for(int i = this.CellObjLists.GetLength(KCDefine.B_VAL_0_INT) - 1; i >= 0 ; i--) {
-				for(int j = this.CellObjLists.GetLength(KCDefine.B_VAL_1_INT) - 1; j >= 0 ; j--) {
-					for(int k = 0; k < this.CellObjLists[i, j].Count; ++k) {
-						// 셀이 존재 할 경우
-						if(this.CellObjLists[i, j][k].gameObject.activeSelf) {
-                            CEObj target = this.CellObjLists[i, j][k];
-                            if (target != null && target.TryGetComponent<CECellObjController>(out CECellObjController oController))
-                            {
-                                /*EObjKinds kindsType = (EObjKinds)((int)target.CellObjInfo.ObjKinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);                                
-                                switch(kindsType)
-                                {
-                                    case EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01:
-                                    case EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01:
-                                    case EObjKinds.SPECIAL_BRICKS_LASER_CROSS_01:
-                                        if(target.TryGetComponent<CECellObjController>(out CECellObjController oController))
-                                        {
-                                            oController.HideReservedCell();
-                                        }
-                                        break;
-                                }*/
-
-                                if (target.Params.m_stObjInfo.m_bIsOnce)
-                                    oController.HideReservedCell();
-
-                                if (target.Params.m_stObjInfo.m_bIsEnableChange)
-                                    oController.ChangeCell(target.Params.m_stObjInfo.m_bIsRand);
-
-                                if (!isLastCellAssigned)
-                                {
-                                    if (target.Params.m_stObjInfo.m_bIsClearTarget)
-                                    {
-                                        lastCell = target.transform;
-                                        isLastCellAssigned = true;
-                                    }
-                                }
-                            }
-						}
-					}
-				}
-			}
-        }
-
         private void CheckDeadLine()
         {
             if (lastCell != null)
@@ -404,34 +397,6 @@ namespace NSEngine {
             yield return dropBallsDelay;
 
             LevelClear();
-        }
-
-        private IEnumerator CO_MoveCellRoot(int _moveCount = KCDefine.B_VAL_1_INT)
-        {
-            isGridMoving = true;
-
-            subGameSceneManager.HideShootUIs();
-
-            Vector3 endPosition = this.Params.m_oCellRoot.transform.localPosition + (cellRootMoveVector * _moveCount);
-
-            while(this.Params.m_oCellRoot.transform.localPosition.y - GlobalDefine.CELL_ROOT_MOVE_SPEED.y > endPosition.y)
-            {
-                yield return cellRootMoveDelay;
-
-                if (isLevelFail)
-                    yield break;
-
-                this.Params.m_oCellRoot.transform.localPosition -= GlobalDefine.CELL_ROOT_MOVE_SPEED;
-            }
-
-            this.Params.m_oCellRoot.transform.localPosition = endPosition;
-
-            this.PlayState = EPlayState.IDLE;
-            subGameSceneManager.SetEnableUpdateUIsState(true);
-            
-            isGridMoving = false;
-
-            CheckDeadLine();
         }
 
 #endregion Coroutines

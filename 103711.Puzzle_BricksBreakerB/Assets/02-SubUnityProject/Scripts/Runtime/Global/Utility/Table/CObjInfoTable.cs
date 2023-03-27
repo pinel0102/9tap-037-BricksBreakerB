@@ -11,7 +11,7 @@ using System.IO;
 [System.Serializable]
 public struct STObjInfo {
 	public STCommonInfo m_stCommonInfo;
-	public Vector3 m_stSize;
+	public Vector3Int m_stSize;
 
     public bool m_bIsOverlay;
 	public bool m_bIsClearTarget;
@@ -63,7 +63,7 @@ public struct STObjInfo {
 	/** 생성자 */
 	public STObjInfo(SimpleJSON.JSONNode a_oObjInfo) {
 		m_stCommonInfo = new STCommonInfo(a_oObjInfo);
-		m_stSize = a_oObjInfo[KCDefine.U_KEY_SIZE].ExIsValid() ? new Vector3(a_oObjInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_0_INT].AsFloat, a_oObjInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_1_INT].AsFloat, a_oObjInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_2_INT].AsFloat) : Vector3.zero;
+		m_stSize = a_oObjInfo[KCDefine.U_KEY_SIZE].ExIsValid() ? new Vector3Int(a_oObjInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_0_INT].AsInt, a_oObjInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_1_INT].AsInt, a_oObjInfo[KCDefine.U_KEY_SIZE][KCDefine.B_VAL_2_INT].AsInt) : Vector3Int.one;
 
 		m_bIsOverlay = a_oObjInfo[KDefine.G_KEY_IS_OVERLAY].ExIsValid() ? a_oObjInfo[KDefine.G_KEY_IS_OVERLAY].AsInt != KCDefine.B_VAL_0_INT : false;
 		m_bIsClearTarget = a_oObjInfo[KDefine.G_KEY_IS_CLEAR_TARGET].ExIsValid() ? a_oObjInfo[KDefine.G_KEY_IS_CLEAR_TARGET].AsInt != KCDefine.B_VAL_0_INT : false;

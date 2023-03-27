@@ -20,7 +20,7 @@ namespace NSEngine {
                 default: break;
             }
 
-            //this.SetHideReserved();
+            this.SetHideReserved();
         }
 
         ///<Summary>미사일.</Summary>

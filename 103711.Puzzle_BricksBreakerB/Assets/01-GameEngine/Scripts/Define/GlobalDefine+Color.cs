@@ -36,15 +36,17 @@ public static partial class GlobalDefine
         return isEnableColor ? colorList[_colorID][GetHPColorIndex(_HP)] : Color.white;
     }
 
-    public static Color GetCellColor(EObjKinds kinds, int _colorID = 0, int _HP = 100)
+    public static Color GetCellColorEditor(EObjKinds kinds, int _colorID = 0, int _HP = 100)
     {
         bool isEnableColor = false;
 
         if (CObjInfoTable.Inst.TryGetObjInfo(kinds, out STObjInfo stObjInfo))
-            isEnableColor = stObjInfo.m_bIsEnableColor;
+            isEnableColor = stObjInfo.m_bIsEnableColor || IsExtraObjEnableColor(stObjInfo.m_oExtraObjKindsList);
         
         return GetCellColor(kinds, isEnableColor, _colorID, _HP);
     }
+
+    public static Color COLOR_WHITE = Color.white;
 
     private static int GetHPColorIndex(int _HP)
     {

@@ -22,6 +22,8 @@ namespace LevelEditorScene {
         
         public int currentHP;
         public int currentColorID;
+
+        private SpriteRenderer cursorSubSprite;
         
         //public string drawCellColorHex => string.Format(FORMAT_HEX, ColorUtility.ToHtmlStringRGBA(drawCellColor));
         //public Color drawCellColor = Color.white;
@@ -52,17 +54,13 @@ namespace LevelEditorScene {
             if (_sprite == null)
                 return;
             
-            if (a_oOutObjSprite.sprite.textureRect.size.x > currentCellSize.x || a_oOutObjSprite.sprite.textureRect.size.y > currentCellSize.y)
-                a_oOutObjSprite.size = currentCellSize + (Vector2)GlobalDefine.CELL_SPRITE_ADJUSTMENT;
-            else
-                a_oOutObjSprite.size = a_oOutObjSprite.sprite.textureRect.size;
-            
-            a_oOutObjSprite.color = GlobalDefine.GetCellColor(cellKinds, a_stCellObjInfo.ColorID, a_stCellObjInfo.HP);
+            a_oOutObjSprite.size = a_oOutObjSprite.size = currentCellSize + (Vector2)GlobalDefine.CELL_SPRITE_ADJUSTMENT;            
+            a_oOutObjSprite.color = GlobalDefine.GetCellColorEditor(cellKinds, a_stCellObjInfo.ColorID, a_stCellObjInfo.HP);
         }
 
         private void SetupSpriteREUIs(EObjKinds cellKinds, Image _image)
         {
-            _image.color = GlobalDefine.GetCellColor(cellKinds, currentColorID, currentHP);
+            _image.color = GlobalDefine.GetCellColorEditor(cellKinds, currentColorID, currentHP);
         }
 
         private void GetDevList()
@@ -138,9 +136,9 @@ namespace LevelEditorScene {
         public void RefreshText(STCellObjInfo CellObjInfo, STObjInfo stObjInfo, TMP_Text _text)
         {
             if (_text != null)
-                _text.text = stObjInfo.m_bIsEnableHit && stObjInfo.m_bIsEnableReflect ? $"{CellObjInfo.HP}" : string.Empty;
+                _text.text = (stObjInfo.m_bIsEnableHit || GlobalDefine.IsExtraObjEnableHit(stObjInfo.m_oExtraObjKindsList)) && stObjInfo.m_bIsEnableReflect ? $"{CellObjInfo.HP}" : string.Empty;
         }
-
+        
 #endregion Cell Text
 
         private void CopyCurrentCellInfo(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {

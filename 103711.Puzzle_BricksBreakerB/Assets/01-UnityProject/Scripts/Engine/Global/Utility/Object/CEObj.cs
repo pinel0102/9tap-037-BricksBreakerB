@@ -45,24 +45,9 @@ namespace NSEngine {
 			base.Init(a_stParams.m_stBaseParams);
 			this.Params = a_stParams;
 
-			// 스프라이트를 설정한다
-			this.TargetSprite?.ExSetSprite<SpriteRenderer>(Access.GetSprite(a_stParams.m_stObjInfo.m_eObjKinds));
-			this.TargetSprite?.ExSetSortingOrder(Access.GetSortingOrderInfo(a_stParams.m_stObjInfo.m_eObjKinds));
-
-            if (this.TargetSprite != null)
-            {
-                this.TargetSprite.size = Access.CellSize + GlobalDefine.CELL_SPRITE_ADJUSTMENT;
-            }
-
-            // Cell HitSprite 설정.
-            if (this.HitSprite != null)
-            {
-                this.HitSprite?.ExSetSprite<SpriteRenderer>(Access.GetSprite(a_stParams.m_stObjInfo.m_eObjKinds));
-			    this.HitSprite.sortingOrder = this.TargetSprite.sortingOrder + GlobalDefine.HitEffect_Order;
-                this.HitSprite.size = Access.CellSize + GlobalDefine.CELL_SPRITE_ADJUSTMENT;
-
-                ToggleHitSprite(false);
-            }
+            this.kinds = a_stParams.m_stObjInfo.m_eObjKinds;
+            
+			SetTargetSprite();
             
             this.SubInit();
 		}
@@ -78,9 +63,10 @@ namespace NSEngine {
 		}
 
 		/** 셀 인덱스를 변경한다 */
-		public void SetCellIdx(Vector3Int a_stCellIdx) {
+		public void SetCellIdx(Vector3Int a_stCellIdx, EObjKinds _kinds) {
 			m_oVec3IntDict.ExReplaceVal(EKey.CELL_IDX, a_stCellIdx);
 
+            kinds = _kinds;
             col = a_stCellIdx.x;
             row = a_stCellIdx.y;
             layer = a_stCellIdx.z;
