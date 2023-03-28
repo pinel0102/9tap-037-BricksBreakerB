@@ -70,7 +70,7 @@ namespace NSEngine {
                         case EObjKinds.NORM_BRICKS_DIAMOND_01: this.SetupDiamondCollider(oPosList); break;
                         case EObjKinds.SPECIAL_BRICKS_BALL_DIFFUSION_01: this.SetupDiamondCollider(oPosList, GlobalDefine.CustomSize_Diffusion); break;
                         case EObjKinds.SPECIAL_BRICKS_BALL_AMPLIFICATION_01: this.SetupTriangleCollider(oPosList); break;
-                        case EObjKinds.OBSTACLE_BRICKS_WARP_IN_01: this.SetupDiamondCollider(oPosList, GlobalDefine.CustomSize_Wormhole); break;
+                        case EObjKinds.OBSTACLE_BRICKS_WARP_IN_01: this.SetupDiamondCollider(oPosList); break;
                         default: this.SetupSquareCollider(oPosList); break;
 					}
 

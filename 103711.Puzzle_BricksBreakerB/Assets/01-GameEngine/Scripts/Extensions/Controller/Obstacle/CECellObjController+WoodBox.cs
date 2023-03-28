@@ -23,14 +23,11 @@ namespace NSEngine {
         private void BreakWoodBox()
         {
             EObjKinds toKinds = ExtraObjKindsList[m_oSubIntDict[ESubKey.EXTRA_OBJ_KINDS_IDX]];
-            //var stObjInfo = CObjInfoTable.Inst.GetObjInfo(toKinds);
-
+            
             CEObj myCell = this.GetOwner<CEObj>();
             STCellObjInfo stCellObjInfo = myCell.CellObjInfo;
             stCellObjInfo.SHIELD = 0;
             
-            //this.ResetObjInfo(stObjInfo, stCellObjInfo);
-
             Engine.ChangeCell(this, toKinds, stCellObjInfo);
         }
 

@@ -57,5 +57,4 @@ public static partial class GlobalDefine
     public const int NumText_Order = 10;
 
     public static Vector2 CustomSize_Diffusion = new Vector2(30f, 30f);
-    public static Vector2 CustomSize_Wormhole = new Vector2(30f, 30f);
 }

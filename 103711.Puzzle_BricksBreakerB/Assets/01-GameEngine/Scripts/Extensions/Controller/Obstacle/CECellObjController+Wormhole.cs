@@ -8,10 +8,10 @@ namespace NSEngine {
 
         private void GetObstacle_Wormhole(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds, int _ATK = KCDefine.B_VAL_1_INT)
         {
-            //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kindsType));
-
-            if (ballController.isOn_Wormhole)
+            if (ballController.usedWormholes.Contains(this))
                 return;
+
+            //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kindsType));
             
             switch(kindsType)
             {
@@ -32,7 +32,7 @@ namespace NSEngine {
             CEObj target = Engine.GetRandomCell(targetList);
 
             ballController.transform.position = target.transform.position;
-            ballController.isOn_Wormhole = true;
+            ballController.usedWormholes.Add(this);
             
             ShowEffect_Wormhole(target.transform);
         }

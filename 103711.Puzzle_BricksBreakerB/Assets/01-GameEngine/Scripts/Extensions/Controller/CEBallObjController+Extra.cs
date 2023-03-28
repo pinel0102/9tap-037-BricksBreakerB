@@ -11,7 +11,7 @@ namespace NSEngine {
         public bool isRemoveMoveEnd;
         public bool isOn_Amplification;
         public bool isOn_PowerBall;
-        public bool isOn_Wormhole;
+        public List<CECellObjController> usedWormholes = new List<CECellObjController>();
         public int extraATK;
         
         public CircleCollider2D _collider;
@@ -43,7 +43,7 @@ namespace NSEngine {
             FXToggle_PowerBall(false);
             isOn_Amplification = false;
             isOn_PowerBall = false;
-            isOn_Wormhole = false;
+            usedWormholes.Clear();
             extraATK = 0;
         }
 

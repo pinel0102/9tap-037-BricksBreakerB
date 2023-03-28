@@ -163,12 +163,25 @@ namespace LevelEditorScene {
 				if(bIsValid01 && stCellObjInfo.ObjKinds != EObjKinds.BG_PLACEHOLDER_01) 
                 {
                     if (bIsValid02)
+                    {
                         this.CopyCurrentCellInfo(a_oSender, a_oEventData);
+                        return;
+                    }
                     else if (bIsValid03)
+                    {
                         this.ModifyCurrentCellInfo(a_oSender, a_oEventData);
-                    
-                    return;
+                        return;
+                    }
 				}
+
+                // 특수 명령 단축키 사용이 아니면 통상 그리기.
+                switch(m_oEditorModeDict[EKey.SEL_EDITOR_MODE]) {
+                    case EEditorMode.DRAW: this.HandleDrawEditorModeTouchMoveEvent(a_oSender, a_oEventData); break;
+                    case EEditorMode.PAINT: this.HandlePaintEditorModeTouchMoveEvent(a_oSender, a_oEventData); break;
+                }
+
+                this.UpdateUIsState();
+                m_oVec3IntDict[EKey.PREV_CELL_IDX] = stIdx;
 			}
 
 			this.HandleTouchMoveEvent(a_oSender, a_oEventData);

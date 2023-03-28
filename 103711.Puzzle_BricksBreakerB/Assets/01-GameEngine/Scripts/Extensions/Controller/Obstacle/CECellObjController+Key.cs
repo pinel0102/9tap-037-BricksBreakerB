@@ -12,7 +12,7 @@ namespace NSEngine {
             
             switch(kindsType)
             {
-                case EObjKinds.OBSTACLE_BRICKS_KEY_01:  UnLock(EObjKinds.OBSTACLE_BRICKS_LOCK_01); break;
+                case EObjKinds.OBSTACLE_BRICKS_KEY_01:  UnLock(ExtraObjKindsList[m_oSubIntDict[ESubKey.EXTRA_OBJ_KINDS_IDX]]); break;
                 default: break;
             }
 
@@ -28,10 +28,6 @@ namespace NSEngine {
                 if (target.ExtraObjKindsList.ExIsValid())
                 {
                     EObjKinds toKinds = target.ExtraObjKindsList[m_oSubIntDict[ESubKey.EXTRA_OBJ_KINDS_IDX]];
-                    //var stObjInfo = CObjInfoTable.Inst.GetObjInfo(toKinds);
-                    
-                    //target.ResetObjInfo(stObjInfo, target.CellObjInfo);
-
                     Engine.ChangeCell(target, toKinds);
                 }
             }
