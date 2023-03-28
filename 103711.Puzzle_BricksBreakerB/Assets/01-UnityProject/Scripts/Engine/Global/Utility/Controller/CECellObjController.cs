@@ -50,15 +50,14 @@ namespace NSEngine {
 			base.Init(a_stParams.m_stBaseParams);
 			this.Params = a_stParams;
 
-			this.SubInit(kinds);
+            this.SubInit(kinds);
 		}
 
         /** 객체 정보를 리셋한다 */
 		public virtual void ResetObjInfo(STObjInfo a_stObjInfo, STCellObjInfo a_stCellObjInfo) {
 			base.ResetObjInfo(a_stObjInfo);
-            
-            //this.SetCellObjInfo(a_stCellObjInfo);
 
+            this.SetCellObjInfo(a_stObjInfo.m_eObjKinds, a_stCellObjInfo);
 			this.SubResetObjInfo(a_stObjInfo, a_stCellObjInfo);
 		}
 		#endregion // 함수
@@ -82,10 +81,10 @@ namespace NSEngine {
 		}
 
 		/** 셀 객체 정보를 변경한다 */
-		/*public void SetCellObjInfo(STCellObjInfo a_stCellObjInfo) {
-			a_stCellObjInfo.ObjKinds = this.GetOwner<CEObj>().Params.m_stObjInfo.m_eObjKinds;
+		public void SetCellObjInfo(EObjKinds kinds, STCellObjInfo a_stCellObjInfo) {
+			a_stCellObjInfo.ObjKinds = kinds;
 			m_oCellObjInfoDict[EKey.CELL_OBJ_INFO] = a_stCellObjInfo;
-		}*/
+		}
 		#endregion // 함수
 	}
 }

@@ -8,13 +8,13 @@ public class ModifyCell : MonoBehaviour
 {
     [Header("★ [Reference] Modify Cell")]
     public GameObject modifyWindow;
-    public GameObject ShieldInputObject;
     public Image cellImage;
     public Image subImage;
+    public Text cellNameText;
     public Text cellHPText;
     public Text cellShieldText;
     public Dropdown colorDropdown;
-    public InputField HPInputField;    
+    public InputField HPInputField;
     public InputField ShieldInputField;
 
     [Header("★ [Live] Parameter")]
@@ -26,8 +26,8 @@ public class ModifyCell : MonoBehaviour
     public int currentHP;
     public int currentShield;
 
-    public event Action onModifyComplete;    
-    private STCellObjInfo currentCellInfo;    
+    public event Action onModifyComplete;
+    private STCellObjInfo currentCellInfo;
 
     private void Awake()
     {
@@ -51,27 +51,27 @@ public class ModifyCell : MonoBehaviour
     {
         currentCellInfo = cellInfo;
         currentKinds = currentCellInfo.ObjKinds;
-        currentHP = currentCellInfo.HP;
-        currentColorID = currentCellInfo.ColorID;
-
-        isShieldCell = GlobalDefine.IsShieldCell(currentKinds);
-        ShieldInputObject.SetActive(isShieldCell);
-        cellShieldText.gameObject.SetActive(isShieldCell);
-
-        if (isShieldCell)
-            currentShield = currentCellInfo.SHIELD;
-        else
-            currentShield = 0;
+        cellNameText.text = GlobalDefine.GetTooltipText(currentKinds);
 
         if(CObjInfoTable.Inst.TryGetObjInfo(currentKinds, out STObjInfo stObjInfo))
         {
             isEnableHit = stObjInfo.m_bIsEnableHit || GlobalDefine.IsExtraObjEnableHit(stObjInfo.m_oExtraObjKindsList);
             isEnableColor = stObjInfo.m_bIsEnableColor || GlobalDefine.IsExtraObjEnableColor(stObjInfo.m_oExtraObjKindsList);
+            isShieldCell = stObjInfo.m_bIsShieldCell;
         }
-
+        
+        currentColorID = currentCellInfo.ColorID;
+        currentHP = currentCellInfo.HP;
+        currentShield = isShieldCell ? currentCellInfo.SHIELD : 0;
+        
         colorDropdown.value = isEnableColor ? currentColorID : 0;
         HPInputField.text = isEnableHit ? currentHP.ToString() : 0.ToString();
         ShieldInputField.text = isShieldCell ? currentShield.ToString() : 0.ToString();
+        
+        colorDropdown.interactable = isEnableColor;
+        HPInputField.interactable = isEnableHit;
+        ShieldInputField.interactable = isShieldCell;
+        cellShieldText.gameObject.SetActive(isShieldCell);
 
         RefreshCellImage();
 
@@ -97,7 +97,6 @@ public class ModifyCell : MonoBehaviour
         
         cellHPText.text = currentHP.ToString();
         cellHPText.gameObject.SetActive(isEnableHit);
-
         cellShieldText.text = currentShield.ToString();
         cellShieldText.gameObject.SetActive(isShieldCell);
     }

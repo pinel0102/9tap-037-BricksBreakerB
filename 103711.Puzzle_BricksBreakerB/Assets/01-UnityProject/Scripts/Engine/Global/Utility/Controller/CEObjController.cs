@@ -92,7 +92,7 @@ namespace NSEngine {
                 this.GetOwner<CEObj>().RefreshText(a_stObjInfo.m_eObjKinds);                
 			}
 
-			this.SubResetObjInfo(a_stObjInfo);
+			//this.SubResetObjInfo(a_stObjInfo);
 		}
 
 		/** 적용 스킬 정보를 리셋한다 */

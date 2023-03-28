@@ -998,7 +998,7 @@ namespace LevelEditorScene {
 								this.RemoveAllCellObjInfos(stCellInfo.m_oCellObjInfoList.ExIsValidIdx(nIdx) ? a_stCellObjInfo.ObjKinds : EObjKinds.NONE, a_stIdx);
 							}
 
-							#region 추가
+                            #region 추가
 							a_stCellObjInfo.HP = int.Parse(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT].text);
                             a_stCellObjInfo.SHIELD = GlobalDefine.IsShieldCell(a_stCellObjInfo.ObjKinds) ? int.Parse(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SHIELD_INPUT].text) : 0;
 							a_stCellObjInfo.ATK = int.Parse(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT].text);

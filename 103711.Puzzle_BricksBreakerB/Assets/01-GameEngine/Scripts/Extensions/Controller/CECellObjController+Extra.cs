@@ -5,7 +5,6 @@ using UnityEngine;
 namespace NSEngine {
     public partial class CECellObjController : CEObjController
     {
-        public bool isShieldCell;
         public bool hideReserved;
         public bool missileReserved;
 
@@ -22,7 +21,7 @@ namespace NSEngine {
 
 			var stCellObjInfo = oCellObj.CellObjInfo;
 
-            if (isShieldCell && stCellObjInfo.SHIELD > 0)
+            if (oCellObj.Params.m_stObjInfo.m_bIsShieldCell && stCellObjInfo.SHIELD > 0)
             {
                 stCellObjInfo.SHIELD = Mathf.Max(KCDefine.B_VAL_0_INT, stCellObjInfo.SHIELD - _ATK);
                 oCellObj.HPText.text = $"{stCellObjInfo.SHIELD}";
@@ -163,27 +162,14 @@ namespace NSEngine {
         }
 
         ///<Summary>변경되는 셀이면 셀을 변경한다.</Summary>
-        public void ChangeCell()
+        public void ChangeCellToExtraKinds()
         {
-            //Debug.Log(CodeManager.GetMethodName() + string.Format("FROM <color=green>{0}</color>", this.GetOwner<CEObj>().Params.m_stObjInfo.m_eObjKinds));
-
-            if(this.ExtraObjKindsList.ExIsValid() && this.GetOwner<CEObj>().Params.m_stObjInfo.m_bIsEnableChange) 
+            if(this.ExtraObjKindsList.ExIsValid()) 
             {
-                var oObjInfoList = CCollectionManager.Inst.SpawnList<STObjInfo>();
-
-				try {
-					m_oSubIntDict[ESubKey.EXTRA_OBJ_KINDS_IDX] = (m_oSubIntDict[ESubKey.EXTRA_OBJ_KINDS_IDX] + KCDefine.B_VAL_1_INT) % this.ExtraObjKindsList.Count;
-					var stObjInfo = CObjInfoTable.Inst.GetObjInfo(this.ExtraObjKindsList[m_oSubIntDict[ESubKey.EXTRA_OBJ_KINDS_IDX]]);
-
-                    //Debug.Log(CodeManager.GetMethodName() + string.Format("TO <color=green>{0}</color>", this.ExtraObjKindsList[m_oSubIntDict[ESubKey.EXTRA_OBJ_KINDS_IDX]]));
-
-					oObjInfoList.Add(stObjInfo);
-					
-                    this.ResetObjInfo(stObjInfo, this.CellObjInfo);
-
-				} finally {
-					CCollectionManager.Inst.DespawnList(oObjInfoList);
-				}
+                m_oSubIntDict[ESubKey.EXTRA_OBJ_KINDS_IDX] = (m_oSubIntDict[ESubKey.EXTRA_OBJ_KINDS_IDX] + KCDefine.B_VAL_1_INT) % this.ExtraObjKindsList.Count;
+                    
+                EObjKinds toKinds = this.ExtraObjKindsList[m_oSubIntDict[ESubKey.EXTRA_OBJ_KINDS_IDX]];
+                Engine.ChangeCell(this, toKinds);
 			}
         }
 
@@ -280,7 +266,7 @@ namespace NSEngine {
                 
                 if (target.Params.m_stObjInfo.m_bIsSkillTarget)
                 {
-                    if (target.GetComponent<CECellObjController>().isShieldCell && target.CellObjInfo.SHIELD > 0)
+                    if (target.Params.m_stObjInfo.m_bIsShieldCell && target.CellObjInfo.SHIELD > 0)
                     {
                         if (target.CellObjInfo.SHIELD > _ATK)
                             target.GetComponent<CECellObjController>().GetDamage(ballController, kindsType, kinds, _ATK);
@@ -333,7 +319,7 @@ namespace NSEngine {
                     {
                         if (target.Params.m_stObjInfo.m_bIsSkillTarget)
                         {
-                            GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, target.transform.position, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, target.GetComponent<CECellObjController>().isShieldCell && target.CellObjInfo.SHIELD > 0, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID));
+                            GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, target.transform.position, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, target.Params.m_stObjInfo.m_bIsShieldCell && target.CellObjInfo.SHIELD > 0, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID));
                             target.GetComponent<CECellObjController>().CellDestroy();
                         }
                     }
@@ -358,7 +344,7 @@ namespace NSEngine {
                     break;
                 case EObjKinds.OBSTACLE_BRICKS_WOODBOX_01:
                 case EObjKinds.OBSTACLE_BRICKS_WOODBOX_02:
-                    if (isShieldCell && stCellObjInfo.SHIELD > 0)
+                    if (_ceObj.Params.m_stObjInfo.m_bIsShieldCell && stCellObjInfo.SHIELD > 0)
                     {
                         GetObstacle_WoodBox(kindsType, kinds);
                         return;

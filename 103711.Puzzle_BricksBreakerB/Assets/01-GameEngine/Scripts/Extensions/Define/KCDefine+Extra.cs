@@ -13,6 +13,7 @@ public static partial class KDefine {
 	public const string G_KEY_IS_TRANSPARENT = "IsTransparent";
 	public const string G_KEY_IS_CLEAR_TARGET = "IsClearTarget";
 	public const string G_KEY_IS_SKILL_TARGET = "IsSkillTarget";
+    public const string G_KEY_IS_SHIELD_CELL = "IsShieldCell";
 
 	public const string G_KEY_IS_ENABLE_HIT = "IsEnableHit";
 	public const string G_KEY_IS_ENABLE_COLOR = "IsEnableColor";

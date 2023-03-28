@@ -49,14 +49,15 @@ namespace NSEngine {
                 EObjKinds kinds = a_stCellInfo.m_oCellObjInfoList[i].ObjKinds;
                 EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
                 STObjInfo stObjInfo = CObjInfoTable.Inst.GetObjInfo(kinds);
+                STCellObjInfo stCellObjInfo = (STCellObjInfo)a_stCellInfo.m_oCellObjInfoList[i].Clone();
 
-				var oCellObj = this.CreateCellObj(CObjInfoTable.Inst.GetObjInfo(kinds), null);
+				var oCellObj = this.CreateCellObj(stObjInfo, null);
                 
 				oCellObj.transform.localPosition = this.SelGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(Access.CellCenterOffset, Access.CellSize);
-                //oCellObj.SetOriginObjInfo(stObjInfo);
+                oCellObj.GetController<CECellObjController>().ResetObjInfo(stObjInfo, stCellObjInfo);
                 oCellObj.GetController<CECellObjController>().SetIdx(a_stCellInfo.m_stIdx);
                 oCellObj.SetCellIdx(a_stCellInfo.m_stIdx, kinds);
-				oCellObj.SetCellObjInfo((STCellObjInfo)a_stCellInfo.m_oCellObjInfoList[i].Clone());
+				oCellObj.SetCellObjInfo(stCellObjInfo);
                 oCellObj.SetExtraObjKindsList(stObjInfo);
                 oCellObj.AddCellEffect(kindsType);
 

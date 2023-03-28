@@ -73,7 +73,6 @@ namespace NSEngine {
 		private void SubInit(EObjKinds kinds) {
 			this.hideReserved = false;
             this.missileReserved = false;
-            this.isShieldCell = GlobalDefine.IsShieldCell(kinds);
 		}
 
         /** 객체 정보를 리셋한다 */

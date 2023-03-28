@@ -98,6 +98,8 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 560e6b10d93c14460bd599846c2e16b0, type: 3}
+  - {fileID: 21300000, guid: 38545611869bf4b27a254a75ca13ea01, type: 3}
   - {fileID: 21300000, guid: 3296a02118b0d4088b661e2d8f63416f, type: 3}
   - {fileID: 21300000, guid: fd2edc915fc254d98a337459ecace277, type: 3}
   - {fileID: 21300000, guid: aaf429220361d4fa7a258f2e8e557b1e, type: 3}
@@ -119,8 +121,10 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 49049ae7aed5e425195b6afcd96ff9b2, type: 3}
   - {fileID: 21300000, guid: 5336345899da1401b9ba095c8b08568c, type: 3}
   - {fileID: 21300000, guid: b6dbff68a10f14590a488033a4518aae, type: 3}
+  - {fileID: 21300000, guid: 2671c5a81804e4c978ebbcb12511cff2, type: 3}
   - {fileID: 21300000, guid: 66af5cd8011c04da088a8ada5073755d, type: 3}
   - {fileID: 21300000, guid: 77e13729d838a4864ba0bf7deb174979, type: 3}
+  - {fileID: 21300000, guid: 62bb8e491a3ec4cb7a7a185957ca2030, type: 3}
   - {fileID: 21300000, guid: 0f839c5929227431b81dc100f6b61df8, type: 3}
   - {fileID: 21300000, guid: 871aa4c944c734d8e9442e9e8c448c64, type: 3}
   - {fileID: 21300000, guid: 9872460aa63c540edb8f5c2c63653425, type: 3}
@@ -137,10 +141,12 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 4bdd635c552e54a9b887d15cfa76adde, type: 3}
   - {fileID: 21300000, guid: 7835b5fcdf5eb46cf998331389dfbf35, type: 3}
   - {fileID: 21300000, guid: dee5907d35f6e48c5a2224c583c8ff3b, type: 3}
+  - {fileID: 21300000, guid: c38e832e5e2634ab4babaa91cfee1554, type: 3}
   - {fileID: 21300000, guid: 357be52e02e50427580522684717c11c, type: 3}
   - {fileID: 21300000, guid: b0aeb14e6e3d4436b9ca8eb41a786b5d, type: 3}
   - {fileID: 21300000, guid: 86b1b84ed8f0d4697bf525e25343d6e1, type: 3}
   - {fileID: 21300000, guid: 3894e35e1af93493b95d7a95815d2f4c, type: 3}
+  - {fileID: 21300000, guid: 9d47e75efa7dd421197210489fe9fdb2, type: 3}
   - {fileID: 21300000, guid: d21b076eb86c64226ada62323a2c2a28, type: 3}
   - {fileID: 21300000, guid: fee66d7ed55e748df866c760e583addd, type: 3}
   - {fileID: 21300000, guid: 212fec9ec85b640068c23c16777d5cfc, type: 3}
@@ -151,6 +157,8 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 1edf71ef79ed94ac592d2fc953f285ba, type: 3}
   - {fileID: 21300000, guid: 31b7a7efc471d4cb9a4c5db6cedc6055, type: 3}
   m_PackedSpriteNamesToIndex:
+  - OBSTACLE_BRICKS_WARP_OUT_02
+  - OBSTACLE_BRICKS_WARP_IN_02
   - ITEM_BRICKS_BALL_01
   - NORM_BRICKS_TRIANGLE_01
   - SPECIAL_BRICKS_LASER_VERTICAL_01
@@ -172,8 +180,10 @@ SpriteAtlas:
   - NORM_BRICKS_TRIANGLE_02
   - SPECIAL_BRICKS_ARROW_02
   - NORM_BRICKS_RIGHT_TRIANGLE_04
+  - OBSTACLE_BRICKS_WARP_IN_04
   - SPECIAL_BRICKS_POWERBALL_01
   - SPECIAL_BRICKS_EXPLOSION_VERTICAL_01
+  - OBSTACLE_BRICKS_WARP_OUT_04
   - SPECIAL_BRICKS_EXPLOSION_HORIZONTAL_01
   - SPECIAL_BRICKS_MISSILE_01
   - SPECIAL_BRICKS_EARTHQUAKE_01
@@ -190,10 +200,12 @@ SpriteAtlas:
   - NORM_BRICKS_TRIANGLE_03
   - SPECIAL_BRICKS_BALL_DIFFUSION_01
   - SPECIAL_BRICKS_ARROW_04
+  - OBSTACLE_BRICKS_WARP_OUT_03
   - SPECIAL_BRICKS_ADD_BALL_02
   - SPECIAL_BRICKS_ADD_BALL_03
   - SPECIAL_BRICKS_LIGHTNING_01
   - NORM_BRICKS_SQUARE_01
+  - OBSTACLE_BRICKS_WARP_IN_03
   - NORM_BRICKS_RIGHT_TRIANGLE_03
   - SPECIAL_BRICKS_ARROW_07
   - ITEM_BRICKS_BALL_04

@@ -34,13 +34,14 @@ namespace NSEngine {
 		#region 함수
 		/** 컴포넌트를 설정한다 */
 		private void SubAwake() {
-            this.SetCellObjInfo(STCellObjInfo.INVALID);
 
-			// 텍스트를 설정한다
+            // 텍스트를 설정한다
 			CFunc.SetupComponents(new List<(ESubKey, string, GameObject)>() {
 				(ESubKey.HP_TEXT, $"{ESubKey.HP_TEXT}", this.gameObject),
 				(ESubKey.NUM_TEXT, $"{ESubKey.NUM_TEXT}", this.gameObject)
 			}, m_oSubTextDict);
+
+            this.SetCellObjInfo(STCellObjInfo.INVALID);
 		}
 
 		/** 초기화한다 */
@@ -182,9 +183,16 @@ namespace NSEngine {
             if (a_stCellObjInfo.ObjKinds != EObjKinds.NONE)
             {
                 EObjType cellType = (EObjType)((int)CellObjInfo.ObjKinds).ExKindsToType();
-                
-                SetSpriteColor(CellObjInfo.ObjKinds);
-                RefreshText(CellObjInfo.ObjKinds);
+                switch(cellType)
+                {
+                    case EObjType.NORM_BRICKS:
+                    case EObjType.ITEM_BRICKS:
+                    case EObjType.SPECIAL_BRICKS:
+                    case EObjType.OBSTACLE_BRICKS:
+                        SetSpriteColor(CellObjInfo.ObjKinds);
+                        RefreshText(CellObjInfo.ObjKinds);
+                        break;
+                }
             }
 		}
 		#endregion // 접근자 함수

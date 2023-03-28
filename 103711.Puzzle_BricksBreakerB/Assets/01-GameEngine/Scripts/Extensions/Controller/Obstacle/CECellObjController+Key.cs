@@ -19,31 +19,20 @@ namespace NSEngine {
             this.SetHideReserved();
         }
 
-        private void UnLock(EObjKinds targetType)
+        private void UnLock(EObjKinds targetKinds)
         {
-            List<CEObj> targetList = Engine.GetAllCells(targetType);
-            
+            List<CEObj> targetList = Engine.GetAllCells(targetKinds);            
             for (int i=0; i < targetList.Count; i++)
             {
                 CECellObjController target = targetList[i].GetComponent<CECellObjController>();
-
-                if(target.ExtraObjKindsList.ExIsValid())
+                if (target.ExtraObjKindsList.ExIsValid())
                 {
-                    var oObjInfoList = CCollectionManager.Inst.SpawnList<STObjInfo>();
+                    EObjKinds toKinds = target.ExtraObjKindsList[m_oSubIntDict[ESubKey.EXTRA_OBJ_KINDS_IDX]];
+                    //var stObjInfo = CObjInfoTable.Inst.GetObjInfo(toKinds);
+                    
+                    //target.ResetObjInfo(stObjInfo, target.CellObjInfo);
 
-                    try {
-                        m_oSubIntDict[ESubKey.EXTRA_OBJ_KINDS_IDX] = (m_oSubIntDict[ESubKey.EXTRA_OBJ_KINDS_IDX] + KCDefine.B_VAL_1_INT) % target.ExtraObjKindsList.Count;
-                        var stObjInfo = CObjInfoTable.Inst.GetObjInfo(target.ExtraObjKindsList[m_oSubIntDict[ESubKey.EXTRA_OBJ_KINDS_IDX]]);
-
-                        //Debug.Log(CodeManager.GetMethodName() + string.Format("TO <color=green>{0}</color>", target.ExtraObjKindsList[m_oSubIntDict[ESubKey.EXTRA_OBJ_KINDS_IDX]]));
-
-                        oObjInfoList.Add(stObjInfo);
-                        
-                        target.ResetObjInfo(stObjInfo, target.CellObjInfo);
-
-                    } finally {
-                        CCollectionManager.Inst.DespawnList(oObjInfoList);
-                    }
+                    Engine.ChangeCell(target, toKinds);
                 }
             }
         }

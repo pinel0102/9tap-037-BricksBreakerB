@@ -8,6 +8,7 @@ using UnityEngine.Events;
 using System.IO;
 
 /** 객체 정보 */
+///<Summary>G_ObjInfoTable.json 파일에 있는 셀 종류 자체의 속성.</Summary>
 [System.Serializable]
 public struct STObjInfo {
 	public STCommonInfo m_stCommonInfo;
@@ -41,6 +42,7 @@ public struct STObjInfo {
 	public bool m_bIsEnableReflect;
 	public bool m_bIsEnableRefract;
 	public bool m_bIsEnableMoveDown;
+    public bool m_bIsShieldCell;
 
 	public EColliderType m_eColliderType;
 	public ESkillKinds m_eHitSkillKinds;
@@ -87,6 +89,7 @@ public struct STObjInfo {
 		m_bIsRand = a_oObjInfo[KDefine.G_KEY_IS_RAND].ExIsValid() ? a_oObjInfo[KDefine.G_KEY_IS_RAND].AsInt != KCDefine.B_VAL_0_INT : false;
 		m_bIsTransparent = a_oObjInfo[KDefine.G_KEY_IS_TRANSPARENT].ExIsValid() ? a_oObjInfo[KDefine.G_KEY_IS_TRANSPARENT].AsInt != KCDefine.B_VAL_0_INT : false;
 		m_bIsSkillTarget = a_oObjInfo[KDefine.G_KEY_IS_SKILL_TARGET].ExIsValid() ? a_oObjInfo[KDefine.G_KEY_IS_SKILL_TARGET].AsInt != KCDefine.B_VAL_0_INT : false;
+        m_bIsShieldCell = a_oObjInfo[KDefine.G_KEY_IS_SHIELD_CELL].ExIsValid() ? a_oObjInfo[KDefine.G_KEY_IS_SHIELD_CELL].AsInt != KCDefine.B_VAL_0_INT : false;
 
 		m_bIsEnableHit = a_oObjInfo[KDefine.G_KEY_IS_ENABLE_HIT].ExIsValid() ? a_oObjInfo[KDefine.G_KEY_IS_ENABLE_HIT].AsInt != KCDefine.B_VAL_0_INT : false;
 		m_bIsEnableColor = a_oObjInfo[KDefine.G_KEY_IS_ENABLE_COLOR].ExIsValid() ? a_oObjInfo[KDefine.G_KEY_IS_ENABLE_COLOR].AsInt != KCDefine.B_VAL_0_INT : false;

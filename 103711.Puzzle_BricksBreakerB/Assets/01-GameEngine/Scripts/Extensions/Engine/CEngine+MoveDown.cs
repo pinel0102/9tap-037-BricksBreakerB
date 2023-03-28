@@ -101,7 +101,7 @@ namespace NSEngine {
                                     oController.HideReservedCell();
 
                                 if (target.Params.m_stObjInfo.m_bIsEnableChange)
-                                    oController.ChangeCell();
+                                    oController.ChangeCellToExtraKinds();
 
                                 if (!isLastCellAssigned)
                                 {

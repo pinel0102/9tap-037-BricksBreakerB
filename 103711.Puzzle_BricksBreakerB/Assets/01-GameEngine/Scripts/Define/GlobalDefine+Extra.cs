@@ -46,13 +46,9 @@ public static partial class GlobalDefine
     
     public static bool IsShieldCell(EObjKinds kinds)
     {
-        switch(kinds)
-        {
-            case EObjKinds.OBSTACLE_BRICKS_WOODBOX_01:
-            case EObjKinds.OBSTACLE_BRICKS_WOODBOX_02:
-                return true;
-            default:
-                return false;
-        }
+        if (CObjInfoTable.Inst.TryGetObjInfo(kinds, out STObjInfo stObjInfo))
+            return stObjInfo.m_bIsShieldCell;
+
+        return false;
     }
 }

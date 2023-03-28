@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 #endif // #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 
 /** 셀 객체 정보 */
+///<Summary>현재 셀이 가진 변할 수 있는 속성.</Summary>
 [MessagePackObject]
 [System.Serializable]
 public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallbackReceiver {

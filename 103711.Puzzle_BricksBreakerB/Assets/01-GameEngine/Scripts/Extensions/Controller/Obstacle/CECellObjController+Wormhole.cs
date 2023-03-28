@@ -13,20 +13,18 @@ namespace NSEngine {
             if (ballController.isOn_Wormhole)
                 return;
             
-            ballController.transform.position = transform.position;
-
             switch(kindsType)
             {
-                case EObjKinds.OBSTACLE_BRICKS_WARP_IN_01:  Wormhole(ballController, EObjKinds.OBSTACLE_BRICKS_WARP_OUT_01); break;
+                case EObjKinds.OBSTACLE_BRICKS_WARP_IN_01:  Wormhole(ballController, ExtraObjKindsList[m_oSubIntDict[ESubKey.EXTRA_OBJ_KINDS_IDX]]); break;
                 default: break;
             }
 
             this.SetHideReserved();
         }
 
-        private void Wormhole(CEBallObjController ballController, EObjKinds targetType)
+        private void Wormhole(CEBallObjController ballController, EObjKinds targetKinds)
         {
-            List<CEObj> targetList = Engine.GetAllCells(targetType);
+            List<CEObj> targetList = Engine.GetAllCells(targetKinds);
             
             if (targetList.Count < 1) 
                 return;

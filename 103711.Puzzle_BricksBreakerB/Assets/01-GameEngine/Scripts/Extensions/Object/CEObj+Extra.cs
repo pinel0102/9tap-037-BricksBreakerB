@@ -73,12 +73,13 @@ namespace NSEngine {
 
         public void SetSpriteColor(EObjKinds cellKinds)
         {
-            this.TargetSprite.color = GlobalDefine.GetCellColor(cellKinds, GlobalDefine.IsShieldCell(cellKinds) && CellObjInfo.SHIELD > 0, Params.m_stObjInfo.m_bIsEnableColor, CellObjInfo.ColorID, CellObjInfo.HP);
+            this.TargetSprite.color = GlobalDefine.GetCellColor(cellKinds, Params.m_stObjInfo.m_bIsShieldCell && CellObjInfo.SHIELD > 0, Params.m_stObjInfo.m_bIsEnableColor, CellObjInfo.ColorID, CellObjInfo.HP);
         }
 
         public void RefreshText(EObjKinds kinds)
         {
-            HPText.text = Params.m_stObjInfo.m_bIsEnableHit && Params.m_stObjInfo.m_bIsEnableReflect ? ((GlobalDefine.IsShieldCell(kinds) && CellObjInfo.SHIELD > 0) ? CellObjInfo.SHIELD.ToString() : CellObjInfo.HP.ToString()) : string.Empty;
+            if (HPText != null)
+                HPText.text = Params.m_stObjInfo.m_bIsEnableHit && Params.m_stObjInfo.m_bIsEnableReflect ? ((Params.m_stObjInfo.m_bIsShieldCell && CellObjInfo.SHIELD > 0) ? CellObjInfo.SHIELD.ToString() : CellObjInfo.HP.ToString()) : string.Empty;
         }
 
         public void ToggleHitSprite(bool _show)

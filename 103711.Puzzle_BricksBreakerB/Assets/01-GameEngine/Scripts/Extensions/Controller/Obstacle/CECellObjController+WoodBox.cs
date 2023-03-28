@@ -22,24 +22,16 @@ namespace NSEngine {
 
         private void BreakWoodBox()
         {
-            isShieldCell = false;
+            EObjKinds toKinds = ExtraObjKindsList[m_oSubIntDict[ESubKey.EXTRA_OBJ_KINDS_IDX]];
+            //var stObjInfo = CObjInfoTable.Inst.GetObjInfo(toKinds);
 
             CEObj myCell = this.GetOwner<CEObj>();
-            EObjKinds toKinds = ExtraObjKindsList[m_oSubIntDict[ESubKey.EXTRA_OBJ_KINDS_IDX]];
-            
-            var stParams = myCell.Params;            
-            stParams.m_stObjInfo = CObjInfoTable.Inst.GetObjInfo(toKinds);
-            myCell.Init(stParams);
-
             STCellObjInfo stCellObjInfo = myCell.CellObjInfo;
-            stCellObjInfo.ObjKinds = toKinds;
             stCellObjInfo.SHIELD = 0;
+            
+            //this.ResetObjInfo(stObjInfo, stCellObjInfo);
 
-            myCell.SetCellObjInfo(stCellObjInfo);            
-            myCell.InitSprite(GlobalDefine.IsNeedSubSprite(toKinds));
-            myCell.RefreshText(toKinds);
-
-            //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", myCell.CellObjInfo.ObjKinds));
+            Engine.ChangeCell(this, toKinds, stCellObjInfo);
         }
 
         private void ShowEffect_WoodBox()
