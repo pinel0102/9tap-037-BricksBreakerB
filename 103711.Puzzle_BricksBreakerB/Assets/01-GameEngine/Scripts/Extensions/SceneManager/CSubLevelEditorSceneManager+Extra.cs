@@ -13,35 +13,36 @@ using TMPro;
 namespace LevelEditorScene {
     public partial class CSubLevelEditorSceneManager : CLevelEditorSceneManager, IEnhancedScrollerDelegate
     {
+        [Header("★ [Reference] Reference")]
+        public Text versionText;
         public ModifyCell modifyCell;
         public GameObject tooltipObject;
         public Text tooltipText;
-        public GameObject colorPickerObject;
-        //public ColorPicker colorPicker;
+        public GameObject colorPickerObject;        
         public Vector2 currentCellSize => new Vector2(NSEngine.Access.MaxGridSize.x / (float)NSEngine.KDefine.E_DEF_NUM_CELLS.x, NSEngine.Access.MaxGridSize.y / (float)NSEngine.KDefine.E_DEF_NUM_CELLS.y);
         
+        [Header("★ [Live] Status")]
         public int currentHP;
         public int currentColorID;
 
+        [Header("★ [Privates]")]
         private SpriteRenderer cursorSubSprite;
+        private List<KeyValuePair<EObjKinds, Button>> listScrollerCellView = new List<KeyValuePair<EObjKinds, Button>>();
         
+        //public ColorPicker colorPicker;
         //public string drawCellColorHex => string.Format(FORMAT_HEX, ColorUtility.ToHtmlStringRGBA(drawCellColor));
         //public Color drawCellColor = Color.white;
         //public Color drawCellColorOld = Color.white;
-        //private const string FORMAT_HEX = "#{0}";
-
-        private List<KeyValuePair<EObjKinds, Button>> listScrollerCellView = new List<KeyValuePair<EObjKinds, Button>>();
+        //private const string FORMAT_HEX = "#{0}";        
 
 #region Initialize
 
         private void ExtraStart()
         {
-            GetDevList();
-
+            versionText.text = GlobalDefine.GetVersionTextWithAppName();
             modifyCell.onModifyComplete += ModifyCellUpdate;
             
             //OnCloseColorPicker();
-
             //colorPicker.onColorChanged += SetDrawCellColor;
             //colorPicker.awakeColor = drawCellColor;
         }
@@ -63,29 +64,24 @@ namespace LevelEditorScene {
             _image.color = GlobalDefine.GetCellColorEditor(cellKinds, currentColorID, currentHP);
         }
 
-        private void GetDevList()
-        {
-            //GlobalDefine.devComplete
-        }
-
 #endregion Initialize
 
 
 #region Cell Color
 
-        public void OnToggleColorPicker()
+        /*public void OnToggleColorPicker()
         {
-            //colorPicker.OnClickRevert();
-            //colorPickerObject.SetActive(!colorPickerObject.activeInHierarchy);
+            colorPicker.OnClickRevert();
+            colorPickerObject.SetActive(!colorPickerObject.activeInHierarchy);
         }
 
         public void OnCloseColorPicker()
         {
-            //colorPicker.OnClickRevert();
-            //colorPickerObject.SetActive(false);
+            colorPicker.OnClickRevert();
+            colorPickerObject.SetActive(false);
         }
 
-        /*public void SetDrawCellColor(string _newColorHex)
+        public void SetDrawCellColor(string _newColorHex)
         {
             drawCellColorOld = drawCellColor;
 
