@@ -85,9 +85,9 @@ namespace GameScene {
 			});
 
             levelText.text = string.Format(formatLevelText, m_oEngine.currentLevel);
-            m_oEngine.lastClearTarget = m_oEngine.GetLastClearTarget().transform;
-            m_oEngine.CheckDeadLine(true);
+            
             m_oEngine.RefreshActiveCells();
+            m_oEngine.CheckDeadLine(true);
 		}
 
 		/** 씬을 설정한다 */

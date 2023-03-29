@@ -9,6 +9,7 @@ namespace GameScene {
         
         [Header("★ [Reference] Extra")]
         public Canvas mainCanvas;
+        public Transform startLine;
         public Transform deadLine;
         public GameObject warningObject;
         public GameObject goldenAimOn;

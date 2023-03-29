@@ -103,7 +103,7 @@ public struct STCellObjInfo : System.ICloneable, IMessagePackSerializationCallba
     [JsonIgnore]
 	[IgnoreMember]
 	public string ColorHex {
-		get { return m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_COLOR, GlobalDefine.COLOR_BRICKS_DEFAULT); }
+		get { return m_stBaseInfo.m_oStrDict.GetValueOrDefault(KEY_COLOR, GlobalDefine.COLORHEX_BRICKS_DEFAULT); }
 		set { m_stBaseInfo.m_oStrDict.ExReplaceVal(KEY_COLOR, $"{value}"); }
 	}
 

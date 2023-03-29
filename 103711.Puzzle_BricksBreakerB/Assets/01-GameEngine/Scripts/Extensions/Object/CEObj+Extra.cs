@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using DG.Tweening;
 
 namespace NSEngine {
 	/** 서브 객체 */
@@ -109,15 +110,28 @@ namespace NSEngine {
             }
         }
 
-        public void SetCellActive(bool _isActive)
+        public void SetCellActive(bool _isActive, bool _showEffect = false)
         {
             TargetSprite.gameObject.SetActive(_isActive);
+            gameObject.SetActive(_isActive);
+
+            if (_isActive && _showEffect)
+            {
+                AppearEffect();
+            }
         }
 
         ///<Summary>살아 있는 셀 중에서 인게임 영역 안에 있는 셀.</Summary>
         public bool IsActiveCell()
         {
             return this.gameObject.activeInHierarchy && TargetSprite.gameObject.activeSelf;
+        }
+
+        private void AppearEffect()
+        {
+            Color endColor = this.TargetSprite.color;
+            TargetSprite.color = GlobalDefine.COLOR_CELL_APPEAR;
+            TargetSprite.DOColor(endColor, GlobalDefine.FXCellAppear_Time);
         }
     }
 }

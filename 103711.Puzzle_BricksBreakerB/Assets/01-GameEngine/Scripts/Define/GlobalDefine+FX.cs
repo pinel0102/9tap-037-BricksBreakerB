@@ -8,7 +8,7 @@ public partial class GlobalDefine
     // [Effect] Laser
     public static Vector3 FXLaser_Rotation_Horizontal = new Vector3(0, 0, 90f);
     public static Vector3 FXLaser_Rotation_Vertictal = Vector3.zero;
-
+    
     // [Cell Effect] Bomb
     public static Vector3 FXBombFlame_Position_Default = new Vector3(25f, 25f, 0);
     public static Vector3 FXBombFlame_Position_3x3 = new Vector3(25f, 20f, 0);
@@ -23,6 +23,9 @@ public partial class GlobalDefine
 
     // [Ball Effect] Power Ball
     public const float FXPowerBall_Size = 2f;
+
+    // [Cell Effect] Appear
+    public const float FXCellAppear_Time = 0.5f;
 
     public const string formatFXPath = "Prefabs/Engine/FX/{0}";
     

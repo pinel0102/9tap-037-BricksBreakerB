@@ -17,10 +17,10 @@ public static partial class GlobalDefine
         //new List<Color>(){ GetColor("#000000"), GetColor("#000000"), GetColor("#000000"), GetColor("#000000"), GetColor("#000000"), GetColor("#000000"), GetColor("#000000"), GetColor("#000000"), GetColor("#000000"), GetColor("#000000") }, // Black
     };
 
-    public const string COLOR_CELL_DEFAULT = "#FFFFFFFF";
-    public const string COLOR_BRICKS_DEFAULT = "#407AD9FF";
-    public const string COLOR_BALL_DEFAULT = "#FF0000FF";
-    public const string COLOR_FX_LASER = "#CCFF74FF";
+    public const string COLORHEX_BRICKS_DEFAULT = "#407AD9FF";
+    public const string COLORHEX_BALL_DEFAULT = "#FF0000FF";
+    public const string COLORHEX_CELL_APPEAR = "#64C8FFFF";
+    public static Color COLOR_CELL_APPEAR = GetColor(COLORHEX_CELL_APPEAR);
 
     public static Color GetCellColor(EObjKinds kinds, bool isShield, bool isEnableColor, int _colorID = 0, int _HP = 100)
     {
@@ -28,7 +28,7 @@ public static partial class GlobalDefine
         switch(cellType)
         {
             case EObjType.BALL: 
-                return GetColor(GlobalDefine.COLOR_BALL_DEFAULT);
+                return GetColor(GlobalDefine.COLORHEX_BALL_DEFAULT);
             default:
                 break;
         }

@@ -733,6 +733,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Engine: {fileID: 0}
   mainCanvas: {fileID: 1840138989}
+  startLine: {fileID: 6993149693766247226}
   deadLine: {fileID: 1728720620}
   warningObject: {fileID: 6993149693766247225}
   goldenAimOn: {fileID: 79677497}
@@ -1565,5 +1566,10 @@ MonoBehaviour:
 --- !u!1 &6993149693766247225 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3235285228959558215, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+  m_PrefabInstance: {fileID: 6993149693766247223}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &6993149693766247226 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5048719770826455855, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
   m_PrefabInstance: {fileID: 6993149693766247223}
   m_PrefabAsset: {fileID: 0}

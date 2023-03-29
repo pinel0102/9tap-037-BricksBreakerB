@@ -58,6 +58,27 @@ namespace NSEngine {
 			return false;
 		}
 
+        private bool IsEnableMoveDown(CEObj a_oObj) {
+            var controller = a_oObj.GetController<CECellObjController>();
+            var stIdx = new Vector3Int(controller.Idx.x, controller.Idx.y + a_oObj.Params.m_stObjInfo.m_stSize.y, controller.Idx.z);
+			var oCellObjList = this.CellObjLists.ExGetVal(stIdx, null);
+
+			bool bIsValid = a_oObj.Params.m_stObjInfo.m_bIsEnableMoveDown;
+
+            return bIsValid && !oCellObjList.ExIsValid() && this.CellObjLists.ExIsValidIdx(stIdx);
+		}
+
+		private bool IsEnableMoveDown(List<CEObj> a_oObjList) {
+			for(int i = 0; i < a_oObjList.Count; ++i) {
+				// 이동이 불가능 할 경우
+				if(!this.IsEnableMoveDown(a_oObjList[i])) {
+					return false;
+				}
+			}
+
+			return true;
+		}
+
         /** 이동 애니메이션이 완료 되었을 경우 */
 		private void OnCompleteMoveDownAni(DG.Tweening.Sequence a_oSender) {
 			a_oSender?.Kill();
@@ -73,8 +94,8 @@ namespace NSEngine {
             subGameSceneManager.SetEnableUpdateUIsState(true);
             isGridMoving = false;
 
-            CheckDeadLine();
             RefreshActiveCells();
+            CheckDeadLine();
 		}
 
         ///<Summary>턴 종료시 셀이 내려온 후에 발동.</Summary>
@@ -94,29 +115,52 @@ namespace NSEngine {
 				for(int j = this.CellObjLists.GetLength(KCDefine.B_VAL_1_INT) - 1; j >= 0 ; j--) {
 					for(int k = 0; k < this.CellObjLists[i, j].Count; ++k) {
 						// 셀이 존재 할 경우
-						if(this.CellObjLists[i, j][k].IsActiveCell()) {
-                            CEObj target = this.CellObjLists[i, j][k];
-                            if (target != null && target.TryGetComponent<CECellObjController>(out CECellObjController oController))
+                        CEObj target = this.CellObjLists[i, j][k];
+                        if (target != null && target.IsActiveCell())
+                        {
+                            var oController = target.GetComponent<CECellObjController>();
+
+                            if (target.Params.m_stObjInfo.m_bIsOnce)
+                                oController.HideReservedCell();
+
+                            if (target.Params.m_stObjInfo.m_bIsEnableChange)
+                                oController.ChangeCellToExtraKinds();
+
+                            if (!isLastCellAssigned)
                             {
-                                if (target.Params.m_stObjInfo.m_bIsOnce)
-                                    oController.HideReservedCell();
-
-                                if (target.Params.m_stObjInfo.m_bIsEnableChange)
-                                    oController.ChangeCellToExtraKinds();
-
-                                if (!isLastCellAssigned)
+                                if (target.Params.m_stObjInfo.m_bIsClearTarget)
                                 {
-                                    if (target.Params.m_stObjInfo.m_bIsClearTarget)
-                                    {
-                                        lastClearTarget = target.transform;
-                                        isLastCellAssigned = true;
-                                    }
+                                    lastClearTarget = target.transform;
+                                    isLastCellAssigned = true;
                                 }
                             }
-						}
+                        }
 					}
 				}
 			}
+        }
+
+        public void RefreshActiveCells()
+        {
+            float cellsizeY = Access.CellSize.y * SelGridInfo.m_stScale.y;
+
+            for(int i = this.CellObjLists.GetLength(KCDefine.B_VAL_0_INT) - 1; i >= 0 ; i--) {
+				for(int j = this.CellObjLists.GetLength(KCDefine.B_VAL_1_INT) - 1; j >= 0 ; j--) {
+					for(int k = 0; k < this.CellObjLists[i, j].Count; ++k) {
+						// 셀이 존재 할 경우
+                        CEObj target = this.CellObjLists[i, j][k];
+                        if (target != null)
+                        {
+                            bool activeThis = target.transform.position.y <= subGameSceneManager.startLine.position.y - cellsizeY &&
+                                              target.transform.position.y >= subGameSceneManager.deadLine.position.y;
+
+                            target.SetCellActive(activeThis, activeThis && !target.IsActiveCell());
+                        }
+					}
+				}
+			}
+
+            lastClearTarget = GetLastClearTarget().transform;
         }
 
         public void CheckDeadLine(bool isInitialize = false)
@@ -124,7 +168,6 @@ namespace NSEngine {
             if (lastClearTarget != null)
             {
                 Vector2 distanceVector = subGameSceneManager.mainCanvas.WorldToCanvas(lastClearTarget.position - subGameSceneManager.deadLine.position);
-
                 float cellsizeY = Access.CellSize.y * SelGridInfo.m_stScale.y;
                 float distance = distanceVector.y - (cellsizeY * 0.5f);
 
@@ -150,58 +193,6 @@ namespace NSEngine {
             {
                 subGameSceneManager.warningObject.SetActive(false);
             }
-        }
-
-        public bool IsEnableMoveDown(CEObj a_oObj) {
-            var controller = a_oObj.GetController<CECellObjController>();
-            var stIdx = new Vector3Int(controller.Idx.x, controller.Idx.y + a_oObj.Params.m_stObjInfo.m_stSize.y, controller.Idx.z);
-			var oCellObjList = this.CellObjLists.ExGetVal(stIdx, null);
-
-			bool bIsValid = a_oObj.Params.m_stObjInfo.m_bIsEnableMoveDown;
-
-            return bIsValid && !oCellObjList.ExIsValid() && this.CellObjLists.ExIsValidIdx(stIdx);
-		}
-
-		public bool IsEnableMoveDown(List<CEObj> a_oObjList) {
-			for(int i = 0; i < a_oObjList.Count; ++i) {
-				// 이동이 불가능 할 경우
-				if(!this.IsEnableMoveDown(a_oObjList[i])) {
-					return false;
-				}
-			}
-
-			return true;
-		}
-
-        public void RefreshActiveCells()
-        {
-            /*for(int i = this.CellObjLists.GetLength(KCDefine.B_VAL_0_INT) - 1; i >= 0 ; i--) {
-				for(int j = this.CellObjLists.GetLength(KCDefine.B_VAL_1_INT) - 1; j >= 0 ; j--) {
-					for(int k = 0; k < this.CellObjLists[i, j].Count; ++k) {
-						// 셀이 존재 할 경우
-						if(this.CellObjLists[i, j][k].IsActiveCell()) {
-                            CEObj target = this.CellObjLists[i, j][k];
-                            if (target != null && target.TryGetComponent<CECellObjController>(out CECellObjController oController))
-                            {
-                                if (target.Params.m_stObjInfo.m_bIsOnce)
-                                    oController.HideReservedCell();
-
-                                if (target.Params.m_stObjInfo.m_bIsEnableChange)
-                                    oController.ChangeCellToExtraKinds();
-
-                                if (!isLastCellAssigned)
-                                {
-                                    if (target.Params.m_stObjInfo.m_bIsClearTarget)
-                                    {
-                                        lastClearTarget = target.transform;
-                                        isLastCellAssigned = true;
-                                    }
-                                }
-                            }
-						}
-					}
-				}
-			}*/
         }
     }
 }

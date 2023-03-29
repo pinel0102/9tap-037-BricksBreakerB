@@ -19,7 +19,6 @@ namespace NSEngine {
         public int currentAimLayer;
         public Vector3 startPosition = Vector3.zero;
         public Vector3 shootDirection = Vector3.zero;
-        public Vector3 cellRootMoveVector = Vector3.zero;
 
         [Header("★ [Parameter] Live Resolution")]
         // 디바이스 해상도.
@@ -54,6 +53,7 @@ namespace NSEngine {
         private WaitForSeconds cellRootMoveDelay = new WaitForSeconds(KCDefine.B_VAL_0_0_1_REAL);
         public WaitForSeconds hitEffectDelay = new WaitForSeconds(KCDefine.B_VAL_0_0_2_REAL);
         public WaitForSeconds fxMissileDelay = new WaitForSeconds(GlobalDefine.FXMissile_Time);
+        public WaitForSeconds cellAppearDelay = new WaitForSeconds(GlobalDefine.FXCellAppear_Time);
 
         public GameScene.CSubGameSceneManager subGameSceneManager => CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME);
 
@@ -80,9 +80,9 @@ namespace NSEngine {
         private void InitCellRoot()
         {
             isGridMoving = false;
-            cellRootMoveVector = new Vector3(0, -(Access.CellSize.y * SelGridInfo.m_stScale.y), 0);
-
-            this.Params.m_oCellRoot.transform.localPosition = new Vector3(0, (((reHeight - Mathf.Min(gridWidth, gridHeight)) * 0.5f) - Access.CellSize.y - uiAreaTop), 0);
+            float cellsizeY = Access.CellSize.y * SelGridInfo.m_stScale.y;
+            
+            this.Params.m_oCellRoot.transform.localPosition = new Vector3(0, (((reHeight - Mathf.Min(gridWidth, gridHeight)) * 0.5f) - cellsizeY - uiAreaTop), 0);
         }
 
         private void InitLayerMask()
