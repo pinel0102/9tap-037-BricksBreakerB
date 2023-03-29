@@ -213,7 +213,7 @@ namespace GameScene {
 #endif // #if NEVER_USE_THIS
 			// 스프라이트를 설정한다 }
 
-			this.SubAwake();
+            this.SubAwake();
 		}
 
 		/** 씬을 설정한다 */

@@ -82,7 +82,7 @@ namespace NSEngine {
             isGridMoving = false;
             cellRootMoveVector = new Vector3(0, -(Access.CellSize.y * SelGridInfo.m_stScale.y), 0);
 
-            this.Params.m_oCellRoot.transform.localPosition = new Vector3(0, (((reHeight - Mathf.Min(gridWidth, gridHeight)) * 0.5f) - uiAreaTop), 0);
+            this.Params.m_oCellRoot.transform.localPosition = new Vector3(0, (((reHeight - Mathf.Min(gridWidth, gridHeight)) * 0.5f) - Access.CellSize.y - uiAreaTop), 0);
         }
 
         private void InitLayerMask()

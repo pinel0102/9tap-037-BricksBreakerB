@@ -118,32 +118,6 @@ namespace NSEngine {
             }
         }
 
-        private void CheckDeadLine()
-        {
-            if (lastCell != null)
-            {
-                Vector2 distanceVector = subGameSceneManager.mainCanvas.WorldToCanvas(lastCell.position - subGameSceneManager.deadLine.position);
-
-                float cellsizeY = Access.CellSize.y * SelGridInfo.m_stScale.y;
-                float distance = distanceVector.y - (cellsizeY * 0.5f);
-
-                //Debug.Log(CodeManager.GetMethodName() + string.Format("distance : {0} / {1}", distance, cellsizeY));
-
-                if (distance >= (cellsizeY * 2f))
-                {
-                    subGameSceneManager.warningObject.SetActive(false);
-                }            
-                else if ((distance >= (cellsizeY * 1f)) && (distance < (cellsizeY * 2f)))
-                {
-                    subGameSceneManager.warningObject.SetActive(true);
-                }
-                else
-                {
-                    LevelFail();
-                }
-            }
-        }
-
 #endregion Private Methods
 
 

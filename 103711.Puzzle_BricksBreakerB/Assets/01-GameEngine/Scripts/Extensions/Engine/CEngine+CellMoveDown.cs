@@ -118,6 +118,35 @@ namespace NSEngine {
 			}
         }
 
+        public void CheckDeadLine(bool isInitialize = false)
+        {
+            if (lastCell != null)
+            {
+                Vector2 distanceVector = subGameSceneManager.mainCanvas.WorldToCanvas(lastCell.position - subGameSceneManager.deadLine.position);
+
+                float cellsizeY = Access.CellSize.y * SelGridInfo.m_stScale.y;
+                float distance = distanceVector.y - (cellsizeY * 0.5f);
+
+                //Debug.Log(CodeManager.GetMethodName() + string.Format("distance : {0} / {1}", distance, cellsizeY));
+
+                if (distance >= (cellsizeY * 2f))
+                {
+                    subGameSceneManager.warningObject.SetActive(false);
+                }            
+                else if ((distance >= (cellsizeY * 1f)) && (distance < (cellsizeY * 2f)))
+                {
+                    subGameSceneManager.warningObject.SetActive(true);
+                }
+                else
+                {
+                    if (isInitialize)
+                        subGameSceneManager.warningObject.SetActive(true);
+                    else
+                        LevelFail();
+                }
+            }
+        }
+
         public bool IsEnableMoveDown(CEObj a_oObj) {
             var controller = a_oObj.GetController<CECellObjController>();
             var stIdx = new Vector3Int(controller.Idx.x, controller.Idx.y + a_oObj.Params.m_stObjInfo.m_stSize.y, controller.Idx.z);

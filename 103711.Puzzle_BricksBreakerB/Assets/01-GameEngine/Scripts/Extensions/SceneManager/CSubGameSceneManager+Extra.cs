@@ -21,7 +21,7 @@ namespace GameScene {
             
             ApplyDarkMode(CUserInfoStorage.Inst.UserInfo.Settings_DarkMode);
             warningObject.SetActive(false);
-            goldenAimOn.SetActive(Engine.isGoldAim);
+            goldenAimOn.SetActive(m_oEngine.isGoldAim);
         }
 
         public void HideShootUIs()
@@ -33,9 +33,9 @@ namespace GameScene {
 
         public void ToggleAimLayer()
         {
-            Engine.ToggleAimLayer();
+            m_oEngine.ToggleAimLayer();
 
-            goldenAimOn.SetActive(Engine.isGoldAim);
+            goldenAimOn.SetActive(m_oEngine.isGoldAim);
         }
 
         public void SetDarkMode(bool isDarkMode)
