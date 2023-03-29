@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public partial class GlobalDefine
 {
@@ -80,12 +81,12 @@ public partial class GlobalDefine
     }
 
     ///<Summary>이펙트 재생 (Missile 전용.)</Summary>
-    public static void ShowEffect(EFXSet _effect, Vector3 _position, float _angle, Transform _moveTarget, float _moveTime, bool _isWorldPosition = true)
+    public static void ShowEffect(EFXSet _effect, Vector3 _position, float _angle, NSEngine.CEObj _moveTarget, Action<NSEngine.CEObj> completeCallback, float _moveTime, bool _isWorldPosition = true)
     {
         KeyValuePair<string, float> _kv = FXContainer[_effect];
         Transform effect = CSceneManager.ActiveSceneManager.SpawnObj<Transform>(_kv.Key, _kv.Key, _position, _isWorldPosition);
         effect.GetComponent<FXSettings>().SetRotation(_angle);
-        effect.GetComponent<FXSettings>().SetMove(_moveTarget, _moveTime);
+        effect.GetComponent<FXSettings>().SetMove(_moveTarget, completeCallback, _moveTime);
         CSceneManager.ActiveSceneManager.DespawnObj(_kv.Key, effect.gameObject, _kv.Value);
     }
 

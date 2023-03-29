@@ -132,7 +132,7 @@ namespace LevelEditorScene {
         public void RefreshText(STCellObjInfo CellObjInfo, STObjInfo stObjInfo, TMP_Text _text)
         {
             if (_text != null)
-                _text.text = (stObjInfo.m_bIsEnableHit || GlobalDefine.IsExtraObjEnableHit(stObjInfo.m_oExtraObjKindsList)) && stObjInfo.m_bIsEnableReflect ? ((stObjInfo.m_bIsShieldCell && CellObjInfo.SHIELD > 0) ? CellObjInfo.SHIELD.ToString() : CellObjInfo.HP.ToString()) : string.Empty;
+                _text.text = (stObjInfo.m_bIsEnableHit || GlobalDefine.IsExtraObjEnableHit(stObjInfo.m_oExtraObjKindsList)) && stObjInfo.m_bIsEnableReflect ? ((stObjInfo.m_bIsShieldCell) ? CellObjInfo.SHIELD.ToString() : CellObjInfo.HP.ToString()) : string.Empty;
         }
         
 #endregion Cell Text

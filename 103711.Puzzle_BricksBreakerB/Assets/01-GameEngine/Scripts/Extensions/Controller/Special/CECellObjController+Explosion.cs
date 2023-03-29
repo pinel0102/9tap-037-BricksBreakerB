@@ -30,9 +30,9 @@ namespace NSEngine {
 
             //Debug.Log(CodeManager.GetMethodName() + string.Format("Row:{0}, Col:{1}, {2}", myCell.row, myCell.column, myCell.layer));
 
-            for(int i = 0; i < this.Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); ++i) 
+            for(int i = 0; i < Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); ++i) 
             {
-                CellDestroy_SkillTarget(_cRow, i);
+                Engine.CellDestroy_SkillTarget(_cRow, i);
             }
 
             ShowEffect_Explosion(GlobalDefine.FXLaser_Rotation_Horizontal);
@@ -46,9 +46,9 @@ namespace NSEngine {
 
             //Debug.Log(CodeManager.GetMethodName() + string.Format("Row:{0}, Col:{1}, {2}", myCell.row, myCell.column, myCell.layer));
 
-            for(int i = 0; i < this.Engine.CellObjLists.GetLength(KCDefine.B_VAL_0_INT); ++i) 
+            for(int i = 0; i < Engine.CellObjLists.GetLength(KCDefine.B_VAL_0_INT); ++i) 
             {
-                CellDestroy_SkillTarget(i, _cCol);
+                Engine.CellDestroy_SkillTarget(i, _cCol);
 			}
 
             ShowEffect_Explosion(GlobalDefine.FXLaser_Rotation_Vertictal);
@@ -70,11 +70,11 @@ namespace NSEngine {
 
             Debug.Log(CodeManager.GetMethodName() + string.Format("Row:{0}, Col:{1}, {2}", myCell.row, myCell.col, myCell.layer));
 
-            for (int i = Mathf.Max(0, _cRow - 1); i < Mathf.Min(_cRow + 2, this.Engine.CellObjLists.GetLength(KCDefine.B_VAL_0_INT)); i++)
+            for (int i = Mathf.Max(0, _cRow - 1); i < Mathf.Min(_cRow + 2, Engine.CellObjLists.GetLength(KCDefine.B_VAL_0_INT)); i++)
             {
-                for (int j = Mathf.Max(0, _cCol - 1); j < Mathf.Min(_cCol + 2, this.Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT)); j++)
+                for (int j = Mathf.Max(0, _cCol - 1); j < Mathf.Min(_cCol + 2, Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT)); j++)
                 {
-                    CellDestroy_SkillTarget(i, j);
+                    Engine.CellDestroy_SkillTarget(i, j);
                 }
             }
 

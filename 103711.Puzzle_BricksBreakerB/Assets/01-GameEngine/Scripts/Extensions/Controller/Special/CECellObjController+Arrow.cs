@@ -109,7 +109,7 @@ namespace NSEngine {
         {
             for(int i = startIndex; i < endIndex; ++i) 
             {
-                CellDestroy_SkillTarget(_cRow, i);
+                Engine.CellDestroy_SkillTarget(_cRow, i);
             }
         }
 
@@ -118,7 +118,7 @@ namespace NSEngine {
         {
             for(int i = startIndex; i < endIndex; ++i) 
             {
-                CellDestroy_SkillTarget(i, _cCol);
+                Engine.CellDestroy_SkillTarget(i, _cCol);
 			}
         }
 
@@ -129,7 +129,7 @@ namespace NSEngine {
             {
                 for (int j = startCol; j >= 0 && j < this.Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); )
                 {
-                    CellDestroy_SkillTarget(i, j);
+                    Engine.CellDestroy_SkillTarget(i, j);
 
                     startCol += directionX;
                     break;

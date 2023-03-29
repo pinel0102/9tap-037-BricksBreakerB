@@ -26,7 +26,7 @@ namespace NSEngine {
         ///<Summary>미사일.</Summary>
         private void Missile(CEBallObjController ballController, int targetCount, List<CEObj> excludeList)
         {
-            List<CEObj> targetList = this.Engine.GetRandomCells_SkillTarget(targetCount, excludeList);
+            List<CEObj> targetList = Engine.GetRandomCells_SkillTarget(targetCount, excludeList);
 
             for(int i=0; i < targetList.Count; i++)
             {
@@ -41,32 +41,11 @@ namespace NSEngine {
                 float fxAngle = GlobalDefine.GetAngle(this.transform.position, target.transform.position) + GlobalDefine.FXMissile_AngleOffset;
                 float distance = Vector2.Distance(this.transform.position, target.transform.position);
                 
-                GlobalDefine.ShowEffect(EFXSet.FX_MISSILE_BULLET, this.transform.position, fxAngle, target.transform, GlobalDefine.FXMissile_Time);
+                GlobalDefine.ShowEffect(EFXSet.FX_MISSILE_BULLET, this.transform.position, fxAngle, target, Engine.CellDestroy_SkillTarget, GlobalDefine.FXMissile_Time);
                 GlobalDefine.ShowEffect(EFXSet.FX_MISSILE_HEAD, target.transform.position);
 
-                oController.ReserveMissileDestroy();
+                //oController.ReserveMissileDestroy();
             }
         }
-
-#region Missile Hit
-
-        public void ReserveMissileDestroy()
-        {
-            if (!missileReserved)
-                StartCoroutine(CO_Missile_Destroy());
-        }
-
-        private IEnumerator CO_Missile_Destroy()
-        {
-            missileReserved = true;
-
-            yield return this.Engine.fxMissileDelay;
-
-            CEObj myCell = this.GetOwner<CEObj>();
-            CellDestroy_SkillTarget(myCell.row, myCell.col);
-        }
-
-#endregion Missile Hit
-
     }
 }

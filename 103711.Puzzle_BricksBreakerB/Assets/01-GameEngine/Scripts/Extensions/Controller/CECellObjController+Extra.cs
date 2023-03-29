@@ -6,9 +6,13 @@ namespace NSEngine {
     public partial class CECellObjController : CEObjController
     {
         public bool hideReserved;
-        public bool missileReserved;
 
         private Coroutine hitCoroutine;
+
+        private void Initialize()
+        {
+            this.hideReserved = false;
+        }
 
 #region Bricks Collision
 
@@ -21,7 +25,7 @@ namespace NSEngine {
 
 			var stCellObjInfo = oCellObj.CellObjInfo;
 
-            if (oCellObj.Params.m_stObjInfo.m_bIsShieldCell && stCellObjInfo.SHIELD > 0)
+            if (oCellObj.Params.m_stObjInfo.m_bIsShieldCell)
             {
                 stCellObjInfo.SHIELD = Mathf.Max(KCDefine.B_VAL_0_INT, stCellObjInfo.SHIELD - _ATK);
                 oCellObj.HPText.text = $"{stCellObjInfo.SHIELD}";
@@ -256,8 +260,41 @@ namespace NSEngine {
             }
         }
 
+        ///<Summary>셀 파괴. (열쇠 효과만 발동.)</Summary>
+        public void CellDestroy()
+        {
+            StopAllCoroutines();
+
+            CEObj _ceObj = this.GetOwner<CEObj>();
+            EObjKinds kinds = _ceObj.Params.m_stObjInfo.m_eObjKinds;
+            EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
+            var stCellObjInfo = _ceObj.CellObjInfo;
+
+            switch(kindsType)
+            {
+                case EObjKinds.OBSTACLE_BRICKS_KEY_01:
+                    GetObstacle_Key(kindsType);
+                    break;
+                case EObjKinds.OBSTACLE_BRICKS_WOODBOX_01:
+                case EObjKinds.OBSTACLE_BRICKS_WOODBOX_02:
+                    if (_ceObj.Params.m_stObjInfo.m_bIsShieldCell)
+                    {
+                        GetObstacle_WoodBox(kindsType, kinds);
+                        return;
+                    }
+                    break;
+            }
+            
+            _ceObj.Params.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(CEObjComponent.ECallback.ENGINE_OBJ_EVENT)?.Invoke(this.GetOwner<CEObj>(), EEngineObjEvent.DESTROY, string.Empty);
+        }
+
+#endregion Privates
+
+
+#region Deprecated
+
         ///<Summary>볼이 아닌 특수 효과로 셀을 공격. (셀 효과 미발동.)</Summary>
-        private void CellDamage_SkillTarget(CEObj target, CEBallObjController ballController, int _ATK)
+        /*private void CellDamage_SkillTarget(CEObj target, CEBallObjController ballController, int _ATK)
         {
             if (target != null)
             {
@@ -266,7 +303,7 @@ namespace NSEngine {
                 
                 if (target.Params.m_stObjInfo.m_bIsSkillTarget)
                 {
-                    if (target.Params.m_stObjInfo.m_bIsShieldCell && target.CellObjInfo.SHIELD > 0)
+                    if (target.Params.m_stObjInfo.m_bIsShieldCell)
                     {
                         if (target.CellObjInfo.SHIELD > _ATK)
                             target.GetComponent<CECellObjController>().GetDamage(ballController, kindsType, kinds, _ATK);
@@ -319,43 +356,15 @@ namespace NSEngine {
                     {
                         if (target.Params.m_stObjInfo.m_bIsSkillTarget)
                         {
-                            GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, target.transform.position, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, target.Params.m_stObjInfo.m_bIsShieldCell && target.CellObjInfo.SHIELD > 0, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID));
+                            GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, target.transform.position, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, target.Params.m_stObjInfo.m_bIsShieldCell, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID));
                             target.GetComponent<CECellObjController>().CellDestroy();
                         }
                     }
                 }
             }
-        }
+        }*/
 
-        ///<Summary>셀 파괴. (열쇠 효과만 발동.)</Summary>
-        private void CellDestroy()
-        {
-            StopAllCoroutines();
-
-            CEObj _ceObj = this.GetOwner<CEObj>();
-            EObjKinds kinds = _ceObj.Params.m_stObjInfo.m_eObjKinds;
-            EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
-            var stCellObjInfo = _ceObj.CellObjInfo;
-
-            switch(kindsType)
-            {
-                case EObjKinds.OBSTACLE_BRICKS_KEY_01:
-                    GetObstacle_Key(kindsType);
-                    break;
-                case EObjKinds.OBSTACLE_BRICKS_WOODBOX_01:
-                case EObjKinds.OBSTACLE_BRICKS_WOODBOX_02:
-                    if (_ceObj.Params.m_stObjInfo.m_bIsShieldCell && stCellObjInfo.SHIELD > 0)
-                    {
-                        GetObstacle_WoodBox(kindsType, kinds);
-                        return;
-                    }
-                    break;
-            }
-            
-            _ceObj.Params.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(CEObjComponent.ECallback.ENGINE_OBJ_EVENT)?.Invoke(this.GetOwner<CEObj>(), EEngineObjEvent.DESTROY, string.Empty);
-        }
-
-#endregion Privates
+#endregion Deprecated
 
     }
 }

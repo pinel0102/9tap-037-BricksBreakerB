@@ -26,11 +26,11 @@ namespace NSEngine {
         ///<Summary>지진.</Summary>
         private void Earthquake(CEBallObjController ballController, int _ATK, List<CEObj> excludeList)
         {
-            List<CEObj> targetList = this.Engine.GetAllCells_SkillTarget(excludeList);
+            List<CEObj> targetList = Engine.GetAllCells_SkillTarget(excludeList);
 
             for(int i=0; i < targetList.Count; i++)
             {
-                CellDamage_SkillTarget(targetList[i], ballController, _ATK);
+                Engine.CellDamage_SkillTarget(targetList[i], ballController, _ATK);
             }
 
             ShowEffect_Earthquake();

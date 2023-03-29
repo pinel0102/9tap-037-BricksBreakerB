@@ -26,15 +26,15 @@ namespace NSEngine {
 
         private void AddBall(int _addCount)
         {
-            int _oldCount = this.Engine.BallObjList.Count;
+            int _oldCount = Engine.BallObjList.Count;
             
             for (int i=0; i < _addCount; i++)
             {
-                this.Engine.AddBall(_oldCount + i);
-                this.Engine.BallObjList[_oldCount+i].NumText.text = string.Empty;
+                Engine.AddBall(_oldCount + i);
+                Engine.BallObjList[_oldCount+i].NumText.text = string.Empty;
             }
 
-            this.Engine.AddShootBalls(_oldCount, _addCount);
+            Engine.AddShootBalls(_oldCount, _addCount);
         }
     }
 }

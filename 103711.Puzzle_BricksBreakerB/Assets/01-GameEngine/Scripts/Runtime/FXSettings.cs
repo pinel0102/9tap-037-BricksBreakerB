@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using DG.Tweening;
 
 public class FXSettings : MonoBehaviour
@@ -40,9 +41,9 @@ public class FXSettings : MonoBehaviour
         }
     }
 
-    public void SetMove(Transform target, float moveTime)
+    public void SetMove(NSEngine.CEObj target, Action<NSEngine.CEObj> completeCallback, float moveTime)
     {
-        var oAni = transform.DOMove(target.position, moveTime);
-		oAni.SetAutoKill().SetEase(Ease.OutQuad);
+        var oAni = transform.DOMove(target.transform.position, moveTime);
+        oAni.SetAutoKill().SetEase(Ease.OutQuad).OnComplete(() => { completeCallback?.Invoke(target); });
     }
 }

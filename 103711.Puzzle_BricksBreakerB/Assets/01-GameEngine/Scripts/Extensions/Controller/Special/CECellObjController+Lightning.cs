@@ -26,11 +26,11 @@ namespace NSEngine {
         ///<Summary>번개.</Summary>
         private void Lightning(CEBallObjController ballController, int _ATK, int targetCount, List<CEObj> excludeList)
         {
-            List<CEObj> targetList = this.Engine.GetRandomCells_SkillTarget(targetCount, excludeList);
+            List<CEObj> targetList = Engine.GetRandomCells_SkillTarget(targetCount, excludeList);
 
             for(int i=0; i < targetList.Count; i++)
             {
-                CellDamage_SkillTarget(targetList[i], ballController, _ATK);
+                Engine.CellDamage_SkillTarget(targetList[i], ballController, _ATK);
                 ShowEffect_Lightning(targetList[i]);
             }
         }
