@@ -72,7 +72,6 @@ MonoBehaviour:
   HitSprite: {fileID: 3725735796239723544}
   UpperSprite: {fileID: 6394163623787343674}
   kinds: 0
-  isNeedUpperSprite: 0
   row: 0
   col: 0
   layer: 0

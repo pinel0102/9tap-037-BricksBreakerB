@@ -18,17 +18,16 @@ namespace NSEngine {
                     if (_count > 0)
                     {
                         int _cLastLayer = _count - 1;
-                        if(this.CellObjLists[row, col][_cLastLayer].gameObject.activeSelf) 
-                        {
+                        //if(this.CellObjLists[row, col][_cLastLayer].gameObject.activeInHierarchy) {
                             CEObj target = this.CellObjLists[row, col][_cLastLayer];
-                            if (target != null)
+                            if (target != null && target.IsActiveCell())
                             {
                                 if (target.Params.m_stObjInfo.m_bIsSkillTarget)
                                 {
                                     cellList.Add(target);
                                 }
                             }
-                        }
+                        //}
                     }
                 }
             }
@@ -50,17 +49,16 @@ namespace NSEngine {
                     if (_count > 0)
                     {
                         int _cLastLayer = _count - 1;
-                        if(this.CellObjLists[row, col][_cLastLayer].gameObject.activeSelf) 
-                        {
+                        //if(this.CellObjLists[row, col][_cLastLayer].gameObject.activeInHierarchy) {
                             CEObj target = this.CellObjLists[row, col][_cLastLayer];
-                            if (target != null)
+                            if (target != null && target.IsActiveCell())
                             {
                                 if (target.Params.m_stObjInfo.m_bIsSkillTarget)
                                 {
                                     cellList.Add(target);
                                 }
                             }
-                        }
+                        //}
                     }
                 }
             }
@@ -92,17 +90,16 @@ namespace NSEngine {
                     if (_count > 0)
                     {
                         int _cLastLayer = _count - 1;
-                        if(this.CellObjLists[row, col][_cLastLayer].gameObject.activeSelf) 
-                        {
+                        //if(this.CellObjLists[row, col][_cLastLayer].gameObject.activeInHierarchy){
                             CEObj target = this.CellObjLists[row, col][_cLastLayer];
-                            if (target != null)
+                            if (target != null && target.IsActiveCell())
                             {
                                 if (target.Params.m_stObjInfo.m_eObjKinds == kindsToGet)
                                 {
                                     cellList.Add(target);
                                 }
                             }
-                        }
+                        //}
                     }
                 }
             }
@@ -110,19 +107,19 @@ namespace NSEngine {
             return cellList;
         }
 
-        public CEObj GetLastCell()
+        public CEObj GetLastClearTarget()
         {
-            bool isLastCellFound = false;
+            bool isCellFound = false;
 
             for(int i = this.CellObjLists.GetLength(KCDefine.B_VAL_0_INT) - 1; i >= 0 ; i--) {
 				for(int j = this.CellObjLists.GetLength(KCDefine.B_VAL_1_INT) - 1; j >= 0 ; j--) {
 					for(int k = 0; k < this.CellObjLists[i, j].Count; ++k) {
 						// 셀이 존재 할 경우
-						if(this.CellObjLists[i, j][k].gameObject.activeSelf) {
+						//if(this.CellObjLists[i, j][k].gameObject.activeInHierarchy) {
                             CEObj target = this.CellObjLists[i, j][k];
-                            if (target != null && target.TryGetComponent<CECellObjController>(out CECellObjController oController))
+                            if (target != null && target.IsActiveCell())
                             {
-                                if (!isLastCellFound)
+                                if (!isCellFound)
                                 {
                                     if (target.Params.m_stObjInfo.m_bIsClearTarget)
                                     {
@@ -130,7 +127,35 @@ namespace NSEngine {
                                     }
                                 }
                             }
-						}
+						//}
+					}
+				}
+			}
+
+            return null;
+        }
+
+        public CEObj GetFirstViewingCell()
+        {
+            bool isCellFound = false;
+
+            for(int i = this.CellObjLists.GetLength(KCDefine.B_VAL_0_INT) - 1; i >= 0 ; i--) {
+				for(int j = this.CellObjLists.GetLength(KCDefine.B_VAL_1_INT) - 1; j >= 0 ; j--) {
+					for(int k = 0; k < this.CellObjLists[i, j].Count; ++k) {
+						// 셀이 존재 할 경우
+						//if(this.CellObjLists[i, j][k].gameObject.activeInHierarchy) {
+                            CEObj target = this.CellObjLists[i, j][k];
+                            if (target != null && target.IsActiveCell())
+                            {
+                                if (!isCellFound)
+                                {
+                                    if (target.Params.m_stObjInfo.m_bIsClearTarget)
+                                    {
+                                        return target;
+                                    }
+                                }
+                            }
+						//}
 					}
 				}
 			}

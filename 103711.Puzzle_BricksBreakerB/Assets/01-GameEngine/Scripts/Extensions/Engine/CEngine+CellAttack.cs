@@ -8,7 +8,7 @@ namespace NSEngine {
         ///<Summary>볼이 아닌 특수 효과로 셀을 공격. (셀 효과 미발동.)</Summary>
         public void CellDamage_SkillTarget(CEObj target, CEBallObjController ballController, int _ATK)
         {
-            if (target != null && target.gameObject.activeInHierarchy)
+            if (target != null && target.IsActiveCell())
             {
                 EObjKinds kinds = target.Params.m_stObjInfo.m_eObjKinds;
                 EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
@@ -46,7 +46,7 @@ namespace NSEngine {
             if (_count > 0)
             {
                 int _cLastLayer = _count - 1;
-                if(this.CellObjLists[row, col][_cLastLayer].gameObject.activeInHierarchy) 
+                if(this.CellObjLists[row, col][_cLastLayer].IsActiveCell()) 
                 {
                     CEObj target = this.CellObjLists[row, col][_cLastLayer];
                     CellDamage_SkillTarget(target, ballController, _ATK);
@@ -57,7 +57,7 @@ namespace NSEngine {
         ///<Summary>볼이 아닌 특수 효과로 셀을 파괴. (셀 효과 미발동.)</Summary>
         public void CellDestroy_SkillTarget(CEObj target)
         {
-            if (target != null && target.gameObject.activeInHierarchy)
+            if (target != null && target.IsActiveCell())
             {
                 if (target.Params.m_stObjInfo.m_bIsSkillTarget)
                 {
@@ -74,7 +74,7 @@ namespace NSEngine {
             if (_count > 0)
             {
                 int _cLastLayer = _count - 1;
-                if(this.CellObjLists[row, col][_cLastLayer].gameObject.activeInHierarchy) 
+                if(this.CellObjLists[row, col][_cLastLayer].IsActiveCell()) 
                 {
                     CEObj target = this.CellObjLists[row, col][_cLastLayer];
                     CellDestroy_SkillTarget(target);

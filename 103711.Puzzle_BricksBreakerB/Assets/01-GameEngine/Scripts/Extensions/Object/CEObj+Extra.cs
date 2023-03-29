@@ -108,5 +108,16 @@ namespace NSEngine {
                     break;
             }
         }
+
+        public void SetCellActive(bool _isActive)
+        {
+            TargetSprite.gameObject.SetActive(_isActive);
+        }
+
+        ///<Summary>살아 있는 셀 중에서 인게임 영역 안에 있는 셀.</Summary>
+        public bool IsActiveCell()
+        {
+            return this.gameObject.activeInHierarchy && TargetSprite.gameObject.activeSelf;
+        }
     }
 }

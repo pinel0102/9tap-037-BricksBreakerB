@@ -74,6 +74,7 @@ namespace NSEngine {
             isGridMoving = false;
 
             CheckDeadLine();
+            RefreshActiveCells();
 		}
 
         ///<Summary>턴 종료시 셀이 내려온 후에 발동.</Summary>
@@ -86,14 +87,14 @@ namespace NSEngine {
         ///<Summary>턴 종료시 셀이 내려오기 전에 발동.</Summary>
         private void TurnEndAction()
         {
-            lastCell = null;
+            lastClearTarget = null;
             bool isLastCellAssigned = false;
 
             for(int i = this.CellObjLists.GetLength(KCDefine.B_VAL_0_INT) - 1; i >= 0 ; i--) {
 				for(int j = this.CellObjLists.GetLength(KCDefine.B_VAL_1_INT) - 1; j >= 0 ; j--) {
 					for(int k = 0; k < this.CellObjLists[i, j].Count; ++k) {
 						// 셀이 존재 할 경우
-						if(this.CellObjLists[i, j][k].gameObject.activeSelf) {
+						if(this.CellObjLists[i, j][k].IsActiveCell()) {
                             CEObj target = this.CellObjLists[i, j][k];
                             if (target != null && target.TryGetComponent<CECellObjController>(out CECellObjController oController))
                             {
@@ -107,7 +108,7 @@ namespace NSEngine {
                                 {
                                     if (target.Params.m_stObjInfo.m_bIsClearTarget)
                                     {
-                                        lastCell = target.transform;
+                                        lastClearTarget = target.transform;
                                         isLastCellAssigned = true;
                                     }
                                 }
@@ -120,9 +121,9 @@ namespace NSEngine {
 
         public void CheckDeadLine(bool isInitialize = false)
         {
-            if (lastCell != null)
+            if (lastClearTarget != null)
             {
-                Vector2 distanceVector = subGameSceneManager.mainCanvas.WorldToCanvas(lastCell.position - subGameSceneManager.deadLine.position);
+                Vector2 distanceVector = subGameSceneManager.mainCanvas.WorldToCanvas(lastClearTarget.position - subGameSceneManager.deadLine.position);
 
                 float cellsizeY = Access.CellSize.y * SelGridInfo.m_stScale.y;
                 float distance = distanceVector.y - (cellsizeY * 0.5f);
@@ -144,6 +145,10 @@ namespace NSEngine {
                     else
                         LevelFail();
                 }
+            }
+            else
+            {
+                subGameSceneManager.warningObject.SetActive(false);
             }
         }
 
@@ -167,5 +172,36 @@ namespace NSEngine {
 
 			return true;
 		}
+
+        public void RefreshActiveCells()
+        {
+            /*for(int i = this.CellObjLists.GetLength(KCDefine.B_VAL_0_INT) - 1; i >= 0 ; i--) {
+				for(int j = this.CellObjLists.GetLength(KCDefine.B_VAL_1_INT) - 1; j >= 0 ; j--) {
+					for(int k = 0; k < this.CellObjLists[i, j].Count; ++k) {
+						// 셀이 존재 할 경우
+						if(this.CellObjLists[i, j][k].IsActiveCell()) {
+                            CEObj target = this.CellObjLists[i, j][k];
+                            if (target != null && target.TryGetComponent<CECellObjController>(out CECellObjController oController))
+                            {
+                                if (target.Params.m_stObjInfo.m_bIsOnce)
+                                    oController.HideReservedCell();
+
+                                if (target.Params.m_stObjInfo.m_bIsEnableChange)
+                                    oController.ChangeCellToExtraKinds();
+
+                                if (!isLastCellAssigned)
+                                {
+                                    if (target.Params.m_stObjInfo.m_bIsClearTarget)
+                                    {
+                                        lastClearTarget = target.transform;
+                                        isLastCellAssigned = true;
+                                    }
+                                }
+                            }
+						}
+					}
+				}
+			}*/
+        }
     }
 }

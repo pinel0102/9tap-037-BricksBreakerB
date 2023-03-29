@@ -6,7 +6,7 @@ namespace NSEngine {
     public partial class CEngine : CComponent
     {
         [Header("★ [Live] Parameter")]
-        public Transform lastCell;
+        public Transform lastClearTarget;
 
         [Header("★ [Parameter] Options")]
         public bool isGoldAim;

@@ -284,87 +284,12 @@ namespace NSEngine {
                     }
                     break;
             }
-            
+
+            _ceObj.SetCellActive(false);
             _ceObj.Params.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(CEObjComponent.ECallback.ENGINE_OBJ_EVENT)?.Invoke(this.GetOwner<CEObj>(), EEngineObjEvent.DESTROY, string.Empty);
         }
 
 #endregion Privates
-
-
-#region Deprecated
-
-        ///<Summary>볼이 아닌 특수 효과로 셀을 공격. (셀 효과 미발동.)</Summary>
-        /*private void CellDamage_SkillTarget(CEObj target, CEBallObjController ballController, int _ATK)
-        {
-            if (target != null)
-            {
-                EObjKinds kinds = target.Params.m_stObjInfo.m_eObjKinds;
-                EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
-                
-                if (target.Params.m_stObjInfo.m_bIsSkillTarget)
-                {
-                    if (target.Params.m_stObjInfo.m_bIsShieldCell)
-                    {
-                        if (target.CellObjInfo.SHIELD > _ATK)
-                            target.GetComponent<CECellObjController>().GetDamage(ballController, kindsType, kinds, _ATK);
-                        else
-                        {
-                            GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, target.transform.position, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, true, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID));
-                            target.GetComponent<CECellObjController>().CellDestroy();
-                        }
-                    }
-                    else
-                    {
-                        if (target.CellObjInfo.HP > _ATK)
-                            target.GetComponent<CECellObjController>().GetDamage(ballController, kindsType, kinds, _ATK);
-                        else
-                        {
-                            GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, target.transform.position, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, false, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID));
-                            target.GetComponent<CECellObjController>().CellDestroy();
-                        }
-                    }
-                }
-            }
-        }
-
-        ///<Summary>볼이 아닌 특수 효과로 셀을 공격. (셀 효과 미발동.)</Summary>
-        private void CellDamage_SkillTarget(int row, int col, CEBallObjController ballController, int _ATK)
-        {
-            int _count = this.Engine.CellObjLists[row, col].Count;
-            if (_count > 0)
-            {
-                int _cLastLayer = _count - 1;
-                if(this.Engine.CellObjLists[row, col][_cLastLayer].gameObject.activeSelf) 
-                {
-                    CEObj target = this.Engine.CellObjLists[row, col][_cLastLayer];
-                    CellDamage_SkillTarget(target, ballController, _ATK);
-                }
-            }
-        }
-
-        ///<Summary>볼이 아닌 특수 효과로 셀을 파괴. (셀 효과 미발동.)</Summary>
-        private void CellDestroy_SkillTarget(int row, int col)
-        {
-            int _count = this.Engine.CellObjLists[row, col].Count;
-            if (_count > 0)
-            {
-                int _cLastLayer = _count - 1;
-                if(this.Engine.CellObjLists[row, col][_cLastLayer].gameObject.activeSelf) 
-                {
-                    CEObj target = this.Engine.CellObjLists[row, col][_cLastLayer];
-                    if (target != null)
-                    {
-                        if (target.Params.m_stObjInfo.m_bIsSkillTarget)
-                        {
-                            GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, target.transform.position, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, target.Params.m_stObjInfo.m_bIsShieldCell, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID));
-                            target.GetComponent<CECellObjController>().CellDestroy();
-                        }
-                    }
-                }
-            }
-        }*/
-
-#endregion Deprecated
 
     }
 }
