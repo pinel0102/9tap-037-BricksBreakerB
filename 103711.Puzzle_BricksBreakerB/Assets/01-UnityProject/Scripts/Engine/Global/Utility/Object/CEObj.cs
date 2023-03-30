@@ -51,6 +51,17 @@ namespace NSEngine {
             this.SubInit();
 		}
 
+        public void ChangeKinds(EObjKinds toKinds)
+        {
+            var _params = this.Params;
+            _params.m_stObjInfo = CObjInfoTable.Inst.GetObjInfo(toKinds);
+
+            this.Params = _params;
+            this.kinds = this.Params.m_stObjInfo.m_eObjKinds;
+
+            SetTargetSprite();
+        }
+
         public void RefreshStdInfo(STParams a_stParams)
         {
             this.Params = a_stParams;

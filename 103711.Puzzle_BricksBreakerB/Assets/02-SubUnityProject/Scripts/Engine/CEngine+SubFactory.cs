@@ -117,7 +117,7 @@ namespace NSEngine {
 			var oController = a_bIsEnableController ? oObj.gameObject.ExAddComponent<CEBallObjController>() : null;
 
 			oObj.Init(CEObj.MakeParams(this, a_stObjInfo, a_oObjTargetInfo, oController, KDefine.E_KEY_BALL_OBJ_OBJS_POOL));
-			oObj.SetSpriteColor(EObjKinds.BALL_NORM_01);
+			oObj.SetSpriteColor(a_stObjInfo.m_eObjKinds);
 
             oController?.Init(oObj, CEBallObjController.MakeParams(this), _index);
 

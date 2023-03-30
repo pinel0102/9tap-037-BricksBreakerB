@@ -18,30 +18,6 @@ namespace NSEngine {
             currentAimLayer = _reflectBricks ? layerReflect : layerWall;
         }
 
-        public void AddBall(int _index)
-        {
-            var oBallObj = this.CreateBallObj(_index, CObjInfoTable.Inst.GetObjInfo(EObjKinds.BALL_NORM_01), null);
-            oBallObj.NumText.text = string.Empty;
-            oBallObj.transform.localPosition = startPosition;
-            
-            this.BallObjList.ExAddVal(oBallObj);
-        }
-
-        public void AddShootBalls(int _startIndex, int _count)
-        {
-            StartCoroutine(CO_WaitShootDelay(_startIndex, _count));
-        }
-
-        public void RefreshBallText()
-        {
-            for (int i=1; i < this.BallObjList.Count; i++)
-            {
-                this.BallObjList[i].NumText.text = string.Empty;
-            }
-
-            this.BallObjList[0].NumText.text = this.BallObjList.Count.ToString();
-        }
-
         public void CheckClear(bool _waitDelay = false)
         {
             RefreshBallText();
@@ -70,40 +46,7 @@ namespace NSEngine {
 
 
 #region Private Methods
-        private void CheckRemoveBalls()
-        {
-            for(int i=this.BallObjList.Count - 1; i >= 0; i--)
-            {
-                if (this.BallObjList[i].GetController<CEBallObjController>().isRemoveMoveEnd)
-                {
-                    GameObject.Destroy(this.BallObjList[i].gameObject);
-                    this.BallObjList.Remove(this.BallObjList[i]);
-                }
-            }
-
-            //Debug.Log("this.BallObjList.Count : " + this.BallObjList.Count);
-        }
-
-        private void CreateBall(int _index)
-        {
-            var oBallObj = this.CreateBallObj(_index, CObjInfoTable.Inst.GetObjInfo(EObjKinds.BALL_NORM_01), null);
-            oBallObj.NumText.text = string.Empty;
-            //oBallObj.transform.localPosition = this.SelGridInfo.m_stPivotPos + new Vector3(this.SelGridInfo.m_stBounds.size.x / KCDefine.B_VAL_2_REAL, -this.SelGridInfo.m_stBounds.size.y, KCDefine.B_VAL_0_INT) - new Vector3(0, this.SelGridInfo.aimAdjustHeight * 0.5f, 0);
-            oBallObj.transform.localPosition = new Vector3(0, (-(reHeight * 0.5f) + uiAreaBottom) / SelGridInfo.m_stScale.y, 0);
-            oBallObj.transform.localPosition += new Vector3(KCDefine.B_VAL_0_REAL, oBallObj.TargetSprite.sprite.textureRect.height / KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_INT);
-
-            this.BallObjList.ExAddVal(oBallObj);
-        }
-
-        private void ShootBalls(int _startIndex, int _count)
-        {
-            CScheduleManager.Inst.AddTimer(this, GlobalDefine.SHOOT_BALL_DELAY, (uint)_count, () => {
-                //Debug.Log(CodeManager.GetMethodName() + string.Format("BallObjList[{0}]", _startIndex));
-                this.BallObjList[_startIndex++].GetController<CEBallObjController>().Shoot(shootDirection);
-                currentShootCount++;
-            });
-        }
-
+        
         private void ChangeLayer(Transform trans, int newLayer)
         {
             ChangeLayersRecursively(trans, newLayer);
@@ -122,16 +65,6 @@ namespace NSEngine {
 
 
 #region Coroutines
-
-        private IEnumerator CO_WaitShootDelay(int _startIndex, int _count)
-        {
-            while(currentShootCount < _startIndex)
-            {
-                yield return null;
-            }
-
-            ShootBalls(_startIndex, _count);
-        }
 
         private IEnumerator CO_Clear()
         {

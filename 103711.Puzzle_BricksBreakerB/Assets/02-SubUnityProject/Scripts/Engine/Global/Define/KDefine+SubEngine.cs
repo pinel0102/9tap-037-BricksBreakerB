@@ -28,9 +28,7 @@ namespace NSEngine {
 		};
 
 		public static readonly Dictionary<EObjKinds, STSortingOrderInfo> E_SORTING_OI_OBJ_DICT = new Dictionary<EObjKinds, STSortingOrderInfo>() {
-			[EObjKinds.BG_EMPTY_01] = new STSortingOrderInfo() {
-				m_nOrder = KCDefine.U_SORTING_O_BACKGROUND, m_oLayer = KCDefine.U_SORTING_L_BACKGROUND
-			},
+			[EObjKinds.BG_EMPTY_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_BACKGROUND, m_oLayer = KCDefine.U_SORTING_L_BACKGROUND },
 
 			[EObjKinds.NORM_BRICKS_SQUARE_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
 			[EObjKinds.NORM_BRICKS_TRIANGLE_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_CELL },
@@ -66,7 +64,7 @@ namespace NSEngine {
             [EObjKinds.OBSTACLE_BRICKS_CLOSE_01] = new STSortingOrderInfo() { m_nOrder = 10, m_oLayer = KCDefine.U_SORTING_L_CELL },
             [EObjKinds.OBSTACLE_BRICKS_WOODBOX_01] = new STSortingOrderInfo() { m_nOrder = 10, m_oLayer = KCDefine.U_SORTING_L_CELL },
 
-			[EObjKinds.BALL_NORM_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_BALL }
+			[EObjKinds.BALL_NORM_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_BALL },
 		};
 
 		public static readonly Dictionary<EFXKinds, STSortingOrderInfo> E_SORTING_OI_FX_DICT = new Dictionary<EFXKinds, STSortingOrderInfo>() {
@@ -154,6 +152,8 @@ namespace NSEngine {
             [EObjKinds.OBSTACLE_BRICKS_WARP_OUT_04] = EObjKinds.OBSTACLE_BRICKS_WARP_OUT_04.ToString(),
 
 			[EObjKinds.BALL_NORM_01] = EObjKinds.BALL_NORM_01.ToString(),
+            [EObjKinds.BALL_NORM_02] = EObjKinds.BALL_NORM_02.ToString(),
+            [EObjKinds.BALL_NORM_03] = EObjKinds.BALL_NORM_03.ToString(),
 		};
 		// 경로 }
 		#endregion // 런타임 상수

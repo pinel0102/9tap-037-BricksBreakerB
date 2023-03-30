@@ -10,8 +10,8 @@ namespace NSEngine {
         {
             //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kindsType));
 
-            int _index = ((int)kinds).ExKindsToDetailSubKindsTypeVal();
-            int _addCount = GlobalDefine.GetSpecial_AddBall[_index];
+            int _addBallIndex = ((int)kinds).ExKindsToDetailSubKindsTypeVal();
+            int _addCount = GlobalDefine.GetSpecial_AddBall[_addBallIndex];
 
             switch(kindsType)
             {
@@ -26,15 +26,7 @@ namespace NSEngine {
 
         private void AddBall(int _addCount)
         {
-            int _oldCount = Engine.BallObjList.Count;
-            
-            for (int i=0; i < _addCount; i++)
-            {
-                Engine.AddBall(_oldCount + i);
-                Engine.BallObjList[_oldCount+i].NumText.text = string.Empty;
-            }
-
-            Engine.AddShootBalls(_oldCount, _addCount);
+            Engine.AddNormalBalls(Engine.startPosition, _addCount);
         }
     }
 }

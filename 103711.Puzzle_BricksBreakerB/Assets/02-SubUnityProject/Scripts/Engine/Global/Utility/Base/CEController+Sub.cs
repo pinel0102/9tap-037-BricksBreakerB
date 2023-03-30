@@ -37,8 +37,8 @@ namespace NSEngine {
 		#endregion // 변수
 
 		#region 프로퍼티
-		public EState State { get; private set; } = EState.NONE;
-		public ESubState SubState { get; private set; } = ESubState.NONE;
+		public EState State /*{ get; private set; }*/ = EState.NONE;
+		public ESubState SubState /*{ get; private set; }*/ = ESubState.NONE;
 		protected Dictionary<EState, System.Func<bool>> StateCheckerDict { get; } = new Dictionary<EState, System.Func<bool>>();
 		protected Dictionary<ESubState, System.Func<bool>> SubStateCheckerDict { get; } = new Dictionary<ESubState, System.Func<bool>>();
 

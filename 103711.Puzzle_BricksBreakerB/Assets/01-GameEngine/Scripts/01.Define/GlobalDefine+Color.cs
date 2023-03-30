@@ -19,16 +19,22 @@ public static partial class GlobalDefine
 
     public const string COLORHEX_BRICKS_DEFAULT = "#407AD9FF";
     public const string COLORHEX_BALL_DEFAULT = "#FF0000FF";
+    public const string COLORHEX_BALL_PLUS = "#FF6B3FFF";
+    public const string COLORHEX_BALL_AMPLIFICATION = "#39D6E2FF";
     public const string COLORHEX_CELL_APPEAR = "#64C8FFFF";
     public static Color COLOR_CELL_APPEAR = GetColor(COLORHEX_CELL_APPEAR);
 
     public static Color GetCellColor(EObjKinds kinds, bool isShield, bool isEnableColor, int _colorID = 0, int _HP = 100)
     {
         EObjType cellType = (EObjType)((int)kinds).ExKindsToType();
-        switch(cellType)
+        switch(kinds)
         {
-            case EObjType.BALL: 
+            case EObjKinds.BALL_NORM_01: 
                 return GetColor(GlobalDefine.COLORHEX_BALL_DEFAULT);
+            case EObjKinds.BALL_NORM_02: 
+                return GetColor(GlobalDefine.COLORHEX_BALL_PLUS);
+            case EObjKinds.BALL_NORM_03: 
+                return GetColor(GlobalDefine.COLORHEX_BALL_AMPLIFICATION);
             default:
                 break;
         }

@@ -10,8 +10,6 @@ namespace NSEngine {
         {
             //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kindsType));
 
-            //ballController.transform.position = transform.position;
-            
             switch(kindsType)
             {
                 case EObjKinds.SPECIAL_BRICKS_BALL_DIFFUSION_01:
@@ -44,31 +42,13 @@ namespace NSEngine {
         ///<Summary>볼 증폭. (2개가 되어 확산.)</Summary>
         private void Refract_Amplification(CEBallObjController ballController)
         {
+            CEBallObjController ballController2 = Engine.AddExtraBall(ballController.transform.position);
+
             ballController.isOn_Amplification = true;
-            
-            CEBallObjController ballController2 = CreateBall_NotAffect(ballController.transform.position);
+            ballController2.isOn_Amplification = true;
 
             Refract_Diffusion(ballController);
             Refract_Diffusion(ballController2);
-        }
-
-        private CEBallObjController CreateBall_NotAffect(Vector3 _position)
-        {
-            int _oldCount = this.Engine.BallObjList.Count;
-
-            var oBallObj = this.Engine.CreateBallObj(_oldCount, CObjInfoTable.Inst.GetObjInfo(EObjKinds.BALL_NORM_01), null);
-            oBallObj.NumText.text = string.Empty;
-            oBallObj.transform.position = _position;
-            
-            this.Engine.BallObjList.ExAddVal(oBallObj);
-            this.Engine.BallObjList[_oldCount].NumText.text = string.Empty;
-
-            CEBallObjController ballController = oBallObj.GetComponent<CEBallObjController>();
-            ballController.isRemoveMoveEnd = true;
-            ballController.isOn_Amplification = true;
-            ballController.Shoot(this.Engine.shootDirection);
-
-            return ballController;
         }
     }
 }

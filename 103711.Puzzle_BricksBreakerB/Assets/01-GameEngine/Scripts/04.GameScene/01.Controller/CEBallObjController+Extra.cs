@@ -5,22 +5,15 @@ using UnityEngine;
 namespace NSEngine {
     public partial class CEBallObjController : CEObjController
     {
-        public float defaultRadius;
-        public Vector3 defaultBallScale;
-
-        public bool isRemoveMoveEnd;
-        public bool isOn_Amplification;
-        public bool isOn_PowerBall;
-        public List<CECellObjController> usedWormholes = new List<CECellObjController>();
-        public int extraATK;
-        
-        public CircleCollider2D _collider;
         public int myIndex;
-
-        //public Vector3 moveVector = Vector3.zero;
-        //private float deltaTime;
-
+        public int extraATK;
+        public bool isOn_PowerBall;
+        public bool isOn_Amplification;
+        public List<CECellObjController> usedWormholes = new List<CECellObjController>();
+        
         private CEObj _ceObj;
+        private CircleCollider2D _collider;
+        private float defaultRadius;
 
         private void SaveDefaultState(CEObj oObj)
         {
@@ -30,21 +23,22 @@ namespace NSEngine {
                 _collider = GetComponent<CircleCollider2D>();
 
             defaultRadius = _collider.radius;
-            defaultBallScale = _ceObj.TargetSprite.transform.localScale;
-            
-            isRemoveMoveEnd = false;
         }
 
         public void Initialize()
         {
             SetState(EState.IDLE, true);
             
-            //SetBallSize(1f);
             FXToggle_PowerBall(false);
             isOn_Amplification = false;
             isOn_PowerBall = false;
             usedWormholes.Clear();
             extraATK = 0;
+        }
+
+        public void ChangeToNormalBall()
+        {
+            _ceObj.ChangeKinds(EObjKinds.BALL_NORM_01);
         }
 
         // 반사되지 않는 셀은 1번만 효과를 발동해야 하므로 여기에서 처리한다.
@@ -81,12 +75,6 @@ namespace NSEngine {
             
             _collider.enabled = _enabled;
         }
-
-        /*public void SetBallSize(float multiplier)
-        {
-            _collider.radius = defaultRadius * multiplier;
-            _ceObj.TargetSprite.transform.localScale = defaultBallScale * multiplier;
-        }*/
 
         public void FXToggle_PowerBall(bool _isOn)
         {

@@ -144,9 +144,12 @@ public partial class CScheduleManager : CSingleton<CScheduleManager> {
 	}
 
 	/** 타이머를 추가한다 */
-	public void AddTimer(CComponent a_oComponent, float a_fDeltaTime, uint a_nRepeatTimes, UnityAction a_oCallback, bool a_bIsRealtime = false) {
-		var eTimerMode = a_bIsRealtime ? TimerMode.REALTIME : TimerMode.NORM;
-		TimersManager.SetTimer(a_oComponent, new Timer(a_fDeltaTime, a_nRepeatTimes, a_oCallback, eTimerMode));
+	public Timer AddTimer(CComponent a_oComponent, float a_fDeltaTime, uint a_nRepeatTimes, UnityAction a_oCallback, bool a_bIsRealtime = false) {
+        var eTimerMode = a_bIsRealtime ? TimerMode.REALTIME : TimerMode.NORM;
+        Timer timer = new Timer(a_fDeltaTime, a_nRepeatTimes, a_oCallback, eTimerMode);
+		TimersManager.SetTimer(a_oComponent, timer);
+
+        return timer;
 	}
 
 	/** 반복 타이머를 추가한다 */

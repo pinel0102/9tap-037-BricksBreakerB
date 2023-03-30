@@ -71,6 +71,7 @@ namespace NSEngine {
 		public List<CEObj> PlayerObjList { get; } = new List<CEObj>();
 		public List<CEObj> EnemyObjList { get; } = new List<CEObj>();
 		public List<CEObj> BallObjList { get; } = new List<CEObj>();
+        public List<CEObj> ExtraBallObjList = new List<CEObj>();
 
 		public int SelPlayerObjIdx => m_oSubIntDict.GetValueOrDefault(ESubKey.SEL_PLAYER_OBJ_IDX);
 		public SpriteRenderer DownBoundsSprite => m_oSubSpriteDict[ESubKey.DOWN_BOUNDS_SPRITE];
@@ -166,6 +167,7 @@ namespace NSEngine {
 					CScheduleManager.Inst.RemoveTimer(this);
 
                     CheckRemoveBalls();
+                    ChangeToNormalBalls();
                     
                     for(int i = 0; i < this.BallObjList.Count; ++i) {
 						//this.BallObjList[i].GetController<CEObjController>().SetState(CEController.EState.IDLE, true);
@@ -278,14 +280,17 @@ namespace NSEngine {
 					break;
 				}
 				case EEngineObjEvent.MOVE_COMPLETE: {
-					m_oMoveCompleteBallObjList.ExAddVal(a_oSender as CEObj);
+                    m_oMoveCompleteBallObjList.ExAddVal(a_oSender as CEObj);
 
                     for (int i=1; i < m_oMoveCompleteBallObjList.Count; i++)
                     {
                         m_oMoveCompleteBallObjList[i].NumText.text = string.Empty;
                     }
 
-					m_oMoveCompleteBallObjList[KCDefine.B_VAL_0_INT].NumText.text = $"{m_oMoveCompleteBallObjList.Count}";
+                    int excludeCount = m_oMoveCompleteBallObjList.FindAll(item => item.kinds == EObjKinds.BALL_NORM_03).Count;
+                    int completeCount = m_oMoveCompleteBallObjList.Count - excludeCount;
+                    
+                    m_oMoveCompleteBallObjList[KCDefine.B_VAL_0_INT].NumText.text = string.Format("{0}", completeCount > 0 ? completeCount : string.Empty);
 
 					var oSequence = CFactory.MakeSequence(a_oSender.transform.DOLocalMove(m_oMoveCompleteBallObjList[KCDefine.B_VAL_0_INT].transform.localPosition, KCDefine.U_DURATION_ANI), (a_oSequenceSender) => {
 						a_oSequenceSender?.Kill();
@@ -294,19 +299,12 @@ namespace NSEngine {
 					m_oAniList.ExAddVal(oSequence);
 
 					// 모든 공이 이동을 완료했을 경우
-					if(m_oMoveCompleteBallObjList.Count >= this.BallObjList.Count) {
+					if(m_oMoveCompleteBallObjList.Count >= this.BallObjList.Count + this.ExtraBallObjList.Count) {
 
                         CheckRemoveBalls();
+                        ChangeToNormalBalls();
                         this.SetPlayState(EPlayState.IDLE);
                         CheckClear();
-						
-                        // 클리어했을 경우
-						/*if(this.IsClear()) {
-							// FIXME: 임시
-							CSceneLoader.Inst.LoadScene((CGameInfoStorage.Inst.PlayMode == EPlayMode.TEST) ? KCDefine.B_SCENE_N_LEVEL_EDITOR : KCDefine.B_SCENE_N_MAIN);
-						} else {
-							this.ExLateCallFunc((a_oFuncSender) => this.PlayState = EPlayState.IDLE, KCDefine.B_VAL_1_REAL);
-						}*/
 					}
 
 					break;
@@ -404,6 +402,7 @@ namespace NSEngine {
 #endif // #if NEVER_USE_THIS
 
 				CFunc.UpdateComponents(this.BallObjList, a_fDeltaTime);
+                CFunc.UpdateComponents(this.ExtraBallObjList, a_fDeltaTime);
 			}
 		}
 

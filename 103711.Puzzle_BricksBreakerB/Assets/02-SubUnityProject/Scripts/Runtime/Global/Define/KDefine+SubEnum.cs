@@ -571,6 +571,8 @@ public enum EObjKinds {
 	#region 공
 	// 2,000,000,000
 	BALL_NORM_01 = (EEnumVal.T * EObjType.BALL) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+    BALL_NORM_02, // 유지되는 추가볼.
+    BALL_NORM_03, // 사라지는 추가볼.
 	#endregion // 공
 
 	[HideInInspector] MAX_VAL
