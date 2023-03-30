@@ -4,8 +4,15 @@ using UnityEngine;
 
 public static partial class GlobalDefine
 {
+    public static bool isLevelEditor { get; private set; }
+
     public const string formatVersion = "v{0}";
     public const string formatVersionWithAppName = "{1} v{0}";
+
+    public static void ThisIsLevelEditor(bool _isLevelEditor)
+    {
+        isLevelEditor = _isLevelEditor;
+    }
 
     public static float GetAngle(Vector2 from, Vector2 to)
     {

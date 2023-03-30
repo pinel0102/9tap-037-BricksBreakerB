@@ -289,6 +289,8 @@ namespace LevelEditorScene {
 		public override void Awake() {
 			base.Awake();
 
+            GlobalDefine.ThisIsLevelEditor(true);
+            
             currentHP = 0;
 
 			// 앱이 초기화 되었을 경우

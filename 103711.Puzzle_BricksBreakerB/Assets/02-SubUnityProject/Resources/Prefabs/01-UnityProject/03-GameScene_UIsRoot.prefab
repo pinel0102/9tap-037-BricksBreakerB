@@ -4436,7 +4436,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8639230064634073958}
-  - component: {fileID: 147571745721722697}
   m_Layer: 5
   m_Name: PanelUI
   m_TagString: Untagged
@@ -4466,26 +4465,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &147571745721722697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4886518866501711644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87096fb71dece4f72b6f433ecf737d0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  expectedWidth: 720
-  expectedHeight: 1280
-  expectedRatio: 1.777778
-  currentRatio: 1.777778
-  currentScale: 1
-  currentScaleVector: {x: 0, y: 0, z: 0}
-  tabletScaleVector: {x: 0, y: 0, z: 0}
-  isTablet: 0
 --- !u!1 &4980254091650070529
 GameObject:
   m_ObjectHideFlags: 0
