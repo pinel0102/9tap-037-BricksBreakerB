@@ -7,7 +7,7 @@ namespace GameScene {
     {
         public NSEngine.CEngine Engine = null;
         
-        [Header("★ [Reference] Extra")]
+        [Header("★ [Reference] Initialize")]
         public Canvas mainCanvas;
         public Transform startLine;
         public Transform deadLine;

@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GameScene {
     public partial class CSubGameSceneManager : CGameSceneManager
     {
+        [Header("★ [Reference] UI Top")]
+        public List<Button> topButtons = new List<Button>();
+
         public void SetDarkMode(bool isDarkMode)
         {
             CUserInfoStorage.Inst.UserInfo.Settings_DarkMode = isDarkMode;

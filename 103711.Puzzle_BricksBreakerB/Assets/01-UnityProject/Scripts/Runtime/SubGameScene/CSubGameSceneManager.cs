@@ -49,6 +49,7 @@ namespace GameScene {
 		private Dictionary<EKey, SpriteRenderer> m_oSpriteDict = new Dictionary<EKey, SpriteRenderer>();
 
 		/** =====> 객체 <===== */
+        [Header("★ [Reference] SubGameSceneManager")]
 		[SerializeField] private List<GameObject> m_oRewardAdsUIsList = new List<GameObject>();
         #endregion // 변수
 

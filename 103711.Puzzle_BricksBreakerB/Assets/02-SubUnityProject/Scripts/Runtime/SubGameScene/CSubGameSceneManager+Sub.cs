@@ -28,6 +28,7 @@ namespace GameScene {
 		#region 변수
 		/** =====> UI <===== */
 #if DEBUG || DEVELOPMENT_BUILD
+        [Header("★ [Reference] SubGameSceneManager Sub")]
 		[SerializeField] private STSubTestUIs m_stSubTestUIs;
 #endif // #if DEBUG || DEVELOPMENT_BUILD
 
