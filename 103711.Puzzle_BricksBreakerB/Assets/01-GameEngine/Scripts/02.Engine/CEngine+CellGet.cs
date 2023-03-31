@@ -111,7 +111,7 @@ namespace NSEngine {
         ///<Summary>화면 내에 있는 랜덤한 빈 셀 좌표를 반환. (Vector3Int(col, row, layer))</Summary>
         public List<Vector3Int> GetRandomEmptyCells(int firstRow, int lastRow, int count)
         {
-            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>[{0} ~ {1}]</color>", firstRow, lastRow - 1));
+            //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>[{0} ~ {1}]</color>", firstRow, lastRow - 1));
 
             List<Vector3Int> cellList = new List<Vector3Int>();
 
@@ -180,7 +180,6 @@ namespace NSEngine {
             int row = lastClearTarget.row;
             
             Vector2 distanceVector = subGameSceneManager.mainCanvas.WorldToCanvas(lastClearTarget.transform.position - subGameSceneManager.deadLine.position);
-            float cellsizeY = Access.CellSize.y * SelGridInfo.m_stScale.y;
             float distance = distanceVector.y - (cellsizeY * 0.5f);
             
             while(distance >= cellsizeY)

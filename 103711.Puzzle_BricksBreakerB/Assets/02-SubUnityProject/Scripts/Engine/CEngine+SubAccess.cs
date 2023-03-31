@@ -17,14 +17,12 @@ namespace NSEngine {
 				for(int j = 0; j < this.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); ++j) {
 					for(int k = 0; k < this.CellObjLists[i, j].Count; ++k) {
 						// 셀이 존재 할 경우
-						if(this.CellObjLists[i, j][k].gameObject.activeInHierarchy) {
-                            CEObj target = this.CellObjLists[i, j][k];							
-                            if(target != null && target.Params.m_stObjInfo.m_bIsClearTarget)
-                            {
-                                bIsClear = false;
-							    goto EXIT_FOR;
-                            }
-						}
+                        CEObj target = this.CellObjLists[i, j][k];							
+                        if(target != null && target.Params.m_stObjInfo.m_bIsClearTarget)
+                        {
+                            bIsClear = false;
+                            goto EXIT_FOR;
+                        }
 					}
 				}
 			}

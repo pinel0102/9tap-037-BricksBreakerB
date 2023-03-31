@@ -33,15 +33,18 @@ namespace GameScene {
         {
             if (Engine.PlayState == NSEngine.CEngine.EPlayState.SHOOT) return;
 
-            var targetList = Engine.GetAllCells_SkillTarget();
+            float damageRatio = 0.4f;
 
+            var targetList = Engine.GetAllCells_SkillTarget();
             for(int i=0; i < targetList.Count; i++)
             {
                 var target = targetList[i];
-                int damage = target.Params.m_stObjInfo.m_bIsShieldCell ? Mathf.Max(1, (int)(target.CellObjInfo.SHIELD * 0.4f)) : Mathf.Max(1, (int)(target.CellObjInfo.HP * 0.4f));
+                int damage = target.Params.m_stObjInfo.m_bIsShieldCell ? Mathf.Max(1, (int)(target.CellObjInfo.SHIELD * damageRatio)) : Mathf.Max(1, (int)(target.CellObjInfo.HP * damageRatio));
 
                 Engine.CellDamage_SkillTarget(target, Engine.BallObjList[0].GetComponent<NSEngine.CEBallObjController>(), damage);
             }
+
+            Engine.CheckClear(true, true);
         }
 
         public void OnClick_Bottom_AddBall()
@@ -60,10 +63,12 @@ namespace GameScene {
             if (Engine.PlayState == NSEngine.CEngine.EPlayState.SHOOT) return;
 
             var lastClearTarget = Engine.GetLastClearTarget();
-
-            for(int i = 0; i < Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); ++i) 
+            if (lastClearTarget != null)
             {
-                Engine.CellDestroy_SkillTarget(lastClearTarget.row, i);
+                for(int i = 0; i < Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); ++i) 
+                {
+                    Engine.CellDestroy_SkillTarget(lastClearTarget.row, i);
+                }
             }
 
             Engine.CheckClear(true, true);
@@ -74,8 +79,8 @@ namespace GameScene {
             if (Engine.PlayState == NSEngine.CEngine.EPlayState.SHOOT) return;
 
             int addCount = 4;
-            var targetList = Engine.GetRandomEmptyCells(Mathf.Max(0, Engine.viewSize.y - Engine.viewSize.x), Engine.viewSize.y, addCount);
 
+            var targetList = Engine.GetRandomEmptyCells(Mathf.Max(0, Engine.viewSize.y - Engine.viewSize.x), Engine.viewSize.y, addCount);
             for(int i=0; i < targetList.Count; i++)
             {
                 EObjKinds kinds = Random.Range(0, 100) < 50 ? EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01 : EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01;
@@ -90,8 +95,8 @@ namespace GameScene {
             if (Engine.PlayState == NSEngine.CEngine.EPlayState.SHOOT) return;
 
             int addCount = Mathf.CeilToInt(Engine.viewSize.x / 2f) - 1;
-            var targetList = Engine.GetBottomEmptyCells(addCount, Engine.SelBallObj.transform.position.x < 0);
 
+            var targetList = Engine.GetBottomEmptyCells(addCount, Engine.SelBallObj.transform.position.x < 0);
             for(int i=0; i < targetList.Count; i++)
             {
                 EObjKinds kinds = EObjKinds.OBSTACLE_BRICKS_FIX_03;

@@ -34,6 +34,7 @@ namespace NSEngine {
         public float reHeight;
         public float gridWidth;
         public float gridHeight;
+        public float cellsizeY;
 
         /// <Summary>(반사 O) 벽.</Summary>
         [HideInInspector] public int layerWall;
@@ -75,16 +76,19 @@ namespace NSEngine {
             reHeight = f_height / screenMultiplier;
             gridWidth =  Access.CellSize.x * CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x * SelGridInfo.m_stScale.x;
             gridHeight = Access.CellSize.y * CGameInfoStorage.Inst.PlayLevelInfo.NumCells.y * SelGridInfo.m_stScale.y;
+
+            cellsizeY = Access.CellSize.y * SelGridInfo.m_stScale.y;
         }
 
         private void InitCellRoot()
         {
             isGridMoving = false;
-            float cellsizeY = Access.CellSize.y * SelGridInfo.m_stScale.y;
-            
             this.Params.m_oCellRoot.transform.localPosition = new Vector3(0, (((reHeight - Mathf.Min(gridWidth, gridHeight)) * 0.5f) - cellsizeY - uiAreaTop), 0);
             
-            //viewingRowLastOffset = viewingRowLast + ;
+            // CellRoot 수동 보정.
+            if (CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x != KDefine.E_DEF_NUM_CELLS.x 
+             && CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x > 0 && CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x <= KDefine.E_MAX_NUM_CELLS.x)
+                this.Params.m_oCellRoot.transform.localPosition = new Vector3(0, this.Params.m_oCellRoot.transform.localPosition.y + GlobalDefine.GRID_Y_OFFSET[CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x - 1], 0);
         }
 
         private void InitLayerMask()

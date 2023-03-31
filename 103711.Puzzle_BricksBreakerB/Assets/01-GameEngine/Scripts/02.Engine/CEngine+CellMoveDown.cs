@@ -142,8 +142,6 @@ namespace NSEngine {
 
         public void RefreshActiveCells()
         {
-            float cellsizeY = Access.CellSize.y * SelGridInfo.m_stScale.y;
-
             for(int i = this.CellObjLists.GetLength(KCDefine.B_VAL_0_INT) - 1; i >= 0 ; i--) {
 				for(int j = this.CellObjLists.GetLength(KCDefine.B_VAL_1_INT) - 1; j >= 0 ; j--) {
 					for(int k = 0; k < this.CellObjLists[i, j].Count; ++k) {
@@ -168,7 +166,6 @@ namespace NSEngine {
             if (lastClearTarget != null)
             {
                 Vector2 distanceVector = subGameSceneManager.mainCanvas.WorldToCanvas(lastClearTarget.position - subGameSceneManager.deadLine.position);
-                float cellsizeY = Access.CellSize.y * SelGridInfo.m_stScale.y;
                 float distance = distanceVector.y - (cellsizeY * 0.5f);
 
                 //Debug.Log(CodeManager.GetMethodName() + string.Format("distance : {0} / {1}", distance, cellsizeY));
