@@ -75,24 +75,28 @@ namespace NSEngine {
 		protected override void HandleMoveState(float a_fDeltaTime) {
 			base.HandleMoveState(a_fDeltaTime);
 
+            if (Time.timeScale == 0) return;
+
             var stVelocity = (this.MoveDirection * m_oRealDict[EKey.SPEED]) * a_fDeltaTime;
             var stWorldPos = (this.GetOwner<CEObj>().transform.localPosition + stVelocity.normalized).ExToWorld(this.Engine.Params.m_oObjRoot);
 			var stRaycastHit = Physics2D.CircleCast(stWorldPos, this.GetOwner<CEObj>().TargetSprite.sprite.textureRect.size.ExToWorld(this.Engine.Params.m_oObjRoot).x / KCDefine.B_VAL_2_REAL, stVelocity.normalized, GlobalDefine.RAYCAST_DISTANCE, Engine.layerReflect);
-            
 			var stHitPos = (stWorldPos + (stVelocity.normalized * stRaycastHit.distance)).ExToLocal(this.Engine.Params.m_oObjRoot);
 			var stHitDelta = (this.GetOwner<CEObj>().transform.localPosition + stVelocity.normalized) - stHitPos;
 
-			// 충돌체가 존재 할 경우
+            // 충돌체가 존재 할 경우
 			if(stRaycastHit.collider != null && stHitDelta.magnitude.ExIsLessEquals(stVelocity.magnitude)) {
-				var oCellObj = stRaycastHit.collider.GetComponentInParent<CEObj>();
+                if (stVelocity.x == 0 && stVelocity.y == 0) return;
 
+				var oCellObj = stRaycastHit.collider.GetComponentInParent<CEObj>();
+                var reflectDirection = Vector3.Reflect(stVelocity.normalized, stRaycastHit.normal).normalized;
+                
                 // 셀이 존재 할 경우
 				if(oCellObj != null && oCellObj.TryGetComponent<CECellObjController>(out CECellObjController oController)) 
                 {
                     if (oCellObj.Params.m_stObjInfo.m_bIsEnableReflect)
                     {
                         this.GetOwner<CEObj>().transform.localPosition = stHitPos;
-                        this.SetMoveDirection(Vector3.Reflect(stVelocity.normalized, stRaycastHit.normal).normalized);
+                        this.SetMoveDirection(reflectDirection);
                         oController.OnHit(this.GetOwner<CEObj>(), this);
                     }
                     else
@@ -104,7 +108,7 @@ namespace NSEngine {
 				else if(stRaycastHit.collider.gameObject == this.Engine.DownBoundsSprite.gameObject) 
                 {   
                     this.GetOwner<CEObj>().transform.localPosition = stHitPos;
-                    this.SetMoveDirection(Vector3.Reflect(stVelocity.normalized, stRaycastHit.normal).normalized);
+                    this.SetMoveDirection(Vector3.zero);
 
                     this.SetState(EState.IDLE, true);
                     this.Initialize();
@@ -114,7 +118,7 @@ namespace NSEngine {
                 else // 상단 or 좌우 벽일 경우.
                 {
                     this.GetOwner<CEObj>().transform.localPosition = stHitPos;
-                    this.SetMoveDirection(Vector3.Reflect(stVelocity.normalized, stRaycastHit.normal).normalized);
+                    this.SetMoveDirection(reflectDirection);
                 }
 			} else {
                 this.GetOwner<CEObj>().transform.localPosition += stVelocity;

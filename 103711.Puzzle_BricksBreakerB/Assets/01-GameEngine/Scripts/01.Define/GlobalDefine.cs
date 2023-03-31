@@ -34,7 +34,7 @@ public static partial class GlobalDefine
     public static Vector3 CELL_ROOT_MOVE_SPEED = new Vector3(0, 10f, 0);
 
     // [Engine] Timer Delay
-    public const float SHOOT_BALL_DELAY = 0.09f;
+    public const float SHOOT_BALL_DELAY = 0.05f;
 
     
 

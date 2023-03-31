@@ -13,12 +13,20 @@ namespace NSEngine {
             SetAimLayer(isGoldAim);
         }
 
-        public void SetAimLayer(bool _reflectBricks)
+#endregion Public Methods
+
+
+#region Private Methods
+
+        private void TurnEnd(bool _waitDelay = false)
         {
-            currentAimLayer = _reflectBricks ? layerReflect : layerWall;
+            CheckRemoveBalls();
+            ChangeToNormalBalls();
+            this.SetPlayState(EPlayState.IDLE);
+            CheckClear(_waitDelay);
         }
 
-        public void CheckClear(bool _waitDelay = false)
+        private void CheckClear(bool _waitDelay = false)
         {
             RefreshBallText();
 
@@ -42,10 +50,10 @@ namespace NSEngine {
             }
         }
 
-#endregion Public Methods
-
-
-#region Private Methods
+        private void SetAimLayer(bool _reflectBricks)
+        {
+            currentAimLayer = _reflectBricks ? layerReflect : layerWall;
+        }
         
         private void ChangeLayer(Transform trans, int newLayer)
         {

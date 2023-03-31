@@ -166,25 +166,26 @@ namespace NSEngine {
 					var stPos = m_oMoveCompleteBallObjList.ExIsValid() ? m_oMoveCompleteBallObjList[KCDefine.B_VAL_0_INT].transform.localPosition : m_oSubVec3Dict[ESubKey.SHOOT_START_POS];
 					CScheduleManager.Inst.RemoveTimer(this);
 
-                    CheckRemoveBalls();
-                    ChangeToNormalBalls();
-                    
                     for(int i = 0; i < this.BallObjList.Count; ++i) {
-						//this.BallObjList[i].GetController<CEObjController>().SetState(CEController.EState.IDLE, true);
-                        CEBallObjController ballController = this.BallObjList[i].GetController<CEBallObjController>();
-                        ballController.Initialize();
+						this.BallObjList[i].GetController<CEBallObjController>().Initialize();
                         oAniList.ExAddVal(this.BallObjList[i].transform.DOLocalMove(stPos, KCDefine.B_VAL_0_5_REAL));
+					}
+
+                    for(int i = 0; i < this.ExtraBallObjList.Count; ++i) {
+						this.ExtraBallObjList[i].GetController<CEBallObjController>().Initialize();
+                        oAniList.ExAddVal(this.ExtraBallObjList[i].transform.DOLocalMove(stPos, KCDefine.B_VAL_0_5_REAL));
 					}
 
 					m_oAniList.ExAddVal(CFactory.MakeSequence(oAniList, (a_oSender) => {
 						a_oSender?.Kill();
 						oAniList.ExRemoveVal(a_oSender);
 
-						this.SetPlayState(EPlayState.IDLE);
+                        TurnEnd(true);
+
 					}, KCDefine.B_VAL_0_REAL, true));
+
 				} finally {
 					CCollectionManager.Inst.DespawnList(oAniList);
-                    CheckClear(true);
 				}
 			}
 		}
@@ -294,18 +295,15 @@ namespace NSEngine {
 
 					var oSequence = CFactory.MakeSequence(a_oSender.transform.DOLocalMove(m_oMoveCompleteBallObjList[KCDefine.B_VAL_0_INT].transform.localPosition, KCDefine.U_DURATION_ANI), (a_oSequenceSender) => {
 						a_oSequenceSender?.Kill();
+
+                        // 모든 공이 이동을 완료했을 경우
+                        if(m_oMoveCompleteBallObjList.Count >= this.BallObjList.Count + this.ExtraBallObjList.Count) {
+
+                            TurnEnd();
+                        }
 					});
 
 					m_oAniList.ExAddVal(oSequence);
-
-					// 모든 공이 이동을 완료했을 경우
-					if(m_oMoveCompleteBallObjList.Count >= this.BallObjList.Count + this.ExtraBallObjList.Count) {
-
-                        CheckRemoveBalls();
-                        ChangeToNormalBalls();
-                        this.SetPlayState(EPlayState.IDLE);
-                        CheckClear();
-					}
 
 					break;
 				}
