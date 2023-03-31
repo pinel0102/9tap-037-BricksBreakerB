@@ -270,9 +270,10 @@ namespace NSEngine {
 #endif // #if NEVER_USE_THIS
 
 				case EEngineObjEvent.DESTROY: {
-					a_oSender.gameObject.SetActive(false);
-					this.RemoveCellObj(a_oSender as CEObj);
-
+					CEObj _ceObj = a_oSender as CEObj;
+                    _ceObj.SetCellActive(false);
+					this.RemoveCellObj(_ceObj);
+                    
 					// 클리어했을 경우
 					if(this.IsClear()) {
 						m_oSubRealDict[ESubKey.TIME_SCALE] = KCDefine.B_VAL_3_REAL;

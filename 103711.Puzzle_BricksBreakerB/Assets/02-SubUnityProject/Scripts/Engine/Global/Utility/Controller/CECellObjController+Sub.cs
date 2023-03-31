@@ -71,13 +71,13 @@ namespace NSEngine {
 
 		/** 초기화한다 */
 		private void SubInit(EObjKinds kinds) {
-			this.Initialize();
+			this.Initialize(kinds);
 		}
 
         /** 객체 정보를 리셋한다 */
 		private void SubResetObjInfo(STObjInfo a_stObjInfo, STCellObjInfo a_stCellObjInfo) {
 			// Do Something
-            this.Initialize();
+            this.Initialize(a_stObjInfo.m_eObjKinds);
 		}
 		#endregion // 함수
 	}

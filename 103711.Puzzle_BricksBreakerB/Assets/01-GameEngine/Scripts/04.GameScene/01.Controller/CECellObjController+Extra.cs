@@ -9,9 +9,17 @@ namespace NSEngine {
 
         private Coroutine hitCoroutine;
 
-        private void Initialize()
+        private void Initialize(EObjKinds kinds)
         {
-            this.hideReserved = false;
+            switch(kinds)
+            {
+                case EObjKinds.OBSTACLE_BRICKS_FIX_03:
+                    this.hideReserved = true;
+                    break;
+                default:
+                    this.hideReserved = false;
+                    break;
+            }
         }
 
 #region Bricks Collision

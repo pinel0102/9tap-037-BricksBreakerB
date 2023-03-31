@@ -83,6 +83,8 @@ namespace NSEngine {
             float cellsizeY = Access.CellSize.y * SelGridInfo.m_stScale.y;
             
             this.Params.m_oCellRoot.transform.localPosition = new Vector3(0, (((reHeight - Mathf.Min(gridWidth, gridHeight)) * 0.5f) - cellsizeY - uiAreaTop), 0);
+            
+            //viewingRowLastOffset = viewingRowLast + ;
         }
 
         private void InitLayerMask()

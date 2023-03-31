@@ -37,6 +37,8 @@ namespace NSEngine {
 			}
 			// 그리드 정보를 설정한다 }
 
+            this.viewSize = CGameInfoStorage.Inst.PlayLevelInfo.ViewSize;
+
 			this.CellObjLists = new List<CEObj>[CGameInfoStorage.Inst.PlayLevelInfo.NumCells.y + GlobalDefine.GRID_DOWN_OFFSET, CGameInfoStorage.Inst.PlayLevelInfo.NumCells.x];
 			CGameInfoStorage.Inst.PlayEpisodeInfo.m_oClearTargetInfoDict.ExCopyTo(m_oClearTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
 
@@ -53,7 +55,7 @@ namespace NSEngine {
 		private void SetupLevel() {
 			// 레벨 정보가 존재 할 경우
 			if(CGameInfoStorage.Inst.PlayLevelInfo != null) {
-				for(int i = 0; i < CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
+                for(int i = 0; i < CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer.Count; ++i) {
 					for(int j = 0; j < CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer[i].Count; ++j) {
 						this.SetupCell(CGameInfoStorage.Inst.PlayLevelInfo.m_oCellInfoDictContainer[i][j], this.SelGridInfo);
 					}

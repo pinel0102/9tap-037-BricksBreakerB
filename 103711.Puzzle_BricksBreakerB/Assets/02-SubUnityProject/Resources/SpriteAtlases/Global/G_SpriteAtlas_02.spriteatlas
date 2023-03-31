@@ -99,14 +99,10 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 09f8f362f19244334a3856bfb79b9f34, type: 3}
-  - {fileID: 21300000, guid: c331a029feb7648eb89d6b9815b8fe60, type: 3}
   - {fileID: 21300000, guid: ef2d10fa2aa18414486727d91f0ed318, type: 3}
-  - {fileID: 21300000, guid: 19677a0d865e04c329ff0ea016218860, type: 3}
   m_PackedSpriteNamesToIndex:
   - BALL_NORM_01
-  - BALL_NORM_03
   - SPECIAL_FX_POWERBALL
-  - BALL_NORM_02
   m_RenderDataMap: {}
   m_Tag: G_SpriteAtlas_02
   m_IsVariant: 0

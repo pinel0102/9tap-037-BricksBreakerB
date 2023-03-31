@@ -31,6 +31,8 @@ namespace GameScene {
 
         public void OnClick_Bottom_Earthquake()
         {
+            if (Engine.PlayState == NSEngine.CEngine.EPlayState.SHOOT) return;
+
             var targetList = Engine.GetAllCells_SkillTarget();
 
             for(int i=0; i < targetList.Count; i++)
@@ -44,6 +46,8 @@ namespace GameScene {
 
         public void OnClick_Bottom_AddBall()
         {
+            if (Engine.PlayState == NSEngine.CEngine.EPlayState.SHOOT) return;
+
             int addCount = 30;
 
             Engine.AddNormalBallsOnce(Engine.BallObjList[0].transform.position, addCount, false);
@@ -53,6 +57,8 @@ namespace GameScene {
 
         public void OnClick_Bottom_BricksDelete()
         {
+            if (Engine.PlayState == NSEngine.CEngine.EPlayState.SHOOT) return;
+
             var lastClearTarget = Engine.GetLastClearTarget();
 
             for(int i = 0; i < Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); ++i) 
@@ -65,12 +71,34 @@ namespace GameScene {
 
         public void OnClick_Bottom_AddLaserBricks()
         {
-            //
+            if (Engine.PlayState == NSEngine.CEngine.EPlayState.SHOOT) return;
+
+            int addCount = 4;
+            var targetList = Engine.GetRandomEmptyCells(Mathf.Max(0, Engine.viewSize.y - Engine.viewSize.x), Engine.viewSize.y, addCount);
+
+            for(int i=0; i < targetList.Count; i++)
+            {
+                EObjKinds kinds = Random.Range(0, 100) < 50 ? EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01 : EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01;
+                STCellObjInfo cellObjInfo = new STCellObjInfo(null) { ObjKinds = kinds, ATK = 0, HP = 0, SHIELD = 0, ColorID = 0, SizeX = 1, SizeY = 1, SizeZ = 1 };
+
+                Engine.AddCell(targetList[i], kinds, cellObjInfo);
+            }
         }
 
         public void OnClick_Bottom_AddSteelBricks()
         {
-            //
+            if (Engine.PlayState == NSEngine.CEngine.EPlayState.SHOOT) return;
+
+            int addCount = Mathf.CeilToInt(Engine.viewSize.x / 2f) - 1;
+            var targetList = Engine.GetBottomEmptyCells(addCount, Engine.SelBallObj.transform.position.x < 0);
+
+            for(int i=0; i < targetList.Count; i++)
+            {
+                EObjKinds kinds = EObjKinds.OBSTACLE_BRICKS_FIX_03;
+                STCellObjInfo cellObjInfo = new STCellObjInfo(null) { ObjKinds = kinds, ATK = 0, HP = 0, SHIELD = 0, ColorID = 0, SizeX = 1, SizeY = 1, SizeZ = 1 };
+
+                Engine.AddCell(targetList[i], kinds, cellObjInfo);
+            }
         }
 
         public void ToggleAimLayer()

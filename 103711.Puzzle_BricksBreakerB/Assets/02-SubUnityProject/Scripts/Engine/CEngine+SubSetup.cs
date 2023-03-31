@@ -60,6 +60,7 @@ namespace NSEngine {
 				oCellObj.SetCellObjInfo(stCellObjInfo);
                 oCellObj.SetExtraObjKindsList(stObjInfo);
                 oCellObj.AddCellEffect(kindsType);
+                oCellObj.SetCellActive(true);
 
                 InitCellLayer(oCellObj);
 
