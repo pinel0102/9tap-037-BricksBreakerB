@@ -70,7 +70,7 @@ namespace NSEngine {
 
 		public List<CEObj> PlayerObjList { get; } = new List<CEObj>();
 		public List<CEObj> EnemyObjList { get; } = new List<CEObj>();
-		public List<CEObj> BallObjList { get; } = new List<CEObj>();
+		public List<CEObj> BallObjList = new List<CEObj>();
         public List<CEObj> ExtraBallObjList = new List<CEObj>();
 
 		public int SelPlayerObjIdx => m_oSubIntDict.GetValueOrDefault(ESubKey.SEL_PLAYER_OBJ_IDX);
@@ -212,7 +212,7 @@ namespace NSEngine {
                 CreateBall(i);
 			}
 
-			// 스프라이트를 설정한다 {
+            // 스프라이트를 설정한다 {
 			CFunc.SetupComponents(new List<(ESubKey, string, GameObject, GameObject)>() {
 				(ESubKey.UP_BOUNDS_SPRITE, $"{ESubKey.UP_BOUNDS_SPRITE}", this.Params.m_oWallRoot, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_BOUNDS)),
 				(ESubKey.DOWN_BOUNDS_SPRITE, $"{ESubKey.DOWN_BOUNDS_SPRITE}", this.Params.m_oWallRoot, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_BOUNDS)),

@@ -63,6 +63,11 @@ namespace NSEngine {
                             .Where(i => !excludeList.Contains(i)).ToList();
         }
 
+        public List<CEObj> GetAllCells_SkillTarget()
+        {
+            return GetAllCells_SkillTarget(new List<CEObj>());
+        }
+
         public CEObj GetRandomCell(List<CEObj> cellList)
         {
             return GetRandomCells(cellList, 1)[0];

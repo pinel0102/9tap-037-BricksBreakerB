@@ -240,6 +240,8 @@ namespace GameScene {
 			m_oEngine.Init(NSEngine.CEngine.MakeParams(this.CellRoot, this.ItemRoot, this.SkillRoot, this.ObjRoot, this.WallRoot, this.FXRoot, oCallbackDict01, oCallbackDict02));
 
             AssignEngine();
+
+            m_oEngine.SetPlayState(NSEngine.CEngine.EPlayState.IDLE);
 		}
 
 		/** 보상 광고 UI 를 설정한다 */

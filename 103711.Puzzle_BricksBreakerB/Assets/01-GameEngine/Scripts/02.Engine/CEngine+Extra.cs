@@ -13,20 +13,7 @@ namespace NSEngine {
             SetAimLayer(isGoldAim);
         }
 
-#endregion Public Methods
-
-
-#region Private Methods
-
-        private void TurnEnd(bool _waitDelay = false)
-        {
-            CheckRemoveBalls();
-            ChangeToNormalBalls();
-            this.SetPlayState(EPlayState.IDLE);
-            CheckClear(_waitDelay);
-        }
-
-        private void CheckClear(bool _waitDelay = false)
+        public void CheckClear(bool _waitDelay = false, bool _isBottomItem = false)
         {
             RefreshBallText();
 
@@ -40,7 +27,7 @@ namespace NSEngine {
                 else
                     LevelClear();                
             } 
-            else if (!isLevelFail && !isGridMoving)
+            else if (!isLevelFail && !isGridMoving && !_isBottomItem)
             {
                 this.TurnEndAction();
 
@@ -48,6 +35,19 @@ namespace NSEngine {
                     MoveDownAllCells();
                     }, KCDefine.B_VAL_0_3_REAL);
             }
+        }
+
+#endregion Public Methods
+
+
+#region Private Methods
+
+        private void TurnEnd(bool _waitDelay = false)
+        {
+            CheckRemoveBalls();
+            ChangeToNormalBalls();
+            this.SetPlayState(EPlayState.IDLE);
+            CheckClear(_waitDelay);
         }
 
         private void SetAimLayer(bool _reflectBricks)

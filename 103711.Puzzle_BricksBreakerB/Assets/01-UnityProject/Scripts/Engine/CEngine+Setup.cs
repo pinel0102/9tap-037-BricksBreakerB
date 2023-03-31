@@ -12,6 +12,10 @@ namespace NSEngine {
 		/** 엔진을 설정한다 */
 		private void SetupEngine() {
 
+            this.BallObjList.Clear();
+            this.ExtraBallObjList.Clear();
+            this.deleteList.Clear();
+
             // 그리드 정보를 설정한다 {
 			m_oGridInfoList.Clear();
 

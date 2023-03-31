@@ -20,9 +20,21 @@ namespace GameScene {
         {
             Engine = m_oEngine;
             
+            Initialize();
+        }
+
+        private void Initialize()
+        {
             ApplyDarkMode(CUserInfoStorage.Inst.UserInfo.Settings_DarkMode);
             warningObject.SetActive(false);
             goldenAimOn.SetActive(m_oEngine.isGoldAim);
+
+            SetupButtons();
+        }
+
+        private void SetupButtons()
+        {
+            SetupBottomButtons();
         }
     }
 }

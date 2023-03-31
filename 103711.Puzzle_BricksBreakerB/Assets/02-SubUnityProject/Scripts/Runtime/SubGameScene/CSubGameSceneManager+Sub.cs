@@ -102,7 +102,7 @@ namespace GameScene {
 				m_oEngine.SelPlayerObj.GetController<NSEngine.CEController>().SetState(NSEngine.CEController.EState.IDLE, true);
 #endif // #if NEVER_USE_THIS
 
-				m_oEngine.SetPlayState(NSEngine.CEngine.EPlayState.IDLE);
+				//m_oEngine.SetPlayState(NSEngine.CEngine.EPlayState.IDLE);
 			}, KCDefine.B_VAL_1_REAL / KCDefine.B_VAL_2_REAL);
 		}
 

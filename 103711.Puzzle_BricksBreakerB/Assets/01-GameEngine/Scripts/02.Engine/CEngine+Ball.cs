@@ -6,12 +6,13 @@ using Timers;
 namespace NSEngine {
     public partial class CEngine : CComponent
     {
+        private List<CEObj> deleteList = new List<CEObj>();
         private Timer shootTimer;
 
 #region Public Methods
 
-        ///<Summary>[BallObjList] 일반 볼을 n개 추가.</Summary>
-        public void AddNormalBalls(Vector3 _startPosition, int _addCount)
+        ///<Summary>[BallObjList] 턴이 끝나도 유지되는 볼을 n개 추가.</Summary>
+        public void AddNormalBalls(Vector3 _startPosition, int _addCount, bool _autoShoot = true)
         {
             int _ballIndex = this.BallObjList.Count;
 
@@ -21,11 +22,28 @@ namespace NSEngine {
                 this.BallObjList.ExAddVal(oBallObj);
             }
 
-            this.AddShootBalls(_ballIndex, _addCount);
+            if (_autoShoot)
+                this.AddShootBalls(_ballIndex, _addCount);
+        }
+
+        ///<Summary>[BallObjList] 1회성 볼을 n개 추가.</Summary>
+        public void AddNormalBallsOnce(Vector3 _startPosition, int _addCount, bool _autoShoot = true)
+        {
+            int _ballIndex = this.BallObjList.Count;
+
+            for (int i=0; i < _addCount; i++)
+            {
+                var oBallObj = CreateBall(_ballIndex + i, _startPosition, EObjKinds.BALL_NORM_01);
+                this.BallObjList.ExAddVal(oBallObj);
+                deleteList.Add(oBallObj);
+            }
+
+            if (_autoShoot)
+                this.AddShootBalls(_ballIndex, _addCount);
         }
 
         ///<Summary>[ExtraBallObjList] 1회성 볼을 1개 추가.</Summary>
-        public CEBallObjController AddExtraBall(Vector3 _startPosition)
+        public CEBallObjController AddExtraBall(Vector3 _startPosition, bool _autoShoot = true)
         {
             int _ballIndex = this.ExtraBallObjList.Count + 1000;
 
@@ -33,7 +51,9 @@ namespace NSEngine {
             this.ExtraBallObjList.ExAddVal(oBallObj);
             
             CEBallObjController ballController = oBallObj.GetComponent<CEBallObjController>();
-            ballController.Shoot(this.shootDirection);
+
+            if (_autoShoot)
+                ballController.Shoot(this.shootDirection);
 
             return ballController;
         }
@@ -65,14 +85,25 @@ namespace NSEngine {
 
         private void CheckRemoveBalls()
         {
+            for(int i=this.BallObjList.Count - 1; i >= 0; i--)
+            {
+                if (this.BallObjList[i].Params.m_stObjInfo.m_bIsOnce || deleteList.Contains(this.BallObjList[i]))
+                {
+                    GameObject.Destroy(this.BallObjList[i].gameObject);
+                    this.BallObjList.Remove(this.BallObjList[i]);
+                }
+            }
+
             for(int i=this.ExtraBallObjList.Count - 1; i >= 0; i--)
             {
-                if (this.ExtraBallObjList[i].Params.m_stObjInfo.m_bIsOnce)
+                if (this.ExtraBallObjList[i].Params.m_stObjInfo.m_bIsOnce || deleteList.Contains(this.ExtraBallObjList[i]))
                 {
                     GameObject.Destroy(this.ExtraBallObjList[i].gameObject);
                     this.ExtraBallObjList.Remove(this.ExtraBallObjList[i]);
                 }
             }
+
+            deleteList.Clear();
 
             //Debug.Log("this.BallObjList.Count : " + this.BallObjList.Count);
         }

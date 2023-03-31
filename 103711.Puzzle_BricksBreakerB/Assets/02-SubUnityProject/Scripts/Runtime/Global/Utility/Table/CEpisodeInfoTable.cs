@@ -90,7 +90,7 @@ public struct STEpisodeInfo {
 		m_oEnemyObjTargetInfoDict = Factory.MakeTargetInfos(a_oEpisodeInfo, KCDefine.U_KEY_FMT_ENEMY_OBJ_TARGET_INFO);
 
 		#region 추가
-		m_nNumBalls = a_oEpisodeInfo[KDefine.G_KEY_NUM_BALLS].ExIsValid() ? a_oEpisodeInfo[KDefine.G_KEY_NUM_BALLS].AsInt : KCDefine.B_VAL_0_INT;
+		m_nNumBalls = a_oEpisodeInfo[KDefine.G_KEY_NUM_BALLS].ExIsValid() ? a_oEpisodeInfo[KDefine.G_KEY_NUM_BALLS].AsInt : 50;
 		#endregion // 추가
 	}
 	#endregion // 함수
