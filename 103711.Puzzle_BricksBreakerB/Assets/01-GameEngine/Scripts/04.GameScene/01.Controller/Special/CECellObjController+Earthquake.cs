@@ -26,20 +26,16 @@ namespace NSEngine {
         ///<Summary>지진.</Summary>
         private void Earthquake(CEBallObjController ballController, int _ATK, List<CEObj> excludeList)
         {
-            List<CEObj> targetList = Engine.GetAllCells_SkillTarget(excludeList);
+            Engine.subGameSceneManager.ShakeCamera(() => {
 
-            for(int i=0; i < targetList.Count; i++)
-            {
-                Engine.CellDamage_SkillTarget(targetList[i], ballController, _ATK);
-            }
+                List<CEObj> targetList = Engine.GetAllCells_SkillTarget(excludeList);
 
-            ShowEffect_Earthquake();
-        }
+                for(int i=0; i < targetList.Count; i++)
+                {
+                    Engine.CellDamage_SkillTarget(targetList[i], ballController, _ATK);
+                }
 
-        private void ShowEffect_Earthquake()
-        {
-            //Transform effect = CSceneManager.ActiveSceneManager.SpawnObj<Transform>(GlobalDefine.FX_LASER, KDefine.E_KEY_FX_OBJS_POOL, Vector3.one, _rotation, this.transform.position, true);
-            //CSceneManager.ActiveSceneManager.DespawnObj(KDefine.E_KEY_FX_OBJS_POOL, effect.gameObject, GlobalDefine.FXTime_LASER);
+            });
         }
     }
 }

@@ -32,19 +32,24 @@ namespace GameScene {
         public void OnClick_Bottom_Earthquake()
         {
             if (Engine.PlayState == NSEngine.CEngine.EPlayState.SHOOT) return;
+            if (isShaking) return;
 
             float damageRatio = 0.4f;
 
-            var targetList = Engine.GetAllCells_SkillTarget();
-            for(int i=0; i < targetList.Count; i++)
-            {
-                var target = targetList[i];
-                int damage = target.Params.m_stObjInfo.m_bIsShieldCell ? Mathf.Max(1, (int)(target.CellObjInfo.SHIELD * damageRatio)) : Mathf.Max(1, (int)(target.CellObjInfo.HP * damageRatio));
+            ShakeCamera(() => {
 
-                Engine.CellDamage_SkillTarget(target, Engine.BallObjList[0].GetComponent<NSEngine.CEBallObjController>(), damage);
-            }
+                var targetList = Engine.GetAllCells_SkillTarget();
+                for(int i=0; i < targetList.Count; i++)
+                {
+                    var target = targetList[i];
+                    int damage = target.Params.m_stObjInfo.m_bIsShieldCell ? Mathf.Max(1, (int)(target.CellObjInfo.SHIELD * damageRatio)) : Mathf.Max(1, (int)(target.CellObjInfo.HP * damageRatio));
 
-            Engine.CheckClear(true, true);
+                    Engine.CellDamage_SkillTarget(target, Engine.BallObjList[0].GetComponent<NSEngine.CEBallObjController>(), damage);
+                }
+
+                Engine.CheckClear(true, true);
+
+            });
         }
 
         public void OnClick_Bottom_AddBall()

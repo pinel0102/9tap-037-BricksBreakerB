@@ -31,6 +31,7 @@ namespace NSEngine {
             {
                 this.TurnEndAction();
 
+                isGridMoving = true;
                 this.ExLateCallFunc((a_oFuncSender) => {
                     MoveDownAllCells();
                     }, KCDefine.B_VAL_0_3_REAL);

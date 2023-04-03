@@ -15,6 +15,7 @@ namespace GameScene {
         public GameObject goldenAimOn;
         public GameObject[] darkModeButton;
         public GameObject[] darkModeBackground;
+        private Camera mainCamera;
         
         private void AssignEngine()
         {
@@ -29,6 +30,7 @@ namespace GameScene {
             warningObject.SetActive(false);
             goldenAimOn.SetActive(m_oEngine.isGoldAim);
 
+            InitCamera();
             SetupButtons();
         }
 
