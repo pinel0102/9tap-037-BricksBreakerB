@@ -19,19 +19,24 @@ namespace MainScene {
 		#region 함수
 		/** 씬을 설정한다 */
 		private void SubSetupAwake() {
-#if DEBUG || DEVELOPMENT_BUILD
+
 			this.SubSetupTestUIs();
-#endif // #if DEBUG || DEVELOPMENT_BUILD
+
+            this.InitTabs();
+            this.InitLobbyButtons();
+
 
 			// FIXME: 임시
 			for(int i = 0; i < m_oTempMenuUIs.transform.childCount; ++i) {
 				int nIdx = i;
 
 				m_oTempMenuUIs.transform.GetChild(i).GetComponentInChildren<Button>().onClick.AddListener(() => {
-					var oText = m_oTempMenuUIs.transform.GetChild(nIdx).GetComponentInChildren<TMP_Text>();
-					Func.SetupPlayEpisodeInfo(KDefine.G_CHARACTER_ID_COMMON, int.Parse(oText.text) - 1, EPlayMode.NORM);
+					
+                    var oText = m_oTempMenuUIs.transform.GetChild(nIdx).GetComponentInChildren<TMP_Text>();
+
                     Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", int.Parse(oText.text)));
 
+					Func.SetupPlayEpisodeInfo(KDefine.G_CHARACTER_ID_COMMON, int.Parse(oText.text) - 1, EPlayMode.NORM);
 					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
 				});
 			}
