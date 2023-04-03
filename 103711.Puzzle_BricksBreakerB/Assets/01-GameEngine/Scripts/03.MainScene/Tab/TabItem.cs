@@ -44,10 +44,10 @@ public class TabItem : MonoBehaviour
         float elaspsedTime = 0;
         while (elaspsedTime < moveTime)
         {
-            rt.anchoredPosition = Vector3.Lerp(rt.anchoredPosition, showPosition, Time.deltaTime * moveSpeed);
+            rt.anchoredPosition = Vector3.Lerp(rt.anchoredPosition, showPosition, Time.unscaledDeltaTime * moveSpeed);
             yield return null;
 
-            elaspsedTime += Time.deltaTime;
+            elaspsedTime += Time.unscaledDeltaTime;
         }
 
         rt.anchoredPosition = showPosition;
@@ -61,10 +61,10 @@ public class TabItem : MonoBehaviour
         float elaspsedTime = 0;
         while (elaspsedTime < moveTime)
         {
-            rt.anchoredPosition = Vector3.Lerp(rt.anchoredPosition, hidePosition, Time.deltaTime * moveSpeed);
+            rt.anchoredPosition = Vector3.Lerp(rt.anchoredPosition, hidePosition, Time.unscaledDeltaTime * moveSpeed);
             yield return null;
 
-            elaspsedTime += Time.deltaTime;
+            elaspsedTime += Time.unscaledDeltaTime;
         }
 
         rt.anchoredPosition = hidePosition;
