@@ -772,7 +772,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 	#endregion // 함수
 
 	#region 조건부 함수
-#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+//#if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	/** 레벨 정보 개수를 반환한다 */
 	public int GetNumLevelInfos(int a_nStageID, int a_nChapterID = KCDefine.B_VAL_0_INT) {
 		CAccess.Assert(this.LevelInfoDictContainer.ContainsKey(a_nChapterID) && this.LevelInfoDictContainer[a_nChapterID].ContainsKey(a_nStageID));
@@ -832,7 +832,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 		a_oOutChapterLevelInfoDictContainer = this.LevelInfoDictContainer.GetValueOrDefault(a_nChapterID);
 		return a_oOutChapterLevelInfoDictContainer != null;
 	}
-#endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
+//#endif // #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 	#endregion 조건부 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
