@@ -272,11 +272,13 @@ namespace NSEngine {
         public void CellDestroy()
         {
             StopAllCoroutines();
-
+            
             CEObj _ceObj = this.GetOwner<CEObj>();
             EObjKinds kinds = _ceObj.Params.m_stObjInfo.m_eObjKinds;
             EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
-            var stCellObjInfo = _ceObj.CellObjInfo;
+            
+            if(_ceObj.Params.m_stObjInfo.m_bIsClearTarget)
+                Engine.GetScore();
 
             switch(kindsType)
             {

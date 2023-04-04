@@ -39,7 +39,7 @@ public static partial class Func {
 		int nNumCellsX = Random.Range(a_oCreateInfo.m_stMinNumCells.x, a_oCreateInfo.m_stMaxNumCells.x + KCDefine.B_VAL_1_INT);
 		int nNumCellsY = Random.Range(a_oCreateInfo.m_stMinNumCells.y, a_oCreateInfo.m_stMaxNumCells.y + KCDefine.B_VAL_1_INT);
 
-		var oCloneLevelInfo = a_bIsReset ? null : (CLevelInfo)a_oLevelInfo.Clone();
+        var oCloneLevelInfo = a_bIsReset ? null : (CLevelInfo)a_oLevelInfo.Clone();
 		a_oLevelInfo.m_oCellInfoDictContainer.Clear();
 
 		for(int i = 0; i < Mathf.Clamp(nNumCellsY, NSEngine.KDefine.E_MIN_NUM_CELLS.y, NSEngine.KDefine.E_MAX_NUM_CELLS.y); ++i) {

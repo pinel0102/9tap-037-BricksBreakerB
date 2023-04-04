@@ -109,7 +109,7 @@ namespace LevelEditorScene {
         {
             if (int.TryParse(_value, out int _intValue) && _intValue > -1)
                 currentHP = _intValue;
-            }
+        }
 
         public void OnChangeColorID(int _value)
         {

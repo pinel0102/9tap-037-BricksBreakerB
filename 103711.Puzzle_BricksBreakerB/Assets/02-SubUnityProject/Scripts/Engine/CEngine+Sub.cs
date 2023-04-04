@@ -197,6 +197,10 @@ namespace NSEngine {
             InitCellRoot();
             InitLayerMask();
 
+            InitScoreList(CGameInfoStorage.Inst.PlayLevelInfo.Score1, CGameInfoStorage.Inst.PlayLevelInfo.Score2, CGameInfoStorage.Inst.PlayLevelInfo.Score3);
+            InitCombo();
+            InitScore();
+
             currentLevel = (int)CGameInfoStorage.Inst.PlayEpisodeInfo.ULevelID + 1;
 
 #if NEVER_USE_THIS
@@ -557,6 +561,7 @@ namespace NSEngine {
         {
             Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", currentLevel));
 
+            this.InitCombo();
             isLevelFail = true;
 
             Params.m_oCallbackDict01[NSEngine.CEngine.ECallback.CLEAR_FAIL].Invoke(this);

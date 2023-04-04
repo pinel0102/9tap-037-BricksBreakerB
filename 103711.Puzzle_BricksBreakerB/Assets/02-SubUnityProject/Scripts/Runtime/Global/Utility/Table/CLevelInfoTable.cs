@@ -323,6 +323,9 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
     private const string KEY_VIEW_SIZE_X = "ViewSizeX";
     private const string KEY_VIEW_SIZE_Y = "ViewSizeY";
     private const string KEY_VIEW_SIZE_Z = "ViewSizeZ";
+    private const string KEY_SCORE_1 = "Score1";
+    private const string KEY_SCORE_2 = "Score2";
+    private const string KEY_SCORE_3 = "Score3";
 	#endregion // 상수
 
 	#region 프로퍼티

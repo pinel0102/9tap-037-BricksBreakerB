@@ -258,6 +258,16 @@ Transform:
   m_Father: {fileID: 1376964105}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &205212209 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7355021647068557840, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+  m_PrefabInstance: {fileID: 6993149693766247223}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &216793884 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4196133119877228941, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+  m_PrefabInstance: {fileID: 6993149693766247223}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &219398903 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7496922520388535498, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
@@ -294,6 +304,11 @@ Transform:
   m_Father: {fileID: 197704520}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &405113030 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2312219541672702318, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+  m_PrefabInstance: {fileID: 6993149693766247223}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &447852263
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,6 +424,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &604439128 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3499270980198009103, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+  m_PrefabInstance: {fileID: 6993149693766247223}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &624262449 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2495296464042906785, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+  m_PrefabInstance: {fileID: 6993149693766247223}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &625744782 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 149903360815317996, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+  m_PrefabInstance: {fileID: 6993149693766247223}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &764559435
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,6 +729,11 @@ Transform:
   m_Father: {fileID: 1376964105}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &1236096600 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1508132133075847392, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+  m_PrefabInstance: {fileID: 6993149693766247223}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1276200340
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,6 +802,18 @@ MonoBehaviour:
   - {fileID: 6993149693766247229}
   - {fileID: 6993149693766247228}
   - {fileID: 6993149693766247227}
+  starTransform:
+  - {fileID: 216793884}
+  - {fileID: 1938410420}
+  - {fileID: 1236096600}
+  starOn:
+  - {fileID: 205212209}
+  - {fileID: 1870688679}
+  - {fileID: 624262449}
+  scoreGageFrame: {fileID: 405113030}
+  scoreGage: {fileID: 625744782}
+  scoreText: {fileID: 604439128}
+  scoreList: 000000000000000000000000
   m_oRewardAdsUIsList: []
   m_oIdleUIsList:
   - {fileID: 1032853848}
@@ -969,6 +1028,11 @@ Canvas:
   m_CorrespondingSourceObject: {fileID: 6993149694154224069, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
   m_PrefabInstance: {fileID: 6993149693766247223}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1870688679 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 97761341325955362, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+  m_PrefabInstance: {fileID: 6993149693766247223}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1932059472
 GameObject:
   m_ObjectHideFlags: 0
@@ -1000,6 +1064,11 @@ Transform:
   m_Father: {fileID: 1376964105}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &1938410420 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2293898875489151246, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+  m_PrefabInstance: {fileID: 6993149693766247223}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1978059274
 GameObject:
   m_ObjectHideFlags: 0

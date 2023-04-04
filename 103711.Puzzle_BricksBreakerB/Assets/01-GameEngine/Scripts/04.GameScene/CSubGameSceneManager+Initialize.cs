@@ -31,6 +31,7 @@ namespace GameScene {
             goldenAimOn.SetActive(m_oEngine.isGoldAim);
 
             InitCamera();
+            InitUITop();
             SetupButtons();
         }
 

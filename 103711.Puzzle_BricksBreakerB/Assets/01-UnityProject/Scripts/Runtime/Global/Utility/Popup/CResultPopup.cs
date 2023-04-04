@@ -99,7 +99,7 @@ public partial class CResultPopup : CSubPopup {
 
 	/** 닫기 버튼을 눌렀을 경우 */
 	protected override void OnTouchCloseBtn() {
-		base.OnTouchCloseBtn();
+        base.OnTouchCloseBtn();
 		this.OnTouchLeaveBtn();
 	}
 

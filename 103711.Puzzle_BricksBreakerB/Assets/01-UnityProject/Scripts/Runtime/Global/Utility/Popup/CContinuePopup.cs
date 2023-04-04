@@ -38,13 +38,14 @@ public partial class CContinuePopup : CSubPopup {
 
 	#region 프로퍼티
 	public STParams Params { get; private set; }
-	public override bool IsIgnoreCloseBtn => true;
+	public override bool IsIgnoreCloseBtn => false;
 	#endregion // 프로퍼티
 
 	#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
+        this.SetIgnoreNavStackEvent(true);
 
 		// 텍스트를 설정한다
 		CFunc.SetupComponents(new List<(EKey, string, GameObject)>() {
@@ -94,8 +95,8 @@ public partial class CContinuePopup : CSubPopup {
 
 	/** 닫기 버튼을 눌렀을 경우 */
 	protected override void OnTouchCloseBtn() {
-		base.OnTouchCloseBtn();
-		this.OnTouchLeaveBtn();
+        base.OnTouchCloseBtn();
+        this.OnTouchLeaveBtn();
 	}
 
 	/** 재시도 버튼을 눌렀을 경우 */
@@ -105,7 +106,13 @@ public partial class CContinuePopup : CSubPopup {
 
 	/** 이어하기 버튼을 눌렀을 경우 */
 	private void OnTouchContinueBtn() {
-		var stItemTradeInfo = CItemInfoTable.Inst.GetBuyItemTradeInfo(EItemKinds.CONSUMABLE_GAME_ITEM_CONTINUE);
+        Debug.Log(CodeManager.GetMethodName());
+
+        //
+        this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.CONTINUE)?.Invoke(this);
+        base.OnTouchCloseBtn();
+
+		/*var stItemTradeInfo = CItemInfoTable.Inst.GetBuyItemTradeInfo(EItemKinds.CONSUMABLE_GAME_ITEM_CONTINUE);
 		stItemTradeInfo.m_oPayTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ITEM_NUMS, (int)EItemKinds.GOODS_NORM_COINS, out STTargetInfo stTargetInfo);
 
 		// 교환이 불가능 할 경우
@@ -114,7 +121,7 @@ public partial class CContinuePopup : CSubPopup {
 		} else {
 			Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, stItemTradeInfo.m_oAcquireTargetInfoDict, true);
 			this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.CONTINUE)?.Invoke(this);
-		}
+		}*/
 	}
 
 	/** 나가기 버튼을 눌렀을 경우 */

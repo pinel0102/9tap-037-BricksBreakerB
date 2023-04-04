@@ -444,6 +444,7 @@ public partial class CEditorCreateInfo {
 	public int m_nNumLevels = 0;
 	public Vector3Int m_stMinNumCells = Vector3Int.zero;
 	public Vector3Int m_stMaxNumCells = Vector3Int.zero;
+    public List<int> m_scoreList = new List<int>();
 }
 #endif // #if UNITY_EDITOR || UNITY_STANDALONE
 

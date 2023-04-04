@@ -2,10 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using DG.Tweening;
 
 namespace GameScene {
     public partial class CSubGameSceneManager : CGameSceneManager
     {
+        [Header("★ [Reference] UI Top")]
+        public List<RectTransform> starTransform;
+        public List<GameObject> starOn;
+        public RectTransform scoreGageFrame;
+        public Image scoreGage;
+        public TMP_Text scoreText;
+
+        private float gageFrameX;
+        private float gagePadding = 20f;
+
+        public void InitUITop()
+        {
+            gageFrameX = scoreGageFrame.sizeDelta.x;
+            for(int i=0; i < starTransform.Count; i++)
+            {
+                starTransform[i].anchoredPosition = new Vector2(Mathf.Clamp(((float)Engine.scoreList[i]/(float)Engine.scoreList[2]) * gageFrameX, gagePadding, gageFrameX - gagePadding), 0);
+            }
+
+            ScoreUpdate(false);
+        }
+
+        public void ScoreUpdate(bool _gageAni = true)
+        {
+            scoreText.text = string.Format(GlobalDefine.FORMAT_SCORE, Engine.currentScore);
+
+            if (_gageAni && scoreGage.fillAmount < 1f)
+                scoreGage.DOFillAmount((float)Engine.currentScore/(float)Engine.scoreList[2], GlobalDefine.SCORE_GAGE_DURATION);
+            else
+                scoreGage.fillAmount = ((float)Engine.currentScore/(float)Engine.scoreList[2]);
+
+            for(int i=0; i < starOn.Count; i++)
+            {
+                starOn[i].SetActive(Engine.currentScore >= Engine.scoreList[i]);
+            }
+        }
+
         public void OnTouchProfileBtn()
         {
             //

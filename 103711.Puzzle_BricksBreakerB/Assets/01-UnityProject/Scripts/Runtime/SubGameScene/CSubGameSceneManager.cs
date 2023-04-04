@@ -117,7 +117,7 @@ namespace GameScene {
 
 			// 백 키 눌림 이벤트 일 경우
 			if(a_eEvent == ENavStackEvent.BACK_KEY_DOWN) {
-				// 이전 씬이 레벨 에디터 씬 일 경우
+                // 이전 씬이 레벨 에디터 씬 일 경우
                 if(CSceneLoader.Inst.PrevActiveSceneName.Equals(KCDefine.B_SCENE_N_LEVEL_EDITOR) || GlobalDefine.isLevelEditor) {
 					Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_LEAVE_P_MSG), this.OnReceiveLeavePopupResult);
 				} else {
@@ -306,7 +306,7 @@ namespace GameScene {
 
 		/** 클리어 실패 콜백을 수신했을 경우 */
 		private void OnReceiveClearFailCallback(NSEngine.CEngine a_oSender) {
-			this.ShowResultPopup(false);
+            this.ShowContinuePopup();
 		}
 
         /** 선택 아이템을 적용한다 */
@@ -423,8 +423,8 @@ namespace GameScene {
 			Func.ShowContinuePopup(this.PopupUIs, (a_oSender) => {
 				(a_oSender as CContinuePopup).Init(CContinuePopup.MakeParams(m_oIntDict.GetValueOrDefault(EKey.CONTINUE_TIMES), new Dictionary<CContinuePopup.ECallback, System.Action<CContinuePopup>>() {
 					[CContinuePopup.ECallback.RETRY] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.RETRY),
-					[CContinuePopup.ECallback.CONTINUE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.CONTINUE),
-					[CContinuePopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
+					[CContinuePopup.ECallback.CONTINUE] = (a_oPopupSender) => {this.OnReceivePopupResult(a_oPopupSender, EPopupResult.CONTINUE); GetContinueBonus();},
+					[CContinuePopup.ECallback.LEAVE] = (a_oPopupSender) => this.ShowResultPopup(false)
 				}));
 			});
 		}

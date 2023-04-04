@@ -26,7 +26,6 @@ public static partial class GlobalDefine
 
     public static Color GetCellColor(EObjKinds kinds, bool isShield, bool isEnableColor, int _colorID = 0, int _HP = 100)
     {
-        EObjType cellType = (EObjType)((int)kinds).ExKindsToType();
         switch(kinds)
         {
             case EObjKinds.BALL_NORM_01: 

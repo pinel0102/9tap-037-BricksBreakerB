@@ -95,6 +95,10 @@ namespace LevelEditorScene {
 			RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_X_INPUT,
 			RE_UIS_PAGE_UIS_01_NUM_VIEW_CELLS_Y_INPUT,
 
+            RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE1_INPUT,
+            RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE2_INPUT,
+            RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE3_INPUT,
+
 			RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT,
 			RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT,
 			[HideInInspector] MAX_VAL
@@ -1848,12 +1852,18 @@ namespace LevelEditorScene {
 			CFunc.SetupInputs(new List<(EKey, string, GameObject, UnityAction<string>)>() {
 				(EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs01LevelInputStr),
 				(EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs01NumCellsInputStr),
-				(EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs01NumCellsInputStr)
+				(EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs01NumCellsInputStr),
+                (EKey.RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE1_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE1_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs01_Score),
+                (EKey.RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE2_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE2_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs01_Score),
+                (EKey.RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE3_INPUT, $"{EKey.RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE3_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs01_Score),
 			}, m_oInputDict);
 
 			m_oInputList01.ExAddVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT]);
 			m_oInputList01.ExAddVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT]);
-			m_oInputList01.ExAddVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT]);
+			m_oInputList01.ExAddVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT]);            
+            m_oInputList01.ExAddVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE1_INPUT]);
+            m_oInputList01.ExAddVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE2_INPUT]);
+            m_oInputList01.ExAddVal(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE3_INPUT]);
 			// 입력 필드를 설정한다 }
 
 			// 버튼을 설정한다 {
@@ -1861,7 +1871,8 @@ namespace LevelEditorScene {
 				(KCDefine.LES_OBJ_N_RE_UIS_PAGE_UIS_01_APPLY_BTN, a_oPageUIs, this.OnTouchREUIsPageUIs01ApplyBtn),
 				(KCDefine.LES_OBJ_N_RE_UIS_PAGE_UIS_01_FILL_ALL_CELLS_BTN, a_oPageUIs, this.OnTouchREUIsPageUIs01FillAllCellsBtn),
 				(KCDefine.LES_OBJ_N_RE_UIS_PAGE_UIS_01_CLEAR_ALL_CELLS_BTN, a_oPageUIs, this.OnTouchREUIsPageUIs01ClearAllCellsBtn),
-				(KCDefine.LES_OBJ_N_RE_UIS_PAGE_UIS_01_CLEAR_SEL_CELLS_BTN, a_oPageUIs, this.OnTouchREUIsPageUIs01ClearSelCellsBtn)
+				(KCDefine.LES_OBJ_N_RE_UIS_PAGE_UIS_01_CLEAR_SEL_CELLS_BTN, a_oPageUIs, this.OnTouchREUIsPageUIs01ClearSelCellsBtn),
+                (KCDefine.LES_OBJ_N_RE_UIS_PAGE_UIS_01_SCORE_BTN, a_oPageUIs, this.OnTouchREUIsPageUIs01ScoreBtn)
 			});
 
 			CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
@@ -2005,10 +2016,16 @@ namespace LevelEditorScene {
 		/** 오른쪽 에디터 UI 페이지 UI 1 상태를 갱신한다 */
 		private void UpdateREUIsPageUIs01(GameObject a_oPageUIs) {
 			// 입력 필드를 갱신한다 {
+            //Debug.Log(CodeManager.GetMethodName() + string.Format("[{0} x {1}] / {2}, {3}, {4}", SelLevelInfo.NumCells.x, SelLevelInfo.NumCells.y, SelLevelInfo.Score1, SelLevelInfo.Score2, SelLevelInfo.Score3));
+
 			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_LEVEL_INPUT]?.ExSetText<InputField>($"{this.SelLevelInfo.m_stIDInfo.m_nID01 + KCDefine.B_VAL_1_INT}", false);
 
 			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT]?.ExSetText<InputField>((this.SelLevelInfo.NumCells.x <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{this.SelLevelInfo.NumCells.x}", false);
 			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT]?.ExSetText<InputField>((this.SelLevelInfo.NumCells.y <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{this.SelLevelInfo.NumCells.y}", false);
+
+            m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE1_INPUT]?.ExSetText<InputField>((this.SelLevelInfo.Score1 <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{this.SelLevelInfo.Score1}", false);
+            m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE2_INPUT]?.ExSetText<InputField>((this.SelLevelInfo.Score2 <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{this.SelLevelInfo.Score2}", false);
+            m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE3_INPUT]?.ExSetText<InputField>((this.SelLevelInfo.Score3 <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{this.SelLevelInfo.Score3}", false);
 			// 입력 필드를 갱신한다 }
 		}
 
@@ -2044,13 +2061,25 @@ namespace LevelEditorScene {
 				Func.SetupEditorLevelInfo(this.SelLevelInfo, new CSubEditorCreateInfo() {
 					m_nNumLevels = KCDefine.B_VAL_0_INT,
 					m_stMinNumCells = new Vector3Int(nNumCellsX, nNumCellsY, NSEngine.KDefine.E_MIN_NUM_CELLS.z),
-					m_stMaxNumCells = new Vector3Int(nNumCellsX, nNumCellsY, NSEngine.KDefine.E_MIN_NUM_CELLS.z)
+					m_stMaxNumCells = new Vector3Int(nNumCellsX, nNumCellsY, NSEngine.KDefine.E_MIN_NUM_CELLS.z),
 				}, false);
 
 				this.UpdateUIsState();
 				this.SetMEUIsGridScrollDelta(m_oRealDict[EKey.GRID_SCROLL_DELTA_X], m_oRealDict[EKey.GRID_SCROLL_DELTA_Y]);
 			}
 		}
+
+        private void OnTouchREUIsPageUIs01ScoreBtn() {
+            bool bIsValid01 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE1_INPUT]?.text, NumberStyles.Any, null, out int score1);
+			bool bIsValid02 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE2_INPUT]?.text, NumberStyles.Any, null, out int score2);
+            bool bIsValid03 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE3_INPUT]?.text, NumberStyles.Any, null, out int score3);
+
+            this.SelLevelInfo.Score1 = bIsValid01 ? score1 : this.SelLevelInfo.Score1;
+            this.SelLevelInfo.Score2 = bIsValid02 ? score2 : this.SelLevelInfo.Score2;
+            this.SelLevelInfo.Score3 = bIsValid03 ? score3 : this.SelLevelInfo.Score3;
+
+            this.UpdateUIsState();
+        }
 
 		/** 오른쪽 에디터 UI 페이지 UI 1 레벨 로드 버튼을 눌렀을 경우 */
 		private void OnTouchREUIsPageUIs01LoadLevelBtn() {
@@ -2187,6 +2216,14 @@ namespace LevelEditorScene {
 			this.SetREUIsPageUIs01NumCells(bIsValid01 ? nNumCellsX : KCDefine.B_VAL_1_INT, bIsValid02 ? nNumCellsY : KCDefine.B_VAL_1_INT);
 		}
 
+        private void OnChangeREUIsPageUIs01_Score(string a_oStr) {
+            bool bIsValid01 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE1_INPUT]?.text, NumberStyles.Any, null, out int score1);
+            bool bIsValid02 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE2_INPUT]?.text, NumberStyles.Any, null, out int score2);
+			bool bIsValid03 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE3_INPUT]?.text, NumberStyles.Any, null, out int score3);
+
+            this.SetREUIsPageUIs01Scores(bIsValid01 ? score1 : this.SelLevelInfo.Score1, bIsValid02 ? score2 : this.SelLevelInfo.Score2, bIsValid03 ? score3 : this.SelLevelInfo.Score3);
+		}
+
 		/** 오른쪽 에디터 UI 페이지 UI 2 객체 크기 입력 문자열을 변경했을 경우 */
 		private void OnChangeREUIsPageUIs02ObjSizeInputStr(string a_oStr) {
 			bool bIsValid01 = int.TryParse(m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT]?.text, NumberStyles.Any, null, out int nSizeX);
@@ -2213,7 +2250,7 @@ namespace LevelEditorScene {
 
 		/** 오른쪽 에디터 UI 페이지 UI 1 셀 개수를 변경한다 */
 		private void SetREUIsPageUIs01NumCells(int a_nNumCellsX, int a_nNumCellsY) {
-			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT]?.SetTextWithoutNotify($"{Mathf.Clamp(a_nNumCellsX, NSEngine.KDefine.E_MIN_NUM_CELLS.x, NSEngine.KDefine.E_MAX_NUM_CELLS.x)}");
+            m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_X_INPUT]?.SetTextWithoutNotify($"{Mathf.Clamp(a_nNumCellsX, NSEngine.KDefine.E_MIN_NUM_CELLS.x, NSEngine.KDefine.E_MAX_NUM_CELLS.x)}");
 			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_NUM_CELLS_Y_INPUT]?.SetTextWithoutNotify($"{Mathf.Clamp(a_nNumCellsY, NSEngine.KDefine.E_MIN_NUM_CELLS.y, NSEngine.KDefine.E_MAX_NUM_CELLS.y)}");
 		}
 
@@ -2223,6 +2260,12 @@ namespace LevelEditorScene {
 			m_oInputDict[EKey.RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT]?.SetTextWithoutNotify($"{Mathf.Clamp(a_nSizeY, KCDefine.B_VAL_1_INT, this.SelLevelInfo.NumCells.y)}");
 
 			this.UpdateUIsState();
+		}
+
+        private void SetREUIsPageUIs01Scores(int score1, int score2, int score3) {
+			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE1_INPUT]?.SetTextWithoutNotify($"{score1}");
+			m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE2_INPUT]?.SetTextWithoutNotify($"{score2}");
+            m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE3_INPUT]?.SetTextWithoutNotify($"{score3}");
 		}
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 		#endregion // 조건부 접근자 함수

@@ -25,7 +25,7 @@ namespace LevelEditorScene {
 			RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT,
             RE_UIS_PAGE_UIS_02_CELL_OBJ_SHIELD_INPUT,
 			RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT,
-			
+            
 			[HideInInspector] MAX_VAL
 		}
 
@@ -369,7 +369,7 @@ namespace LevelEditorScene {
 			CFunc.SetupInputs(new List<(ESubKey, string, GameObject, UnityAction<string>)>() {
 				(ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT, $"{ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs02CellObjInfoInputStr),
                 (ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SHIELD_INPUT, $"{ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SHIELD_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs02CellObjInfoInputStr),
-				(ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT, $"{ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs02CellObjInfoInputStr)
+				(ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT, $"{ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT}", a_oPageUIs, this.OnChangeREUIsPageUIs02CellObjInfoInputStr),
 			}, m_oSubInputDict);
 
 			m_oInputList02.ExAddVal(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT]);

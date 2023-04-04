@@ -15,7 +15,8 @@ namespace NSEngine {
 
         public void CheckClear(bool _waitDelay = false, bool _isBottomItem = false)
         {
-            RefreshBallText();
+            this.RefreshBallText();
+            this.InitCombo();
 
             // 클리어했을 경우
             if(this.IsClear()) 
@@ -28,7 +29,7 @@ namespace NSEngine {
                     LevelClear();                
             } 
             else if (!isLevelFail && !isGridMoving && !_isBottomItem)
-            {
+            {   
                 this.TurnEndAction();
 
                 isGridMoving = true;
