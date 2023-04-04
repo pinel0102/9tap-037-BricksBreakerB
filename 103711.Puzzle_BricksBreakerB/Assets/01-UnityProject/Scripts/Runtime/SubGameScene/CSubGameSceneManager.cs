@@ -148,10 +148,10 @@ namespace GameScene {
 			this.SetupRewardAdsUIs();
 
 			// 버튼을 설정한다
-			CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
+			/*CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
 				(KCDefine.U_OBJ_N_PAUSE_BTN, this.UIsBase, this.OnTouchPauseBtn),
 				(KCDefine.U_OBJ_N_SETTINGS_BTN, this.UIsBase, this.OnTouchSettingsBtn)
-			});
+			});*/
 
 			// 비율을 설정한다 {
 			bool bIsValid01 = !float.IsNaN(m_oEngine.SelGridInfo.m_stScale.x) && !float.IsInfinity(m_oEngine.SelGridInfo.m_stScale.x);
@@ -309,38 +309,7 @@ namespace GameScene {
 			this.ShowResultPopup(false);
 		}
 
-        public void OnTouchClearBtn()
-        {
-            m_oEngine.LevelClear();
-        }
-
-		/** 정지 버튼을 눌렀을 경우 */
-		public void OnTouchPauseBtn() {
-			Func.ShowPausePopup(this.PopupUIs, (a_oSender) => {
-				(a_oSender as CPausePopup).Init(CPausePopup.MakeParams(new Dictionary<CPausePopup.ECallback, System.Action<CPausePopup>>() {
-                    [CPausePopup.ECallback.RETRY] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.RETRY),
-					[CPausePopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
-				}));
-			});
-		}
-
-		/** 설정 버튼을 눌렀을 경웅 */
-		public void OnTouchSettingsBtn() {
-			Func.ShowSettingsPopup(this.PopupUIs, (a_oSender) => {
-				(a_oSender as CSettingsPopup).Init();
-			});
-		}
-
-		/** 광고 버튼을 눌렀을 경우 */
-		private void OnTouchAdsBtn(ERewardAdsUIs a_eRewardAdsUIs) {
-			m_oRewardAdsUIsDict.ExReplaceVal(EKey.SEL_REWARD_ADS_UIS, a_eRewardAdsUIs);
-
-#if ADS_MODULE_ENABLE
-			Func.ShowRewardAds(this.OnCloseRewardAds);
-#endif // #if ADS_MODULE_ENABLE
-		}
-
-		/** 선택 아이템을 적용한다 */
+        /** 선택 아이템을 적용한다 */
 		private void ApplySelItems() {
 			for(int i = 0; i < CGameInfoStorage.Inst.FreeSelItemKindsList.Count; ++i) {
 				this.ApplySelItem(CGameInfoStorage.Inst.FreeSelItemKindsList[i]);

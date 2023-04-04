@@ -209,7 +209,6 @@ PlayerSettings:
   - {fileID: 8019310881375038877, guid: b4c7227a3b9d02446bb480ccdf262ff0, type: 3}
   - {fileID: 8019310881375038877, guid: 13f6521034ffd4d439c29bd721746d42, type: 3}
   - {fileID: 11400000, guid: 63b05d7214207b042a5a88fd89568ed3, type: 2}
-  - {fileID: 8019310881375038877, guid: ec2f70b33f26c4f75bab7afc44dcdcbc, type: 3}
   - {fileID: 11400000, guid: 65c0817fda9c4384693e429d48475d03, type: 2}
   - {fileID: 6884252962769875886, guid: 48d1a0689547f4692a89dc24feb11ce7, type: 3}
   - {fileID: 6884252962769875886, guid: 01b6cc1034c7545edae1495b6dc3a435, type: 3}
@@ -250,7 +249,7 @@ PlayerSettings:
   - {fileID: 6884252962769875886, guid: 602b7d9a9a0fc4c15bdb6814282eabbb, type: 3}
   - {fileID: 8019310881375038877, guid: f51291ec39dcb31428c4d76c7ba12d93, type: 3}
   - {fileID: 8019310881375038877, guid: 022bc31a3c39b2b4a85adea6d6c40cce, type: 3}
-  - {fileID: 8019310881375038877, guid: ff3dc89a866d44b61b00a32a67b48fbe, type: 3}
+  - {fileID: 8019310881375038877, guid: ec2f70b33f26c4f75bab7afc44dcdcbc, type: 3}
   - {fileID: 4890085278179872738, guid: 180bf50a552909444a3c1117bb729eb5, type: 2}
   - {fileID: 8113187388039015871, guid: da92b7170575c46c8a7eaf4afa14073c, type: 3}
   - {fileID: 2429724377936249959, guid: 8d93d9d989bd74c4c828ffda97d318cc, type: 3}
