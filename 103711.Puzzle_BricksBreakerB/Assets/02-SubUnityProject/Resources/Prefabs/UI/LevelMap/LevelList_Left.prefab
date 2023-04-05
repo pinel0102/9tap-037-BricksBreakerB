@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1148414589512001815}
   - component: {fileID: 478399141903609702}
   m_Layer: 5
-  m_Name: LevelList_0
+  m_Name: LevelList_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,7 +93,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 3
+  m_ChildAlignment: 4
   m_Spacing: 28
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0

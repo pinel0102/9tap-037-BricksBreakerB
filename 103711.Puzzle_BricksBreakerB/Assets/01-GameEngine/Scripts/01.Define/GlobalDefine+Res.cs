@@ -9,6 +9,6 @@ public static partial class GlobalDefine
 
     public static readonly string PREFAB_EDITOR_CURSOR = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_LEVEL_EDITOR_SCENE}Cursor";
 
-    public static readonly string PREFAB_LEVEL_BUTTON_0 = $"{KCDefine.B_DIR_P_PREFABS}Engine/Main/LevelList_0";
-    public static readonly string PREFAB_LEVEL_BUTTON_1 = $"{KCDefine.B_DIR_P_PREFABS}Engine/Main/LevelList_1";
+    public static readonly string PREFAB_LEVEL_LIST_LEFT = $"{KCDefine.B_DIR_P_PREFABS}UI/LevelMap/LevelList_Left";
+    public static readonly string PREFAB_LEVEL_LIST_RIGHT = $"{KCDefine.B_DIR_P_PREFABS}UI/LevelMap/LevelList_Right";
 }

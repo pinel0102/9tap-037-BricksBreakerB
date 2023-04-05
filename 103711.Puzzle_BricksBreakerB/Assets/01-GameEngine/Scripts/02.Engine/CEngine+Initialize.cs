@@ -5,13 +5,11 @@ using UnityEngine;
 namespace NSEngine {
     public partial class CEngine : CComponent
     {
-        [Header("★ [Live] Parameter")]
-        public Transform lastClearTarget;
-
         [Header("★ [Parameter] Options")]
         public bool isGoldAim;
 
         [Header("★ [Parameter] Live")]
+        public Transform lastClearTarget;
         public bool isLevelFail;
         public bool isGridMoving;
         public int currentLevel;

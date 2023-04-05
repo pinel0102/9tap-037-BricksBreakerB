@@ -32,9 +32,10 @@ namespace MainScene {
         private void InitLevelMapButtons()
         {
             var levelCount = CLevelInfoTable.Inst.levelCount;
-            for (int i=0; i < (levelCount / 5); i++)
+            
+            for (int i=0; i <= ((levelCount - 1) / 5); i++)
             {
-                GameObject ga = GameObject.Instantiate(Resources.Load<GameObject>(i%2 == 0 ? GlobalDefine.PREFAB_LEVEL_BUTTON_0 : GlobalDefine.PREFAB_LEVEL_BUTTON_1), levelButtonParent);
+                GameObject ga = GameObject.Instantiate(Resources.Load<GameObject>(i%2 == 0 ? GlobalDefine.PREFAB_LEVEL_LIST_LEFT : GlobalDefine.PREFAB_LEVEL_LIST_RIGHT), levelButtonParent);
                 ga.GetComponent<LevelList>().Initialize(i * 5, levelCount);
             }
         }

@@ -6,18 +6,25 @@ using TMPro;
 
 public class LevelButton : MonoBehaviour
 {
+    [Header("★ [Parameter] Live")]
+    public int level;
+    public int levelType;
+    public int starCount;
+    public bool isOpen;
+    public bool isClear;
+    
+    [Header("★ [Reference] Reference")]
     public GameObject openObject;
     public GameObject lockObject;
+    public GameObject arrowObject;
     public List<GameObject> normalObject;
     public List<GameObject> colorObject;
     public List<GameObject> arrowList;
+    public List<GameObject> starObjectNormal;
+    public List<GameObject> starObjectColor;
     public List<Button> buttonList;
     public List<TMP_Text> levelText;
-
-    public int level;
-    public int levelType;
-    public bool canPlay;
-
+    
     public void Initialize(int _level, int _levelCount)
     {
         if (_level < _levelCount)
@@ -26,16 +33,23 @@ public class LevelButton : MonoBehaviour
 
             var levelInfo = CLevelInfoTable.Inst.GetLevelInfo(_level);
             levelType = levelInfo.LevelType;
+
             
-            //TODO: 레벨 잠그기.
-            canPlay = true; //level <= 50;
+            //TODO: temp values
+            isOpen = true;
+            isClear = true;
+            starCount = 3;
+
 
             SetButton();
             SetArrow(_levelCount);
+            SetStar();
         }
         else
         {
-            gameObject.SetActive(false);
+            openObject.SetActive(false);
+            lockObject.SetActive(false);
+            arrowObject.SetActive(false);
         }
     }
 
@@ -71,8 +85,8 @@ public class LevelButton : MonoBehaviour
                 break;
         }
 
-        openObject.SetActive(canPlay);
-        lockObject.SetActive(!canPlay);
+        openObject.SetActive(isOpen);
+        lockObject.SetActive(!isOpen);
     }
 
     private void SetArrow(int _levelCount)
@@ -97,6 +111,15 @@ public class LevelButton : MonoBehaviour
                 case 8: 
                 case 9: arrowList[0].SetActive(true); break;
             }
+        }
+    }
+
+    private void SetStar()
+    {
+        for(int i=0; i < starObjectNormal.Count; i++)
+        {
+            starObjectNormal[i].SetActive(isClear && i < starCount);
+            starObjectColor[i].SetActive(isClear && i < starCount);
         }
     }
 }
