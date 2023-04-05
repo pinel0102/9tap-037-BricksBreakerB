@@ -14,6 +14,8 @@ namespace MainScene {
 		#region 변수
 		/** =====> 객체 <===== */
 		[SerializeField] private GameObject m_oTempMenuUIs = null;
+
+        public Transform levelButtonParent;
         #endregion // 변수
 
 		#region 함수
@@ -24,24 +26,20 @@ namespace MainScene {
 
             this.InitTabs();
             this.InitLobbyButtons();
-
-
-			// FIXME: 임시
-			for(int i = 0; i < m_oTempMenuUIs.transform.childCount; ++i) {
-				int nIdx = i;
-
-				m_oTempMenuUIs.transform.GetChild(i).GetComponentInChildren<Button>().onClick.AddListener(() => {
-					
-                    var oText = m_oTempMenuUIs.transform.GetChild(nIdx).GetComponentInChildren<TMP_Text>();
-
-                    Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", int.Parse(oText.text)));
-
-					Func.SetupPlayEpisodeInfo(KDefine.G_CHARACTER_ID_COMMON, int.Parse(oText.text) - 1, EPlayMode.NORM);
-					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
-				});
-			}
+            this.InitLevelMapButtons();
 		}
-		#endregion // 함수
+
+        private void InitLevelMapButtons()
+        {
+            var levelCount = CLevelInfoTable.Inst.levelCount;
+            for (int i=0; i < (levelCount / 5); i++)
+            {
+                GameObject ga = GameObject.Instantiate(Resources.Load<GameObject>(i%2 == 0 ? GlobalDefine.PREFAB_LEVEL_BUTTON_0 : GlobalDefine.PREFAB_LEVEL_BUTTON_1), levelButtonParent);
+                ga.GetComponent<LevelList>().Initialize(i * 5, levelCount);
+            }
+        }
+
+        #endregion // 함수
 	}
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

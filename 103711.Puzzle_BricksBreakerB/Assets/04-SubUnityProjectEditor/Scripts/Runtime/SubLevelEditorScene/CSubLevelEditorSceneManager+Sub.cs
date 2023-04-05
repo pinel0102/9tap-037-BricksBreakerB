@@ -21,6 +21,7 @@ namespace LevelEditorScene {
             ME_UIS_CELL_OBJ_SHIELD_TEXT,
 			ME_UIS_CELL_OBJ_ATK_TEXT,
             ME_UIS_CELL_OBJ_COLOR_TEXT,
+            ME_UIS_CELL_OBJ_COUNT_TEXT,
             RE_UIS_PAGE_UIS_02_CELL_OBJ_COLOR_DROP,
 			RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT,
             RE_UIS_PAGE_UIS_02_CELL_OBJ_SHIELD_INPUT,
@@ -293,7 +294,8 @@ namespace LevelEditorScene {
 				(ESubKey.ME_UIS_CELL_OBJ_HP_TEXT, $"{ESubKey.ME_UIS_CELL_OBJ_HP_TEXT}", this.MEUIsInfoUIs),
                 (ESubKey.ME_UIS_CELL_OBJ_SHIELD_TEXT, $"{ESubKey.ME_UIS_CELL_OBJ_SHIELD_TEXT}", this.MEUIsInfoUIs),
 				(ESubKey.ME_UIS_CELL_OBJ_ATK_TEXT, $"{ESubKey.ME_UIS_CELL_OBJ_ATK_TEXT}", this.MEUIsInfoUIs),
-                (ESubKey.ME_UIS_CELL_OBJ_COLOR_TEXT, $"{ESubKey.ME_UIS_CELL_OBJ_COLOR_TEXT}", this.MEUIsInfoUIs)
+                (ESubKey.ME_UIS_CELL_OBJ_COLOR_TEXT, $"{ESubKey.ME_UIS_CELL_OBJ_COLOR_TEXT}", this.MEUIsInfoUIs),
+                (ESubKey.ME_UIS_CELL_OBJ_COUNT_TEXT, $"{ESubKey.ME_UIS_CELL_OBJ_COUNT_TEXT}", this.MEUIsInfoUIs),
 			}, m_oSubTextDict);
 		}
 
@@ -305,6 +307,7 @@ namespace LevelEditorScene {
             m_oSubTextDict[ESubKey.ME_UIS_CELL_OBJ_SHIELD_TEXT].text = string.Format(KDefine.LES_TEXT_FMT_SHIELD_INFO, m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SHIELD_INPUT].text);
 			m_oSubTextDict[ESubKey.ME_UIS_CELL_OBJ_ATK_TEXT].text = string.Format(KDefine.LES_TEXT_FMT_ATK_INFO, m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT].text);
             m_oSubTextDict[ESubKey.ME_UIS_CELL_OBJ_COLOR_TEXT].text = string.Format(KDefine.LES_TEXT_FMT_COLOR_INFO, m_oSubDropDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_COLOR_DROP].captionText.text.ExGetColorFmtStr(stColor));
+            m_oSubTextDict[ESubKey.ME_UIS_CELL_OBJ_COUNT_TEXT].text = string.Format(KDefine.LES_TEXT_FMT_COUNT_INFO, GetTargetCellCount());
 
             UpdateRightUIsColor();
 		}

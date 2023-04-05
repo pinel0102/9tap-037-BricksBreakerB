@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using TMPro;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 /** 설정 팝업 */
@@ -19,6 +20,7 @@ public partial class CSettingsPopup : CSubPopup {
 
 	#region 변수
 	/** =====> UI <===== */
+    public TMP_Text versionText;
 	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 	#endregion // 변수
 
@@ -40,6 +42,8 @@ public partial class CSettingsPopup : CSubPopup {
 			(EKey.NOTI_BTN, $"{EKey.NOTI_BTN}", this.Contents, this.OnTouchNotiBtn)
 		}, m_oBtnDict);
 		// 버튼을 설정한다 }
+
+        versionText.text = GlobalDefine.GetVersionText();
 
 		this.SubAwake();
 	}

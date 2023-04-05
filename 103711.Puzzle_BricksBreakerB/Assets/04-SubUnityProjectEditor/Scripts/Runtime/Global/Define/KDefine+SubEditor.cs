@@ -20,6 +20,7 @@ public static partial class KDefine {
     public const string LES_TEXT_FMT_SHIELD_INFO = "상자 {0}";
 	public const string LES_TEXT_FMT_ATK_INFO = "공격 {0}";
     public const string LES_TEXT_FMT_COLOR_INFO = "색상 {0}";
+    public const string LES_TEXT_FMT_COUNT_INFO = "개수 {0}";
 	#endregion // 기본
 
 	#region 런타임 상수
