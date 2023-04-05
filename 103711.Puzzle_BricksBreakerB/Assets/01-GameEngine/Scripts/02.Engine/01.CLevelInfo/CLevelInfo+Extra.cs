@@ -39,22 +39,29 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable
     [JsonIgnore]
     [IgnoreMember]
 	public int Score1 {
-		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_SCORE_1, $"{(int)GlobalDefine.Score1_Default}")); }
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_SCORE_1, $"{(int)GlobalDefine.LevelInfo_Default_Score1}")); }
 		set { m_oStrDict.ExReplaceVal(KEY_SCORE_1, $"{(int)value}"); }
 	}
 
     [JsonIgnore]
     [IgnoreMember]
 	public int Score2 {
-		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_SCORE_2, $"{(int)GlobalDefine.Score2_Default}")); }
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_SCORE_2, $"{(int)GlobalDefine.LevelInfo_Default_Score2}")); }
 		set { m_oStrDict.ExReplaceVal(KEY_SCORE_2, $"{(int)value}"); }
 	}
 
     [JsonIgnore]
     [IgnoreMember]
 	public int Score3 {
-		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_SCORE_3, $"{(int)GlobalDefine.Score3_Default}")); }
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_SCORE_3, $"{(int)GlobalDefine.LevelInfo_Default_Score3}")); }
 		set { m_oStrDict.ExReplaceVal(KEY_SCORE_3, $"{(int)value}"); }
+	}
+
+    [JsonIgnore]
+    [IgnoreMember]
+	public int LevelType {
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_LEVEL_TYPE, $"{(int)GlobalDefine.LevelInfo_Default_LevelType}")); }
+		set { m_oStrDict.ExReplaceVal(KEY_LEVEL_TYPE, $"{(int)value}"); }
 	}
 
     [JsonIgnore] [IgnoreMember] public Vector3Int ViewSize => new Vector3Int(ViewSizeX, ViewSizeY, ViewSizeZ);
@@ -95,6 +102,12 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable
 		set { m_oStrDict.ExReplaceVal(KEY_SCORE_3, $"{(int)value}"); }
 	}
 
+    [IgnoreMember]
+	public int LevelType {
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_LEVEL_TYPE, $"{(int)GlobalDefine.LevelInfo_Default_LevelType}")); }
+		set { m_oStrDict.ExReplaceVal(KEY_LEVEL_TYPE, $"{(int)value}"); }
+	}
+
     [IgnoreMember] public Vector3Int ViewSize => new Vector3Int(ViewSizeX, ViewSizeY, ViewSizeZ);
 #endif
 
@@ -107,6 +120,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable
         this.Score1 = Score1;
         this.Score2 = Score2;
         this.Score3 = Score3;
+        this.LevelType = LevelType;
         
         //Debug.Log(CodeManager.GetMethodName() + string.Format("{0} / {1}", this.NumCells, this.ViewSize));
     }

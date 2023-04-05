@@ -9,8 +9,5 @@ public static partial class GlobalDefine
     
     public const float SCORE_GAGE_DURATION = 0.5f;
     public const string FORMAT_SCORE = "Score: {0}";
-
-    public const int Score1_Default = 100;
-    public const int Score2_Default = 500;
-    public const int Score3_Default = 1000;
+        
 }

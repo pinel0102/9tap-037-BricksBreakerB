@@ -98,6 +98,9 @@ namespace LevelEditorScene {
             RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE1_INPUT,
             RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE2_INPUT,
             RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE3_INPUT,
+            ME_UIS_LEVEL_TYPE_0_TOGGLE,
+            ME_UIS_LEVEL_TYPE_1_TOGGLE,
+            ME_UIS_LEVEL_TYPE_2_TOGGLE,
 
 			RE_UIS_PAGE_UIS_02_OBJ_SIZE_X_INPUT,
 			RE_UIS_PAGE_UIS_02_OBJ_SIZE_Y_INPUT,
@@ -1433,12 +1436,19 @@ namespace LevelEditorScene {
 			CFunc.SetupToggles(new List<(EKey, string, GameObject, UnityAction<bool>)>() {
 				(EKey.ME_UIS_DRAW_MODE_TOGGLE, $"{EKey.ME_UIS_DRAW_MODE_TOGGLE}", this.MidEditorUIs, this.OnTouchMEUIsEditorModeToggle),
 				(EKey.ME_UIS_PAINT_MODE_TOGGLE, $"{EKey.ME_UIS_PAINT_MODE_TOGGLE}", this.MidEditorUIs, this.OnTouchMEUIsEditorModeToggle),
-                (EKey.ME_UIS_SELECT_MODE_TOGGLE, $"{EKey.ME_UIS_SELECT_MODE_TOGGLE}", this.MidEditorUIs, this.OnTouchMEUIsEditorModeToggle)
+                (EKey.ME_UIS_SELECT_MODE_TOGGLE, $"{EKey.ME_UIS_SELECT_MODE_TOGGLE}", this.MidEditorUIs, this.OnTouchMEUIsEditorModeToggle),
+                (EKey.ME_UIS_LEVEL_TYPE_0_TOGGLE, $"{EKey.ME_UIS_LEVEL_TYPE_0_TOGGLE}", this.RightEditorUIs, this.OnTouchMEUIsEditorLevelTypeToggle),
+                (EKey.ME_UIS_LEVEL_TYPE_1_TOGGLE, $"{EKey.ME_UIS_LEVEL_TYPE_1_TOGGLE}", this.RightEditorUIs, this.OnTouchMEUIsEditorLevelTypeToggle),
+                (EKey.ME_UIS_LEVEL_TYPE_2_TOGGLE, $"{EKey.ME_UIS_LEVEL_TYPE_2_TOGGLE}", this.RightEditorUIs, this.OnTouchMEUIsEditorLevelTypeToggle)
 			}, m_oToggleDict);
 
 			m_oToggleDict[EKey.ME_UIS_DRAW_MODE_TOGGLE]?.SetIsOnWithoutNotify(true);
 			m_oToggleDict[EKey.ME_UIS_PAINT_MODE_TOGGLE]?.SetIsOnWithoutNotify(false);
             m_oToggleDict[EKey.ME_UIS_SELECT_MODE_TOGGLE]?.SetIsOnWithoutNotify(false);
+
+            m_oToggleDict[EKey.ME_UIS_LEVEL_TYPE_0_TOGGLE]?.SetIsOnWithoutNotify(true);
+			m_oToggleDict[EKey.ME_UIS_LEVEL_TYPE_1_TOGGLE]?.SetIsOnWithoutNotify(false);
+            m_oToggleDict[EKey.ME_UIS_LEVEL_TYPE_2_TOGGLE]?.SetIsOnWithoutNotify(false);
 			// 토글을 설정한다 }
 
 			// 스크롤 바를 설정한다
@@ -1612,12 +1622,27 @@ namespace LevelEditorScene {
 
 		/** 중앙 에디터 UI 에디터 모드 토글을 눌렀을 경우 */
 		private void OnTouchMEUIsEditorModeToggle(bool a_bIsTrue) {
-			bool bIsDraw = m_oToggleDict[EKey.ME_UIS_DRAW_MODE_TOGGLE] != null && m_oToggleDict[EKey.ME_UIS_DRAW_MODE_TOGGLE].isOn;
-			bool bIsPaint = m_oToggleDict[EKey.ME_UIS_PAINT_MODE_TOGGLE] != null && m_oToggleDict[EKey.ME_UIS_PAINT_MODE_TOGGLE].isOn;
-            bool bIsSelect = m_oToggleDict[EKey.ME_UIS_SELECT_MODE_TOGGLE] != null && m_oToggleDict[EKey.ME_UIS_SELECT_MODE_TOGGLE].isOn;
+            if (a_bIsTrue)
+            {
+                bool bIsDraw = m_oToggleDict[EKey.ME_UIS_DRAW_MODE_TOGGLE] != null && m_oToggleDict[EKey.ME_UIS_DRAW_MODE_TOGGLE].isOn;
+                bool bIsPaint = m_oToggleDict[EKey.ME_UIS_PAINT_MODE_TOGGLE] != null && m_oToggleDict[EKey.ME_UIS_PAINT_MODE_TOGGLE].isOn;
+                bool bIsSelect = m_oToggleDict[EKey.ME_UIS_SELECT_MODE_TOGGLE] != null && m_oToggleDict[EKey.ME_UIS_SELECT_MODE_TOGGLE].isOn;
 
-			this.SetMEUIsEditorMode(bIsDraw, bIsPaint, bIsSelect);
+                this.SetMEUIsEditorMode(bIsDraw, bIsPaint, bIsSelect);
+            }
 		}
+
+        private void OnTouchMEUIsEditorLevelTypeToggle(bool a_bIsTrue)
+        {
+            if (a_bIsTrue)
+            {
+                int newType = m_oToggleDict[EKey.ME_UIS_LEVEL_TYPE_0_TOGGLE].isOn ? GlobalDefine.LevelInfo_Default_LevelType : 
+                              m_oToggleDict[EKey.ME_UIS_LEVEL_TYPE_1_TOGGLE].isOn ? GlobalDefine.LevelInfo_Default_LevelType + 1 : 
+                              m_oToggleDict[EKey.ME_UIS_LEVEL_TYPE_2_TOGGLE].isOn ? GlobalDefine.LevelInfo_Default_LevelType + 2 : GlobalDefine.LevelInfo_Default_LevelType;
+
+                this.SelLevelInfo.LevelType = newType;
+            }
+        }
 
 		/** 중앙 에디터 UI 그리드 스크롤 바 값이 변경 되었을 경우 */
 		private void OnChangeMEUIsGridScrollBarVal(float a_fVal) {
@@ -2026,6 +2051,9 @@ namespace LevelEditorScene {
             m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE1_INPUT]?.ExSetText<InputField>((this.SelLevelInfo.Score1 <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{this.SelLevelInfo.Score1}", false);
             m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE2_INPUT]?.ExSetText<InputField>((this.SelLevelInfo.Score2 <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{this.SelLevelInfo.Score2}", false);
             m_oInputDict[EKey.RE_UIS_PAGE_UIS_01_CELL_OBJ_SCORE3_INPUT]?.ExSetText<InputField>((this.SelLevelInfo.Score3 <= KCDefine.B_VAL_0_INT) ? string.Empty : $"{this.SelLevelInfo.Score3}", false);
+
+            m_oToggleDict[EKey.ME_UIS_LEVEL_TYPE_0_TOGGLE + this.SelLevelInfo.LevelType]?.SetIsOnWithoutNotify(true);
+
 			// 입력 필드를 갱신한다 }
 		}
 
