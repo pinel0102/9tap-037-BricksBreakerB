@@ -30,31 +30,13 @@ namespace NSEngine {
             this.SetHideReserved();
         }
 
-        private void Arrow_Left(int _cCol, int _cRow)
-        {
-            int startIndex = 0;
-            int endIndex = Mathf.Max(_cCol, 0);
-            
-            Arrow_Horizontal(_cCol, _cRow, startIndex, endIndex);
-            ShowEffect_Arrow(-1, 0);
-        }
-
-        private void Arrow_Right(int _cCol, int _cRow)
-        {
-            int startIndex = Mathf.Min(_cCol + 1, this.Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT) - 1);
-            int endIndex = this.Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT);
-
-            Arrow_Horizontal(_cCol, _cRow, startIndex, endIndex);
-            ShowEffect_Arrow(1, 0);
-        }        
-
         private void Arrow_Up(int _cCol, int _cRow)
         {
             int startIndex = 0;
             int endIndex = Mathf.Max(_cRow, 0);
 
             Arrow_Vertical(_cCol, _cRow, startIndex, endIndex);
-            ShowEffect_Arrow(0, 1);
+            ShowEffect_Arrow(GlobalDefine.FXLaser_Rotation_Anchor[0]);
         }
 
         private void Arrow_Down(int _cCol, int _cRow)
@@ -63,34 +45,25 @@ namespace NSEngine {
             int endIndex = this.Engine.CellObjLists.GetLength(KCDefine.B_VAL_0_INT);
 
             Arrow_Vertical(_cCol, _cRow, startIndex, endIndex);
-            ShowEffect_Arrow(0, -1);
+            ShowEffect_Arrow(GlobalDefine.FXLaser_Rotation_Anchor[4]);
         }
 
-        private void Arrow_RightDown(int _cCol, int _cRow)
+        private void Arrow_Left(int _cCol, int _cRow)
         {
-            int startRow = Mathf.Min(_cRow + 1, this.Engine.CellObjLists.GetLength(KCDefine.B_VAL_0_INT) - 1);
-            int startCol = Mathf.Min(_cCol + 1, this.Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT) - 1);
-
-            Arrow_Diagonal(_cCol, _cRow, startCol, startRow, 1, 1);
-            ShowEffect_Arrow(1, 1);
+            int startIndex = 0;
+            int endIndex = Mathf.Max(_cCol, 0);
+            
+            Arrow_Horizontal(_cCol, _cRow, startIndex, endIndex);
+            ShowEffect_Arrow(GlobalDefine.FXLaser_Rotation_Anchor[2]);
         }
 
-        private void Arrow_RightUp(int _cCol, int _cRow)
+        private void Arrow_Right(int _cCol, int _cRow)
         {
-            int startRow = Mathf.Max(_cRow - 1, 0);
-            int startCol = Mathf.Min(_cCol + 1, this.Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT) - 1);
+            int startIndex = Mathf.Min(_cCol + 1, this.Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT) - 1);
+            int endIndex = this.Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT);
 
-            Arrow_Diagonal(_cCol, _cRow, startCol, startRow, 1, -1);
-            ShowEffect_Arrow(1, -1);
-        }
-
-        private void Arrow_LeftDown(int _cCol, int _cRow)
-        {
-            int startRow = Mathf.Min(_cRow + 1, this.Engine.CellObjLists.GetLength(KCDefine.B_VAL_0_INT) - 1);
-            int startCol = Mathf.Max(_cCol - 1, 0);
-
-            Arrow_Diagonal(_cCol, _cRow, startCol, startRow, -1, 1);
-            ShowEffect_Arrow(-1, 1);
+            Arrow_Horizontal(_cCol, _cRow, startIndex, endIndex);
+            ShowEffect_Arrow(GlobalDefine.FXLaser_Rotation_Anchor[6]);
         }
 
         private void Arrow_LeftUp(int _cCol, int _cRow)
@@ -99,9 +72,35 @@ namespace NSEngine {
             int startCol = Mathf.Max(_cCol - 1, 0);
 
             Arrow_Diagonal(_cCol, _cRow, startCol, startRow, -1, -1);
-            ShowEffect_Arrow(-1, -1);
+            ShowEffect_Arrow(GlobalDefine.FXLaser_Rotation_Anchor[1]);
         }
 
+        private void Arrow_LeftDown(int _cCol, int _cRow)
+        {
+            int startRow = Mathf.Min(_cRow + 1, this.Engine.CellObjLists.GetLength(KCDefine.B_VAL_0_INT) - 1);
+            int startCol = Mathf.Max(_cCol - 1, 0);
+
+            Arrow_Diagonal(_cCol, _cRow, startCol, startRow, -1, 1);
+            ShowEffect_Arrow(GlobalDefine.FXLaser_Rotation_Anchor[3]);
+        }
+
+        private void Arrow_RightDown(int _cCol, int _cRow)
+        {
+            int startRow = Mathf.Min(_cRow + 1, this.Engine.CellObjLists.GetLength(KCDefine.B_VAL_0_INT) - 1);
+            int startCol = Mathf.Min(_cCol + 1, this.Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT) - 1);
+
+            Arrow_Diagonal(_cCol, _cRow, startCol, startRow, 1, 1);
+            ShowEffect_Arrow(GlobalDefine.FXLaser_Rotation_Anchor[5]);
+        }
+
+        private void Arrow_RightUp(int _cCol, int _cRow)
+        {
+            int startRow = Mathf.Max(_cRow - 1, 0);
+            int startCol = Mathf.Min(_cCol + 1, this.Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT) - 1);
+
+            Arrow_Diagonal(_cCol, _cRow, startCol, startRow, 1, -1);
+            ShowEffect_Arrow(GlobalDefine.FXLaser_Rotation_Anchor[7]);
+        }
 
 
         ///<Summary>가로 화살.</Summary>
@@ -137,10 +136,9 @@ namespace NSEngine {
             }
         }
 
-        private void ShowEffect_Arrow(int directionX, int directionY)
+        private void ShowEffect_Arrow(Vector3 _rotation)
         {
-            //Transform effect = CSceneManager.ActiveSceneManager.SpawnObj<Transform>(GlobalDefine.FX_LASER, KDefine.E_KEY_FX_OBJS_POOL, Vector3.one, _rotation, this.transform.position, true);
-            //CSceneManager.ActiveSceneManager.DespawnObj(KDefine.E_KEY_FX_OBJS_POOL, effect.gameObject, GlobalDefine.FXTime_LASER);
+            GlobalDefine.ShowEffect_Laser_Red(EFXSet.FX_LASER_RED_ANCHOR, this.transform.position, _rotation, Vector3.one, GlobalDefine.FXLaserRed_Time);
         }
     }
 }

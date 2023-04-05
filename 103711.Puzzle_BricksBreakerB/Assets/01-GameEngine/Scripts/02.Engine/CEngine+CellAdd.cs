@@ -6,10 +6,19 @@ using System.Linq;
 namespace NSEngine {
     public partial class CEngine : CComponent
     {
-        ///<Summary>빈 셀에 특수 블럭을 추가한다.</Summary>
-        public void AddCell(Vector3Int gridPos, EObjKinds kinds, STCellObjInfo stCellObjInfo)
+        ///<Summary>해당 좌표에 블럭을 배치한다.</Summary>
+        ///<param name="gridPos">좌표. (x, y, layer)</param>
+        ///<param name="overrideCell"><para>true : 기존 셀을 변경한다.</para><para>false : 빈 셀일 때만 배치한다.</para></param>
+        public void AddCell(Vector3Int gridPos, EObjKinds kinds, STCellObjInfo stCellObjInfo, bool overrideCell = false)
         {
-            if (this.CellObjLists[gridPos.y, gridPos.x].Count > 0) return;
+            if (!overrideCell && this.CellObjLists[gridPos.y, gridPos.x].Count > 0) return;
+
+            for (int i=0; i < this.CellObjLists[gridPos.y, gridPos.x].Count; i++)
+            {
+                this.CellObjLists[gridPos.y, gridPos.x][i].GetComponent<CECellObjController>().CellDestroy();
+            }
+            
+            this.CellObjLists[gridPos.y, gridPos.x].Clear();
 
             Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>[{0}, {1}] {2}</color>", gridPos.x, gridPos.y, kinds));
 

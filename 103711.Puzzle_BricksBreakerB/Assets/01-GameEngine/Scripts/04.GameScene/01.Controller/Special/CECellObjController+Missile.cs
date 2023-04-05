@@ -41,7 +41,7 @@ namespace NSEngine {
                 float fxAngle = GlobalDefine.GetAngle(this.transform.position, target.transform.position) + GlobalDefine.FXMissile_AngleOffset;
                 float distance = Vector2.Distance(this.transform.position, target.transform.position);
                 
-                GlobalDefine.ShowEffect(EFXSet.FX_MISSILE_BULLET, this.transform.position, fxAngle, target, Engine.CellDestroy_SkillTarget, GlobalDefine.FXMissile_Time);
+                GlobalDefine.ShowEffect_Missile(EFXSet.FX_MISSILE_BULLET, this.transform.position, fxAngle, target, Engine.CellDestroy_SkillTarget, GlobalDefine.FXMissile_Time);
                 GlobalDefine.ShowEffect(EFXSet.FX_MISSILE_HEAD, target.transform.position);
 
                 //oController.ReserveMissileDestroy();

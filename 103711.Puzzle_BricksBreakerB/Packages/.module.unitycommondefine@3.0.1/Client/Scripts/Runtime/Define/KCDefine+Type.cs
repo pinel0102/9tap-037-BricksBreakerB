@@ -165,6 +165,7 @@ public struct STRecordInfo {
 	[Key(0)] public bool m_bIsSuccess;
 	[Key(1)] public long m_nIntRecord;
 	[Key(2)] public double m_dblRealRecord;
+    [Key(3)] public int m_starCount;
 }
 
 /** 빌드 버전 정보 */

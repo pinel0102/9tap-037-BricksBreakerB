@@ -47,8 +47,9 @@ namespace GameScene {
                     Engine.CellDamage_SkillTarget(target, Engine.BallObjList[0].GetComponent<NSEngine.CEBallObjController>(), damage);
                 }
 
+                Engine.RefreshActiveCells();
+                Engine.CheckDeadLine();
                 Engine.CheckClear(true, true);
-
             });
         }
 
@@ -70,12 +71,16 @@ namespace GameScene {
             var lastClearTarget = Engine.GetLastClearTarget();
             if (lastClearTarget != null)
             {
+                GlobalDefine.ShowEffect_Laser_Red(EFXSet.FX_LASER_RED, new Vector3(0, lastClearTarget.transform.position.y, lastClearTarget.transform.position.z), GlobalDefine.FXLaser_Rotation_Horizontal, Vector3.one, GlobalDefine.FXLaserRed_Time);
+
                 for(int i = 0; i < Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); ++i) 
                 {
                     Engine.CellDestroy_SkillTarget(lastClearTarget.row, i);
                 }
             }
 
+            Engine.RefreshActiveCells();
+            Engine.CheckDeadLine();
             Engine.CheckClear(true, true);
         }
 
@@ -91,7 +96,7 @@ namespace GameScene {
                 EObjKinds kinds = Random.Range(0, 100) < 50 ? EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01 : EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01;
                 STCellObjInfo cellObjInfo = new STCellObjInfo(null) { ObjKinds = kinds, ATK = 0, HP = 0, SHIELD = 0, ColorID = 0, SizeX = 1, SizeY = 1, SizeZ = 1 };
 
-                Engine.AddCell(targetList[i], kinds, cellObjInfo);
+                Engine.AddCell(targetList[i], kinds, cellObjInfo, false);
             }
         }
 
@@ -107,7 +112,7 @@ namespace GameScene {
                 EObjKinds kinds = EObjKinds.OBSTACLE_BRICKS_FIX_03;
                 STCellObjInfo cellObjInfo = new STCellObjInfo(null) { ObjKinds = kinds, ATK = 0, HP = 0, SHIELD = 0, ColorID = 0, SizeX = 1, SizeY = 1, SizeZ = 1 };
 
-                Engine.AddCell(targetList[i], kinds, cellObjInfo);
+                Engine.AddCell(targetList[i], kinds, cellObjInfo, true);
             }
         }
 

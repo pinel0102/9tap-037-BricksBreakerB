@@ -41,6 +41,22 @@ public class FXSettings : MonoBehaviour
         }
     }
 
+    public void SetSpriteScaleX(float toScale, float duration)
+    {
+        for (int i=0; i < _spriteList.Count; i++)
+        {
+            _spriteList[i].transform.DOScaleX(toScale, duration);
+        }
+    }
+
+    public void SetSpriteScaleY(float toScale, float duration)
+    {
+        for (int i=0; i < _spriteList.Count; i++)
+        {
+            _spriteList[i].transform.DOScaleY(toScale, duration);
+        }
+    }
+
     public void SetMove(NSEngine.CEObj target, Action<NSEngine.CEObj> completeCallback, float moveTime)
     {
         var oAni = transform.DOMove(target.transform.position, moveTime);

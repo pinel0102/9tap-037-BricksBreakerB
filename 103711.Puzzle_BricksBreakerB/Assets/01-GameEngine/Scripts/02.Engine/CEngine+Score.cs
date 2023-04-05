@@ -10,6 +10,7 @@ namespace NSEngine {
         public List<int> scoreList = new List<int>();
         public int currentCombo;
         public int currentScore;
+        public int starCount;
 
         private void InitScoreList(int score1, int score2, int score3)
         {
@@ -29,6 +30,7 @@ namespace NSEngine {
         public void InitScore()
         {
             currentScore = 0;
+            starCount = 0;
         }
 
         public void GetScore()

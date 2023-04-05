@@ -9,13 +9,31 @@ namespace GameScene {
     {
         public void GetContinueBonus()
         {
-            OnClick_Bottom_BricksDelete();
-            OnClick_Bottom_BricksDelete();
-            OnClick_Bottom_BricksDelete();
+            int deleteCount = 3;
 
-            Engine.RefreshActiveCells();
-            Engine.CheckDeadLine();
-            Engine.isLevelFail = false;
+            this.ExLateCallFunc((a_oFuncSender) => 
+            {
+                for (int line = 0; line < deleteCount; line++)
+                {
+                    var lastClearTarget = Engine.GetLastClearTarget();
+                    if (lastClearTarget != null)
+                    {
+                        GlobalDefine.ShowEffect_Laser_Red(EFXSet.FX_LASER_RED, new Vector3(0, lastClearTarget.transform.position.y, lastClearTarget.transform.position.z), GlobalDefine.FXLaser_Rotation_Horizontal, Vector3.one, GlobalDefine.FXLaserRed_Time);
+
+                        for(int i = 0; i < Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); ++i) 
+                        {
+                            Engine.CellDestroy_SkillTarget(lastClearTarget.row, i);
+                        }
+                    }
+
+                    Engine.RefreshActiveCells();
+                    Engine.CheckDeadLine();
+                }
+
+                Engine.CheckClear(true, true);
+                Engine.isLevelFail = false;
+                    
+            }, KCDefine.B_VAL_0_5_REAL);
         }
     }
 }

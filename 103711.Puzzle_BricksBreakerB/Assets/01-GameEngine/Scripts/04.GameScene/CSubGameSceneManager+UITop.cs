@@ -32,15 +32,18 @@ namespace GameScene {
         public void ScoreUpdate(bool _gageAni = true)
         {
             scoreText.text = string.Format(GlobalDefine.FORMAT_SCORE, Engine.currentScore);
-
+            
             if (_gageAni && scoreGage.fillAmount < 1f)
                 scoreGage.DOFillAmount((float)Engine.currentScore/(float)Engine.scoreList[2], GlobalDefine.SCORE_GAGE_DURATION);
             else
                 scoreGage.fillAmount = ((float)Engine.currentScore/(float)Engine.scoreList[2]);
 
+            Engine.starCount = 0;
+            
             for(int i=0; i < starOn.Count; i++)
             {
                 starOn[i].SetActive(Engine.currentScore >= Engine.scoreList[i]);
+                Engine.starCount += starOn[i].activeInHierarchy ? 1 : 0;
             }
         }
 

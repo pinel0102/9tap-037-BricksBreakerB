@@ -47,6 +47,7 @@ public partial class CResultPopup : CSubPopup {
 	public override bool IsIgnoreCloseBtn => true;
 
     public TMP_Text[] levelText;
+    public GameObject[] starObject;
     private const string formatLevel = "Level {0}";
 
     private const string U_OBJ_N_LEAVE_BTN_2 = "LEAVE_BTN_2";    
@@ -115,6 +116,11 @@ public partial class CResultPopup : CSubPopup {
 		m_oTextDict.GetValueOrDefault(EKey.RECORD_TEXT)?.ExSetText($"{this.Params.m_stRecordInfo.m_nIntRecord}", EFontSet._1, false);
 		m_oTextDict.GetValueOrDefault(EKey.BEST_RECORD_TEXT)?.ExSetText((oClearLevelInfo != null) ? $"{oClearLevelInfo.m_stBestRecordInfo.m_nIntRecord}" : string.Empty, EFontSet._1, false);
 
+        for (int i=0; i < starObject.Length; i++)
+        {
+            starObject[i].SetActive(this.Params.m_stRecordInfo.m_bIsSuccess && this.Params.m_stRecordInfo.m_starCount > i);
+        }
+        
 		this.SubUpdateUIsState();
 	}
 

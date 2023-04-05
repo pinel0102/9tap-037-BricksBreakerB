@@ -47,7 +47,7 @@ namespace NSEngine {
 
             //Debug.Log(CodeManager.GetMethodName() + string.Format("distance : {0} / min : {1} / max : {2}", distance, fxStartSizeY_Min, fxStartSizeY_Max));
 
-            GlobalDefine.ShowEffect(EFXSet.FX_LIGHTNING, fxPosition, fxAngle, fxScale,fxStartSizeY_Min, fxStartSizeY_Max);
+            GlobalDefine.ShowEffect_Lightning(EFXSet.FX_LIGHTNING, fxPosition, fxAngle, fxScale,fxStartSizeY_Min, fxStartSizeY_Max);
             GlobalDefine.ShowEffect(EFXSet.FX_LIGHTNING_HIT, target.transform.position);
         }
     }

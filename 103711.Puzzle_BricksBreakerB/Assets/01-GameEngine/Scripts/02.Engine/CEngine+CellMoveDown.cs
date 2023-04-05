@@ -158,7 +158,7 @@ namespace NSEngine {
 				}
 			}
 
-            lastClearTarget = GetLastClearTarget().transform;
+            lastClearTarget = GetLastClearTarget()?.transform;
         }
 
         public void CheckDeadLine(bool isInitialize = false)

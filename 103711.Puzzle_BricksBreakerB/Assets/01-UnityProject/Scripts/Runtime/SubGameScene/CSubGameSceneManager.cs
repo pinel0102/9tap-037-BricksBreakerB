@@ -435,7 +435,8 @@ namespace GameScene {
 				var stRecordInfo = new STRecordInfo {
 					m_bIsSuccess = a_bIsClear,
 					m_nIntRecord = m_oEngine.RecordInfo.m_nIntRecord,
-					m_dblRealRecord = m_oEngine.RecordInfo.m_dblRealRecord
+					m_dblRealRecord = m_oEngine.RecordInfo.m_dblRealRecord,
+                    m_starCount = Engine.starCount
 				};
 
                 (a_oSender as CResultPopup).Init(CResultPopup.MakeParams(stRecordInfo, new Dictionary<CResultPopup.ECallback, System.Action<CResultPopup>>() {
