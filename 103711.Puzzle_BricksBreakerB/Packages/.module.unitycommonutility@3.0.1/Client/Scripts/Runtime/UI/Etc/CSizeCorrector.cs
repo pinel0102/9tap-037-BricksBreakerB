@@ -22,7 +22,8 @@ public partial class CSizeCorrector : CComponent {
 		base.Start();
 		this.SetSizeRate(m_stSizeRate);
 	}
-
+    
+#if !UNITY_STANDALONE && !UNITY_STANDALONE_OSX
 	/** 상태를 갱신한다 */
 	public override void OnLateUpdate(float a_fDeltaTime) {
 		base.OnLateUpdate(a_fDeltaTime);
@@ -34,6 +35,7 @@ public partial class CSizeCorrector : CComponent {
 			(this.transform as RectTransform).SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, stSize.y);
 		}
 	}
+#endif
 
 	/** 크기 비율을 변경한다 */
 	public void SetSizeRate(Vector3 a_stRate) {
