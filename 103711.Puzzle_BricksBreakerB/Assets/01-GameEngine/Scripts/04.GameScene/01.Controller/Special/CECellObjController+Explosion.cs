@@ -83,8 +83,7 @@ namespace NSEngine {
 
         private void ShowEffect_Explosion(Vector3 _rotation)
         {
-            //Transform effect = CSceneManager.ActiveSceneManager.SpawnObj<Transform>(GlobalDefine.FX_LASER, KDefine.E_KEY_FX_OBJS_POOL, Vector3.one, _rotation, this.transform.position, true);
-            //CSceneManager.ActiveSceneManager.DespawnObj(KDefine.E_KEY_FX_OBJS_POOL, effect.gameObject, GlobalDefine.FXTime_LASER);
+            GlobalDefine.ShowEffect_Laser_Red(EFXSet.FX_LASER_RED, this.transform.position, _rotation, Vector3.one, GlobalDefine.FXLaserRed_Time);
         }
 
         private void ShowEffect_Explosion_Around()
