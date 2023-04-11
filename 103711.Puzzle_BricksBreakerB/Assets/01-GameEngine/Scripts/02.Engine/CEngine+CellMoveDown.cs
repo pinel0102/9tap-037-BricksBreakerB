@@ -60,11 +60,12 @@ namespace NSEngine {
 
         private bool IsEnableMoveDown(CEObj a_oObj) {
             var controller = a_oObj.GetController<CECellObjController>();
-            var stIdx = new Vector3Int(controller.Idx.x, controller.Idx.y + a_oObj.Params.m_stObjInfo.m_stSize.y, controller.Idx.z);
-			var oCellObjList = this.CellObjLists.ExGetVal(stIdx, null);
+            //var stIdx = new Vector3Int(controller.Idx.x, controller.Idx.y + a_oObj.Params.m_stObjInfo.m_stSize.y, controller.Idx.z);
+            var stIdx = new Vector3Int(controller.Idx.x, controller.Idx.y + KCDefine.B_VAL_1_INT, controller.Idx.z);
+            var oCellObjList = this.CellObjLists.ExGetVal(stIdx, null);
 
 			bool bIsValid = a_oObj.Params.m_stObjInfo.m_bIsEnableMoveDown;
-
+            
             return bIsValid && !oCellObjList.ExIsValid() && this.CellObjLists.ExIsValidIdx(stIdx);
 		}
 

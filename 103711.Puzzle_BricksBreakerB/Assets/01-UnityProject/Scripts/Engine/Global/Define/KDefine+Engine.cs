@@ -35,7 +35,7 @@ namespace NSEngine {
 
 		#region 런타임 상수
 		// 개수
-		public static readonly Vector3Int E_MIN_NUM_CELLS = new Vector3Int(1, 1, 1);
+		public static readonly Vector3Int E_MIN_NUM_CELLS = new Vector3Int(5, 6, 1);
 		public static readonly Vector3Int E_MAX_NUM_CELLS = new Vector3Int(20, 40, 1);
 		public static readonly Vector3Int E_DEF_NUM_CELLS = new Vector3Int(11, 11, 1);
 

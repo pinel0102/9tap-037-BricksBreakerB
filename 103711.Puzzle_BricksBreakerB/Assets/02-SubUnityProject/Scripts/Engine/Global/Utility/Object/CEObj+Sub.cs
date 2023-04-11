@@ -192,6 +192,9 @@ namespace NSEngine {
                         SetSpriteColor(CellObjInfo.ObjKinds);
                         RefreshText(CellObjInfo.ObjKinds);
                         break;
+                    default:
+                        RefreshText(CellObjInfo.ObjKinds);
+                        break;
                 }
             }
 		}

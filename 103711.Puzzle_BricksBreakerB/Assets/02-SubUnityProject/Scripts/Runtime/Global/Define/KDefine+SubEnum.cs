@@ -574,6 +574,14 @@ public enum EObjKinds {
 	BALL_NORM_01 = (EEnumVal.T * EObjType.BALL) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
     BALL_NORM_02, // 유지되는 추가볼.
     BALL_NORM_03, // 사라지는 추가볼.
+
+    // 2,010,000,000 {
+	BALL_BOOSTER_SHIELD_01 = (EEnumVal.T * EObjType.BALL) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	BALL_BOOSTER_POWER_01 = (EEnumVal.T * EObjType.BALL) + (EEnumVal.ST * 1) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 0),
+
+	BALL_BOOSTER_SHOT_01 = (EEnumVal.T * EObjType.BALL) + (EEnumVal.ST * 1) + (EEnumVal.KT * 2) + (EEnumVal.SKT * 0),
+	BALL_BOOSTER_SHOT_02,
+	// 2,010,000,000 }
 	#endregion // 공
 
 	[HideInInspector] MAX_VAL
