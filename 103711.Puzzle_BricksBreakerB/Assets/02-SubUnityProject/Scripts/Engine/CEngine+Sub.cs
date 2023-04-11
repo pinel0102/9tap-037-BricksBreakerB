@@ -202,6 +202,7 @@ namespace NSEngine {
             InitScore();
 
             currentLevel = (int)CGameInfoStorage.Inst.PlayEpisodeInfo.ULevelID + 1;
+            isTutorial = GlobalDefine.TUTORIAL_LEVEL_BOTTOM_ITEM.Contains(currentLevel);
 
 #if NEVER_USE_THIS
 			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {

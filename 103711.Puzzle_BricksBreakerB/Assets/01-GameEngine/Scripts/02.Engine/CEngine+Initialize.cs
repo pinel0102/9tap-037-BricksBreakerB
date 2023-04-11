@@ -10,6 +10,7 @@ namespace NSEngine {
 
         [Header("★ [Parameter] Live")]
         public Transform lastClearTarget;
+        public bool isTutorial;
         public bool isLevelFail;
         public bool isGridMoving;
         public int currentLevel;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using TMPro;
 
 namespace GameScene {
     public partial class CSubGameSceneManager : CGameSceneManager
@@ -10,6 +11,7 @@ namespace GameScene {
         [Header("★ [Reference] UI Bottom")]
         public List<Button> bottomItemsButton = new List<Button>();
         public List<GameObject> bottomItemsDisabled = new List<GameObject>();
+        public List<TMP_Text> bottomItemsText = new List<TMP_Text>();
 
         private void SetupBottomButtons()
         {
@@ -18,6 +20,13 @@ namespace GameScene {
             bottomItemsButton[2]?.ExAddListener(OnClick_Bottom_BricksDelete);
             bottomItemsButton[3]?.ExAddListener(OnClick_Bottom_AddLaserBricks);
             bottomItemsButton[4]?.ExAddListener(OnClick_Bottom_AddSteelBricks);
+
+            for(int i=0; i < bottomItemsButton.Count; i++)
+            {
+                bottomItemsText[i].text = string.Format(GlobalDefine.FORMAT_BOTTOM_ITEM, 0);
+                bottomItemsButton[i].gameObject.SetActive(Engine.currentLevel >= GlobalDefine.TUTORIAL_LEVEL_BOTTOM_ITEM[i]);
+                bottomItemsDisabled[i].SetActive(Engine.currentLevel < GlobalDefine.TUTORIAL_LEVEL_BOTTOM_ITEM[i]);
+            }
         }
 
         public void HideShootUIs()
@@ -32,8 +41,8 @@ namespace GameScene {
         public void OnClick_Bottom_Earthquake()
         {
             if (Engine.PlayState == NSEngine.CEngine.EPlayState.SHOOT) return;
-            if (isShaking) return;
-
+            if (Engine.isGridMoving || isShaking) return;
+            
             float damageRatio = 0.4f;
 
             ShakeCamera(() => {
@@ -56,6 +65,7 @@ namespace GameScene {
         public void OnClick_Bottom_AddBall()
         {
             if (Engine.PlayState == NSEngine.CEngine.EPlayState.SHOOT) return;
+            if (Engine.isGridMoving) return;
 
             int addCount = 30;
 
@@ -67,6 +77,7 @@ namespace GameScene {
         public void OnClick_Bottom_BricksDelete()
         {
             if (Engine.PlayState == NSEngine.CEngine.EPlayState.SHOOT) return;
+            if (Engine.isGridMoving) return;
 
             var lastClearTarget = Engine.GetLastClearTarget();
             if (lastClearTarget != null)
@@ -87,6 +98,7 @@ namespace GameScene {
         public void OnClick_Bottom_AddLaserBricks()
         {
             if (Engine.PlayState == NSEngine.CEngine.EPlayState.SHOOT) return;
+            if (Engine.isGridMoving) return;
 
             int addCount = 4;
 
@@ -103,6 +115,7 @@ namespace GameScene {
         public void OnClick_Bottom_AddSteelBricks()
         {
             if (Engine.PlayState == NSEngine.CEngine.EPlayState.SHOOT) return;
+            if (Engine.isGridMoving) return;
 
             int addCount = Mathf.CeilToInt(Engine.viewSize.x / 2f) - 1;
 

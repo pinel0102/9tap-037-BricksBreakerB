@@ -28,11 +28,12 @@ namespace GameScene {
         {
             ApplyDarkMode(CUserInfoStorage.Inst.UserInfo.Settings_DarkMode);
             warningObject.SetActive(false);
-            goldenAimOn.SetActive(m_oEngine.isGoldAim);
+            goldenAimOn.SetActive(Engine.isGoldAim);
 
             InitCamera();
             InitUITop();
             SetupButtons();
+            CheckTutorial(Engine.currentLevel);
         }
 
         private void SetupButtons()

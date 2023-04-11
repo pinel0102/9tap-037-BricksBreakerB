@@ -388,8 +388,7 @@ public partial class CUserInfo : CBaseInfo {
 	private const string KEY_LOGIN_TYPE = "LoginType";
 	private const string KEY_ABILITY_TARGET_INFO_VER = "AbilityTargetInfoVer";
 
-    private const string KEY_SETTINGS_DARKMODE = "DarkMode";
-	#endregion // 상수
+    #endregion // 상수
 
 	#region 프로퍼티
 	[IgnoreMember]
@@ -404,11 +403,6 @@ public partial class CUserInfo : CBaseInfo {
 		set { m_oStrDict.ExReplaceVal(KEY_ABILITY_TARGET_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
 
-    [IgnoreMember]
-	public bool Settings_DarkMode {
-		get { return bool.Parse(m_oStrDict.GetValueOrDefault(KEY_SETTINGS_DARKMODE, "False")); }
-		set { m_oStrDict.ExReplaceVal(KEY_SETTINGS_DARKMODE, $"{(bool)value}"); }
-	}
 	#endregion // 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
