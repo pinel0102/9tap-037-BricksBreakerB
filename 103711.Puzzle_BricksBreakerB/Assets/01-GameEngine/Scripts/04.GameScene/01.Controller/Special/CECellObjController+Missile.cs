@@ -32,6 +32,8 @@ namespace NSEngine {
             {
                 ShowEffect_Missile(targetList[i]);
             }
+
+            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_MISSILE);
         }
 
         private void ShowEffect_Missile(CEObj target)

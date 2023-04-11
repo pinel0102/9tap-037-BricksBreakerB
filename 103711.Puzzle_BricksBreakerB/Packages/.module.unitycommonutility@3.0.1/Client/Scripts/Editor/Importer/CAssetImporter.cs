@@ -46,7 +46,7 @@ public partial class CAssetImporter : AssetPostprocessor {
 	/** 오디오 임포터를 설정한다 */
 	protected virtual void SetupAudioImporter(AssetImporter a_oImporter) {
 		var oAudioImporter = a_oImporter as AudioImporter;
-		oAudioImporter.ambisonic = true;
+		oAudioImporter.ambisonic = false;
 		oAudioImporter.forceToMono = false;
 		oAudioImporter.preloadAudioData = true;
 		oAudioImporter.loadInBackground = true;

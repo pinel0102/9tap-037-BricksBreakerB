@@ -87,9 +87,7 @@ public partial class CResultPopup : CSubPopup {
 		base.Init();
 		this.Params = a_stParams;
 
-        levelText[0].text = levelText[1].text = string.Format(formatLevel, CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).Engine.currentLevel);
-
-		this.SubInit();
+        this.SubInit();
 	}
 
 	/** 팝업 컨텐츠를 설정한다 */
@@ -106,6 +104,9 @@ public partial class CResultPopup : CSubPopup {
 
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
+
+        levelText[0].text = levelText[1].text = string.Format(formatLevel, CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).Engine.currentLevel);
+        
 		var oClearLevelInfo = Access.GetLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03, false);
 
 		// 객체를 갱신한다
@@ -119,6 +120,15 @@ public partial class CResultPopup : CSubPopup {
         for (int i=0; i < starObject.Length; i++)
         {
             starObject[i].SetActive(this.Params.m_stRecordInfo.m_bIsSuccess && this.Params.m_stRecordInfo.m_starCount > i);
+        }
+
+        if (this.Params.m_stRecordInfo.m_bIsSuccess)
+        {
+            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_LEVEL_CLEAR);
+        }
+        else
+        {
+            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_LEVEL_FAIL);
         }
         
 		this.SubUpdateUIsState();

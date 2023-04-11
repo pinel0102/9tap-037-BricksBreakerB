@@ -63,6 +63,7 @@ public class LevelButton : MonoBehaviour
         for (int i=0; i < buttonList.Count; i++)
         {
             buttonList[i].onClick.AddListener(() => {
+                GlobalDefine.PlaySoundFX(ESoundSet.SOUND_BUTTON);
                 Func.SetupPlayEpisodeInfo(KDefine.G_CHARACTER_ID_COMMON, level - 1, EPlayMode.NORM);
                 CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
             });

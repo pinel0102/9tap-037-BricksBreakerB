@@ -26,7 +26,7 @@ public static partial class KCDefine {
 	#region 기본
 	// 개수 {
 	public const int U_MAX_NUM_LAYERS = 32;
-	public const int U_MAX_NUM_FX_SNDS = 15;
+	public const int U_MAX_NUM_FX_SNDS = 128;
 	public const int U_MAX_NUM_GOOGLE_SHEET_ROWS = 1000;
 
 	public const int U_MAX_NUM_LEVEL_INFOS = 9999;
@@ -77,7 +77,7 @@ public static partial class KCDefine {
 	public const float U_DELAY_DEF = 0.15f;
 	public const float U_DELAY_INIT = 0.15f;
 	public const float U_DELAY_POPUP_SHOW_ANI = KCDefine.B_DELTA_T_INTERMEDIATE;
-	public const float U_MIN_DELAY_FX_SNDS = 0.15f;
+	public const float U_MIN_DELAY_FX_SNDS = 0.05f;
 
 	public const float U_DURATION_ANI = 0.15f;
 	public const float U_DURATION_POPUP_ANI = 0.25f;
@@ -875,6 +875,7 @@ public static partial class KCDefine {
 	public static readonly string U_OBJ_P_G_PRODUCT_BUY_POPUP = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_GLOBAL}{KCDefine.B_DIR_P_POPUP}G_ProductBuyPopup";
 	public static readonly string U_OBJ_P_G_FOCUS_POPUP = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_GLOBAL}{KCDefine.B_DIR_P_POPUP}G_FocusPopup";
 	public static readonly string U_OBJ_P_G_TUTORIAL_POPUP = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_GLOBAL}{KCDefine.B_DIR_P_POPUP}G_TutorialPopup";
+    public static readonly string U_OBJ_P_G_PREVIEW_POPUP = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_GLOBAL}{KCDefine.B_DIR_P_POPUP}G_LevelPreviewPopup";
 
 	public static readonly string U_ASSET_P_G_NORM_QUALITY_UNIVERSAL_RP = $"{KCDefine.B_DIR_P_PIPELINES}{KCDefine.B_DIR_P_GLOBAL}G_NormQualityUniversalRPAsset";
 	public static readonly string U_ASSET_P_G_HIGH_QUALITY_UNIVERSAL_RP = $"{KCDefine.B_DIR_P_PIPELINES}{KCDefine.B_DIR_P_GLOBAL}G_HighQualityUniversalRPAsset";

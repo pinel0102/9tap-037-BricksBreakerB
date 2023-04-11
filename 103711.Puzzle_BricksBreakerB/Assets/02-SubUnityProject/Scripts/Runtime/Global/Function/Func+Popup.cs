@@ -87,13 +87,18 @@ public static partial class Func {
 	public static void ShowTutorialPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
 		Func.ShowPopup<CTutorialPopup>(KDefine.G_OBJ_N_TUTORIAL_POPUP, KCDefine.U_OBJ_P_G_TUTORIAL_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
+
+    /** 프리뷰 팝업을 출력한다 */
+	public static void ShowPreviewPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
+		Func.ShowPopup<CPreviewPopup>(KDefine.G_OBJ_N_PREVIEW_POPUP, KCDefine.U_OBJ_P_G_PREVIEW_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
+	}
 	#endregion // 클래스 함수
 
 	#region 제니릭 클래스 함수
 	/** 팝업을 출력한다 */
 	public static void ShowPopup<T>(string a_oName, string a_oObjPath, GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) where T : CPopup {
 		// 팝업이 없을 경우
-		if(a_oParent.ExFindChild(a_oName) == null && CAccess.IsExistsRes<GameObject>(a_oObjPath)) {
+        if(a_oParent.ExFindChild(a_oName) == null && CAccess.IsExistsRes<GameObject>(a_oObjPath)) {
 			var oPopup = CPopup.Create<T>(a_oName, a_oObjPath, a_oParent);
 			CFunc.Invoke(ref a_oInitCallback, oPopup);
 

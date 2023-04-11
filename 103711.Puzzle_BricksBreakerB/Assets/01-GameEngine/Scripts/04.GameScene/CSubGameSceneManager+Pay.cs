@@ -27,9 +27,9 @@ namespace GameScene {
                     }
 
                     Engine.RefreshActiveCells();
-                    Engine.CheckDeadLine();
                 }
 
+                Engine.CheckDeadLine();
                 Engine.CheckClear(true, true);
                 Engine.isLevelFail = false;
                     

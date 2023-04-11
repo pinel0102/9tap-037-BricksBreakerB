@@ -178,11 +178,15 @@ namespace NSEngine {
                 else if ((distance >= (cellsizeY * 1f)) && (distance < (cellsizeY * 2f)))
                 {
                     subGameSceneManager.warningObject.SetActive(true);
+                    GlobalDefine.PlaySoundFX(ESoundSet.SOUND_WARNING);
                 }
                 else
                 {
                     if (isInitialize)
+                    {
                         subGameSceneManager.warningObject.SetActive(true);
+                        GlobalDefine.PlaySoundFX(ESoundSet.SOUND_WARNING);
+                    }
                     else
                         LevelFail();
                 }

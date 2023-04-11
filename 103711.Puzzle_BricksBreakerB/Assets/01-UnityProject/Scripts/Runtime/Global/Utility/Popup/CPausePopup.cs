@@ -60,9 +60,7 @@ public partial class CPausePopup : CSubPopup {
 		base.Init();
 		this.Params = a_stParams;
 
-        levelText.text = string.Format(formatLevel, CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).Engine.currentLevel);
-
-		this.SubInit();
+        this.SubInit();
 	}
 
 	/** 팝업 컨텐츠를 설정한다 */
@@ -73,6 +71,9 @@ public partial class CPausePopup : CSubPopup {
 
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
+        
+        levelText.text = string.Format(formatLevel, CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).Engine.currentLevel);
+
 		this.SubUpdateUIsState();
 	}
 

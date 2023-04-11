@@ -90,6 +90,8 @@ public partial class CContinuePopup : CSubPopup {
 		}
 		// 텍스트를 갱신한다 }
 
+        GlobalDefine.PlaySoundFX(ESoundSet.SOUND_LEVEL_FAIL);
+
 		this.SubUpdateUIsState();
 	}
 

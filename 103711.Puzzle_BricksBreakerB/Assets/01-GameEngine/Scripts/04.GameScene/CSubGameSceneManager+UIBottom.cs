@@ -60,6 +60,8 @@ namespace GameScene {
                 Engine.CheckDeadLine();
                 Engine.CheckClear(true, true);
             });
+
+            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_ITEM_EARTHQUAKE);
         }
 
         public void OnClick_Bottom_AddBall()
@@ -72,6 +74,8 @@ namespace GameScene {
             Engine.AddNormalBallsOnce(Engine.BallObjList[0].transform.position, addCount, false);
 
             Engine.BallObjList[0].NumText.text = string.Format("{0}", Engine.BallObjList.Count);
+
+            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_ITEM_ADD_BALL);
         }
 
         public void OnClick_Bottom_BricksDelete()
@@ -93,6 +97,8 @@ namespace GameScene {
             Engine.RefreshActiveCells();
             Engine.CheckDeadLine();
             Engine.CheckClear(true, true);
+
+            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_ITEM_BRICKS_DELETE);
         }
 
         public void OnClick_Bottom_AddLaserBricks()
@@ -110,6 +116,8 @@ namespace GameScene {
 
                 Engine.AddCell(targetList[i], kinds, cellObjInfo, false);
             }
+
+            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_ITEM_ADD_LASER_BRICKS);
         }
 
         public void OnClick_Bottom_AddSteelBricks()
@@ -127,6 +135,8 @@ namespace GameScene {
 
                 Engine.AddCell(targetList[i], kinds, cellObjInfo, true);
             }
+
+            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_ITEM_ADD_STEEL_BRICKS);
         }
 
         public void ToggleAimLayer()

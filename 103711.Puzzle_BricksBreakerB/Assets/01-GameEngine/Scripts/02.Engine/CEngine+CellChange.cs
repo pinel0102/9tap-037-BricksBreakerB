@@ -21,6 +21,14 @@ namespace NSEngine {
             STObjInfo stObjInfo = CObjInfoTable.Inst.GetObjInfo(toKinds);
 
             target.ResetObjInfo(stObjInfo, stCellObjInfo);
+
+            switch(toKinds)
+            {
+                case EObjKinds.OBSTACLE_BRICKS_OPEN_01:
+                case EObjKinds.OBSTACLE_BRICKS_CLOSE_01:
+                    GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_OPEN_CLOSE);
+                    break;
+            }
         }
     }
 }

@@ -42,8 +42,16 @@ namespace GameScene {
             
             for(int i=0; i < starOn.Count; i++)
             {
-                starOn[i].SetActive(Engine.currentScore >= Engine.scoreList[i]);
+                bool isActiveStar = Engine.currentScore >= Engine.scoreList[i];
+                bool isGetStar = !starOn[i].activeInHierarchy && isActiveStar;
+
+                starOn[i].SetActive(isActiveStar);
                 Engine.starCount += starOn[i].activeInHierarchy ? 1 : 0;
+
+                if (isGetStar)
+                {
+                    GlobalDefine.PlaySoundFX(ESoundSet.SOUND_GET_STAR);
+                }
             }
         }
 

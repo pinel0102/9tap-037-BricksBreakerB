@@ -15,7 +15,7 @@ namespace NSEngine {
 
             for (int i=0; i < this.CellObjLists[gridPos.y, gridPos.x].Count; i++)
             {
-                this.CellObjLists[gridPos.y, gridPos.x][i].GetComponent<CECellObjController>().CellDestroy();
+                this.CellObjLists[gridPos.y, gridPos.x][i].GetComponent<CECellObjController>().CellDestroy(false);
             }
             
             this.CellObjLists[gridPos.y, gridPos.x].Clear();

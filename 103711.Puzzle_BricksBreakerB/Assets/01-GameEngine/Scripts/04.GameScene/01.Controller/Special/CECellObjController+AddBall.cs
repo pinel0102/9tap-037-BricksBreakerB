@@ -27,6 +27,7 @@ namespace NSEngine {
         private void AddBall(int _addCount)
         {
             Engine.AddNormalBalls(Engine.startPosition, _addCount);
+            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_ADD_BALL);
         }
     }
 }

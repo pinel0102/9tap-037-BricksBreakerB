@@ -24,7 +24,7 @@ namespace NSEngine {
 
 #region Bricks Collision
 
-        public void GetDamage(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds, int _ATK)
+        public void GetDamage(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds, int _ATK, bool isSoundPlay = true)
         {
             var oCellObj = this.GetOwner<CEObj>();
             
@@ -49,11 +49,10 @@ namespace NSEngine {
                 {
                     ShieldAfterEffect(kindsType, kinds);
                     GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, oCellObj.transform.position, GlobalDefine.GetCellColor(oCellObj.CellObjInfo.ObjKinds, true, false));
-                    //CellDestroy();
                 }
                 else
                 {
-                    HitEffect();
+                    HitEffect(kindsType, kinds, isSoundPlay);
                 }
             }
             else
@@ -82,11 +81,11 @@ namespace NSEngine {
                 {
                     CellAfterEffect(ballController, kindsType, kinds);
                     GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, oCellObj.transform.position, GlobalDefine.GetCellColor(oCellObj.CellObjInfo.ObjKinds, false, oCellObj.Params.m_stObjInfo.m_bIsEnableColor, oCellObj.CellObjInfo.ColorID));
-                    CellDestroy();
+                    CellDestroy(isSoundPlay);
                 }
                 else
                 {
-                    HitEffect();
+                    HitEffect(kindsType, kinds, isSoundPlay);
                 }
             }
         }
@@ -136,6 +135,19 @@ namespace NSEngine {
                     case EObjKinds.OBSTACLE_BRICKS_WARP_IN_01:
                         GetObstacle_Wormhole(ballController, kindsType, kinds);
                         break;
+                    case EObjKinds.OBSTACLE_BRICKS_FIX_01:
+                        switch(kinds)
+                        {
+                            case EObjKinds.OBSTACLE_BRICKS_FIX_02:
+                            case EObjKinds.OBSTACLE_BRICKS_FIX_03:
+                                GlobalDefine.PlaySoundFX(ESoundSet.SOUND_ATTACK_IRON);
+                                break;
+                        }
+                        break;
+                    case EObjKinds.OBSTACLE_BRICKS_LOCK_01:
+                    case EObjKinds.OBSTACLE_BRICKS_CLOSE_01:
+                        GlobalDefine.PlaySoundFX(ESoundSet.SOUND_ATTACK_IRON);
+                        break;
                     default:
                         //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=red>{0}</color>", kindsType));
                         break;
@@ -158,7 +170,7 @@ namespace NSEngine {
                     break;
             }
 
-            CellDestroy();
+            CellDestroy(false);
         }
 
 #endregion Bricks Collision
@@ -170,7 +182,7 @@ namespace NSEngine {
         public void HideReservedCell()
         {
             if (hideReserved)
-                CellDestroy();
+                CellDestroy(false);
         }
 
         ///<Summary>변경되는 셀이면 셀을 변경한다.</Summary>
@@ -197,8 +209,20 @@ namespace NSEngine {
                 hideReserved = true;
         }
 
-        private void HitEffect()
+        private void HitEffect(EObjKinds kindsType, EObjKinds kinds, bool isSoundPlay = true)
         {
+            switch(kindsType)
+            {
+                case EObjKinds.OBSTACLE_BRICKS_WOODBOX_01:
+                    if(isSoundPlay)
+                        GlobalDefine.PlaySoundFX(ESoundSet.SOUND_ATTACK_WOOD);
+                    break;
+                default:
+                    if(isSoundPlay)
+                        GlobalDefine.PlaySoundFX(ESoundSet.SOUND_ATTACK_NORMAL);
+                    break;
+            }
+
             if (hitCoroutine != null)
                 StopCoroutine(hitCoroutine);
             
@@ -269,7 +293,7 @@ namespace NSEngine {
         }
 
         ///<Summary>셀 파괴. (열쇠 효과만 발동.)</Summary>
-        public void CellDestroy()
+        public void CellDestroy(bool isSoundPlay = true)
         {
             StopAllCoroutines();
             
@@ -292,6 +316,10 @@ namespace NSEngine {
                         GetObstacle_WoodBox(kindsType, kinds);
                         return;
                     }
+                    break;
+                default:
+                    if (isSoundPlay)
+                        GlobalDefine.PlaySoundFX(ESoundSet.SOUND_BRICK_DESTROY);
                     break;
             }
 

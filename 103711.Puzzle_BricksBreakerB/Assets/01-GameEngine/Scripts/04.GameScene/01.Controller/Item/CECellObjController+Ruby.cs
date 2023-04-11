@@ -29,8 +29,7 @@ namespace NSEngine {
 
         private void ShowEffect_AddRuby(CEObj target)
         {
-            //Transform effect = CSceneManager.ActiveSceneManager.SpawnObj<Transform>(GlobalDefine.FX_LASER, KDefine.E_KEY_FX_OBJS_POOL, Vector3.one, _rotation, this.transform.position, true);
-            //CSceneManager.ActiveSceneManager.DespawnObj(KDefine.E_KEY_FX_OBJS_POOL, effect.gameObject, GlobalDefine.FXTime_LASER);
+            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_GET_COIN);
         }
     }
 }

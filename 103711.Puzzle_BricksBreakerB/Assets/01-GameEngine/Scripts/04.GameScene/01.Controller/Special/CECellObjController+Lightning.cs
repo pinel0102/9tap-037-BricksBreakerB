@@ -33,6 +33,8 @@ namespace NSEngine {
                 Engine.CellDamage_SkillTarget(targetList[i], ballController, _ATK);
                 ShowEffect_Lightning(targetList[i]);
             }
+
+            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_LIGHTNING);
         }
 
         private void ShowEffect_Lightning(CEObj target)

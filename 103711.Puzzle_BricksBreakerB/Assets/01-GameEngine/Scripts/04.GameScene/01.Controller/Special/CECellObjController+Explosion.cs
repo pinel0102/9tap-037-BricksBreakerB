@@ -84,11 +84,13 @@ namespace NSEngine {
         private void ShowEffect_Explosion(Vector3 _rotation)
         {
             GlobalDefine.ShowEffect_Laser_Red(EFXSet.FX_LASER_RED, this.transform.position, _rotation, Vector3.one, GlobalDefine.FXLaserRed_Time);
+            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_BOMB);
         }
 
         private void ShowEffect_Explosion_Around()
         {
             GlobalDefine.ShowEffect(EFXSet.FX_EXPLOSION_3x3, this.transform.position);
+            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_BOMB_3x3);
         }
     }
 }

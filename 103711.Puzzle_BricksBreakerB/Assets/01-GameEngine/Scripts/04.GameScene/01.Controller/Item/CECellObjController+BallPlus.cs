@@ -14,6 +14,8 @@ namespace NSEngine {
             int _addCount = GlobalDefine.GetItem_BallPlus[_ballPlusIndex];
 
             Engine.AddNormalBalls(Engine.startPosition, _addCount);
+
+            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_GET_ITEM);
         }
     }
 }

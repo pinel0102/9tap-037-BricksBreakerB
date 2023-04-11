@@ -29,6 +29,8 @@ namespace NSEngine {
             stCellObjInfo.SHIELD = 0;
             
             Engine.ChangeCell(this, toKinds, stCellObjInfo);
+
+            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_BRICK_DESTROY);
         }
 
         private void ShowEffect_WoodBox()

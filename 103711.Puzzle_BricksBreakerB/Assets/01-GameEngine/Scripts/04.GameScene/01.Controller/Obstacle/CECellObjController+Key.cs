@@ -31,6 +31,8 @@ namespace NSEngine {
                     Engine.ChangeCell(target, toKinds);
                 }
             }
+
+            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_KEY);
         }
 
         private void ShowEffect_Key()

@@ -36,6 +36,8 @@ namespace NSEngine {
                 }
 
             });
+
+            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_EARTHQUAKE);
         }
     }
 }

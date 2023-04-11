@@ -40,6 +40,7 @@ namespace NSEngine {
         private void ShowEffect_Wormhole(Transform target)
         {
             //GlobalDefine.ShowEffect(EFXSet.FX_LASER, this.transform.position, _rotation, Vector3.one);
+            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_WORMHOLE);
         }
     }
 }
