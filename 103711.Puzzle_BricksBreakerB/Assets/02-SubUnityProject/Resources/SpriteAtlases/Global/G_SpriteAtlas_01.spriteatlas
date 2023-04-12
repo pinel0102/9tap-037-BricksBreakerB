@@ -151,6 +151,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 96d077b61a4394698bb0c5402029bc6e, type: 3}
   - {fileID: 21300000, guid: 91c0dab6927824443ad3cdf5651a5ca8, type: 3}
   - {fileID: 21300000, guid: cf0458f6c8c7d4ed285ba022e9b2052d, type: 3}
+  - {fileID: 21300000, guid: 9ba14ff6b74f84d23af58e45abdfcae8, type: 3}
   - {fileID: 21300000, guid: ffb316079487243b388283dd06582b28, type: 3}
   - {fileID: 21300000, guid: 0fd29467beb02474f8d262e3c78af313, type: 3}
   - {fileID: 21300000, guid: 1f67c097329b64df4b101eed2447998e, type: 3}
@@ -278,6 +279,7 @@ SpriteAtlas:
   - UI_Btn_Ingame_Info
   - UI_Ingame_Item_AddBall
   - UI_Icon_Lobby_Shop
+  - PreviewMask
   - UI_bg_Bricks
   - UI_BG_Rounded_06
   - UI_IMG_Continue
