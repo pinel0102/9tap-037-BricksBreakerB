@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: 9tap
-  productName: Bricks n Balls
+  productName: Brick Breaker - Shoot the Ball
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
@@ -134,7 +134,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.0.12
+  bundleVersion: 0.0.13
   preloadedAssets:
   - {fileID: 102900000, guid: b43855c64dd43f647ac558ec5e374eee, type: 3}
   - {fileID: 5805755442994408132, guid: b2cd881333beccb4584a3731301a9e9f, type: 3}
@@ -373,15 +373,15 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.ninetap.puzzlebricksbreakerb
-    Standalone: com.ninetap.puzzlebricksbreakerb
-    iPhone: com.ninetap.puzzlebricksbreakerb
+    Android: com.ninetap.brickbreaker
+    Standalone: com.ninetap.brickbreaker
+    iPhone: com.ninetap.brickbreaker
   buildNumber:
-    Standalone: 12
-    iPhone: 12
+    Standalone: 13
+    iPhone: 13
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
-  AndroidBundleVersionCode: 12
+  AndroidBundleVersionCode: 13
   AndroidMinSdkVersion: 22
   AndroidTargetSdkVersion: 31
   AndroidPreferredInstallLocation: 1

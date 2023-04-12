@@ -1,9 +1,9 @@
-# Bricks n Balls
+# Brick Breaker - Shoot the Ball
 
 Puzzle - BricksBreakerB 클라이언트 프로젝트
 
-+ aOS : [Bricks n Balls](https://play.google.com/store/apps/details?id=com.ninetap.match3defense&hl=en&gl=US)
-+ iOS : [Bricks n Balls](https://apps.apple.com/app/id1610049465)
++ aOS : [Brick Breaker - Shoot the Ball](https://play.google.com/store/apps/details?id=com.ninetap.brickbreaker&hl=en&gl=US)
++ iOS : [Brick Breaker - Shoot the Ball](https://apps.apple.com/app/id1610049465)
 
 <br>
 
@@ -29,7 +29,7 @@ Puzzle - BricksBreakerB 클라이언트 프로젝트
 # ChangeLog
 
 <details>
-<summary markdown="span"><em>last update : 0.0.12</em></summary>
+<summary markdown="span"><em>last update : 0.0.13</em></summary>
 <br>
 
 ---

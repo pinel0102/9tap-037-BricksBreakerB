@@ -18,37 +18,37 @@ MonoBehaviour:
     m_oServicesURL: https://www.ninetap.com/terms_of_service.html
     m_oSupportsMail: cs@ninetap.com
   m_stCommonProjInfo:
-    m_oAppID: com.ninetap.puzzlebricksbreakerb
+    m_oAppID: com.ninetap.brickbreaker
     m_oProjName: 103711.Puzzle_BricksBreakerB
-    m_oProductName: Bricks n Balls
+    m_oProductName: Brick Breaker - Shoot the Ball
     m_oExtraProjDirName: 103711.Puzzle_BricksBreakerB
   m_stiOSAppleProjInfo:
-    m_oAppID: com.ninetap.puzzlebricksbreakerb
+    m_oAppID: com.ninetap.brickbreaker
     m_oStoreAppID: 1610049465
     m_stBuildVerInfo:
-      m_nNum: 12
-      m_oVer: 0.0.12
+      m_nNum: 13
+      m_oVer: 0.0.13
   m_stAndroidGoogleProjInfo:
-    m_oAppID: com.ninetap.puzzlebricksbreakerb
+    m_oAppID: com.ninetap.brickbreaker
     m_oStoreAppID: 
     m_stBuildVerInfo:
-      m_nNum: 12
-      m_oVer: 0.0.12
+      m_nNum: 13
+      m_oVer: 0.0.13
   m_stAndroidAmazonProjInfo:
-    m_oAppID: com.ninetap.puzzlebricksbreakerb
+    m_oAppID: com.ninetap.brickbreaker
     m_oStoreAppID: 
     m_stBuildVerInfo:
-      m_nNum: 12
-      m_oVer: 0.0.12
+      m_nNum: 13
+      m_oVer: 0.0.13
   m_stStandaloneMacSteamProjInfo:
-    m_oAppID: com.ninetap.puzzlebricksbreakerb
+    m_oAppID: com.ninetap.brickbreaker
     m_oStoreAppID: 
     m_stBuildVerInfo:
-      m_nNum: 12
-      m_oVer: 0.0.12
+      m_nNum: 13
+      m_oVer: 0.0.13
   m_stStandaloneWndsSteamProjInfo:
-    m_oAppID: com.ninetap.puzzlebricksbreakerb
+    m_oAppID: com.ninetap.brickbreaker
     m_oStoreAppID: 
     m_stBuildVerInfo:
-      m_nNum: 12
-      m_oVer: 0.0.12
+      m_nNum: 13
+      m_oVer: 0.0.13
