@@ -203,6 +203,7 @@ namespace NSEngine {
 
             currentLevel = (int)CGameInfoStorage.Inst.PlayEpisodeInfo.ULevelID + 1;
             isTutorial = GlobalDefine.TUTORIAL_LEVEL_BOTTOM_ITEM.Contains(currentLevel);
+            isWarning = false;
 
 #if NEVER_USE_THIS
 			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
@@ -453,6 +454,8 @@ namespace NSEngine {
 				// 조준 가능 할 경우
 				if(this.IsEnableAiming(stPos)) {
 
+                    subGameSceneManager.warningObject.SetActive(false);
+
                     currentShootCount = 0;
 
 					var oPosList = CCollectionManager.Inst.SpawnList<Vector3>();
@@ -514,7 +517,8 @@ namespace NSEngine {
 #endif // #if NEVER_USE_THIS
 
 				// 조준 가능 할 경우
-				if(this.IsEnableAiming(stPos)) {                    
+				if(this.IsEnableAiming(stPos)) {     
+
                     startPosition = SelBallObj.transform.localPosition;
 
 					this.SetPlayState(EPlayState.SHOOT);
@@ -544,6 +548,8 @@ namespace NSEngine {
 				}
 
 				m_oSubLineFXDict[ESubKey.LINE_FX].gameObject.SetActive(false);
+
+                subGameSceneManager.warningObject.SetActive(isWarning);
 			}
 		}
 

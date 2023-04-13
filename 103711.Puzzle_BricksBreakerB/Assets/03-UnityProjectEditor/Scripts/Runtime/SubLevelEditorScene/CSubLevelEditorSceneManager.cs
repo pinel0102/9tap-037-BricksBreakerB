@@ -320,7 +320,7 @@ namespace LevelEditorScene {
 				this.AddObjsPool(KDefine.LES_KEY_SPRITE_OBJS_POOL, CFactory.CreateObjsPool(GlobalDefine.PREFAB_EDITOR_CURSOR, this.ObjRoot));
 				this.AddObjsPool(KDefine.LES_KEY_LINE_FX_OBJS_POOL, CFactory.CreateObjsPool(KCDefine.U_OBJ_P_LINE_FX, this.ObjRoot));
 
-				this.AddObjsPool(KDefine.LES_KEY_BTN_OBJS_POOL, CFactory.CreateObjsPool(KCDefine.U_OBJ_P_TEXT_BTN, this.MidEditorUIs));
+				this.AddObjsPool(KDefine.LES_KEY_BTN_OBJS_POOL, CFactory.CreateObjsPool(KDefine.U_OBJ_P_TEXT_BTN_GRID_NUM, this.MidEditorUIs));
 				// 객체 풀을 설정한다 }
 
 				// 텍스처를 설정한다
@@ -775,9 +775,10 @@ namespace LevelEditorScene {
 				}
 
 				// 텍스트가 존재 할 경우
-				if(oBtn.TryGetComponent<Text>(out Text oText)) {
+				Text oText = oBtn.GetComponentInChildren<Text>();
+                if (oText != null)
+                {
 					oText.text = $"{i + KCDefine.B_VAL_1_INT}";
-					oText.fontSize = KCDefine.B_VAL_4_INT * KCDefine.B_VAL_7_INT;
 				}
 
 				m_oGridLineBtnHList.ExAddVal(oBtn);
@@ -803,9 +804,10 @@ namespace LevelEditorScene {
 				}
 
 				// 텍스트가 존재 할 경우
-				if(oBtn.TryGetComponent<Text>(out Text oText)) {
+				Text oText = oBtn.GetComponentInChildren<Text>();
+                if (oText != null)
+                {
 					oText.text = $"{i + KCDefine.B_VAL_1_INT}";
-					oText.fontSize = KCDefine.B_VAL_4_INT * KCDefine.B_VAL_7_INT;
 				}
 
 				m_oGridLineBtnVList.ExAddVal(oBtn);

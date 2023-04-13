@@ -67,6 +67,8 @@ public static partial class KDefine {
 	// 간격
 	public static readonly Vector3 LES_OFFSET_H_GRID_LINE_BTN = new Vector3(0.0f, 20.0f, 0.0f);
 	public static readonly Vector3 LES_OFFSET_V_GRID_LINE_BTN = new Vector3(-30.0f, 0.0f, 0.0f);
+
+    public static readonly string U_OBJ_P_TEXT_BTN_GRID_NUM = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_LEVEL_EDITOR_SCENE}UI/Button/U_TextBtn_GridNum";
 	#endregion // 런타임 상수
 }
 #endif // #if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)

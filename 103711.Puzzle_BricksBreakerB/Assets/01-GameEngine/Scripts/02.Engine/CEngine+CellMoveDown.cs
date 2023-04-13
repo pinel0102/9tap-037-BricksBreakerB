@@ -7,6 +7,8 @@ using DG.Tweening;
 namespace NSEngine {
     public partial class CEngine : CComponent
     {
+        public bool isWarning;
+
         private void MoveDownAllCells()
         {
             MoveDownAllCellObjs();
@@ -173,18 +175,21 @@ namespace NSEngine {
 
                 if (distance >= (cellsizeY * 2f))
                 {
-                    subGameSceneManager.warningObject.SetActive(false);
+                    isWarning = false;
+                    subGameSceneManager.warningObject.SetActive(isWarning);
                 }            
                 else if ((distance >= (cellsizeY * 1f)) && (distance < (cellsizeY * 2f)))
                 {
-                    subGameSceneManager.warningObject.SetActive(true);
+                    isWarning = true;
+                    subGameSceneManager.warningObject.SetActive(isWarning);
                     GlobalDefine.PlaySoundFX(ESoundSet.SOUND_WARNING);
                 }
                 else
                 {
                     if (isInitialize)
                     {
-                        subGameSceneManager.warningObject.SetActive(true);
+                        isWarning = true;
+                        subGameSceneManager.warningObject.SetActive(isWarning);
                         GlobalDefine.PlaySoundFX(ESoundSet.SOUND_WARNING);
                     }
                     else
@@ -193,7 +198,8 @@ namespace NSEngine {
             }
             else
             {
-                subGameSceneManager.warningObject.SetActive(false);
+                isWarning = false;
+                subGameSceneManager.warningObject.SetActive(isWarning);
             }
         }
     }

@@ -99,10 +99,14 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 5055830069dd8464e93c94c6cf713e68, type: 3}
+  - {fileID: 21300000, guid: 554417d809d384c8ca3e1d68ba197fd4, type: 3}
   - {fileID: 21300000, guid: 7ba9e08d2544d4df3a65877a1290a726, type: 3}
+  - {fileID: 21300000, guid: f508e07eacd5d458eba61086f9b6c1e5, type: 3}
   m_PackedSpriteNamesToIndex:
   - LES_BG_EMPTY_01
+  - Bucket
   - LES_BG_PLACEHOLDER_01
+  - Pen
   m_RenderDataMap: {}
   m_Tag: ES_SpriteAtlas_01
   m_IsVariant: 0
