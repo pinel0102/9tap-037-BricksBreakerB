@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
+#if EDITOR_SCENE_TEMPLATES_MODULE_ENABLE && (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 public class ModifyCell : MonoBehaviour
 {
     [Header("★ [Reference] Modify Cell")]
@@ -158,3 +159,4 @@ public class ModifyCell : MonoBehaviour
 #endregion Buttons
 
 }
+#endif

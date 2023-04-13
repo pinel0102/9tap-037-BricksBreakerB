@@ -22,9 +22,7 @@ namespace MainScene {
 		/** 씬을 설정한다 */
 		private void SubSetupAwake() {
 
-			this.SubSetupTestUIs();
-
-            this.InitTabs();
+			this.InitTabs();
             this.InitLobbyButtons();
             this.InitLevelMapButtons();
 		}
