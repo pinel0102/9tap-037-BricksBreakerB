@@ -26,6 +26,8 @@ namespace NSEngine {
             ballController.isOn_PowerBall = true;
             ballController.FXToggle_PowerBall(true);
             //ballController.SetBallSize(2f);
+
+            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_POWERBALL);
         }
     }
 }

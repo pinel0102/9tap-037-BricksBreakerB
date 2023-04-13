@@ -68,9 +68,19 @@ namespace NSEngine {
 						case EObjKinds.NORM_BRICKS_TRIANGLE_01: this.SetupTriangleCollider(oPosList); break;
 						case EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_01: this.SetupRightTriangleCollider(oPosList); break;
                         case EObjKinds.NORM_BRICKS_DIAMOND_01: this.SetupDiamondCollider(oPosList); break;
-                        case EObjKinds.SPECIAL_BRICKS_BALL_DIFFUSION_01: this.SetupDiamondCollider(oPosList, GlobalDefine.CustomSize_Diffusion); break;
                         case EObjKinds.SPECIAL_BRICKS_BALL_AMPLIFICATION_01: this.SetupTriangleCollider(oPosList); break;
-                        case EObjKinds.OBSTACLE_BRICKS_WARP_IN_01: this.SetupDiamondCollider(oPosList); break;
+
+                        case EObjKinds.SPECIAL_BRICKS_BALL_DIFFUSION_01:
+                        case EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01:
+                        case EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01:
+                        case EObjKinds.SPECIAL_BRICKS_LASER_CROSS_01:
+                        case EObjKinds.ITEM_BRICKS_BALL_01:
+                            this.SetupCircleCollider(oPosList, GlobalDefine.ColliderRadius_20); break;
+                        
+                        case EObjKinds.OBSTACLE_BRICKS_WARP_IN_01:
+                        case EObjKinds.SPECIAL_BRICKS_POWERBALL_01:
+                        case EObjKinds.ITEM_BRICKS_COINS_01:
+                            this.SetupCircleCollider(oPosList, GlobalDefine.ColliderRadius_30); break;                        
                         default: this.SetupSquareCollider(oPosList); break;
 					}
 
@@ -79,6 +89,20 @@ namespace NSEngine {
 					CCollectionManager.Inst.DespawnList(oPosList);
 				}
 			}
+		}
+
+        /** 원 -> 팔각형 충돌체를 설정한다 */
+		private void SetupCircleCollider(List<Vector2> a_oOutPosList, float radius) {            
+            float root = radius / Mathf.Pow(2, 0.5f);
+
+			a_oOutPosList.ExAddVal(new Vector2(radius, 0));
+            a_oOutPosList.ExAddVal(new Vector2(root, -root));
+            a_oOutPosList.ExAddVal(new Vector2(0, -radius));
+            a_oOutPosList.ExAddVal(new Vector2(-root, -root));            
+            a_oOutPosList.ExAddVal(new Vector2(-radius, 0));
+            a_oOutPosList.ExAddVal(new Vector2(-root, root));            
+            a_oOutPosList.ExAddVal(new Vector2(0, radius));
+            a_oOutPosList.ExAddVal(new Vector2(root, root));
 		}
 
 		/** 사각형 충돌체를 설정한다 */

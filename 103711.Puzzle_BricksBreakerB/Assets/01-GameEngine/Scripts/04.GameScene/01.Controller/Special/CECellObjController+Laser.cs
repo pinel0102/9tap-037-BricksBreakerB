@@ -60,6 +60,7 @@ namespace NSEngine {
         private void ShowEffect_Laser(Vector3 _rotation)
         {
             GlobalDefine.ShowEffect_Laser(EFXSet.FX_LASER, this.transform.position, _rotation, Vector3.one);
+            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_LASER);
         }
     }
 }

@@ -15,14 +15,16 @@ namespace NSEngine {
                 case EObjKinds.SPECIAL_BRICKS_BALL_DIFFUSION_01:
                     //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kindsType));
                     ballController.transform.position = transform.position;
-                    Refract_Diffusion(ballController); 
+                    Refract_Diffusion(ballController);
+                    GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_DIFFUSION);
                     break;
                 case EObjKinds.SPECIAL_BRICKS_BALL_AMPLIFICATION_01:
                     if (ballController.isOn_Amplification)
                         return;
                     //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kindsType));
                     ballController.transform.position = transform.position;
-                    Refract_Amplification(ballController); 
+                    Refract_Amplification(ballController);
+                    GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_AMPLIFICATION);
                     break;
                 default: break;
             }

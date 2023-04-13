@@ -30,7 +30,7 @@ public partial class GlobalDefine
         [ESoundSet.SOUND_ITEM_EARTHQUAKE]   = new KeyValuePair<string, float>("quake", defaultVolume),
         [ESoundSet.SOUND_ITEM_ADD_BALL]   = new KeyValuePair<string, float>("Menu Notification", defaultVolume),
         [ESoundSet.SOUND_ITEM_BRICKS_DELETE]   = new KeyValuePair<string, float>("weapon06", defaultVolume),
-        [ESoundSet.SOUND_ITEM_ADD_LASER_BRICKS]   = new KeyValuePair<string, float>("weapon01", defaultVolume),
+        [ESoundSet.SOUND_ITEM_ADD_LASER_BRICKS]   = new KeyValuePair<string, float>("Menu Notification", defaultVolume),
         [ESoundSet.SOUND_ITEM_ADD_STEEL_BRICKS]   = new KeyValuePair<string, float>("Menu Button", defaultVolume),
 
         [ESoundSet.SOUND_SPECIAL_MISSILE]   = new KeyValuePair<string, float>("Fire - Spell Impact 2", defaultVolume),
@@ -43,10 +43,10 @@ public partial class GlobalDefine
         [ESoundSet.SOUND_SPECIAL_KEY]   = new KeyValuePair<string, float>("Puzzle Game Piece 05", defaultVolume),
         [ESoundSet.SOUND_SPECIAL_WORMHOLE]   = new KeyValuePair<string, float>("Dark Magic Entrapment Spell", defaultVolume),
         [ESoundSet.SOUND_SPECIAL_OPEN_CLOSE]   = new KeyValuePair<string, float>("Madagascar Cockroach Hissing 04", defaultVolume),
-        //[ESoundSet.SOUND_SPECIAL_LASER]   = new KeyValuePair<string, float>("", defaultVolume),
-        //[ESoundSet.SOUND_SPECIAL_DIFFUSION]   = new KeyValuePair<string, float>("", defaultVolume),
-        //[ESoundSet.SOUND_SPECIAL_AMPLIFICATION]   = new KeyValuePair<string, float>("", defaultVolume),
-        //[ESoundSet.SOUND_SPECIAL_POWERBALL]   = new KeyValuePair<string, float>("", defaultVolume),
+        [ESoundSet.SOUND_SPECIAL_LASER]   = new KeyValuePair<string, float>("weapon01", defaultVolume),
+        [ESoundSet.SOUND_SPECIAL_DIFFUSION]   = new KeyValuePair<string, float>("Quest_Game_Tribal_Organic_Irish_Hand_Drum_6_Soft_Ethnic", defaultVolume),
+        [ESoundSet.SOUND_SPECIAL_AMPLIFICATION]   = new KeyValuePair<string, float>("Quest_Game_Tribal_Organic_Irish_Hand_Drum_6_Soft_Ethnic", defaultVolume),
+        [ESoundSet.SOUND_SPECIAL_POWERBALL]   = new KeyValuePair<string, float>("PyroFireBallBurst_zsbOB_03", defaultVolume),
     };
 
     ///<Summary>효과음 재생.</Summary>
@@ -86,7 +86,7 @@ public enum ESoundSet
     SOUND_ATTACK_NORMAL, // 일반 블럭 타격.
     SOUND_ATTACK_WOOD, // 나무 블럭 타격.
     SOUND_ATTACK_IRON, // 강철 블럭 타격.
-    SOUND_BRICK_APPEAR, // 블럭 등장.
+    //SOUND_BRICK_APPEAR, // 블럭 등장.
     SOUND_BRICK_DESTROY, // 블럭 파괴.    
 
     SOUND_ITEM_EARTHQUAKE, // 지진.

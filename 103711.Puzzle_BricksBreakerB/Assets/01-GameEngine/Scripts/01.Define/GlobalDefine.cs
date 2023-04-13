@@ -62,5 +62,6 @@ public static partial class GlobalDefine
     public const int HPText_Order = 200;
     public const int NumText_Order = 10;
 
-    public static Vector2 CustomSize_Diffusion = new Vector2(30f, 30f);
+    public const float ColliderRadius_20 = 20f;
+    public const float ColliderRadius_30 = 30f;
 }
