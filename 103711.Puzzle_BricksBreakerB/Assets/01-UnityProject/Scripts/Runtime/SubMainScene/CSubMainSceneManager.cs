@@ -140,7 +140,13 @@ namespace MainScene {
 
 			// 백 키 눌림 이벤트 일 경우
 			if(a_eEvent == ENavStackEvent.BACK_KEY_DOWN) {
-				Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_QUIT_P_MSG), this.OnReceiveQuitPopupResult);
+                if(IsTabMoving()) 
+                    return;
+                
+                if(currentTab > -1)
+                    this.CloseTabs();
+                else
+				    Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_QUIT_P_MSG), this.OnReceiveQuitPopupResult);
 			}
 		}
 

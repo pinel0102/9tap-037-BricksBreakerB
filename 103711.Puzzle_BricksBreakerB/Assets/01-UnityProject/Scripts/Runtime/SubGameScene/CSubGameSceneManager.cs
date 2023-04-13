@@ -121,7 +121,13 @@ namespace GameScene {
                 if(CSceneLoader.Inst.PrevActiveSceneName.Equals(KCDefine.B_SCENE_N_LEVEL_EDITOR) || GlobalDefine.isLevelEditor) {
 					Func.ShowAlertPopup(CStrTable.Inst.GetStr(KCDefine.ST_KEY_LEAVE_P_MSG), this.OnReceiveLeavePopupResult);
 				} else {
-					this.OnTouchPauseBtn();
+                    if(IsTabMoving()) 
+                        return;
+                
+                    if(currentTab > -1)
+                        this.CloseTabs();
+                    else
+                        this.OnTouchPauseBtn();
 				}
 			}
 		}

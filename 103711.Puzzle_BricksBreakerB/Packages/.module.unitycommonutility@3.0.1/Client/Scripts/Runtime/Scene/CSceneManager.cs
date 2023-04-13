@@ -650,7 +650,7 @@ public abstract partial class CSceneManager : CComponent {
 
 					// 백 키를 눌렀을 경우
 					if(bIsBackKeyDown) {
-						CSndManager.Inst.PlayFXSnds(KCDefine.U_SND_P_G_SFX_TOUCH_END);
+						//CSndManager.Inst.PlayFXSnds(KCDefine.U_SND_P_G_SFX_TOUCH_END);
 						CNavStackManager.Inst.SendNavStackEvent(ENavStackEvent.BACK_KEY_DOWN);
 					}
 

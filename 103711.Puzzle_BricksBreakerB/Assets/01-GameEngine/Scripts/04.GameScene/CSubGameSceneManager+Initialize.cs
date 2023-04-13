@@ -32,6 +32,7 @@ namespace GameScene {
 
             InitCamera();
             InitUITop();
+            InitTabs();
             SetupButtons();
             CheckTutorial(Engine.currentLevel);
 

@@ -7,7 +7,7 @@ public class TabItem : MonoBehaviour
     public Vector2 showPosition = new Vector2(0, 0);
     public Vector2 hidePosition = new Vector2(0, 0);
 
-    private bool isMoving;
+    public bool isMoving {get; private set;}
     private float moveSpeed = 12f;
     private float moveTime = 0.3f;
     private RectTransform rt => transform as RectTransform;

@@ -57,7 +57,7 @@ namespace GameScene {
 
         public void OnTouchProfileBtn()
         {
-            //
+            OpenTab(0);
         }
 
         public void OnTouchManualBtn()

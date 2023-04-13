@@ -11,6 +11,7 @@ namespace MainScene {
 	public partial class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate 
     {
         public List<TabItem> tabList = new List<TabItem>();
+        public int currentTab = -1;
 
         public void InitTabs()
         {
@@ -18,6 +19,8 @@ namespace MainScene {
             {
                 tabList[i].HideItemInit();
             }
+
+            currentTab = -1;
         }
 
         public void CloseTabs()
@@ -26,6 +29,8 @@ namespace MainScene {
             {
                 tabList[i].HideItem();
             }
+
+            currentTab = -1;
         }
 
         public void OpenTab(int index)
@@ -35,12 +40,24 @@ namespace MainScene {
                 if (i == index)
                 {
                     tabList[i].ShowItem();
+                    currentTab = i;
                 }
                 else
                 {
                     tabList[i].HideItem();
                 }
             }
+        }
+
+        public bool IsTabMoving()
+        {
+            for(int i=0; i < tabList.Count; i++)
+            {
+                if (tabList[i].isMoving)
+                    return true;
+            }
+
+            return false;
         }
     }
 }
