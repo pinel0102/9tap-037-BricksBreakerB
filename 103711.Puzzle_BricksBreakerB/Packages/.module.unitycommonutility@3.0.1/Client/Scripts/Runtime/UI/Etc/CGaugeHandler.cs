@@ -38,7 +38,7 @@ public partial class CGaugeHandler : CComponent {
 		}, m_oImgDict);
 
 		m_oImgDict[EKey.MASK_IMG].fillMethod = Image.FillMethod.Horizontal;
-		m_oImgDict[EKey.MASK_IMG].gameObject.ExAddComponent<Mask>().showMaskGraphic = false;
+		//m_oImgDict[EKey.MASK_IMG].gameObject.ExAddComponent<Mask>().showMaskGraphic = false;
 		// 이미지를 설정한다 }
 	}
 

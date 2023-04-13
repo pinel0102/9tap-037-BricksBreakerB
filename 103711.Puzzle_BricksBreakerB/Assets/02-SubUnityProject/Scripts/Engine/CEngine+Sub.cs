@@ -201,7 +201,7 @@ namespace NSEngine {
             InitCombo();
             InitScore();
 
-            currentLevel = (int)CGameInfoStorage.Inst.PlayEpisodeInfo.ULevelID + 1;
+            currentLevel = (int)CGameInfoStorage.Inst.PlayLevelInfo.ULevelID + 1;
             isTutorial = GlobalDefine.TUTORIAL_LEVEL_BOTTOM_ITEM.Contains(currentLevel);
             isWarning = false;
 

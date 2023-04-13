@@ -12,10 +12,8 @@ namespace MainScene {
 	/** 서브 메인 씬 관리자 - 추가 */
 	public partial class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate {
 		#region 변수
-		/** =====> 객체 <===== */
-		[SerializeField] private GameObject m_oTempMenuUIs = null;
-
-        public Transform levelButtonParent;
+		public Transform levelButtonParent;
+        
         #endregion // 변수
 
 		#region 함수
@@ -29,7 +27,9 @@ namespace MainScene {
 
         private void InitLevelMapButtons()
         {
-            var levelCount = CLevelInfoTable.Inst.levelCount;
+            int levelCount = CLevelInfoTable.Inst.levelCount;
+            
+            Debug.Log(CodeManager.GetMethodName() + string.Format("Level Count : {0}", levelCount));
             
             for (int i=0; i <= ((levelCount - 1) / 5); i++)
             {

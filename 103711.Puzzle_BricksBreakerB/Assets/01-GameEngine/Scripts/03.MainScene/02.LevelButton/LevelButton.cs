@@ -6,13 +6,16 @@ using TMPro;
 
 public class LevelButton : MonoBehaviour
 {
+    [Header("★ [Parameter] CLevelInfo")]
+    public bool isValidInfo;
+    
     [Header("★ [Parameter] Live")]
     public int level;
     public int levelType;
     public int starCount;
     public bool isOpen;
     public bool isClear;
-    
+
     [Header("★ [Reference] Reference")]
     public GameObject openObject;
     public GameObject lockObject;
@@ -22,7 +25,6 @@ public class LevelButton : MonoBehaviour
     public List<GameObject> arrowList;
     public List<GameObject> starObjectNormal;
     public List<GameObject> starObjectColor;
-    public List<Button> buttonList;
     public List<TMP_Text> levelText;
     
     public void Initialize(int _level, int _levelCount)
@@ -31,8 +33,14 @@ public class LevelButton : MonoBehaviour
         {
             level = _level + 1;
 
-            var levelInfo = CLevelInfoTable.Inst.GetLevelInfo(_level);
-            levelType = levelInfo.LevelType;
+            if (isValidInfo = CLevelInfoTable.Inst.TryGetLevelInfo(_level, out CLevelInfo levelInfo))
+            {
+                levelType = levelInfo.LevelType;
+            }
+            else
+            {
+                levelType = 0;
+            }
 
             
             //TODO: temp values
@@ -53,20 +61,18 @@ public class LevelButton : MonoBehaviour
         }
     }
 
+    public void OnClick_LevelButton()
+    {
+        GlobalDefine.PlaySoundFX(ESoundSet.SOUND_BUTTON);
+        Func.SetupPlayEpisodeInfo(KDefine.G_CHARACTER_ID_COMMON, level - 1, EPlayMode.NORM);
+        CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
+    }
+
     private void SetButton()
     {
         for (int i=0; i < levelText.Count; i++)
         {
             levelText[i].text = string.Format("{0}", level);
-        }
-
-        for (int i=0; i < buttonList.Count; i++)
-        {
-            buttonList[i].onClick.AddListener(() => {
-                GlobalDefine.PlaySoundFX(ESoundSet.SOUND_BUTTON);
-                Func.SetupPlayEpisodeInfo(KDefine.G_CHARACTER_ID_COMMON, level - 1, EPlayMode.NORM);
-                CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
-            });
         }
 
         switch(levelType)

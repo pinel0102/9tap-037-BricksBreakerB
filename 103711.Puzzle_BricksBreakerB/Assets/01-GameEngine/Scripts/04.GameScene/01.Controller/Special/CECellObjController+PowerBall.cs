@@ -22,10 +22,11 @@ namespace NSEngine {
         ///<Summary>파워 볼.</Summary>
         private void PowerBall(CEBallObjController ballController, int _extraATK = KCDefine.B_VAL_1_INT)
         {
+            if (ballController.isOn_PowerBall) return;
+
             ballController.extraATK = _extraATK;
             ballController.isOn_PowerBall = true;
             ballController.FXToggle_PowerBall(true);
-            //ballController.SetBallSize(2f);
 
             GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_POWERBALL);
         }

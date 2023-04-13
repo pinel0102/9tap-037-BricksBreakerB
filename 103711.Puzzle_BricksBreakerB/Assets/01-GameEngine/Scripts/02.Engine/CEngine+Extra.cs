@@ -15,12 +15,15 @@ namespace NSEngine {
 
         public void CheckClear(bool _waitDelay = false, bool _isBottomItem = false)
         {
+            if (isLevelClear) return;
+
             this.RefreshBallText();
             this.InitCombo();
 
             // 클리어했을 경우
             if(this.IsClear()) 
             {
+                isLevelClear = true;
                 subGameSceneManager.SetEnableUpdateUIsState(true);
 
                 if (_waitDelay)

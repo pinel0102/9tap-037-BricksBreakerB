@@ -59,6 +59,7 @@ namespace TitleScene {
 			if(CSceneManager.IsAppInit) {
 				m_oTextDict[EKey.VER_TEXT]?.ExSetText(CAccess.GetVerStr(CProjInfoTable.Inst.ProjInfo.m_stBuildVerInfo.m_oVer, CCommonUserInfoStorage.Inst.UserInfo.UserType), CLocalizeInfoTable.Inst.GetFontSetInfo(EFontSet._1), false);
 				m_oTextDict[EKey.VER_TEXT]?.transform.SetAsLastSibling();
+                m_oTextDict[EKey.VER_TEXT]?.gameObject.SetActive(false);
 			}
 		}
 

@@ -78,6 +78,7 @@ namespace NSEngine {
 		public virtual void Init(STParams a_stParams) {
 			this.Params = a_stParams;
 
+            this.isLevelClear = false;
             this.isLevelFail = false;
 
 			this.SetupEngine();

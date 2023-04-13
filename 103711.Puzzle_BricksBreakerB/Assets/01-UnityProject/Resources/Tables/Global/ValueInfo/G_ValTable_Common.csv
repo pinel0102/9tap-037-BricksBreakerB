@@ -2,7 +2,7 @@ Description,Replace,ID,Val,ValType
 광고 지연,0,DELAY_ADS,60,1
 광고 시간 간격,0,DELTA_T_ADS,10,1
 기본 퀄리티 수준,0,DEF_QUALITY_LEVEL,2,0
-모바일 퀄리티 수준,0,MOBILE_QUALITY_LEVEL,2,0
+모바일 퀄리티 수준,0,MOBILE_QUALITY_LEVEL,3,0
 데스크 탑 퀄리티 수준,0,DESKTOP_QUALITY_LEVEL,3,0
 콘솔 퀄리티 수준,0,CONSOLE_QUALITY_LEVEL,5,0
 휴대용 콘솔 퀄리티 수준,0,HANDHELD_CONSOLE_QUALITY_LEVEL,2,0

@@ -37,7 +37,7 @@ EXIT_FOR:
 			var stDirection = a_stPos - this.SelBallObj.transform.localPosition;
 
 			//return this.PlayState == EPlayState.IDLE && stDirection.y.ExIsGreate(KCDefine.B_VAL_0_REAL) && this.CellObjLists.ExIsValidIdx(stIdx) && this.SelGridInfo.m_stAimBounds.Contains(a_stPos);
-            return this.PlayState == EPlayState.IDLE && !isGridMoving && stDirection.y.ExIsGreate(KCDefine.B_VAL_0_REAL) && this.SelGridInfo.m_stAimBounds.Contains(a_stPos);
+            return this.PlayState == EPlayState.IDLE && !isLevelClear && !isGridMoving && stDirection.y.ExIsGreate(KCDefine.B_VAL_0_REAL) && this.SelGridInfo.m_stAimBounds.Contains(a_stPos);
 		}
 
 		/** 발사 가능 여부를 검사한다 */
