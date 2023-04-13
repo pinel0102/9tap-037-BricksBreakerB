@@ -29,6 +29,48 @@ namespace MainScene {
 			});
         }
 
+        public void OnClick_OpenPopup_SkipLevel()
+        {
+            Func.ShowSkipLevelPopup(this.PopupUIs, (a_oSender) => {
+				(a_oSender as CSkipLevelPopup).Init();
+			});
+        }
+
+        public void OnClick_OpenPopup_PiggyBank()
+        {
+            Func.ShowPiggyBankPopup(this.PopupUIs, (a_oSender) => {
+				(a_oSender as CPiggyBankPopup).Init();
+			});
+        }
+
+        public void OnClick_OpenPopup_StarterPack()
+        {
+            Func.ShowStarterPackPopup(this.PopupUIs, (a_oSender) => {
+				(a_oSender as CStarterPackPopup).Init();
+			});
+        }
+
+        public void OnClick_OpenPopup_Membership()
+        {
+            Func.ShowMembershipPopup(this.PopupUIs, (a_oSender) => {
+				(a_oSender as CMembershipPopup).Init();
+			});
+        }
+
+        public void OnClick_OpenPopup_GetReward()
+        {
+            Func.ShowDailyRewardPopup(this.PopupUIs, (a_oSender) => {
+				(a_oSender as CDailyRewardPopup).Init();
+			});
+        }
+
+        public void OnClick_OpenPopup_RateUs()
+        {
+            Func.ShowDailyRewardPopup(this.PopupUIs, (a_oSender) => {
+				(a_oSender as CDailyRewardPopup).Init();
+			});
+        }
+
 #endregion Popups
 
     }

@@ -92,6 +92,26 @@ public static partial class Func {
 	public static void ShowPreviewPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
 		Func.ShowPopup<CPreviewPopup>(KDefine.G_OBJ_N_PREVIEW_POPUP, KCDefine.U_OBJ_P_G_PREVIEW_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
+
+    public static void ShowSkipLevelPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
+		Func.ShowPopup<CSkipLevelPopup>(KDefine.G_OBJ_N_SKIPLEVEL_POPUP, KCDefine.U_OBJ_P_G_SKIPLEVEL_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
+	}
+
+    public static void ShowPiggyBankPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
+		Func.ShowPopup<CPiggyBankPopup>(KDefine.G_OBJ_N_PIGGYBANK_POPUP, KCDefine.U_OBJ_P_G_PIGGYBANK_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
+	}
+
+    public static void ShowStarterPackPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
+		Func.ShowPopup<CStarterPackPopup>(KDefine.G_OBJ_N_STARTERPACK_POPUP, KCDefine.U_OBJ_P_G_STARTERPACK_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
+	}
+
+    public static void ShowMembershipPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
+		Func.ShowPopup<CMembershipPopup>(KDefine.G_OBJ_N_MEMBERSHIP_POPUP, KCDefine.U_OBJ_P_G_MEMBERSHIP_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
+	}
+
+    public static void ShowRateUsPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
+		Func.ShowPopup<CRateUsPopup>(KDefine.G_OBJ_N_RATEUS_POPUP, KCDefine.U_OBJ_P_G_RATEUS_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
+	}
 	#endregion // 클래스 함수
 
 	#region 제니릭 클래스 함수

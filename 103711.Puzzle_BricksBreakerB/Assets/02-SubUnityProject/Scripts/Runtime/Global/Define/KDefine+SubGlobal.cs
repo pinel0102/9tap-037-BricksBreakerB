@@ -66,6 +66,11 @@ public static partial class KDefine {
 	public const string G_OBJ_N_FOCUS_POPUP = "FOCUS_POPUP";
 	public const string G_OBJ_N_TUTORIAL_POPUP = "TUTORIAL_POPUP";
     public const string G_OBJ_N_PREVIEW_POPUP = "PREVIEW_POPUP";
+    public const string G_OBJ_N_SKIPLEVEL_POPUP = "SKIPLEVEL_POPUP";
+    public const string G_OBJ_N_PIGGYBANK_POPUP = "PIGGYBANK_POPUP";
+    public const string G_OBJ_N_STARTERPACK_POPUP = "STARTERPACK_POPUP";
+    public const string G_OBJ_N_MEMBERSHIP_POPUP = "MEMBERSHIP_POPUP";
+    public const string G_OBJ_N_RATEUS_POPUP = "RATEUS_POPUP";
 
 	// 식별자
 	public const string G_KEY_NUM_BALLS = "NumBalls";
