@@ -28,6 +28,7 @@ namespace GameScene {
             }
 
             currentTab = -1;
+            Time.timeScale = 1;
         }
 
         public void OpenTab(int index)
@@ -36,6 +37,8 @@ namespace GameScene {
             {
                 if (i == index)
                 {
+                    Time.timeScale = 0;
+                    
                     tabList[i].ShowItem();
                     currentTab = i;
                 }

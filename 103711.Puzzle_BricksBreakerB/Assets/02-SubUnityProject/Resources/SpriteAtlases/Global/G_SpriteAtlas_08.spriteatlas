@@ -49,12 +49,12 @@ SpriteAtlas:
       m_BuildTarget: Android
       m_MaxTextureSize: 2048
       m_ResizeAlgorithm: 0
-      m_TextureFormat: 4
+      m_TextureFormat: 47
       m_TextureCompression: 2
       m_CompressionQuality: 100
       m_CrunchedCompression: 1
       m_AllowsAlphaSplitting: 0
-      m_Overridden: 0
+      m_Overridden: 1
       m_AndroidETC2FallbackOverride: 0
       m_ForceMaximumCompressionQuality_BC6H_BC7: 0
     - serializedVersion: 3
@@ -66,19 +66,19 @@ SpriteAtlas:
       m_CompressionQuality: 100
       m_CrunchedCompression: 1
       m_AllowsAlphaSplitting: 0
-      m_Overridden: 0
+      m_Overridden: 1
       m_AndroidETC2FallbackOverride: 0
       m_ForceMaximumCompressionQuality_BC6H_BC7: 0
     - serializedVersion: 3
       m_BuildTarget: iPhone
       m_MaxTextureSize: 2048
       m_ResizeAlgorithm: 0
-      m_TextureFormat: 4
+      m_TextureFormat: 47
       m_TextureCompression: 2
       m_CompressionQuality: 100
       m_CrunchedCompression: 1
       m_AllowsAlphaSplitting: 0
-      m_Overridden: 0
+      m_Overridden: 1
       m_AndroidETC2FallbackOverride: 0
       m_ForceMaximumCompressionQuality_BC6H_BC7: 0
     packingSettings:
