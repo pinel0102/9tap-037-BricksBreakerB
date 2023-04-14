@@ -29,8 +29,12 @@ Puzzle - BricksBreakerB 클라이언트 프로젝트
 # ChangeLog
 
 <details>
-<summary markdown="span"><em>last update : 0.0.14</em></summary>
+<summary markdown="span"><em>last update : 0.0.15</em></summary>
 <br>
+
+---
++ 0.0.15
+   - Prototype 공유
 
 ---
 + 0.0.1
