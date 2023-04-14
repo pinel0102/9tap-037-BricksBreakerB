@@ -134,7 +134,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.0.15
+  bundleVersion: 0.0.16
   preloadedAssets:
   - {fileID: 102900000, guid: b43855c64dd43f647ac558ec5e374eee, type: 3}
   - {fileID: 5805755442994408132, guid: b2cd881333beccb4584a3731301a9e9f, type: 3}
@@ -380,11 +380,11 @@ PlayerSettings:
     Standalone: com.ninetap.brickbreaker
     iPhone: com.ninetap.brickbreaker
   buildNumber:
-    Standalone: 15
-    iPhone: 15
+    Standalone: 16
+    iPhone: 16
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
-  AndroidBundleVersionCode: 15
+  AndroidBundleVersionCode: 16
   AndroidMinSdkVersion: 22
   AndroidTargetSdkVersion: 31
   AndroidPreferredInstallLocation: 1
