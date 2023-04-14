@@ -168,12 +168,12 @@ namespace NSEngine {
 
                     for(int i = 0; i < this.BallObjList.Count; ++i) {
 						this.BallObjList[i].GetController<CEBallObjController>().Initialize();
-                        oAniList.ExAddVal(this.BallObjList[i].transform.DOLocalMove(stPos, KCDefine.B_VAL_0_5_REAL));
+                        oAniList.ExAddVal(this.BallObjList[i].transform.DOLocalMove(stPos, KCDefine.B_VAL_0_3_REAL));
 					}
 
                     for(int i = 0; i < this.ExtraBallObjList.Count; ++i) {
 						this.ExtraBallObjList[i].GetController<CEBallObjController>().Initialize();
-                        oAniList.ExAddVal(this.ExtraBallObjList[i].transform.DOLocalMove(stPos, KCDefine.B_VAL_0_5_REAL));
+                        oAniList.ExAddVal(this.ExtraBallObjList[i].transform.DOLocalMove(stPos, KCDefine.B_VAL_0_3_REAL));
 					}
 
 					m_oAniList.ExAddVal(CFactory.MakeSequence(oAniList, (a_oSender) => {
@@ -280,7 +280,7 @@ namespace NSEngine {
                     _ceObj.SetCellActive(false);
 					this.RemoveCellObj(_ceObj);
                     
-					// 클리어했을 경우
+                    // 클리어했을 경우
 					if(this.IsClear()) {
 						m_oSubRealDict[ESubKey.TIME_SCALE] = KCDefine.B_VAL_3_REAL;
 					}
@@ -540,16 +540,16 @@ namespace NSEngine {
                     shootDirection = new Vector3(Mathf.Cos(fAngle * Mathf.Deg2Rad) * Mathf.Sign(stDirection.x), Mathf.Sin(fAngle * Mathf.Deg2Rad), KCDefine.B_VAL_0_REAL) * KDefine.E_SPEED_SHOOT;
                     
                     currentShootCount = 0;
-                    ShootBalls(nNumShootBalls, this.BallObjList.Count);
+                    isWarning = false;
 
-                    /*CScheduleManager.Inst.AddTimer(this, KCDefine.B_VAL_0_0_9_REAL, (uint)this.BallObjList.Count, () => {
-						this.BallObjList[nNumShootBalls++].GetController<CEBallObjController>().Shoot(new Vector3(Mathf.Cos(fAngle * Mathf.Deg2Rad) * Mathf.Sign(stDirection.x), Mathf.Sin(fAngle * Mathf.Deg2Rad), KCDefine.B_VAL_0_REAL) * KDefine.E_SPEED_SHOOT);
-					});*/
+                    ShootBalls(nNumShootBalls, this.BallObjList.Count);
 				}
+                else
+                {
+                    subGameSceneManager.warningObject.SetActive(isWarning);
+                }
 
 				m_oSubLineFXDict[ESubKey.LINE_FX].gameObject.SetActive(false);
-
-                subGameSceneManager.warningObject.SetActive(isWarning);
 			}
 		}
 
