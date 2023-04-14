@@ -97,12 +97,7 @@ namespace GameScene {
 				}
 #endif // #if ADS_MODULE_ENABLE
 
-				Func.ShowResumePopup(this.PopupUIs, (a_oSender) => {
-					(a_oSender as CResumePopup).Init(CResumePopup.MakeParams(new Dictionary<CResumePopup.ECallback, System.Action<CResumePopup>>() {
-						[CResumePopup.ECallback.RESUME] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.RESUME),
-						[CResumePopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
-					}));
-				});
+				OnTouchPauseBtn();
 			}
 		}
 

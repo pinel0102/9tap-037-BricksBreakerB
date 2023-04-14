@@ -20,11 +20,11 @@ namespace GameScene {
 
                     for (int line = 0; line < deleteCount; line++)
                     {
-                        GlobalDefine.ShowEffect_Laser_Red(EFXSet.FX_LASER_RED, new Vector3(0, lastClearTarget.transform.position.y + (NSEngine.Access.CellSize.y * line), lastClearTarget.transform.position.z), GlobalDefine.FXLaser_Rotation_Horizontal, Vector3.one, GlobalDefine.FXLaserRed_Time);
+                        GlobalDefine.ShowEffect_Laser_Red(EFXSet.FX_LASER_RED, new Vector3(0, lastClearTarget.transform.position.y + ((Engine.cellsizeY * CSceneManager.ObjsRootScale.y) * line), lastClearTarget.transform.position.z), GlobalDefine.FXLaser_Rotation_Horizontal, Vector3.one, GlobalDefine.FXLaserRed_Time);
 
                         for(int i = 0; i < Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); ++i) 
                         {
-                            Engine.CellDestroy_SkillTarget(Mathf.Max(0, lastClearTarget.row - line), i, true);
+                            Engine.CellDestroy_SkillTarget(Mathf.Max(0, lastRow - line), i, true);
                         }
                     }
                 }
