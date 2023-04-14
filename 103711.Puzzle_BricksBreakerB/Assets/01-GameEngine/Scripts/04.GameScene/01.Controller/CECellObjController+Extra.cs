@@ -293,7 +293,7 @@ namespace NSEngine {
         }
 
         ///<Summary>셀 파괴. (열쇠 효과만 발동.)</Summary>
-        public void CellDestroy(bool isSoundPlay = true)
+        public void CellDestroy(bool isSoundPlay = true, bool isForce = false)
         {
             StopAllCoroutines();
             
@@ -311,10 +311,15 @@ namespace NSEngine {
                     break;
                 case EObjKinds.OBSTACLE_BRICKS_WOODBOX_01:
                 case EObjKinds.OBSTACLE_BRICKS_WOODBOX_02:
-                    if (_ceObj.Params.m_stObjInfo.m_bIsShieldCell)
+                    if (_ceObj.Params.m_stObjInfo.m_bIsShieldCell && !isForce)
                     {
                         GetObstacle_WoodBox(kindsType, kinds);
                         return;
+                    }
+                    else
+                    {
+                        if (isSoundPlay)
+                            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_BRICK_DESTROY);
                     }
                     break;
                 default:

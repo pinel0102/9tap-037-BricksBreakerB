@@ -116,7 +116,7 @@ public partial class GlobalDefine
     }
 
     ///<Summary>이펙트 재생 (Missile 전용.)</Summary>
-    public static void ShowEffect_Missile(EFXSet _effect, Vector3 _position, float _angle, NSEngine.CEObj _moveTarget, Action<NSEngine.CEObj> completeCallback, float _moveTime, bool _isWorldPosition = true)
+    public static void ShowEffect_Missile(EFXSet _effect, Vector3 _position, float _angle, NSEngine.CEObj _moveTarget, Action<NSEngine.CEObj, bool> completeCallback, float _moveTime, bool _isWorldPosition = true)
     {
         KeyValuePair<string, float> _kv = FXContainer[_effect];
         Transform effect = CSceneManager.ActiveSceneManager.SpawnObj<Transform>(_kv.Key, _kv.Key, _position, _isWorldPosition);
