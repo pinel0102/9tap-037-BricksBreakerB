@@ -634,7 +634,7 @@ public static partial class KCDefine {
 	public const string U_OBJ_N_SND_M_FX_SNDS = "FXSnds";
 
 	// 입력 모듈 {
-	public const int U_THRESHOLD_INPUT_M_MOVE = 10;
+	public const int U_THRESHOLD_INPUT_M_MOVE = 5;
 
 	public const float U_RATE_INPUT_M_MOVE_REPEAT = 0.1f;
 	public const float U_DELAY_INPUT_M_MOVE_REPEAT = 0.5f;
