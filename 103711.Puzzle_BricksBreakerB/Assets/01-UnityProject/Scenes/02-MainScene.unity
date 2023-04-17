@@ -2145,6 +2145,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIsRoot
       objectReference: {fileID: 0}
+    - target: {fileID: 2309311342911384848, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
+      propertyPath: m_DragThreshold
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2369241721648500470, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

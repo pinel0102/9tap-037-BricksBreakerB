@@ -28,6 +28,7 @@ public partial class CPausePopup : CSubPopup {
 	/** 매개 변수 */
 	public struct STParams {
 		public Dictionary<ECallback, System.Action<CPausePopup>> m_oCallbackDict;
+        public NSEngine.CEngine Engine;
 	}
 
 	#region 변수
@@ -38,6 +39,8 @@ public partial class CPausePopup : CSubPopup {
 	public STParams Params { get; private set; }
 
     public TMP_Text levelText;
+    public SpriteMask previewMask;
+    public RectTransform previewArea;
     private const string formatLevel = "Level {0}";
 	#endregion // 프로퍼티
 
@@ -72,6 +75,8 @@ public partial class CPausePopup : CSubPopup {
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
         
+        Params.Engine.SetupPreview(previewArea, previewMask);
+        
         levelText.text = string.Format(formatLevel, CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).Engine.currentLevel);
 
 		this.SubUpdateUIsState();
@@ -90,9 +95,10 @@ public partial class CPausePopup : CSubPopup {
 
 	#region 클래스 함수
 	/** 매개 변수를 생성한다 */
-	public static STParams MakeParams(Dictionary<ECallback, System.Action<CPausePopup>> a_oCallbackDict = null) {
+	public static STParams MakeParams(Dictionary<ECallback, System.Action<CPausePopup>> a_oCallbackDict = null, NSEngine.CEngine _engine = null) {
 		return new STParams() {
-			m_oCallbackDict = a_oCallbackDict ?? new Dictionary<ECallback, System.Action<CPausePopup>>()
+			m_oCallbackDict = a_oCallbackDict ?? new Dictionary<ECallback, System.Action<CPausePopup>>(),
+            Engine = _engine
 		};
 	}
 	#endregion // 클래스 함수
