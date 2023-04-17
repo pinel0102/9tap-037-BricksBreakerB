@@ -298,7 +298,7 @@ namespace LevelEditorScene {
 
             GlobalDefine.ThisIsLevelEditor(true);
             
-            currentHP = 0;
+            currentHP = 10;
 
 			// 앱이 초기화 되었을 경우
 			if(CSceneManager.IsAppInit) {

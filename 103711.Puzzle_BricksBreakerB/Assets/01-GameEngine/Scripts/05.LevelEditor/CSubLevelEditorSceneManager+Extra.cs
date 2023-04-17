@@ -108,13 +108,19 @@ namespace LevelEditorScene {
         public void OnChangeHP(string _value)
         {
             if (int.TryParse(_value, out int _intValue) && _intValue > -1)
+            {
                 currentHP = _intValue;
+                this.UpdateUIsState();
+            }
         }
 
         public void OnChangeColorID(int _value)
         {
             if (_value > -1 && _value < GlobalDefine.colorList.Count)
+            {
                 currentColorID = _value;
+                this.UpdateUIsState();
+            }
         }
 
         private void UpdateRightUIsColor()
