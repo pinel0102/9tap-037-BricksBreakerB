@@ -34,12 +34,12 @@ namespace NSEngine {
             ballController.transform.position = target.transform.position;
             ballController.usedWormholes.Add(this);
             
-            ShowEffect_Wormhole(target.transform);
+            ShowEffect_Wormhole(target);
         }
 
-        private void ShowEffect_Wormhole(Transform target)
+        private void ShowEffect_Wormhole(CEObj target)
         {
-            //GlobalDefine.ShowEffect(EFXSet.FX_LASER, this.transform.position, _rotation, Vector3.one);
+            target.GetComponent<CECellObjController>().HitEffectNoSound();
             GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_WORMHOLE);
         }
     }

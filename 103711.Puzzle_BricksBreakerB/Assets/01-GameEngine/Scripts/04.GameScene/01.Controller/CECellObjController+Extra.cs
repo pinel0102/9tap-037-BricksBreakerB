@@ -118,6 +118,8 @@ namespace NSEngine {
                         Debug.Log(CodeManager.GetMethodName() + string.Format("<color=red>{0}</color>", kindsType));
                         break;
                 }
+
+                HitEffectNoSound();
             }
         }
 
@@ -134,6 +136,7 @@ namespace NSEngine {
                 {
                     case EObjKinds.OBSTACLE_BRICKS_WARP_IN_01:
                         GetObstacle_Wormhole(ballController, kindsType, kinds);
+                        HitEffectNoSound();
                         break;
                     case EObjKinds.OBSTACLE_BRICKS_FIX_01:
                         switch(kinds)
@@ -229,10 +232,18 @@ namespace NSEngine {
             hitCoroutine = StartCoroutine(CO_HitEffect());
         }
 
+        public void HitEffectNoSound()
+        {
+            if (hitCoroutine != null)
+                StopCoroutine(hitCoroutine);
+            
+            hitCoroutine = StartCoroutine(CO_HitEffect());
+        }
+
         private IEnumerator CO_HitEffect()
         {
             this.GetOwner<CEObj>().ToggleHitSprite(true);
-            
+
             yield return Engine.hitEffectDelay;
             
             this.GetOwner<CEObj>().ToggleHitSprite(false);
