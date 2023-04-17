@@ -90,12 +90,15 @@ namespace GameScene {
 
 		/** 정지 버튼을 눌렀을 경우 */
 		public void OnTouchPauseBtn() {
-			Func.ShowPausePopup(this.PopupUIs, (a_oSender) => {
-				(a_oSender as CPausePopup).Init(CPausePopup.MakeParams(new Dictionary<CPausePopup.ECallback, System.Action<CPausePopup>>() {
-                    [CPausePopup.ECallback.RETRY] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.RETRY),
-					[CPausePopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
-				}, this.Engine));
-			});
+            if (PopupUIs.transform.childCount == 0)
+            {
+                Func.ShowPausePopup(this.PopupUIs, (a_oSender) => {
+                    (a_oSender as CPausePopup).Init(CPausePopup.MakeParams(new Dictionary<CPausePopup.ECallback, System.Action<CPausePopup>>() {
+                        [CPausePopup.ECallback.RETRY] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.RETRY),
+                        [CPausePopup.ECallback.LEAVE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.LEAVE)
+                    }, this.Engine));
+                });
+            }
 		}
 
 		/** 설정 버튼을 눌렀을 경웅 */

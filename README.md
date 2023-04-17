@@ -34,7 +34,7 @@ Puzzle - BricksBreakerB 클라이언트 프로젝트
 
 ---
 + 0.0.15
-   - Prototype 공유
+   - Prototype 배포
 
 ---
 + 0.0.1
