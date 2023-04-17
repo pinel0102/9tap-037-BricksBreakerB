@@ -32,6 +32,7 @@ public partial class CResultPopup : CSubPopup {
 	public struct STParams {
 		public STRecordInfo m_stRecordInfo;
 		public Dictionary<ECallback, System.Action<CResultPopup>> m_oCallbackDict;
+        public NSEngine.CEngine Engine;
 	}
 
 	#region 변수
@@ -48,8 +49,10 @@ public partial class CResultPopup : CSubPopup {
 
     public TMP_Text[] levelText;
     public GameObject[] starObject;
+    public SpriteMask previewMask;
+    public RectTransform previewArea;
+    
     private const string formatLevel = "Level {0}";
-
     private const string U_OBJ_N_LEAVE_BTN_2 = "LEAVE_BTN_2";    
 	#endregion // 프로퍼티
 
@@ -107,7 +110,9 @@ public partial class CResultPopup : CSubPopup {
 
         Debug.Log(CodeManager.GetMethodName());
 
-        levelText[0].text = levelText[1].text = string.Format(formatLevel, CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).Engine.currentLevel);
+        Params.Engine.SetupPreview(previewArea, previewMask);
+
+        levelText[0].text = levelText[1].text = string.Format(formatLevel, Params.Engine.currentLevel);
         
 		var oClearLevelInfo = Access.GetLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03, false);
 
@@ -154,9 +159,10 @@ public partial class CResultPopup : CSubPopup {
 
 	#region 클래스 함수
 	/** 매개 변수를 생성한다 */
-	public static STParams MakeParams(STRecordInfo a_stRecordInfo, Dictionary<ECallback, System.Action<CResultPopup>> a_oCallbackDict = null) {
+	public static STParams MakeParams(STRecordInfo a_stRecordInfo, Dictionary<ECallback, System.Action<CResultPopup>> a_oCallbackDict = null, NSEngine.CEngine _engine = null) {
 		return new STParams() {
-			m_stRecordInfo = a_stRecordInfo, m_oCallbackDict = a_oCallbackDict ?? new Dictionary<ECallback, System.Action<CResultPopup>>()
+			m_stRecordInfo = a_stRecordInfo, m_oCallbackDict = a_oCallbackDict ?? new Dictionary<ECallback, System.Action<CResultPopup>>(),
+            Engine = _engine
 		};
 	}
 	#endregion // 클래스 함수

@@ -14,7 +14,7 @@ namespace GameScene {
             Func.ShowPreviewPopup(this.PopupUIs, (a_oSender) => {
 				(a_oSender as CPreviewPopup).Init(CPreviewPopup.MakeParams(new Dictionary<CPreviewPopup.ECallback, System.Action<CPreviewPopup>>() {
                     [CPreviewPopup.ECallback.RESUME] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.RESUME)
-                }, Engine));
+                }, this.Engine));
 			});
         }
 

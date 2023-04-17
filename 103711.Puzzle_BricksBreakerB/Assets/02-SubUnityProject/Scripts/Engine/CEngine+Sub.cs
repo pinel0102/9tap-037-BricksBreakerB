@@ -194,6 +194,7 @@ namespace NSEngine {
 		private void SubInit() {
             
             InitResoulution();
+            InitPreview();
             InitCellRoot();
             InitLayerMask();
 

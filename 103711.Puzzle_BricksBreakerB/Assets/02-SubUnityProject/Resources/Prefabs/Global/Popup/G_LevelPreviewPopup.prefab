@@ -391,7 +391,7 @@ GameObject:
   - component: {fileID: 6994324665175676657}
   - component: {fileID: 1168802965479449150}
   m_Layer: 5
-  m_Name: Middle
+  m_Name: PreviewMask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1276,7 +1276,7 @@ GameObject:
   - component: {fileID: 2833657208872661902}
   - component: {fileID: 8523138224807212082}
   m_Layer: 5
-  m_Name: Preview
+  m_Name: PreviewArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5937,9 +5937,9 @@ MonoBehaviour:
   - {fileID: 2908451205969571552}
   - {fileID: 3578806163825137452}
   buttonPlayAD: {fileID: 5365733478802762407}
-  preview: {fileID: 2833657208872661902}
-  mask: {fileID: 6994324665175676657}
   levelText: {fileID: 7811685519067790455}
+  previewMask: {fileID: 6994324665175676657}
+  previewArea: {fileID: 2833657208872661902}
   firstRow: 0
   lastRow: 0
   activeLine: 0
