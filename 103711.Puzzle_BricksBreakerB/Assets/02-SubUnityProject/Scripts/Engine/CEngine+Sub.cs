@@ -296,10 +296,10 @@ namespace NSEngine {
                         m_oMoveCompleteBallObjList[i].NumText.text = string.Empty;
                     }
 
-                    int excludeCount = m_oMoveCompleteBallObjList.FindAll(item => item.kinds == EObjKinds.BALL_NORM_03).Count;
+                    int excludeCount = m_oMoveCompleteBallObjList.FindAll(item => ExtraBallObjList.Contains(item) || (BallObjList.Contains(item) && deleteList.Contains(item))).Count;
                     int completeCount = m_oMoveCompleteBallObjList.Count - excludeCount;
                     
-                    m_oMoveCompleteBallObjList[KCDefine.B_VAL_0_INT].NumText.text = string.Format("{0}", completeCount > 0 ? completeCount : string.Empty);
+                    m_oMoveCompleteBallObjList[KCDefine.B_VAL_0_INT].NumText.text = completeCount > 0 ? GlobalDefine.GetBallText(completeCount, 0) : string.Empty;
 
 					var oSequence = CFactory.MakeSequence(a_oSender.transform.DOLocalMove(m_oMoveCompleteBallObjList[KCDefine.B_VAL_0_INT].transform.localPosition, KCDefine.U_DURATION_ANI), (a_oSequenceSender) => {
 						a_oSequenceSender?.Kill();

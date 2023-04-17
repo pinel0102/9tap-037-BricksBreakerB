@@ -11,4 +11,12 @@ public static partial class GlobalDefine
     public const string STRING_FALSE = "False";
     public const string STRING_1 = "1";
     public const string STRING_0 = "0";
+
+    private const string FORMAT_BALL_TEXT = "{0}";
+    private const string FORMAT_BALL_TEXT_EXTRA = "{0}+{1}";
+
+    public static string GetBallText(int ballCount, int extraBallCount)
+    {
+        return extraBallCount > 0 ? string.Format(FORMAT_BALL_TEXT_EXTRA, ballCount, extraBallCount) : string.Format(FORMAT_BALL_TEXT, ballCount);
+    }
 }

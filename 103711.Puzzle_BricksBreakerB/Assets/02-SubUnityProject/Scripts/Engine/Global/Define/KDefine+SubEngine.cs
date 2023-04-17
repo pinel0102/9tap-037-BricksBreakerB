@@ -64,7 +64,7 @@ namespace NSEngine {
             [EObjKinds.OBSTACLE_BRICKS_CLOSE_01] = new STSortingOrderInfo() { m_nOrder = 10, m_oLayer = KCDefine.U_SORTING_L_CELL },
             [EObjKinds.OBSTACLE_BRICKS_WOODBOX_01] = new STSortingOrderInfo() { m_nOrder = 10, m_oLayer = KCDefine.U_SORTING_L_CELL },
 
-			[EObjKinds.BALL_NORM_01] = new STSortingOrderInfo() { m_nOrder = KCDefine.U_SORTING_O_DEF, m_oLayer = KCDefine.U_SORTING_L_BALL },
+			[EObjKinds.BALL_NORM_01] = new STSortingOrderInfo() { m_nOrder = 10, m_oLayer = KCDefine.U_SORTING_L_BALL },
 		};
 
 		public static readonly Dictionary<EFXKinds, STSortingOrderInfo> E_SORTING_OI_FX_DICT = new Dictionary<EFXKinds, STSortingOrderInfo>() {

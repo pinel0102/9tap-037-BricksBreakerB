@@ -6,7 +6,7 @@ using Timers;
 namespace NSEngine {
     public partial class CEngine : CComponent
     {
-        private List<CEObj> deleteList = new List<CEObj>();
+        public List<CEObj> deleteList = new List<CEObj>();
         private Timer shootTimer;
 
 #region Public Methods
@@ -18,7 +18,8 @@ namespace NSEngine {
 
             for (int i=0; i < _addCount; i++)
             {
-                var oBallObj = CreateBall(_ballIndex + i, _startPosition, EObjKinds.BALL_NORM_02);                
+                var oBallObj = CreateBall(_ballIndex + i, _startPosition, EObjKinds.BALL_NORM_02);
+                oBallObj.TargetSprite.sortingOrder = 9;
                 this.BallObjList.ExAddVal(oBallObj);
             }
 
@@ -34,6 +35,7 @@ namespace NSEngine {
             for (int i=0; i < _addCount; i++)
             {
                 var oBallObj = CreateBall(_ballIndex + i, _startPosition, EObjKinds.BALL_NORM_01);
+                oBallObj.TargetSprite.sortingOrder = 10;
                 this.BallObjList.ExAddVal(oBallObj);
                 deleteList.Add(oBallObj);
             }
@@ -47,7 +49,8 @@ namespace NSEngine {
         {
             int _ballIndex = this.ExtraBallObjList.Count + 1000;
 
-            var oBallObj = CreateBall(_ballIndex, _startPosition, EObjKinds.BALL_NORM_03);                
+            var oBallObj = CreateBall(_ballIndex, _startPosition, EObjKinds.BALL_NORM_03);
+            oBallObj.TargetSprite.sortingOrder = 8;
             this.ExtraBallObjList.ExAddVal(oBallObj);
             
             CEBallObjController ballController = oBallObj.GetComponent<CEBallObjController>();
@@ -75,7 +78,7 @@ namespace NSEngine {
                 this.ExtraBallObjList[i].NumText.text = string.Empty;
             }
 
-            this.BallObjList[0].NumText.text = string.Format("{0}", this.BallObjList.Count);
+            this.BallObjList[0].NumText.text = GlobalDefine.GetBallText(this.BallObjList.Count, this.ExtraBallObjList.Count);
         }
 
 #endregion Public Methods

@@ -65,7 +65,7 @@ EXIT_FOR:
 
 			// 대기 상태 일 경우
 			if(this.PlayState == EPlayState.IDLE) {
-				this.SelBallObj.NumText.text = string.Format("{0}", this.BallObjList.Count);
+				this.SelBallObj.NumText.text = GlobalDefine.GetBallText(this.BallObjList.Count, this.ExtraBallObjList.Count);
 			}
 		}
 
