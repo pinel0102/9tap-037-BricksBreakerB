@@ -309,11 +309,11 @@ namespace NSEngine {
         {
             StopAllCoroutines();
             
-            CEObj _ceObj = this.GetOwner<CEObj>();
-            EObjKinds kinds = _ceObj.Params.m_stObjInfo.m_eObjKinds;
+            CEObj myCell = this.GetOwner<CEObj>();
+            EObjKinds kinds = myCell.Params.m_stObjInfo.m_eObjKinds;
             EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
             
-            if(_ceObj.Params.m_stObjInfo.m_bIsClearTarget)
+            if(myCell.Params.m_stObjInfo.m_bIsClearTarget)
                 Engine.GetScore();
 
             switch(kindsType)
@@ -323,7 +323,7 @@ namespace NSEngine {
                     break;
                 case EObjKinds.OBSTACLE_BRICKS_WOODBOX_01:
                 case EObjKinds.OBSTACLE_BRICKS_WOODBOX_02:
-                    if (_ceObj.Params.m_stObjInfo.m_bIsShieldCell && !isForce)
+                    if (myCell.Params.m_stObjInfo.m_bIsShieldCell && !isForce)
                     {
                         GetObstacle_WoodBox(kindsType, kinds);
                         return;
@@ -340,8 +340,14 @@ namespace NSEngine {
                     break;
             }
 
-            _ceObj.SetCellActive(false);
-            _ceObj.Params.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(CEObjComponent.ECallback.ENGINE_OBJ_EVENT)?.Invoke(this.GetOwner<CEObj>(), EEngineObjEvent.DESTROY, string.Empty);
+            for(int i=0; i < myCell.placeHolder.Count; i++)
+            {
+                var placeHolderCell = Engine.CellObjLists[myCell.row + myCell.placeHolder[i].y, myCell.col + myCell.placeHolder[i].x];
+                placeHolderCell[placeHolderCell.Count - 1].GetComponent<CECellObjController>().CellDestroy(false);
+            }
+
+            myCell.SetCellActive(false);
+            myCell.Params.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(CEObjComponent.ECallback.ENGINE_OBJ_EVENT)?.Invoke(this.GetOwner<CEObj>(), EEngineObjEvent.DESTROY, string.Empty);
         }
 
 #endregion Privates
