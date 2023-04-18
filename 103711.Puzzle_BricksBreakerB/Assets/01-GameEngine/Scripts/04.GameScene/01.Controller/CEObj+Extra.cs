@@ -30,6 +30,8 @@ namespace NSEngine {
 
         public void InitSprite(bool _needSubSprite)
         {
+            TargetSprite.transform.localPosition = Engine.GetSpriteCenter(Access.CellSize, this.Params.m_stObjInfo.m_stSize);
+
             if (_needSubSprite)
             {
                 SetSprite(TargetSprite, EObjKinds.NORM_BRICKS_SQUARE_01);
@@ -54,7 +56,7 @@ namespace NSEngine {
 
             if (_sprite != null)
             {
-                _sprite.size = Access.CellSize + GlobalDefine.CELL_SPRITE_ADJUSTMENT;
+                _sprite.size = Engine.GetSpriteSize(Access.CellSize, this.Params.m_stObjInfo.m_stSize) + GlobalDefine.CELL_SPRITE_ADJUSTMENT;
                 this.SetSpriteColor(_kinds);
             }
         }
@@ -66,7 +68,7 @@ namespace NSEngine {
             {
                 this.HitSprite?.ExSetSprite<SpriteRenderer>(Access.GetSprite(_kinds));
                 this.HitSprite.sortingOrder = this.TargetSprite.sortingOrder + GlobalDefine.HitEffect_Order;
-                this.HitSprite.size = Access.CellSize + GlobalDefine.CELL_SPRITE_ADJUSTMENT;
+                this.HitSprite.size = Engine.GetSpriteSize(Access.CellSize, this.Params.m_stObjInfo.m_stSize) + GlobalDefine.CELL_SPRITE_ADJUSTMENT;
 
                 ToggleHitSprite(false);
             }

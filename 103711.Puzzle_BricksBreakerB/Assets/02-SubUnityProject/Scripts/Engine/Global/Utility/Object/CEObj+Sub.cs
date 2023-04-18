@@ -65,23 +65,35 @@ namespace NSEngine {
 
 				try {
 					switch((EObjKinds)((int)this.Params.m_stObjInfo.m_eObjKinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE)) {
-						case EObjKinds.NORM_BRICKS_TRIANGLE_01: this.SetupTriangleCollider(oPosList); break;
-						case EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_01: this.SetupRightTriangleCollider(oPosList); break;
-                        case EObjKinds.NORM_BRICKS_DIAMOND_01: this.SetupDiamondCollider(oPosList); break;
-                        case EObjKinds.SPECIAL_BRICKS_BALL_AMPLIFICATION_01: this.SetupTriangleCollider(oPosList); break;
+						case EObjKinds.NORM_BRICKS_TRIANGLE_01: 
+                            this.SetupTriangleCollider(oPosList, this.Params.m_stObjInfo.m_stSize); break;
+
+						case EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_01: 
+                            this.SetupRightTriangleCollider(oPosList, this.Params.m_stObjInfo.m_stSize); break;
+
+                        case EObjKinds.NORM_BRICKS_DIAMOND_01: 
+                            this.SetupDiamondCollider(oPosList, this.Params.m_stObjInfo.m_stSize); break;
+
+                        case EObjKinds.SPECIAL_BRICKS_BALL_AMPLIFICATION_01: 
+                            this.SetupTriangleCollider(oPosList, this.Params.m_stObjInfo.m_stSize); break;
 
                         case EObjKinds.SPECIAL_BRICKS_BALL_DIFFUSION_01:
                         case EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01:
                         case EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01:
                         case EObjKinds.SPECIAL_BRICKS_LASER_CROSS_01:
                         case EObjKinds.ITEM_BRICKS_BALL_01:
-                            this.SetupCircleCollider(oPosList, GlobalDefine.ColliderRadius_20); break;
+                            this.SetupCircleCollider(oPosList, this.Params.m_stObjInfo.m_stSize.x * GlobalDefine.ColliderRadius_20); break;
                         
                         case EObjKinds.OBSTACLE_BRICKS_WARP_IN_01:
                         case EObjKinds.SPECIAL_BRICKS_POWERBALL_01:
                         case EObjKinds.ITEM_BRICKS_COINS_01:
-                            this.SetupCircleCollider(oPosList, GlobalDefine.ColliderRadius_30); break;                        
-                        default: this.SetupSquareCollider(oPosList); break;
+                            this.SetupCircleCollider(oPosList, this.Params.m_stObjInfo.m_stSize.x * GlobalDefine.ColliderRadius_30); break;
+
+                        case EObjKinds.SPECIAL_BRICKS_EXPLOSION_ALL_01:
+                            this.SetupSquareCollider(oPosList, this.Params.m_stObjInfo.m_stSize); break;
+
+                        default: 
+                            this.SetupSquareCollider(oPosList, this.Params.m_stObjInfo.m_stSize); break;
 					}
 
 					oCollider.SetPath(KCDefine.B_VAL_0_INT, oPosList);
@@ -105,59 +117,60 @@ namespace NSEngine {
             a_oOutPosList.ExAddVal(new Vector2(root, root));
 		}
 
-		/** 사각형 충돌체를 설정한다 */
-		private void SetupSquareCollider(List<Vector2> a_oOutPosList) {
-			a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / -KCDefine.B_VAL_2_REAL, Access.CellSize.y / -KCDefine.B_VAL_2_REAL));
-			a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / -KCDefine.B_VAL_2_REAL, Access.CellSize.y / KCDefine.B_VAL_2_REAL));
-			a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / KCDefine.B_VAL_2_REAL, Access.CellSize.y / KCDefine.B_VAL_2_REAL));
-			a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / KCDefine.B_VAL_2_REAL, Access.CellSize.y / -KCDefine.B_VAL_2_REAL));
+        /** 사각형 충돌체를 설정한다 */
+		private void SetupSquareCollider(List<Vector2> a_oOutPosList, Vector3Int objSize) {
+            float width = Access.CellSize.x * objSize.x;
+            float height = Access.CellSize.y * objSize.y;
+            
+            a_oOutPosList.ExAddVal(new Vector2(width / -KCDefine.B_VAL_2_REAL, height / -KCDefine.B_VAL_2_REAL));
+			a_oOutPosList.ExAddVal(new Vector2(width / -KCDefine.B_VAL_2_REAL, height / KCDefine.B_VAL_2_REAL));
+			a_oOutPosList.ExAddVal(new Vector2(width / KCDefine.B_VAL_2_REAL, height / KCDefine.B_VAL_2_REAL));
+			a_oOutPosList.ExAddVal(new Vector2(width / KCDefine.B_VAL_2_REAL, height / -KCDefine.B_VAL_2_REAL));
 		}
 
         /** 마름모 충돌체를 설정한다 */
-		private void SetupDiamondCollider(List<Vector2> a_oOutPosList) {
-            a_oOutPosList.ExAddVal(new Vector2(0, Access.CellSize.y / -KCDefine.B_VAL_2_REAL));
-            a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / KCDefine.B_VAL_2_REAL, 0));
-			a_oOutPosList.ExAddVal(new Vector2(0, Access.CellSize.y / KCDefine.B_VAL_2_REAL));
-			a_oOutPosList.ExAddVal(new Vector2(-Access.CellSize.x / KCDefine.B_VAL_2_REAL, 0));
+		private void SetupDiamondCollider(List<Vector2> a_oOutPosList, Vector3Int objSize) {
+            float width = Access.CellSize.x * objSize.x;
+            float height = Access.CellSize.y * objSize.y;
+
+            a_oOutPosList.ExAddVal(new Vector2(0, height / -KCDefine.B_VAL_2_REAL));
+            a_oOutPosList.ExAddVal(new Vector2(width / KCDefine.B_VAL_2_REAL, 0));
+			a_oOutPosList.ExAddVal(new Vector2(0, height / KCDefine.B_VAL_2_REAL));
+			a_oOutPosList.ExAddVal(new Vector2(width / -KCDefine.B_VAL_2_REAL, 0));
 		}
 
-        /** 마름모 충돌체를 설정한다 */
-		private void SetupDiamondCollider(List<Vector2> a_oOutPosList, Vector2 customSize) {
-            a_oOutPosList.ExAddVal(new Vector2(0, customSize.y / -KCDefine.B_VAL_2_REAL));
-            a_oOutPosList.ExAddVal(new Vector2(customSize.x / KCDefine.B_VAL_2_REAL, 0));
-			a_oOutPosList.ExAddVal(new Vector2(0, customSize.y / KCDefine.B_VAL_2_REAL));
-			a_oOutPosList.ExAddVal(new Vector2(-customSize.x / KCDefine.B_VAL_2_REAL, 0));
-		}
+        /** 삼각형 충돌체를 설정한다 */
+		private void SetupTriangleCollider(List<Vector2> a_oOutPosList, Vector3Int objSize) {
+            float width = Access.CellSize.x * objSize.x;
+            float height = Access.CellSize.y * objSize.y;
 
-		/** 삼각형 충돌체를 설정한다 */
-		private void SetupTriangleCollider(List<Vector2> a_oOutPosList) {
 			switch(this.Params.m_stObjInfo.m_eObjKinds) {
 				case EObjKinds.NORM_BRICKS_TRIANGLE_01:
                 case EObjKinds.SPECIAL_BRICKS_BALL_AMPLIFICATION_01: {
-					a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / -KCDefine.B_VAL_2_REAL, Access.CellSize.y / -KCDefine.B_VAL_2_REAL));
-					a_oOutPosList.ExAddVal(new Vector2(KCDefine.B_VAL_0_REAL, Access.CellSize.y / KCDefine.B_VAL_2_REAL));
-					a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / KCDefine.B_VAL_2_REAL, Access.CellSize.y / -KCDefine.B_VAL_2_REAL));
+					a_oOutPosList.ExAddVal(new Vector2(width / -KCDefine.B_VAL_2_REAL, height / -KCDefine.B_VAL_2_REAL));
+					a_oOutPosList.ExAddVal(new Vector2(KCDefine.B_VAL_0_REAL, height / KCDefine.B_VAL_2_REAL));
+					a_oOutPosList.ExAddVal(new Vector2(width / KCDefine.B_VAL_2_REAL, height / -KCDefine.B_VAL_2_REAL));
 
 					break;
 				}
 				case EObjKinds.NORM_BRICKS_TRIANGLE_02: {
-					a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / -KCDefine.B_VAL_2_REAL, Access.CellSize.y / KCDefine.B_VAL_2_REAL));
-					a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / KCDefine.B_VAL_2_REAL, Access.CellSize.y / KCDefine.B_VAL_2_REAL));
-					a_oOutPosList.ExAddVal(new Vector2(KCDefine.B_VAL_0_REAL, Access.CellSize.y / -KCDefine.B_VAL_2_REAL));
+					a_oOutPosList.ExAddVal(new Vector2(width / -KCDefine.B_VAL_2_REAL, height / KCDefine.B_VAL_2_REAL));
+					a_oOutPosList.ExAddVal(new Vector2(width / KCDefine.B_VAL_2_REAL, height / KCDefine.B_VAL_2_REAL));
+					a_oOutPosList.ExAddVal(new Vector2(KCDefine.B_VAL_0_REAL, height / -KCDefine.B_VAL_2_REAL));
 
 					break;
 				}
 				case EObjKinds.NORM_BRICKS_TRIANGLE_03: {
-					a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / -KCDefine.B_VAL_2_REAL, Access.CellSize.y / -KCDefine.B_VAL_2_REAL));
-					a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / -KCDefine.B_VAL_2_REAL, Access.CellSize.y / KCDefine.B_VAL_2_REAL));
-					a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_REAL));
+					a_oOutPosList.ExAddVal(new Vector2(width / -KCDefine.B_VAL_2_REAL, height / -KCDefine.B_VAL_2_REAL));
+					a_oOutPosList.ExAddVal(new Vector2(width / -KCDefine.B_VAL_2_REAL, height / KCDefine.B_VAL_2_REAL));
+					a_oOutPosList.ExAddVal(new Vector2(width / KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_REAL));
 
 					break;
 				}
 				case EObjKinds.NORM_BRICKS_TRIANGLE_04: {
-					a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / -KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_REAL));
-					a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / KCDefine.B_VAL_2_REAL, Access.CellSize.y / KCDefine.B_VAL_2_REAL));
-					a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / KCDefine.B_VAL_2_REAL, Access.CellSize.y / -KCDefine.B_VAL_2_REAL));
+					a_oOutPosList.ExAddVal(new Vector2(width / -KCDefine.B_VAL_2_REAL, KCDefine.B_VAL_0_REAL));
+					a_oOutPosList.ExAddVal(new Vector2(width / KCDefine.B_VAL_2_REAL, height / KCDefine.B_VAL_2_REAL));
+					a_oOutPosList.ExAddVal(new Vector2(width / KCDefine.B_VAL_2_REAL, height / -KCDefine.B_VAL_2_REAL));
 
 					break;
 				}
@@ -165,33 +178,36 @@ namespace NSEngine {
 		}
 
 		/** 직각 삼각형 충돌체를 설정한다 */
-		private void SetupRightTriangleCollider(List<Vector2> a_oOutPosList) {
+		private void SetupRightTriangleCollider(List<Vector2> a_oOutPosList, Vector3Int objSize) {
+            float width = Access.CellSize.x * objSize.x;
+            float height = Access.CellSize.y * objSize.y;
+
 			switch(this.Params.m_stObjInfo.m_eObjKinds) {
 				case EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_01: {
-					a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / -KCDefine.B_VAL_2_REAL, Access.CellSize.y / -KCDefine.B_VAL_2_REAL));
-					a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / -KCDefine.B_VAL_2_REAL, Access.CellSize.y / KCDefine.B_VAL_2_REAL));
-					a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / KCDefine.B_VAL_2_REAL, Access.CellSize.y / -KCDefine.B_VAL_2_REAL));
+					a_oOutPosList.ExAddVal(new Vector2(width / -KCDefine.B_VAL_2_REAL, height / -KCDefine.B_VAL_2_REAL));
+					a_oOutPosList.ExAddVal(new Vector2(width / -KCDefine.B_VAL_2_REAL, height / KCDefine.B_VAL_2_REAL));
+					a_oOutPosList.ExAddVal(new Vector2(width / KCDefine.B_VAL_2_REAL, height / -KCDefine.B_VAL_2_REAL));
 
 					break;
 				}
 				case EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_02: {
-					a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / -KCDefine.B_VAL_2_REAL, Access.CellSize.y / -KCDefine.B_VAL_2_REAL));
-					a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / -KCDefine.B_VAL_2_REAL, Access.CellSize.y / KCDefine.B_VAL_2_REAL));
-					a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / KCDefine.B_VAL_2_REAL, Access.CellSize.y / KCDefine.B_VAL_2_REAL));
+					a_oOutPosList.ExAddVal(new Vector2(width / -KCDefine.B_VAL_2_REAL, height / -KCDefine.B_VAL_2_REAL));
+					a_oOutPosList.ExAddVal(new Vector2(width / -KCDefine.B_VAL_2_REAL, height / KCDefine.B_VAL_2_REAL));
+					a_oOutPosList.ExAddVal(new Vector2(width / KCDefine.B_VAL_2_REAL, height / KCDefine.B_VAL_2_REAL));
 
 					break;
 				}
 				case EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_03: {
-					a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / -KCDefine.B_VAL_2_REAL, Access.CellSize.y / -KCDefine.B_VAL_2_REAL));
-					a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / KCDefine.B_VAL_2_REAL, Access.CellSize.y / KCDefine.B_VAL_2_REAL));
-					a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / KCDefine.B_VAL_2_REAL, Access.CellSize.y / -KCDefine.B_VAL_2_REAL));
+					a_oOutPosList.ExAddVal(new Vector2(width / -KCDefine.B_VAL_2_REAL, height / -KCDefine.B_VAL_2_REAL));
+					a_oOutPosList.ExAddVal(new Vector2(width / KCDefine.B_VAL_2_REAL, height / KCDefine.B_VAL_2_REAL));
+					a_oOutPosList.ExAddVal(new Vector2(width / KCDefine.B_VAL_2_REAL, height / -KCDefine.B_VAL_2_REAL));
 
 					break;
 				}
 				case EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_04: {
-					a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / -KCDefine.B_VAL_2_REAL, Access.CellSize.y / KCDefine.B_VAL_2_REAL));
-					a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / KCDefine.B_VAL_2_REAL, Access.CellSize.y / KCDefine.B_VAL_2_REAL));
-					a_oOutPosList.ExAddVal(new Vector2(Access.CellSize.x / KCDefine.B_VAL_2_REAL, Access.CellSize.y / -KCDefine.B_VAL_2_REAL));
+					a_oOutPosList.ExAddVal(new Vector2(width / -KCDefine.B_VAL_2_REAL, height / KCDefine.B_VAL_2_REAL));
+					a_oOutPosList.ExAddVal(new Vector2(width / KCDefine.B_VAL_2_REAL, height / KCDefine.B_VAL_2_REAL));
+					a_oOutPosList.ExAddVal(new Vector2(width / KCDefine.B_VAL_2_REAL, height / -KCDefine.B_VAL_2_REAL));
 
 					break;
 				}

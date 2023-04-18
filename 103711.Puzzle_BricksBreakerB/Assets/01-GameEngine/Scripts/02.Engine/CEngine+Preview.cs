@@ -96,11 +96,13 @@ namespace NSEngine {
                 //oCellObj.AddCellEffect(kindsType);
                 oCellObj.SetCellActive(true);
 
-                oCellObj.TargetSprite.size = CellSize + CELL_SPRITE_ADJUSTMENT;            
+                oCellObj.TargetSprite.transform.localPosition = this.GetSpriteCenter(CellSize, stObjInfo.m_stSize);
+
+                oCellObj.TargetSprite.size = this.GetSpriteSize(CellSize, stObjInfo.m_stSize) + CELL_SPRITE_ADJUSTMENT;            
                 oCellObj.TargetSprite.ExSetSortingOrder(sortingOrderInfoCell);
                 oCellObj.TargetSprite.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
 
-                oCellObj.UpperSprite.size = CellSize + CELL_SPRITE_ADJUSTMENT;
+                oCellObj.UpperSprite.size = this.GetSpriteSize(CellSize, stObjInfo.m_stSize) + CELL_SPRITE_ADJUSTMENT;
                 oCellObj.UpperSprite.ExSetSortingOrder(sortingOrderInfoSub);
                 oCellObj.UpperSprite.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
 
