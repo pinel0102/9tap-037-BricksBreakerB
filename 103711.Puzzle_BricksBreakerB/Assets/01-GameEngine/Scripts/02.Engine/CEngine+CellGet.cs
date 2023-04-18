@@ -218,7 +218,7 @@ namespace NSEngine {
                         {
                             if (!isCellFound)
                             {
-                                if (target.Params.m_stObjInfo.m_bIsClearTarget)
+                                if (target.Params.m_stObjInfo.m_bIsClearTarget || target.kinds == EObjKinds.BG_PLACEHOLDER_01)
                                 {
                                     return target;
                                 }
