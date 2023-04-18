@@ -47,13 +47,13 @@ namespace GameScene {
 
             ShakeCamera(() => {
 
-                var targetList = Engine.GetAllCells_SkillTarget();
+                var targetList = Engine.GetAllCells_EnableHit();
                 for(int i=0; i < targetList.Count; i++)
                 {
                     var target = targetList[i];
                     int damage = target.Params.m_stObjInfo.m_bIsShieldCell ? Mathf.Max(1, (int)(target.CellObjInfo.SHIELD * damageRatio)) : Mathf.Max(1, (int)(target.CellObjInfo.HP * damageRatio));
 
-                    Engine.CellDamage_SkillTarget(target, Engine.BallObjList[0].GetComponent<NSEngine.CEBallObjController>(), damage);
+                    Engine.CellDamage_EnableHit(target, Engine.BallObjList[0].GetComponent<NSEngine.CEBallObjController>(), damage);
                 }
 
                 Engine.RefreshActiveCells();
@@ -90,7 +90,7 @@ namespace GameScene {
 
                 for(int i = 0; i < Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); ++i) 
                 {
-                    Engine.CellDestroy_SkillTarget(lastClearTarget.row, i);
+                    Engine.CellDestroy_SkillTarget(lastClearTarget.row, i, true);
                 }
             }
 

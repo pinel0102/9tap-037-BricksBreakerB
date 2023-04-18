@@ -28,11 +28,11 @@ namespace NSEngine {
         {
             Engine.subGameSceneManager.ShakeCamera(() => {
 
-                List<CEObj> targetList = Engine.GetAllCells_SkillTarget(excludeList);
+                List<CEObj> targetList = Engine.GetAllCells_EnableHit(excludeList);
 
                 for(int i=0; i < targetList.Count; i++)
                 {
-                    Engine.CellDamage_SkillTarget(targetList[i], ballController, _ATK);
+                    Engine.CellDamage_EnableHit(targetList[i], ballController, _ATK);
                 }
 
             });

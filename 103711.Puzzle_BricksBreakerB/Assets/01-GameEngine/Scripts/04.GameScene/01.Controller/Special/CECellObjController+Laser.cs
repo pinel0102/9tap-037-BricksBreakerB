@@ -30,7 +30,7 @@ namespace NSEngine {
 
             for(int i = 0; i < Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); ++i) 
             {
-                Engine.CellDamage_SkillTarget(_cRow, i, ballController, _ATK);
+                Engine.CellDamage_EnableHit(_cRow, i, ballController, _ATK);
             }
 
             ShowEffect_Laser(GlobalDefine.FXLaser_Rotation_Horizontal);
@@ -45,7 +45,7 @@ namespace NSEngine {
 
             for(int i = 0; i < Engine.CellObjLists.GetLength(KCDefine.B_VAL_0_INT); ++i) 
             {
-                Engine.CellDamage_SkillTarget(i, _cCol, ballController, _ATK);
+                Engine.CellDamage_EnableHit(i, _cCol, ballController, _ATK);
 			}
 
             ShowEffect_Laser(GlobalDefine.FXLaser_Rotation_Vertictal);

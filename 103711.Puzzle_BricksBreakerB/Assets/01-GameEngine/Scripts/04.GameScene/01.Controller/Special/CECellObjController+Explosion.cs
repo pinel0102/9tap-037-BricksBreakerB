@@ -92,11 +92,11 @@ namespace NSEngine {
             List<CEObj> excludeList = new List<CEObj>();
             excludeList.Add(myCell);
 
-            List<CEObj> targetList = Engine.GetAllCells_SkillTarget(excludeList);
+            List<CEObj> targetList = Engine.GetAllCells_SkillTarget(excludeList, true, true);
 
             for(int i=0; i < targetList.Count; i++)
             {
-                Engine.CellDestroy_SkillTarget(targetList[i], true);
+                Engine.CellDestroy_SkillTarget(targetList[i], true, true);
             }
 
             ShowEffect_Explosion_All();

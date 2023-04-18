@@ -8,6 +8,35 @@ namespace NSEngine {
     {
         public Vector3Int viewSize = KDefine.E_DEF_NUM_CELLS;
 
+        public List<CEObj> GetRandomCells_EnableHit(int count, List<CEObj> excludeList)
+        {
+            List<CEObj> cellList = new List<CEObj>();
+
+            for (int row = 0; row < this.CellObjLists.GetLength(KCDefine.B_VAL_0_INT); row++)
+            {
+                for (int col = 0; col < this.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); col++)
+                {
+                    int _count = this.CellObjLists[row, col].Count;
+                    if (_count > 0)
+                    {
+                        int _cLastLayer = _count - 1;
+                        CEObj target = this.CellObjLists[row, col][_cLastLayer];
+                        if (target != null && target.IsActiveCell())
+                        {
+                            if (target.Params.m_stObjInfo.m_bIsEnableHit)
+                            {
+                                cellList.Add(target);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return cellList.OrderBy(g => System.Guid.NewGuid())
+                            .Where(i => !excludeList.Contains(i))
+                            .Take(count).ToList();
+        }
+
         public List<CEObj> GetRandomCells_SkillTarget(int count, List<CEObj> excludeList)
         {
             List<CEObj> cellList = new List<CEObj>();
@@ -37,7 +66,7 @@ namespace NSEngine {
                             .Take(count).ToList();
         }
 
-        public List<CEObj> GetAllCells_SkillTarget(List<CEObj> excludeList)
+        public List<CEObj> GetAllCells_EnableHit(List<CEObj> excludeList, bool isForce = false, bool includeHideCells = false)
         {
             List<CEObj> cellList = new List<CEObj>();
 
@@ -50,9 +79,9 @@ namespace NSEngine {
                     {
                         int _cLastLayer = _count - 1;
                         CEObj target = this.CellObjLists[row, col][_cLastLayer];
-                        if (target != null && target.IsActiveCell())
+                        if (target != null && (target.IsActiveCell() || includeHideCells))
                         {
-                            if (target.Params.m_stObjInfo.m_bIsSkillTarget)
+                            if (target.Params.m_stObjInfo.m_bIsEnableHit || (isForce && target.Params.m_stObjInfo.m_bIsClearTarget))
                             {
                                 cellList.Add(target);
                             }
@@ -65,9 +94,37 @@ namespace NSEngine {
                             .Where(i => !excludeList.Contains(i)).ToList();
         }
 
-        public List<CEObj> GetAllCells_SkillTarget()
+        public List<CEObj> GetAllCells_SkillTarget(List<CEObj> excludeList, bool isForce = false, bool includeHideCells = false)
         {
-            return GetAllCells_SkillTarget(new List<CEObj>());
+            List<CEObj> cellList = new List<CEObj>();
+
+            for (int row = 0; row < this.CellObjLists.GetLength(KCDefine.B_VAL_0_INT); row++)
+            {
+                for (int col = 0; col < this.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); col++)
+                {
+                    int _count = this.CellObjLists[row, col].Count;
+                    if (_count > 0)
+                    {
+                        int _cLastLayer = _count - 1;
+                        CEObj target = this.CellObjLists[row, col][_cLastLayer];
+                        if (target != null && (target.IsActiveCell() || includeHideCells))
+                        {
+                            if (target.Params.m_stObjInfo.m_bIsSkillTarget || (isForce && target.Params.m_stObjInfo.m_bIsClearTarget))
+                            {
+                                cellList.Add(target);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return cellList.OrderBy(g => System.Guid.NewGuid())
+                            .Where(i => !excludeList.Contains(i)).ToList();
+        }
+
+        public List<CEObj> GetAllCells_EnableHit()
+        {
+            return GetAllCells_EnableHit(new List<CEObj>());
         }
 
         public CEObj GetRandomCell(List<CEObj> cellList)

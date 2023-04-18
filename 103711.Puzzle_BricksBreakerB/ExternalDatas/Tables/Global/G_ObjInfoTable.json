@@ -1815,7 +1815,7 @@
 		"IsOverlay": "0",
 		"IsTransparent": "0",
 		"IsClearTarget": "1",
-		"IsSkillTarget": "1",
+		"IsSkillTarget": "0",
 		"IsEnableHit": "1",
 		"IsEnableColor": "0",
 		"IsEnableChange": "0",

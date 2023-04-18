@@ -6,14 +6,14 @@ namespace NSEngine {
     public partial class CEngine : CComponent
     {
         ///<Summary>볼이 아닌 특수 효과로 셀을 공격. (셀 효과 미발동.)</Summary>
-        public void CellDamage_SkillTarget(CEObj target, CEBallObjController ballController, int _ATK)
+        public void CellDamage_EnableHit(CEObj target, CEBallObjController ballController, int _ATK)
         {
             if (target != null && target.IsActiveCell())
             {
                 EObjKinds kinds = target.Params.m_stObjInfo.m_eObjKinds;
                 EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
                 
-                if (target.Params.m_stObjInfo.m_bIsSkillTarget)
+                if (target.Params.m_stObjInfo.m_bIsEnableHit)
                 {
                     if (target.Params.m_stObjInfo.m_bIsShieldCell)
                     {
@@ -40,7 +40,7 @@ namespace NSEngine {
         }
 
         ///<Summary>볼이 아닌 특수 효과로 셀을 공격. (셀 효과 미발동.)</Summary>
-        public void CellDamage_SkillTarget(int row, int col, CEBallObjController ballController, int _ATK)
+        public void CellDamage_EnableHit(int row, int col, CEBallObjController ballController, int _ATK)
         {
             int _count = this.CellObjLists[row, col].Count;
             if (_count > 0)
@@ -49,34 +49,36 @@ namespace NSEngine {
                 if(this.CellObjLists[row, col][_cLastLayer].IsActiveCell()) 
                 {
                     CEObj target = this.CellObjLists[row, col][_cLastLayer];
-                    CellDamage_SkillTarget(target, ballController, _ATK);
+                    CellDamage_EnableHit(target, ballController, _ATK);
                 }
             }
         }
 
         ///<Summary>볼이 아닌 특수 효과로 셀을 파괴. (셀 효과 미발동.)</Summary>
-        public void CellDestroy_SkillTarget(int row, int col, bool isForce = false)
+        public void CellDestroy_SkillTarget(int row, int col, bool isForce = false, bool includeHideCells = false)
         {
             int _count = this.CellObjLists[row, col].Count;
             if (_count > 0)
             {
                 int _cLastLayer = _count - 1;
-                if(this.CellObjLists[row, col][_cLastLayer].IsActiveCell()) 
+                if(this.CellObjLists[row, col][_cLastLayer].IsActiveCell() || includeHideCells) 
                 {
                     CEObj target = this.CellObjLists[row, col][_cLastLayer];
-                    CellDestroy_SkillTarget(target, isForce);
+                    CellDestroy_SkillTarget(target, isForce, includeHideCells);
                 }
             }
         }
 
         ///<Summary>볼이 아닌 특수 효과로 셀을 파괴. (셀 효과 미발동.)</Summary>
-        public void CellDestroy_SkillTarget(CEObj target, bool isForce = false)
+        public void CellDestroy_SkillTarget(CEObj target, bool isForce = false, bool includeHideCells = false)
         {
-            if (target != null && target.IsActiveCell())
+            if (target != null && (target.IsActiveCell() || includeHideCells))
             {
                 if (target.Params.m_stObjInfo.m_bIsSkillTarget || (isForce && target.Params.m_stObjInfo.m_bIsClearTarget))
                 {
-                    GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, target.transform.position, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, target.Params.m_stObjInfo.m_bIsShieldCell, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID));
+                    if (target.IsActiveCell())
+                        GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, target.transform.position, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, target.Params.m_stObjInfo.m_bIsShieldCell, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID));
+
                     if (isForce)
                         CellDestroyForce(target);
                     else
