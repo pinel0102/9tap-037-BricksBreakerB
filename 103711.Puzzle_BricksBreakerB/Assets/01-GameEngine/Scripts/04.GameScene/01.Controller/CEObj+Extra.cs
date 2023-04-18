@@ -16,6 +16,7 @@ namespace NSEngine {
         public Transform FXRoot;
         public SpriteRenderer HitSprite;
         public SpriteRenderer UpperSprite;
+        public List<Vector2Int> placeHolder = new List<Vector2Int>();
 
         [Header("★ [Live] Cell Info")]
         public EObjKinds kinds;
@@ -24,6 +25,25 @@ namespace NSEngine {
         public int col;
         public int layer;
         private Vector3 spriteOffset;
+
+        public void SetPlaceHolder(Vector3Int cellScale)
+        {
+            placeHolder.Clear();
+
+            if (cellScale != Vector3Int.one)
+            {
+                for(int _y = 0; _y < cellScale.y; _y++)
+                {
+                    for(int _x = 0; _x < cellScale.x; _x++)
+                    {
+                        if (_y == 0 && _x == 0)
+                            continue;
+                        
+                        placeHolder.Add(new Vector2Int(_x, _y));
+                    }
+                }
+            }
+        }
 
         private void SetTargetSprite()
         {

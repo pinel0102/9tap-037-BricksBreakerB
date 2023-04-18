@@ -36,16 +36,24 @@ namespace NSEngine {
             }
 		}
 
-        private bool TryMoveDownCellObjs(Vector3Int a_stIdx, List<Tween> a_oOutAniList) 
+        private bool TryMoveDownCellObjs(Vector3Int a_stIdx, List<Tween> a_oOutAniList, bool isForce = false) 
         {
 			var oCellObjList = this.CellObjLists[a_stIdx.y, a_stIdx.x];
             
-            if(oCellObjList.ExIsValid() && this.IsEnableMoveDown(oCellObjList)) 
+            if(oCellObjList.ExIsValid() && (this.IsEnableMoveDown(oCellObjList) || isForce)) 
             {
                 var newIndex = new Vector3Int(a_stIdx.x, a_stIdx.y + KCDefine.B_VAL_1_INT, a_stIdx.z);
 
-				for(int i = 0; i < oCellObjList.Count; ++i) 
+                for(int i = 0; i < oCellObjList.Count; ++i) 
                 {
+                    for(int j=oCellObjList[i].placeHolder.Count - 1; j >= 0; j--)
+                    {
+                        if (oCellObjList[i].placeHolder[j] == Vector2Int.zero)
+                            continue;
+                        
+                        TryMoveDownCellObjs(new Vector3Int(a_stIdx.x + oCellObjList[i].placeHolder[j].x, a_stIdx.y + oCellObjList[i].placeHolder[j].y, this.SelGridInfoIdx), a_oOutAniList, true);
+                    }
+
 					oCellObjList[i].GetController<CECellObjController>().SetIdx(newIndex);
                     oCellObjList[i].SetCellIdx(newIndex, oCellObjList[i].kinds);
 					a_oOutAniList.ExAddVal(oCellObjList[i].transform.DOLocalMoveY(oCellObjList[i].transform.localPosition.y - Access.CellSize.y, KDefine.E_DURATION_MOVE_DOWN_ANI));
@@ -61,27 +69,26 @@ namespace NSEngine {
 		}
 
         private bool IsEnableMoveDown(CEObj a_oObj) {
+
+            if (a_oObj.kinds == EObjKinds.BG_PLACEHOLDER_01)
+                return false;
+
             var controller = a_oObj.GetController<CECellObjController>();
-            //var stIdx = new Vector3Int(controller.Idx.x, controller.Idx.y + a_oObj.Params.m_stObjInfo.m_stSize.y, controller.Idx.z);
-            var stIdx = new Vector3Int(controller.Idx.x, controller.Idx.y + KCDefine.B_VAL_1_INT, controller.Idx.z);
-            var oCellObjList = this.CellObjLists.ExGetVal(stIdx, null);
 
-			bool bIsValid = a_oObj.Params.m_stObjInfo.m_bIsEnableMoveDown;
+            for (int i=0; i < a_oObj.Params.m_stObjInfo.m_stSize.x; i++)
+            {
+                var stIdx = new Vector3Int(controller.Idx.x + i, controller.Idx.y + a_oObj.Params.m_stObjInfo.m_stSize.y, controller.Idx.z);
+                var oCellObjList = this.CellObjLists.ExGetVal(stIdx, null);
+                
+                bool bIsValid2 = !oCellObjList.ExIsValid() && this.CellObjLists.ExIsValidIdx(stIdx);
+                
+                if (!bIsValid2)
+                    return false;
+            }
+
+            bool bIsValid1 = a_oObj.Params.m_stObjInfo.m_bIsEnableMoveDown;
             
-            return bIsValid && !oCellObjList.ExIsValid() && this.CellObjLists.ExIsValidIdx(stIdx);
-		}
-
-        private bool IsEnableMoveDownSize(CEObj a_oObj) {
-            var controller = a_oObj.GetController<CECellObjController>();
-            var stIdx = new Vector3Int(controller.Idx.x, controller.Idx.y + a_oObj.Params.m_stObjInfo.m_stSize.y, controller.Idx.z);
-            //var stIdx = new Vector3Int(controller.Idx.x, controller.Idx.y + KCDefine.B_VAL_1_INT, controller.Idx.z);
-            var oCellObjList = this.CellObjLists.ExGetVal(stIdx, null);
-
-			bool bIsValid = a_oObj.Params.m_stObjInfo.m_bIsEnableMoveDown;
-
-            Debug.Log(string.Format("{0} / {1} / {2} / {3} / {4}", a_oObj.kinds, bIsValid, !oCellObjList.ExIsValid(), this.CellObjLists.ExIsValidIdx(stIdx), stIdx));
-            
-            return bIsValid && !oCellObjList.ExIsValid() && this.CellObjLists.ExIsValidIdx(stIdx);
+            return bIsValid1;
 		}
 
 		private bool IsEnableMoveDown(List<CEObj> a_oObjList) {
