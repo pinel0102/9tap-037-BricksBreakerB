@@ -43,7 +43,7 @@ public static partial class GlobalDefine
                 return false;
         }
     }
-    
+
     public static bool IsShieldCell(EObjKinds kinds)
     {
         if (CObjInfoTable.Inst.TryGetObjInfo(kinds, out STObjInfo stObjInfo))

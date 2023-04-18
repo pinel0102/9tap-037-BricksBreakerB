@@ -99,7 +99,7 @@ namespace NSEngine {
                 Engine.CellDestroy_SkillTarget(targetList[i], true, true);
             }
 
-            ShowEffect_Explosion_All(myCell.centerPosition);
+            ShowEffect_Explosion_All(myCell.centerPosition + GlobalDefine.CenterOffset_EXPLOSION_ALL);
         }
 
         private void ShowEffect_Explosion(Vector3 centerPosition, Vector3 _rotation)

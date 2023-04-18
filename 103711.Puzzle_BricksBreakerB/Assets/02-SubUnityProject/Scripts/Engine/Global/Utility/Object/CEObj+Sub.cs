@@ -90,7 +90,7 @@ namespace NSEngine {
                             this.SetupCircleCollider(oPosList, this.Params.m_stObjInfo.m_stSize.x * GlobalDefine.ColliderRadius_30); break;
 
                         case EObjKinds.SPECIAL_BRICKS_EXPLOSION_ALL_01:
-                            this.SetupSquareCollider(oPosList, this.Params.m_stObjInfo.m_stSize); break;
+                            this.SetupCircleCollider(oPosList, this.Params.m_stObjInfo.m_stSize.x * GlobalDefine.ColliderRadius_30, GlobalDefine.ColliderOffset_EXPLOSION_ALL); break;
 
                         default: 
                             this.SetupSquareCollider(oPosList, this.Params.m_stObjInfo.m_stSize); break;
@@ -110,11 +110,25 @@ namespace NSEngine {
 			a_oOutPosList.ExAddVal(new Vector2(radius, 0));
             a_oOutPosList.ExAddVal(new Vector2(root, -root));
             a_oOutPosList.ExAddVal(new Vector2(0, -radius));
-            a_oOutPosList.ExAddVal(new Vector2(-root, -root));            
+            a_oOutPosList.ExAddVal(new Vector2(-root, -root));
             a_oOutPosList.ExAddVal(new Vector2(-radius, 0));
-            a_oOutPosList.ExAddVal(new Vector2(-root, root));            
+            a_oOutPosList.ExAddVal(new Vector2(-root, root));
             a_oOutPosList.ExAddVal(new Vector2(0, radius));
             a_oOutPosList.ExAddVal(new Vector2(root, root));
+		}
+
+        /** 원 -> 팔각형 충돌체를 설정한다 */
+		private void SetupCircleCollider(List<Vector2> a_oOutPosList, float radius, Vector2 offset) {            
+            float root = radius / Mathf.Pow(2, 0.5f);
+
+			a_oOutPosList.ExAddVal(new Vector2(radius, 0) + offset);
+            a_oOutPosList.ExAddVal(new Vector2(root, -root) + offset);
+            a_oOutPosList.ExAddVal(new Vector2(0, -radius) + offset);
+            a_oOutPosList.ExAddVal(new Vector2(-root, -root) + offset);
+            a_oOutPosList.ExAddVal(new Vector2(-radius, 0) + offset);
+            a_oOutPosList.ExAddVal(new Vector2(-root, root) + offset);
+            a_oOutPosList.ExAddVal(new Vector2(0, radius) + offset);
+            a_oOutPosList.ExAddVal(new Vector2(root, root) + offset);
 		}
 
         /** 사각형 충돌체를 설정한다 */

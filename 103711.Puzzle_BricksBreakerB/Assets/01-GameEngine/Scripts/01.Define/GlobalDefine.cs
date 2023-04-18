@@ -64,4 +64,17 @@ public static partial class GlobalDefine
 
     public const float ColliderRadius_20 = 20f;
     public const float ColliderRadius_30 = 30f;
+
+    public static Vector2 ColliderOffset_EXPLOSION_ALL = new Vector2(0, -23);
+    public static Vector3 CenterOffset_EXPLOSION_ALL = new Vector3(0, -35, 0);
+    public static Vector2 GetHPText_Offset(EObjKinds kinds)
+    {
+        switch(kinds)
+        {
+            case EObjKinds.SPECIAL_BRICKS_EXPLOSION_ALL_01:
+                return CenterOffset_EXPLOSION_ALL;
+            default:
+                return Vector2.zero;
+        }
+    }
 }

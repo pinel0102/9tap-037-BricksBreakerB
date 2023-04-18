@@ -53,7 +53,7 @@ namespace NSEngine {
         public void InitSprite(bool _needSubSprite)
         {
             TargetSprite.transform.localPosition = spriteOffset = GlobalDefine.GetSpriteCenter(Access.CellSize, this.Params.m_stObjInfo.m_stSize);
-            
+
             if (_needSubSprite)
             {
                 SetSprite(TargetSprite, EObjKinds.NORM_BRICKS_SQUARE_01);
@@ -65,6 +65,11 @@ namespace NSEngine {
             {
                 SetSprite(TargetSprite, kinds);
                 SetHitSprite(kinds);
+            }
+
+            if (HPText != null)
+            {
+                HPText.transform.localPosition = GlobalDefine.GetHPText_Offset(kinds);
             }
 
             ToggleUpperSprite(_needSubSprite);
@@ -126,13 +131,13 @@ namespace NSEngine {
                 case EObjKinds.SPECIAL_BRICKS_EXPLOSION_HORIZONTAL_01:
                 case EObjKinds.SPECIAL_BRICKS_EXPLOSION_VERTICAL_01:
                 case EObjKinds.SPECIAL_BRICKS_EXPLOSION_CROSS_01:
-                    GlobalDefine.AddCellEffect(EFXSet.FX_BOMB_FLAME, FXRoot, GlobalDefine.FXBombFlame_Position_Default);
+                    GlobalDefine.AddCellEffect(EFXSet.FX_BOMB_FLAME, FXRoot, GlobalDefine.FXBombFlame_Position_Default, GlobalDefine.FXBombFlame_Size_Default);
                     break;
                 case EObjKinds.SPECIAL_BRICKS_EXPLOSION_AROUND_01:
-                    GlobalDefine.AddCellEffect(EFXSet.FX_BOMB_FLAME, FXRoot, GlobalDefine.FXBombFlame_Position_3x3);
+                    GlobalDefine.AddCellEffect(EFXSet.FX_BOMB_FLAME, FXRoot, GlobalDefine.FXBombFlame_Position_3x3, GlobalDefine.FXBombFlame_Size_3x3);
                     break;
                 case EObjKinds.SPECIAL_BRICKS_EXPLOSION_ALL_01:
-                    GlobalDefine.AddCellEffect(EFXSet.FX_BOMB_FLAME, FXRoot, GlobalDefine.FXBombFlame_Position_All);
+                    GlobalDefine.AddCellEffect(EFXSet.FX_BOMB_FLAME, FXRoot, GlobalDefine.FXBombFlame_Position_All, GlobalDefine.FXBombFlame_Size_All);
                     break;
             }
         }
