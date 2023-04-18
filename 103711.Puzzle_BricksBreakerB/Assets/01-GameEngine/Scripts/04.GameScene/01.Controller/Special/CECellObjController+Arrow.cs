@@ -138,7 +138,9 @@ namespace NSEngine {
 
         private void ShowEffect_Arrow(Vector3 _rotation)
         {
-            GlobalDefine.ShowEffect_Laser_Red(EFXSet.FX_LASER_RED_ANCHOR, this.transform.position, _rotation, Vector3.one, GlobalDefine.FXLaserRed_Time);
+            CEObj myCell = this.GetOwner<CEObj>();
+
+            GlobalDefine.ShowEffect_Laser_Red(EFXSet.FX_LASER_RED_ANCHOR, myCell.centerPosition, _rotation, Vector3.one, GlobalDefine.FXLaserRed_Time);
             GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_ARROW);
         }
     }

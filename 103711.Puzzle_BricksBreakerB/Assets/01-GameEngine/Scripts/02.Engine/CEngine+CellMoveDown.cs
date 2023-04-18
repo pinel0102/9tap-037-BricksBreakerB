@@ -71,9 +71,22 @@ namespace NSEngine {
             return bIsValid && !oCellObjList.ExIsValid() && this.CellObjLists.ExIsValidIdx(stIdx);
 		}
 
+        private bool IsEnableMoveDownSize(CEObj a_oObj) {
+            var controller = a_oObj.GetController<CECellObjController>();
+            var stIdx = new Vector3Int(controller.Idx.x, controller.Idx.y + a_oObj.Params.m_stObjInfo.m_stSize.y, controller.Idx.z);
+            //var stIdx = new Vector3Int(controller.Idx.x, controller.Idx.y + KCDefine.B_VAL_1_INT, controller.Idx.z);
+            var oCellObjList = this.CellObjLists.ExGetVal(stIdx, null);
+
+			bool bIsValid = a_oObj.Params.m_stObjInfo.m_bIsEnableMoveDown;
+
+            Debug.Log(string.Format("{0} / {1} / {2} / {3} / {4}", a_oObj.kinds, bIsValid, !oCellObjList.ExIsValid(), this.CellObjLists.ExIsValidIdx(stIdx), stIdx));
+            
+            return bIsValid && !oCellObjList.ExIsValid() && this.CellObjLists.ExIsValidIdx(stIdx);
+		}
+
 		private bool IsEnableMoveDown(List<CEObj> a_oObjList) {
 			for(int i = 0; i < a_oObjList.Count; ++i) {
-				// 이동이 불가능 할 경우
+                // 이동이 불가능 할 경우
 				if(!this.IsEnableMoveDown(a_oObjList[i])) {
 					return false;
 				}

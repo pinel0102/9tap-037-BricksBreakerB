@@ -36,7 +36,7 @@ namespace NSEngine {
                 Engine.CellDestroy_SkillTarget(_cRow, i);
             }
 
-            ShowEffect_Explosion(GlobalDefine.FXLaser_Rotation_Horizontal);
+            ShowEffect_Explosion(myCell.centerPosition, GlobalDefine.FXLaser_Rotation_Horizontal);
         }
 
         ///<Summary>세로 폭탄.</Summary>
@@ -52,7 +52,7 @@ namespace NSEngine {
                 Engine.CellDestroy_SkillTarget(i, _cCol);
 			}
 
-            ShowEffect_Explosion(GlobalDefine.FXLaser_Rotation_Vertictal);
+            ShowEffect_Explosion(myCell.centerPosition, GlobalDefine.FXLaser_Rotation_Vertictal);
         }
 
         ///<Summary>십자 폭탄.</Summary>
@@ -79,7 +79,7 @@ namespace NSEngine {
                 }
             }
 
-            ShowEffect_Explosion_Around();
+            ShowEffect_Explosion_Around(myCell.centerPosition);
         }
 
         ///<Summary>대형 폭탄.</Summary>
@@ -99,24 +99,24 @@ namespace NSEngine {
                 Engine.CellDestroy_SkillTarget(targetList[i], true, true);
             }
 
-            ShowEffect_Explosion_All();
+            ShowEffect_Explosion_All(myCell.centerPosition);
         }
 
-        private void ShowEffect_Explosion(Vector3 _rotation)
+        private void ShowEffect_Explosion(Vector3 centerPosition, Vector3 _rotation)
         {
-            GlobalDefine.ShowEffect_Laser_Red(EFXSet.FX_LASER_RED, this.transform.position, _rotation, Vector3.one, GlobalDefine.FXLaserRed_Time);
+            GlobalDefine.ShowEffect_Laser_Red(EFXSet.FX_LASER_RED, centerPosition, _rotation, Vector3.one, GlobalDefine.FXLaserRed_Time);
             GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_EXPLOSION);
         }
 
-        private void ShowEffect_Explosion_Around()
+        private void ShowEffect_Explosion_Around(Vector3 centerPosition)
         {
-            GlobalDefine.ShowEffect(EFXSet.FX_EXPLOSION_3x3, this.transform.position);
+            GlobalDefine.ShowEffect(EFXSet.FX_EXPLOSION_3x3, centerPosition);
             GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_EXPLOSION_3x3);
         }
 
-        private void ShowEffect_Explosion_All()
+        private void ShowEffect_Explosion_All(Vector3 centerPosition)
         {
-            GlobalDefine.ShowEffect(EFXSet.FX_EXPLOSION_ALL, this.transform.position);
+            GlobalDefine.ShowEffect(EFXSet.FX_EXPLOSION_ALL, centerPosition);
             GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_EXPLOSION_ALL);
         }
     }

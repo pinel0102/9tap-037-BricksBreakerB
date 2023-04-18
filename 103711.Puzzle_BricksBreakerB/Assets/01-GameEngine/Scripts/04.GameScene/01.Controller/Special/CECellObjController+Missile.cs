@@ -27,24 +27,28 @@ namespace NSEngine {
         private void Missile(CEBallObjController ballController, int targetCount, List<CEObj> excludeList)
         {
             List<CEObj> targetList = Engine.GetRandomCells_SkillTarget(targetCount, excludeList);
+            CEObj myCell = this.GetOwner<CEObj>();
 
             for(int i=0; i < targetList.Count; i++)
             {
-                ShowEffect_Missile(targetList[i]);
+                ShowEffect_Missile(myCell.centerPosition, targetList[i]);
             }
 
             GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_MISSILE);
         }
 
-        private void ShowEffect_Missile(CEObj target)
+        private void ShowEffect_Missile(Vector3 centerPosition, CEObj target)
         {
             if(target != null && target.TryGetComponent<CECellObjController>(out CECellObjController oController))
             {
-                float fxAngle = GlobalDefine.GetAngle(this.transform.position, target.transform.position) + GlobalDefine.FXMissile_AngleOffset;
-                float distance = Vector2.Distance(this.transform.position, target.transform.position);
+                Vector3 fromPosition = centerPosition;
+                Vector3 toPosition = target.centerPosition;
+
+                float fxAngle = GlobalDefine.GetAngle(fromPosition, toPosition) + GlobalDefine.FXMissile_AngleOffset;
+                float distance = Vector2.Distance(fromPosition, toPosition);
                 
-                GlobalDefine.ShowEffect_Missile(EFXSet.FX_MISSILE_BULLET, this.transform.position, fxAngle, target, Engine.CellDestroy_SkillTarget, GlobalDefine.FXMissile_Time);
-                GlobalDefine.ShowEffect(EFXSet.FX_MISSILE_HEAD, target.transform.position);
+                GlobalDefine.ShowEffect_Missile(EFXSet.FX_MISSILE_BULLET, fromPosition, fxAngle, target, Engine.CellDestroy_SkillTarget, GlobalDefine.FXMissile_Time);
+                GlobalDefine.ShowEffect(EFXSet.FX_MISSILE_HEAD, toPosition);
 
                 //oController.ReserveMissileDestroy();
             }

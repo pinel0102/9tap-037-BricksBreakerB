@@ -93,7 +93,7 @@
 		"IsEnableChange": "0",
 		"IsEnableReflect": "0",
 		"IsEnableRefract": "0",
-		"IsEnableMoveDown": "1",
+		"IsEnableMoveDown": "0",
         "IsShieldCell": "0"
 	}, {
 		"NOEX_T": "1",

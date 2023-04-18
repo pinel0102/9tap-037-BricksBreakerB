@@ -33,7 +33,7 @@ namespace NSEngine {
                 Engine.CellDamage_EnableHit(_cRow, i, ballController, _ATK);
             }
 
-            ShowEffect_Laser(GlobalDefine.FXLaser_Rotation_Horizontal);
+            ShowEffect_Laser(myCell.centerPosition, GlobalDefine.FXLaser_Rotation_Horizontal);
         }
 
         private void Laser_Vertical(CEBallObjController ballController, int _ATK = KCDefine.B_VAL_1_INT)
@@ -48,7 +48,7 @@ namespace NSEngine {
                 Engine.CellDamage_EnableHit(i, _cCol, ballController, _ATK);
 			}
 
-            ShowEffect_Laser(GlobalDefine.FXLaser_Rotation_Vertictal);
+            ShowEffect_Laser(myCell.centerPosition, GlobalDefine.FXLaser_Rotation_Vertictal);
         }
 
         private void Laser_Cross(CEBallObjController ballController, int _ATK = KCDefine.B_VAL_1_INT)
@@ -57,9 +57,9 @@ namespace NSEngine {
             Laser_Vertical(ballController, _ATK);
         }
 
-        private void ShowEffect_Laser(Vector3 _rotation)
+        private void ShowEffect_Laser(Vector3 centerPosition, Vector3 _rotation)
         {
-            GlobalDefine.ShowEffect_Laser(EFXSet.FX_LASER, this.transform.position, _rotation, Vector3.one);
+            GlobalDefine.ShowEffect_Laser(EFXSet.FX_LASER, centerPosition, _rotation, Vector3.one);
             GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_LASER);
         }
     }

@@ -27,30 +27,37 @@ namespace NSEngine {
         private void Lightning(CEBallObjController ballController, int _ATK, int targetCount, List<CEObj> excludeList)
         {
             List<CEObj> targetList = Engine.GetRandomCells_EnableHit(targetCount, excludeList);
+            CEObj myCell = this.GetOwner<CEObj>();
 
             for(int i=0; i < targetList.Count; i++)
             {
                 Engine.CellDamage_EnableHit(targetList[i], ballController, _ATK);
-                ShowEffect_Lightning(targetList[i]);
+                ShowEffect_Lightning(myCell.centerPosition, targetList[i]);
             }
 
             GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_LIGHTNING);
         }
 
-        private void ShowEffect_Lightning(CEObj target)
+        private void ShowEffect_Lightning(Vector3 centerPosition, CEObj target)
         {
-            Vector3 fxPosition = (this.transform.position + target.transform.position) * 0.5f;
-            float fxAngle = GlobalDefine.GetAngle(this.transform.position, target.transform.position);
-            float distance = Vector2.Distance(this.transform.position, target.transform.position);
+            Vector3 fromPosition = centerPosition;
+            Vector3 toPosition = target.centerPosition;
+            float distance = Vector2.Distance(fromPosition, toPosition);
+
+            Vector3 fxPosition = (fromPosition + toPosition) * 0.5f;
             Vector3 fxScale = new Vector3(distance, distance, 1);
+            float fxAngle = GlobalDefine.GetAngle(fromPosition, toPosition);
+
+            float fxHitScale = Mathf.Min(target.Params.m_stObjInfo.m_stSize.x, target.Params.m_stObjInfo.m_stSize.y);
+            Vector3 fxHitScaleVector = new Vector3(fxHitScale, fxHitScale, 1);
 
             float fxStartSizeY_Min = GlobalDefine.FXLightning_StartSizeY_Min * (GlobalDefine.SCREEN_WIDTH / distance);
             float fxStartSizeY_Max = fxStartSizeY_Min * GlobalDefine.FXLightning_StartSizeY_Max_Multiplier;
 
             //Debug.Log(CodeManager.GetMethodName() + string.Format("distance : {0} / min : {1} / max : {2}", distance, fxStartSizeY_Min, fxStartSizeY_Max));
 
-            GlobalDefine.ShowEffect_Lightning(EFXSet.FX_LIGHTNING, fxPosition, fxAngle, fxScale,fxStartSizeY_Min, fxStartSizeY_Max);
-            GlobalDefine.ShowEffect(EFXSet.FX_LIGHTNING_HIT, target.transform.position);
+            GlobalDefine.ShowEffect_Lightning(EFXSet.FX_LIGHTNING, fxPosition, fxAngle, fxScale, fxStartSizeY_Min, fxStartSizeY_Max);
+            GlobalDefine.ShowEffect(EFXSet.FX_LIGHTNING_HIT, toPosition, Vector3.zero, fxHitScaleVector);
         }
     }
 }

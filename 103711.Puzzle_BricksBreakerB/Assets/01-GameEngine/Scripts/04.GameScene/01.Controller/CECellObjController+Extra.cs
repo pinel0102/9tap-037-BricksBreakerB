@@ -41,14 +41,14 @@ namespace NSEngine {
 
                 if (ballController.isOn_PowerBall)
                 {
-                    GlobalDefine.ShowEffect(EFXSet.FX_POWER_BALL_HIT, this.transform.position);
+                    GlobalDefine.ShowEffect(EFXSet.FX_POWER_BALL_HIT, oCellObj.centerPosition);
                 }
 
                 // 실드가 없을 경우
                 if(stCellObjInfo.SHIELD <= KCDefine.B_VAL_0_INT) 
                 {
                     ShieldAfterEffect(kindsType, kinds);
-                    GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, oCellObj.transform.position, GlobalDefine.GetCellColor(oCellObj.CellObjInfo.ObjKinds, true, false));
+                    GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, oCellObj.centerPosition, GlobalDefine.GetCellColor(oCellObj.CellObjInfo.ObjKinds, true, false));
                 }
                 else
                 {
@@ -65,7 +65,7 @@ namespace NSEngine {
 
                 if (ballController.isOn_PowerBall)
                 {
-                    GlobalDefine.ShowEffect(EFXSet.FX_POWER_BALL_HIT, this.transform.position);
+                    GlobalDefine.ShowEffect(EFXSet.FX_POWER_BALL_HIT, oCellObj.centerPosition);
                 }
 
                 // [특수 블럭] 히트시 발동.
@@ -80,7 +80,7 @@ namespace NSEngine {
                 if(stCellObjInfo.HP <= KCDefine.B_VAL_0_INT) 
                 {
                     CellAfterEffect(ballController, kindsType, kinds);
-                    GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, oCellObj.transform.position, GlobalDefine.GetCellColor(oCellObj.CellObjInfo.ObjKinds, false, oCellObj.Params.m_stObjInfo.m_bIsEnableColor, oCellObj.CellObjInfo.ColorID));
+                    GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, oCellObj.centerPosition, GlobalDefine.GetCellColor(oCellObj.CellObjInfo.ObjKinds, false, oCellObj.Params.m_stObjInfo.m_bIsEnableColor, oCellObj.CellObjInfo.ColorID));
                     CellDestroy(isSoundPlay);
                 }
                 else

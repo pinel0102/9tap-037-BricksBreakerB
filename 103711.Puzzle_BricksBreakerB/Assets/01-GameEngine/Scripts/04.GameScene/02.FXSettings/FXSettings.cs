@@ -59,7 +59,7 @@ public class FXSettings : MonoBehaviour
 
     public void SetMove(NSEngine.CEObj target, Action<NSEngine.CEObj, bool, bool> completeCallback, float moveTime)
     {
-        var oAni = transform.DOMove(target.transform.position, moveTime);
+        var oAni = transform.DOMove(target.centerPosition, moveTime);
         oAni.SetAutoKill().SetEase(Ease.OutQuad).OnComplete(() => { completeCallback?.Invoke(target, false, false); });
     }
 }

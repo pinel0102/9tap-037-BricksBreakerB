@@ -19,9 +19,11 @@ namespace NSEngine {
 
         [Header("★ [Live] Cell Info")]
         public EObjKinds kinds;
+        public Vector3 centerPosition => transform.position + spriteOffset; // World Position
         public int row;
         public int col;
         public int layer;
+        private Vector3 spriteOffset;
 
         private void SetTargetSprite()
         {
@@ -30,8 +32,8 @@ namespace NSEngine {
 
         public void InitSprite(bool _needSubSprite)
         {
-            TargetSprite.transform.localPosition = Engine.GetSpriteCenter(Access.CellSize, this.Params.m_stObjInfo.m_stSize);
-
+            TargetSprite.transform.localPosition = spriteOffset = Engine.GetSpriteCenter(Access.CellSize, this.Params.m_stObjInfo.m_stSize);
+            
             if (_needSubSprite)
             {
                 SetSprite(TargetSprite, EObjKinds.NORM_BRICKS_SQUARE_01);

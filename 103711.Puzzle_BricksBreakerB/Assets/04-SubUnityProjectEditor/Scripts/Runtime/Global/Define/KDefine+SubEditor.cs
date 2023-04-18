@@ -70,7 +70,12 @@ public static partial class KDefine {
             EObjKinds.SPECIAL_BRICKS_ADD_BALL_01,
             EObjKinds.SPECIAL_BRICKS_ADD_BALL_02,
             EObjKinds.SPECIAL_BRICKS_ADD_BALL_03,
-            EObjKinds.NONE,     
+            EObjKinds.NONE,
+
+            EObjKinds.SPECIAL_BRICKS_EXPLOSION_ALL_01,
+            EObjKinds.NONE,
+            EObjKinds.NONE,
+            EObjKinds.NONE,
 		},
 
 		[KCDefine.B_VAL_3_INT] = new List<EObjKinds>() {
@@ -94,8 +99,6 @@ public static partial class KDefine {
             EObjKinds.SPECIAL_BRICKS_ARROW_06,
             EObjKinds.SPECIAL_BRICKS_ARROW_07,
             EObjKinds.SPECIAL_BRICKS_ARROW_08,
-
-            EObjKinds.SPECIAL_BRICKS_EXPLOSION_ALL_01,
 
             //EObjKinds.SPECIAL_BRICKS_MORPH_01,
             //EObjKinds.SPECIAL_BRICKS_MORPH_02,
