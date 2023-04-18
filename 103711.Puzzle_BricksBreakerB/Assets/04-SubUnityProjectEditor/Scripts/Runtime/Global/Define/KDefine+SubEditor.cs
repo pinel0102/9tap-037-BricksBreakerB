@@ -79,7 +79,7 @@ public static partial class KDefine {
             EObjKinds.SPECIAL_BRICKS_EXPLOSION_VERTICAL_01,
             EObjKinds.SPECIAL_BRICKS_EXPLOSION_CROSS_01,
             EObjKinds.SPECIAL_BRICKS_EXPLOSION_AROUND_01,
-			
+
             EObjKinds.SPECIAL_BRICKS_MISSILE_01,
             EObjKinds.SPECIAL_BRICKS_MISSILE_02,
             EObjKinds.SPECIAL_BRICKS_LIGHTNING_01,
@@ -94,6 +94,8 @@ public static partial class KDefine {
             EObjKinds.SPECIAL_BRICKS_ARROW_06,
             EObjKinds.SPECIAL_BRICKS_ARROW_07,
             EObjKinds.SPECIAL_BRICKS_ARROW_08,
+
+            EObjKinds.SPECIAL_BRICKS_EXPLOSION_ALL_01,
 
             //EObjKinds.SPECIAL_BRICKS_MORPH_01,
             //EObjKinds.SPECIAL_BRICKS_MORPH_02,

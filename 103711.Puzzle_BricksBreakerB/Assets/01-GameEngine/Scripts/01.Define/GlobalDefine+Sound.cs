@@ -36,6 +36,7 @@ public partial class GlobalDefine
         [ESoundSet.SOUND_SPECIAL_MISSILE]   = new KeyValuePair<string, float>("Fire - Spell Impact 2", defaultVolume),
         [ESoundSet.SOUND_SPECIAL_BOMB]   = new KeyValuePair<string, float>("Rock Hit", defaultVolume),
         [ESoundSet.SOUND_SPECIAL_BOMB_3x3]   = new KeyValuePair<string, float>("Small-Bomb-Blast_TTX022901", defaultVolume),
+        [ESoundSet.SOUND_SPECIAL_BOMB_ALL]   = new KeyValuePair<string, float>("Small-Bomb-Blast_TTX022901", defaultVolume),
         [ESoundSet.SOUND_SPECIAL_ADD_BALL]   = new KeyValuePair<string, float>("Menu Notification", defaultVolume),
         [ESoundSet.SOUND_SPECIAL_LIGHTNING]   = new KeyValuePair<string, float>("Electric - Spell Impact 1", defaultVolume),
         [ESoundSet.SOUND_SPECIAL_ARROW]   = new KeyValuePair<string, float>("Ice - Spell Impact 2", defaultVolume),
@@ -98,6 +99,7 @@ public enum ESoundSet
     SOUND_SPECIAL_MISSILE, // 미사일.
     SOUND_SPECIAL_BOMB, // 폭탄.
     SOUND_SPECIAL_BOMB_3x3, // 3x3 폭탄.
+    SOUND_SPECIAL_BOMB_ALL, // 대형 폭탄.
     SOUND_SPECIAL_ADD_BALL, // 볼 추가.
     SOUND_SPECIAL_LIGHTNING, // 번개.
     SOUND_SPECIAL_ARROW, // 화살.

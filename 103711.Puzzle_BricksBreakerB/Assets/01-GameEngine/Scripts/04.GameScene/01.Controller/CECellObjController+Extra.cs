@@ -263,6 +263,7 @@ namespace NSEngine {
                 case EObjKinds.SPECIAL_BRICKS_EXPLOSION_VERTICAL_01:
                 case EObjKinds.SPECIAL_BRICKS_EXPLOSION_CROSS_01:
                 case EObjKinds.SPECIAL_BRICKS_EXPLOSION_AROUND_01:
+                case EObjKinds.SPECIAL_BRICKS_EXPLOSION_ALL_01:
                     GetSpecial_Explosion(ballController, kindsType, kinds);
                     break;
                 case EObjKinds.SPECIAL_BRICKS_ARROW_01:

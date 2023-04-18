@@ -23,6 +23,7 @@ public partial class GlobalDefine
     // [Cell Effect] Bomb
     public static Vector3 FXBombFlame_Position_Default = new Vector3(25f, 25f, 0);
     public static Vector3 FXBombFlame_Position_3x3 = new Vector3(25f, 20f, 0);
+    public static Vector3 FXBombFlame_Position_All = new Vector3(25f, 20f, 0);
 
     // [Cell Effect] Lightning
     public const float FXLightning_StartSizeY_Min = 0.05f;
@@ -52,6 +53,7 @@ public partial class GlobalDefine
         [EFXSet.FX_LASER_RED]       = new KeyValuePair<string, float>("FX_LaserRed", FXLaserRed_Time),      // [OK] 레이저. (Red).
         [EFXSet.FX_LASER_RED_ANCHOR]= new KeyValuePair<string, float>("FX_LaserRedAnchor", FXLaserRed_Time),// [OK] 레이저. (Red Anchor).
         [EFXSet.FX_EXPLOSION_3x3]   = new KeyValuePair<string, float>("FX_Explosion_3x3_01", 1.0f),         // [OK] 3x3 폭탄.
+        [EFXSet.FX_EXPLOSION_ALL]   = new KeyValuePair<string, float>("FX_Explosion_3x3_01", 1.0f),         // [OK] 대형 폭탄.
         [EFXSet.FX_MISSILE_BULLET]  = new KeyValuePair<string, float>("FX_MissileBullet", FXMissile_Time),  // [OK] 미사일.
         [EFXSet.FX_MISSILE_HEAD]    = new KeyValuePair<string, float>("FX_MissileHead", FXMissile_Time),    // [OK] 미사일 과녘.
         [EFXSet.FX_LIGHTNING]       = new KeyValuePair<string, float>("FX_Lightning", 0.2f),                // [OK] 번개.
@@ -144,6 +146,7 @@ public enum EFXSet
     FX_LIGHTNING, // 번개 블럭.
     FX_LIGHTNING_HIT, // 번개 블럭 히트.
     FX_EXPLOSION_3x3, // 3x3 폭탄.
+    FX_EXPLOSION_ALL, // 대형 폭탄.
     FX_BOMB_FLAME, // 폭탄 심지 효과.
     FX_MISSILE_BULLET, // 미사일.
     FX_MISSILE_HEAD, // 미사일 과녘.

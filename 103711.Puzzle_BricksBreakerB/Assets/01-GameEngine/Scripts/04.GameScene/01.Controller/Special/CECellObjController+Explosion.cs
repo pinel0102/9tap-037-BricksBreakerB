@@ -16,6 +16,7 @@ namespace NSEngine {
                 case EObjKinds.SPECIAL_BRICKS_EXPLOSION_VERTICAL_01: Explosion_Vertical(ballController, kindsType, kinds); break;
                 case EObjKinds.SPECIAL_BRICKS_EXPLOSION_CROSS_01: Explosion_Cross(ballController, kindsType, kinds); break;
                 case EObjKinds.SPECIAL_BRICKS_EXPLOSION_AROUND_01: Explosion_Around(ballController, kindsType, kinds); break;
+                case EObjKinds.SPECIAL_BRICKS_EXPLOSION_ALL_01: Explosion_All(ballController, kindsType, kinds); break;
                 default: break;
             }
 
@@ -81,6 +82,26 @@ namespace NSEngine {
             ShowEffect_Explosion_Around();
         }
 
+        ///<Summary>대형 폭탄.</Summary>
+        private void Explosion_All(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds)
+        {
+            CEObj myCell = this.GetOwner<CEObj>();
+            int _cRow = myCell.row;
+            int _cCol = myCell.col;
+
+            Debug.Log(CodeManager.GetMethodName() + string.Format("Row:{0}, Col:{1}, {2}", myCell.row, myCell.col, myCell.layer));
+
+            /*for (int i = Mathf.Max(0, _cRow - 1); i < Mathf.Min(_cRow + 2, Engine.CellObjLists.GetLength(KCDefine.B_VAL_0_INT)); i++)
+            {
+                for (int j = Mathf.Max(0, _cCol - 1); j < Mathf.Min(_cCol + 2, Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT)); j++)
+                {
+                    Engine.CellDestroy_SkillTarget(i, j);
+                }
+            }*/
+
+            ShowEffect_Explosion_All();
+        }
+
         private void ShowEffect_Explosion(Vector3 _rotation)
         {
             GlobalDefine.ShowEffect_Laser_Red(EFXSet.FX_LASER_RED, this.transform.position, _rotation, Vector3.one, GlobalDefine.FXLaserRed_Time);
@@ -91,6 +112,12 @@ namespace NSEngine {
         {
             GlobalDefine.ShowEffect(EFXSet.FX_EXPLOSION_3x3, this.transform.position);
             GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_BOMB_3x3);
+        }
+
+        private void ShowEffect_Explosion_All()
+        {
+            GlobalDefine.ShowEffect(EFXSet.FX_EXPLOSION_ALL, this.transform.position);
+            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_BOMB_ALL);
         }
     }
 }

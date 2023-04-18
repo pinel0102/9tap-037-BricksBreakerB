@@ -107,6 +107,9 @@ namespace NSEngine {
                 case EObjKinds.SPECIAL_BRICKS_EXPLOSION_AROUND_01:
                     GlobalDefine.AddCellEffect(EFXSet.FX_BOMB_FLAME, FXRoot, GlobalDefine.FXBombFlame_Position_3x3);
                     break;
+                case EObjKinds.SPECIAL_BRICKS_EXPLOSION_ALL_01:
+                    GlobalDefine.AddCellEffect(EFXSet.FX_BOMB_FLAME, FXRoot, GlobalDefine.FXBombFlame_Position_All);
+                    break;
             }
         }
 
