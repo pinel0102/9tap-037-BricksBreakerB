@@ -14,6 +14,7 @@ namespace NSEngine {
         public bool isLevelClear;
         public bool isLevelFail;
         public bool isGridMoving;
+        public bool isExplosionAll;
         public int currentLevel;
         public int currentShootCount = 0;
         public int currentAimLayer;

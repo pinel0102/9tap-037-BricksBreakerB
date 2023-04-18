@@ -17,6 +17,7 @@ namespace NSEngine {
         public SpriteRenderer HitSprite;
         public SpriteRenderer UpperSprite;
         public List<Vector2Int> placeHolder = new List<Vector2Int>();
+        public CEObj parentCell;
 
         [Header("★ [Live] Cell Info")]
         public EObjKinds kinds;
@@ -28,6 +29,7 @@ namespace NSEngine {
 
         public void SetPlaceHolder(Vector3Int cellScale)
         {
+            parentCell = null;
             placeHolder.Clear();
 
             if (cellScale != Vector3Int.one)

@@ -529,7 +529,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
         var oLevelInfo = File.Exists(a_oFilePath) ? CFunc.ReadJSONObj<CLevelInfo>(a_oFilePath, false) : CFunc.ReadJSONObjFromRes<CLevelInfo>(a_oFilePath, false);
 #endif // #if MSG_PACK_SERIALIZE_DESERIALIZE_ENABLE
         
-        CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfo: {a_oFilePath}");
+        //CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfo: {a_oFilePath}");
 
 		oLevelInfo.m_stIDInfo = new STIDInfo(a_nLevelID, a_nStageID, a_nChapterID);
 		return oLevelInfo;
@@ -546,6 +546,8 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
         for(int i = 0; i < oLevelIDList.Count; ++i) {
 			this.AddLevelInfo(this.LoadLevelInfo(oLevelIDList[i].ExULevelIDToLevelID(), oLevelIDList[i].ExULevelIDToStageID(), oLevelIDList[i].ExULevelIDToChapterID()));
 		}
+
+        Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>Level Count : {0}</color>", levelCount));
 
 		return this.LevelInfoDictContainer;
 	}

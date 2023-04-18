@@ -247,5 +247,30 @@ namespace NSEngine {
 
             return row;
         }
+
+        private void SetupPlaceHolderParent()
+        {
+            for (int row = 0; row < this.CellObjLists.GetLength(KCDefine.B_VAL_0_INT); row++)
+            {
+                for (int col = 0; col < this.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); col++)
+                {
+                    int _count = this.CellObjLists[row, col].Count;
+                    if (_count > 0)
+                    {
+                        int _cLastLayer = _count - 1;
+                        CEObj target = this.CellObjLists[row, col][_cLastLayer];
+                        if (target != null)
+                        {
+                            for(int i=0; i < target.placeHolder.Count; i++)
+                            {
+                                var childCell = this.CellObjLists[target.row + target.placeHolder[i].y, target.col + target.placeHolder[i].x][_cLastLayer];
+                                if (childCell != target)
+                                    childCell.parentCell = target;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

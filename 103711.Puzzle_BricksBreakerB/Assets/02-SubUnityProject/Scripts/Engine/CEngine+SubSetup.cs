@@ -49,28 +49,25 @@ namespace NSEngine {
                 
                 EObjKinds kinds = a_stCellInfo.m_oCellObjInfoList[i].ObjKinds;
 
-                //if (kinds != EObjKinds.BG_PLACEHOLDER_01)
-                {
-                    EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
-                    STObjInfo stObjInfo = CObjInfoTable.Inst.GetObjInfo(kinds);
-                    STCellObjInfo stCellObjInfo = (STCellObjInfo)a_stCellInfo.m_oCellObjInfoList[i].Clone();
+                EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
+                STObjInfo stObjInfo = CObjInfoTable.Inst.GetObjInfo(kinds);
+                STCellObjInfo stCellObjInfo = (STCellObjInfo)a_stCellInfo.m_oCellObjInfoList[i].Clone();
 
-                    var oCellObj = this.CreateCellObj(stObjInfo, null);
-                    
-                    oCellObj.transform.localPosition = this.SelGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(Access.CellCenterOffset, Access.CellSize);
-                    oCellObj.GetController<CECellObjController>().ResetObjInfo(stObjInfo, stCellObjInfo);
-                    oCellObj.GetController<CECellObjController>().SetIdx(a_stCellInfo.m_stIdx);
-                    oCellObj.SetCellIdx(a_stCellInfo.m_stIdx, kinds);
-                    oCellObj.SetCellObjInfo(stCellObjInfo);
-                    oCellObj.SetExtraObjKindsList(stObjInfo);
-                    oCellObj.AddCellEffect(kindsType);
-                    oCellObj.SetCellActive(true);
-                    oCellObj.SetPlaceHolder(stObjInfo.m_stSize);
+                var oCellObj = this.CreateCellObj(stObjInfo, null);
+                
+                oCellObj.transform.localPosition = this.SelGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(Access.CellCenterOffset, Access.CellSize);
+                oCellObj.GetController<CECellObjController>().ResetObjInfo(stObjInfo, stCellObjInfo);
+                oCellObj.GetController<CECellObjController>().SetIdx(a_stCellInfo.m_stIdx);
+                oCellObj.SetCellIdx(a_stCellInfo.m_stIdx, kinds);
+                oCellObj.SetCellObjInfo(stCellObjInfo);
+                oCellObj.SetExtraObjKindsList(stObjInfo);
+                oCellObj.AddCellEffect(kindsType);
+                oCellObj.SetCellActive(true);
+                oCellObj.SetPlaceHolder(stObjInfo.m_stSize);
 
-                    InitCellLayer(oCellObj);
+                InitCellLayer(oCellObj);
 
-                    oCellObjList.ExAddVal(oCellObj);
-                }
+                oCellObjList.ExAddVal(oCellObj);
 			}
 
 			this.CellObjLists[a_stCellInfo.m_stIdx.y, a_stCellInfo.m_stIdx.x] = oCellObjList;

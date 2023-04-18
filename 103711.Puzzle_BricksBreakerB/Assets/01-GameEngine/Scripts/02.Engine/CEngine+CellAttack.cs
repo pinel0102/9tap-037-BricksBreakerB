@@ -10,9 +10,16 @@ namespace NSEngine {
         {
             if (target != null && target.IsActiveCell())
             {
+                if (target.kinds == EObjKinds.BG_PLACEHOLDER_01 && target.parentCell != null)
+                {
+                    target = target.parentCell;
+                    if (target == null || !target.IsActiveCell())
+                        return;
+                }
+
                 EObjKinds kinds = target.Params.m_stObjInfo.m_eObjKinds;
                 EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
-                
+
                 if (target.Params.m_stObjInfo.m_bIsEnableHit)
                 {
                     if (target.Params.m_stObjInfo.m_bIsShieldCell)
@@ -39,21 +46,6 @@ namespace NSEngine {
             }
         }
 
-        ///<Summary>볼이 아닌 특수 효과로 셀을 공격. (셀 효과 미발동.)</Summary>
-        public void CellDamage_EnableHit(int row, int col, CEBallObjController ballController, int _ATK)
-        {
-            int _count = this.CellObjLists[row, col].Count;
-            if (_count > 0)
-            {
-                int _cLastLayer = _count - 1;
-                if(this.CellObjLists[row, col][_cLastLayer].IsActiveCell()) 
-                {
-                    CEObj target = this.CellObjLists[row, col][_cLastLayer];
-                    CellDamage_EnableHit(target, ballController, _ATK);
-                }
-            }
-        }
-
         ///<Summary>볼이 아닌 특수 효과로 셀을 파괴. (셀 효과 미발동.)</Summary>
         public void CellDestroy_SkillTarget(int row, int col, bool isForce = false, bool includeHideCells = false)
         {
@@ -74,6 +66,13 @@ namespace NSEngine {
         {
             if (target != null && (target.IsActiveCell() || includeHideCells))
             {
+                if (target.kinds == EObjKinds.BG_PLACEHOLDER_01 && target.parentCell != null)
+                {
+                    target = target.parentCell;
+                    if (target == null || (!target.IsActiveCell() && !includeHideCells))
+                        return;
+                }
+
                 if (target.Params.m_stObjInfo.m_bIsSkillTarget || (isForce && target.Params.m_stObjInfo.m_bIsClearTarget))
                 {
                     if (target.IsActiveCell())
@@ -85,6 +84,17 @@ namespace NSEngine {
                         CellDestroy(target);
                 }
             }
+        }
+
+        ///<Summary>볼이 아닌 특수 효과로 셀을 파괴. (셀 효과 미발동.)</Summary>
+        public void CellDestroy_SkillTarget_Missile(CEObj target, bool isForce = false, bool includeHideCells = false)
+        {   
+            if (target != null && (target.IsActiveCell() || includeHideCells))
+            {
+                GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_MISSILE);
+            }
+
+            CellDestroy_SkillTarget(target, isForce, includeHideCells);
         }
 
         ///<Summary>셀 파괴. (열쇠 효과만 발동.)</Summary>

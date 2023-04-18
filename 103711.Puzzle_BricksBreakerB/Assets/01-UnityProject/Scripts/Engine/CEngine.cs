@@ -80,6 +80,7 @@ namespace NSEngine {
 
             this.isLevelClear = false;
             this.isLevelFail = false;
+            this.isExplosionAll = false;
 
 			this.SetupEngine();
 			this.SetupLevel();

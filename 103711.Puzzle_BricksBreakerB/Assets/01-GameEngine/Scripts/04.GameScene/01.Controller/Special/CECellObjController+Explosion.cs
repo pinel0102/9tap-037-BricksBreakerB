@@ -6,17 +6,17 @@ namespace NSEngine {
 	/** 서브 셀 객체 제어자 */
 	public partial class CECellObjController : CEObjController {
 
-        private void GetSpecial_Explosion(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds, int _ATK = KCDefine.B_VAL_1_INT)
+        private void GetSpecial_Explosion(EObjKinds kindsType, EObjKinds kinds, int _ATK = KCDefine.B_VAL_1_INT)
         {
             //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kindsType));
             
             switch(kindsType)
             {
-                case EObjKinds.SPECIAL_BRICKS_EXPLOSION_HORIZONTAL_01: Explosion_Horizontal(ballController, kindsType, kinds); break;
-                case EObjKinds.SPECIAL_BRICKS_EXPLOSION_VERTICAL_01: Explosion_Vertical(ballController, kindsType, kinds); break;
-                case EObjKinds.SPECIAL_BRICKS_EXPLOSION_CROSS_01: Explosion_Cross(ballController, kindsType, kinds); break;
-                case EObjKinds.SPECIAL_BRICKS_EXPLOSION_AROUND_01: Explosion_Around(ballController, kindsType, kinds); break;
-                case EObjKinds.SPECIAL_BRICKS_EXPLOSION_ALL_01: Explosion_All(ballController, kindsType, kinds); break;
+                case EObjKinds.SPECIAL_BRICKS_EXPLOSION_HORIZONTAL_01: Explosion_Horizontal(kindsType, kinds); break;
+                case EObjKinds.SPECIAL_BRICKS_EXPLOSION_VERTICAL_01: Explosion_Vertical(kindsType, kinds); break;
+                case EObjKinds.SPECIAL_BRICKS_EXPLOSION_CROSS_01: Explosion_Cross(kindsType, kinds); break;
+                case EObjKinds.SPECIAL_BRICKS_EXPLOSION_AROUND_01: Explosion_Around(kindsType, kinds); break;
+                case EObjKinds.SPECIAL_BRICKS_EXPLOSION_ALL_01: Explosion_All(kindsType, kinds); break;
                 default: break;
             }
 
@@ -24,7 +24,7 @@ namespace NSEngine {
         }
 
         ///<Summary>가로 폭탄.</Summary>
-        private void Explosion_Horizontal(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds)
+        private void Explosion_Horizontal(EObjKinds kindsType, EObjKinds kinds)
         {
             CEObj myCell = this.GetOwner<CEObj>();
             int _cRow = myCell.row;
@@ -40,7 +40,7 @@ namespace NSEngine {
         }
 
         ///<Summary>세로 폭탄.</Summary>
-        private void Explosion_Vertical(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds)
+        private void Explosion_Vertical(EObjKinds kindsType, EObjKinds kinds)
         {
             CEObj myCell = this.GetOwner<CEObj>();
             int _cCol = myCell.col;
@@ -56,14 +56,14 @@ namespace NSEngine {
         }
 
         ///<Summary>십자 폭탄.</Summary>
-        private void Explosion_Cross(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds)
+        private void Explosion_Cross(EObjKinds kindsType, EObjKinds kinds)
         {
-            Explosion_Horizontal(ballController, kindsType, kinds);
-            Explosion_Vertical(ballController, kindsType, kinds);
+            Explosion_Horizontal(kindsType, kinds);
+            Explosion_Vertical(kindsType, kinds);
         }
 
         ///<Summary>3x3 폭탄.</Summary>
-        private void Explosion_Around(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds)
+        private void Explosion_Around(EObjKinds kindsType, EObjKinds kinds)
         {
             CEObj myCell = this.GetOwner<CEObj>();
             int _cRow = myCell.row;
@@ -83,7 +83,7 @@ namespace NSEngine {
         }
 
         ///<Summary>대형 폭탄.</Summary>
-        private void Explosion_All(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds)
+        private void Explosion_All(EObjKinds kindsType, EObjKinds kinds)
         {
             CEObj myCell = this.GetOwner<CEObj>();
             

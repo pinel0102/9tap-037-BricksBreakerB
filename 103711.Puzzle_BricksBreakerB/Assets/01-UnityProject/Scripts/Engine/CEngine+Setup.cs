@@ -65,6 +65,8 @@ namespace NSEngine {
                 {
                     this.SetupOffsetCell();
                 }
+
+                this.SetupPlaceHolderParent();
 			}
 		}
 		#endregion // 함수

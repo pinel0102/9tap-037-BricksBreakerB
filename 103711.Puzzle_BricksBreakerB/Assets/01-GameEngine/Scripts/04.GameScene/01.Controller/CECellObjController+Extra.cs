@@ -263,8 +263,7 @@ namespace NSEngine {
                 case EObjKinds.SPECIAL_BRICKS_EXPLOSION_VERTICAL_01:
                 case EObjKinds.SPECIAL_BRICKS_EXPLOSION_CROSS_01:
                 case EObjKinds.SPECIAL_BRICKS_EXPLOSION_AROUND_01:
-                case EObjKinds.SPECIAL_BRICKS_EXPLOSION_ALL_01:
-                    GetSpecial_Explosion(ballController, kindsType, kinds);
+                    GetSpecial_Explosion(kindsType, kinds);
                     break;
                 case EObjKinds.SPECIAL_BRICKS_ARROW_01:
                 case EObjKinds.SPECIAL_BRICKS_ARROW_02:
@@ -274,11 +273,11 @@ namespace NSEngine {
                 case EObjKinds.SPECIAL_BRICKS_ARROW_06:
                 case EObjKinds.SPECIAL_BRICKS_ARROW_07:
                 case EObjKinds.SPECIAL_BRICKS_ARROW_08:
-                    GetSpecial_Arrow(ballController, kindsType, kinds);
+                    GetSpecial_Arrow(kindsType, kinds);
                     break;
                 case EObjKinds.SPECIAL_BRICKS_MISSILE_01:
                 case EObjKinds.SPECIAL_BRICKS_MISSILE_02:
-                    GetSpecial_Missile(ballController, kindsType, kinds);
+                    GetSpecial_Missile(kindsType, kinds);
                     break;
                 case EObjKinds.SPECIAL_BRICKS_EARTHQUAKE_01:
                     GetSpecial_Earthquake(ballController, kindsType, kinds);
@@ -332,6 +331,18 @@ namespace NSEngine {
                     {
                         if (isSoundPlay)
                             GlobalDefine.PlaySoundFX(ESoundSet.SOUND_BRICK_DESTROY);
+                    }
+                    break;
+                case EObjKinds.SPECIAL_BRICKS_EXPLOSION_ALL_01:
+                    if (Engine.isExplosionAll)
+                    {
+                        if (isSoundPlay)
+                            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_BRICK_DESTROY);
+                    }
+                    else
+                    {
+                        Engine.isExplosionAll = true;
+                        GetSpecial_Explosion(kindsType, kinds);
                     }
                     break;
                 default:
