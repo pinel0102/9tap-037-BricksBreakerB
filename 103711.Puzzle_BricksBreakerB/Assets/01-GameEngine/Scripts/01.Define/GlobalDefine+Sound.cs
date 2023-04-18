@@ -24,7 +24,6 @@ public partial class GlobalDefine
         [ESoundSet.SOUND_ATTACK_NORMAL] = new KeyValuePair<string, float>("Bubble Pops 2", defaultVolume),
         [ESoundSet.SOUND_ATTACK_WOOD]   = new KeyValuePair<string, float>("Break Wood Box 1", defaultVolume),
         [ESoundSet.SOUND_ATTACK_IRON]   = new KeyValuePair<string, float>("Iron Metal Rack Hit 1", defaultVolume),
-        //[ESoundSet.SOUND_BRICK_APPEAR]   = new KeyValuePair<string, float>("", defaultVolume),
         [ESoundSet.SOUND_BRICK_DESTROY]   = new KeyValuePair<string, float>("weapon05", defaultVolume),
 
         [ESoundSet.SOUND_ITEM_EARTHQUAKE]   = new KeyValuePair<string, float>("quake", defaultVolume),
@@ -34,9 +33,9 @@ public partial class GlobalDefine
         [ESoundSet.SOUND_ITEM_ADD_STEEL_BRICKS]   = new KeyValuePair<string, float>("Menu Button", defaultVolume),
 
         [ESoundSet.SOUND_SPECIAL_MISSILE]   = new KeyValuePair<string, float>("Fire - Spell Impact 2", defaultVolume),
-        [ESoundSet.SOUND_SPECIAL_BOMB]   = new KeyValuePair<string, float>("Rock Hit", defaultVolume),
-        [ESoundSet.SOUND_SPECIAL_BOMB_3x3]   = new KeyValuePair<string, float>("Small-Bomb-Blast_TTX022901", defaultVolume),
-        [ESoundSet.SOUND_SPECIAL_BOMB_ALL]   = new KeyValuePair<string, float>("Small-Bomb-Blast_TTX022901", defaultVolume),
+        [ESoundSet.SOUND_SPECIAL_EXPLOSION]   = new KeyValuePair<string, float>("Rock Hit", defaultVolume),
+        [ESoundSet.SOUND_SPECIAL_EXPLOSION_3x3]   = new KeyValuePair<string, float>("Small-Bomb-Blast_TTX022901", defaultVolume),
+        [ESoundSet.SOUND_SPECIAL_EXPLOSION_ALL]   = new KeyValuePair<string, float>("Small-Bomb-Blast_TTX022901", defaultVolume),
         [ESoundSet.SOUND_SPECIAL_ADD_BALL]   = new KeyValuePair<string, float>("Menu Notification", defaultVolume),
         [ESoundSet.SOUND_SPECIAL_LIGHTNING]   = new KeyValuePair<string, float>("Electric - Spell Impact 1", defaultVolume),
         [ESoundSet.SOUND_SPECIAL_ARROW]   = new KeyValuePair<string, float>("Ice - Spell Impact 2", defaultVolume),
@@ -87,7 +86,6 @@ public enum ESoundSet
     SOUND_ATTACK_NORMAL, // 일반 블럭 타격.
     SOUND_ATTACK_WOOD, // 나무 블럭 타격.
     SOUND_ATTACK_IRON, // 강철 블럭 타격.
-    //SOUND_BRICK_APPEAR, // 블럭 등장.
     SOUND_BRICK_DESTROY, // 블럭 파괴.    
 
     SOUND_ITEM_EARTHQUAKE, // 지진.
@@ -97,9 +95,9 @@ public enum ESoundSet
     SOUND_ITEM_ADD_STEEL_BRICKS, // 강철 추가.
 
     SOUND_SPECIAL_MISSILE, // 미사일.
-    SOUND_SPECIAL_BOMB, // 폭탄.
-    SOUND_SPECIAL_BOMB_3x3, // 3x3 폭탄.
-    SOUND_SPECIAL_BOMB_ALL, // 대형 폭탄.
+    SOUND_SPECIAL_EXPLOSION, // 폭탄.
+    SOUND_SPECIAL_EXPLOSION_3x3, // 3x3 폭탄.
+    SOUND_SPECIAL_EXPLOSION_ALL, // 대형 폭탄.
     SOUND_SPECIAL_ADD_BALL, // 볼 추가.
     SOUND_SPECIAL_LIGHTNING, // 번개.
     SOUND_SPECIAL_ARROW, // 화살.

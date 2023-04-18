@@ -86,18 +86,18 @@ namespace NSEngine {
         private void Explosion_All(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds)
         {
             CEObj myCell = this.GetOwner<CEObj>();
-            int _cRow = myCell.row;
-            int _cCol = myCell.col;
-
+            
             Debug.Log(CodeManager.GetMethodName() + string.Format("Row:{0}, Col:{1}, {2}", myCell.row, myCell.col, myCell.layer));
 
-            /*for (int i = Mathf.Max(0, _cRow - 1); i < Mathf.Min(_cRow + 2, Engine.CellObjLists.GetLength(KCDefine.B_VAL_0_INT)); i++)
+            List<CEObj> excludeList = new List<CEObj>();
+            excludeList.Add(myCell);
+
+            List<CEObj> targetList = Engine.GetAllCells_SkillTarget(excludeList);
+
+            for(int i=0; i < targetList.Count; i++)
             {
-                for (int j = Mathf.Max(0, _cCol - 1); j < Mathf.Min(_cCol + 2, Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT)); j++)
-                {
-                    Engine.CellDestroy_SkillTarget(i, j);
-                }
-            }*/
+                Engine.CellDestroy_SkillTarget(targetList[i], true);
+            }
 
             ShowEffect_Explosion_All();
         }
@@ -105,19 +105,19 @@ namespace NSEngine {
         private void ShowEffect_Explosion(Vector3 _rotation)
         {
             GlobalDefine.ShowEffect_Laser_Red(EFXSet.FX_LASER_RED, this.transform.position, _rotation, Vector3.one, GlobalDefine.FXLaserRed_Time);
-            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_BOMB);
+            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_EXPLOSION);
         }
 
         private void ShowEffect_Explosion_Around()
         {
             GlobalDefine.ShowEffect(EFXSet.FX_EXPLOSION_3x3, this.transform.position);
-            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_BOMB_3x3);
+            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_EXPLOSION_3x3);
         }
 
         private void ShowEffect_Explosion_All()
         {
             GlobalDefine.ShowEffect(EFXSet.FX_EXPLOSION_ALL, this.transform.position);
-            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_BOMB_ALL);
+            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_EXPLOSION_ALL);
         }
     }
 }

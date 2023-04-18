@@ -1786,7 +1786,7 @@
 		"Flags_02": "0",
 		"Flags_03": "0",
 		"Name": "SPECIAL_BRICKS_EXPLOSION_ALL_01",
-		"Desc": "",
+		"Desc": "대형 폭탄",
 		"ObjKinds": "1200200400",
 		"PrevObjKinds": "1200200399",
 		"NextObjKinds": "1200200401",
