@@ -31,17 +31,27 @@ public struct STObjInfo {
 	public Dictionary<ulong, STTargetInfo> m_oAbilityTargetInfoDict;
 	public Dictionary<ulong, STTargetInfo> m_oAcquireTargetInfoDict;
 
+    ///<Summary>작동 후 사라짐.</Summary>
     public bool m_bIsOnce;
+    ///<Summary>형태 변경 순서가 랜덤.</Summary>
 	public bool m_bIsRand;
+    ///<Summary>투명한 셀.</Summary>
 	public bool m_bIsTransparent;
+    ///<Summary>즉시 파괴 가능.</Summary>
 	public bool m_bIsSkillTarget;
-
+    ///<Summary>대미지 주기 가능.</Summary>
 	public bool m_bIsEnableHit;
+    ///<Summary>색상 변경 가능.</Summary>
 	public bool m_bIsEnableColor;
+    ///<Summary>형태 변경 가능.</Summary>
 	public bool m_bIsEnableChange;
+    ///<Summary>반사 가능.</Summary>
 	public bool m_bIsEnableReflect;
+    ///<Summary>굴절 가능.</Summary>
 	public bool m_bIsEnableRefract;
+    ///<Summary>내려오기 가능.</Summary>
 	public bool m_bIsEnableMoveDown;
+    ///<Summary>실드 셀.</Summary>
     public bool m_bIsShieldCell;
 
 	public EColliderType m_eColliderType;
