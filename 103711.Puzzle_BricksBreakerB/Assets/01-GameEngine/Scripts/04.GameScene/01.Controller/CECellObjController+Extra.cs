@@ -343,7 +343,10 @@ namespace NSEngine {
             for(int i=0; i < myCell.placeHolder.Count; i++)
             {
                 var placeHolderCell = Engine.CellObjLists[myCell.row + myCell.placeHolder[i].y, myCell.col + myCell.placeHolder[i].x];
-                placeHolderCell[placeHolderCell.Count - 1].GetComponent<CECellObjController>().CellDestroy(false);
+                int _cLastLayer = placeHolderCell.Count - 1;
+
+                if (placeHolderCell[_cLastLayer] != myCell)
+                    placeHolderCell[_cLastLayer].GetComponent<CECellObjController>().CellDestroy(false);
             }
 
             myCell.SetCellActive(false);

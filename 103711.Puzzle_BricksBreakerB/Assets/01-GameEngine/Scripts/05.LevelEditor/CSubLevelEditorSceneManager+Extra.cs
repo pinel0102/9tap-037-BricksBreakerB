@@ -55,7 +55,26 @@ namespace LevelEditorScene {
             if (_sprite == null)
                 return;
             
-            a_oOutObjSprite.size = a_oOutObjSprite.size = currentCellSize + (Vector2)GlobalDefine.CELL_SPRITE_ADJUSTMENT;            
+            if(CObjInfoTable.Inst.TryGetObjInfo(cellKinds, out STObjInfo stObjInfo))
+            {
+                if (stObjInfo.m_stSize.x < stObjInfo.m_stSize.y)
+                {
+                    a_oOutObjSprite.size = new Vector2(currentCellSize.x * ((float)stObjInfo.m_stSize.x / (float)stObjInfo.m_stSize.y), currentCellSize.y) + (Vector2)GlobalDefine.CELL_SPRITE_ADJUSTMENT;
+                }
+                else if (stObjInfo.m_stSize.x > stObjInfo.m_stSize.y)
+                {
+                    a_oOutObjSprite.size = new Vector2(currentCellSize.x, currentCellSize.y * ((float)stObjInfo.m_stSize.y / (float)stObjInfo.m_stSize.x)) + (Vector2)GlobalDefine.CELL_SPRITE_ADJUSTMENT;
+                }
+                else
+                {
+                    a_oOutObjSprite.size = currentCellSize + (Vector2)GlobalDefine.CELL_SPRITE_ADJUSTMENT;
+                }
+            }
+            else
+            {
+                a_oOutObjSprite.size = currentCellSize + (Vector2)GlobalDefine.CELL_SPRITE_ADJUSTMENT;
+            }
+
             a_oOutObjSprite.color = GlobalDefine.GetCellColorEditor(cellKinds, a_stCellObjInfo.ColorID, a_stCellObjInfo.HP);
         }
 

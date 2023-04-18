@@ -723,16 +723,17 @@ namespace LevelEditorScene {
 				}
 			}
 
-            if (GlobalDefine.IsNeedSubSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS]))
+            EObjKinds kinds = m_oObjKindsDict[EKey.SEL_OBJ_KINDS];
+            if (GlobalDefine.IsNeedSubSprite(kinds))
             {
-                this.SetupSpriteGrid(STCellObjInfo.INVALID, EObjKinds.NONE, m_oSpriteDict[EKey.SEL_OBJ_SPRITE], Access.GetEditorObjSprite(EObjKinds.NORM_BRICKS_SQUARE_01, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
-                this.SetupSpriteGrid(STCellObjInfo.INVALID, EObjKinds.NONE, cursorSubSprite, Access.GetEditorObjSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+                this.SetupSpriteGrid(STCellObjInfo.INVALID, kinds, m_oSpriteDict[EKey.SEL_OBJ_SPRITE], Access.GetEditorObjSprite(EObjKinds.NORM_BRICKS_SQUARE_01, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+                this.SetupSpriteGrid(STCellObjInfo.INVALID, kinds, cursorSubSprite, Access.GetEditorObjSprite(kinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
                 cursorSubSprite.gameObject.SetActive(true);
             }
             else
             {
-                this.SetupSpriteGrid(STCellObjInfo.INVALID, EObjKinds.NONE, m_oSpriteDict[EKey.SEL_OBJ_SPRITE], Access.GetEditorObjSprite(m_oObjKindsDict[EKey.SEL_OBJ_KINDS], KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
-                this.SetupSpriteGrid(STCellObjInfo.INVALID, EObjKinds.NONE, cursorSubSprite, Access.GetEditorObjSprite(EObjKinds.NORM_BRICKS_SQUARE_01, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+                this.SetupSpriteGrid(STCellObjInfo.INVALID, kinds, m_oSpriteDict[EKey.SEL_OBJ_SPRITE], Access.GetEditorObjSprite(kinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+                this.SetupSpriteGrid(STCellObjInfo.INVALID, kinds, cursorSubSprite, Access.GetEditorObjSprite(EObjKinds.NORM_BRICKS_SQUARE_01, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
                 cursorSubSprite.gameObject.SetActive(false);
             }
             
@@ -862,7 +863,7 @@ namespace LevelEditorScene {
 
 		/** 객체 스프라이트를 설정한다 */
 		private void SetupObjSprite(STCellInfo a_stCellInfo, STCellObjInfo a_stCellObjInfo, SpriteRenderer a_oOutObjSprite) {
-			this.SetupSpriteGrid(a_stCellObjInfo, a_stCellObjInfo.ObjKinds, a_oOutObjSprite, Access.GetEditorObjSprite(a_stCellObjInfo.ObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
+            this.SetupSpriteGrid(a_stCellObjInfo, a_stCellObjInfo.ObjKinds, a_oOutObjSprite, Access.GetEditorObjSprite(a_stCellObjInfo.ObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE));
             //a_oOutObjSprite.sprite = Access.GetEditorObjSprite(a_stCellObjInfo.ObjKinds, KCDefine.B_PREFIX_LEVEL_EDITOR_SCENE);
 			a_oOutObjSprite.transform.localPosition = this.SelGridInfo.m_stPivotPos + a_stCellInfo.m_stIdx.ExToPos(NSEngine.Access.CellCenterOffset, NSEngine.Access.CellSize);
 
@@ -2215,10 +2216,11 @@ namespace LevelEditorScene {
 		/** 오른쪽 에디터 UI 페이지 UI 2 스크롤러 셀 뷰 버튼을 눌렀을 경우 */
 		private void OnTouchREUIsPageUIs02ScrollerCellViewBtn(EObjKinds a_eObjKinds) {
 			m_oObjKindsDict[EKey.SEL_OBJ_KINDS] = a_eObjKinds;
-
+            
 			// 객체 정보가 존재 할 경우
 			if(Input.GetMouseButtonUp((int)EMouseBtn.LEFT) && CObjInfoTable.Inst.TryGetObjInfo(a_eObjKinds, out STObjInfo stObjInfo)) {
-				this.SetREUIsPageUIs02ObjSize(stObjInfo.m_stSize.x, stObjInfo.m_stSize.y);
+                
+                this.SetREUIsPageUIs02ObjSize(stObjInfo.m_stSize.x, stObjInfo.m_stSize.y);
 
 				#region 추가
 				int nHP = int.Parse(m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT].text, NumberStyles.Any, null);
