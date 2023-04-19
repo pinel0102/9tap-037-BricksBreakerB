@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 namespace NSEngine {
     public partial class CEngine : CComponent
@@ -12,14 +11,9 @@ namespace NSEngine {
         public int currentScore;
         public int starCount;
 
-        private void InitScoreList(int score1, int score2, int score3)
+        private void InitScoreList(CLevelInfo levelInfo)
         {
-            scoreList.Clear();
-            scoreList.Add(score1);
-            scoreList.Add(score2);
-            scoreList.Add(score3);
-
-            scoreList = scoreList.OrderBy(g => g).ToList();
+            scoreList = GlobalDefine.GetLevelScoreList(levelInfo);
         }
 
         public void InitCombo()

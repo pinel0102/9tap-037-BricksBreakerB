@@ -22,6 +22,9 @@ namespace LevelEditorScene {
 			ME_UIS_CELL_OBJ_ATK_TEXT,
             ME_UIS_CELL_OBJ_COLOR_TEXT,
             ME_UIS_CELL_OBJ_COUNT_TEXT,
+            ME_UIS_CELL_OBJ_SCORE_1_TEXT,
+            ME_UIS_CELL_OBJ_SCORE_2_TEXT,
+            ME_UIS_CELL_OBJ_SCORE_3_TEXT,
             RE_UIS_PAGE_UIS_02_CELL_OBJ_COLOR_DROP,
 			RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT,
             RE_UIS_PAGE_UIS_02_CELL_OBJ_SHIELD_INPUT,
@@ -296,18 +299,25 @@ namespace LevelEditorScene {
 				(ESubKey.ME_UIS_CELL_OBJ_ATK_TEXT, $"{ESubKey.ME_UIS_CELL_OBJ_ATK_TEXT}", this.MEUIsInfoUIs),
                 (ESubKey.ME_UIS_CELL_OBJ_COLOR_TEXT, $"{ESubKey.ME_UIS_CELL_OBJ_COLOR_TEXT}", this.MEUIsInfoUIs),
                 (ESubKey.ME_UIS_CELL_OBJ_COUNT_TEXT, $"{ESubKey.ME_UIS_CELL_OBJ_COUNT_TEXT}", this.MEUIsInfoUIs),
+                (ESubKey.ME_UIS_CELL_OBJ_SCORE_1_TEXT, $"{ESubKey.ME_UIS_CELL_OBJ_SCORE_1_TEXT}", this.MEUIsInfoUIs),
+                (ESubKey.ME_UIS_CELL_OBJ_SCORE_2_TEXT, $"{ESubKey.ME_UIS_CELL_OBJ_SCORE_2_TEXT}", this.MEUIsInfoUIs),
+                (ESubKey.ME_UIS_CELL_OBJ_SCORE_3_TEXT, $"{ESubKey.ME_UIS_CELL_OBJ_SCORE_3_TEXT}", this.MEUIsInfoUIs),
 			}, m_oSubTextDict);
 		}
 
 		/** 중앙 에디터 UI 상태를 갱신한다 */
 		private void SubUpdateMidEditorUIsState() {
             Color stColor = GlobalDefine.colorList[m_oSubDropDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_COLOR_DROP].value][0];
+            scoreList = GlobalDefine.GetLevelScoreList(this.SelLevelInfo);
             
 			m_oSubTextDict[ESubKey.ME_UIS_CELL_OBJ_HP_TEXT].text = string.Format(KDefine.LES_TEXT_FMT_HP_INFO, m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_HP_INPUT].text);
             m_oSubTextDict[ESubKey.ME_UIS_CELL_OBJ_SHIELD_TEXT].text = string.Format(KDefine.LES_TEXT_FMT_SHIELD_INFO, m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_SHIELD_INPUT].text);
 			m_oSubTextDict[ESubKey.ME_UIS_CELL_OBJ_ATK_TEXT].text = string.Format(KDefine.LES_TEXT_FMT_ATK_INFO, m_oSubInputDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_ATK_INPUT].text);
             m_oSubTextDict[ESubKey.ME_UIS_CELL_OBJ_COLOR_TEXT].text = string.Format(KDefine.LES_TEXT_FMT_COLOR_INFO, m_oSubDropDict[ESubKey.RE_UIS_PAGE_UIS_02_CELL_OBJ_COLOR_DROP].captionText.text.ExGetColorFmtStr(stColor));
-            m_oSubTextDict[ESubKey.ME_UIS_CELL_OBJ_COUNT_TEXT].text = string.Format(KDefine.LES_TEXT_FMT_COUNT_INFO, GetTargetCellCount());
+            m_oSubTextDict[ESubKey.ME_UIS_CELL_OBJ_COUNT_TEXT].text = string.Format(KDefine.LES_TEXT_FMT_COUNT_INFO, GlobalDefine.GetTargetCellCount(this.SelLevelInfo));
+            m_oSubTextDict[ESubKey.ME_UIS_CELL_OBJ_SCORE_1_TEXT].text = string.Format(KDefine.LES_TEXT_FMT_SCORE_1_INFO, scoreList[0]);
+            m_oSubTextDict[ESubKey.ME_UIS_CELL_OBJ_SCORE_2_TEXT].text = string.Format(KDefine.LES_TEXT_FMT_SCORE_2_INFO, scoreList[1]);
+            m_oSubTextDict[ESubKey.ME_UIS_CELL_OBJ_SCORE_3_TEXT].text = string.Format(KDefine.LES_TEXT_FMT_SCORE_3_INFO, scoreList[2]);
 
             UpdateRightUIsColor();
 		}

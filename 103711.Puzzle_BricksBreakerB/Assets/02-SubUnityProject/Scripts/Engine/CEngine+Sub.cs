@@ -198,7 +198,7 @@ namespace NSEngine {
             InitCellRoot();
             InitLayerMask();
 
-            InitScoreList(CGameInfoStorage.Inst.PlayLevelInfo.Score1, CGameInfoStorage.Inst.PlayLevelInfo.Score2, CGameInfoStorage.Inst.PlayLevelInfo.Score3);
+            InitScoreList(CGameInfoStorage.Inst.PlayLevelInfo);
             InitCombo();
             InitScore();
 

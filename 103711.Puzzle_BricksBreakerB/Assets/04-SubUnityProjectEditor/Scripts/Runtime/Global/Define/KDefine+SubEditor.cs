@@ -16,11 +16,15 @@ public static partial class KDefine {
 public static partial class KDefine {
 	#region 기본
 	// 형식
-	public const string LES_TEXT_FMT_HP_INFO = "체력 {0}";
-    public const string LES_TEXT_FMT_SHIELD_INFO = "상자 {0}";
-	public const string LES_TEXT_FMT_ATK_INFO = "공격 {0}";
-    public const string LES_TEXT_FMT_COLOR_INFO = "색상 {0}";
-    public const string LES_TEXT_FMT_COUNT_INFO = "개수 {0}";
+	public const string LES_TEXT_FMT_COLOR_INFO = "색상 : {0}";
+    public const string LES_TEXT_FMT_SIZE_INFO = "크기 : {0} x {1}";
+    public const string LES_TEXT_FMT_HP_INFO = "체력 : {0}";
+    public const string LES_TEXT_FMT_SHIELD_INFO = "상자 : {0}";
+	public const string LES_TEXT_FMT_ATK_INFO = "공격 : {0}";
+    public const string LES_TEXT_FMT_COUNT_INFO = "개수 : {0}";
+    public const string LES_TEXT_FMT_SCORE_1_INFO = "별 1 : {0}";
+    public const string LES_TEXT_FMT_SCORE_2_INFO = "별 2 : {0}";
+    public const string LES_TEXT_FMT_SCORE_3_INFO = "별 3 : {0}";
 	#endregion // 기본
 
 	#region 런타임 상수

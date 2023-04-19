@@ -45,6 +45,8 @@ namespace NSEngine {
         private void Refract_Amplification(CEBallObjController ballController)
         {
             CEBallObjController ballController2 = Engine.AddExtraBall(ballController.transform.position);
+            
+            //ballController.GetOwner<CEObj>().SetSpriteColor(EObjKinds.BALL_NORM_03);
 
             ballController.isOn_Amplification = true;
             ballController2.isOn_Amplification = true;

@@ -24,6 +24,7 @@ namespace LevelEditorScene {
         [Header("★ [Live] Status")]
         public int currentHP;
         public int currentColorID;
+        public List<int> scoreList;
 
         [Header("★ [Privates]")]
         private SpriteRenderer cursorSubSprite;
@@ -225,34 +226,6 @@ namespace LevelEditorScene {
         private void ModifyCellUpdate()
         {
             this.UpdateUIsState();
-        }
-
-        private int GetTargetCellCount()
-        {
-            int targetCellCount = 0;
-
-            for (int row = 0; row < this.SelLevelInfo.m_oCellInfoDictContainer.Count; row++)
-            {
-                for (int col = 0; col < this.SelLevelInfo.m_oCellInfoDictContainer[row].Count; col++)
-                {
-                    var cellInfo = this.SelLevelInfo.m_oCellInfoDictContainer[row][col];
-
-                    for (int layer = 0; layer < cellInfo.m_oCellObjInfoList.Count; layer++)
-                    {
-                        var kinds = cellInfo.m_oCellObjInfoList[layer].ObjKinds;
-                        if(CObjInfoTable.Inst.TryGetObjInfo(kinds, out STObjInfo objInfo))
-                        {
-                            if (objInfo.m_bIsClearTarget)
-                            {
-                                targetCellCount++;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-
-            return targetCellCount;
         }
     }
 }
