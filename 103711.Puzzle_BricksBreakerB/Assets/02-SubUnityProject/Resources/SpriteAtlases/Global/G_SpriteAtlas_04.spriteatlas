@@ -98,11 +98,37 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 7bfa5d82eccee4a99bbcacc2934b4774, type: 3}
+  - {fileID: 21300000, guid: 14e833a42c73f4e4895d3d0e263aebd8, type: 3}
   - {fileID: 21300000, guid: a3374ff4dda7541f3b28b4a72f99fd89, type: 3}
+  - {fileID: 21300000, guid: 3798f16669c4c47b29c904c69e5f48c6, type: 3}
+  - {fileID: 21300000, guid: 65d1ea19cce2742c8b020b75fd598bb8, type: 3}
+  - {fileID: 21300000, guid: a491d7292df834113a721c0312914cdd, type: 3}
+  - {fileID: 21300000, guid: 3f38a579561d041b4bfc2055240f25ff, type: 3}
+  - {fileID: 21300000, guid: 80bf3d9a6631541b185a83999ecd9035, type: 3}
   - {fileID: 21300000, guid: cca7ae9a4184c4d0ea9532e36db1c02c, type: 3}
+  - {fileID: 21300000, guid: c95cb0eb57d9b4f7baad0252e46373ec, type: 3}
+  - {fileID: 21300000, guid: 1a1ff10c06dbd451aa93a395bd44123a, type: 3}
+  - {fileID: 21300000, guid: 375e17ac8224146549ea1c0ac46d5327, type: 3}
+  - {fileID: 21300000, guid: a06c8e0e7898a4172a5a058bf00a93c7, type: 3}
+  - {fileID: 21300000, guid: 36eeef5ef42d8439087f54d4e255443c, type: 3}
+  - {fileID: 21300000, guid: 0331986fad5a447efa30f5de18130f03, type: 3}
   m_PackedSpriteNamesToIndex:
+  - Play
+  - Checked
   - UI_BG_LightMode
+  - Arrow Up
+  - Notification
+  - Arrow
+  - Close
+  - Plus
   - UI_BG_DarkMode
+  - Warning
+  - Minus
+  - Info
+  - Arrow Left
+  - 'Arrow Down '
+  - Help
   m_RenderDataMap: {}
   m_Tag: G_SpriteAtlas_04
   m_IsVariant: 0

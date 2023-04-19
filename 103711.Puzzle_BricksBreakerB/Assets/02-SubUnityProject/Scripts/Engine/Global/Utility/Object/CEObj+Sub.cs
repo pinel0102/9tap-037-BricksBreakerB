@@ -49,13 +49,8 @@ namespace NSEngine {
 			this.SetupAbilityVals();
 
 			// 텍스트를 갱신한다 {
-			(m_oSubTextDict.GetValueOrDefault(ESubKey.HP_TEXT) as TextMeshPro)?.ExSetSortingOrder(new STSortingOrderInfo() {
-				m_nOrder = this.TargetSprite.sortingOrder + GlobalDefine.HPText_Order, m_oLayer = KCDefine.U_SORTING_L_CELL
-			});
-
-			(m_oSubTextDict.GetValueOrDefault(ESubKey.NUM_TEXT) as TextMeshPro)?.ExSetSortingOrder(new STSortingOrderInfo() {
-				m_nOrder = this.TargetSprite.sortingOrder + GlobalDefine.NumText_Order, m_oLayer = KCDefine.U_SORTING_L_DEF
-			});
+			(m_oSubTextDict.GetValueOrDefault(ESubKey.HP_TEXT) as TextMeshPro)?.ExSetSortingOrder(GlobalDefine.SortingInfo_HPText);
+			(m_oSubTextDict.GetValueOrDefault(ESubKey.NUM_TEXT) as TextMeshPro)?.ExSetSortingOrder(GlobalDefine.SortingInfo_NumText);
 			// 텍스트를 갱신한다 }
 
 			// 충돌체가 존재 할 경우

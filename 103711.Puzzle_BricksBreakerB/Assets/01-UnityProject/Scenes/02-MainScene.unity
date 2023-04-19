@@ -2081,6 +2081,30 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2197327967950344298, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2197327967950344298, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2197327967950344298, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2197327967950344298, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2197327967950344298, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2197327967950344298, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2209170095485705835, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2144,6 +2168,14 @@ PrefabInstance:
     - target: {fileID: 2309311341750759066, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
       propertyPath: m_Name
       value: UIsRoot
+      objectReference: {fileID: 0}
+    - target: {fileID: 2309311342810309075, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2309311342810309075, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2309311342911384848, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
       propertyPath: m_DragThreshold
@@ -2600,6 +2632,22 @@ PrefabInstance:
     - target: {fileID: 3702541593333950729, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3709467626196668448, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1276200342}
+    - target: {fileID: 3709467626196668448, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClick_OpenPopup_Store
+      objectReference: {fileID: 0}
+    - target: {fileID: 3709467626196668448, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MainScene.CSubMainSceneManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3709467626196668448, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3716222131892619346, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
       propertyPath: m_AnchorMax.y

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 /// <author>Pinelia Luna</author>
-/// <Summary>DragObject v1.1
+/// <Summary>DragObject v1.2
 /// <para>오브젝트 드래그 클래스.</para>
 /// </Summary>
 public class DragObject : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
@@ -11,6 +11,7 @@ public class DragObject : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     public bool isDragging;
 
     [Header("★ [Reference] Nullable")]
+    public Canvas rootCanvas;
     public Transform transformToDrag;
     public DragZoom dragZoom;
 
@@ -71,7 +72,7 @@ public class DragObject : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         if (dragZoom != null && dragZoom.isScaling) return;
         if (eventData.pointerId != _pointerId) return;
 
-        _offset = _isOrthographicCamera ? Camera.main.ScreenToWorldPoint(eventData.position) - transformToDrag.position : 
+        _offset = _isOrthographicCamera ? (Camera.main.ScreenToWorldPoint(eventData.position) * (rootCanvas ? rootCanvas.transform.localScale.x : 1)) - transformToDrag.position : 
                                          Input.mousePosition - transformToDrag.position;
         isDragging = true;
 
@@ -86,7 +87,7 @@ public class DragObject : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         if (dragZoom != null && dragZoom.isScaling) return;
         if (eventData.pointerId != _pointerId) return;
 
-        transformToDrag.position = _isOrthographicCamera ? Camera.main.ScreenToWorldPoint(eventData.position) - _offset : 
+        transformToDrag.position = _isOrthographicCamera ? (Camera.main.ScreenToWorldPoint(eventData.position) * (rootCanvas ? rootCanvas.transform.localScale.x : 1)) - _offset : 
                                                            Input.mousePosition - _offset;
 
         if (transformToDrag.position.z != _initPosition.z)
