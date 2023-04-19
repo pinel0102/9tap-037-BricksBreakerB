@@ -19,6 +19,9 @@ public partial class GlobalDefine
         new Vector3(0, 0, 270f),
         new Vector3(0, 0, 315f),
     };
+
+    // [Cell Effect] Break
+    public static Vector3 FXBreak_Scale_Default = new Vector3(25f, 25f, 25f);
     
     // [Cell Effect] Bomb
     public static Vector3 FXBombFlame_Position_Default = new Vector3(25f, 25f, 0);
@@ -86,6 +89,15 @@ public partial class GlobalDefine
         CSceneManager.ActiveSceneManager.DespawnObj(_kv.Key, effect.gameObject, _kv.Value);
     }
 
+    ///<Summary>이펙트 재생 (Rotation 변경하지 않음.)</Summary>
+    public static void ShowEffect(EFXSet _effect, Vector3 _position, Vector3 _scale, Color _startColor, bool _isWorldPosition = true)
+    {
+        KeyValuePair<string, float> _kv = FXContainer[_effect];
+        Transform effect = CSceneManager.ActiveSceneManager.SpawnObj<Transform>(_kv.Key, _kv.Key, _scale, _position, _isWorldPosition);
+        effect.GetComponent<FXSettings>().SetColor(_startColor);
+        CSceneManager.ActiveSceneManager.DespawnObj(_kv.Key, effect.gameObject, _kv.Value);
+    }
+
     ///<Summary>이펙트 재생 (Scale/Rotation 변경.)</Summary>
     public static void ShowEffect(EFXSet _effect, Vector3 _position, Vector3 _rotation, Vector3 _scale, bool _isWorldPosition = true)
     {
@@ -137,6 +149,11 @@ public partial class GlobalDefine
 
         prefab.transform.localPosition = _localPosition;
         prefab.transform.localScale = _scale;
+    }
+
+    public static Vector3 GetFXScale_BREAK(Vector3Int cellScale)
+    {
+        return FXBreak_Scale_Default * Mathf.Min(cellScale.x, cellScale.y, 2);
     }
 }
 

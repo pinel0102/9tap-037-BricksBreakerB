@@ -28,7 +28,7 @@ namespace NSEngine {
                             target.GetComponent<CECellObjController>().GetDamage(ballController, kindsType, kinds, _ATK);
                         else
                         {
-                            GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, target.centerPosition, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, true, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID));
+                            GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, target.centerPosition, GlobalDefine.GetFXScale_BREAK(target.Params.m_stObjInfo.m_stSize), GlobalDefine.GetFXColor_BREAK(target.CellObjInfo.ObjKinds, true, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID));
                             CellDestroy(target);
                         }
                     }
@@ -38,7 +38,7 @@ namespace NSEngine {
                             target.GetComponent<CECellObjController>().GetDamage(ballController, kindsType, kinds, _ATK);
                         else
                         {
-                            GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, target.centerPosition, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, false, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID));
+                            GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, target.centerPosition, GlobalDefine.GetFXScale_BREAK(target.Params.m_stObjInfo.m_stSize), GlobalDefine.GetFXColor_BREAK(target.CellObjInfo.ObjKinds, false, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID));
                             CellDestroy(target);
                         }
                     }
@@ -76,7 +76,7 @@ namespace NSEngine {
                 if (target.Params.m_stObjInfo.m_bIsSkillTarget || (isForce && target.Params.m_stObjInfo.m_bIsClearTarget))
                 {
                     if (target.IsActiveCell())
-                        GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, target.centerPosition, GlobalDefine.GetCellColor(target.CellObjInfo.ObjKinds, target.Params.m_stObjInfo.m_bIsShieldCell, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID));
+                        GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, target.centerPosition, GlobalDefine.GetFXScale_BREAK(target.Params.m_stObjInfo.m_stSize), GlobalDefine.GetFXColor_BREAK(target.CellObjInfo.ObjKinds, target.Params.m_stObjInfo.m_bIsShieldCell, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID));
 
                     if (isForce)
                         CellDestroyForce(target);

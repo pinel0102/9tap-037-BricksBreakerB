@@ -21,10 +21,10 @@ namespace NSEngine {
 
         [Header("★ [Live] Cell Info")]
         public EObjKinds kinds;
-        public Vector3 centerPosition => transform.position + spriteOffset; // World Position
         public int row;
         public int col;
         public int layer;
+        public Vector3 centerPosition => (parentCell != null) ? parentCell.centerPosition : transform.position + (spriteOffset * Engine.SelGridInfo.m_stScale.x); // World Position
         private Vector3 spriteOffset;
 
         public void SetPlaceHolder(Vector3Int cellScale)

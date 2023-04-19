@@ -17,28 +17,73 @@ public static partial class GlobalDefine
         //new List<Color>(){ GetColor("#000000"), GetColor("#000000"), GetColor("#000000"), GetColor("#000000"), GetColor("#000000"), GetColor("#000000"), GetColor("#000000"), GetColor("#000000"), GetColor("#000000"), GetColor("#000000") }, // Black
     };
 
+    private readonly static Dictionary<EObjKinds, Color> colorList_FX_Break = new Dictionary<EObjKinds, Color>()
+    {
+        [EObjKinds.SPECIAL_BRICKS_ADD_BALL_01]              = GetColor("#109371"),
+        [EObjKinds.SPECIAL_BRICKS_ADD_BALL_02]              = GetColor("#109371"),
+        [EObjKinds.SPECIAL_BRICKS_ADD_BALL_03]              = GetColor("#109371"),
+        [EObjKinds.SPECIAL_BRICKS_ARROW_01]                 = GetColor("#965C49"),
+        [EObjKinds.SPECIAL_BRICKS_ARROW_02]                 = GetColor("#965C49"),
+        [EObjKinds.SPECIAL_BRICKS_ARROW_03]                 = GetColor("#965C49"),
+        [EObjKinds.SPECIAL_BRICKS_ARROW_04]                 = GetColor("#965C49"),
+        [EObjKinds.SPECIAL_BRICKS_ARROW_05]                 = GetColor("#965C49"),
+        [EObjKinds.SPECIAL_BRICKS_ARROW_06]                 = GetColor("#965C49"),
+        [EObjKinds.SPECIAL_BRICKS_ARROW_07]                 = GetColor("#965C49"),
+        [EObjKinds.SPECIAL_BRICKS_ARROW_08]                 = GetColor("#965C49"),
+        [EObjKinds.SPECIAL_BRICKS_EXPLOSION_ALL_01]         = GetColor("#6A5998"),
+        [EObjKinds.SPECIAL_BRICKS_EXPLOSION_AROUND_01]      = GetColor("#4E3D92"),
+        [EObjKinds.SPECIAL_BRICKS_EXPLOSION_CROSS_01]       = GetColor("#4E3D92"),
+        [EObjKinds.SPECIAL_BRICKS_EXPLOSION_HORIZONTAL_01]  = GetColor("#4E3D92"),
+        [EObjKinds.SPECIAL_BRICKS_EXPLOSION_VERTICAL_01]    = GetColor("#4E3D92"),
+        [EObjKinds.SPECIAL_BRICKS_EARTHQUAKE_01]            = GetColor("#F6B247"),
+        [EObjKinds.SPECIAL_BRICKS_LIGHTNING_01]             = GetColor("#F6B247"),
+        [EObjKinds.SPECIAL_BRICKS_MISSILE_01]               = GetColor("#CB2E86"),
+        [EObjKinds.SPECIAL_BRICKS_MISSILE_02]               = GetColor("#CB2E86"),
+        [EObjKinds.OBSTACLE_BRICKS_KEY_01]                  = GetColor("#B4E6D5"),
+        [EObjKinds.OBSTACLE_BRICKS_LOCK_01]                 = GetColor("#9CA2B8"),
+        //[EObjKinds.OBSTACLE_BRICKS_OPEN_01]               = isEnableColor
+        [EObjKinds.OBSTACLE_BRICKS_CLOSE_01]                = GetColor("#273A63"),
+        //[EObjKinds.OBSTACLE_BRICKS_FIX_01]                = isEnableColor
+        [EObjKinds.OBSTACLE_BRICKS_FIX_02]                  = GetColor("#3C4C6F"),
+        [EObjKinds.OBSTACLE_BRICKS_WOODBOX_01]              = GetColor("#4A3128"),
+        [EObjKinds.OBSTACLE_BRICKS_WOODBOX_02]              = GetColor("#4A3128"),
+    };
+
     public const string COLORHEX_BRICKS_DEFAULT = "#407AD9FF";
     public const string COLORHEX_BALL_DEFAULT = "#FF0000FF";
     public const string COLORHEX_BALL_PLUS = "#FF6B3FFF";
     public const string COLORHEX_BALL_AMPLIFICATION = "#39D6E2FF";
     public const string COLORHEX_CELL_APPEAR = "#64C8FFFF";
     public static Color COLOR_CELL_APPEAR = GetColor(COLORHEX_CELL_APPEAR);
+    public static Color COLOR_WHITE = Color.white;
 
+    ///<Summary>셀 기본 컬러.</Summary>
     public static Color GetCellColor(EObjKinds kinds, bool isShield, bool isEnableColor, int _colorID = 0, int _HP = 100)
     {
         switch(kinds)
         {
-            case EObjKinds.BALL_NORM_01: 
-                return GetColor(GlobalDefine.COLORHEX_BALL_DEFAULT);
-            case EObjKinds.BALL_NORM_02: 
-                return GetColor(GlobalDefine.COLORHEX_BALL_PLUS);
-            case EObjKinds.BALL_NORM_03: 
-                return GetColor(GlobalDefine.COLORHEX_BALL_AMPLIFICATION);
-            default:
-                break;
+            case EObjKinds.BALL_NORM_01: return GetColor(GlobalDefine.COLORHEX_BALL_DEFAULT);
+            case EObjKinds.BALL_NORM_02: return GetColor(GlobalDefine.COLORHEX_BALL_PLUS);
+            case EObjKinds.BALL_NORM_03: return GetColor(GlobalDefine.COLORHEX_BALL_AMPLIFICATION);
         }
 
-        return (!isShield && isEnableColor) ? colorList[_colorID][GetHPColorIndex(_HP)] : Color.white;
+        return (!isShield && isEnableColor) ? colorList[_colorID][GetHPColorIndex(_HP)] : COLOR_WHITE;
+    }
+
+    ///<Summary>셀 파괴 이펙트 컬러.</Summary>
+    public static Color GetFXColor_BREAK(EObjKinds kinds, bool isShield, bool isEnableColor, int _colorID = 0, int _HP = 100)
+    {
+        switch(kinds)
+        {
+            case EObjKinds.BALL_NORM_01: return GetColor(GlobalDefine.COLORHEX_BALL_DEFAULT);
+            case EObjKinds.BALL_NORM_02: return GetColor(GlobalDefine.COLORHEX_BALL_PLUS);
+            case EObjKinds.BALL_NORM_03: return GetColor(GlobalDefine.COLORHEX_BALL_AMPLIFICATION);
+            case EObjKinds.OBSTACLE_BRICKS_WOODBOX_01: 
+            case EObjKinds.OBSTACLE_BRICKS_WOODBOX_02: 
+                return GetCellColorBreak(kinds);
+        }
+
+        return (!isShield && isEnableColor) ? colorList[_colorID][GetHPColorIndex(_HP)] : GetCellColorBreak(kinds);
     }
 
     public static Color GetCellColorEditor(EObjKinds kinds, int _colorID = 0, int _HP = 100)
@@ -51,7 +96,11 @@ public static partial class GlobalDefine
         return GetCellColor(kinds, false, isEnableColor, _colorID, _HP);
     }
 
-    public static Color COLOR_WHITE = Color.white;
+    private static Color GetCellColorBreak(EObjKinds kinds)
+    {
+        //Debug.Log(CodeManager.GetMethodName() + ColorUtility.ToHtmlStringRGB(colorList_FX_Destroy[kinds]));
+        return colorList_FX_Break.ContainsKey(kinds) ? colorList_FX_Break[kinds] : COLOR_WHITE;
+    }
 
     private static int GetHPColorIndex(int _HP)
     {
@@ -69,6 +118,6 @@ public static partial class GlobalDefine
 
     private static Color GetColor(string _colorHex)
     {
-        return ColorUtility.TryParseHtmlString(_colorHex, out Color _color) ? _color : Color.white;
+        return ColorUtility.TryParseHtmlString(_colorHex, out Color _color) ? _color : COLOR_WHITE;
     }
 }

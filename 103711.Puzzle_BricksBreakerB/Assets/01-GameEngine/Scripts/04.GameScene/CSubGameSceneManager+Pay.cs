@@ -31,8 +31,8 @@ namespace GameScene {
 
                 Engine.RefreshActiveCells();
                 Engine.CheckDeadLine();
-
                 Engine.CheckClear(true, true);
+                
                 Engine.isLevelFail = false;
                     
             }, KCDefine.B_VAL_0_5_REAL);

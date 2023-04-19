@@ -26,29 +26,29 @@ namespace NSEngine {
 
         public void GetDamage(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds, int _ATK, bool isSoundPlay = true)
         {
-            var oCellObj = this.GetOwner<CEObj>();
+            var target = this.GetOwner<CEObj>();
             
-            if (!oCellObj.Params.m_stObjInfo.m_bIsEnableHit) 
+            if (!target.Params.m_stObjInfo.m_bIsEnableHit) 
                 return;
 
-			var stCellObjInfo = oCellObj.CellObjInfo;
+			var stCellObjInfo = target.CellObjInfo;
 
-            if (oCellObj.Params.m_stObjInfo.m_bIsShieldCell)
+            if (target.Params.m_stObjInfo.m_bIsShieldCell)
             {
                 stCellObjInfo.SHIELD = Mathf.Max(KCDefine.B_VAL_0_INT, stCellObjInfo.SHIELD - _ATK);
-                oCellObj.HPText.text = $"{stCellObjInfo.SHIELD}";
-                oCellObj.SetCellObjInfo(stCellObjInfo);
+                target.HPText.text = $"{stCellObjInfo.SHIELD}";
+                target.SetCellObjInfo(stCellObjInfo);
 
                 if (ballController.isOn_PowerBall)
                 {
-                    GlobalDefine.ShowEffect(EFXSet.FX_POWER_BALL_HIT, oCellObj.centerPosition);
+                    GlobalDefine.ShowEffect(EFXSet.FX_POWER_BALL_HIT, target.centerPosition);
                 }
 
                 // 실드가 없을 경우
                 if(stCellObjInfo.SHIELD <= KCDefine.B_VAL_0_INT) 
                 {
+                    GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, target.centerPosition, GlobalDefine.GetFXScale_BREAK(target.Params.m_stObjInfo.m_stSize), GlobalDefine.GetFXColor_BREAK(target.CellObjInfo.ObjKinds, true, false));
                     ShieldAfterEffect(kindsType, kinds);
-                    GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, oCellObj.centerPosition, GlobalDefine.GetCellColor(oCellObj.CellObjInfo.ObjKinds, true, false));
                 }
                 else
                 {
@@ -59,13 +59,13 @@ namespace NSEngine {
             {
                 stCellObjInfo.HP = Mathf.Max(KCDefine.B_VAL_0_INT, stCellObjInfo.HP - _ATK);
             
-                oCellObj.HPText.text = $"{stCellObjInfo.HP}";
-                oCellObj.SetCellObjInfo(stCellObjInfo);
-                oCellObj.SetSpriteColor(oCellObj.CellObjInfo.ObjKinds);
+                target.HPText.text = $"{stCellObjInfo.HP}";
+                target.SetCellObjInfo(stCellObjInfo);
+                target.SetSpriteColor(target.CellObjInfo.ObjKinds);
 
                 if (ballController.isOn_PowerBall)
                 {
-                    GlobalDefine.ShowEffect(EFXSet.FX_POWER_BALL_HIT, oCellObj.centerPosition);
+                    GlobalDefine.ShowEffect(EFXSet.FX_POWER_BALL_HIT, target.centerPosition);
                 }
 
                 // [특수 블럭] 히트시 발동.
@@ -79,8 +79,8 @@ namespace NSEngine {
                 // 체력이 없을 경우
                 if(stCellObjInfo.HP <= KCDefine.B_VAL_0_INT) 
                 {
+                    GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, target.centerPosition, GlobalDefine.GetFXScale_BREAK(target.Params.m_stObjInfo.m_stSize), GlobalDefine.GetFXColor_BREAK(target.CellObjInfo.ObjKinds, false, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID));
                     CellAfterEffect(ballController, kindsType, kinds);
-                    GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, oCellObj.centerPosition, GlobalDefine.GetCellColor(oCellObj.CellObjInfo.ObjKinds, false, oCellObj.Params.m_stObjInfo.m_bIsEnableColor, oCellObj.CellObjInfo.ColorID));
                     CellDestroy(isSoundPlay);
                 }
                 else
@@ -92,8 +92,8 @@ namespace NSEngine {
 
         private void GetSpecial(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds, int _ATK)
         {
-            var oCellObj = this.GetOwner<CEObj>();            
-            if (oCellObj.Params.m_stObjInfo.m_bIsEnableHit)
+            var target = this.GetOwner<CEObj>();            
+            if (target.Params.m_stObjInfo.m_bIsEnableHit)
             {
                 GetDamage(ballController, kindsType, kinds, _ATK);
             }
@@ -125,8 +125,8 @@ namespace NSEngine {
 
         private void GetObstacle(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds, int _ATK)
         {
-            var oCellObj = this.GetOwner<CEObj>();            
-            if (oCellObj.Params.m_stObjInfo.m_bIsEnableHit)
+            var target = this.GetOwner<CEObj>();            
+            if (target.Params.m_stObjInfo.m_bIsEnableHit)
             {
                 GetDamage(ballController, kindsType, kinds, _ATK);
             }

@@ -40,8 +40,7 @@ namespace GameScene {
 
         public void OnClick_Bottom_Earthquake()
         {
-            if (Engine.PlayState == NSEngine.CEngine.EPlayState.SHOOT) return;
-            if (Engine.isGridMoving || isShaking) return;
+            if (!CanUseBottomItem()) return;
             
             float damageRatio = 0.4f;
 
@@ -66,8 +65,7 @@ namespace GameScene {
 
         public void OnClick_Bottom_AddBall()
         {
-            if (Engine.PlayState == NSEngine.CEngine.EPlayState.SHOOT) return;
-            if (Engine.isGridMoving) return;
+            if (!CanUseBottomItem()) return;
 
             int addCount = 30;
 
@@ -80,8 +78,7 @@ namespace GameScene {
 
         public void OnClick_Bottom_BricksDelete()
         {
-            if (Engine.PlayState == NSEngine.CEngine.EPlayState.SHOOT) return;
-            if (Engine.isGridMoving) return;
+            if (!CanUseBottomItem()) return;
 
             var lastClearTarget = Engine.GetLastClearTarget();
             if (lastClearTarget != null)
@@ -103,8 +100,7 @@ namespace GameScene {
 
         public void OnClick_Bottom_AddLaserBricks()
         {
-            if (Engine.PlayState == NSEngine.CEngine.EPlayState.SHOOT) return;
-            if (Engine.isGridMoving) return;
+            if (!CanUseBottomItem()) return;
 
             int addCount = 4;
 
@@ -122,8 +118,7 @@ namespace GameScene {
 
         public void OnClick_Bottom_AddSteelBricks()
         {
-            if (Engine.PlayState == NSEngine.CEngine.EPlayState.SHOOT) return;
-            if (Engine.isGridMoving) return;
+            if (!CanUseBottomItem()) return;
 
             int addCount = Mathf.CeilToInt(Engine.viewSize.x / 2f) - 1;
 
@@ -144,6 +139,11 @@ namespace GameScene {
             m_oEngine.ToggleAimLayer();
 
             goldenAimOn.SetActive(m_oEngine.isGoldAim);
+        }
+
+        private bool CanUseBottomItem()
+        {
+            return Engine.PlayState != NSEngine.CEngine.EPlayState.SHOOT && !Engine.isGridMoving && !Engine.isExplosionAll && !isShaking;
         }
 
 #endregion Buttons

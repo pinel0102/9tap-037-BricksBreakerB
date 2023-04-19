@@ -92,14 +92,23 @@ namespace NSEngine {
             List<CEObj> excludeList = new List<CEObj>();
             excludeList.Add(myCell);
 
-            List<CEObj> targetList = Engine.GetAllCells_SkillTarget(excludeList, true, true);
+            ShowEffect_Explosion_All(myCell.centerPosition + (GlobalDefine.CenterOffset_EXPLOSION_ALL * Engine.SelGridInfo.m_stScale.x));
+            
+            Engine.ExLateCallFunc((sender) => {
 
-            for(int i=0; i < targetList.Count; i++)
-            {
-                Engine.CellDestroy_SkillTarget(targetList[i], true, true);
-            }
+                List<CEObj> targetList = Engine.GetAllCells_SkillTarget(excludeList, true, true);
 
-            ShowEffect_Explosion_All(myCell.centerPosition + GlobalDefine.CenterOffset_EXPLOSION_ALL);
+                for(int i=0; i < targetList.Count; i++)
+                {
+                    Engine.CellDestroy_SkillTarget(targetList[i], true, true);
+                }
+
+                if (Engine.PlayState == NSEngine.CEngine.EPlayState.IDLE)
+                {
+                    Engine.CheckClear(true, true);
+                }
+
+            }, KCDefine.B_VAL_0_5_REAL);
         }
 
         private void ShowEffect_Explosion(Vector3 centerPosition, Vector3 _rotation)
