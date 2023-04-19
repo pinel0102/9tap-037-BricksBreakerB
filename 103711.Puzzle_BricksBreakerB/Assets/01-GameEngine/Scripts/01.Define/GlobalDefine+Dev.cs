@@ -41,7 +41,7 @@ public static partial class GlobalDefine
         [EObjKinds.SPECIAL_BRICKS_EXPLOSION_VERTICAL_01]    = new KeyValuePair<string, bool>("세로 폭탄", true),
         [EObjKinds.SPECIAL_BRICKS_EXPLOSION_CROSS_01]       = new KeyValuePair<string, bool>("십자 폭탄", true),
         [EObjKinds.SPECIAL_BRICKS_EXPLOSION_AROUND_01]      = new KeyValuePair<string, bool>("3x3 폭탄", true),
-        [EObjKinds.SPECIAL_BRICKS_EXPLOSION_ALL_01]         = new KeyValuePair<string, bool>("대형 폭탄", false),
+        [EObjKinds.SPECIAL_BRICKS_EXPLOSION_ALL_01]         = new KeyValuePair<string, bool>("대형 폭탄", true),
         [EObjKinds.SPECIAL_BRICKS_ADD_BALL_01]              = new KeyValuePair<string, bool>("볼 블럭 +10", true),
         [EObjKinds.SPECIAL_BRICKS_ADD_BALL_02]              = new KeyValuePair<string, bool>("볼 블럭 +20", true),
         [EObjKinds.SPECIAL_BRICKS_ADD_BALL_03]              = new KeyValuePair<string, bool>("볼 블럭 +30", true),
