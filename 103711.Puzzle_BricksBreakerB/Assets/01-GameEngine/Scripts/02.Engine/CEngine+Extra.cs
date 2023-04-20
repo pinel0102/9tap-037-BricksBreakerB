@@ -81,7 +81,7 @@ namespace NSEngine {
 
         private IEnumerator CO_Clear()
         {
-            yield return dropBallsDelay;
+            yield return clearDelay;
 
             LevelClear();
         }

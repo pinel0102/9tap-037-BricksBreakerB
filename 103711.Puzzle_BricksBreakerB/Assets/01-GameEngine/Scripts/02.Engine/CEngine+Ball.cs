@@ -6,9 +6,6 @@ using Timers;
 namespace NSEngine {
     public partial class CEngine : CComponent
     {
-        public List<CEObj> deleteList = new List<CEObj>();
-        private Timer shootTimer;
-
 #region Public Methods
 
         ///<Summary>[BallObjList] 턴이 끝나도 유지되는 볼을 n개 추가.</Summary>
@@ -24,7 +21,7 @@ namespace NSEngine {
             }
 
             if (_autoShoot)
-                this.AddShootBalls(_ballIndex, _addCount);
+                this.ShootBalls(_ballIndex, _addCount);
         }
 
         ///<Summary>[BallObjList] 1회성 볼을 n개 추가.</Summary>
@@ -37,11 +34,11 @@ namespace NSEngine {
                 var oBallObj = CreateBall(_ballIndex + i, _startPosition, EObjKinds.BALL_NORM_01);
                 oBallObj.TargetSprite.sortingOrder = 10;
                 this.BallObjList.ExAddVal(oBallObj);
-                deleteList.Add(oBallObj);
+                DeleteBallList.Add(oBallObj);
             }
 
             if (_autoShoot)
-                this.AddShootBalls(_ballIndex, _addCount);
+                this.ShootBalls(_ballIndex, _addCount);
         }
 
         ///<Summary>[ExtraBallObjList] 1회성 볼을 1개 추가.</Summary>
@@ -59,11 +56,6 @@ namespace NSEngine {
                 ballController.Shoot(this.shootDirection);
 
             return ballController;
-        }
-
-        public void AddShootBalls(int _startIndex, int _count)
-        {
-            StartCoroutine(CO_WaitShootDelay(_startIndex, _count));
         }
 
         public void RefreshBallText()
@@ -90,7 +82,7 @@ namespace NSEngine {
         {
             for(int i=this.BallObjList.Count - 1; i >= 0; i--)
             {
-                if (this.BallObjList[i].Params.m_stObjInfo.m_bIsOnce || deleteList.Contains(this.BallObjList[i]))
+                if (this.BallObjList[i].Params.m_stObjInfo.m_bIsOnce || DeleteBallList.Contains(this.BallObjList[i]))
                 {
                     GameObject.Destroy(this.BallObjList[i].gameObject);
                     this.BallObjList.Remove(this.BallObjList[i]);
@@ -99,14 +91,14 @@ namespace NSEngine {
 
             for(int i=this.ExtraBallObjList.Count - 1; i >= 0; i--)
             {
-                if (this.ExtraBallObjList[i].Params.m_stObjInfo.m_bIsOnce || deleteList.Contains(this.ExtraBallObjList[i]))
+                if (this.ExtraBallObjList[i].Params.m_stObjInfo.m_bIsOnce || DeleteBallList.Contains(this.ExtraBallObjList[i]))
                 {
                     GameObject.Destroy(this.ExtraBallObjList[i].gameObject);
                     this.ExtraBallObjList.Remove(this.ExtraBallObjList[i]);
                 }
             }
 
-            deleteList.Clear();
+            DeleteBallList.Clear();
 
             //Debug.Log("this.BallObjList.Count : " + this.BallObjList.Count);
         }
@@ -145,35 +137,40 @@ namespace NSEngine {
             return oBallObj;
         }
 
-        private void ShootBalls(int _startIndex, int _count)
-        {
-            //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=sky>_startIndex : [{0}] / _count : {1}</color>", _startIndex, _count));
-
-            shootTimer = CScheduleManager.Inst.AddTimer(this, GlobalDefine.SHOOT_BALL_DELAY, (uint)_count, () => {
-                //Debug.Log(CodeManager.GetMethodName() + string.Format("BallObjList[{0}]", _startIndex));
-                this.BallObjList[_startIndex++].GetController<CEBallObjController>().Shoot(shootDirection);
-                currentShootCount++;
-            });
-        }
-
 #endregion Private Methods
 
 
-#region Coroutines
+#region Shoot Balls
 
-        private IEnumerator CO_WaitShootDelay(int _startIndex, int _count)
+        private void ShootBalls(int _startIndex, int _count)
         {
-            if (shootTimer != null)
-            {
-                while(!shootTimer.ShouldClear())//currentShootCount < _startIndex)
-                {
-                    yield return null;
-                }
-            }
-
-            ShootBalls(_startIndex, _count);
+            StartCoroutine(CO_ShootBalls(_startIndex, _count));
         }
 
-#endregion Coroutines
+        private IEnumerator CO_ShootBalls(int _startIndex, int _count)
+        {
+            //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>_startIndex : [{0}] / _count : {1} / Ready</color>", _startIndex, _count));
+
+            yield return new WaitWhile(() => isShooting);
+
+            //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>_startIndex : [{0}] / _count : {1} / Start</color>", _startIndex, _count));
+
+            isShooting = true;
+
+            for(int i=_startIndex; i < _startIndex + _count; i++)
+            {
+                //Debug.Log(CodeManager.GetMethodName() + string.Format("BallObjList[{0}]", i));
+                this.BallObjList[i].GetController<CEBallObjController>().Shoot(shootDirection);
+                currentShootCount++;
+
+                yield return shootDelay;
+            }
+
+            isShooting = false;
+
+            //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>_startIndex : [{0}] / _count : {1} / End</color>", _startIndex, _count));
+        }
+
+#endregion Shoot Balls
     }
 }

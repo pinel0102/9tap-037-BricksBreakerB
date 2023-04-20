@@ -6,7 +6,9 @@ using System.Linq;
 namespace NSEngine {
     public partial class CEngine : CComponent
     {
+        [Header("★ [Parameter] Cell Size")]
         public Vector3Int viewSize = KDefine.E_DEF_NUM_CELLS;
+        public float cellsizeY;
 
         public List<CEObj> GetRandomCells_EnableHit(int count, List<CEObj> excludeList)
         {

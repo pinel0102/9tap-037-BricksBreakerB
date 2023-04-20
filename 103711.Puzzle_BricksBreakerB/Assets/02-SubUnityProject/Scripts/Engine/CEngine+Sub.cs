@@ -65,17 +65,11 @@ namespace NSEngine {
 		#endregion // 변수
 
 		#region 프로퍼티
-		public EState State { get; private set; } = EState.NONE;
-		public EPlayState PlayState;
-
-		public List<CEObj> PlayerObjList { get; } = new List<CEObj>();
+		public EState State { get; private set; } = EState.NONE;		
+        public List<CEObj> PlayerObjList { get; } = new List<CEObj>();
 		public List<CEObj> EnemyObjList { get; } = new List<CEObj>();
-		public List<CEObj> BallObjList = new List<CEObj>();
-        public List<CEObj> ExtraBallObjList = new List<CEObj>();
-
 		public int SelPlayerObjIdx => m_oSubIntDict.GetValueOrDefault(ESubKey.SEL_PLAYER_OBJ_IDX);
 		public SpriteRenderer DownBoundsSprite => m_oSubSpriteDict[ESubKey.DOWN_BOUNDS_SPRITE];
-
 		public CEObj SelPlayerObj => this.PlayerObjList[this.SelPlayerObjIdx];
 		public CEObj SelBallObj => this.BallObjList[KCDefine.B_VAL_0_INT];
 		#endregion // 프로퍼티
@@ -158,6 +152,7 @@ namespace NSEngine {
 			if(this.PlayState == EPlayState.SHOOT) {                
                 
                 StopAllCoroutines();
+                isShooting = false;
                 currentShootCount = 0;
 
 				var oAniList = CCollectionManager.Inst.SpawnList<Tween>();
@@ -296,7 +291,7 @@ namespace NSEngine {
                         m_oMoveCompleteBallObjList[i].NumText.text = string.Empty;
                     }
 
-                    int excludeCount = m_oMoveCompleteBallObjList.FindAll(item => ExtraBallObjList.Contains(item) || (BallObjList.Contains(item) && deleteList.Contains(item))).Count;
+                    int excludeCount = m_oMoveCompleteBallObjList.FindAll(item => ExtraBallObjList.Contains(item) || (BallObjList.Contains(item) && DeleteBallList.Contains(item))).Count;
                     int completeCount = m_oMoveCompleteBallObjList.Count - excludeCount;
                     
                     m_oMoveCompleteBallObjList[KCDefine.B_VAL_0_INT].NumText.text = completeCount > 0 ? GlobalDefine.GetBallText(completeCount, 0) : string.Empty;

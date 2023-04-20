@@ -37,7 +37,7 @@ EXIT_FOR:
 			var stDirection = a_stPos - this.SelBallObj.transform.localPosition;
 
 			//return this.PlayState == EPlayState.IDLE && stDirection.y.ExIsGreate(KCDefine.B_VAL_0_REAL) && this.CellObjLists.ExIsValidIdx(stIdx) && this.SelGridInfo.m_stAimBounds.Contains(a_stPos);
-            return this.PlayState == EPlayState.IDLE && !isLevelClear && !isGridMoving && !isExplosionAll&& stDirection.y.ExIsGreate(KCDefine.B_VAL_0_REAL) && this.SelGridInfo.m_stAimBounds.Contains(a_stPos);
+            return this.PlayState == EPlayState.IDLE && !isShooting && !isLevelClear && !isGridMoving && !isExplosionAll && stDirection.y.ExIsGreate(KCDefine.B_VAL_0_REAL) && this.SelGridInfo.m_stAimBounds.Contains(a_stPos);
 		}
 
 		/** 발사 가능 여부를 검사한다 */
@@ -66,6 +66,7 @@ EXIT_FOR:
 			// 대기 상태 일 경우
 			if(this.PlayState == EPlayState.IDLE) {
 				this.SelBallObj.NumText.text = GlobalDefine.GetBallText(this.BallObjList.Count, this.ExtraBallObjList.Count);
+                this.currentShootCount = 0;
 			}
 		}
 

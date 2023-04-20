@@ -5,38 +5,43 @@ using UnityEngine;
 namespace NSEngine {
     public partial class CEngine : CComponent
     {
-        [Header("★ [Parameter] Options")]
-        public bool isGoldAim;
-
         [Header("★ [Parameter] Live")]
+        public int currentLevel;
+        public EPlayState PlayState;
         public Transform lastClearTarget;
+        public bool isShooting;
+        public bool isGoldAim;
         public bool isTutorial;
         public bool isLevelClear;
         public bool isLevelFail;
         public bool isGridMoving;
+        public bool isWarning;
         public bool isExplosionAll;
-        public int currentLevel;
-        public int currentShootCount = 0;
-        public int currentAimLayer;
+
+        [Header("★ [Parameter] Balls")]
         public Vector3 startPosition = Vector3.zero;
         public Vector3 shootDirection = Vector3.zero;
+        public int currentShootCount;
+		public List<CEObj> BallObjList = new List<CEObj>();
+        public List<CEObj> ExtraBallObjList = new List<CEObj>();
+        public List<CEObj> DeleteBallList = new List<CEObj>();
 
-        [Header("★ [Parameter] Live Resolution")]
+        [Header("★ [Parameter] Resolution")]
         // 디바이스 해상도.
-        public float screenMultiplier;
-        public float f_width;
-        public float f_height;
-        public float overAreaHeight;
-        public float currentRatio;
+        private float screenMultiplier;
+        private float f_width;
+        private float f_height;
+        private float overAreaHeight;
+        private float currentRatio;
         // 720p 환산.            
-        public float uiAreaTop;
-        public float uiAreaBottom;
-        public float reWidth;
-        public float reHeight;
-        public float gridWidth;
-        public float gridHeight;
-        public float cellsizeY;
+        private float uiAreaTop;
+        private float uiAreaBottom;
+        private float reWidth;
+        private float reHeight;
+        private float gridWidth;
+        private float gridHeight;
 
+        [Header("★ [Parameter] Layer Mask")]
         /// <Summary>(반사 O) 벽.</Summary>
         [HideInInspector] public int layerWall;
         /// <Summary>(반사 O) 블럭.</Summary>
@@ -49,14 +54,13 @@ namespace NSEngine {
         [HideInInspector] public int layerAll;
         /// <Summary>(반사 X) 볼.</Summary>
         [HideInInspector] public int layerBall;
+        private int currentAimLayer;
 
         [Header("★ [Parameter] Privates")]
-        private WaitForSeconds dropBallsDelay = new WaitForSeconds(KCDefine.B_VAL_0_5_REAL);
-        private WaitForSeconds cellRootMoveDelay = new WaitForSeconds(KCDefine.B_VAL_0_0_1_REAL);
-        public WaitForSeconds hitEffectDelay = new WaitForSeconds(KCDefine.B_VAL_0_0_2_REAL);
-        public WaitForSeconds fxMissileDelay = new WaitForSeconds(GlobalDefine.FXMissile_Time);
-        public WaitForSeconds cellAppearDelay = new WaitForSeconds(GlobalDefine.FXCellAppear_Time);
-
+        private WaitForSeconds shootDelay = new WaitForSeconds(GlobalDefine.SHOOT_BALL_DELAY);
+        private WaitForSeconds clearDelay = new WaitForSeconds(KCDefine.B_VAL_0_5_REAL);
+        [HideInInspector] public WaitForSeconds hitEffectDelay = new WaitForSeconds(KCDefine.B_VAL_0_0_2_REAL);
+        
         public GameScene.CSubGameSceneManager subGameSceneManager => CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME);
 
 #region Initialize

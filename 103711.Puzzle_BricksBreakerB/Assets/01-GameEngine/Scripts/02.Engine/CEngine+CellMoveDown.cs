@@ -7,8 +7,6 @@ using DG.Tweening;
 namespace NSEngine {
     public partial class CEngine : CComponent
     {
-        public bool isWarning;
-
         private void MoveDownAllCells()
         {
             MoveDownAllCellObjs();

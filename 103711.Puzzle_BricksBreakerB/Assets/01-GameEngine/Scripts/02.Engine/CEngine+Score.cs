@@ -5,7 +5,7 @@ using UnityEngine;
 namespace NSEngine {
     public partial class CEngine : CComponent
     {
-        [Header("★ [Live] Score")]
+        [Header("★ [Parameter] Score")]
         public List<int> scoreList = new List<int>();
         public int currentCombo;
         public int currentScore;

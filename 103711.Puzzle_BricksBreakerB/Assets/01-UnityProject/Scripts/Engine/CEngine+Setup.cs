@@ -14,7 +14,7 @@ namespace NSEngine {
 
             this.BallObjList.Clear();
             this.ExtraBallObjList.Clear();
-            this.deleteList.Clear();
+            this.DeleteBallList.Clear();
 
             // 그리드 정보를 설정한다 {
 			m_oGridInfoList.Clear();

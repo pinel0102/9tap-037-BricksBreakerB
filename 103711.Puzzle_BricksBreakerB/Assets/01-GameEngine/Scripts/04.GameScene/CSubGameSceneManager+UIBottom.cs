@@ -71,7 +71,7 @@ namespace GameScene {
 
             Engine.AddNormalBallsOnce(Engine.BallObjList[0].transform.position, addCount, false);
 
-            Engine.BallObjList[0].NumText.text = GlobalDefine.GetBallText(Engine.BallObjList.Count - Engine.deleteList.Count, Engine.deleteList.Count);
+            Engine.BallObjList[0].NumText.text = GlobalDefine.GetBallText(Engine.BallObjList.Count - Engine.DeleteBallList.Count, Engine.DeleteBallList.Count);
 
             GlobalDefine.PlaySoundFX(ESoundSet.SOUND_ITEM_ADD_BALL);
         }
