@@ -56,12 +56,6 @@ public static partial class GlobalDefine
     public const string LAYER_CELL_SPECIAL_THROUGH = "Cell_Special_Through";
     public const string LAYER_CELL_ITEM = "Cell_Item";
     public const float RAYCAST_DISTANCE = 3000f;
-
-    // [ETC] Sorting Order
-    public const int HitEffect_Order = 1;
-    public static STSortingOrderInfo SortingInfo_HPText = new STSortingOrderInfo()  { m_nOrder = 200, m_oLayer = KCDefine.U_SORTING_L_CELL };
-    public static STSortingOrderInfo SortingInfo_NumText = new STSortingOrderInfo() { m_nOrder = 200, m_oLayer = KCDefine.U_SORTING_L_BALL };
-
     public const float ColliderRadius_20 = 20f;
     public const float ColliderRadius_30 = 30f;
 

@@ -37,19 +37,25 @@ public partial class CPreviewPopup : CSubPopup {
     public List<Button> buttonPlay = new List<Button>();
     public Button buttonPlayAD;
     public List<Button> buttonBooster = new List<Button>();
+    public List<Button> boosterLock = new List<Button>();
     public List<GameObject> boosterOn = new List<GameObject>();
-
-	#endregion // 변수
-
-	#region 프로퍼티
-	public STParams Params { get; private set; }
+    public Button goldenAimButton;
 
     public TMP_Text levelText;
     public SpriteMask previewMask;
     public RectTransform previewArea;
 
-    private const string formatLevel = "Level {0}";
-	#endregion // 프로퍼티
+    public int currentTooltip;
+    public RectTransform tooltip;
+    public Canvas tooltipCanvas;
+    public TMP_Text tooltipText;
+    
+	#endregion // 변수
+
+	#region 프로퍼티
+	public STParams Params { get; private set; }
+
+    #endregion // 프로퍼티
 
 	#region 함수
 	/** 초기화 */
@@ -62,6 +68,8 @@ public partial class CPreviewPopup : CSubPopup {
 			($"{EKey.LEAVE_BTN}", this.gameObject, this.OnTouchLeaveBtn)
 		});
 
+        currentTooltip = -1;
+
         for(int i=0; i < buttonPlay.Count; i++)
         {
             buttonPlay[i].ExAddListener(this.OnTouchPlayButton);
@@ -73,7 +81,10 @@ public partial class CPreviewPopup : CSubPopup {
         {
             int index = i;
             buttonBooster[index].ExAddListener(() => this.OnTouchBoosterButton(index));
+            boosterLock[index].ExAddListener(() => this.OnTouchTooltipButton(index));
         }
+
+        tooltipCanvas.ExSetSortingOrder(GlobalDefine.SortingInfo_TooltipText);
 
 		this.SubAwake();
 	}
@@ -97,12 +108,16 @@ public partial class CPreviewPopup : CSubPopup {
 
         Params.Engine.SetupPreview(previewArea, previewMask);
 
-        levelText.text = string.Format(formatLevel, Params.Engine.currentLevel);
+        levelText.text = string.Format(GlobalDefine.FORMAT_LEVEL, Params.Engine.currentLevel);
 
-        for(int i=0; i < boosterOn.Count; i++)
+        for(int i=0; i< buttonBooster.Count; i++)
         {
             boosterOn[i].SetActive(false);
+            buttonBooster[i].gameObject.SetActive(Params.Engine.currentLevel >= GlobalDefine.BOOSTER_LEVEL[i]);
+            boosterLock[i].gameObject.SetActive(Params.Engine.currentLevel < GlobalDefine.BOOSTER_LEVEL[i]);
         }
+
+        tooltip.gameObject.SetActive(false);
         
         GlobalDefine.PlaySoundFX(ESoundSet.SOUND_LEVEL_READY);
 
@@ -126,6 +141,22 @@ public partial class CPreviewPopup : CSubPopup {
 
         this.Params.Engine.ChangeBooster(index, newValue);
         boosterOn[index].SetActive(newValue);
+    }
+
+    private void OnTouchTooltipButton(int index)
+    {
+        if (currentTooltip == index)
+        {
+            currentTooltip = -1;
+            tooltip.gameObject.SetActive(false);
+        }
+        else
+        {
+            currentTooltip = index;
+            tooltipText.text = string.Format(GlobalDefine.FORMAT_TOOLTIP_UNLOCK, GlobalDefine.BOOSTER_LEVEL[index]);
+            tooltip.anchoredPosition = new Vector2(buttonBooster[index].transform.localPosition.x, 200);
+            tooltip.gameObject.SetActive(true);
+        }
     }
 
     /** 재시도 버튼을 눌렀을 경우 */

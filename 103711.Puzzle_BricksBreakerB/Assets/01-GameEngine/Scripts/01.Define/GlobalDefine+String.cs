@@ -6,6 +6,12 @@ public static partial class GlobalDefine
 {
     public const string FORMAT_BOTTOM_ITEM = "x{0}";
     public const string FORMAT_FREE = "FREE";
+    public const string FORMAT_LEVEL = "Level {0}";
+    public const string FORMAT_TOOLTIP_UNLOCK = "Unlock on level {0}";
+
+    public static STSortingOrderInfo SortingInfo_HPText = new STSortingOrderInfo()  { m_nOrder = 200, m_oLayer = KCDefine.U_SORTING_L_CELL };
+    public static STSortingOrderInfo SortingInfo_NumText = new STSortingOrderInfo() { m_nOrder = 200, m_oLayer = KCDefine.U_SORTING_L_BALL };
+    public static STSortingOrderInfo SortingInfo_TooltipText = new STSortingOrderInfo(){ m_nOrder = 100, m_oLayer = KCDefine.U_SORTING_L_FOREGROUND };
 
     public const string STRING_TRUE = "True";
     public const string STRING_FALSE = "False";

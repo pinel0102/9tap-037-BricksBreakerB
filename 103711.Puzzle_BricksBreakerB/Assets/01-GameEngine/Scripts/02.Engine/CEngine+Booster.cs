@@ -47,7 +47,7 @@ namespace NSEngine {
         {
             switch(index)
             {
-                case 0: return EObjKinds.SPECIAL_BRICKS_MISSILE_01;
+                case 0: return EObjKinds.SPECIAL_BRICKS_MISSILE_02;
                 case 1: return EObjKinds.SPECIAL_BRICKS_LIGHTNING_01;
                 case 2: return EObjKinds.SPECIAL_BRICKS_EXPLOSION_CROSS_01;
                 default: return EObjKinds.NONE;

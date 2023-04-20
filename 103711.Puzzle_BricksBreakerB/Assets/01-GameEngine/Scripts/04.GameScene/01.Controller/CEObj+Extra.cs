@@ -96,7 +96,7 @@ namespace NSEngine {
             if (this.HitSprite != null)
             {
                 this.HitSprite?.ExSetSprite<SpriteRenderer>(Access.GetSprite(_kinds));
-                this.HitSprite.sortingOrder = this.TargetSprite.sortingOrder + GlobalDefine.HitEffect_Order;
+                this.HitSprite.sortingOrder = this.TargetSprite.sortingOrder + 1;
                 this.HitSprite.size = GlobalDefine.GetSpriteSize(Access.CellSize, this.Params.m_stObjInfo.m_stSize) + GlobalDefine.CELL_SPRITE_ADJUSTMENT;
 
                 ToggleHitSprite(false);
