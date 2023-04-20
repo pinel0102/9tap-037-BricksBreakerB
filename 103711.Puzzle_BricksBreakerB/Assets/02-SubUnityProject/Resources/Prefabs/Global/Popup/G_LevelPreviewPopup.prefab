@@ -95,7 +95,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2888760671268270611
 RectTransform:
   m_ObjectHideFlags: 0
@@ -710,7 +710,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &301770165162209591
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5496,7 +5496,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &9160326579765077533
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5937,12 +5937,17 @@ MonoBehaviour:
   - {fileID: 2908451205969571552}
   - {fileID: 3578806163825137452}
   buttonPlayAD: {fileID: 5365733478802762407}
+  buttonBooster:
+  - {fileID: 8378872187176382493}
+  - {fileID: 968826919910551255}
+  - {fileID: 2719230624694270517}
+  boosterOn:
+  - {fileID: 7751774570844181895}
+  - {fileID: 822931656434341851}
+  - {fileID: 483400807325886679}
   levelText: {fileID: 7811685519067790455}
   previewMask: {fileID: 6994324665175676657}
   previewArea: {fileID: 2833657208872661902}
-  firstRow: 0
-  lastRow: 0
-  activeLine: 0
 --- !u!1 &8103819510597783411
 GameObject:
   m_ObjectHideFlags: 0

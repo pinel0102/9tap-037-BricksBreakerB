@@ -36,6 +36,8 @@ public partial class CPreviewPopup : CSubPopup {
 
     public List<Button> buttonPlay = new List<Button>();
     public Button buttonPlayAD;
+    public List<Button> buttonBooster = new List<Button>();
+    public List<GameObject> boosterOn = new List<GameObject>();
 
 	#endregion // 변수
 
@@ -60,12 +62,18 @@ public partial class CPreviewPopup : CSubPopup {
 			($"{EKey.LEAVE_BTN}", this.gameObject, this.OnTouchLeaveBtn)
 		});
 
-        for (int i=0; i < buttonPlay.Count; i++)
+        for(int i=0; i < buttonPlay.Count; i++)
         {
             buttonPlay[i].ExAddListener(this.OnTouchPlayButton);
         }
 
         buttonPlayAD.ExAddListener(this.OnTouchPlayButtonAD);
+
+        for(int i=0; i < buttonBooster.Count; i++)
+        {
+            int index = i;
+            buttonBooster[index].ExAddListener(() => this.OnTouchBoosterButton(index));
+        }
 
 		this.SubAwake();
 	}
@@ -90,6 +98,11 @@ public partial class CPreviewPopup : CSubPopup {
         Params.Engine.SetupPreview(previewArea, previewMask);
 
         levelText.text = string.Format(formatLevel, Params.Engine.currentLevel);
+
+        for(int i=0; i < boosterOn.Count; i++)
+        {
+            boosterOn[i].SetActive(false);
+        }
         
         GlobalDefine.PlaySoundFX(ESoundSet.SOUND_LEVEL_READY);
 
@@ -106,6 +119,15 @@ public partial class CPreviewPopup : CSubPopup {
         this.OnTouchResumeBtn();
     }
 
+    private void OnTouchBoosterButton(int index)
+    {
+        bool oldValue = this.Params.Engine.boosterList[index];
+        bool newValue = !oldValue;
+
+        this.Params.Engine.ChangeBooster(index, newValue);
+        boosterOn[index].SetActive(newValue);
+    }
+
     /** 재시도 버튼을 눌렀을 경우 */
 	public void OnTouchRetryBtn() {
 		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.RETRY)?.Invoke(this);
@@ -117,6 +139,7 @@ public partial class CPreviewPopup : CSubPopup {
 
 	/** Play 버튼을 눌렀을 경우 */
 	private void OnTouchResumeBtn() {
+        this.Params.Engine.SetBooster();
 		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.RESUME)?.Invoke(this);
 	}
 	#endregion // 함수

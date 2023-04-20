@@ -515,7 +515,7 @@ public enum EObjKinds {
     SPECIAL_BRICKS_EARTHQUAKE_01 = (EEnumVal.T * EObjType.SPECIAL_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 9) + (EEnumVal.SKT * 0),
 
     // 1,201,000,000
-    SPECIAL_BRICKS_MORPH_01 = (EEnumVal.T * EObjType.OBSTACLE_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 10) + (EEnumVal.SKT * 0),
+    SPECIAL_BRICKS_MORPH_01 = (EEnumVal.T * EObjType.SPECIAL_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 10) + (EEnumVal.SKT * 0),
     SPECIAL_BRICKS_MORPH_02,
     SPECIAL_BRICKS_MORPH_03,
     SPECIAL_BRICKS_MORPH_04,

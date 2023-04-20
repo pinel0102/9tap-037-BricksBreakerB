@@ -167,6 +167,33 @@ namespace NSEngine {
             return cellList;
         }
 
+        public List<CEObj> GetAllCells(EObjType typeToGet)
+        {
+            List<CEObj> cellList = new List<CEObj>();
+
+            for (int row = 0; row < this.CellObjLists.GetLength(KCDefine.B_VAL_0_INT); row++)
+            {
+                for (int col = 0; col < this.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); col++)
+                {
+                    int _count = this.CellObjLists[row, col].Count;
+                    if (_count > 0)
+                    {
+                        int _cLastLayer = _count - 1;
+                        CEObj target = this.CellObjLists[row, col][_cLastLayer];
+                        if (target != null && target.IsActiveCell())
+                        {
+                            if ((EObjType)((int)target.Params.m_stObjInfo.m_eObjKinds).ExKindsToType() == typeToGet)
+                            {
+                                cellList.Add(target);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return cellList;
+        }
+
         ///<Summary>화면 내에 있는 랜덤한 빈 셀 좌표를 반환. (Vector3Int(col, row, layer))</Summary>
         public List<Vector3Int> GetRandomEmptyCells(int firstRow, int lastRow, int count)
         {

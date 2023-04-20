@@ -64,6 +64,7 @@ public partial class GlobalDefine
         [EFXSet.FX_MISSILE_HEAD]    = new KeyValuePair<string, float>("FX_MissileHead", FXMissile_Time),    // [OK] 미사일 과녘.
         [EFXSet.FX_LIGHTNING]       = new KeyValuePair<string, float>("FX_Lightning", 0.2f),                // [OK] 번개.
         [EFXSet.FX_LIGHTNING_HIT]   = new KeyValuePair<string, float>("FX_Lightning_Hit", 0.02f),           // [OK] 번개 히트.
+        [EFXSet.FX_BOOSTER]         = new KeyValuePair<string, float>("FX_FireCircle", 1.0f),               // [OK] 부스터로 인한 셀 변경 발동.
     };
 
     public static readonly Dictionary<EFXSet, string> CellFXContainer = new Dictionary<EFXSet, string>()
@@ -171,4 +172,5 @@ public enum EFXSet
     FX_BOMB_FLAME, // 폭탄 심지 효과.
     FX_MISSILE_BULLET, // 미사일.
     FX_MISSILE_HEAD, // 미사일 과녘.
+    FX_BOOSTER, // 부스터로 인한 셀 변경 발동.
 }

@@ -192,10 +192,11 @@ namespace NSEngine {
             InitPreview();
             InitCellRoot();
             InitLayerMask();
-
+            
             InitScoreList(CGameInfoStorage.Inst.PlayLevelInfo);
             InitCombo();
             InitScore();
+            InitBooster();
 
             currentLevel = (int)CGameInfoStorage.Inst.PlayLevelInfo.ULevelID + 1;
             isTutorial = GlobalDefine.TUTORIAL_LEVEL_BOTTOM_ITEM.Contains(currentLevel);
