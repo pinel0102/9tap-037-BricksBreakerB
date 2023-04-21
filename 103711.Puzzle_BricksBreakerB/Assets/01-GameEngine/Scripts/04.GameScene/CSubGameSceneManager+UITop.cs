@@ -81,6 +81,8 @@ namespace GameScene {
             darkModeButton[1].SetActive(isDarkMode);
             darkModeBackground[0].SetActive(isDarkMode);
             darkModeBackground[1].SetActive(!isDarkMode);
+            darkModeTopPanel[0].SetActive(isDarkMode);
+            darkModeTopPanel[1].SetActive(!isDarkMode);
         }
 
         public void OnTouchClearBtn()

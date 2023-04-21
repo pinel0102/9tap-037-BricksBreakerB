@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GameScene {
     public partial class CSubGameSceneManager : CGameSceneManager
@@ -15,6 +16,7 @@ namespace GameScene {
         public GameObject goldenAimOn;
         public GameObject[] darkModeButton;
         public GameObject[] darkModeBackground;
+        public GameObject[] darkModeTopPanel;
         private Camera mainCamera;
         
         private void AssignEngine()
