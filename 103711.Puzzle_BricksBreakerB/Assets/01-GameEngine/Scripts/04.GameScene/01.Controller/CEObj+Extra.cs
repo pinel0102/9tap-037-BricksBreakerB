@@ -24,8 +24,9 @@ namespace NSEngine {
         public int row;
         public int col;
         public int layer;
-        public Vector3 centerPosition => (parentCell != null) ? parentCell.centerPosition : transform.position + (spriteOffset * Engine.SelGridInfo.m_stScale.x); // World Position
+        public Vector3 centerPosition => (parentCell != null) ? parentCell.centerPosition : transform.position + ((spriteOffset + effectOffset) * Engine.SelGridInfo.m_stScale.x); // World Position
         private Vector3 spriteOffset;
+        private Vector3 effectOffset;
 
         public void SetPlaceHolder(Vector3Int cellScale)
         {
@@ -55,6 +56,7 @@ namespace NSEngine {
         public void InitSprite(bool _needSubSprite)
         {
             TargetSprite.transform.localPosition = spriteOffset = GlobalDefine.GetSpriteCenter(Access.CellSize, this.Params.m_stObjInfo.m_stSize);
+            effectOffset = GlobalDefine.GetEffect_Offset(kinds);
 
             if (_needSubSprite)
             {

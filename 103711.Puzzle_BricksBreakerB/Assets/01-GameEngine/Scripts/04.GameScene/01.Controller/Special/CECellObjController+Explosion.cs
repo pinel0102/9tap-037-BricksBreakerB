@@ -28,12 +28,14 @@ namespace NSEngine {
         {
             CEObj myCell = this.GetOwner<CEObj>();
             int _cRow = myCell.row;
+            int _cCol = myCell.col;
 
             //Debug.Log(CodeManager.GetMethodName() + string.Format("Row:{0}, Col:{1}, {2}", myCell.row, myCell.column, myCell.layer));
 
             for(int i = 0; i < Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); ++i) 
             {
-                Engine.CellDestroy_SkillTarget(_cRow, i);
+                if (i != _cCol)
+                    Engine.CellDestroy_SkillTarget(_cRow, i);
             }
 
             ShowEffect_Explosion(myCell.centerPosition, GlobalDefine.FXLaser_Rotation_Horizontal);
@@ -43,13 +45,15 @@ namespace NSEngine {
         private void Explosion_Vertical(EObjKinds kindsType, EObjKinds kinds)
         {
             CEObj myCell = this.GetOwner<CEObj>();
+            int _cRow = myCell.row;
             int _cCol = myCell.col;
 
             //Debug.Log(CodeManager.GetMethodName() + string.Format("Row:{0}, Col:{1}, {2}", myCell.row, myCell.column, myCell.layer));
 
             for(int i = 0; i < Engine.CellObjLists.GetLength(KCDefine.B_VAL_0_INT); ++i) 
             {
-                Engine.CellDestroy_SkillTarget(i, _cCol);
+                if (i != _cRow)
+                    Engine.CellDestroy_SkillTarget(i, _cCol);
 			}
 
             ShowEffect_Explosion(myCell.centerPosition, GlobalDefine.FXLaser_Rotation_Vertictal);
@@ -75,7 +79,8 @@ namespace NSEngine {
             {
                 for (int j = Mathf.Max(0, _cCol - 1); j < Mathf.Min(_cCol + 2, Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT)); j++)
                 {
-                    Engine.CellDestroy_SkillTarget(i, j);
+                    if (i != _cRow && j != _cCol)
+                        Engine.CellDestroy_SkillTarget(i, j);
                 }
             }
 

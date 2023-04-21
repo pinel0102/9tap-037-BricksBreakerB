@@ -6,7 +6,7 @@ namespace NSEngine {
 	/** 서브 셀 객체 제어자 */
 	public partial class CECellObjController : CEObjController {
 
-        private void GetSpecial_Earthquake(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds, int _ATK = KCDefine.B_VAL_1_INT)
+        private void GetSpecial_Earthquake(EObjKinds kindsType, EObjKinds kinds, int _ATK = KCDefine.B_VAL_1_INT)
         {
             //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kinds));
 
@@ -15,7 +15,7 @@ namespace NSEngine {
             
             switch(kinds)
             {
-                case EObjKinds.SPECIAL_BRICKS_EARTHQUAKE_01: Earthquake(ballController, 50, excludeList); break;
+                case EObjKinds.SPECIAL_BRICKS_EARTHQUAKE_01: Earthquake(50, excludeList); break;
                 default: break;
             }
 
@@ -24,7 +24,7 @@ namespace NSEngine {
         }
 
         ///<Summary>지진.</Summary>
-        private void Earthquake(CEBallObjController ballController, int _ATK, List<CEObj> excludeList)
+        private void Earthquake(int _ATK, List<CEObj> excludeList)
         {
             Engine.subGameSceneManager.ShakeCamera(() => {
 
@@ -32,7 +32,7 @@ namespace NSEngine {
 
                 for(int i=0; i < targetList.Count; i++)
                 {
-                    Engine.CellDamage_EnableHit(targetList[i], ballController, _ATK);
+                    Engine.CellDamage_EnableHit(targetList[i], null, _ATK);
                 }
 
             });

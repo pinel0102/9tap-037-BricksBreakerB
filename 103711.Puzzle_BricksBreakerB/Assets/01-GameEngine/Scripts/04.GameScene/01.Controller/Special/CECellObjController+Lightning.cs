@@ -34,8 +34,6 @@ namespace NSEngine {
                 Engine.CellDamage_EnableHit(targetList[i], ballController, _ATK);
                 ShowEffect_Lightning(myCell.centerPosition, targetList[i]);
             }
-
-            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_LIGHTNING);
         }
 
         private void ShowEffect_Lightning(Vector3 centerPosition, CEObj target)
@@ -58,6 +56,7 @@ namespace NSEngine {
 
             GlobalDefine.ShowEffect_Lightning(EFXSet.FX_LIGHTNING, fxPosition, fxAngle, fxScale, fxStartSizeY_Min, fxStartSizeY_Max);
             GlobalDefine.ShowEffect(EFXSet.FX_LIGHTNING_HIT, toPosition, Vector3.zero, fxHitScaleVector);
+            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_SPECIAL_LIGHTNING);
         }
     }
 }

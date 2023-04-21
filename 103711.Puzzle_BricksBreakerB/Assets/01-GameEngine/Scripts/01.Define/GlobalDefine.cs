@@ -71,4 +71,15 @@ public static partial class GlobalDefine
                 return Vector2.zero;
         }
     }
+
+    public static Vector2 GetEffect_Offset(EObjKinds kinds)
+    {
+        switch(kinds)
+        {
+            case EObjKinds.SPECIAL_BRICKS_EXPLOSION_ALL_01:
+                return ColliderOffset_EXPLOSION_ALL;
+            default:
+                return Vector2.zero;
+        }
+    }
 }

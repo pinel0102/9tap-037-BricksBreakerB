@@ -21,7 +21,7 @@ namespace NSEngine {
 
         private void UnLock(EObjKinds targetKinds)
         {
-            List<CEObj> targetList = Engine.GetAllCells(targetKinds);            
+            List<CEObj> targetList = Engine.GetAllCells(targetKinds, true);            
             for (int i=0; i < targetList.Count; i++)
             {
                 CECellObjController target = targetList[i].GetComponent<CECellObjController>();

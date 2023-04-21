@@ -5,12 +5,15 @@ using UnityEngine;
 namespace NSEngine {
     public partial class CECellObjController : CEObjController
     {
+        public bool isDestroyed;
         public bool hideReserved;
 
         private Coroutine hitCoroutine;
 
         private void Initialize(EObjKinds kinds)
         {
+            this.isDestroyed = false;
+            
             switch(kinds)
             {
                 case EObjKinds.OBSTACLE_BRICKS_FIX_03:
@@ -39,7 +42,7 @@ namespace NSEngine {
                 target.HPText.text = $"{stCellObjInfo.SHIELD}";
                 target.SetCellObjInfo(stCellObjInfo);
 
-                if (ballController.isOn_PowerBall)
+                if (ballController != null && ballController.isOn_PowerBall)
                 {
                     GlobalDefine.ShowEffect(EFXSet.FX_POWER_BALL_HIT, target.centerPosition);
                 }
@@ -63,7 +66,7 @@ namespace NSEngine {
                 target.SetCellObjInfo(stCellObjInfo);
                 target.SetSpriteColor(target.CellObjInfo.ObjKinds);
 
-                if (ballController.isOn_PowerBall)
+                if (ballController != null && ballController.isOn_PowerBall)
                 {
                     GlobalDefine.ShowEffect(EFXSet.FX_POWER_BALL_HIT, target.centerPosition);
                 }
@@ -80,7 +83,7 @@ namespace NSEngine {
                 if(stCellObjInfo.HP <= KCDefine.B_VAL_0_INT) 
                 {
                     GlobalDefine.ShowEffect(EFXSet.FX_BREAK_BRICK, target.centerPosition, GlobalDefine.GetFXScale_BREAK(target.Params.m_stObjInfo.m_stSize), GlobalDefine.GetFXColor_BREAK(target.CellObjInfo.ObjKinds, false, target.Params.m_stObjInfo.m_bIsEnableColor, target.CellObjInfo.ColorID));
-                    CellAfterEffect(ballController, kindsType, kinds);
+                    //CellAfterEffect(ballController, kindsType, kinds);
                     CellDestroy(isSoundPlay);
                 }
                 else
@@ -250,20 +253,51 @@ namespace NSEngine {
         }
 
         ///<Summary>셀의 HP가 0이 되어 파괴시 발동하는 효과.</Summary>
-        private void CellAfterEffect(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds)
+        private void CellAfterEffect(EObjKinds kindsType, EObjKinds kinds, bool isSoundPlay = true, bool isForce = false)
         {
+            CEObj myCell = this.GetOwner<CEObj>();
+
             switch(kindsType)
             {
+                case EObjKinds.OBSTACLE_BRICKS_KEY_01:
+                    GetObstacle_Key(kindsType);
+                    break;
+                case EObjKinds.OBSTACLE_BRICKS_WOODBOX_01:
+                case EObjKinds.OBSTACLE_BRICKS_WOODBOX_02:
+                    if (myCell.Params.m_stObjInfo.m_bIsShieldCell && !isForce)
+                    {
+                        isDestroyed = false;
+                        GetObstacle_WoodBox(kindsType, kinds);
+                        return;
+                    }
+                    else
+                    {
+                        PlaySoundDestroy(isSoundPlay);
+                    }
+                    break;
                 case EObjKinds.SPECIAL_BRICKS_ADD_BALL_01:
                 case EObjKinds.SPECIAL_BRICKS_ADD_BALL_02:
                 case EObjKinds.SPECIAL_BRICKS_ADD_BALL_03:
-                    GetSpecial_AddBall(ballController, kindsType, kinds);
+                    GetSpecial_AddBall(kindsType, kinds);
+                    PlaySoundDestroy(isSoundPlay);
                     break;
                 case EObjKinds.SPECIAL_BRICKS_EXPLOSION_HORIZONTAL_01:
                 case EObjKinds.SPECIAL_BRICKS_EXPLOSION_VERTICAL_01:
                 case EObjKinds.SPECIAL_BRICKS_EXPLOSION_CROSS_01:
                 case EObjKinds.SPECIAL_BRICKS_EXPLOSION_AROUND_01:
                     GetSpecial_Explosion(kindsType, kinds);
+                    PlaySoundDestroy(isSoundPlay);
+                    break;
+                case EObjKinds.SPECIAL_BRICKS_EXPLOSION_ALL_01:
+                    if (Engine.isExplosionAll)
+                    {
+                        PlaySoundDestroy(isSoundPlay);
+                    }
+                    else
+                    {
+                        Engine.isExplosionAll = true;
+                        GetSpecial_Explosion(kindsType, kinds);
+                    }
                     break;
                 case EObjKinds.SPECIAL_BRICKS_ARROW_01:
                 case EObjKinds.SPECIAL_BRICKS_ARROW_02:
@@ -274,13 +308,16 @@ namespace NSEngine {
                 case EObjKinds.SPECIAL_BRICKS_ARROW_07:
                 case EObjKinds.SPECIAL_BRICKS_ARROW_08:
                     GetSpecial_Arrow(kindsType, kinds);
+                    PlaySoundDestroy(isSoundPlay);
                     break;
                 case EObjKinds.SPECIAL_BRICKS_MISSILE_01:
                 case EObjKinds.SPECIAL_BRICKS_MISSILE_02:
                     GetSpecial_Missile(kindsType, kinds);
+                    PlaySoundDestroy(isSoundPlay);
                     break;
                 case EObjKinds.SPECIAL_BRICKS_EARTHQUAKE_01:
-                    GetSpecial_Earthquake(ballController, kindsType, kinds);
+                    GetSpecial_Earthquake(kindsType, kinds);
+                    PlaySoundDestroy(isSoundPlay);
                     break;
                 default:
                     //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=red>{0}</color>", kindsType));
@@ -306,49 +343,86 @@ namespace NSEngine {
         ///<Summary>셀 파괴. (열쇠 효과만 발동.)</Summary>
         public void CellDestroy(bool isSoundPlay = true, bool isForce = false)
         {
+            if (isDestroyed) return;
+
             StopAllCoroutines();
-            
+
             CEObj myCell = this.GetOwner<CEObj>();
             EObjKinds kinds = myCell.Params.m_stObjInfo.m_eObjKinds;
             EObjKinds kindsType = (EObjKinds)((int)kinds).ExKindsToCorrectKinds(EKindsGroupType.SUB_KINDS_TYPE);
-            
+
             if(myCell.Params.m_stObjInfo.m_bIsClearTarget)
                 Engine.GetScore();
 
-            switch(kindsType)
+            if(myCell.IsActiveCell())
             {
-                case EObjKinds.OBSTACLE_BRICKS_KEY_01:
-                    GetObstacle_Key(kindsType);
-                    break;
-                case EObjKinds.OBSTACLE_BRICKS_WOODBOX_01:
-                case EObjKinds.OBSTACLE_BRICKS_WOODBOX_02:
-                    if (myCell.Params.m_stObjInfo.m_bIsShieldCell && !isForce)
-                    {
-                        GetObstacle_WoodBox(kindsType, kinds);
-                        return;
-                    }
-                    else
-                    {
-                        if (isSoundPlay)
-                            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_BRICK_DESTROY);
-                    }
-                    break;
-                case EObjKinds.SPECIAL_BRICKS_EXPLOSION_ALL_01:
-                    if (Engine.isExplosionAll)
-                    {
-                        if (isSoundPlay)
-                            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_BRICK_DESTROY);
-                    }
-                    else
-                    {
-                        Engine.isExplosionAll = true;
+                isDestroyed = true;
+
+                switch(kindsType)
+                {
+                    case EObjKinds.OBSTACLE_BRICKS_KEY_01:
+                        GetObstacle_Key(kindsType);
+                        break;
+                    case EObjKinds.OBSTACLE_BRICKS_WOODBOX_01:
+                    case EObjKinds.OBSTACLE_BRICKS_WOODBOX_02:
+                        if (myCell.Params.m_stObjInfo.m_bIsShieldCell && !isForce)
+                        {
+                            GetObstacle_WoodBox(kindsType, kinds);
+                            return;
+                        }
+                        else
+                        {
+                            PlaySoundDestroy(isSoundPlay);
+                        }
+                        break;
+                    case EObjKinds.SPECIAL_BRICKS_ADD_BALL_01:
+                    case EObjKinds.SPECIAL_BRICKS_ADD_BALL_02:
+                    case EObjKinds.SPECIAL_BRICKS_ADD_BALL_03:
+                        GetSpecial_AddBall(kindsType, kinds);
+                        PlaySoundDestroy(isSoundPlay);
+                        break;
+                    case EObjKinds.SPECIAL_BRICKS_EXPLOSION_HORIZONTAL_01:
+                    case EObjKinds.SPECIAL_BRICKS_EXPLOSION_VERTICAL_01:
+                    case EObjKinds.SPECIAL_BRICKS_EXPLOSION_CROSS_01:
+                    case EObjKinds.SPECIAL_BRICKS_EXPLOSION_AROUND_01:
                         GetSpecial_Explosion(kindsType, kinds);
-                    }
-                    break;
-                default:
-                    if (isSoundPlay)
-                        GlobalDefine.PlaySoundFX(ESoundSet.SOUND_BRICK_DESTROY);
-                    break;
+                        PlaySoundDestroy(isSoundPlay);
+                        break;
+                    case EObjKinds.SPECIAL_BRICKS_EXPLOSION_ALL_01:
+                        if (Engine.isExplosionAll)
+                        {
+                            PlaySoundDestroy(isSoundPlay);
+                        }
+                        else
+                        {
+                            Engine.isExplosionAll = true;
+                            GetSpecial_Explosion(kindsType, kinds);
+                        }
+                        break;
+                    case EObjKinds.SPECIAL_BRICKS_ARROW_01:
+                    case EObjKinds.SPECIAL_BRICKS_ARROW_02:
+                    case EObjKinds.SPECIAL_BRICKS_ARROW_03:
+                    case EObjKinds.SPECIAL_BRICKS_ARROW_04:
+                    case EObjKinds.SPECIAL_BRICKS_ARROW_05:
+                    case EObjKinds.SPECIAL_BRICKS_ARROW_06:
+                    case EObjKinds.SPECIAL_BRICKS_ARROW_07:
+                    case EObjKinds.SPECIAL_BRICKS_ARROW_08:
+                        GetSpecial_Arrow(kindsType, kinds);
+                        PlaySoundDestroy(isSoundPlay);
+                        break;
+                    case EObjKinds.SPECIAL_BRICKS_MISSILE_01:
+                    case EObjKinds.SPECIAL_BRICKS_MISSILE_02:
+                        GetSpecial_Missile(kindsType, kinds);
+                        PlaySoundDestroy(isSoundPlay);
+                        break;
+                    case EObjKinds.SPECIAL_BRICKS_EARTHQUAKE_01:
+                        GetSpecial_Earthquake(kindsType, kinds);
+                        PlaySoundDestroy(isSoundPlay);
+                        break;
+                    default:
+                        //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=red>{0}</color>", kindsType));
+                        break;
+                }
             }
 
             for(int i=0; i < myCell.placeHolder.Count; i++)
@@ -359,9 +433,15 @@ namespace NSEngine {
                 if (placeHolderCell[_cLastLayer] != myCell)
                     placeHolderCell[_cLastLayer].GetComponent<CECellObjController>().CellDestroy(false);
             }
-
+            
             myCell.SetCellActive(false);
             myCell.Params.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(CEObjComponent.ECallback.ENGINE_OBJ_EVENT)?.Invoke(this.GetOwner<CEObj>(), EEngineObjEvent.DESTROY, string.Empty);
+        }
+
+        private void PlaySoundDestroy(bool isSoundPlay)
+        {
+            if (isSoundPlay)
+                GlobalDefine.PlaySoundFX(ESoundSet.SOUND_BRICK_DESTROY);
         }
 
 #endregion Privates

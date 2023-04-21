@@ -140,7 +140,7 @@ namespace NSEngine {
                             .Take(count).ToList();
         }
 
-        public List<CEObj> GetAllCells(EObjKinds kindsToGet)
+        public List<CEObj> GetAllCells(EObjKinds kindsToGet, bool includeHideCells = false)
         {
             List<CEObj> cellList = new List<CEObj>();
 
@@ -153,7 +153,7 @@ namespace NSEngine {
                     {
                         int _cLastLayer = _count - 1;
                         CEObj target = this.CellObjLists[row, col][_cLastLayer];
-                        if (target != null && target.IsActiveCell())
+                        if (target != null && (target.IsActiveCell() || includeHideCells))
                         {
                             if (target.Params.m_stObjInfo.m_eObjKinds == kindsToGet)
                             {
@@ -167,7 +167,7 @@ namespace NSEngine {
             return cellList;
         }
 
-        public List<CEObj> GetAllCells(EObjType typeToGet)
+        public List<CEObj> GetAllCells(EObjType typeToGet, bool includeHideCells = false)
         {
             List<CEObj> cellList = new List<CEObj>();
 
@@ -180,7 +180,7 @@ namespace NSEngine {
                     {
                         int _cLastLayer = _count - 1;
                         CEObj target = this.CellObjLists[row, col][_cLastLayer];
-                        if (target != null && target.IsActiveCell())
+                        if (target != null &&(target.IsActiveCell() || includeHideCells))
                         {
                             if ((EObjType)((int)target.Params.m_stObjInfo.m_eObjKinds).ExKindsToType() == typeToGet)
                             {
