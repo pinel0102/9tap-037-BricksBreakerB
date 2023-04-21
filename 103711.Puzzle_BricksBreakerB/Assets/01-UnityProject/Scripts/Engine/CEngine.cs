@@ -81,6 +81,7 @@ namespace NSEngine {
             this.isShooting = false;
             this.isLevelClear = false;
             this.isLevelFail = false;
+            this.isAddSteelBricks = false;
             this.isExplosionAll = false;
 
 			this.SetupEngine();

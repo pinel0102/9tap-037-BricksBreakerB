@@ -16,6 +16,7 @@ namespace NSEngine {
         public bool isLevelFail;
         public bool isGridMoving;
         public bool isWarning;
+        public bool isAddSteelBricks;
         public bool isExplosionAll;
 
         [Header("★ [Parameter] Balls")]

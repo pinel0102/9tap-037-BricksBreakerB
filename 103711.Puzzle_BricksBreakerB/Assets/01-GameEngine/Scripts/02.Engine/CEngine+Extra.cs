@@ -21,7 +21,7 @@ namespace NSEngine {
             this.InitCombo();
 
             // 클리어했을 경우
-            if(this.IsClear()) 
+            if(this.IsClear())
             {
                 isLevelClear = true;
                 subGameSceneManager.SetEnableUpdateUIsState(true);
@@ -32,8 +32,11 @@ namespace NSEngine {
                     LevelClear();                
             } 
             else if (!isLevelFail && !isGridMoving && !_isBottomItem)
-            {   
+            {
                 this.TurnEndAction();
+
+                isAddSteelBricks = false;
+                isExplosionAll = false;
 
                 isGridMoving = true;
                 this.ExLateCallFunc((a_oFuncSender) => {
@@ -49,6 +52,9 @@ namespace NSEngine {
 
         private void TurnEnd(bool _waitDelay = false)
         {
+            startPosition = SelBallObj.transform.localPosition;
+            shootDirection = Vector3.zero;
+
             CheckRemoveBalls();
             ChangeToNormalBalls();
             this.SetPlayState(EPlayState.IDLE);

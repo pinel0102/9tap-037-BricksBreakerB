@@ -89,13 +89,13 @@ namespace GameScene {
                 {
                     Engine.CellDestroy_SkillTarget(lastClearTarget.row, i, true);
                 }
+
+                GlobalDefine.PlaySoundFX(ESoundSet.SOUND_ITEM_BRICKS_DELETE);
             }
 
             Engine.RefreshActiveCells();
             Engine.CheckDeadLine();
             Engine.CheckClear(true, true);
-
-            GlobalDefine.PlaySoundFX(ESoundSet.SOUND_ITEM_BRICKS_DELETE);
         }
 
         public void OnClick_Bottom_AddLaserBricks()
@@ -118,7 +118,7 @@ namespace GameScene {
 
         public void OnClick_Bottom_AddSteelBricks()
         {
-            if (!CanUseBottomItem()) return;
+            if (!CanUseBottomItem() || Engine.isAddSteelBricks) return;
 
             int addCount = Mathf.CeilToInt(Engine.viewSize.x / 2f) - 1;
 
@@ -130,6 +130,8 @@ namespace GameScene {
 
                 Engine.AddCell(targetList[i], kinds, cellObjInfo, true);
             }
+
+            Engine.isAddSteelBricks = true;
 
             GlobalDefine.PlaySoundFX(ESoundSet.SOUND_ITEM_ADD_STEEL_BRICKS);
         }

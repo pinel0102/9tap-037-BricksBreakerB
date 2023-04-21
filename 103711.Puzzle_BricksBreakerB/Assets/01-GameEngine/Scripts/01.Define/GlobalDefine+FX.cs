@@ -152,6 +152,14 @@ public partial class GlobalDefine
         prefab.transform.localScale = _scale;
     }
 
+    public static void RemoveCellEffect(Transform _parent)
+    {
+        for(int i=0; i < _parent.childCount; i++)
+        {
+            GameObject.Destroy(_parent.GetChild(i).gameObject);
+        }
+    }
+
     public static Vector3 GetFXScale_BREAK(Vector3Int cellScale)
     {
         return FXBreak_Scale_Default * Mathf.Min(cellScale.x, cellScale.y, 2);

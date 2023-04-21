@@ -2038,7 +2038,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.15686275, g: 0.15686275, b: 0.39215687, a: 0}
+  m_Color: {r: 0.15686275, g: 0.15686275, b: 0.39215687, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9955,6 +9955,10 @@ PrefabInstance:
     - target: {fileID: 3369356200702502253, guid: 4dddc22231dcc4fc09f29701c9d6f65f, type: 3}
       propertyPath: m_Name
       value: DebugUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 3369356200702502253, guid: 4dddc22231dcc4fc09f29701c9d6f65f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7528738591316827382, guid: 4dddc22231dcc4fc09f29701c9d6f65f, type: 3}
       propertyPath: m_AnchoredPosition.y

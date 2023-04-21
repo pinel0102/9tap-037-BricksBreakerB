@@ -195,13 +195,13 @@ namespace NSEngine {
         }
 
         ///<Summary>화면 내에 있는 랜덤한 빈 셀 좌표를 반환. (Vector3Int(col, row, layer))</Summary>
-        public List<Vector3Int> GetRandomEmptyCells(int firstRow, int lastRow, int count)
+        public List<Vector3Int> GetRandomEmptyCells(int _firstRow, int _lastRow, int count)
         {
-            //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>[{0} ~ {1}]</color>", firstRow, lastRow - 1));
+            //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>[{0} ~ {1}]</color>", _firstRow, _lastRow - 1));
 
             List<Vector3Int> cellList = new List<Vector3Int>();
 
-            for (int row = firstRow; row < lastRow; row++)
+            for (int row = _firstRow; row < _lastRow; row++)
             {
                 for (int col = 0; col < this.CellObjLists.GetLength(KCDefine.B_VAL_1_INT); col++)
                 {
@@ -220,8 +220,6 @@ namespace NSEngine {
         ///<Summary>화면 내에 있는 가장 아래 빈 셀 좌표를 반환. (Vector3Int(col, row, layer))</Summary>
         public List<Vector3Int> GetBottomEmptyCells(int count, bool isDescending)
         {
-            //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>[{0} ~ {1}]</color>", firstRow, lastRow - 1));
-
             List<Vector3Int> cellList = new List<Vector3Int>();
 
             var bottomRow = GetBottomRow();
@@ -234,7 +232,7 @@ namespace NSEngine {
             return isDescending ? cellList.OrderByDescending(g => g.x).Take(count).ToList() : cellList.OrderBy(g => g.x).Take(count).ToList();
         }
 
-        public CEObj GetLastClearTarget()
+        public CEObj GetLastClearTarget(bool includeHideCells = false)
         {
             bool isCellFound = false;
 
@@ -243,7 +241,7 @@ namespace NSEngine {
 					for(int k = 0; k < this.CellObjLists[i, j].Count; ++k) {
 						// 셀이 존재 할 경우
                         CEObj target = this.CellObjLists[i, j][k];
-                        if (target != null && target.IsActiveCell())
+                        if (target != null && (target.IsActiveCell() || includeHideCells))
                         {
                             if (!isCellFound)
                             {
@@ -262,19 +260,24 @@ namespace NSEngine {
 
         public int GetBottomRow()
         {
-            var lastClearTarget = GetLastClearTarget();
-            int row = lastClearTarget.row;
-            
-            Vector2 distanceVector = subGameSceneManager.mainCanvas.WorldToCanvas(lastClearTarget.transform.position - subGameSceneManager.deadLine.position);
-            float distance = distanceVector.y - (cellsizeY * 0.5f);
-            
-            while(distance >= cellsizeY)
+            var lastClearTarget = GetLastClearTarget(true);
+            if (lastClearTarget != null)
             {
-                distance -= cellsizeY;
-                row++;
-            }
+                int row = lastClearTarget.row;
+                
+                Vector2 distanceVector = subGameSceneManager.mainCanvas.WorldToCanvas(lastClearTarget.transform.position - subGameSceneManager.deadLine.position);
+                float distance = distanceVector.y - (cellsizeY * 0.5f);
+                
+                while(distance >= cellsizeY)
+                {
+                    distance -= cellsizeY;
+                    row++;
+                }
 
-            return row;
+                return row;
+            }
+            
+            return 0;
         }
 
         private void SetupPlaceHolderParent()

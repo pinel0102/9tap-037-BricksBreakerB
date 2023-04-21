@@ -20,7 +20,7 @@ namespace NSEngine {
                 this.BallObjList.ExAddVal(oBallObj);
             }
 
-            if (_autoShoot)
+            if (_autoShoot && PlayState == EPlayState.SHOOT)
                 this.ShootBalls(_ballIndex, _addCount);
         }
 
@@ -37,7 +37,7 @@ namespace NSEngine {
                 DeleteBallList.Add(oBallObj);
             }
 
-            if (_autoShoot)
+            if (_autoShoot && PlayState == EPlayState.SHOOT)
                 this.ShootBalls(_ballIndex, _addCount);
         }
 
@@ -70,7 +70,7 @@ namespace NSEngine {
                 this.ExtraBallObjList[i].NumText.text = string.Empty;
             }
 
-            this.BallObjList[0].NumText.text = GlobalDefine.GetBallText(this.BallObjList.Count, this.ExtraBallObjList.Count);
+            this.BallObjList[0].NumText.text = GlobalDefine.GetBallText(BallObjList.Count - DeleteBallList.Count, DeleteBallList.Count);
         }
 
 #endregion Public Methods

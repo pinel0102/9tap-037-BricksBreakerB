@@ -434,6 +434,8 @@ namespace NSEngine {
                     placeHolderCell[_cLastLayer].GetComponent<CECellObjController>().CellDestroy(false);
             }
             
+            GlobalDefine.RemoveCellEffect(myCell.FXRoot);
+            
             myCell.SetCellActive(false);
             myCell.Params.m_stBaseParams.m_oCallbackDict.GetValueOrDefault(CEObjComponent.ECallback.ENGINE_OBJ_EVENT)?.Invoke(this.GetOwner<CEObj>(), EEngineObjEvent.DESTROY, string.Empty);
         }
