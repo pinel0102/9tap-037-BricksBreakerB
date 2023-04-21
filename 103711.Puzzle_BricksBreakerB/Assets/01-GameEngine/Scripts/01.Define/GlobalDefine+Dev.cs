@@ -61,8 +61,11 @@ public static partial class GlobalDefine
         [EObjKinds.SPECIAL_BRICKS_MORPH_04]                 = new KeyValuePair<string, bool>("변형", false),
         
         [EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_01]      = new KeyValuePair<string, bool>("가로 레이저", true),
+        [EObjKinds.SPECIAL_BRICKS_LASER_HORIZONTAL_02]      = new KeyValuePair<string, bool>("가로 레이저", true),
         [EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_01]        = new KeyValuePair<string, bool>("세로 레이저", true),
+        [EObjKinds.SPECIAL_BRICKS_LASER_VERTICAL_02]        = new KeyValuePair<string, bool>("세로 레이저", true),
         [EObjKinds.SPECIAL_BRICKS_LASER_CROSS_01]           = new KeyValuePair<string, bool>("십자 레이저", true),
+        [EObjKinds.SPECIAL_BRICKS_LASER_CROSS_02]           = new KeyValuePair<string, bool>("십자 레이저", true),
         [EObjKinds.SPECIAL_BRICKS_BALL_DIFFUSION_01]        = new KeyValuePair<string, bool>("볼 확산", true),
         [EObjKinds.SPECIAL_BRICKS_BALL_AMPLIFICATION_01]    = new KeyValuePair<string, bool>("볼 증폭", true),
         [EObjKinds.SPECIAL_BRICKS_POWERBALL_01]             = new KeyValuePair<string, bool>("파워 볼", true),
@@ -76,13 +79,14 @@ public static partial class GlobalDefine
 
     private const string formatDevTooltip = "{0}{1}";
     private const string strOnDevelopment = "\n<color=red>(개발중)</color>";
+    private const string strNotSupported = "{0}";
 
     public static string GetTooltipText(EObjKinds kinds)
     {
         if (devComplete.ContainsKey(kinds))
             return string.Format(formatDevTooltip, devComplete[kinds].Key, devComplete[kinds].Value ? string.Empty : strOnDevelopment);
         else
-            return string.Empty;
+            return string.Format(strNotSupported, kinds);
     }
 }
 #endif

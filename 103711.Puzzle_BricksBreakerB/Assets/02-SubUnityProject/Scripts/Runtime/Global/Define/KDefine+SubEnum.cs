@@ -529,7 +529,7 @@ public enum EObjKinds {
 
 	// 1,300,100,000
 	OBSTACLE_BRICKS_FADE_IN_01 = (EEnumVal.T * EObjType.OBSTACLE_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 0),
-	OBSTACLE_BRICKS_FADE_OUT_01,
+	OBSTACLE_BRICKS_FADE_OUT_01 = (EEnumVal.T * EObjType.OBSTACLE_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 1),
 
 	// 1,300,200,000 {
 	OBSTACLE_BRICKS_WARP_IN_01 = (EEnumVal.T * EObjType.OBSTACLE_BRICKS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 2) + (EEnumVal.SKT * 0),

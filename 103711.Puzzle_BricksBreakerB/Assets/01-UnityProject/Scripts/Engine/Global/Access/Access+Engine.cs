@@ -28,8 +28,9 @@ namespace NSEngine {
 		}
 
 		/** 스프라이트를 반환한다 */
-		public static Sprite GetSprite(EObjKinds a_eObjKinds) {
-			string oImgPath = KDefine.E_IMG_P_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToDetailSubKindsType(), string.Empty);
+		public static Sprite GetSprite(EObjKinds a_eObjKinds, bool isEditorScene = false) {
+            string oImgPath = isEditorScene ? KDefine.E_IMG_P_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToDetailSubKindsType(), GlobalDefine.NOT_SUPPORTED_BRICK):
+                                              KDefine.E_IMG_P_OBJ_DICT.GetValueOrDefault((EObjKinds)((int)a_eObjKinds).ExKindsToDetailSubKindsType(), string.Empty);
 			return oImgPath.ExIsValid() ? CResManager.Inst.GetRes<Sprite>(oImgPath) : null;
 		}
 

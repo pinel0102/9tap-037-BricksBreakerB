@@ -100,6 +100,7 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: 21300000, guid: 3296a02118b0d4088b661e2d8f63416f, type: 3}
   - {fileID: 21300000, guid: fd2edc915fc254d98a337459ecace277, type: 3}
+  - {fileID: 21300000, guid: 581c3312461d243459c7dfa681b79787, type: 3}
   - {fileID: 21300000, guid: aaf429220361d4fa7a258f2e8e557b1e, type: 3}
   - {fileID: 21300000, guid: 91e6d1321b0994d14baf581862778a59, type: 3}
   - {fileID: 21300000, guid: 6a7b546282c1748d3afb0380ccffd96e, type: 3}
@@ -154,6 +155,7 @@ SpriteAtlas:
   m_PackedSpriteNamesToIndex:
   - ITEM_BRICKS_BALL_01
   - NORM_BRICKS_TRIANGLE_01
+  - NOT_SUPPORTED_BRICK
   - SPECIAL_BRICKS_LASER_VERTICAL_01
   - ITEM_BRICKS_BALL_02
   - OBSTACLE_BRICKS_WOODBOX_01

@@ -16,8 +16,6 @@ namespace NSEngine {
             switch(kindsType)
             {
                 case EObjKinds.SPECIAL_BRICKS_ADD_BALL_01:    AddBall(_addCount); break;
-                case EObjKinds.SPECIAL_BRICKS_ADD_BALL_02:    AddBall(_addCount); break;
-                case EObjKinds.SPECIAL_BRICKS_ADD_BALL_03:    AddBall(_addCount); break;
                 default: break;
             }
 
