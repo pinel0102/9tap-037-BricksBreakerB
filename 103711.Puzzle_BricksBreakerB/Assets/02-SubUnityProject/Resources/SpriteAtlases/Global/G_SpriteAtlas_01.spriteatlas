@@ -204,6 +204,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 4f0b97ec18c0f4f1ba457f0d6b5528da, type: 3}
   - {fileID: 21300000, guid: d1f903fc2b36844cb9a85a7247c3b279, type: 3}
   - {fileID: 21300000, guid: 1b2f4efc90dc349e0b927dd5d9c41300, type: 3}
+  - {fileID: 21300000, guid: e8ac0c1d60f5f49dfb63ac5b80d0d8bf, type: 3}
   - {fileID: 21300000, guid: f44a7e1d80fbb4ad597a3f8a7def81c9, type: 3}
   - {fileID: 21300000, guid: cf9ede1dff3154c058f9d0c9fc8242bb, type: 3}
   - {fileID: 21300000, guid: 0324652d39b2b404996dc0cc106a93b0, type: 3}
@@ -332,6 +333,7 @@ SpriteAtlas:
   - UI_Btn_Ingame_Control
   - UI_Icon_Pack_01
   - UI_Profile_Img05
+  - UI_Img_BallGuideLineDot
   - UI_Bg_Ingame_Cloud02
   - UI_Profile_Img11
   - UI_Bg_PopupTitle

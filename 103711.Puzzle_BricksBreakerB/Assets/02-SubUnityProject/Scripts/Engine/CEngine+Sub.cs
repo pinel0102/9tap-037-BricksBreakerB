@@ -20,8 +20,7 @@ namespace NSEngine {
 			TIME_SCALE,
 			SEL_PLAYER_OBJ_IDX,
 			SHOOT_START_POS,
-			LINE_FX,
-
+			
 			UP_BOUNDS_SPRITE,
 			DOWN_BOUNDS_SPRITE,
 			LEFT_BOUNDS_SPRITE,
@@ -61,6 +60,7 @@ namespace NSEngine {
 
 		private List<Tween> m_oAniList = new List<Tween>();
 		private List<CEObj> m_oMoveCompleteBallObjList = new List<CEObj>();
+        private List<GameObject> m_oAimDotList = new List<GameObject>();
 		private Dictionary<EState, System.Func<bool>> m_oStateCheckerDict = new Dictionary<EState, System.Func<bool>>();
 		#endregion // 변수
 
@@ -444,6 +444,7 @@ namespace NSEngine {
 				var stPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize);
 				//var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
 
+                this.ResetGuideLine();
                 this.DrawGuideLine(stPos);
 			}
 		}
@@ -496,7 +497,7 @@ namespace NSEngine {
                     subGameSceneManager.warningObject.SetActive(isWarning);
                 }
 
-				m_oSubLineFXDict[ESubKey.LINE_FX].gameObject.SetActive(false);
+				ResetGuideLine();
 			}
 		}
 

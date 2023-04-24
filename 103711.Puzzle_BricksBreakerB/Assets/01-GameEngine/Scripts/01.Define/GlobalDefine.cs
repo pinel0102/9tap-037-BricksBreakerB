@@ -19,6 +19,11 @@ public static partial class GlobalDefine
         0, -16, -30, 8, -4, -16, 13, 4, -8, -16
     };
 
+    public const int AIM_BOUND_COUNT_NORMAL = 1;
+    public const int AIM_BOUND_COUNT_GOLDEN = 3;
+    public const float AIM_LENGTH_SHORT = 220.0f;
+    public const float AIM_DOT_OFFSET = 35.0f;
+
     // [Item] Ruby
     public const int GetItem_Ruby = 1;
 

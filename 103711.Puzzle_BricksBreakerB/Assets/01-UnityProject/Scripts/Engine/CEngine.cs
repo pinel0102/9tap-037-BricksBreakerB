@@ -31,6 +31,7 @@ namespace NSEngine {
 		/** 매개 변수 */
 		public struct STParams {
 			public GameObject m_oCellRoot;
+            public GameObject m_oAimRoot;
             public GameObject m_oItemRoot;
 			public GameObject m_oSkillRoot;
 			public GameObject m_oObjRoot;
@@ -121,9 +122,10 @@ namespace NSEngine {
 
 		#region 클래스 함수
 		/** 매개 변수를 생성한다 */
-		public static STParams MakeParams(GameObject a_oCellRoot, GameObject a_oItemRoot, GameObject a_oSkillRoot, GameObject a_oObjRoot, GameObject a_oWallRoot, GameObject a_oFXRoot, Dictionary<ECallback, System.Action<CEngine>> a_oCallbackDict01 = null, Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>> a_oCallbackDict02 = null) {
+		public static STParams MakeParams(GameObject a_oCellRoot, GameObject a_oAimRoot, GameObject a_oItemRoot, GameObject a_oSkillRoot, GameObject a_oObjRoot, GameObject a_oWallRoot, GameObject a_oFXRoot, Dictionary<ECallback, System.Action<CEngine>> a_oCallbackDict01 = null, Dictionary<ECallback, System.Action<CEngine, Dictionary<ulong, STTargetInfo>>> a_oCallbackDict02 = null) {
 			return new STParams() {
                 m_oCellRoot = a_oCellRoot,
+                m_oAimRoot = a_oAimRoot,
 				m_oItemRoot = a_oItemRoot,
 				m_oSkillRoot = a_oSkillRoot,
 				m_oObjRoot = a_oObjRoot,

@@ -25,6 +25,7 @@ namespace NSEngine {
 		public const string E_OBJ_N_SKILL = "SKILL";
 		public const string E_OBJ_N_OBJ = "OBJ";
 		public const string E_OBJ_N_FX = "FX";
+        public const string E_OBJ_N_AIM = "AIM";
 
 		public const string E_OBJ_N_CELL_OBJ = "CELL_OBJ";
 		public const string E_OBJ_N_PLAYER_OBJ = "PLAYER_OBJ";

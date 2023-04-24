@@ -9,12 +9,10 @@ namespace NSEngine {
 	/** 서브 엔진 상수 */
 	public static partial class KDefine {
 		#region 기본
-		// 식별자
 		public const string E_KEY_BALL_OBJ_OBJS_POOL = "BallObjObjsPool";
-
-		// 이름
-		public const string E_OBJ_N_BOUNDS = "BOUNDS";
-		public const string E_OBJ_N_BALL_OBJ = "BALL_OBJ";
+        public const string E_KEY_AIM_DOT_OBJS_POOL = "AimDotObjsPool";
+        public const string E_OBJ_N_BOUNDS = "BOUNDS";
+        public const string E_OBJ_N_BALL_OBJ = "BALL_OBJ";
 		#endregion // 기본
 
 		#region 런타임 상수
@@ -75,7 +73,8 @@ namespace NSEngine {
 
 		// 경로 {
 		public static readonly string E_OBJ_P_BOUNDS = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Etc/E_Bounds";
-		public static readonly string E_OBJ_P_BALL_OBJ = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_BallObj";
+		public static readonly string E_OBJ_P_AIMING_DOT = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Etc/E_AimingDot";
+        public static readonly string E_OBJ_P_BALL_OBJ = $"{KCDefine.B_DIR_P_PREFABS}{KCDefine.B_DIR_P_ENGINE}Object/E_BallObj";
 
 		public static readonly Dictionary<EItemKinds, string> E_IMG_P_ITEM_DICT = new Dictionary<EItemKinds, string>() {
 			// Do Something

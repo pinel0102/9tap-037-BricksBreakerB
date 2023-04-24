@@ -6,8 +6,7 @@ using UnityEngine.Events;
 
 public static partial class KDefine {
 	#region 기본
-    // 식별자 {
-	public const string G_KEY_IS_ONCE = "IsOnce";
+    public const string G_KEY_IS_ONCE = "IsOnce";
 	public const string G_KEY_IS_RAND = "IsRandom";
 	public const string G_KEY_IS_OVERLAY = "IsOverlay";
 	public const string G_KEY_IS_TRANSPARENT = "IsTransparent";
@@ -27,10 +26,8 @@ public static partial class KDefine {
 
 	public const string G_KEY_COLLIDER_TYPE = "ColliderType";
 	public const string G_KEY_COLLIDER_SIZE = "ColliderSize";
-	// 식별자 }
 
-	// 이름
-	public const string PS_OBJ_N_GLOW_IMG = "GLOW_IMG";
+    public const string PS_OBJ_N_GLOW_IMG = "GLOW_IMG";
 	#endregion // 기본
 
 	#region 런타임 상수
@@ -49,7 +46,7 @@ namespace NSEngine {
         public const float E_SPEED_SHOOT = 1250.0f;
         public const float E_SCALE_BRICKS = 0.95f;
 
-        public const float E_LENGTH_LINE = 100.0f;
+        public const float E_LENGTH_LINE = 180.0f;
         public const float E_MAX_LENGTH_LINE = 450.0f;
 
         public const float E_MIN_ANGLE_AIMING = 5.0f;

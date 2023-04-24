@@ -50,6 +50,9 @@ TagManager:
   - name: Background
     uniqueID: 11
     locked: 0
+  - name: Aiming
+    uniqueID: 146901513
+    locked: 0
   - name: Cell
     uniqueID: 25
     locked: 0

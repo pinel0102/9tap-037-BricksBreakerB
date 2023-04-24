@@ -238,7 +238,7 @@ namespace GameScene {
 			};
 
 			m_oEngine = CFactory.CreateObj<NSEngine.CEngine>(KDefine.GS_OBJ_N_ENGINE, this.gameObject);
-			m_oEngine.Init(NSEngine.CEngine.MakeParams(this.CellRoot, this.ItemRoot, this.SkillRoot, this.ObjRoot, this.WallRoot, this.FXRoot, oCallbackDict01, oCallbackDict02));
+			m_oEngine.Init(NSEngine.CEngine.MakeParams(this.CellRoot, this.AimRoot, this.ItemRoot, this.SkillRoot, this.ObjRoot, this.WallRoot, this.FXRoot, oCallbackDict01, oCallbackDict02));
 
             AssignEngine();
 

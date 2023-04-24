@@ -16,22 +16,10 @@ namespace NSEngine {
 
 		/** 엔진을 설정한다 */
 		private void SubSetupEngine() {
-			// 라인 효과를 설정한다 {
-			CFunc.SetupComponents(new List<(ESubKey, string, GameObject, GameObject)>() {
-				(ESubKey.LINE_FX, $"{ESubKey.LINE_FX}", this.Params.m_oObjRoot, CResManager.Inst.GetRes<GameObject>(KCDefine.U_OBJ_P_LINE_FX))
-			}, m_oSubLineFXDict);
-
-			m_oSubLineFXDict[ESubKey.LINE_FX].ExSetWidth(KCDefine.B_VAL_5_REAL, KCDefine.B_VAL_5_REAL);
-			m_oSubLineFXDict[ESubKey.LINE_FX].ExSetColor(Color.white, Color.white);
-			m_oSubLineFXDict[ESubKey.LINE_FX].ExSetSortingOrder(KCDefine.U_SORTING_OI_CELL.ExGetExtraOrder(-KCDefine.B_VAL_1_INT));
-			// 라인 효과를 설정한다 }
-
 			// 객체 풀을 설정한다 {
 			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_CELL_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_CELL_OBJ), this.Params.m_oCellRoot, KCDefine.U_SIZE_OBJS_POOL_01, false);
-			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_PLAYER_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_PLAYER_OBJ), this.Params.m_oObjRoot, KCDefine.B_VAL_1_INT, false);
-			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_ENEMY_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_ENEMY_OBJ), this.Params.m_oObjRoot, KCDefine.U_SIZE_OBJS_POOL_01, false);
-
 			CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_BALL_OBJ_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_BALL_OBJ), this.Params.m_oObjRoot, KCDefine.U_SIZE_OBJS_POOL_01, false);
+            CSceneManager.ActiveSceneManager.AddObjsPool(KDefine.E_KEY_AIM_DOT_OBJS_POOL, CResManager.Inst.GetRes<GameObject>(KDefine.E_OBJ_P_AIMING_DOT), this.Params.m_oAimRoot, KCDefine.U_SIZE_OBJS_POOL_01, false);
 
             foreach (KeyValuePair<EFXSet, KeyValuePair<string, float>> item in GlobalDefine.FXContainer)
             {

@@ -622,6 +622,7 @@ public static partial class KCDefine {
 	public const string U_SORTING_L_OVERLAY_BACKGROUND = "OverlayBackground";
 	public const string U_SORTING_L_OVERLAY_UNDERGROUND = "OverlayUnderground";
 
+    public const string U_SORTING_L_AIMING = "Aiming";
     public const string U_SORTING_L_CELL = "Cell";
     public const string U_SORTING_L_BALL = "Ball";
     public const string U_SORTING_L_EFFECT = "Effect";
