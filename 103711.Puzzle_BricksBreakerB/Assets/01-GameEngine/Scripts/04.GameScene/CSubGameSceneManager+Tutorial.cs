@@ -84,14 +84,10 @@ namespace GameScene {
             tutorialPanel.SetActive(true);
         }
 
-
         private void EndTutorial()
         {
-            if (Engine.isTutorial)
-            {
-                tutorialPanel.SetActive(false);
-                Engine.isTutorial = false;
-            }
+            tutorialPanel.SetActive(false);
+            Engine.isTutorial = false;
         }
     }
 }
