@@ -23,6 +23,15 @@ public static partial class GlobalDefine
         TUTORIAL_LEVEL_ADD_STEEL_BRICKS
     };
 
+    public static readonly List<string> TUTORIAL_TEXT_BOTTOM_ITEM = new List<string>()
+    {
+        "Earthquake powerup give 40% damage to all bricks. Try it free!",
+        "Add Ball powerup add 30 one-time balls. Try it free!",
+        "Line Delete powerup delete bottom lines. Try it free!",
+        "Add Laser Bricks add 4 laser bricks. Try it free!",
+        "Steel bricks add one-time steel bricks to floor. Try it free!"
+    };
+
     public static readonly List<int> BOOSTER_LEVEL = new List<int>()
     {
         BOOSTER_LEVEL_MISSILE,

@@ -36,7 +36,6 @@ namespace GameScene {
             InitUITop();
             InitTabs();
             SetupButtons();
-            CheckTutorial(Engine.currentLevel);
 
             this.ExLateCallFunc(OnClick_OpenPopup_Preview, KCDefine.B_DELTA_T_INTERMEDIATE, true);
         }
@@ -44,6 +43,7 @@ namespace GameScene {
         private void SetupButtons()
         {
             SetupBottomButtons();
+            SetupTutorialButtons();
         }
     }
 }

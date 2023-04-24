@@ -171,6 +171,7 @@ public partial class CPreviewPopup : CSubPopup {
 	/** Play 버튼을 눌렀을 경우 */
 	private void OnTouchResumeBtn() {
         this.Params.Engine.SetBooster();
+        this.Params.Engine.subGameSceneManager.CheckTutorial();
 		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.RESUME)?.Invoke(this);
 	}
 	#endregion // 함수
