@@ -960,6 +960,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f370d7d51e01a1a4f8671d1f21f87389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aimLayer: {fileID: 1230227142}
+  aimLayerOn: {fileID: 79677497}
+  aimDragArea: {fileID: 2144871977}
+  aimControl: {fileID: 915034981}
+  goldenAimButton: {fileID: 27585898}
+  isAimLayerOn: 0
+  isAimDragOn: 0
   Engine: {fileID: 0}
   mainCanvas: {fileID: 1840138989}
   startLine: {fileID: 6993149693766247226}
@@ -991,6 +998,7 @@ MonoBehaviour:
   - {fileID: 93831669}
   tutorialPanel: {fileID: 169872900}
   tutorialText: {fileID: 1830829227}
+  itemLayer: {fileID: 1230227143}
   bottomItemsButton:
   - {fileID: 6993149693766247236}
   - {fileID: 6993149693766247235}
@@ -1009,14 +1017,6 @@ MonoBehaviour:
   - {fileID: 5269203}
   - {fileID: 5269202}
   - {fileID: 5269201}
-  itemLayer: {fileID: 1230227143}
-  aimLayer: {fileID: 1230227142}
-  aimLayerOn: {fileID: 79677497}
-  aimDragArea: {fileID: 2144871977}
-  aimControl: {fileID: 915034981}
-  goldenAimButton: {fileID: 27585898}
-  isAimLayerOn: 0
-  isAimDragOn: 0
   starTransform:
   - {fileID: 216793884}
   - {fileID: 1938410420}
@@ -1055,7 +1055,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1352496832
 Transform:
   m_ObjectHideFlags: 0
