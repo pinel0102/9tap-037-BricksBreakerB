@@ -13,12 +13,17 @@ namespace MainScene {
         public int shortcutLevel = 1;
 
         public TMP_Text shortcutText;
+        public TMP_Text rubyText;
+        public TMP_Text starText;
 
         private const string formatShortcut = "LEVEL {0}";
 
         private void InitLobbyButtons()
         {
+            shortcutLevel = CUserInfoStorage.Inst.UserInfo.LevelCurrent;
             shortcutText.text = string.Format(formatShortcut, shortcutLevel);
+            rubyText.text = string.Format("{0}", CUserInfoStorage.Inst.UserInfo.Ruby);
+            starText.text = string.Format("{0}", CUserInfoStorage.Inst.UserInfo.StarSum);
         }
 
         public void OnClick_PlayShortcut()

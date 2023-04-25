@@ -12,7 +12,8 @@ namespace GameScene {
         public GameObject itemLayer;
         public List<Button> bottomItemsButton = new List<Button>();
         public List<GameObject> bottomItemsDisabled = new List<GameObject>();
-        public List<TMP_Text> bottomItemsText = new List<TMP_Text>();                
+        public List<GameObject> bottomItemsRuby = new List<GameObject>();
+        public List<TMP_Text> bottomItemsText = new List<TMP_Text>();
         
         private void SetupBottomButtons()
         {
@@ -24,10 +25,11 @@ namespace GameScene {
 
             for(int i=0; i < bottomItemsButton.Count; i++)
             {
-                bottomItemsText[i].text = string.Format(GlobalDefine.FORMAT_BOTTOM_ITEM, 0);
                 bottomItemsButton[i].gameObject.SetActive(Engine.currentLevel >= GlobalDefine.TUTORIAL_LEVEL_BOTTOM_ITEM[i]);
                 bottomItemsDisabled[i].SetActive(Engine.currentLevel < GlobalDefine.TUTORIAL_LEVEL_BOTTOM_ITEM[i]);
             }
+
+            RefreshItemCount();
         }
 
         public void HideShootUIs()
@@ -37,11 +39,49 @@ namespace GameScene {
 			}
         }
 
+        private void RefreshItemCount()
+        {
+            for(int index = 0; index < bottomItemsText.Count; index++)
+            {
+                int count = 0;
+                switch(index)
+                {
+                    case 0: count = CUserInfoStorage.Inst.UserInfo.Item_Earthquake; break;
+                    case 1: count = CUserInfoStorage.Inst.UserInfo.Item_AddBall; break;
+                    case 2: count = CUserInfoStorage.Inst.UserInfo.Item_BricksDelete; break;
+                    case 3: count = CUserInfoStorage.Inst.UserInfo.Item_AddLaserBricks; break;
+                    case 4: count = CUserInfoStorage.Inst.UserInfo.Item_AddSteelBricks; break;
+                }
+
+                bottomItemsText[index].text = string.Format(GlobalDefine.FORMAT_BOTTOM_ITEM, count);
+                bottomItemsText[index].gameObject.SetActive(count > 0);
+                bottomItemsRuby[index].gameObject.SetActive(count <= 0);
+            }
+        }
+
 #region Buttons
 
         public void OnClick_Bottom_Earthquake()
         {
             if (!CanUseBottomItem()) return;
+            if (!GlobalDefine.isLevelEditor && !Engine.isTutorial)
+            {
+                if (CUserInfoStorage.Inst.UserInfo.Item_Earthquake < 1)
+                {
+                    if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.bottomItem_Ruby_Cost)
+                    {
+                        OpenPopup_Store();
+                        return;
+                    }
+                    else
+                        PurchaseBottomItem();
+                }
+                else
+                {
+                    CUserInfoStorage.Inst.UserInfo.Item_Earthquake = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Item_Earthquake - 1);
+                    CUserInfoStorage.Inst.SaveUserInfo();
+                }
+            }
             
             float damageRatio = 0.4f;
 
@@ -64,11 +104,30 @@ namespace GameScene {
             GlobalDefine.PlaySoundFX(ESoundSet.SOUND_ITEM_EARTHQUAKE);
 
             EndTutorial();
+            RefreshItemCount();
         }
 
         public void OnClick_Bottom_AddBall()
         {
             if (!CanUseBottomItem()) return;
+            if (!GlobalDefine.isLevelEditor && !Engine.isTutorial)
+            {
+                if (CUserInfoStorage.Inst.UserInfo.Item_AddBall < 1) 
+                {
+                    if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.bottomItem_Ruby_Cost)
+                    {
+                        OpenPopup_Store();
+                        return;
+                    }
+                    else
+                        PurchaseBottomItem();
+                }
+                else
+                {
+                    CUserInfoStorage.Inst.UserInfo.Item_AddBall = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Item_AddBall - 1);
+                    CUserInfoStorage.Inst.SaveUserInfo();
+                }
+            }
 
             int addCount = 30;
 
@@ -79,11 +138,30 @@ namespace GameScene {
             GlobalDefine.PlaySoundFX(ESoundSet.SOUND_ITEM_ADD_BALL);
 
             EndTutorial();
+            RefreshItemCount();
         }
 
         public void OnClick_Bottom_BricksDelete()
         {
             if (!CanUseBottomItem()) return;
+            if (!GlobalDefine.isLevelEditor && !Engine.isTutorial)
+            {
+                if (CUserInfoStorage.Inst.UserInfo.Item_BricksDelete < 1) 
+                {
+                    if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.bottomItem_Ruby_Cost)
+                    {
+                        OpenPopup_Store();
+                        return;
+                    }
+                    else
+                        PurchaseBottomItem();
+                }
+                else
+                {
+                    CUserInfoStorage.Inst.UserInfo.Item_BricksDelete = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Item_BricksDelete - 1);
+                    CUserInfoStorage.Inst.SaveUserInfo();
+                }
+            }
 
             var lastClearTarget = Engine.GetLastClearTarget();
             if (lastClearTarget != null)
@@ -103,11 +181,30 @@ namespace GameScene {
             Engine.CheckClear(true, true);
 
             EndTutorial();
+            RefreshItemCount();
         }
 
         public void OnClick_Bottom_AddLaserBricks()
         {
             if (!CanUseBottomItem()) return;
+            if (!GlobalDefine.isLevelEditor && !Engine.isTutorial)
+            {
+                if (CUserInfoStorage.Inst.UserInfo.Item_AddLaserBricks < 1) 
+                {
+                    if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.bottomItem_Ruby_Cost)
+                    {
+                        OpenPopup_Store();
+                        return;
+                    }
+                    else
+                        PurchaseBottomItem();
+                }
+                else
+                {
+                    CUserInfoStorage.Inst.UserInfo.Item_AddLaserBricks = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Item_AddLaserBricks - 1);
+                    CUserInfoStorage.Inst.SaveUserInfo();
+                }
+            }
 
             int addCount = 4;
 
@@ -123,11 +220,30 @@ namespace GameScene {
             GlobalDefine.PlaySoundFX(ESoundSet.SOUND_ITEM_ADD_LASER_BRICKS);
 
             EndTutorial();
+            RefreshItemCount();
         }
 
         public void OnClick_Bottom_AddSteelBricks()
         {
             if (!CanUseBottomItem() || Engine.isAddSteelBricks) return;
+            if (!GlobalDefine.isLevelEditor && !Engine.isTutorial)
+            {
+                if (CUserInfoStorage.Inst.UserInfo.Item_AddSteelBricks < 1) 
+                {
+                    if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.bottomItem_Ruby_Cost)
+                    {
+                        OpenPopup_Store();
+                        return;
+                    }
+                    else
+                        PurchaseBottomItem();
+                }
+                else
+                {
+                    CUserInfoStorage.Inst.UserInfo.Item_AddSteelBricks = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Item_AddSteelBricks - 1);
+                    CUserInfoStorage.Inst.SaveUserInfo();
+                }
+            }
 
             int addCount = Mathf.CeilToInt(Engine.viewSize.x / 2f) - 1;
 
@@ -145,11 +261,27 @@ namespace GameScene {
             GlobalDefine.PlaySoundFX(ESoundSet.SOUND_ITEM_ADD_STEEL_BRICKS);
 
             EndTutorial();
+            RefreshItemCount();
         }
 
         private bool CanUseBottomItem()
         {
             return Engine.PlayState != NSEngine.CEngine.EPlayState.SHOOT && !Engine.isGridMoving && !Engine.isExplosionAll && !isShaking;
+        }
+
+        private void PurchaseBottomItem()
+        {
+            CUserInfoStorage.Inst.UserInfo.Ruby = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Ruby - GlobalDefine.bottomItem_Ruby_Cost);
+            CUserInfoStorage.Inst.SaveUserInfo();
+        }
+
+        private void OpenPopup_Store()
+        {
+            List<STProductTradeInfo> productTradeInfo = new List<STProductTradeInfo>();
+
+            Func.ShowStorePopup(this.PopupUIs, (a_oSender) => {
+				(a_oSender as CStorePopup).Init(CStorePopup.MakeParams(productTradeInfo));
+			});
         }
 
 #endregion Buttons

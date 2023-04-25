@@ -509,10 +509,9 @@ namespace NSEngine {
         public void LevelClear()
         {
             Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", currentLevel));
-            //Debug.Log(CodeManager.GetMethodName() + string.Format("{0} / {1}", m_oMoveCompleteBallObjList.Count, this.BallObjList.Count));
-            
-            // FIXME: 임시
-            //CSceneLoader.Inst.LoadScene((CGameInfoStorage.Inst.PlayMode == EPlayMode.TEST) ? KCDefine.B_SCENE_N_LEVEL_EDITOR : KCDefine.B_SCENE_N_MAIN);
+
+            CUserInfoStorage.Inst.UserInfo.LevelCurrent = Mathf.Min(Mathf.Max(CUserInfoStorage.Inst.UserInfo.LevelCurrent, currentLevel + 1), CLevelInfoTable.Inst.levelCount);
+            CUserInfoStorage.Inst.SaveUserInfo();
 
             Params.m_oCallbackDict01[NSEngine.CEngine.ECallback.CLEAR].Invoke(this);
         }

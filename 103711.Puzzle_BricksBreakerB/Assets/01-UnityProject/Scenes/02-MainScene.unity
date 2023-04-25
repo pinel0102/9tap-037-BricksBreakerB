@@ -628,12 +628,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shortcutLevel: 1
   shortcutText: {fileID: 1405290810}
+  rubyText: {fileID: 1345373372}
+  starText: {fileID: 1785216300}
   levelButtonParent: {fileID: 520595782}
   tabList:
   - {fileID: 362692765}
   - {fileID: 968281067}
   - {fileID: 2309311342966553324}
   currentTab: -1
+--- !u!114 &1345373372 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8705635427487185359, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
+  m_PrefabInstance: {fileID: 2309311342966553323}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1376964104
 GameObject:
   m_ObjectHideFlags: 0
@@ -748,6 +761,17 @@ Transform:
   m_Father: {fileID: 1376964105}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1785216300 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4708427837359512491, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
+  m_PrefabInstance: {fileID: 2309311342966553323}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1932059472
 GameObject:
   m_ObjectHideFlags: 0

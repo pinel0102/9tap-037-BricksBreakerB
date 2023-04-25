@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static partial class GlobalDefine
 {
-    public const string FORMAT_BOTTOM_ITEM = "x{0}";
+    public const string FORMAT_BOTTOM_ITEM = "x {0}";
     public const string FORMAT_FREE = "FREE";
     public const string FORMAT_LEVEL = "Level {0}";
     public const string FORMAT_TOOLTIP_UNLOCK = "Unlock on level {0}";
