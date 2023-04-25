@@ -6,7 +6,7 @@ using Timers;
 namespace NSEngine {
     public partial class CEngine : CComponent
     {
-        private void ResetGuideLine()
+        public void ResetGuideLine()
         {
 			for(int i = 0; i < m_oAimDotList.Count; ++i) {
 				m_oAimDotList[i].gameObject.SetActive(false);
@@ -16,7 +16,7 @@ namespace NSEngine {
 			m_oAimDotList.Clear();
 		}
 
-        private void DrawGuideLine(Vector3 stPos)
+        public void DrawGuideLine(Vector3 stPos)
         {
             // 조준 가능 할 경우
             if(this.IsEnableAiming(stPos)) 
@@ -34,38 +34,32 @@ namespace NSEngine {
 
         private void SetupGuideLine(Vector3 fromPosition, Vector3 toPosition, float radius, int boundCount)
         {
-            var stDirection = toPosition - fromPosition;            
+            var stDirection = (toPosition - fromPosition).normalized;
             //Debug.Log(CodeManager.GetMethodName() + string.Format("{0} -> {1} / {2}", fromPosition, toPosition, stDirection));
 
-            float fAngle = Vector3.Angle(stDirection, Vector3.right * Mathf.Sign(stDirection.x));
-            fAngle = fAngle.ExIsLess(KDefine.E_MIN_ANGLE_AIMING) ? KDefine.E_MIN_ANGLE_AIMING : fAngle;
-            
-            //stDirection = new Vector3(Mathf.Cos(fAngle * Mathf.Deg2Rad) * Mathf.Sign(stDirection.x), Mathf.Sin(fAngle * Mathf.Deg2Rad), KCDefine.B_VAL_0_REAL);            
-            var stWorldPos = (fromPosition + (stDirection.normalized)).ExToWorld(this.Params.m_oAimRoot);
-            var stRaycastHit = Physics2D.CircleCast(stWorldPos, radius, stDirection.normalized, GlobalDefine.RAYCAST_DISTANCE, currentAimLayer);            
+            //float fAngle = Vector3.Angle(stDirection, Vector3.right * Mathf.Sign(stDirection.x));
+            //fAngle = fAngle.ExIsLess(KDefine.E_MIN_ANGLE_AIMING) ? KDefine.E_MIN_ANGLE_AIMING : fAngle;            
+            //stDirection = new Vector3(Mathf.Cos(fAngle * Mathf.Deg2Rad) * Mathf.Sign(stDirection.x), Mathf.Sin(fAngle * Mathf.Deg2Rad), KCDefine.B_VAL_0_REAL);
+
+            var stWorldPos = (fromPosition + (stDirection)).ExToWorld(this.Params.m_oAimRoot);
+            var stRaycastHit = Physics2D.CircleCast(stWorldPos, radius, stDirection, GlobalDefine.RAYCAST_DISTANCE, currentAimLayer);            
             if (stRaycastHit.collider != null) 
             {
-                //var stHitPos = (stWorldPos + (stDirection.normalized * stRaycastHit.distance)).ExToLocal(this.Params.m_oAimingRoot);
-                var stHitPos = (stWorldPos + (stDirection.normalized * ((!isGoldAim && boundCount == 0) ? Mathf.Min(stRaycastHit.distance, GlobalDefine.AIM_LENGTH_SHORT) : stRaycastHit.distance))).ExToLocal(this.Params.m_oAimRoot);
+                var stHitPos = (stWorldPos + (stDirection * ((!isGoldAim && boundCount == 0) ? Mathf.Min(stRaycastHit.distance, GlobalDefine.AIM_LENGTH_SHORT) : stRaycastHit.distance))).ExToLocal(this.Params.m_oAimRoot);
                     
                 this.SetupDots(fromPosition, stHitPos, m_oAimDotList);
 
                 if(boundCount > 0 && stRaycastHit.collider.gameObject != DownBoundsSprite.gameObject)
                 {
-                    var stReflect = Vector3.Reflect(stDirection.normalized, stRaycastHit.normal);
-                    //Debug.Log(string.Format("{0} / {1} -> {2} / {3} / {4}", stRaycastHit.collider.name, fromPosition, toPosition, stHitPos, stReflect));
+                    var stReflect = Vector3.Reflect(stDirection, stRaycastHit.normal).normalized;
 
-                    // 반사 가능 할 경우
-                    if(!Vector3.Dot(stDirection.normalized, stReflect.normalized).ExIsEquals(-KCDefine.B_VAL_1_REAL)) 
+                    var stWorldPos2 = (fromPosition + stReflect).ExToWorld(this.Params.m_oAimRoot, false);
+                    var stRaycastHit2 = Physics2D.CircleCast(stWorldPos2, radius, stReflect, GlobalDefine.RAYCAST_DISTANCE, currentAimLayer);
+                    if (stRaycastHit2.collider != null)
                     {
-                        var stWorldPos2 = (fromPosition + stReflect.normalized).ExToWorld(this.Params.m_oAimRoot, false);
-                        var stRaycastHit2 = Physics2D.CircleCast(stWorldPos2, radius, stReflect.normalized, GlobalDefine.RAYCAST_DISTANCE, currentAimLayer);
-                        if (stRaycastHit2.collider != null)
-                        {
-                            var stReflectHitPos = (stWorldPos2 + (stReflect.normalized * stRaycastHit2.distance)).ExToLocal(this.Params.m_oAimRoot);
+                        var stReflectHitPos = (stWorldPos2 + (stReflect * stRaycastHit2.distance)).ExToLocal(this.Params.m_oAimRoot);
 
-                            this.SetupGuideLine(stHitPos, stHitPos + (stReflect.normalized * (stReflectHitPos - stHitPos).magnitude), radius, boundCount - 1);
-                        }
+                        this.SetupGuideLine(stHitPos, stHitPos + (stReflect * (stReflectHitPos - stHitPos).magnitude), radius, boundCount - 1);
                     }
                 }
             }

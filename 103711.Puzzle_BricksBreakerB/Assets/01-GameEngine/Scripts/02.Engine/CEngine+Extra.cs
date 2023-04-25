@@ -55,6 +55,7 @@ namespace NSEngine {
             startPosition = SelBallObj.transform.localPosition;
             shootDirection = Vector3.zero;
 
+            subGameSceneManager.InitAimLayer();
             CheckRemoveBalls();
             ChangeToNormalBalls();
             this.SetPlayState(EPlayState.IDLE);

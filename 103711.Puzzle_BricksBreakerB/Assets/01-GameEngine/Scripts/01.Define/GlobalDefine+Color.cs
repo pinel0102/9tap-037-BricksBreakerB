@@ -54,6 +54,10 @@ public static partial class GlobalDefine
     public const string COLORHEX_BALL_PLUS = "#FF6B3FFF";
     public const string COLORHEX_BALL_AMPLIFICATION = "#39D6E2FF";
     public const string COLORHEX_CELL_APPEAR = "#64C8FFFF";
+    public const string COLORHEX_GOLDEN_AIM_ON = "#FF9664FF";
+    public const string COLORHEX_GOLDEN_AIM_OFF = "#969696FF";
+    public static Color COLOR_GOLDEN_AIM_ON = GetColor(COLORHEX_GOLDEN_AIM_ON);
+    public static Color COLOR_GOLDEN_AIM_OFF = GetColor(COLORHEX_GOLDEN_AIM_OFF);
     public static Color COLOR_CELL_APPEAR = GetColor(COLORHEX_CELL_APPEAR);
     public static Color COLOR_WHITE = Color.white;
 

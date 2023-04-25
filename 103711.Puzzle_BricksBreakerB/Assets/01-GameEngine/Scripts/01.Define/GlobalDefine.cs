@@ -11,6 +11,9 @@ public static partial class GlobalDefine
     public const float GRID_PANEL_HEIGHT_TOP = 180f;
     public const float GRID_PANEL_HEIGHT_BOTTOM = 180f;
 
+    public const float aimYPositionMin = -420f;
+    public const float aimYPositionDefault = -200f;
+
     // [GRID] GRID
     public const int GRID_DOWN_OFFSET = 10;
     public readonly static float[] GRID_Y_OFFSET = new float[20]

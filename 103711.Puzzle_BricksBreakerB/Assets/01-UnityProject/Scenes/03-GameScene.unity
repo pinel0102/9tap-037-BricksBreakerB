@@ -178,6 +178,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &27585898 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1767242490446096322, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+  m_PrefabInstance: {fileID: 6993149693766247223}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &50828218
 GameObject:
   m_ObjectHideFlags: 0
@@ -794,6 +805,11 @@ Transform:
   m_Father: {fileID: 197704520}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &915034981 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5251126818630288336, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+  m_PrefabInstance: {fileID: 6993149693766247223}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1008440900 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2130459265607232369, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
@@ -885,6 +901,16 @@ Transform:
   m_Father: {fileID: 1376964105}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1230227142 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1551368764444875359, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+  m_PrefabInstance: {fileID: 6993149693766247223}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1230227143 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 810357151249066275, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+  m_PrefabInstance: {fileID: 6993149693766247223}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1236096600 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1508132133075847392, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
@@ -939,7 +965,6 @@ MonoBehaviour:
   startLine: {fileID: 6993149693766247226}
   deadLine: {fileID: 1728720620}
   warningObject: {fileID: 6993149693766247225}
-  goldenAimOn: {fileID: 79677497}
   darkModeButton:
   - {fileID: 1794609407}
   - {fileID: 1293300868}
@@ -984,6 +1009,14 @@ MonoBehaviour:
   - {fileID: 5269203}
   - {fileID: 5269202}
   - {fileID: 5269201}
+  itemLayer: {fileID: 1230227143}
+  aimLayer: {fileID: 1230227142}
+  aimLayerOn: {fileID: 79677497}
+  aimDragArea: {fileID: 2144871977}
+  aimControl: {fileID: 915034981}
+  goldenAimButton: {fileID: 27585898}
+  isAimLayerOn: 0
+  isAimDragOn: 0
   starTransform:
   - {fileID: 216793884}
   - {fileID: 1938410420}
@@ -1381,6 +1414,11 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!224 &2144871977 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4115438010466621908, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+  m_PrefabInstance: {fileID: 6993149693766247223}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6993149693766247223
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1540,6 +1578,42 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2452478986184967789, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2545824339085473436, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1276200342}
+    - target: {fileID: 2545824339085473436, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1276200342}
+    - target: {fileID: 2545824339085473436, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnAimDragBegin
+      objectReference: {fileID: 0}
+    - target: {fileID: 2545824339085473436, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnAimDragEnd
+      objectReference: {fileID: 0}
+    - target: {fileID: 2545824339085473436, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameScene.CSubGameSceneManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2545824339085473436, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameScene.CSubGameSceneManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2545824339085473436, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2545824339085473436, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2847964988959409465, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -1690,6 +1764,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4777345137853013485, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5208862973415271596, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1276200342}
+    - target: {fileID: 5208862973415271596, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1276200342}
+    - target: {fileID: 5208862973415271596, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnAimDragBegin
+      objectReference: {fileID: 0}
+    - target: {fileID: 5208862973415271596, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnAimDragEnd
+      objectReference: {fileID: 0}
+    - target: {fileID: 5208862973415271596, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameScene.CSubGameSceneManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5208862973415271596, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameScene.CSubGameSceneManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5208862973415271596, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5208862973415271596, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5424957781332759603, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
@@ -2012,6 +2118,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7437817407995029424, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1276200342}
+    - target: {fileID: 7437817407995029424, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnAimDragCancel
+      objectReference: {fileID: 0}
+    - target: {fileID: 7437817407995029424, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameScene.CSubGameSceneManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7437817407995029424, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7488489509918362125, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7680476881274295775, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -2056,6 +2182,30 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8003306085146641569, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_Delegates.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8003306085146641569, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_Delegates.Array.data[2].eventID
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197506916446787059, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1276200342}
+    - target: {fileID: 8197506916446787059, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleGoldenAim
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197506916446787059, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameScene.CSubGameSceneManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197506916446787059, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8471786313756611258, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 0
@@ -2087,6 +2237,18 @@ PrefabInstance:
     - target: {fileID: 8687439238977220596, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070028067511841804, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070028067511841804, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_DragThreshold
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070028067511841804, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+      propertyPath: m_sendNavigationEvents
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}

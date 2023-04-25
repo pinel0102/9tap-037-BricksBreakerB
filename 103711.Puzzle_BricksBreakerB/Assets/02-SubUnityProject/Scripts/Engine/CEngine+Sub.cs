@@ -463,43 +463,48 @@ namespace NSEngine {
 					// Do Something
 				}
 #endif // #if NEVER_USE_THIS
-
-				// 조준 가능 할 경우
-				if(this.IsEnableAiming(stPos)) {     
-
-                    startPosition = SelBallObj.transform.localPosition;
-
-					this.SetPlayState(EPlayState.SHOOT);
-					var stDirection = stPos - this.SelBallObj.transform.localPosition;
-
-					float fAngle = Vector3.Angle(stDirection, Vector3.right * Mathf.Sign(stDirection.x));
-					fAngle = fAngle.ExIsLess(KDefine.E_MIN_ANGLE_AIMING) ? KDefine.E_MIN_ANGLE_AIMING : fAngle;
-
-					int nNumShootBalls = KCDefine.B_VAL_0_INT;
-					m_oMoveCompleteBallObjList.Clear();
-
-					m_oSubRealDict.ExReplaceVal(ESubKey.TIME_SCALE, KCDefine.B_VAL_1_REAL);
-					m_oSubVec3Dict.ExReplaceVal(ESubKey.SHOOT_START_POS, this.SelBallObj.transform.localPosition);
-
-                    for(int i = 0; i < this.BallObjList.Count; ++i) {
-						this.BallObjList[i].NumText.text = string.Empty;
-					}
-
-                    shootDirection = new Vector3(Mathf.Cos(fAngle * Mathf.Deg2Rad) * Mathf.Sign(stDirection.x), Mathf.Sin(fAngle * Mathf.Deg2Rad), KCDefine.B_VAL_0_REAL) * KDefine.E_SPEED_SHOOT;
-                    
-                    currentShootCount = 0;
-                    isWarning = false;
-
-                    ShootBalls(nNumShootBalls, this.BallObjList.Count);
-				}
-                else
-                {
-                    subGameSceneManager.warningObject.SetActive(isWarning);
-                }
-
-				ResetGuideLine();
+                
+                this.CallShoot(stPos);
 			}
 		}
+
+        public void CallShoot(Vector3 stPos)
+        {
+            // 조준 가능 할 경우
+            if(this.IsEnableAiming(stPos)) {     
+
+                startPosition = SelBallObj.transform.localPosition;
+
+                this.SetPlayState(EPlayState.SHOOT);
+                var stDirection = stPos - this.SelBallObj.transform.localPosition;
+
+                float fAngle = Vector3.Angle(stDirection, Vector3.right * Mathf.Sign(stDirection.x));
+                fAngle = fAngle.ExIsLess(KDefine.E_MIN_ANGLE_AIMING) ? KDefine.E_MIN_ANGLE_AIMING : fAngle;
+
+                int nNumShootBalls = KCDefine.B_VAL_0_INT;
+                m_oMoveCompleteBallObjList.Clear();
+
+                m_oSubRealDict.ExReplaceVal(ESubKey.TIME_SCALE, KCDefine.B_VAL_1_REAL);
+                m_oSubVec3Dict.ExReplaceVal(ESubKey.SHOOT_START_POS, this.SelBallObj.transform.localPosition);
+
+                for(int i = 0; i < this.BallObjList.Count; ++i) {
+                    this.BallObjList[i].NumText.text = string.Empty;
+                }
+
+                shootDirection = new Vector3(Mathf.Cos(fAngle * Mathf.Deg2Rad) * Mathf.Sign(stDirection.x), Mathf.Sin(fAngle * Mathf.Deg2Rad), KCDefine.B_VAL_0_REAL) * KDefine.E_SPEED_SHOOT;
+                
+                currentShootCount = 0;
+                isWarning = false;
+
+                ShootBalls(nNumShootBalls, this.BallObjList.Count);
+            }
+            else
+            {
+                subGameSceneManager.warningObject.SetActive(isWarning);
+            }
+
+            ResetGuideLine();
+        }
 
         public void LevelClear()
         {

@@ -29,4 +29,9 @@ public static partial class GlobalDefine
     {
         return string.Format(formatVersionWithAppName, Application.version, Application.productName);
     }
+
+    public static float Root(float num)
+    {
+        return Mathf.Pow(num, 0.5f);
+    }
 }

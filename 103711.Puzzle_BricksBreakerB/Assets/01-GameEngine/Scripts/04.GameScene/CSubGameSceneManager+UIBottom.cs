@@ -9,10 +9,11 @@ namespace GameScene {
     public partial class CSubGameSceneManager : CGameSceneManager
     {
         [Header("★ [Reference] UI Bottom")]
+        public GameObject itemLayer;
         public List<Button> bottomItemsButton = new List<Button>();
         public List<GameObject> bottomItemsDisabled = new List<GameObject>();
-        public List<TMP_Text> bottomItemsText = new List<TMP_Text>();
-
+        public List<TMP_Text> bottomItemsText = new List<TMP_Text>();                
+        
         private void SetupBottomButtons()
         {
             bottomItemsButton[0]?.ExAddListener(OnClick_Bottom_Earthquake);
@@ -144,13 +145,6 @@ namespace GameScene {
             GlobalDefine.PlaySoundFX(ESoundSet.SOUND_ITEM_ADD_STEEL_BRICKS);
 
             EndTutorial();
-        }
-
-        public void ToggleAimLayer()
-        {
-            m_oEngine.ToggleAimLayer();
-
-            goldenAimOn.SetActive(m_oEngine.isGoldAim);
         }
 
         private bool CanUseBottomItem()

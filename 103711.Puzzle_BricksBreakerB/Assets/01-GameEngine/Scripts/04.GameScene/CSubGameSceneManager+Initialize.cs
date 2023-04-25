@@ -6,14 +6,12 @@ using UnityEngine.UI;
 namespace GameScene {
     public partial class CSubGameSceneManager : CGameSceneManager
     {
-        public NSEngine.CEngine Engine = null;
-        
         [Header("★ [Reference] Initialize")]
+        public NSEngine.CEngine Engine = null;
         public Canvas mainCanvas;
         public Transform startLine;
         public Transform deadLine;
         public GameObject warningObject;
-        public GameObject goldenAimOn;
         public GameObject[] darkModeButton;
         public GameObject[] darkModeBackground;
         public GameObject[] darkModeTopPanel;
@@ -30,8 +28,8 @@ namespace GameScene {
         {
             ApplyDarkMode(CUserInfoStorage.Inst.UserInfo.Settings_DarkMode);
             warningObject.SetActive(false);
-            goldenAimOn.SetActive(Engine.isGoldAim);
-
+            
+            InitAimLayer();
             InitCamera();
             InitUITop();
             InitTabs();
@@ -44,6 +42,7 @@ namespace GameScene {
         {
             SetupBottomButtons();
             SetupTutorialButtons();
+            RefreshGoldenAimButton();
         }
     }
 }
