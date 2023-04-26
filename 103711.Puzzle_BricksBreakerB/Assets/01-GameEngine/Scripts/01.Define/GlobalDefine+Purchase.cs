@@ -24,11 +24,27 @@ public static partial class GlobalDefine
         CUserInfoStorage.Inst.SaveUserInfo();
     }
 
+    public static void AddStar(int addCount)
+    {
+        Debug.Log(CodeManager.GetMethodName() + addCount);
+
+        CUserInfoStorage.Inst.UserInfo.Star = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Star + addCount);
+        CUserInfoStorage.Inst.SaveUserInfo();
+    }
+
     public static void SetRuby(int newCount)
     {
         Debug.Log(CodeManager.GetMethodName() + newCount);
 
         CUserInfoStorage.Inst.UserInfo.Ruby = Mathf.Max(0, newCount);
+        CUserInfoStorage.Inst.SaveUserInfo();
+    }
+
+    public static void SetStar(int newCount)
+    {
+        Debug.Log(CodeManager.GetMethodName() + newCount);
+
+        CUserInfoStorage.Inst.UserInfo.Star = Mathf.Max(0, newCount);
         CUserInfoStorage.Inst.SaveUserInfo();
     }
 
@@ -72,5 +88,17 @@ public static partial class GlobalDefine
     {
         if (rubyText != null)
             rubyText.text = string.Format(GlobalDefine.FORMAT_INT, CUserInfoStorage.Inst.UserInfo.Ruby);
+    }
+
+    public static void RefreshStarText(TMPro.TMP_Text rubyText)
+    {
+        if (rubyText != null)
+            rubyText.text = string.Format(GlobalDefine.FORMAT_INT, CUserInfoStorage.Inst.UserInfo.Star);
+    }
+
+    public static void RefreshStarText(UnityEngine.UI.Text rubyText)
+    {
+        if (rubyText != null)
+            rubyText.text = string.Format(GlobalDefine.FORMAT_INT, CUserInfoStorage.Inst.UserInfo.Star);
     }
 }

@@ -24,10 +24,7 @@ namespace MainScene {
             this.InitLobbyButtons();
             this.InitLevelMapButtons();
 
-            if (CUserInfoStorage.Inst.UserInfo.Item_ADBlock)
-                GlobalDefine.HideBannerAD();
-            else
-                GlobalDefine.RequestBannerAD();
+            GlobalDefine.RequestBannerAD();
 		}
 
         private void InitLevelMapButtons()

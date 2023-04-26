@@ -11,6 +11,7 @@ public partial class DebugPanel : MonoBehaviour
 
     [Header("★ [Reference] Input Field")]
     public InputField rubyInput;
+    public InputField starInput;
     public InputField itemInput;
     public InputField boosterInput;
     public InputField setClearInput;
@@ -41,6 +42,15 @@ public partial class DebugPanel : MonoBehaviour
         {
             GlobalDefine.SetRuby(value);
             GlobalDefine.RefreshShopText(CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.rubyText);
+        }
+    }
+
+    public void OnClick_SetStar()
+    {
+        if (int.TryParse(starInput.text, out int value))
+        {
+            GlobalDefine.SetStar(value);
+            GlobalDefine.RefreshStarText(CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.starText);
         }
     }
 
@@ -97,8 +107,7 @@ public partial class DebugPanel : MonoBehaviour
         {
             Settings_DarkMode = false,
             Ruby = 0,
-            StarSum = 0,
-            StarReward = 0,
+            Star = 0,
             Item_ADBlock = false, 
             Item_Earthquake = 0,
             Item_AddBall = 0,

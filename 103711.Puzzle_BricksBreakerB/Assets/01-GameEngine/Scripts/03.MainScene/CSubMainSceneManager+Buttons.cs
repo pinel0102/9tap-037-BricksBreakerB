@@ -22,8 +22,8 @@ namespace MainScene {
         {
             shortcutLevel = CUserInfoStorage.Inst.UserInfo.LevelCurrent;
             shortcutText.text = string.Format(formatShortcut, shortcutLevel);
-            rubyText.text = string.Format(GlobalDefine.FORMAT_INT, CUserInfoStorage.Inst.UserInfo.Ruby);
-            starText.text = string.Format(GlobalDefine.FORMAT_INT, CUserInfoStorage.Inst.UserInfo.StarSum);
+            GlobalDefine.RefreshShopText(rubyText);
+            GlobalDefine.RefreshStarText(starText);
         }
 
         public void OnClick_PlayShortcut()

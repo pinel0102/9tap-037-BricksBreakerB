@@ -15,7 +15,6 @@ public partial class CUserInfo : CBaseInfo
 
     private const string KEY_RUBY = "Ruby";
     private const string KEY_STAR_SUM = "Star_Sum";
-    private const string KEY_STAR_REWARD = "Star_Reward";
     private const string KEY_AD_BLOCK = "AD_Block";
     private const string KEY_GOLDEN_AIM = "Golden_Aim";
     private const string KEY_BOOSTER_MISSILE = "Booster_Missile";
@@ -44,15 +43,9 @@ public partial class CUserInfo : CBaseInfo
 	}
 
     [IgnoreMember]
-	public int StarSum {
+	public int Star {
 		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_STAR_SUM, GlobalDefine.STRING_0)); }
 		set { m_oStrDict.ExReplaceVal(KEY_STAR_SUM, $"{(int)value}"); }
-	}
-
-    [IgnoreMember]
-	public int StarReward {
-		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_STAR_REWARD, GlobalDefine.STRING_0)); }
-		set { m_oStrDict.ExReplaceVal(KEY_STAR_REWARD, $"{(int)value}"); }
 	}
 
     [IgnoreMember]

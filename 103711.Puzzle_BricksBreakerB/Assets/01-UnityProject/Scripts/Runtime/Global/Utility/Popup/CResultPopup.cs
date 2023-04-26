@@ -119,7 +119,8 @@ public partial class CResultPopup : CSubPopup {
 
         Params.Engine.SetupPreview(previewArea, previewMask);
 
-        rubyText.text = string.Format(GlobalDefine.FORMAT_INT, CUserInfoStorage.Inst.UserInfo.Ruby);
+        GlobalDefine.RefreshShopText(rubyText);
+        
         ADBlockButton.gameObject.SetActive(!CUserInfoStorage.Inst.UserInfo.Item_ADBlock);
         levelText[0].text = levelText[1].text = string.Format(formatLevel, Params.Engine.currentLevel);
         

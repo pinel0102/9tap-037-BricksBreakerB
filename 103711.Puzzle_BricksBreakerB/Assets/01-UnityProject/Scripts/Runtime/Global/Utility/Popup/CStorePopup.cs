@@ -100,8 +100,8 @@ public partial class CStorePopup : CSubPopup {
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
         
-        rubyText.text = string.Format(GlobalDefine.FORMAT_INT, CUserInfoStorage.Inst.UserInfo.Ruby);
-        starText.text = string.Format(GlobalDefine.FORMAT_INT, CUserInfoStorage.Inst.UserInfo.StarSum);
+        GlobalDefine.RefreshShopText(rubyText);
+        GlobalDefine.RefreshStarText(starText);
 
 		// 상품 UI 상태를 갱신한다
 		for(int i = 0; i < m_oProductBuyUIsList.Count; ++i) {

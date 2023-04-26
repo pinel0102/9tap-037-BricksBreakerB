@@ -4,6 +4,8 @@ using UnityEngine;
 
 public static partial class GlobalDefine
 {
+    public const float Time_FullscreenAD = 90f;
+
     public static void HideBannerAD()
     {
         Debug.Log(CodeManager.GetMethodName());
@@ -16,6 +18,10 @@ public static partial class GlobalDefine
         {
             Debug.Log(CodeManager.GetMethodName());
             //
+        }
+        else
+        {
+            HideBannerAD();
         }
     }
 
