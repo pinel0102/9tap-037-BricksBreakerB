@@ -108,7 +108,7 @@ namespace LevelEditorScene {
             if(!ColorUtility.TryParseHtmlString(_newColorHex, out drawCellColor))
                 drawCellColor = Color.white;
 
-            //Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", drawCellColorHex));
+            //Debug.Log(CodeManager.GetMethodName() + string.Format(GlobalDefine.FORMAT_INT, drawCellColorHex));
 
             UpdateUIsState();
             UpdateRightUIsColor();
@@ -119,7 +119,7 @@ namespace LevelEditorScene {
             drawCellColorOld = drawCellColor;
             drawCellColor = _newColor;
 
-            //Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", drawCellColorHex));
+            //Debug.Log(CodeManager.GetMethodName() + string.Format(GlobalDefine.FORMAT_INT, drawCellColorHex));
 
             UpdateUIsState();
             UpdateRightUIsColor();

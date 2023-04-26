@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class DebugPanel : MonoBehaviour
+public partial class DebugPanel : MonoBehaviour
 {
     [Header("★ [Settings] Debug Panel")]
     public bool hideOnAwake = true;
@@ -36,6 +36,11 @@ public class DebugPanel : MonoBehaviour
         isShown = gameObject.activeInHierarchy;
     }
 
+    private void Start()
+    {
+        AssignEngine();
+    }
+
     public void Panel_Show()
     {
         isShown = true;
@@ -56,10 +61,5 @@ public class DebugPanel : MonoBehaviour
             Panel_Hide();
         else
             Panel_Show();
-    }
-
-    public void OnClick_BackButton()
-    {
-        callback_backButton?.Invoke();
     }
 }

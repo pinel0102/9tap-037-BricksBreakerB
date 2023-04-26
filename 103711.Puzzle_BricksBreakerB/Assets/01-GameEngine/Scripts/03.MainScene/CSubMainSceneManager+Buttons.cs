@@ -22,13 +22,13 @@ namespace MainScene {
         {
             shortcutLevel = CUserInfoStorage.Inst.UserInfo.LevelCurrent;
             shortcutText.text = string.Format(formatShortcut, shortcutLevel);
-            rubyText.text = string.Format("{0}", CUserInfoStorage.Inst.UserInfo.Ruby);
-            starText.text = string.Format("{0}", CUserInfoStorage.Inst.UserInfo.StarSum);
+            rubyText.text = string.Format(GlobalDefine.FORMAT_INT, CUserInfoStorage.Inst.UserInfo.Ruby);
+            starText.text = string.Format(GlobalDefine.FORMAT_INT, CUserInfoStorage.Inst.UserInfo.StarSum);
         }
 
         public void OnClick_PlayShortcut()
         {
-            Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", shortcutLevel));
+            Debug.Log(CodeManager.GetMethodName() + string.Format(GlobalDefine.FORMAT_INT, shortcutLevel));
 
             Func.SetupPlayEpisodeInfo(KDefine.G_CHARACTER_ID_COMMON, shortcutLevel - 1, EPlayMode.NORM);
             CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);

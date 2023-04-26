@@ -15,11 +15,7 @@ namespace MainScene {
 
         public void OnClick_OpenPopup_Store()
         {
-            List<STProductTradeInfo> productTradeInfo = new List<STProductTradeInfo>();
-
-            Func.ShowStorePopup(this.PopupUIs, (a_oSender) => {
-				(a_oSender as CStorePopup).Init(CStorePopup.MakeParams(productTradeInfo));
-			});
+            this.OnTouchStoreBtn();
         }
 
         public void OnClick_OpenPopup_CheckIn()

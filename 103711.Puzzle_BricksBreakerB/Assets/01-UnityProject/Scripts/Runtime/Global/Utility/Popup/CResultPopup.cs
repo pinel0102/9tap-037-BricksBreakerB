@@ -47,10 +47,14 @@ public partial class CResultPopup : CSubPopup {
 	public STParams Params { get; private set; }
 	public override bool IsIgnoreCloseBtn => true;
 
+    public TMP_Text rubyText;
     public TMP_Text[] levelText;
     public GameObject[] starObject;
     public SpriteMask previewMask;
     public RectTransform previewArea;
+    public Button shopButton;
+    public Button ADBlockButton;
+    public Button piggyBankButton;
     
     private const string formatLevel = "Level {0}";
     private const string U_OBJ_N_LEAVE_BTN_2 = "LEAVE_BTN_2";    
@@ -82,6 +86,9 @@ public partial class CResultPopup : CSubPopup {
             (U_OBJ_N_LEAVE_BTN_2, this.Contents, this.OnTouchLeaveBtn)
 		});
 
+        shopButton.ExAddListener(OnTouchShopButton);
+        ADBlockButton.ExAddListener(OnTouchADBlockButton);
+
 		this.SubAwake();
 	}
 
@@ -112,6 +119,8 @@ public partial class CResultPopup : CSubPopup {
 
         Params.Engine.SetupPreview(previewArea, previewMask);
 
+        rubyText.text = string.Format(GlobalDefine.FORMAT_INT, CUserInfoStorage.Inst.UserInfo.Ruby);
+        ADBlockButton.gameObject.SetActive(!CUserInfoStorage.Inst.UserInfo.Item_ADBlock);
         levelText[0].text = levelText[1].text = string.Format(formatLevel, Params.Engine.currentLevel);
         
 		var oClearLevelInfo = Access.GetLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03, false);
@@ -155,6 +164,16 @@ public partial class CResultPopup : CSubPopup {
 	public void OnTouchLeaveBtn() {
 		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.LEAVE)?.Invoke(this);
 	}
+
+    private void OnTouchShopButton()
+    {
+        CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
+    }
+
+    private void OnTouchADBlockButton()
+    {
+        Params.Engine.Buy_ADBlock();
+    }
 	#endregion // 함수
 
 	#region 클래스 함수

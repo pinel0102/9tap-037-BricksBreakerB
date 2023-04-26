@@ -67,9 +67,15 @@ namespace GameScene {
 
         public void ToggleGoldenAim()
         {
-            m_oEngine.ToggleAimLayer();
-
-            RefreshGoldenAimButton();
+            if (GlobalDefine.isLevelEditor || CUserInfoStorage.Inst.UserInfo.Item_GoldenAim || Engine.isGoldAimOneTime)
+            {
+                m_oEngine.ToggleAimLayer();
+                RefreshGoldenAimButton();
+            }
+            else
+            {
+                CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
+            }
         }
 
         public void RefreshGoldenAimButton()

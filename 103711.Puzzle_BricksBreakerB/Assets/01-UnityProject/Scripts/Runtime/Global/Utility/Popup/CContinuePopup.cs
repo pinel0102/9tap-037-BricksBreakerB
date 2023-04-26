@@ -29,6 +29,7 @@ public partial class CContinuePopup : CSubPopup {
 	public struct STParams {
 		public int m_nContinueTimes;
 		public Dictionary<ECallback, System.Action<CContinuePopup>> m_oCallbackDict;
+        public NSEngine.CEngine Engine;
 	}
 
 	#region 변수
@@ -39,6 +40,22 @@ public partial class CContinuePopup : CSubPopup {
 	#region 프로퍼티
 	public STParams Params { get; private set; }
 	public override bool IsIgnoreCloseBtn => false;
+
+    [Header("★ [Reference] Shop Button")]
+    public Button shopButton;
+    public TMP_Text rubyText;
+
+    [Header("★ [Reference] Continue Button")]
+    public GameObject ContinueObject;
+    public GameObject ContinueObject_AD;
+    public List<TMP_Text> costText_continue;
+    public List<Button> ContinueButton = new List<Button>();
+    public Button ContinueButton_AD;
+
+    [Header("★ [Reference] Reward Button")]
+    public Button rewardVideoButton;
+    public TMP_Text rewardText_ruby;
+    
 	#endregion // 프로퍼티
 
 	#region 함수
@@ -55,9 +72,18 @@ public partial class CContinuePopup : CSubPopup {
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
 			(KCDefine.U_OBJ_N_RETRY_BTN, this.Contents, this.OnTouchRetryBtn),
-			(KCDefine.U_OBJ_N_CONTINUE_BTN, this.Contents, this.OnTouchContinueBtn),
 			(KCDefine.U_OBJ_N_LEAVE_BTN, this.Contents, this.OnTouchLeaveBtn)
 		});
+
+        for(int i=0; i < ContinueButton.Count; i++)
+        {
+            ContinueButton[i].ExAddListener(this.OnTouchContinueBtn);
+        }
+
+        ContinueButton_AD.ExAddListener(this.OnTouchContinueBtn_AD);
+
+        shopButton.ExAddListener(OnTouchShopButton);
+        rewardVideoButton.ExAddListener(OnTouchRewardVideoButton);
 
 		this.SubAwake();
 	}
@@ -88,12 +114,27 @@ public partial class CContinuePopup : CSubPopup {
 		for(int i = 0; i < oTextKeyInfoList.Count; ++i) {
 			m_oTextDict.GetValueOrDefault(oTextKeyInfoList[i].Item1)?.ExSetText($"{stItemTradeInfo.m_oPayTargetInfoDict.ExGetTargetVal(oTextKeyInfoList[i].Item2, (int)oTextKeyInfoList[i].Item3)}", EFontSet._1, false);
 		}
+
+        RefreshShopText();
+        for(int i=0; i < costText_continue.Count; i++)
+        {
+            costText_continue[i].text = string.Format(GlobalDefine.FORMAT_INT, GlobalDefine.CostRuby_Continue_Remove3Lines);
+        }
+        rewardText_ruby.text = string.Format(GlobalDefine.FORMAT_INT, GlobalDefine.RewardRuby_Continue);
 		// 텍스트를 갱신한다 }
+
+        ContinueObject.SetActive(!GlobalDefine.IsEnableAD());
+        ContinueObject_AD.SetActive(GlobalDefine.IsEnableAD());
 
         GlobalDefine.PlaySoundFX(ESoundSet.SOUND_LEVEL_FAIL);
 
 		this.SubUpdateUIsState();
 	}
+
+    public void RefreshShopText()
+    {
+        rubyText.text = string.Format(GlobalDefine.FORMAT_INT, CUserInfoStorage.Inst.UserInfo.Ruby);
+    }
 
 	/** 닫기 버튼을 눌렀을 경우 */
 	protected override void OnTouchCloseBtn() {
@@ -106,37 +147,50 @@ public partial class CContinuePopup : CSubPopup {
 		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.RETRY)?.Invoke(this);
 	}
 
-	/** 이어하기 버튼을 눌렀을 경우 */
-	private void OnTouchContinueBtn() {
-        Debug.Log(CodeManager.GetMethodName());
-
-        //
-        this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.CONTINUE)?.Invoke(this);
-        base.OnTouchCloseBtn();
-
-		/*var stItemTradeInfo = CItemInfoTable.Inst.GetBuyItemTradeInfo(EItemKinds.CONSUMABLE_GAME_ITEM_CONTINUE);
-		stItemTradeInfo.m_oPayTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ITEM_NUMS, (int)EItemKinds.GOODS_NORM_COINS, out STTargetInfo stTargetInfo);
-
-		// 교환이 불가능 할 경우
-		if(Access.IsEnableTrade(CGameInfoStorage.Inst.PlayCharacterID, stTargetInfo)) {
-			CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
-		} else {
-			Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, stItemTradeInfo.m_oAcquireTargetInfoDict, true);
-			this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.CONTINUE)?.Invoke(this);
-		}*/
-	}
-
 	/** 나가기 버튼을 눌렀을 경우 */
 	private void OnTouchLeaveBtn() {
 		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.LEAVE)?.Invoke(this);
 	}
+
+    private void OnTouchShopButton()
+    {
+        CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
+    }
+
+    /** 이어하기 버튼을 눌렀을 경우 */
+	private void OnTouchContinueBtn() 
+    {   
+        if (!GlobalDefine.isLevelEditor) 
+        {
+            if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.CostRuby_Continue_Remove3Lines)
+            {
+                CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
+                return;
+            }
+            else
+                GlobalDefine.AddRuby(-GlobalDefine.CostRuby_Continue_Remove3Lines);
+        }
+
+        Params.Engine.GetReward(NSEngine.RewardVideoType.CONTINUE_3LINE, this, false);
+	}
+
+    private void OnTouchContinueBtn_AD() 
+    {   
+        Params.Engine.RequestVideo(NSEngine.RewardVideoType.CONTINUE_3LINE, this);
+	}
+
+    private void OnTouchRewardVideoButton()
+    {
+        Params.Engine.RequestVideo(NSEngine.RewardVideoType.CONTINUE_RUBY, this);
+    }
 	#endregion // 함수
 
 	#region 클래스 함수
 	/** 매개 변수를 생성한다 */
-	public static STParams MakeParams(int a_nContinueTimes, Dictionary<ECallback, System.Action<CContinuePopup>> a_oCallbackDict = null) {
+	public static STParams MakeParams(int a_nContinueTimes, Dictionary<ECallback, System.Action<CContinuePopup>> a_oCallbackDict = null, NSEngine.CEngine _engine = null) {
 		return new STParams() {
-			m_nContinueTimes = a_nContinueTimes, m_oCallbackDict = a_oCallbackDict ?? new Dictionary<ECallback, System.Action<CContinuePopup>>()
+			m_nContinueTimes = a_nContinueTimes, m_oCallbackDict = a_oCallbackDict ?? new Dictionary<ECallback, System.Action<CContinuePopup>>(),
+            Engine = _engine
 		};
 	}
 	#endregion // 클래스 함수

@@ -53,7 +53,7 @@ namespace GameScene {
                     case 4: count = CUserInfoStorage.Inst.UserInfo.Item_AddSteelBricks; break;
                 }
 
-                bottomItemsText[index].text = string.Format(GlobalDefine.FORMAT_BOTTOM_ITEM, count);
+                bottomItemsText[index].text = string.Format(GlobalDefine.FORMAT_ITEM_COUNT, count);
                 bottomItemsText[index].gameObject.SetActive(count > 0);
                 bottomItemsRuby[index].gameObject.SetActive(count <= 0);
             }
@@ -68,7 +68,7 @@ namespace GameScene {
             {
                 if (CUserInfoStorage.Inst.UserInfo.Item_Earthquake < 1)
                 {
-                    if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.bottomItem_Ruby_Cost)
+                    if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.CostRuby_BottomItem)
                     {
                         OpenPopup_Store();
                         return;
@@ -114,7 +114,7 @@ namespace GameScene {
             {
                 if (CUserInfoStorage.Inst.UserInfo.Item_AddBall < 1) 
                 {
-                    if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.bottomItem_Ruby_Cost)
+                    if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.CostRuby_BottomItem)
                     {
                         OpenPopup_Store();
                         return;
@@ -148,7 +148,7 @@ namespace GameScene {
             {
                 if (CUserInfoStorage.Inst.UserInfo.Item_BricksDelete < 1) 
                 {
-                    if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.bottomItem_Ruby_Cost)
+                    if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.CostRuby_BottomItem)
                     {
                         OpenPopup_Store();
                         return;
@@ -191,7 +191,7 @@ namespace GameScene {
             {
                 if (CUserInfoStorage.Inst.UserInfo.Item_AddLaserBricks < 1) 
                 {
-                    if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.bottomItem_Ruby_Cost)
+                    if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.CostRuby_BottomItem)
                     {
                         OpenPopup_Store();
                         return;
@@ -230,7 +230,7 @@ namespace GameScene {
             {
                 if (CUserInfoStorage.Inst.UserInfo.Item_AddSteelBricks < 1) 
                 {
-                    if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.bottomItem_Ruby_Cost)
+                    if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.CostRuby_BottomItem)
                     {
                         OpenPopup_Store();
                         return;
@@ -271,17 +271,12 @@ namespace GameScene {
 
         private void PurchaseBottomItem()
         {
-            CUserInfoStorage.Inst.UserInfo.Ruby = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Ruby - GlobalDefine.bottomItem_Ruby_Cost);
-            CUserInfoStorage.Inst.SaveUserInfo();
+            GlobalDefine.AddRuby(-GlobalDefine.CostRuby_BottomItem);
         }
 
         private void OpenPopup_Store()
         {
-            List<STProductTradeInfo> productTradeInfo = new List<STProductTradeInfo>();
-
-            Func.ShowStorePopup(this.PopupUIs, (a_oSender) => {
-				(a_oSender as CStorePopup).Init(CStorePopup.MakeParams(productTradeInfo));
-			});
+            CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
         }
 
 #endregion Buttons

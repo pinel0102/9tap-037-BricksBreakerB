@@ -72,7 +72,7 @@ public class LevelButton : MonoBehaviour
     {
         for (int i=0; i < levelText.Count; i++)
         {
-            levelText[i].text = string.Format("{0}", level);
+            levelText[i].text = string.Format(GlobalDefine.FORMAT_INT, level);
         }
 
         switch(levelType)

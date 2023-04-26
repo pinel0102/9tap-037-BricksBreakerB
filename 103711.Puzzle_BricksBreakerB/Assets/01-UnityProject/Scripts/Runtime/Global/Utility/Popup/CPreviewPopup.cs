@@ -34,21 +34,36 @@ public partial class CPreviewPopup : CSubPopup {
 
 	#region 변수
 
+    [Header("★ [Reference] Play Button")]
+    public GameObject playObject;
+    public GameObject playObject_AD;
     public List<Button> buttonPlay = new List<Button>();
     public Button buttonPlayAD;
+
+    [Header("★ [Reference] Booster")]
     public List<Button> buttonBooster = new List<Button>();
     public List<Button> boosterLock = new List<Button>();
     public List<GameObject> boosterOn = new List<GameObject>();
-    public Button goldenAimButton;
+    public List<GameObject> boosterCount = new List<GameObject>();
+    public List<GameObject> boosterBuy = new List<GameObject>();
+    public List<TMP_Text> boosterTextCount = new List<TMP_Text>();
+    public List<TMP_Text> boosterTextCost = new List<TMP_Text>();
 
+    [Header("★ [Reference] Golden Aim")]
+    public Button goldenAimButton;
+    public GameObject goldenAimOK;
+
+    [Header("★ [Reference] Preview")]
     public TMP_Text levelText;
     public SpriteMask previewMask;
     public RectTransform previewArea;
 
+    [Header("★ [Reference] Tooltip")]
     public int currentTooltip;
     public RectTransform tooltip;
-    public Canvas tooltipCanvas;
     public TMP_Text tooltipText;
+    public Canvas tooltipCanvas;
+    public Canvas tipsCanvas;
     
 	#endregion // 변수
 
@@ -61,6 +76,8 @@ public partial class CPreviewPopup : CSubPopup {
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
+
+        this.SetIgnoreNavStackEvent(true);
 
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
@@ -84,7 +101,10 @@ public partial class CPreviewPopup : CSubPopup {
             boosterLock[index].ExAddListener(() => this.OnTouchTooltipButton(index));
         }
 
-        tooltipCanvas.ExSetSortingOrder(GlobalDefine.SortingInfo_TooltipText);
+        goldenAimButton.ExAddListener(this.OnTouchGoldenAimButton);
+
+        tooltipCanvas.ExSetSortingOrder(GlobalDefine.SortingInfo_PreviewTooltips);
+        tipsCanvas.ExSetSortingOrder(GlobalDefine.SortingInfo_PreviewTips);
 
 		this.SubAwake();
 	}
@@ -115,9 +135,24 @@ public partial class CPreviewPopup : CSubPopup {
             boosterOn[i].SetActive(false);
             buttonBooster[i].gameObject.SetActive(Params.Engine.currentLevel >= GlobalDefine.BOOSTER_LEVEL[i]);
             boosterLock[i].gameObject.SetActive(Params.Engine.currentLevel < GlobalDefine.BOOSTER_LEVEL[i]);
+            boosterTextCost[i].text = string.Format(GlobalDefine.FORMAT_INT, GlobalDefine.CostRuby_Booster);
         }
 
+        boosterTextCount[0].text = string.Format(GlobalDefine.FORMAT_ITEM_COUNT, CUserInfoStorage.Inst.UserInfo.Booster_Missile);
+        boosterTextCount[1].text = string.Format(GlobalDefine.FORMAT_ITEM_COUNT, CUserInfoStorage.Inst.UserInfo.Booster_Lightning);
+        boosterTextCount[2].text = string.Format(GlobalDefine.FORMAT_ITEM_COUNT, CUserInfoStorage.Inst.UserInfo.Booster_Bomb);
+
+        boosterCount[0].SetActive(CUserInfoStorage.Inst.UserInfo.Booster_Missile > 0);
+        boosterCount[1].SetActive(CUserInfoStorage.Inst.UserInfo.Booster_Lightning > 0);
+        boosterCount[2].SetActive(CUserInfoStorage.Inst.UserInfo.Booster_Bomb > 0);
+
+        boosterBuy[0].SetActive(CUserInfoStorage.Inst.UserInfo.Booster_Missile <= 0);
+        boosterBuy[1].SetActive(CUserInfoStorage.Inst.UserInfo.Booster_Lightning <= 0);
+        boosterBuy[2].SetActive(CUserInfoStorage.Inst.UserInfo.Booster_Bomb <= 0);
+
         tooltip.gameObject.SetActive(false);
+        goldenAimButton.gameObject.SetActive(!CUserInfoStorage.Inst.UserInfo.Item_GoldenAim);
+        goldenAimOK.SetActive(false);
         
         GlobalDefine.PlaySoundFX(ESoundSet.SOUND_LEVEL_READY);
 
@@ -139,6 +174,49 @@ public partial class CPreviewPopup : CSubPopup {
         bool oldValue = this.Params.Engine.boosterList[index];
         bool newValue = !oldValue;
 
+        if (newValue)
+        {
+            if (!GlobalDefine.isLevelEditor) 
+            {
+                int currentCount = 0;
+                switch(index)
+                {
+                    case 0 : currentCount = CUserInfoStorage.Inst.UserInfo.Booster_Missile; break;
+                    case 1 : currentCount = CUserInfoStorage.Inst.UserInfo.Booster_Lightning; break;
+                    case 2 : currentCount = CUserInfoStorage.Inst.UserInfo.Booster_Bomb; break;
+                }
+
+                if (currentCount < 1)
+                {
+                    if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.CostRuby_Booster)
+                    {
+                        CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
+                        return;
+                    }
+                    else
+                        GlobalDefine.AddRuby(-GlobalDefine.CostRuby_Booster);
+                }
+                else
+                {
+                    switch(index)
+                    {
+                        case 0 : CUserInfoStorage.Inst.UserInfo.Booster_Missile = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Booster_Missile - 1); break;
+                        case 1 : CUserInfoStorage.Inst.UserInfo.Booster_Lightning = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Booster_Lightning - 1); break;
+                        case 2 : CUserInfoStorage.Inst.UserInfo.Booster_Bomb = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Booster_Bomb - 1); break;
+                    }
+                }
+            }
+        }
+        else
+        {
+            switch(index)
+            {
+                case 0 : CUserInfoStorage.Inst.UserInfo.Booster_Missile = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Booster_Missile + 1); break;
+                case 1 : CUserInfoStorage.Inst.UserInfo.Booster_Lightning = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Booster_Lightning + 1); break;
+                case 2 : CUserInfoStorage.Inst.UserInfo.Booster_Bomb = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Booster_Bomb + 1); break;
+            }
+        }
+
         this.Params.Engine.ChangeBooster(index, newValue);
         boosterOn[index].SetActive(newValue);
     }
@@ -157,6 +235,28 @@ public partial class CPreviewPopup : CSubPopup {
             tooltip.anchoredPosition = new Vector2(buttonBooster[index].transform.localPosition.x, 200);
             tooltip.gameObject.SetActive(true);
         }
+    }
+
+    private void OnTouchGoldenAimButton()
+    {
+        if (!GlobalDefine.isLevelEditor && !CUserInfoStorage.Inst.UserInfo.Item_GoldenAim) 
+        {
+            if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.CostRuby_GoldenAim)
+            {
+                CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
+                return;
+            }
+            else
+                GlobalDefine.AddRuby(-GlobalDefine.CostRuby_GoldenAim);
+        }
+
+        Params.Engine.isGoldAimOneTime = true;
+        Params.Engine.isGoldAim = true;
+        Params.Engine.SetAimLayer(true);
+        Params.Engine.subGameSceneManager.RefreshGoldenAimButton();
+        
+        goldenAimButton.gameObject.SetActive(false);
+        goldenAimOK.SetActive(true);
     }
 
     /** 재시도 버튼을 눌렀을 경우 */

@@ -41,6 +41,7 @@ public partial class CPausePopup : CSubPopup {
     public TMP_Text levelText;
     public SpriteMask previewMask;
     public RectTransform previewArea;
+    public Button ADBlockButton;
     private const string formatLevel = "Level {0}";
 	#endregion // 프로퍼티
 
@@ -54,6 +55,8 @@ public partial class CPausePopup : CSubPopup {
             ($"{EKey.RETRY_BTN}", this.gameObject, this.OnTouchRetryBtn),
 			($"{EKey.LEAVE_BTN}", this.gameObject, this.OnTouchLeaveBtn)
 		});
+
+        ADBlockButton.ExAddListener(OnTouchADBlockButton);
 
 		this.SubAwake();
 	}
@@ -78,6 +81,7 @@ public partial class CPausePopup : CSubPopup {
         Params.Engine.SetupPreview(previewArea, previewMask);
         
         levelText.text = string.Format(formatLevel, CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).Engine.currentLevel);
+        ADBlockButton.gameObject.SetActive(!CUserInfoStorage.Inst.UserInfo.Item_ADBlock);
 
 		this.SubUpdateUIsState();
 	}
@@ -91,6 +95,11 @@ public partial class CPausePopup : CSubPopup {
 	private void OnTouchLeaveBtn() {
 		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.LEAVE)?.Invoke(this);
 	}
+
+    private void OnTouchADBlockButton()
+    {
+        Params.Engine.Buy_ADBlock();
+    }
 	#endregion // 함수
 
 	#region 클래스 함수

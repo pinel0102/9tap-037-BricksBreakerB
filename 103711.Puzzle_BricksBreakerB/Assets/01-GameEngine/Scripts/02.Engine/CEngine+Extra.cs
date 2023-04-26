@@ -62,7 +62,7 @@ namespace NSEngine {
             CheckClear(_waitDelay);
         }
 
-        private void SetAimLayer(bool _reflectBricks)
+        public void SetAimLayer(bool _reflectBricks)
         {
             currentAimLayer = _reflectBricks ? layerReflect : layerWall;
         }

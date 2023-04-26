@@ -45,6 +45,10 @@ public partial class CStorePopup : CSubPopup {
 	}
 
 	#region 변수
+    public Canvas storeCanvas;
+    public TMP_Text rubyText;
+    public TMP_Text starText;
+
 	private Dictionary<EKey, EProductKinds> m_oProductKindsDict = new Dictionary<EKey, EProductKinds>() {
 		[EKey.SEL_PRODUCT_KINDS] = EProductKinds.NONE
 	};
@@ -71,6 +75,8 @@ public partial class CStorePopup : CSubPopup {
 			(KCDefine.U_OBJ_N_RESTORE_BTN, this.Contents, this.OnTouchRestoreBtn)
 		});
 
+        storeCanvas.ExSetSortingOrder(GlobalDefine.SortingInfo_StoreCanvas);
+
 		this.SubAwake();
 	}
 
@@ -93,6 +99,10 @@ public partial class CStorePopup : CSubPopup {
 
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
+        
+        rubyText.text = string.Format(GlobalDefine.FORMAT_INT, CUserInfoStorage.Inst.UserInfo.Ruby);
+        starText.text = string.Format(GlobalDefine.FORMAT_INT, CUserInfoStorage.Inst.UserInfo.StarSum);
+
 		// 상품 UI 상태를 갱신한다
 		for(int i = 0; i < m_oProductBuyUIsList.Count; ++i) {
 			this.UpdateProductBuyUIsState(m_oProductBuyUIsList[i], this.Params.m_oProductTradeInfoList[i]);

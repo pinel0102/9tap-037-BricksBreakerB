@@ -508,7 +508,7 @@ namespace NSEngine {
 
         public void LevelClear()
         {
-            Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", currentLevel));
+            Debug.Log(CodeManager.GetMethodName() + string.Format(GlobalDefine.FORMAT_INT, currentLevel));
 
             CUserInfoStorage.Inst.UserInfo.LevelCurrent = Mathf.Min(Mathf.Max(CUserInfoStorage.Inst.UserInfo.LevelCurrent, currentLevel + 1), CLevelInfoTable.Inst.levelCount);
             CUserInfoStorage.Inst.SaveUserInfo();
@@ -518,7 +518,7 @@ namespace NSEngine {
 
         public void LevelFail()
         {
-            Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", currentLevel));
+            Debug.Log(CodeManager.GetMethodName() + string.Format(GlobalDefine.FORMAT_INT, currentLevel));
 
             this.InitCombo();
             isLevelFail = true;

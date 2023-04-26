@@ -16,6 +16,11 @@ public partial class CUserInfo : CBaseInfo
     private const string KEY_RUBY = "Ruby";
     private const string KEY_STAR_SUM = "Star_Sum";
     private const string KEY_STAR_REWARD = "Star_Reward";
+    private const string KEY_AD_BLOCK = "AD_Block";
+    private const string KEY_GOLDEN_AIM = "Golden_Aim";
+    private const string KEY_BOOSTER_MISSILE = "Booster_Missile";
+    private const string KEY_BOOSTER_LIGHTNING = "Booster_Lightning";
+    private const string KEY_BOOSTER_BOMB = "Booster_Bomb";
     private const string KEY_ITEM_EARTHQUAKE = "Item_Earthquake";
     private const string KEY_ITEM_ADD_BALL = "Item_AddBall";
     private const string KEY_ITEM_BRICKS_DELETE = "Item_BricksDelete";
@@ -51,6 +56,18 @@ public partial class CUserInfo : CBaseInfo
 	}
 
     [IgnoreMember]
+	public bool Item_ADBlock {
+		get { return bool.Parse(m_oStrDict.GetValueOrDefault(KEY_AD_BLOCK, GlobalDefine.STRING_FALSE)); }
+		set { m_oStrDict.ExReplaceVal(KEY_AD_BLOCK, $"{(bool)value}"); }
+	}
+
+    [IgnoreMember]
+	public bool Item_GoldenAim {
+		get { return bool.Parse(m_oStrDict.GetValueOrDefault(KEY_GOLDEN_AIM, GlobalDefine.STRING_FALSE)); }
+		set { m_oStrDict.ExReplaceVal(KEY_GOLDEN_AIM, $"{(bool)value}"); }
+	}
+
+    [IgnoreMember]
 	public int Item_Earthquake {
 		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_ITEM_EARTHQUAKE, GlobalDefine.STRING_0)); }
 		set { m_oStrDict.ExReplaceVal(KEY_ITEM_EARTHQUAKE, $"{(int)value}"); }
@@ -78,6 +95,24 @@ public partial class CUserInfo : CBaseInfo
 	public int Item_AddSteelBricks {
 		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_ITEM_ADD_STEEL_BRICKS, GlobalDefine.STRING_0)); }
 		set { m_oStrDict.ExReplaceVal(KEY_ITEM_ADD_STEEL_BRICKS, $"{(int)value}"); }
+	}
+
+    [IgnoreMember]
+	public int Booster_Missile {
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_BOOSTER_MISSILE, GlobalDefine.STRING_0)); }
+		set { m_oStrDict.ExReplaceVal(KEY_BOOSTER_MISSILE, $"{(int)value}"); }
+	}
+
+    [IgnoreMember]
+	public int Booster_Lightning {
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_BOOSTER_LIGHTNING, GlobalDefine.STRING_0)); }
+		set { m_oStrDict.ExReplaceVal(KEY_BOOSTER_LIGHTNING, $"{(int)value}"); }
+	}
+
+    [IgnoreMember]
+	public int Booster_Bomb {
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_BOOSTER_BOMB, GlobalDefine.STRING_0)); }
+		set { m_oStrDict.ExReplaceVal(KEY_BOOSTER_BOMB, $"{(int)value}"); }
 	}
 
     [IgnoreMember]

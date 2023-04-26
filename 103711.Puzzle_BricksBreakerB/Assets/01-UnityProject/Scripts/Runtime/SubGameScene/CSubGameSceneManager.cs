@@ -341,7 +341,7 @@ namespace GameScene {
                     
                     if (m_oEngine.currentLevel < CLevelInfoTable.Inst.levelCount)
                     {
-                        Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", m_oEngine.currentLevel + 1));
+                        Debug.Log(CodeManager.GetMethodName() + string.Format(GlobalDefine.FORMAT_INT, m_oEngine.currentLevel + 1));
 
                         Func.SetupPlayEpisodeInfo(CGameInfoStorage.Inst.PlayCharacterID, (int)CGameInfoStorage.Inst.PlayLevelInfo.ULevelID + 1, CGameInfoStorage.Inst.PlayMode);
 
@@ -424,9 +424,9 @@ namespace GameScene {
 			Func.ShowContinuePopup(this.PopupUIs, (a_oSender) => {
 				(a_oSender as CContinuePopup).Init(CContinuePopup.MakeParams(m_oIntDict.GetValueOrDefault(EKey.CONTINUE_TIMES), new Dictionary<CContinuePopup.ECallback, System.Action<CContinuePopup>>() {
 					[CContinuePopup.ECallback.RETRY] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.RETRY),
-					[CContinuePopup.ECallback.CONTINUE] = (a_oPopupSender) => {this.OnReceivePopupResult(a_oPopupSender, EPopupResult.CONTINUE); GetContinueBonus();},
+					[CContinuePopup.ECallback.CONTINUE] = (a_oPopupSender) => this.OnReceivePopupResult(a_oPopupSender, EPopupResult.CONTINUE),
 					[CContinuePopup.ECallback.LEAVE] = (a_oPopupSender) => this.ShowResultPopup(false)
-				}));
+				}, this.Engine));
 			});
 		}
 

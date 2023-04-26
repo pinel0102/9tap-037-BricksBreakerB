@@ -10,6 +10,7 @@ namespace NSEngine {
         public EPlayState PlayState;
         public Transform lastClearTarget;
         public bool isShooting;
+        public bool isGoldAimOneTime;
         public bool isGoldAim;
         public bool isTutorial;
         public bool isLevelClear;
@@ -109,7 +110,7 @@ namespace NSEngine {
                      | 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_OBSTACLE_THROUGH)| 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_SPECIAL_THROUGH);
             layerBall = 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_BALL);
 
-            isGoldAim = false;
+            isGoldAim = CUserInfoStorage.Inst.UserInfo.Item_GoldenAim;
             SetAimLayer(isGoldAim);
         }
 
