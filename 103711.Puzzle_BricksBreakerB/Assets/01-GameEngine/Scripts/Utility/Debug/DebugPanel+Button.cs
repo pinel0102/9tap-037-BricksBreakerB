@@ -13,8 +13,8 @@ public partial class DebugPanel : MonoBehaviour
     public InputField rubyInput;
     public InputField itemInput;
     public InputField boosterInput;
-    public InputField levelInput;
     public InputField setClearInput;
+    public InputField levelPlayInput;
 
     private bool isEngineAssigned;
     private NSEngine.CEngine Engine;
@@ -40,6 +40,7 @@ public partial class DebugPanel : MonoBehaviour
         if (int.TryParse(rubyInput.text, out int value))
         {
             GlobalDefine.SetRuby(value);
+            GlobalDefine.RefreshShopText(CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.rubyText);
         }
     }
 
@@ -48,6 +49,7 @@ public partial class DebugPanel : MonoBehaviour
         if (int.TryParse(itemInput.text, out int value))
         {
             GlobalDefine.SetItem(value);
+            CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME)?.RefreshItemCount();
         }
     }
 
@@ -61,7 +63,7 @@ public partial class DebugPanel : MonoBehaviour
 
     public void OnClick_LevelPlay()
     {
-        if (int.TryParse(levelInput.text, out int value))
+        if (int.TryParse(levelPlayInput.text, out int value))
         {
             Func.SetupPlayEpisodeInfo(KDefine.G_CHARACTER_ID_COMMON, value - 1, EPlayMode.NORM);
             CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);

@@ -39,7 +39,7 @@ namespace GameScene {
 			}
         }
 
-        private void RefreshItemCount()
+        public void RefreshItemCount()
         {
             for(int index = 0; index < bottomItemsText.Count; index++)
             {

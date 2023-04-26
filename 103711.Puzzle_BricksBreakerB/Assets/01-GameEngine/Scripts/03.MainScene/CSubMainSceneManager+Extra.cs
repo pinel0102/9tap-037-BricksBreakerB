@@ -23,6 +23,11 @@ namespace MainScene {
 			this.InitTabs();
             this.InitLobbyButtons();
             this.InitLevelMapButtons();
+
+            if (CUserInfoStorage.Inst.UserInfo.Item_ADBlock)
+                GlobalDefine.HideBannerAD();
+            else
+                GlobalDefine.RequestBannerAD();
 		}
 
         private void InitLevelMapButtons()

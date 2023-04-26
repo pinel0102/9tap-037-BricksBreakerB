@@ -1101,7 +1101,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 8254324028620471eb7036bd7089d2aa, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -1671,7 +1671,7 @@ GameObject:
   - component: {fileID: 8637212672470050678}
   - component: {fileID: 7142755623557241206}
   m_Layer: 5
-  m_Name: Button
+  m_Name: BottomButton_AD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2295,7 +2295,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5380762814418794091
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2662,7 +2662,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7631454810847880612
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3181,6 +3181,7 @@ MonoBehaviour:
   ContinueButton_AD: {fileID: 7589560101078375944}
   rewardVideoButton: {fileID: 7142755623557241206}
   rewardText_ruby: {fileID: 465168490564741688}
+  rewardText_count: {fileID: 0}
 --- !u!1 &8085509314695293177
 GameObject:
   m_ObjectHideFlags: 0

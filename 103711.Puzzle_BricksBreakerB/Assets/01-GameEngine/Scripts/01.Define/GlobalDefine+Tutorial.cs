@@ -14,6 +14,7 @@ public static partial class GlobalDefine
     public const int BOOSTER_LEVEL_LIGHTNING = 55;
     public const int BOOSTER_LEVEL_EXPLOSION = 70;
 
+    ///<Summary>아이템이 해금되는 레벨.</Summary>
     public static readonly List<int> TUTORIAL_LEVEL_BOTTOM_ITEM = new List<int>()
     {
         TUTORIAL_LEVEL_EARTHQUAKE,
@@ -25,13 +26,14 @@ public static partial class GlobalDefine
 
     public static readonly List<string> TUTORIAL_TEXT_BOTTOM_ITEM = new List<string>()
     {
-        "Earthquake powerup give 40% damage to all bricks. Try it free!",
-        "Add Ball powerup add 30 one-time balls. Try it free!",
-        "Line Delete powerup delete bottom lines. Try it free!",
-        "Add Laser Bricks add 4 laser bricks. Try it free!",
-        "Steel bricks add one-time steel bricks to floor. Try it free!"
+        "The Quake power-up\nDeals a little damage to every block. Try it free!",
+        "The Bonus Balls power-up\nGives you extra balls on your next shot. Try it free!",
+        "The Line Clear power-up\nRemoves the bottom-most row of bricks. Try it free!",
+        "The Laser power-up\nRandomly places 4 lasers on the screen. Try it free!",
+        "The Iron Blocks power-up\nAdds iron blocks at the bottom of the screen. Try it free!"
     };
 
+    ///<Summary>부스터가 해금되는 레벨.</Summary>
     public static readonly List<int> BOOSTER_LEVEL = new List<int>()
     {
         BOOSTER_LEVEL_MISSILE,

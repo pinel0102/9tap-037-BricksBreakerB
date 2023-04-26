@@ -1801,8 +1801,8 @@ MonoBehaviour:
   rubyInput: {fileID: 8518600129323422056}
   itemInput: {fileID: 5000233839123288753}
   boosterInput: {fileID: 2459472581972429976}
-  levelInput: {fileID: 1324024535840176452}
-  setClearInput: {fileID: 0}
+  setClearInput: {fileID: 5610450874423283899}
+  levelPlayInput: {fileID: 1324024535840176452}
   hideOnAwake: 1
   showPosition: {x: 0, y: 100}
   hidePosition: {x: -720, y: 100}

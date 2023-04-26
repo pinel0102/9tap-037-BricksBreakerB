@@ -62,11 +62,15 @@ public static partial class GlobalDefine
         CUserInfoStorage.Inst.SaveUserInfo();
     }
 
-    public static bool IsEnableAD()
+    public static void RefreshShopText(TMPro.TMP_Text rubyText)
     {
-        if(isLevelEditor)
-            return true;
+        if (rubyText != null)
+            rubyText.text = string.Format(GlobalDefine.FORMAT_INT, CUserInfoStorage.Inst.UserInfo.Ruby);
+    }
 
-        return true;
+    public static void RefreshShopText(UnityEngine.UI.Text rubyText)
+    {
+        if (rubyText != null)
+            rubyText.text = string.Format(GlobalDefine.FORMAT_INT, CUserInfoStorage.Inst.UserInfo.Ruby);
     }
 }

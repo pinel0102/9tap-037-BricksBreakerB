@@ -115,7 +115,7 @@ public partial class CContinuePopup : CSubPopup {
 			m_oTextDict.GetValueOrDefault(oTextKeyInfoList[i].Item1)?.ExSetText($"{stItemTradeInfo.m_oPayTargetInfoDict.ExGetTargetVal(oTextKeyInfoList[i].Item2, (int)oTextKeyInfoList[i].Item3)}", EFontSet._1, false);
 		}
 
-        RefreshShopText();
+        GlobalDefine.RefreshShopText(rubyText);
         for(int i=0; i < costText_continue.Count; i++)
         {
             costText_continue[i].text = string.Format(GlobalDefine.FORMAT_INT, GlobalDefine.CostRuby_Continue_Remove3Lines);
@@ -123,18 +123,14 @@ public partial class CContinuePopup : CSubPopup {
         rewardText_ruby.text = string.Format(GlobalDefine.FORMAT_INT, GlobalDefine.RewardRuby_Continue);
 		// 텍스트를 갱신한다 }
 
-        ContinueObject.SetActive(!GlobalDefine.IsEnableAD());
-        ContinueObject_AD.SetActive(GlobalDefine.IsEnableAD());
+        ContinueObject.SetActive(!GlobalDefine.IsEnableRewardVideo());
+        ContinueObject_AD.SetActive(GlobalDefine.IsEnableRewardVideo());
+        rewardVideoButton.gameObject.SetActive(GlobalDefine.IsEnableRewardVideo());
 
         GlobalDefine.PlaySoundFX(ESoundSet.SOUND_LEVEL_FAIL);
 
 		this.SubUpdateUIsState();
 	}
-
-    public void RefreshShopText()
-    {
-        rubyText.text = string.Format(GlobalDefine.FORMAT_INT, CUserInfoStorage.Inst.UserInfo.Ruby);
-    }
 
 	/** 닫기 버튼을 눌렀을 경우 */
 	protected override void OnTouchCloseBtn() {

@@ -8,6 +8,8 @@ namespace NSEngine {
         public void Buy_ADBlock()
         {
             Debug.Log(CodeManager.GetMethodName());
+
+            //GlobalDefine.HideBannerAD();
         }
     }
 }

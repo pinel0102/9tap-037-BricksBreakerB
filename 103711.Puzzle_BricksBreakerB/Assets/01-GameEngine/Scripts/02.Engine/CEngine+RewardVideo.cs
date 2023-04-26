@@ -15,12 +15,14 @@ namespace NSEngine {
             }
             else
             {
-                //
+                GlobalDefine.RequestRewardVideo(type, popup);
             }
         }
 
         public void GetReward(RewardVideoType type, CPopup popup, bool isRewardVideo = true)
         {
+            Debug.Log(CodeManager.GetMethodName() + type);
+
             switch(type)
             {
                 case RewardVideoType.CONTINUE_3LINE:
@@ -66,7 +68,8 @@ namespace NSEngine {
 
                     if (popup != null)
                     {
-                        (popup as CContinuePopup).RefreshShopText();
+                        GlobalDefine.RefreshShopText((popup as CContinuePopup).rubyText);
+                        (popup as CContinuePopup).rewardVideoButton.gameObject.SetActive(false);
                     }
 
                     break;

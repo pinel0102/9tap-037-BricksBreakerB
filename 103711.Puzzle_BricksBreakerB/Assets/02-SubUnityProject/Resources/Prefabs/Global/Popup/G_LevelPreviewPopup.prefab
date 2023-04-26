@@ -660,9 +660,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Watch a rewarded ad video to earn extra balls, Golden Aim or pre-level
-    items such as Rocket Brick, Lightning Brick, or Cross-bomb Brick power-ups for
-    this level.
+  m_text: Watch a reward ad video to earn extra balls, Golden Aim or pre-level items
+    such as Rocket Brick, Lightning Brick, or Cross-bomb Brick power-ups for this
+    level.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e9cecbad365b54a72ac0f97def79df94, type: 2}
   m_sharedMaterial: {fileID: -1631831681166115848, guid: e9cecbad365b54a72ac0f97def79df94, type: 2}
@@ -3821,7 +3821,7 @@ Canvas:
   m_OverrideSorting: 1
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -5794,8 +5794,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 258, y: -4}
-  m_SizeDelta: {x: 384.5976, y: 99.7}
+  m_AnchoredPosition: {x: 270, y: -4}
+  m_SizeDelta: {x: 410, y: 99.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5938804319318786349
 CanvasRenderer:
@@ -5825,7 +5825,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Cross-Bomb Brick -  Clears a cross-section of bricks when destroved.
+  m_text: Cross-Bomb Brick\nClears a cross-section of bricks when destroved!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e9cecbad365b54a72ac0f97def79df94, type: 2}
   m_sharedMaterial: {fileID: -1631831681166115848, guid: e9cecbad365b54a72ac0f97def79df94, type: 2}
@@ -6216,8 +6216,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 258, y: -4}
-  m_SizeDelta: {x: 384.5976, y: 99.7}
+  m_AnchoredPosition: {x: 270, y: -4}
+  m_SizeDelta: {x: 410, y: 99.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6111555798526242286
 CanvasRenderer:
@@ -6247,7 +6247,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Rocket Brick - Releases rockets that clear other bricks when destroved.
+  m_text: Rocket Brick\nReleases rockets that clear other bricks when destroved.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e9cecbad365b54a72ac0f97def79df94, type: 2}
   m_sharedMaterial: {fileID: -1631831681166115848, guid: e9cecbad365b54a72ac0f97def79df94, type: 2}
@@ -6336,7 +6336,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3382530614965730040
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7578,8 +7578,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 258, y: -4}
-  m_SizeDelta: {x: 384.5976, y: 99.7}
+  m_AnchoredPosition: {x: 270, y: -4}
+  m_SizeDelta: {x: 410, y: 99.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5988332983009796477
 CanvasRenderer:
@@ -7609,7 +7609,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Lightning Brick - Zaps other bricks each time you hit it.
+  m_text: Lightning Brick\nZaps other bricks each time you hit it!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e9cecbad365b54a72ac0f97def79df94, type: 2}
   m_sharedMaterial: {fileID: -1631831681166115848, guid: e9cecbad365b54a72ac0f97def79df94, type: 2}

@@ -152,16 +152,19 @@ public partial class CResultPopup : CSubPopup {
 
 	/** 다음 버튼을 눌렀을 경우 */
 	public void OnTouchNextBtn() {
+        GlobalDefine.RequestFullscreenAD();
 		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.NEXT)?.Invoke(this);
 	}
 
 	/** 재시도 버튼을 눌렀을 경우 */
 	public void OnTouchRetryBtn() {
+        GlobalDefine.RequestFullscreenAD();
 		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.RETRY)?.Invoke(this);
 	}
 
 	/** 나가기 버튼을 눌렀을 경우 */
 	public void OnTouchLeaveBtn() {
+        GlobalDefine.RequestFullscreenAD();
 		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.LEAVE)?.Invoke(this);
 	}
 
