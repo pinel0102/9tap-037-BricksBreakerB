@@ -252,10 +252,10 @@ public partial class CAssetImporter : AssetPostprocessor {
 
 #if TEX_IMPORTER_PLATFORM_SETTINGS_OVERRIDE_ENABLE
 			bool bIsEnableSetupTexFmt = a_bIsDefPlatformSettings;
-			a_oPlatformSettings.overridden = !a_bIsDefPlatformSettings;
+			//a_oPlatformSettings.overridden = false;//!a_bIsDefPlatformSettings;
 #else
 			bool bIsEnableSetupTexFmt = true;
-			a_oPlatformSettings.overridden = false;
+			//a_oPlatformSettings.overridden = false;
 #endif // #if TEX_IMPORTER_PLATFORM_SETTINGS_OVERRIDE_ENABLE
 
 			// 텍스처 포맷 설정이 가능 할 경우

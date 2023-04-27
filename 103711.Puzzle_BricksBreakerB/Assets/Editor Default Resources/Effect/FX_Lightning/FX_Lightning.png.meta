@@ -223,10 +223,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      FX_Lightning_2: 865094288
-      FX_Lightning_1: -316523219
-      FX_Lightning_3: -772946994
       FX_Lightning_0: -1617768140
+      FX_Lightning_1: -316523219
+      FX_Lightning_2: 865094288
+      FX_Lightning_3: -772946994
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
