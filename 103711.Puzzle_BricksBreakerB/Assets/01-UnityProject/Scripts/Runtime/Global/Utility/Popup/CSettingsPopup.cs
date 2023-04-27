@@ -21,8 +21,9 @@ public partial class CSettingsPopup : CSubPopup {
 
 	#region 변수
 	/** =====> UI <===== */
-    public TMP_Text versionText;
+    public TMP_InputField nameInput;
     public TMP_Text soundText;
+    public TMP_Text versionText;
 	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 	#endregion // 변수
 
@@ -92,6 +93,7 @@ public partial class CSettingsPopup : CSubPopup {
 		}
 
         soundText.text = CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds ? GlobalDefine.SETTINGS_SOUND_OFF : GlobalDefine.SETTINGS_SOUND_ON;
+        nameInput.text = GlobalDefine.UserInfo.Settings_PlayerName;
 
 		this.SubUpdateUIsState();
 	}
@@ -142,6 +144,21 @@ public partial class CSettingsPopup : CSubPopup {
     private void OnTouchPrivacyBtn() {
 		Application.OpenURL(CProjInfoTable.Inst.CompanyInfo.m_oPrivacyURL);
 	}
+
+    public void OnChangeName(string newName)
+    {
+        if(!GlobalDefine.UserInfo.Settings_PlayerName.Equals(newName))
+        {
+            Debug.Log(CodeManager.GetMethodName() + newName);
+
+            GlobalDefine.UserInfo.Settings_PlayerName = newName;
+            GlobalDefine.SaveUserData();
+        }
+
+        CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.RefreshNameText();
+
+        UpdateUIsState();
+    }
 	#endregion // 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

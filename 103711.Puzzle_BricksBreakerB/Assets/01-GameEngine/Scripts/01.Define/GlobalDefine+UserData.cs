@@ -26,6 +26,7 @@ public static partial class GlobalDefine
 
         CUserInfo userInfo = new CUserInfo
         {
+            Settings_PlayerName = GlobalDefine.PLAYER_NAME_DEFAULT,
             Settings_DarkMode = false,
             Ruby = 0,
             Star = 0,

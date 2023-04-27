@@ -17,6 +17,7 @@ public static partial class GlobalDefine
     public static STSortingOrderInfo SortingInfo_PreviewTips = new STSortingOrderInfo(){ m_nOrder = 101, m_oLayer = KCDefine.U_SORTING_L_FOREGROUND };
     public static STSortingOrderInfo SortingInfo_StoreCanvas = new STSortingOrderInfo(){ m_nOrder = 1000, m_oLayer = KCDefine.U_SORTING_L_FOREGROUND };
 
+    public const string PLAYER_NAME_DEFAULT = "My Name";
     public const string STRING_TRUE = "True";
     public const string STRING_FALSE = "False";
     public const string STRING_1 = "1";

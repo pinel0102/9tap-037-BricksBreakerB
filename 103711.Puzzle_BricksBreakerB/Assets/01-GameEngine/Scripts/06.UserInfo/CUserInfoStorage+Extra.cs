@@ -11,6 +11,7 @@ using MessagePack;
 
 public partial class CUserInfo : CBaseInfo
 {
+    private const string KEY_SETTINGS_PLAYER_NAME = "Settings_PlayerName";
     private const string KEY_SETTINGS_DARKMODE = "Settings_DarkMode";
 
     private const string KEY_RUBY = "Ruby";
@@ -29,6 +30,12 @@ public partial class CUserInfo : CBaseInfo
     private const string KEY_LEVEL_STAR = "Level_Star";
     private const string KEY_LEVEL_SCORE = "Level_Score";
     private const string KEY_LEVEL_SKIP = "Level_Skip";
+
+    [IgnoreMember]
+	public string Settings_PlayerName {
+		get { return m_oStrDict.GetValueOrDefault(KEY_SETTINGS_PLAYER_NAME, GlobalDefine.PLAYER_NAME_DEFAULT); }
+		set { m_oStrDict.ExReplaceVal(KEY_SETTINGS_PLAYER_NAME, $"{value}"); }
+	}
 
     [IgnoreMember]
 	public bool Settings_DarkMode {

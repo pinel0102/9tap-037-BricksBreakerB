@@ -14,6 +14,7 @@ namespace GameScene {
         public RectTransform scoreGageFrame;
         public Image scoreGage;
         public TMP_Text scoreText;
+        public List<TMP_Text> playerNameText = new List<TMP_Text>();
 
         private float gageFrameX;
         private float gagePadding = 20f;
@@ -27,6 +28,7 @@ namespace GameScene {
             }
 
             ScoreUpdate(false);
+            RefreshNameText();
         }
 
         public void ScoreUpdate(bool _gageAni = true)
@@ -85,9 +87,14 @@ namespace GameScene {
             darkModeTopPanel[1].SetActive(!isDarkMode);
         }
 
-        public void OnTouchClearBtn()
+        public void RefreshNameText()
         {
-            m_oEngine.LevelClear();
+            //Debug.Log(CodeManager.GetMethodName() + GlobalDefine.UserInfo.Settings_PlayerName);
+
+            for (int i=0; i < playerNameText.Count; i++)
+            {
+                playerNameText[i].text = GlobalDefine.UserInfo.Settings_PlayerName;
+            }
         }
 
 		/** 정지 버튼을 눌렀을 경우 */
