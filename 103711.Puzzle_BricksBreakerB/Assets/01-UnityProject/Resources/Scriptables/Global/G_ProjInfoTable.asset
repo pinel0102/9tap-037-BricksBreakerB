@@ -30,25 +30,25 @@ MonoBehaviour:
       m_oVer: 0.0.17
   m_stAndroidGoogleProjInfo:
     m_oAppID: com.ninetap.brickbreaker
-    m_oStoreAppID: 
+    m_oStoreAppID: Ninetap
     m_stBuildVerInfo:
       m_nNum: 17
       m_oVer: 0.0.17
   m_stAndroidAmazonProjInfo:
     m_oAppID: com.ninetap.brickbreaker
-    m_oStoreAppID: 
+    m_oStoreAppID: Ninetap
     m_stBuildVerInfo:
       m_nNum: 17
       m_oVer: 0.0.17
   m_stStandaloneMacSteamProjInfo:
     m_oAppID: com.ninetap.brickbreaker
-    m_oStoreAppID: 
+    m_oStoreAppID: Ninetap
     m_stBuildVerInfo:
       m_nNum: 17
       m_oVer: 0.0.17
   m_stStandaloneWndsSteamProjInfo:
     m_oAppID: com.ninetap.brickbreaker
-    m_oStoreAppID: 
+    m_oStoreAppID: Ninetap
     m_stBuildVerInfo:
       m_nNum: 17
       m_oVer: 0.0.17

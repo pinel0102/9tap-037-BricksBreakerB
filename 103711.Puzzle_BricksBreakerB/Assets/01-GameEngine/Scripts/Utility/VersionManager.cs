@@ -572,7 +572,7 @@ public class VersionManager
                 STProjInfo _projInfo_Common = new STProjInfo() {
                     m_stBuildVerInfo = _buildVerInfo,
                     m_oAppID = _pInfo.appIdentifier,
-                    m_oStoreAppID = string.Empty
+                    m_oStoreAppID = _pInfo.appStoreAppId
                 };
 
                 oProjInfoTable.SetCompanyInfo(_companyInfo);

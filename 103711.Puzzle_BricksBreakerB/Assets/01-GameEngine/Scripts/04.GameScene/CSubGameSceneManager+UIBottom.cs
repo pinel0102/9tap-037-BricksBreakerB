@@ -14,6 +14,7 @@ namespace GameScene {
         public List<GameObject> bottomItemsDisabled = new List<GameObject>();
         public List<GameObject> bottomItemsRuby = new List<GameObject>();
         public List<TMP_Text> bottomItemsText = new List<TMP_Text>();
+        public List<TMP_Text> bottomItemsCost = new List<TMP_Text>();
         
         private void SetupBottomButtons()
         {
@@ -53,6 +54,7 @@ namespace GameScene {
                     case 4: count = GlobalDefine.UserInfo.Item_AddSteelBricks; break;
                 }
 
+                bottomItemsCost[index].text = string.Format(GlobalDefine.FORMAT_INT, GlobalDefine.CostRuby_BottomItem);
                 bottomItemsText[index].text = string.Format(GlobalDefine.FORMAT_ITEM_COUNT, count);
                 bottomItemsText[index].gameObject.SetActive(count > 0);
                 bottomItemsRuby[index].gameObject.SetActive(count <= 0);

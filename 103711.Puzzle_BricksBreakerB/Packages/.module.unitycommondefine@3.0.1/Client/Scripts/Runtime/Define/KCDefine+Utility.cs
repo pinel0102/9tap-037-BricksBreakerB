@@ -461,6 +461,7 @@ public static partial class KCDefine {
 	public const string U_OBJ_N_NOTI_BTN = "NOTI_BTN";
 	public const string U_OBJ_N_REVIEW_BTN = "REVIEW_BTN";
 	public const string U_OBJ_N_SUPPORTS_BTN = "SUPPORTS_BTN";
+    public const string U_OBJ_N_MORE_APPS_BTN = "MORE_APPS_BTN";
 	public const string U_OBJ_N_SYNC_BTN = "SYNC_BTN";
 	public const string U_OBJ_N_LOCALIZE_BTN = "LOCALIZE_BTN";
 
