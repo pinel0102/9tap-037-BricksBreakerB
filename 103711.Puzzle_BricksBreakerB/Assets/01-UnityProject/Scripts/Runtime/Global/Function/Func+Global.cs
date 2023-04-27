@@ -75,7 +75,7 @@ public static partial class Func {
 		CGameInfoStorage.Inst.SetPlayEpisodeInfo(Access.GetEpisodeInfo(a_nLevelID, a_nStageID, a_nChapterID));
 
 		CUserInfoStorage.Inst.GetCharacterUserInfo(a_nCharacterID).m_stPlayEpisodeIDInfo = Access.GetEpisodeInfo(a_nLevelID, a_nStageID, a_nChapterID).m_stIDInfo;
-		CUserInfoStorage.Inst.SaveUserInfo();
+		GlobalDefine.SaveUserData();
 
 #if(UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 		CGameInfoStorage.Inst.SetPlayLevelInfo(CLevelInfoTable.Inst.GetLevelInfo(a_nLevelID, a_nStageID, a_nChapterID));

@@ -44,7 +44,7 @@ public class LevelButton : MonoBehaviour
 
             
             //TODO: temp values
-            isOpen = level == 1 || level <= CUserInfoStorage.Inst.UserInfo.LevelCurrent;
+            isOpen = level == 1 || level <= GlobalDefine.UserInfo.LevelCurrent;
             isClear = true;
             starCount = 3;
 

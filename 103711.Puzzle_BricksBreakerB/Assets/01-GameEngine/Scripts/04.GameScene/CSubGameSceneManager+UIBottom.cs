@@ -46,11 +46,11 @@ namespace GameScene {
                 int count = 0;
                 switch(index)
                 {
-                    case 0: count = CUserInfoStorage.Inst.UserInfo.Item_Earthquake; break;
-                    case 1: count = CUserInfoStorage.Inst.UserInfo.Item_AddBall; break;
-                    case 2: count = CUserInfoStorage.Inst.UserInfo.Item_BricksDelete; break;
-                    case 3: count = CUserInfoStorage.Inst.UserInfo.Item_AddLaserBricks; break;
-                    case 4: count = CUserInfoStorage.Inst.UserInfo.Item_AddSteelBricks; break;
+                    case 0: count = GlobalDefine.UserInfo.Item_Earthquake; break;
+                    case 1: count = GlobalDefine.UserInfo.Item_AddBall; break;
+                    case 2: count = GlobalDefine.UserInfo.Item_BricksDelete; break;
+                    case 3: count = GlobalDefine.UserInfo.Item_AddLaserBricks; break;
+                    case 4: count = GlobalDefine.UserInfo.Item_AddSteelBricks; break;
                 }
 
                 bottomItemsText[index].text = string.Format(GlobalDefine.FORMAT_ITEM_COUNT, count);
@@ -66,9 +66,9 @@ namespace GameScene {
             if (!CanUseBottomItem()) return;
             if (!GlobalDefine.isLevelEditor && !Engine.isTutorial)
             {
-                if (CUserInfoStorage.Inst.UserInfo.Item_Earthquake < 1)
+                if (GlobalDefine.UserInfo.Item_Earthquake < 1)
                 {
-                    if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.CostRuby_BottomItem)
+                    if (GlobalDefine.UserInfo.Ruby < GlobalDefine.CostRuby_BottomItem)
                     {
                         OpenPopup_Store();
                         return;
@@ -78,8 +78,8 @@ namespace GameScene {
                 }
                 else
                 {
-                    CUserInfoStorage.Inst.UserInfo.Item_Earthquake = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Item_Earthquake - 1);
-                    CUserInfoStorage.Inst.SaveUserInfo();
+                    GlobalDefine.UserInfo.Item_Earthquake = Mathf.Max(0, GlobalDefine.UserInfo.Item_Earthquake - 1);                    
+                    GlobalDefine.SaveUserData();
                 }
             }
             
@@ -112,9 +112,9 @@ namespace GameScene {
             if (!CanUseBottomItem()) return;
             if (!GlobalDefine.isLevelEditor && !Engine.isTutorial)
             {
-                if (CUserInfoStorage.Inst.UserInfo.Item_AddBall < 1) 
+                if (GlobalDefine.UserInfo.Item_AddBall < 1) 
                 {
-                    if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.CostRuby_BottomItem)
+                    if (GlobalDefine.UserInfo.Ruby < GlobalDefine.CostRuby_BottomItem)
                     {
                         OpenPopup_Store();
                         return;
@@ -124,8 +124,8 @@ namespace GameScene {
                 }
                 else
                 {
-                    CUserInfoStorage.Inst.UserInfo.Item_AddBall = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Item_AddBall - 1);
-                    CUserInfoStorage.Inst.SaveUserInfo();
+                    GlobalDefine.UserInfo.Item_AddBall = Mathf.Max(0, GlobalDefine.UserInfo.Item_AddBall - 1);
+                    GlobalDefine.SaveUserData();
                 }
             }
 
@@ -146,9 +146,9 @@ namespace GameScene {
             if (!CanUseBottomItem()) return;
             if (!GlobalDefine.isLevelEditor && !Engine.isTutorial)
             {
-                if (CUserInfoStorage.Inst.UserInfo.Item_BricksDelete < 1) 
+                if (GlobalDefine.UserInfo.Item_BricksDelete < 1) 
                 {
-                    if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.CostRuby_BottomItem)
+                    if (GlobalDefine.UserInfo.Ruby < GlobalDefine.CostRuby_BottomItem)
                     {
                         OpenPopup_Store();
                         return;
@@ -158,8 +158,8 @@ namespace GameScene {
                 }
                 else
                 {
-                    CUserInfoStorage.Inst.UserInfo.Item_BricksDelete = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Item_BricksDelete - 1);
-                    CUserInfoStorage.Inst.SaveUserInfo();
+                    GlobalDefine.UserInfo.Item_BricksDelete = Mathf.Max(0, GlobalDefine.UserInfo.Item_BricksDelete - 1);
+                    GlobalDefine.SaveUserData();
                 }
             }
 
@@ -189,9 +189,9 @@ namespace GameScene {
             if (!CanUseBottomItem()) return;
             if (!GlobalDefine.isLevelEditor && !Engine.isTutorial)
             {
-                if (CUserInfoStorage.Inst.UserInfo.Item_AddLaserBricks < 1) 
+                if (GlobalDefine.UserInfo.Item_AddLaserBricks < 1) 
                 {
-                    if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.CostRuby_BottomItem)
+                    if (GlobalDefine.UserInfo.Ruby < GlobalDefine.CostRuby_BottomItem)
                     {
                         OpenPopup_Store();
                         return;
@@ -201,8 +201,8 @@ namespace GameScene {
                 }
                 else
                 {
-                    CUserInfoStorage.Inst.UserInfo.Item_AddLaserBricks = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Item_AddLaserBricks - 1);
-                    CUserInfoStorage.Inst.SaveUserInfo();
+                    GlobalDefine.UserInfo.Item_AddLaserBricks = Mathf.Max(0, GlobalDefine.UserInfo.Item_AddLaserBricks - 1);
+                    GlobalDefine.SaveUserData();
                 }
             }
 
@@ -228,9 +228,9 @@ namespace GameScene {
             if (!CanUseBottomItem() || Engine.isAddSteelBricks) return;
             if (!GlobalDefine.isLevelEditor && !Engine.isTutorial)
             {
-                if (CUserInfoStorage.Inst.UserInfo.Item_AddSteelBricks < 1) 
+                if (GlobalDefine.UserInfo.Item_AddSteelBricks < 1) 
                 {
-                    if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.CostRuby_BottomItem)
+                    if (GlobalDefine.UserInfo.Ruby < GlobalDefine.CostRuby_BottomItem)
                     {
                         OpenPopup_Store();
                         return;
@@ -240,8 +240,8 @@ namespace GameScene {
                 }
                 else
                 {
-                    CUserInfoStorage.Inst.UserInfo.Item_AddSteelBricks = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Item_AddSteelBricks - 1);
-                    CUserInfoStorage.Inst.SaveUserInfo();
+                    GlobalDefine.UserInfo.Item_AddSteelBricks = Mathf.Max(0, GlobalDefine.UserInfo.Item_AddSteelBricks - 1);
+                    GlobalDefine.SaveUserData();
                 }
             }
 

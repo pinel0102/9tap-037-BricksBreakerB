@@ -108,7 +108,7 @@ namespace NSEngine {
 
 				// 유저 정보 저장이 필요 할 경우
 				if(m_oBoolDict.GetValueOrDefault(EKey.IS_SAVE_USER_INFO)) {
-					CUserInfoStorage.Inst.SaveUserInfo();
+					GlobalDefine.SaveUserData();
 					m_oBoolDict.ExReplaceVal(EKey.IS_SAVE_USER_INFO, false);
 				}
 			}
@@ -510,8 +510,8 @@ namespace NSEngine {
         {
             Debug.Log(CodeManager.GetMethodName() + string.Format(GlobalDefine.FORMAT_INT, currentLevel));
 
-            CUserInfoStorage.Inst.UserInfo.LevelCurrent = Mathf.Min(Mathf.Max(CUserInfoStorage.Inst.UserInfo.LevelCurrent, currentLevel + 1), CLevelInfoTable.Inst.levelCount);
-            CUserInfoStorage.Inst.SaveUserInfo();
+            GlobalDefine.UserInfo.LevelCurrent = Mathf.Min(Mathf.Max(GlobalDefine.UserInfo.LevelCurrent, currentLevel + 1), CLevelInfoTable.Inst.levelCount);
+            GlobalDefine.SaveUserData();
 
             Params.m_oCallbackDict01[NSEngine.CEngine.ECallback.CLEAR].Invoke(this);
         }

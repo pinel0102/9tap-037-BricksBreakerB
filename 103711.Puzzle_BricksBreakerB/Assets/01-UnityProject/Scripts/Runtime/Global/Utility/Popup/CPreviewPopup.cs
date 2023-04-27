@@ -138,20 +138,20 @@ public partial class CPreviewPopup : CSubPopup {
             boosterTextCost[i].text = string.Format(GlobalDefine.FORMAT_INT, GlobalDefine.CostRuby_Booster);
         }
 
-        boosterTextCount[0].text = string.Format(GlobalDefine.FORMAT_ITEM_COUNT, CUserInfoStorage.Inst.UserInfo.Booster_Missile);
-        boosterTextCount[1].text = string.Format(GlobalDefine.FORMAT_ITEM_COUNT, CUserInfoStorage.Inst.UserInfo.Booster_Lightning);
-        boosterTextCount[2].text = string.Format(GlobalDefine.FORMAT_ITEM_COUNT, CUserInfoStorage.Inst.UserInfo.Booster_Bomb);
+        boosterTextCount[0].text = string.Format(GlobalDefine.FORMAT_ITEM_COUNT, GlobalDefine.UserInfo.Booster_Missile);
+        boosterTextCount[1].text = string.Format(GlobalDefine.FORMAT_ITEM_COUNT, GlobalDefine.UserInfo.Booster_Lightning);
+        boosterTextCount[2].text = string.Format(GlobalDefine.FORMAT_ITEM_COUNT, GlobalDefine.UserInfo.Booster_Bomb);
 
-        boosterCount[0].SetActive(CUserInfoStorage.Inst.UserInfo.Booster_Missile > 0);
-        boosterCount[1].SetActive(CUserInfoStorage.Inst.UserInfo.Booster_Lightning > 0);
-        boosterCount[2].SetActive(CUserInfoStorage.Inst.UserInfo.Booster_Bomb > 0);
+        boosterCount[0].SetActive(GlobalDefine.UserInfo.Booster_Missile > 0);
+        boosterCount[1].SetActive(GlobalDefine.UserInfo.Booster_Lightning > 0);
+        boosterCount[2].SetActive(GlobalDefine.UserInfo.Booster_Bomb > 0);
 
-        boosterBuy[0].SetActive(CUserInfoStorage.Inst.UserInfo.Booster_Missile <= 0);
-        boosterBuy[1].SetActive(CUserInfoStorage.Inst.UserInfo.Booster_Lightning <= 0);
-        boosterBuy[2].SetActive(CUserInfoStorage.Inst.UserInfo.Booster_Bomb <= 0);
+        boosterBuy[0].SetActive(GlobalDefine.UserInfo.Booster_Missile <= 0);
+        boosterBuy[1].SetActive(GlobalDefine.UserInfo.Booster_Lightning <= 0);
+        boosterBuy[2].SetActive(GlobalDefine.UserInfo.Booster_Bomb <= 0);
 
         tooltip.gameObject.SetActive(false);
-        goldenAimButton.gameObject.SetActive(!CUserInfoStorage.Inst.UserInfo.Item_GoldenAim);
+        goldenAimButton.gameObject.SetActive(!GlobalDefine.UserInfo.Item_GoldenAim);
         goldenAimOK.SetActive(false);
         
         GlobalDefine.PlaySoundFX(ESoundSet.SOUND_LEVEL_READY);
@@ -181,14 +181,14 @@ public partial class CPreviewPopup : CSubPopup {
                 int currentCount = 0;
                 switch(index)
                 {
-                    case 0 : currentCount = CUserInfoStorage.Inst.UserInfo.Booster_Missile; break;
-                    case 1 : currentCount = CUserInfoStorage.Inst.UserInfo.Booster_Lightning; break;
-                    case 2 : currentCount = CUserInfoStorage.Inst.UserInfo.Booster_Bomb; break;
+                    case 0 : currentCount = GlobalDefine.UserInfo.Booster_Missile; break;
+                    case 1 : currentCount = GlobalDefine.UserInfo.Booster_Lightning; break;
+                    case 2 : currentCount = GlobalDefine.UserInfo.Booster_Bomb; break;
                 }
 
                 if (currentCount < 1)
                 {
-                    if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.CostRuby_Booster)
+                    if (GlobalDefine.UserInfo.Ruby < GlobalDefine.CostRuby_Booster)
                     {
                         CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
                         return;
@@ -200,9 +200,9 @@ public partial class CPreviewPopup : CSubPopup {
                 {
                     switch(index)
                     {
-                        case 0 : CUserInfoStorage.Inst.UserInfo.Booster_Missile = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Booster_Missile - 1); break;
-                        case 1 : CUserInfoStorage.Inst.UserInfo.Booster_Lightning = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Booster_Lightning - 1); break;
-                        case 2 : CUserInfoStorage.Inst.UserInfo.Booster_Bomb = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Booster_Bomb - 1); break;
+                        case 0 : GlobalDefine.UserInfo.Booster_Missile = Mathf.Max(0, GlobalDefine.UserInfo.Booster_Missile - 1); break;
+                        case 1 : GlobalDefine.UserInfo.Booster_Lightning = Mathf.Max(0, GlobalDefine.UserInfo.Booster_Lightning - 1); break;
+                        case 2 : GlobalDefine.UserInfo.Booster_Bomb = Mathf.Max(0, GlobalDefine.UserInfo.Booster_Bomb - 1); break;
                     }
                 }
             }
@@ -211,9 +211,9 @@ public partial class CPreviewPopup : CSubPopup {
         {
             switch(index)
             {
-                case 0 : CUserInfoStorage.Inst.UserInfo.Booster_Missile = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Booster_Missile + 1); break;
-                case 1 : CUserInfoStorage.Inst.UserInfo.Booster_Lightning = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Booster_Lightning + 1); break;
-                case 2 : CUserInfoStorage.Inst.UserInfo.Booster_Bomb = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Booster_Bomb + 1); break;
+                case 0 : GlobalDefine.UserInfo.Booster_Missile = Mathf.Max(0, GlobalDefine.UserInfo.Booster_Missile + 1); break;
+                case 1 : GlobalDefine.UserInfo.Booster_Lightning = Mathf.Max(0, GlobalDefine.UserInfo.Booster_Lightning + 1); break;
+                case 2 : GlobalDefine.UserInfo.Booster_Bomb = Mathf.Max(0, GlobalDefine.UserInfo.Booster_Bomb + 1); break;
             }
         }
 
@@ -239,9 +239,9 @@ public partial class CPreviewPopup : CSubPopup {
 
     private void OnTouchGoldenAimButton()
     {
-        if (!GlobalDefine.isLevelEditor && !CUserInfoStorage.Inst.UserInfo.Item_GoldenAim) 
+        if (!GlobalDefine.isLevelEditor && !GlobalDefine.UserInfo.Item_GoldenAim) 
         {
-            if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.CostRuby_GoldenAim)
+            if (GlobalDefine.UserInfo.Ruby < GlobalDefine.CostRuby_GoldenAim)
             {
                 CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
                 return;

@@ -20,7 +20,7 @@ namespace SetupScene {
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			// 저장소를 로드한다
 			CAppInfoStorage.Inst.LoadAppInfo();
-			CUserInfoStorage.Inst.LoadUserInfo();
+            GlobalDefine.LoadUserData();
 			CGameInfoStorage.Inst.LoadGameInfo();
 
 			// 테이블을 로드한다
@@ -43,7 +43,7 @@ namespace SetupScene {
 				oCharacterUserInfo.m_oAbilityTargetInfoDict.ExReplaceTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, KCDefine.B_VAL_1_INT);
 
 				CUserInfoStorage.Inst.AddCharacterUserInfo(oCharacterUserInfo);
-				CUserInfoStorage.Inst.SaveUserInfo();
+                GlobalDefine.SaveUserData();
 			}
 
 			// 공용 앱 정보를 설정한다 {

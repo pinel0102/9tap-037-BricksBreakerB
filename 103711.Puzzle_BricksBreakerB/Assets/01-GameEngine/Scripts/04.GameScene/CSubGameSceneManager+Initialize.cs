@@ -26,7 +26,7 @@ namespace GameScene {
 
         private void Initialize()
         {
-            ApplyDarkMode(CUserInfoStorage.Inst.UserInfo.Settings_DarkMode);
+            ApplyDarkMode(GlobalDefine.UserInfo.Settings_DarkMode);
             warningObject.SetActive(false);
             
             InitAimLayer();

@@ -113,8 +113,8 @@ namespace TitleScene {
 					Func.PlayBGSnd(EResKinds.SND_BG_SCENE_TITLE_01);
 
 					// 로그인 되었을 경우
-					if(CUserInfoStorage.Inst.UserInfo.LoginType != ELoginType.NONE) {
-						this.OnLogin(CUserInfoStorage.Inst.UserInfo.LoginType, true);
+					if(GlobalDefine.UserInfo.LoginType != ELoginType.NONE) {
+						this.OnLogin(GlobalDefine.UserInfo.LoginType, true);
 					}
 				} else {
 					CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_MAIN);
@@ -190,7 +190,7 @@ namespace TitleScene {
 
 			for(int i = 0; i < oLoginBtnKeyList.Count; ++i) {
 				// 로그인 되었을 경우
-				if(CUserInfoStorage.Inst.UserInfo.LoginType != ELoginType.NONE) {
+				if(GlobalDefine.UserInfo.LoginType != ELoginType.NONE) {
 					m_oBtnDict.GetValueOrDefault(oLoginBtnKeyList[i])?.gameObject.SetActive(false);
 				}
 			}
@@ -263,8 +263,8 @@ namespace TitleScene {
 		private void OnLogin(ELoginType a_eLoginType, bool a_bIsSuccess) {
 			// 로그인 되었을 경우
 			if(a_bIsSuccess) {
-				CUserInfoStorage.Inst.UserInfo.LoginType = a_eLoginType;
-				CUserInfoStorage.Inst.SaveUserInfo();
+				GlobalDefine.UserInfo.LoginType = a_eLoginType;
+				GlobalDefine.SaveUserData();
 
 				this.UpdateUIsState();
 

@@ -42,7 +42,7 @@ namespace NSEngine {
                 }
             }
 
-            CUserInfoStorage.Inst.SaveUserInfo();
+            GlobalDefine.SaveUserData();
         }
 
         private EObjKinds GetBoosterBrick(int index)

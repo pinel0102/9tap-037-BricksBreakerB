@@ -90,7 +90,7 @@ namespace TitleScene {
 			var stPos = a_oEventData.ExGetLocalPos(this.Objs, this.ScreenSize);
 
 			// 터치 모드가 아닐 경우
-			if(!m_oBoolDict[EKey.IS_TOUCH] && CUserInfoStorage.Inst.UserInfo.LoginType != ELoginType.NONE) {
+			if(!m_oBoolDict[EKey.IS_TOUCH] && GlobalDefine.UserInfo.LoginType != ELoginType.NONE) {
 				m_oBoolDict[EKey.IS_TOUCH] = true;
 
 #if GOOGLE_SHEET_ENABLE && (DEBUG || DEVELOPMENT_BUILD)

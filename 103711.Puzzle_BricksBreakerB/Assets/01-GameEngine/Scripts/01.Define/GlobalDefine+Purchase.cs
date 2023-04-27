@@ -20,85 +20,92 @@ public static partial class GlobalDefine
     {
         Debug.Log(CodeManager.GetMethodName() + addCount);
 
-        CUserInfoStorage.Inst.UserInfo.Ruby = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Ruby + addCount);
-        CUserInfoStorage.Inst.SaveUserInfo();
+        GlobalDefine.UserInfo.Ruby = Mathf.Max(0, GlobalDefine.UserInfo.Ruby + addCount);
+
+        SaveUserData();
     }
 
     public static void AddStar(int addCount)
     {
         Debug.Log(CodeManager.GetMethodName() + addCount);
 
-        CUserInfoStorage.Inst.UserInfo.Star = Mathf.Max(0, CUserInfoStorage.Inst.UserInfo.Star + addCount);
-        CUserInfoStorage.Inst.SaveUserInfo();
+        GlobalDefine.UserInfo.Star = Mathf.Max(0, GlobalDefine.UserInfo.Star + addCount);
+
+        SaveUserData();
     }
 
     public static void SetRuby(int newCount)
     {
         Debug.Log(CodeManager.GetMethodName() + newCount);
 
-        CUserInfoStorage.Inst.UserInfo.Ruby = Mathf.Max(0, newCount);
-        CUserInfoStorage.Inst.SaveUserInfo();
+        GlobalDefine.UserInfo.Ruby = Mathf.Max(0, newCount);
+
+        SaveUserData();
     }
 
     public static void SetStar(int newCount)
     {
         Debug.Log(CodeManager.GetMethodName() + newCount);
 
-        CUserInfoStorage.Inst.UserInfo.Star = Mathf.Max(0, newCount);
-        CUserInfoStorage.Inst.SaveUserInfo();
+        GlobalDefine.UserInfo.Star = Mathf.Max(0, newCount);
+
+        SaveUserData();
     }
 
     public static void SetItem(int newCount)
     {
         Debug.Log(CodeManager.GetMethodName() + newCount);
 
-        CUserInfoStorage.Inst.UserInfo.Item_Earthquake = Mathf.Max(0, newCount);
-        CUserInfoStorage.Inst.UserInfo.Item_AddBall = Mathf.Max(0, newCount);
-        CUserInfoStorage.Inst.UserInfo.Item_BricksDelete = Mathf.Max(0, newCount);
-        CUserInfoStorage.Inst.UserInfo.Item_AddLaserBricks = Mathf.Max(0, newCount);
-        CUserInfoStorage.Inst.UserInfo.Item_AddSteelBricks = Mathf.Max(0, newCount);
-        CUserInfoStorage.Inst.SaveUserInfo();
+        GlobalDefine.UserInfo.Item_Earthquake = Mathf.Max(0, newCount);
+        GlobalDefine.UserInfo.Item_AddBall = Mathf.Max(0, newCount);
+        GlobalDefine.UserInfo.Item_BricksDelete = Mathf.Max(0, newCount);
+        GlobalDefine.UserInfo.Item_AddLaserBricks = Mathf.Max(0, newCount);
+        GlobalDefine.UserInfo.Item_AddSteelBricks = Mathf.Max(0, newCount);
+
+        SaveUserData();
     }
 
     public static void SetBooster(int newCount)
     {
         Debug.Log(CodeManager.GetMethodName() + newCount);
 
-        CUserInfoStorage.Inst.UserInfo.Booster_Missile = Mathf.Max(0, newCount);
-        CUserInfoStorage.Inst.UserInfo.Booster_Lightning = Mathf.Max(0, newCount);
-        CUserInfoStorage.Inst.UserInfo.Booster_Bomb = Mathf.Max(0, newCount);
-        CUserInfoStorage.Inst.SaveUserInfo();
+        GlobalDefine.UserInfo.Booster_Missile = Mathf.Max(0, newCount);
+        GlobalDefine.UserInfo.Booster_Lightning = Mathf.Max(0, newCount);
+        GlobalDefine.UserInfo.Booster_Bomb = Mathf.Max(0, newCount);
+
+        SaveUserData();
     }
 
     public static void SetClear(int level)
     {
         Debug.Log(CodeManager.GetMethodName() + level);
 
-        CUserInfoStorage.Inst.UserInfo.LevelCurrent = Mathf.Min(CLevelInfoTable.Inst.levelCount, level + 1);
-        CUserInfoStorage.Inst.SaveUserInfo();
+        GlobalDefine.UserInfo.LevelCurrent = Mathf.Min(CLevelInfoTable.Inst.levelCount, level + 1);
+        
+        SaveUserData();
     }
 
     public static void RefreshShopText(TMPro.TMP_Text rubyText)
     {
         if (rubyText != null)
-            rubyText.text = string.Format(GlobalDefine.FORMAT_INT, CUserInfoStorage.Inst.UserInfo.Ruby);
+            rubyText.text = string.Format(GlobalDefine.FORMAT_INT, GlobalDefine.UserInfo.Ruby);
     }
 
     public static void RefreshShopText(UnityEngine.UI.Text rubyText)
     {
         if (rubyText != null)
-            rubyText.text = string.Format(GlobalDefine.FORMAT_INT, CUserInfoStorage.Inst.UserInfo.Ruby);
+            rubyText.text = string.Format(GlobalDefine.FORMAT_INT, GlobalDefine.UserInfo.Ruby);
     }
 
     public static void RefreshStarText(TMPro.TMP_Text rubyText)
     {
         if (rubyText != null)
-            rubyText.text = string.Format(GlobalDefine.FORMAT_INT, CUserInfoStorage.Inst.UserInfo.Star);
+            rubyText.text = string.Format(GlobalDefine.FORMAT_INT, GlobalDefine.UserInfo.Star);
     }
 
     public static void RefreshStarText(UnityEngine.UI.Text rubyText)
     {
         if (rubyText != null)
-            rubyText.text = string.Format(GlobalDefine.FORMAT_INT, CUserInfoStorage.Inst.UserInfo.Star);
+            rubyText.text = string.Format(GlobalDefine.FORMAT_INT, GlobalDefine.UserInfo.Star);
     }
 }

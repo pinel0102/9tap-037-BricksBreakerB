@@ -121,7 +121,7 @@ public partial class CResultPopup : CSubPopup {
 
         GlobalDefine.RefreshShopText(rubyText);
         
-        ADBlockButton.gameObject.SetActive(!CUserInfoStorage.Inst.UserInfo.Item_ADBlock);
+        ADBlockButton.gameObject.SetActive(!GlobalDefine.UserInfo.Item_ADBlock);
         levelText[0].text = levelText[1].text = string.Format(formatLevel, Params.Engine.currentLevel);
         
 		var oClearLevelInfo = Access.GetLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03, false);

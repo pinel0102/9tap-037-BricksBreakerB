@@ -69,8 +69,8 @@ namespace GameScene {
 
         public void SetDarkMode(bool isDarkMode)
         {
-            CUserInfoStorage.Inst.UserInfo.Settings_DarkMode = isDarkMode;
-            CUserInfoStorage.Inst.SaveUserInfo();
+            GlobalDefine.UserInfo.Settings_DarkMode = isDarkMode;
+            GlobalDefine.SaveUserData();
 
             ApplyDarkMode(isDarkMode);
         }

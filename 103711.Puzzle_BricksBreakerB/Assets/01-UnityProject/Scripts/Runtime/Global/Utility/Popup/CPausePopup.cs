@@ -81,7 +81,7 @@ public partial class CPausePopup : CSubPopup {
         Params.Engine.SetupPreview(previewArea, previewMask);
         
         levelText.text = string.Format(formatLevel, CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).Engine.currentLevel);
-        ADBlockButton.gameObject.SetActive(!CUserInfoStorage.Inst.UserInfo.Item_ADBlock);
+        ADBlockButton.gameObject.SetActive(!GlobalDefine.UserInfo.Item_ADBlock);
 
 		this.SubUpdateUIsState();
 	}

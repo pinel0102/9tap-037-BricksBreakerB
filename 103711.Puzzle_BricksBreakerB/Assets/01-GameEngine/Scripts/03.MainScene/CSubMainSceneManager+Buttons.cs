@@ -20,7 +20,7 @@ namespace MainScene {
 
         private void InitLobbyButtons()
         {
-            shortcutLevel = CUserInfoStorage.Inst.UserInfo.LevelCurrent;
+            shortcutLevel = GlobalDefine.UserInfo.LevelCurrent;
             shortcutText.text = string.Format(formatShortcut, shortcutLevel);
             GlobalDefine.RefreshShopText(rubyText);
             GlobalDefine.RefreshStarText(starText);

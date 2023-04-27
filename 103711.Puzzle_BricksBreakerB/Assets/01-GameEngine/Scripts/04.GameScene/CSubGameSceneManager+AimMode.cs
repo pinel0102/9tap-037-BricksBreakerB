@@ -67,7 +67,7 @@ namespace GameScene {
 
         public void ToggleGoldenAim()
         {
-            if (GlobalDefine.isLevelEditor || CUserInfoStorage.Inst.UserInfo.Item_GoldenAim || Engine.isGoldAimOneTime)
+            if (GlobalDefine.isLevelEditor || GlobalDefine.UserInfo.Item_GoldenAim || Engine.isGoldAimOneTime)
             {
                 m_oEngine.ToggleAimLayer();
                 RefreshGoldenAimButton();

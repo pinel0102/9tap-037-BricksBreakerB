@@ -158,7 +158,7 @@ public partial class CContinuePopup : CSubPopup {
     {   
         if (!GlobalDefine.isLevelEditor) 
         {
-            if (CUserInfoStorage.Inst.UserInfo.Ruby < GlobalDefine.CostRuby_Continue_Remove3Lines)
+            if (GlobalDefine.UserInfo.Ruby < GlobalDefine.CostRuby_Continue_Remove3Lines)
             {
                 CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
                 return;
