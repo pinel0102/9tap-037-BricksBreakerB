@@ -190,7 +190,7 @@ public partial class CPreviewPopup : CSubPopup {
                 {
                     if (GlobalDefine.UserInfo.Ruby < GlobalDefine.CostRuby_Booster)
                     {
-                        CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
+                        GlobalDefine.OpenShop();
                         return;
                     }
                     else
@@ -243,7 +243,7 @@ public partial class CPreviewPopup : CSubPopup {
         {
             if (GlobalDefine.UserInfo.Ruby < GlobalDefine.CostRuby_GoldenAim)
             {
-                CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
+                GlobalDefine.OpenShop();
                 return;
             }
             else

@@ -8,6 +8,8 @@ public static partial class GlobalDefine
     public const string FORMAT_FREE = "FREE";
     public const string FORMAT_LEVEL = "Level {0}";
     public const string FORMAT_TOOLTIP_UNLOCK = "Unlock on level {0}";
+    public const string SETTINGS_SOUND_ON = "Sound ON";
+    public const string SETTINGS_SOUND_OFF = "Sound OFF";
 
     public static STSortingOrderInfo SortingInfo_HPText = new STSortingOrderInfo()  { m_nOrder = 200, m_oLayer = KCDefine.U_SORTING_L_CELL };
     public static STSortingOrderInfo SortingInfo_NumText = new STSortingOrderInfo() { m_nOrder = 200, m_oLayer = KCDefine.U_SORTING_L_BALL };

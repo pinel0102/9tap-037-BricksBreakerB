@@ -171,7 +171,7 @@ public partial class CResultPopup : CSubPopup {
 
     private void OnTouchShopButton()
     {
-        CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
+        GlobalDefine.OpenShop();
     }
 
     private void OnTouchADBlockButton()

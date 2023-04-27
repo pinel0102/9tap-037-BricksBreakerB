@@ -276,7 +276,7 @@ namespace GameScene {
 
         private void OpenPopup_Store()
         {
-            CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
+            GlobalDefine.OpenShop();
         }
 
 #endregion Buttons

@@ -15,12 +15,14 @@ public partial class CSettingsPopup : CSubPopup {
 		FX_SNDS_BTN,
 		VIBRATE_BTN,
 		NOTI_BTN,
+        PRIVACY_BTN,
 		[HideInInspector] MAX_VAL
 	}
 
 	#region 변수
 	/** =====> UI <===== */
     public TMP_Text versionText;
+    public TMP_Text soundText;
 	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 	#endregion // 변수
 
@@ -39,7 +41,8 @@ public partial class CSettingsPopup : CSubPopup {
 			(EKey.BG_SND_BTN, $"{EKey.BG_SND_BTN}", this.Contents, this.OnTouchBGSndBtn),
 			(EKey.FX_SNDS_BTN, $"{EKey.FX_SNDS_BTN}", this.Contents, this.OnTouchFXSndsBtn),
 			(EKey.VIBRATE_BTN, $"{EKey.VIBRATE_BTN}", this.Contents, this.OnTouchVibrateBtn),
-			(EKey.NOTI_BTN, $"{EKey.NOTI_BTN}", this.Contents, this.OnTouchNotiBtn)
+			(EKey.NOTI_BTN, $"{EKey.NOTI_BTN}", this.Contents, this.OnTouchNotiBtn),
+            (EKey.PRIVACY_BTN, $"{EKey.PRIVACY_BTN}", this.Contents, this.OnTouchPrivacyBtn)
 		}, m_oBtnDict);
 		// 버튼을 설정한다 }
 
@@ -60,6 +63,11 @@ public partial class CSettingsPopup : CSubPopup {
 		this.UpdateUIsState();
 	}
 
+    private void OnEnable()
+    {
+        this.UpdateUIsState();
+    }
+
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
 		var oBtnKeyInfoList = CCollectionManager.Inst.SpawnList<(EKey, string, string, string, bool)>();
@@ -78,10 +86,12 @@ public partial class CSettingsPopup : CSubPopup {
 				string oImgPath = oBtnKeyInfoList[i].Item5 ? oBtnKeyInfoList[i].Item3 : oBtnKeyInfoList[i].Item4;
 				m_oBtnDict.GetValueOrDefault(oBtnKeyInfoList[i].Item1)?.gameObject.ExFindComponent<Image>(oBtnKeyInfoList[i].Item2)?.ExSetSprite<Image>(CResManager.Inst.GetRes<Sprite>(oImgPath));
 			}
-			// 버튼을 갱신한다 }
+            // 버튼을 갱신한다 }
 		} finally {
 			CCollectionManager.Inst.DespawnList(oBtnKeyInfoList);
 		}
+
+        soundText.text = CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds ? GlobalDefine.SETTINGS_SOUND_OFF : GlobalDefine.SETTINGS_SOUND_ON;
 
 		this.SubUpdateUIsState();
 	}
@@ -127,6 +137,10 @@ public partial class CSettingsPopup : CSubPopup {
 	/** 지원 버튼을 눌렀을 경우 */
 	private void OnTouchSupportsBtn() {
 		CUnityMsgSender.Inst.SendMailMsg(string.Empty, string.Empty, CProjInfoTable.Inst.CompanyInfo.m_oSupportsMail);
+	}
+
+    private void OnTouchPrivacyBtn() {
+		Application.OpenURL(CProjInfoTable.Inst.CompanyInfo.m_oPrivacyURL);
 	}
 	#endregion // 함수
 }

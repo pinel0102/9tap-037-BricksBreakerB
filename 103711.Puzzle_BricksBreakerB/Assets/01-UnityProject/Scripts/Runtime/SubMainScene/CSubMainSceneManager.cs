@@ -170,12 +170,12 @@ namespace MainScene {
 			m_oIDInfoDict[EKey.SEL_ID_INFO] = (ePlayMode == EPlayMode.NORM && CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01 > KCDefine.B_IDX_INVALID) ? CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo : new STIDInfo(KCDefine.B_VAL_0_INT);
 
 			// 버튼을 설정한다
-			CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
+			/*CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
 				(KCDefine.U_OBJ_N_PLAY_BTN, this.UIsBase, this.OnTouchPlayBtn),
 				(KCDefine.U_OBJ_N_STORE_BTN, this.UIsBase, this.OnTouchStoreBtn),
 				(KCDefine.U_OBJ_N_REVIEW_BTN, this.UIsBase, this.OnTouchReviewBtn),
 				(KCDefine.U_OBJ_N_SETTINGS_BTN, this.UIsBase, this.OnTouchSettingsBtn)
-			});
+			});*/
 
 			// 스크롤 뷰를 설정한다
 			CFunc.SetupScrollerInfos(new List<(EKey, string, GameObject, EnhancedScrollerCellView, IEnhancedScrollerDelegate)>() {
@@ -251,7 +251,7 @@ namespace MainScene {
 
 		/** 상점 버튼을 눌렀을 경우 */
 		private void OnTouchStoreBtn() {
-			CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
+			GlobalDefine.OpenShop();
 		}
 
 		/** 평가 버튼을 눌렀을 경우 */

@@ -88,8 +88,8 @@ public static partial class KDefine {
 	public const string G_IMG_P_SETTINGS_P_BG_SND_ON = "G_BGSndOn";
 	public const string G_IMG_P_SETTINGS_P_BG_SND_OFF = "G_BGSndOff";
 
-	public const string G_IMG_P_SETTINGS_P_FX_SNDS_ON = "G_FXSndsOn";
-	public const string G_IMG_P_SETTINGS_P_FX_SNDS_OFF = "G_FXSndsOff";
+	public const string G_IMG_P_SETTINGS_P_FX_SNDS_ON = "UI_Icon_SoundOn";
+	public const string G_IMG_P_SETTINGS_P_FX_SNDS_OFF = "UI_Icon_SoundOff";
 
 	public const string G_IMG_P_SETTINGS_P_VIBRATE_ON = "G_VibrateOn";
 	public const string G_IMG_P_SETTINGS_P_VIBRATE_OFF = "G_VibrateOff";

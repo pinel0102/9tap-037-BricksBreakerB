@@ -150,7 +150,7 @@ public partial class CContinuePopup : CSubPopup {
 
     private void OnTouchShopButton()
     {
-        CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
+        GlobalDefine.OpenShop();
     }
 
     /** 이어하기 버튼을 눌렀을 경우 */
@@ -160,7 +160,7 @@ public partial class CContinuePopup : CSubPopup {
         {
             if (GlobalDefine.UserInfo.Ruby < GlobalDefine.CostRuby_Continue_Remove3Lines)
             {
-                CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
+                GlobalDefine.OpenShop();
                 return;
             }
             else

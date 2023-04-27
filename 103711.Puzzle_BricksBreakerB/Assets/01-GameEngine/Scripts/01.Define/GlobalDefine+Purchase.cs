@@ -16,6 +16,11 @@ public static partial class GlobalDefine
     ///<Summary>[레벨 실패 - 광고 시청] 루비+20 (3회).</Summary>
     public const int RewardRuby_Continue = 20;
 
+    public static void OpenShop()
+    {
+        CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.ShowStorePopup();
+    }
+
     public static void AddRuby(int addCount)
     {
         Debug.Log(CodeManager.GetMethodName() + addCount);

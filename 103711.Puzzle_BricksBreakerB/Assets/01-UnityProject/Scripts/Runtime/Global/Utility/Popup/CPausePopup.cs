@@ -14,6 +14,8 @@ public partial class CPausePopup : CSubPopup {
 		NONE = -1,
         RETRY_BTN,
 		LEAVE_BTN,
+        BG_SND_BTN,
+		FX_SNDS_BTN,
 		[HideInInspector] MAX_VAL
 	}
 
@@ -42,6 +44,8 @@ public partial class CPausePopup : CSubPopup {
     public SpriteMask previewMask;
     public RectTransform previewArea;
     public Button ADBlockButton;
+
+    private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
     private const string formatLevel = "Level {0}";
 	#endregion // 프로퍼티
 
@@ -55,6 +59,11 @@ public partial class CPausePopup : CSubPopup {
             ($"{EKey.RETRY_BTN}", this.gameObject, this.OnTouchRetryBtn),
 			($"{EKey.LEAVE_BTN}", this.gameObject, this.OnTouchLeaveBtn)
 		});
+
+        CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
+			(EKey.BG_SND_BTN, $"{EKey.BG_SND_BTN}", this.Contents, this.OnTouchBGSndBtn),
+			(EKey.FX_SNDS_BTN, $"{EKey.FX_SNDS_BTN}", this.Contents, this.OnTouchFXSndsBtn)
+		}, m_oBtnDict);
 
         ADBlockButton.ExAddListener(OnTouchADBlockButton);
 
@@ -83,6 +92,26 @@ public partial class CPausePopup : CSubPopup {
         levelText.text = string.Format(formatLevel, CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).Engine.currentLevel);
         ADBlockButton.gameObject.SetActive(!GlobalDefine.UserInfo.Item_ADBlock);
 
+        var oBtnKeyInfoList = CCollectionManager.Inst.SpawnList<(EKey, string, string, string, bool)>();
+
+		try {
+			CSndManager.Inst.SetIsMuteBGSnd(CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd);
+			CSndManager.Inst.SetIsMuteFXSnds(CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds);
+
+			// 버튼을 갱신한다 {
+			oBtnKeyInfoList.ExAddVal((EKey.BG_SND_BTN, KCDefine.U_OBJ_N_ICON_IMG, KDefine.G_IMG_P_SETTINGS_P_BG_SND_ON, KDefine.G_IMG_P_SETTINGS_P_BG_SND_OFF, !CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd));
+			oBtnKeyInfoList.ExAddVal((EKey.FX_SNDS_BTN, KCDefine.U_OBJ_N_ICON_IMG, KDefine.G_IMG_P_SETTINGS_P_FX_SNDS_ON, KDefine.G_IMG_P_SETTINGS_P_FX_SNDS_OFF, !CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds));
+			
+			for(int i = 0; i < oBtnKeyInfoList.Count; ++i) {
+				string oImgPath = oBtnKeyInfoList[i].Item5 ? oBtnKeyInfoList[i].Item3 : oBtnKeyInfoList[i].Item4;
+				m_oBtnDict.GetValueOrDefault(oBtnKeyInfoList[i].Item1)?.gameObject.ExFindComponent<Image>(oBtnKeyInfoList[i].Item2)?.ExSetSprite<Image>(CResManager.Inst.GetRes<Sprite>(oImgPath));
+			}
+            // 버튼을 갱신한다 }
+            
+		} finally {
+			CCollectionManager.Inst.DespawnList(oBtnKeyInfoList);
+		}
+
 		this.SubUpdateUIsState();
 	}
 
@@ -94,6 +123,22 @@ public partial class CPausePopup : CSubPopup {
 	/** 나가기 버튼을 눌렀을 경우 */
 	private void OnTouchLeaveBtn() {
 		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.LEAVE)?.Invoke(this);
+	}
+
+    /** 배경음 버튼을 눌렀을 경우 */
+	private void OnTouchBGSndBtn() {
+		CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd = !CCommonGameInfoStorage.Inst.GameInfo.IsMuteBGSnd;
+		CCommonGameInfoStorage.Inst.SaveGameInfo();
+
+		this.UpdateUIsState();
+	}
+
+	/** 효과음 버튼을 눌렀을 경우 */
+	private void OnTouchFXSndsBtn() {
+		CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds = !CCommonGameInfoStorage.Inst.GameInfo.IsMuteFXSnds;
+		CCommonGameInfoStorage.Inst.SaveGameInfo();
+
+		this.UpdateUIsState();
 	}
 
     private void OnTouchADBlockButton()

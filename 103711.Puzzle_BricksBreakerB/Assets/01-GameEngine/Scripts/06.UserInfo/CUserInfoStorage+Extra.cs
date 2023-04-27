@@ -11,7 +11,7 @@ using MessagePack;
 
 public partial class CUserInfo : CBaseInfo
 {
-    private const string KEY_SETTINGS_DARKMODE = "DarkMode";
+    private const string KEY_SETTINGS_DARKMODE = "Settings_DarkMode";
 
     private const string KEY_RUBY = "Ruby";
     private const string KEY_STAR_SUM = "Star_Sum";
