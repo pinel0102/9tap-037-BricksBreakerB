@@ -48,6 +48,7 @@ public partial class CPreviewPopup : CSubPopup {
     public List<GameObject> boosterBuy = new List<GameObject>();
     public List<TMP_Text> boosterTextCount = new List<TMP_Text>();
     public List<TMP_Text> boosterTextCost = new List<TMP_Text>();
+    public List<bool> rubyBooster = new List<bool>();
 
     [Header("★ [Reference] Golden Aim")]
     public Button goldenAimButton;
@@ -100,6 +101,8 @@ public partial class CPreviewPopup : CSubPopup {
             buttonBooster[index].ExAddListener(() => this.OnTouchBoosterButton(index));
             boosterLock[index].ExAddListener(() => this.OnTouchTooltipButton(index));
         }
+
+        rubyBooster = new List<bool>() { false, false, false };
 
         goldenAimButton.ExAddListener(this.OnTouchGoldenAimButton);
 
@@ -173,10 +176,12 @@ public partial class CPreviewPopup : CSubPopup {
     {
         bool oldValue = this.Params.Engine.boosterList[index];
         bool newValue = !oldValue;
+        bool useItem = false;
+        bool useRuby = false;
 
-        if (newValue)
+        if (!GlobalDefine.isLevelEditor) 
         {
-            if (!GlobalDefine.isLevelEditor) 
+            if (newValue)
             {
                 int currentCount = 0;
                 switch(index)
@@ -188,37 +193,51 @@ public partial class CPreviewPopup : CSubPopup {
 
                 if (currentCount < 1)
                 {
-                    if (GlobalDefine.UserInfo.Ruby < GlobalDefine.CostRuby_Booster)
+                    if (GlobalDefine.UserInfo.Ruby - (GlobalDefine.CostRuby_Booster * GetRubyBoosterCount()) < GlobalDefine.CostRuby_Booster)
                     {
+                        Debug.Log(string.Format("{0} < {1}", GlobalDefine.UserInfo.Ruby - (GlobalDefine.CostRuby_Booster * GetRubyBoosterCount()), GlobalDefine.CostRuby_Booster));
                         GlobalDefine.OpenShop();
                         return;
                     }
                     else
-                        GlobalDefine.AddRuby(-GlobalDefine.CostRuby_Booster);
+                    {
+                        Debug.Log(string.Format("{0} >= {1}", GlobalDefine.UserInfo.Ruby - (GlobalDefine.CostRuby_Booster * GetRubyBoosterCount()), GlobalDefine.CostRuby_Booster));
+                        rubyBooster[index] = true;
+                        useRuby = true;
+                    }
                 }
                 else
                 {
-                    switch(index)
-                    {
-                        case 0 : GlobalDefine.UserInfo.Booster_Missile = Mathf.Max(0, GlobalDefine.UserInfo.Booster_Missile - 1); break;
-                        case 1 : GlobalDefine.UserInfo.Booster_Lightning = Mathf.Max(0, GlobalDefine.UserInfo.Booster_Lightning - 1); break;
-                        case 2 : GlobalDefine.UserInfo.Booster_Bomb = Mathf.Max(0, GlobalDefine.UserInfo.Booster_Bomb - 1); break;
-                    }
+                    useItem = true;
+                }
+            }
+            else
+            {
+                if (rubyBooster[index])
+                {
+                    rubyBooster[index] = false;
+                    useRuby = false;
+                }
+                else
+                {
+                    useItem = false;
                 }
             }
         }
-        else
-        {
-            switch(index)
-            {
-                case 0 : GlobalDefine.UserInfo.Booster_Missile = Mathf.Max(0, GlobalDefine.UserInfo.Booster_Missile + 1); break;
-                case 1 : GlobalDefine.UserInfo.Booster_Lightning = Mathf.Max(0, GlobalDefine.UserInfo.Booster_Lightning + 1); break;
-                case 2 : GlobalDefine.UserInfo.Booster_Bomb = Mathf.Max(0, GlobalDefine.UserInfo.Booster_Bomb + 1); break;
-            }
-        }
 
-        this.Params.Engine.ChangeBooster(index, newValue);
+        this.Params.Engine.ChangeBooster(index, newValue, useItem, useRuby);
         boosterOn[index].SetActive(newValue);
+    }
+
+    private int GetRubyBoosterCount()
+    {
+        int count = 0;
+        for(int i=0; i < rubyBooster.Count; i++)
+        {
+            if (rubyBooster[i])
+                count++;
+        }
+        return count;
     }
 
     private void OnTouchTooltipButton(int index)

@@ -386,8 +386,6 @@ public static partial class Func {
 
 		// 타겟 정보가 존재 할 경우
 		if(bIsValid && a_oTargetInfo != null) {
-			Func.DoAcquire(a_nCharacterID, a_stTargetInfo, a_oTargetInfo, stItemInfo.m_stCommonInfo.m_bIsFlags01, a_bIsEnableAssert);
-
 			// 광고 제거 아이템 일 경우
 			if(a_stTargetInfo.m_eTargetKinds == ETargetKinds.ITEM_NUMS && (EItemKinds)a_stTargetInfo.Kinds == EItemKinds.NON_CONSUMABLE_REMOVE_ADS) {
 #if ADS_MODULE_ENABLE
@@ -397,6 +395,10 @@ public static partial class Func {
 				CAdsManager.Inst.IsEnableFullscreenAds = false;
 #endif // #if ADS_MODULE_ENABLE
 			}
+            else
+            {
+                GlobalDefine.AddItem((EItemKinds)a_stTargetInfo.Kinds, (int)a_stTargetInfo.m_stValInfo01.m_dmVal);
+            }
 		}
 	}
 
@@ -454,7 +456,7 @@ public static partial class Func {
 
 		// 타겟 정보가 존재 할 경우
 		if(a_stTargetInfo.m_eTargetKinds != ETargetKinds.NONE && a_oTargetInfo != null) {
-			switch(((int)a_stTargetInfo.m_eTargetKinds).ExKindsToSubKindsTypeVal()) {
+            switch(((int)a_stTargetInfo.m_eTargetKinds).ExKindsToSubKindsTypeVal()) {
 				case KEnumVal.TK_LV_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
 				case KEnumVal.TK_EXP_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;
 				case KEnumVal.TK_NUMS_SUB_KINDS_TYPE_VAL: a_oTargetInfo.m_oAbilityTargetInfoDict.ExIncrTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, a_stTargetInfo.m_stValInfo01.m_dmVal, a_bIsEnableAssert); break;

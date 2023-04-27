@@ -19,12 +19,12 @@ public partial class CValTable : CSingleton<CValTable> {
 
 	/** 정수를 추가한다 */
 	public void AddInt(string a_oKey, long a_nVal, bool a_bIsReplace = false) {
-		this.AddValInfo(a_oKey, new STValInfo(a_nVal, EValType.INT), a_bIsReplace);
+		this.AddValInfo(a_oKey, new STValInfo(EValType.INT, a_nVal), a_bIsReplace);
 	}
 
 	/** 실수를 추가한다 */
 	public void AddReal(string a_oKey, double a_dblVal, bool a_bIsReplace = false) {
-		this.AddValInfo(a_oKey, new STValInfo((decimal)a_dblVal, EValType.REAL), a_bIsReplace);
+		this.AddValInfo(a_oKey, new STValInfo(EValType.REAL, (decimal)a_dblVal), a_bIsReplace);
 	}
 
 	/** 값을 제거한다 */

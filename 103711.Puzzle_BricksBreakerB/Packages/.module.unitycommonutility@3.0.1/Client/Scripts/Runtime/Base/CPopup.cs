@@ -62,6 +62,7 @@ public abstract partial class CPopup : CComponent {
 
 	public virtual EAniType AniType => EAniType.DROPDOWN;
 	public virtual Color BlindColor => KCDefine.U_COLOR_POPUP_BLIND;
+    public List<Tween> AniList = new List<Tween>();
 
 	protected virtual string ShowSndPath => KCDefine.U_SND_P_G_SFX_POPUP_SHOW;
 	protected virtual string CloseSndPath => KCDefine.U_SND_P_G_SFX_POPUP_CLOSE;
@@ -134,6 +135,10 @@ public abstract partial class CPopup : CComponent {
 
 	/** 애니메이션을 리셋한다 */
 	public virtual void ResetAni() {
+        for(int i = 0; i < this.AniList.Count; ++i) {
+			this.AniList[i]?.Kill();
+		}
+        
 		foreach(var stKeyVal in m_oAniDict) {
 			stKeyVal.Value?.Kill();
 		}

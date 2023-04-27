@@ -244,7 +244,7 @@ public struct STValInfo : System.IEquatable<STValInfo> {
 	}
 
 	/** 생성자 */
-	public STValInfo(decimal a_dmVal, EValType a_eValType) {
+	public STValInfo(EValType a_eValType, decimal a_dmVal) {
 		m_dmVal = a_dmVal;
 		m_eValType = a_eValType;
 	}

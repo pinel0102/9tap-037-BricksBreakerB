@@ -131,10 +131,10 @@ public static partial class Factory {
 	/** 기본 어빌리티 타겟 정보를 생성한다 */
 	private static Dictionary<ulong, STTargetInfo> MakeDefAbilityTargetInfos() {
 		return new Dictionary<ulong, STTargetInfo>() {
-			[Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV)] = new STTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, new STValInfo(KCDefine.B_VAL_0_INT, EValType.INT)),
-			[Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP)] = new STTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, new STValInfo(KCDefine.B_VAL_0_INT, EValType.INT)),
-			[Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS)] = new STTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, new STValInfo(KCDefine.B_VAL_0_INT, EValType.INT)),
-			[Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE)] = new STTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE, new STValInfo(KCDefine.B_VAL_0_INT, EValType.INT))
+			[Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV)] = new STTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_LV, new STValInfo(EValType.INT, KCDefine.B_VAL_0_INT)),
+			[Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP)] = new STTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_EXP, new STValInfo(EValType.INT, KCDefine.B_VAL_0_INT)),
+			[Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS)] = new STTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, new STValInfo(EValType.INT, KCDefine.B_VAL_0_INT)),
+			[Factory.MakeUTargetInfoID(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE)] = new STTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_ENHANCE, new STValInfo(EValType.INT, KCDefine.B_VAL_0_INT))
 		};
 	}
 	#endregion // 클래스 함수

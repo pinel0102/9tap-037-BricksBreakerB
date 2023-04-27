@@ -76,10 +76,4 @@ namespace NSEngine {
             }
         }
     }
-
-    public enum RewardVideoType
-    {
-        CONTINUE_3LINE,
-        CONTINUE_RUBY,
-    }
 }

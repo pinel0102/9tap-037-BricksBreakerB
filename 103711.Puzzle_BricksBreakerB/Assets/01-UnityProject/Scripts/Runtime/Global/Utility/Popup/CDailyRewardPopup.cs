@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System;
+using TMPro;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+using DG.Tweening;
+
 /** 일일 보상 팝업 */
 public partial class CDailyRewardPopup : CSubPopup {
 	/** 식별자 */
@@ -23,11 +27,22 @@ public partial class CDailyRewardPopup : CSubPopup {
 	[SerializeField] private List<GameObject> m_oRewardUIsList = new List<GameObject>();
 	#endregion // 변수
 
+	#region 프로퍼티
+    public TMP_Text remainTimeText;
+    public bool isEnableGetDailyReward;
+    public int dailyRewardID;
+    public DateTime nextRewardTime;
+
+    private Coroutine remainTimeCoroutine;
+    private WaitForSecondsRealtime wDelay = new WaitForSecondsRealtime(0.1f);
+    private const string TimeFormat = "{0:00}:{1:00}:{2:00}";
+	#endregion // 프로퍼티
+
 	#region 함수
 	/** 초기화 */
 	public override void Awake() {
 		base.Awake();
-
+		
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(EKey, string, GameObject, UnityAction)>() {
 			(EKey.ADS_BTN, $"{EKey.ADS_BTN}", this.Contents, this.OnTouchAdsBtn),
@@ -51,23 +66,62 @@ public partial class CDailyRewardPopup : CSubPopup {
 
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
-		// 버튼을 갱신한다
-		m_oBtnDict.GetValueOrDefault(EKey.ADS_BTN)?.ExSetInteractable(Access.IsEnableGetDailyReward(CGameInfoStorage.Inst.PlayCharacterID));
-		m_oBtnDict.GetValueOrDefault(EKey.ACQUIRE_BTN)?.ExSetInteractable(Access.IsEnableGetDailyReward(CGameInfoStorage.Inst.PlayCharacterID));
 
-		// 보상 UI 상태를 갱신한다
-		for(int i = 0; i < m_oRewardUIsList.Count; ++i) {
-			var oRewardUIs = m_oRewardUIsList[i];
-			var stDailyRewardInfo = CRewardInfoTable.Inst.GetRewardInfo(ERewardKinds.DAILY_REWARD_SAMPLE + (i + KCDefine.B_VAL_1_INT));
-
-			this.UpdateRewardUIsState(oRewardUIs, stDailyRewardInfo);
-		}
+        RefreshState();
+        
+        if (remainTimeCoroutine != null) StopCoroutine(remainTimeCoroutine);
+        remainTimeCoroutine = StartCoroutine(CO_UpdateRemainTime());
 
 		this.SubUpdateUIsState();
 	}
 
+    private void RefreshState()
+    {
+        isEnableGetDailyReward = Access.IsEnableGetDailyReward(CGameInfoStorage.Inst.PlayCharacterID);
+        dailyRewardID = Access.GetDailyRewardID(CGameInfoStorage.Inst.PlayCharacterID);
+
+        var oCharacterGameInfo = CGameInfoStorage.Inst.GetCharacterGameInfo(CGameInfoStorage.Inst.PlayCharacterID);
+        nextRewardTime = oCharacterGameInfo.PrevDailyRewardTime.AddDays(KCDefine.B_VAL_1_INT);
+
+        // 버튼을 갱신한다
+		m_oBtnDict[EKey.ADS_BTN]?.ExSetInteractable(isEnableGetDailyReward);
+		m_oBtnDict[EKey.ACQUIRE_BTN]?.ExSetInteractable(isEnableGetDailyReward);
+
+		// 보상 UI 상태를 갱신한다
+		for(int i = 0; i < m_oRewardUIsList.Count; ++i) {
+			// 보상 정보가 존재 할 경우
+			if(CRewardInfoTable.Inst.TryGetRewardInfo(KDefine.G_REWARDS_KINDS_DAILY_REWARD_LIST[i], out STRewardInfo stRewardInfo)) {
+                this.UpdateRewardUIsState(m_oRewardUIsList[i], stRewardInfo);
+			}
+		}
+    }
+
+    private IEnumerator CO_UpdateRemainTime()
+    {
+        Debug.Log(CodeManager.GetMethodName() + string.Format("IsEnableGetDailyReward : {0} / GetDailyRewardID : {1}", isEnableGetDailyReward, dailyRewardID));
+
+        while(true)
+        {
+            TimeSpan ts = TimeSpan.FromTicks(nextRewardTime.Subtract(DateTime.Now).Ticks);
+            if (ts.Ticks > 0)
+            {
+                remainTimeText.text = string.Format(TimeFormat, ts.Hours, ts.Minutes, ts.Seconds);
+                yield return wDelay;
+            }
+            else
+            {
+                remainTimeText.text = string.Empty;
+                break;
+            }
+        }
+
+        RefreshState();
+    }
+
 	/** 광고 버튼을 눌렀을 경우 */
-	private void OnTouchAdsBtn() {
+	private void OnTouchAdsBtn() 
+    {
+        GlobalDefine.RequestRewardVideo(RewardVideoType.DAILY_REWARD, this);        
 #if ADS_MODULE_ENABLE
 		Func.ShowRewardAds(this.OnCloseRewardAds);
 #endif // #if ADS_MODULE_ENABLE
@@ -75,34 +129,66 @@ public partial class CDailyRewardPopup : CSubPopup {
 
 	/** 획득 버튼을 눌렀을 경우 */
 	private void OnTouchAcquireBtn() {
+#if NEVER_USE_THIS
 		this.ShowRewardAcquirePopup(false);
+#endif // #if NEVER_USE_THIS
+
+		#region 추가
+		m_oBtnDict[EKey.ADS_BTN].ExSetInteractable(false);
+        m_oBtnDict[EKey.ACQUIRE_BTN].ExSetInteractable(false);
+
+        int index = Access.GetDailyRewardID(CGameInfoStorage.Inst.PlayCharacterID);
+		var stRewardInfo = CRewardInfoTable.Inst.GetRewardInfo(KDefine.G_REWARDS_KINDS_DAILY_REWARD_LIST[index]);
+
+        //Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", stRewardInfo.m_eRewardKinds));
+
+		Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, stRewardInfo.m_oAcquireTargetInfoDict);
+
+        Func.SetupNextDailyRewardID(CGameInfoStorage.Inst.PlayCharacterID);
+		CGameInfoStorage.Inst.SaveGameInfo();
+        GlobalDefine.RefreshShopText(CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.rubyText);
+
+        UpdateUIsState();
+		
+        //this.StartAcquireAni(m_oRewardUIsList[index]);
+		
+        LogFunc.Send_C_Item_Get(KCDefine.B_IDX_INVALID, KDefine.L_SCENE_N_MAIN, LogFunc.MakeLogItemInfo(stRewardInfo.m_oAcquireTargetInfoDict));
+		
+        #endregion // 추가
 	}
 
 	/** 보상 획득 팝업이 닫혔을 경우 */
 	private void OnCloseRewardAcquirePopup(CPopup a_oSender) {
 		Func.SetupNextDailyRewardID(CGameInfoStorage.Inst.PlayCharacterID);
 		CGameInfoStorage.Inst.SaveGameInfo();
+
+		// UI 상태를 갱신한다
+		CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
+		CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
+		CSceneManager.GetSceneManager<TitleScene.CSubTitleSceneManager>(KCDefine.B_SCENE_N_TITLE)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
+
+		this.Close();
 	}
 
 	/** 보상 획득 팝업을 출력한다 */
 	private void ShowRewardAcquirePopup(bool a_bIsWatchRewardAds) {
-		var eRewardKinds = Access.GetDailyRewardKinds(CGameInfoStorage.Inst.PlayCharacterID);
-		var stRewardInfo = CRewardInfoTable.Inst.GetRewardInfo(eRewardKinds);
-
-		// 보상 광고 시청 모드 일 경우
-		if(a_bIsWatchRewardAds) {
-			var oTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
-
-			foreach(var stKeyVal in stRewardInfo.m_oAcquireTargetInfoDict) {
-				var stValInfo = new STValInfo(stKeyVal.Value.m_stValInfo01.m_dmVal * KCDefine.B_VAL_2_INT, stKeyVal.Value.m_stValInfo01.m_eValType);
-				oTargetInfoDict.TryAdd(stKeyVal.Key, new STTargetInfo(stKeyVal.Value.m_eTargetKinds, stKeyVal.Value.m_nKinds, stValInfo));
-			}
-
-			stRewardInfo.m_oAcquireTargetInfoDict = oTargetInfoDict;
-		}
-
 		Func.ShowRewardAcquirePopup(this.transform.parent.gameObject, (a_oSender) => {
-			(a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(stRewardInfo.m_eRewardQuality, ERewardAcquirePopupType.DAILY, stRewardInfo.m_oAcquireTargetInfoDict));
+			var oTargetInfoDict = CCollectionManager.Inst.SpawnDict<ulong, STTargetInfo>();
+
+			try {
+				var eRewardKinds = Access.GetDailyRewardKinds(CGameInfoStorage.Inst.PlayCharacterID);
+				var stRewardInfo = CRewardInfoTable.Inst.GetRewardInfo(eRewardKinds);
+
+				foreach(var stKeyVal in stRewardInfo.m_oAcquireTargetInfoDict) {
+                    var stValInfo = new STValInfo(stKeyVal.Value.m_stValInfo01.m_eValType, a_bIsWatchRewardAds ? stKeyVal.Value.m_stValInfo01.m_dmVal * KCDefine.B_VAL_2_INT : stKeyVal.Value.m_stValInfo01.m_dmVal);
+					oTargetInfoDict.TryAdd(stKeyVal.Key, new STTargetInfo(stKeyVal.Value.m_eTargetKinds, stKeyVal.Value.m_nKinds, stValInfo));
+				}
+				
+				oTargetInfoDict.ExCopyTo(stRewardInfo.m_oAcquireTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
+				(a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(stRewardInfo.m_eRewardQuality, ERewardAcquirePopupType.DAILY, stRewardInfo.m_oAcquireTargetInfoDict));
+			} finally {
+				CCollectionManager.Inst.DespawnDict(oTargetInfoDict);
+			}
 		}, null, this.OnCloseRewardAcquirePopup);
 	}
 	#endregion // 함수

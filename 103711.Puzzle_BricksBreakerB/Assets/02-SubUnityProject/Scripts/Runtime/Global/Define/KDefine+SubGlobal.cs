@@ -102,12 +102,34 @@ public static partial class KDefine {
 	#region 런타임 상수
 	// 일일 보상
 	public static readonly List<ERewardKinds> G_REWARDS_KINDS_DAILY_REWARD_LIST = new List<ERewardKinds>() {
-		// Do Something
+		ERewardKinds.EXTRA_DAILY_REWARD_01,
+		ERewardKinds.EXTRA_DAILY_REWARD_02,
+		ERewardKinds.EXTRA_DAILY_REWARD_03,
+		ERewardKinds.EXTRA_DAILY_REWARD_04,
+		ERewardKinds.EXTRA_DAILY_REWARD_05,
+		ERewardKinds.EXTRA_DAILY_REWARD_06,
+		ERewardKinds.EXTRA_DAILY_REWARD_07
 	};
 
 	// 상점 상품 종류
 	public static readonly List<EProductKinds> G_PRODUCT_KINDS_STORE_LIST = new List<EProductKinds>() {
-		// Do Something
+		EProductKinds.PKGS_PRODUCT_SPECIAL_STARTER_01,
+
+		EProductKinds.PKGS_PRODUCT_BRICK_01,
+		EProductKinds.PKGS_PRODUCT_CRUSH_01,
+		EProductKinds.PKGS_PRODUCT_SMASH_01,
+		EProductKinds.PKGS_PRODUCT_SHATTER_01,
+		EProductKinds.PKGS_PRODUCT_SPLINTER_01,
+		EProductKinds.PKGS_PRODUCT_BURST_01,
+
+		EProductKinds.SINGLE_PRODUCT_DIAMOND_01,
+		EProductKinds.SINGLE_PRODUCT_DIAMOND_02,
+		EProductKinds.SINGLE_PRODUCT_DIAMOND_03,
+		EProductKinds.SINGLE_PRODUCT_DIAMOND_04,
+		EProductKinds.SINGLE_PRODUCT_DIAMOND_05,
+		EProductKinds.SINGLE_PRODUCT_DIAMOND_06,
+		
+		EProductKinds.SINGLE_PRODUCT_REMOVE_ADS_01
 	};
 
 	// 특수 패키지 상품 종류

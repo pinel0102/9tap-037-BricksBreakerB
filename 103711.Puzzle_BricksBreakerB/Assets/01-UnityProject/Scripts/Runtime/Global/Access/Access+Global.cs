@@ -283,10 +283,14 @@ public static partial class Access {
 		return Access.GetAbilityTargetInfo(a_nCharacterID, a_eAbilityKinds, true).m_oAbilityTargetInfoDict.ExGetTargetVal(a_eTargetKinds, a_nKinds);
 	}
 
+    /** 일일 보상 식별자를 반환한다 */
+    public static int GetDailyRewardID(int a_nCharacterID) {
+		return CGameInfoStorage.Inst.GetCharacterGameInfo(a_nCharacterID).DailyRewardID;
+	}
+
 	/** 일일 보상 종류를 반환한다 */
 	public static ERewardKinds GetDailyRewardKinds(int a_nCharacterID) {
-		var oCharacterGameInfo = CGameInfoStorage.Inst.GetCharacterGameInfo(a_nCharacterID);
-		return KDefine.G_REWARDS_KINDS_DAILY_REWARD_LIST[oCharacterGameInfo.DailyRewardID];
+		return KDefine.G_REWARDS_KINDS_DAILY_REWARD_LIST[Access.GetDailyRewardID(a_nCharacterID)];
 	}
 
 	/** 에피소드 정보를 반환한다 */

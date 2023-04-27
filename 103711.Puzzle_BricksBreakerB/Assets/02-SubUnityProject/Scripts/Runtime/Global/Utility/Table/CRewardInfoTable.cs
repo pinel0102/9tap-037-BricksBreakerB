@@ -104,7 +104,7 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 	/** 보상 정보를 반환한다 */
 	public bool TryGetRewardInfo(ERewardKinds a_eRewardKinds, out STRewardInfo a_stOutRewardInfo) {
 		a_stOutRewardInfo = this.RewardInfoDict.GetValueOrDefault(a_eRewardKinds, STRewardInfo.INVALID);
-		return this.RewardInfoDict.ContainsKey(a_eRewardKinds);
+        return this.RewardInfoDict.ContainsKey(a_eRewardKinds);
 	}
 
 	/** 획득 타겟 정보를 반환한다 */
@@ -169,7 +169,7 @@ public partial class CRewardInfoTable : CSingleton<CRewardInfoTable> {
 
 		for(int i = 0; i < oCommonInfos.Count; ++i) {
 			var stRewardInfo = new STRewardInfo(oCommonInfos[i]);
-
+            
 			// 보상 정보 추가 가능 할 경우
 			if(stRewardInfo.m_eRewardKinds.ExIsValid() && (!this.RewardInfoDict.ContainsKey(stRewardInfo.m_eRewardKinds) || oCommonInfos[i][KCDefine.U_KEY_REPLACE].AsInt != KCDefine.B_VAL_0_INT)) {
 				this.RewardInfoDict.ExReplaceVal(stRewardInfo.m_eRewardKinds, stRewardInfo);

@@ -104,7 +104,7 @@ namespace OverlayScene {
 		/** 상점 팝업을 출력한다 */
 		public void ShowStorePopup() {
 			Func.ShowStorePopup(CSceneManager.ActiveScenePopupUIs, (a_oSender) => {
-				var stParams = CStorePopup.MakeParams(Factory.MakeProductTradeInfos(KDefine.G_PRODUCT_KINDS_STORE_LIST).Values.ToList());
+				//var stParams = CStorePopup.MakeParams(Factory.MakeProductTradeInfos(KDefine.G_PRODUCT_KINDS_STORE_LIST).Values.ToList());
 
 #if ADS_MODULE_ENABLE
 				stParams.m_oAdsCallbackDict.TryAdd(CStorePopup.ECallback.ADS, (a_oAdsSender, a_stAdsRewardInfo, a_bIsSuccess) => this.UpdateUIsState());
@@ -115,14 +115,15 @@ namespace OverlayScene {
 				stParams.m_oPurchaseCallbackDict02.TryAdd(CStorePopup.ECallback.RESTORE, (a_oRestoreSender, a_oProductList, a_bIsSuccess) => this.UpdateUIsState());
 #endif // #if PURCHASE_MODULE_ENABLE
 
-				(a_oSender as CStorePopup).Init(stParams);
+				//(a_oSender as CStorePopup).Init(stParams);
+                (a_oSender as CStorePopup).Init(new CStorePopup.STParams(){m_oProductTradeInfoList = new List<STProductTradeInfo>()});
 			});
 		}
 
 		/** UI 상태를 갱신한다 */
 		private void UpdateUIsState() {
 			// 텍스트를 갱신한다
-			m_oTextDict[EKey.NUM_NORM_COINS_TEXT]?.ExSetText($"{Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_NORM_COINS, ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS)}", EFontSet._1, false);
+			m_oTextDict[EKey.NUM_NORM_COINS_TEXT]?.ExSetText($"{Access.GetItemTargetVal(CGameInfoStorage.Inst.PlayCharacterID, EItemKinds.GOODS_RUBY, ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS)}", EFontSet._1, false);
 
 			// UI 상태를 갱신한다
 			CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, null, false);

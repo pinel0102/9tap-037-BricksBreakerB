@@ -400,6 +400,7 @@ public static partial class KCDefine {
 	public const string U_OBJ_N_NUM_MARKS_STATE_TEXT = "NUM_MARKS_STATE_TEXT";
 
 	public const string U_OBJ_N_BG_IMG = "BG_IMG";
+    public const string U_OBJ_N_GLOW_IMG = "GLOW_IMG";
 	public const string U_OBJ_N_COINS_IMG = "COINS_IMG";
 	public const string U_OBJ_N_BLIND_IMG = "BLIND_IMG";
 	public const string U_OBJ_N_SPLASH_IMG = "SPLASH_IMG";

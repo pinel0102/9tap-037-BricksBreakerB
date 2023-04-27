@@ -90,7 +90,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4883653841294377141}
   m_Layer: 5
-  m_Name: ResetTimeInfo
+  m_Name: ResetTime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -710,7 +710,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 493965733505795926}
         m_TargetAssemblyTypeName: DebugPanel, Assembly-CSharp
-        m_MethodName: OnClick_ResetTime
+        m_MethodName: OnClick_ResetUserInfo
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2358,7 +2358,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 493965733505795926}
         m_TargetAssemblyTypeName: DebugPanel, Assembly-CSharp
-        m_MethodName: OnClick_ResetUserInfo
+        m_MethodName: OnClick_ResetTime
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4469,7 +4469,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1200186509316609811}
   m_Layer: 5
-  m_Name: ResetTime
+  m_Name: ResetUserInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

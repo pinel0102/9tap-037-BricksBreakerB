@@ -9,7 +9,12 @@ public static partial class GlobalDefine
     public static void HideBannerAD()
     {
         Debug.Log(CodeManager.GetMethodName());
-        //
+#if ADS_MODULE_ENABLE
+        Func.CloseBannerAds(null);
+
+        CAdsManager.Inst.IsEnableBannerAds = false;
+        CAdsManager.Inst.IsEnableFullscreenAds = false;
+#endif
     }
 
     public static void RequestBannerAD()
@@ -34,7 +39,7 @@ public static partial class GlobalDefine
         }
     }
 
-    public static void RequestRewardVideo(NSEngine.RewardVideoType type, CPopup popup)
+    public static void RequestRewardVideo(RewardVideoType type, CPopup popup)
     {
         if(IsEnableRewardVideo())
         {
@@ -55,4 +60,11 @@ public static partial class GlobalDefine
     {
         return !GlobalDefine.UserInfo.Item_ADBlock;
     }
+}
+
+public enum RewardVideoType
+{
+    CONTINUE_3LINE,
+    CONTINUE_RUBY,
+    DAILY_REWARD,
 }

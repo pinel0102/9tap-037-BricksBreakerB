@@ -111,7 +111,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		var oRewardTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 
 		foreach(var stKeyVal in this.Params.m_oRewardTargetInfoDict) {
-			var stValInfo = new STValInfo(a_bIsWatchRewardAds ? stKeyVal.Value.m_stValInfo01.m_dmVal * KCDefine.B_VAL_2_INT : stKeyVal.Value.m_stValInfo01.m_dmVal, stKeyVal.Value.m_stValInfo01.m_eValType);
+			var stValInfo = new STValInfo(stKeyVal.Value.m_stValInfo01.m_eValType, a_bIsWatchRewardAds ? stKeyVal.Value.m_stValInfo01.m_dmVal * KCDefine.B_VAL_2_INT : stKeyVal.Value.m_stValInfo01.m_dmVal);
 			oRewardTargetInfoDict.TryAdd(stKeyVal.Key, new STTargetInfo(stKeyVal.Value.m_eTargetKinds, stKeyVal.Value.m_nKinds, stValInfo));
 		}
 

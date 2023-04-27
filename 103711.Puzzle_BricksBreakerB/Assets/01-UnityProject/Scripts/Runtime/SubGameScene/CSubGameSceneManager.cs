@@ -318,7 +318,7 @@ namespace GameScene {
 			}
 
 			for(int i = 0; i < CGameInfoStorage.Inst.SelItemKindsList.Count; ++i) {
-				var stValInfo = new STValInfo(KCDefine.B_VAL_1_INT, EValType.INT);
+				var stValInfo = new STValInfo(EValType.INT, KCDefine.B_VAL_1_INT);
 				var stTargetInfo = new STTargetInfo(ETargetKinds.ITEM_NUMS, (int)CGameInfoStorage.Inst.SelItemKindsList[i], stValInfo);
 
 				this.ApplySelItem(CGameInfoStorage.Inst.SelItemKindsList[i]);

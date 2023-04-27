@@ -117,6 +117,9 @@ public enum ERewardType {
 	CLEAR,
 	MISSION,
 	TUTORIAL,
+
+    EXTRA_DAILY = 10,
+	EXTRA_CLEAR,
 	[HideInInspector] MAX_VAL
 }
 
@@ -153,6 +156,21 @@ public enum ERewardKinds {
 	// 50,000,000
 	TUTORIAL_REWARD_SAMPLE = (EEnumVal.T * ERewardType.TUTORIAL) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	#endregion // 튜토리얼
+
+    #region 추가 일일
+	// 1,000,000,000
+	EXTRA_DAILY_REWARD_01 = (EEnumVal.T * ERewardType.EXTRA_DAILY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	EXTRA_DAILY_REWARD_02,
+	EXTRA_DAILY_REWARD_03,
+	EXTRA_DAILY_REWARD_04,
+	EXTRA_DAILY_REWARD_05,
+	EXTRA_DAILY_REWARD_06,
+	EXTRA_DAILY_REWARD_07,
+	#endregion // 추가 일일
+
+	#region 추가 클리어
+	EXTRA_CLEAR_REWARD_01 = (EEnumVal.T * ERewardType.EXTRA_CLEAR) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+    #endregion // 추가 클리어
 
 	[HideInInspector] MAX_VAL
 }
@@ -283,6 +301,8 @@ public enum EItemType {
 	WEAPON,
 	ARMOR,
 	ACCESSORY,
+
+    EXTRA_CONSUMABLE = 10,
 	[HideInInspector] MAX_VAL
 }
 
@@ -292,10 +312,10 @@ public enum EItemKinds {
 
 	#region 재화
 	// 0
-	GOODS_NORM_COINS = (EEnumVal.T * EItemType.GOODS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	GOODS_RUBY = (EEnumVal.T * EItemType.GOODS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 
 	// 100,000
-	GOODS_COINS_BOX_COINS = (EEnumVal.T * EItemType.GOODS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 0),
+	GOODS_BOX_COINS = (EEnumVal.T * EItemType.GOODS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 1) + (EEnumVal.SKT * 0),
 	#endregion // 재화
 
 	#region 소모
@@ -327,6 +347,23 @@ public enum EItemKinds {
 	// 50,000,000
 	ACCESSORY_ITEM_SAMPLE = (EEnumVal.T * EItemType.ACCESSORY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	#endregion // 악세서리
+
+    #region 추가 소모
+	// 1,000,000,000 {
+	BOOSTER_ITEM_01_MISSILE = (EEnumVal.T * EItemType.EXTRA_CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	BOOSTER_ITEM_02_LIGHTNING,
+	BOOSTER_ITEM_03_BOMB,
+	BOOSTER_ITEM_04,
+
+	GAME_ITEM_01_EARTHQUAKE = (EEnumVal.T * EItemType.EXTRA_CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
+	GAME_ITEM_02_ADD_BALLS,
+	GAME_ITEM_03_BRICKS_DELETE,
+	GAME_ITEM_04_ADD_LASER_BRICKS,
+	GAME_ITEM_05_ADD_STEEL_BRICKS,
+	GAME_ITEM_06,
+	GAME_ITEM_MAX_VAL,
+	// 1,000,000,000 }
+	#endregion // 추가 소모
 
 	[HideInInspector] MAX_VAL
 }
@@ -789,15 +826,31 @@ public enum EProductKinds {
 
 	#region 패키지
 	// 0
-	PKGS_SPECIAL_BEGINNER = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
-	PKGS_SPECIAL_EXPERT = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
-	PKGS_SPECIAL_PRO = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 2),
+	PKGS_PRODUCT_BRICK_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	PKGS_PRODUCT_CRUSH_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
+	PKGS_PRODUCT_SMASH_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 2),
+	PKGS_PRODUCT_SHATTER_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 3),
+	PKGS_PRODUCT_SPLINTER_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 4),
+	PKGS_PRODUCT_BURST_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 5),
+
+	// 10,000,000
+	PKGS_PRODUCT_SPECIAL_STARTER_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	#endregion // 패키지
 
 	#region 단일
-	// 100,000,000
-	SINGLE_COINS_BOX = (EEnumVal.T * EProductType.SINGLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
-	SINGLE_REMOVE_ADS = (EEnumVal.T * EProductType.SINGLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
+	// 100,000,000 {
+	SINGLE_PRODUCT_DIAMOND_01 = (EEnumVal.T * EProductType.SINGLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	SINGLE_PRODUCT_DIAMOND_02,
+	SINGLE_PRODUCT_DIAMOND_03,
+	SINGLE_PRODUCT_DIAMOND_04,
+	SINGLE_PRODUCT_DIAMOND_05,
+	SINGLE_PRODUCT_DIAMOND_06,
+
+	SINGLE_PRODUCT_COINS_BOX_01 = (EEnumVal.T * EProductType.SINGLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
+	// 100,000,000 }
+
+	// 110,000,000
+	SINGLE_PRODUCT_REMOVE_ADS_01 = (EEnumVal.T * EProductType.SINGLE) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	#endregion // 단일
 
 	[HideInInspector] MAX_VAL

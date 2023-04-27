@@ -108,7 +108,7 @@ public partial class CContinuePopup : CSubPopup {
 
 		// 텍스트를 갱신한다 {
 		var oTextKeyInfoList = new List<(EKey, ETargetKinds, EItemKinds)>() {
-			(EKey.PRICE_TEXT, ETargetKinds.ITEM_NUMS, EItemKinds.GOODS_NORM_COINS)
+			(EKey.PRICE_TEXT, ETargetKinds.ITEM_NUMS, EItemKinds.GOODS_RUBY)
 		};
 
 		for(int i = 0; i < oTextKeyInfoList.Count; ++i) {
@@ -167,17 +167,17 @@ public partial class CContinuePopup : CSubPopup {
                 GlobalDefine.AddRuby(-GlobalDefine.CostRuby_Continue_Remove3Lines);
         }
 
-        Params.Engine.GetReward(NSEngine.RewardVideoType.CONTINUE_3LINE, this, false);
+        Params.Engine.GetReward(RewardVideoType.CONTINUE_3LINE, this, false);
 	}
 
     private void OnTouchContinueBtn_AD() 
     {   
-        Params.Engine.RequestVideo(NSEngine.RewardVideoType.CONTINUE_3LINE, this);
+        Params.Engine.RequestVideo(RewardVideoType.CONTINUE_3LINE, this);
 	}
 
     private void OnTouchRewardVideoButton()
     {
-        Params.Engine.RequestVideo(NSEngine.RewardVideoType.CONTINUE_RUBY, this);
+        Params.Engine.RequestVideo(RewardVideoType.CONTINUE_RUBY, this);
     }
 	#endregion // 함수
 
