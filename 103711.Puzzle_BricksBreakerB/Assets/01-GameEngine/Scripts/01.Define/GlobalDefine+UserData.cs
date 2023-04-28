@@ -6,11 +6,48 @@ public static partial class GlobalDefine
 {
     public static CUserInfo UserInfo => CUserInfoStorage.Inst.UserInfo;
 
+    public static List<int> UserStarList;
+    public static List<int> UserScoreList;
+
+    public const string ArrayDefault = "0";
+
     public static void LoadUserData()
     {
         Debug.Log(CodeManager.GetMethodName());
         
         CUserInfoStorage.Inst.LoadUserInfo();
+    }
+
+    public static void InitUserDataList()
+    {
+        UserStarList = CSVToList(UserInfo.LevelStar);
+        UserScoreList = CSVToList(UserInfo.LevelScore);
+
+        int levelCount = CLevelInfoTable.Inst.levelCount;
+
+        if (UserStarList.Count < levelCount)
+        {
+            int oldCount = UserStarList.Count;
+            for (int i=0; i < levelCount - oldCount; i++)
+            {
+                UserStarList.Add(0);
+            }
+            
+            UserInfo.LevelStar = ListToCSV(UserStarList);
+            SaveUserData();
+        }
+
+        if (UserScoreList.Count < levelCount)
+        {
+            int oldCount = UserScoreList.Count;
+            for (int i=0; i < levelCount - oldCount; i++)
+            {
+                UserScoreList.Add(0);
+            }
+
+            UserInfo.LevelScore = ListToCSV(UserScoreList);
+            SaveUserData();
+        }
     }
 
     public static void SaveUserData()
@@ -49,4 +86,17 @@ public static partial class GlobalDefine
 
         CUserInfoStorage.Inst.ResetUserInfo(CExtension.ExToMsgPackBase64Str(userInfo));
     }
+
+    public static List<int> CreateEmptyList()
+    {
+        List<int> list = new List<int>();
+        int levelCount = CLevelInfoTable.Inst.levelCount;
+        
+        for(int i=0; i < levelCount; i++)
+        {
+            list.Add(0);
+        }
+
+        return list;
+    }        
 }

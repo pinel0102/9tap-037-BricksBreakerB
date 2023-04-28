@@ -37,6 +37,8 @@ namespace SetupScene {
 			CAbilityInfoTable.Inst.LoadAbilityInfos();
 			CProductTradeInfoTable.Inst.LoadProductTradeInfos();
 
+            GlobalDefine.InitUserDataList();
+
 			// 공용 캐릭터 유저 정보가 없을 경우
 			if(!CUserInfoStorage.Inst.TryGetCharacterUserInfo(KDefine.G_CHARACTER_ID_COMMON, out CCharacterUserInfo oCharacterUserInfo)) {
 				oCharacterUserInfo = Factory.MakeCharacterUserInfo(EObjKinds.PLAYABLE_COMMON_CHARACTER_01, new STIDInfo(KDefine.G_CHARACTER_ID_COMMON), STIdxInfo.INVALID);

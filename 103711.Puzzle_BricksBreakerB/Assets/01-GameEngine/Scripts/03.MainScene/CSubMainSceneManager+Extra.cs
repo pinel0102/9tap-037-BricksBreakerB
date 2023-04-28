@@ -33,6 +33,8 @@ namespace MainScene {
 
         private void InitLevelMapButtons()
         {
+            scrollFocus.gameObject.SetActive(true);
+
             int levelCount = CLevelInfoTable.Inst.levelCount;
             int focusIndex = (GlobalDefine.UserInfo.LevelCurrent - 1) / 5;
             
@@ -48,6 +50,9 @@ namespace MainScene {
                     scrollFocus.objectToFocus = ga.GetComponent<RectTransform>();
                 }
             }
+
+            scrollFocus.SetFocus();
+            scrollFocus.gameObject.SetActive(false);
         }
 
         #endregion // 함수

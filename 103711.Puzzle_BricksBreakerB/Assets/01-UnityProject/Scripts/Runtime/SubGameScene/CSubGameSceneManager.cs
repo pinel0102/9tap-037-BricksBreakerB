@@ -302,6 +302,8 @@ namespace GameScene {
 			oLevelClearInfo.m_stBestRecordInfo.m_dblRealRecord = a_oSender.RecordInfo.m_dblRealRecord.ExIsGreate(oLevelClearInfo.m_stBestRecordInfo.m_dblRealRecord) ? a_oSender.RecordInfo.m_dblRealRecord : oLevelClearInfo.m_stBestRecordInfo.m_dblRealRecord;
 
 			CGameInfoStorage.Inst.SaveGameInfo();
+            GlobalDefine.ResultCalculate(Engine);
+
 			this.ShowResultPopup(true);
 		}
 

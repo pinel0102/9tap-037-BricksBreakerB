@@ -13,6 +13,7 @@ public class LevelButton : MonoBehaviour
     public int level;
     public int levelType;
     public int starCount;
+    public int score;
     public bool isOpen;
     public bool isClear;
 
@@ -43,10 +44,9 @@ public class LevelButton : MonoBehaviour
             }
 
             isOpen = (level == 1) || level <= GlobalDefine.UserInfo.LevelCurrent;
-
-            //TODO: temp values            
-            isClear = true;
-            starCount = 3;
+            isClear = level < GlobalDefine.UserInfo.LevelCurrent;
+            starCount = GlobalDefine.UserStarList[_level];
+            score = GlobalDefine.UserScoreList[_level];
 
             SetButton();
             SetArrow(_levelCount);
