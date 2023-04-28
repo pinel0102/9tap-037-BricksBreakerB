@@ -12,6 +12,8 @@ using MessagePack;
 public partial class CUserInfo : CBaseInfo
 {
     private const string KEY_SETTINGS_PLAYER_NAME = "Settings_PlayerName";
+    private const string KEY_SETTINGS_AVATAR = "Settings_Avatar";
+    private const string KEY_SETTINGS_FRAME = "Settings_Frame";
     private const string KEY_SETTINGS_DARKMODE = "Settings_DarkMode";
 
     private const string KEY_RUBY = "Ruby";
@@ -35,6 +37,18 @@ public partial class CUserInfo : CBaseInfo
 	public string Settings_PlayerName {
 		get { return m_oStrDict.GetValueOrDefault(KEY_SETTINGS_PLAYER_NAME, GlobalDefine.PLAYER_NAME_DEFAULT); }
 		set { m_oStrDict.ExReplaceVal(KEY_SETTINGS_PLAYER_NAME, $"{value}"); }
+	}
+
+    [IgnoreMember]
+	public int Settings_Avatar {
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_SETTINGS_AVATAR, GlobalDefine.STRING_0)); }
+		set { m_oStrDict.ExReplaceVal(KEY_SETTINGS_AVATAR, $"{(int)value}"); }
+	}
+
+    [IgnoreMember]
+	public int Settings_Frame {
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_SETTINGS_FRAME, GlobalDefine.STRING_0)); }
+		set { m_oStrDict.ExReplaceVal(KEY_SETTINGS_FRAME, $"{(int)value}"); }
 	}
 
     [IgnoreMember]

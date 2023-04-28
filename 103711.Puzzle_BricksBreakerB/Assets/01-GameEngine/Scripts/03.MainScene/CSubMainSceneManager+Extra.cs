@@ -13,6 +13,7 @@ namespace MainScene {
 	public partial class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate {
 		#region 변수
 		public Transform levelButtonParent;
+        public UserProfile userProfile;
         
         #endregion // 변수
 
@@ -23,6 +24,8 @@ namespace MainScene {
 			this.InitTabs();
             this.InitLobbyButtons();
             this.InitLevelMapButtons();
+
+            userProfile.Initialize();
 
             GlobalDefine.RequestBannerAD();
 		}

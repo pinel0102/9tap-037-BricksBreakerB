@@ -536,6 +536,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &548890773 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8096017593031825388, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
+  m_PrefabInstance: {fileID: 6993149693766247223}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03a53a096b4254dc3b7e343551745496, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &604439128 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3499270980198009103, guid: fcb9ec2aa8499434fbf3595422524db4, type: 3}
@@ -1067,6 +1078,7 @@ MonoBehaviour:
   scoreText: {fileID: 604439128}
   playerNameText:
   - {fileID: 1744084826}
+  userProfile: {fileID: 548890773}
   m_oRewardAdsUIsList: []
   m_oIdleUIsList:
   - {fileID: 1032853848}

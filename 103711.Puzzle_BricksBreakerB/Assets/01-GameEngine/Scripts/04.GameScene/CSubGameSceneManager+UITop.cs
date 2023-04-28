@@ -15,6 +15,7 @@ namespace GameScene {
         public Image scoreGage;
         public TMP_Text scoreText;
         public List<TMP_Text> playerNameText = new List<TMP_Text>();
+        public UserProfile userProfile;
 
         private float gageFrameX;
         private float gagePadding = 20f;
@@ -29,6 +30,8 @@ namespace GameScene {
 
             ScoreUpdate(false);
             RefreshNameText();
+
+            userProfile.Initialize();
         }
 
         public void ScoreUpdate(bool _gageAni = true)

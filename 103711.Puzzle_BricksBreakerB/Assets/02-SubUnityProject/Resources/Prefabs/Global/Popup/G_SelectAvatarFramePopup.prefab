@@ -235,11 +235,11 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1976194910470674766}
   toggleTransition: 1
   graphic: {fileID: 1550833522900735737}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 4548280265025496287}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &153185426457815411
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,11 +450,11 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6986002441515592643}
   toggleTransition: 1
   graphic: {fileID: 1337619585816014209}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 4548280265025496287}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &276728819342547079
 GameObject:
   m_ObjectHideFlags: 0
@@ -887,11 +887,11 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3005342829763054707}
   toggleTransition: 1
   graphic: {fileID: 7335352576228293269}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 4548280265025496287}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &407769839851373970
 GameObject:
   m_ObjectHideFlags: 0
@@ -1280,7 +1280,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4881012447463440699}
   toggleTransition: 1
   graphic: {fileID: 0}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 8398625613499642785}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2898,11 +2898,11 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7011680513167418472}
   toggleTransition: 1
   graphic: {fileID: 0}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 8398625613499642785}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &1789371029086396491
 GameObject:
   m_ObjectHideFlags: 0
@@ -3653,11 +3653,11 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 546020540159329836}
   toggleTransition: 1
   graphic: {fileID: 6471683772841943718}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 4548280265025496287}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &2619771862076721000
 GameObject:
   m_ObjectHideFlags: 0
@@ -4362,11 +4362,11 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1031411341971378133}
   toggleTransition: 1
   graphic: {fileID: 721914040687197042}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 4548280265025496287}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &3134612886180730961
 GameObject:
   m_ObjectHideFlags: 0
@@ -4756,11 +4756,11 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7754475072057063582}
   toggleTransition: 1
   graphic: {fileID: 8054356233272493865}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 4548280265025496287}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &3474412941739596359
 GameObject:
   m_ObjectHideFlags: 0
@@ -5792,11 +5792,11 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 9110985301744391350}
   toggleTransition: 1
   graphic: {fileID: 0}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 8398625613499642785}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &4184292199035322132
 GameObject:
   m_ObjectHideFlags: 0
@@ -6108,7 +6108,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1160904168314734706}
   toggleTransition: 1
   graphic: {fileID: 7790741245598964521}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 4548280265025496287}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -6380,11 +6380,11 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4140416642248319790}
   toggleTransition: 1
   graphic: {fileID: 8588820824370542367}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 4548280265025496287}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &4841765683087906166
 GameObject:
   m_ObjectHideFlags: 0
@@ -7622,7 +7622,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1747343724625272910}
   - component: {fileID: 2947340233751190054}
-  - component: {fileID: 3819222978347070060}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -7680,20 +7679,6 @@ MonoBehaviour:
   m_Spacing: {x: 10, y: 60}
   m_Constraint: 0
   m_ConstraintCount: 2
---- !u!114 &3819222978347070060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5484910997499990691}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalFit: 0
-  m_VerticalFit: 1
 --- !u!1 &5568253836185300257
 GameObject:
   m_ObjectHideFlags: 0
@@ -8585,11 +8570,11 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5351952754032112217}
   toggleTransition: 1
   graphic: {fileID: 0}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 8398625613499642785}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &6038109045149894359
 GameObject:
   m_ObjectHideFlags: 0
@@ -10374,11 +10359,11 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2942540082174389087}
   toggleTransition: 1
   graphic: {fileID: 67525222491792515}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 4548280265025496287}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &7428025712013850265
 GameObject:
   m_ObjectHideFlags: 0
@@ -10537,11 +10522,11 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6166241262907966719}
   toggleTransition: 1
   graphic: {fileID: 0}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 8398625613499642785}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &7519173189167153915
 GameObject:
   m_ObjectHideFlags: 0
@@ -10624,11 +10609,11 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6707264031942297344}
   toggleTransition: 1
   graphic: {fileID: 2328689832986388723}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 4548280265025496287}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &7532259570801316093
 GameObject:
   m_ObjectHideFlags: 0
@@ -11653,6 +11638,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8019310881588900475}
+  - component: {fileID: 3211088563108337465}
   m_Layer: 5
   m_Name: G_SelectAvatarFramePopup
   m_TagString: Untagged
@@ -11681,6 +11667,39 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3211088563108337465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8019310881375038877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03a53a096b4254dc3b7e343551745496, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentAvatar: {fileID: 1676414285020581674}
+  currentFrame: {fileID: 7097412585668708532}
+  avatarItem:
+  - {fileID: 6095290264512407954}
+  - {fileID: 4908664906868999054}
+  - {fileID: 6763202251594663896}
+  - {fileID: 2537129678384608607}
+  - {fileID: 2305571622874023775}
+  - {fileID: 5620597965891884859}
+  - {fileID: 6458965716261189683}
+  - {fileID: 5621085778224485305}
+  - {fileID: 2867040629112114087}
+  - {fileID: 5851240783217933166}
+  - {fileID: 6100693415538077922}
+  frameItem:
+  - {fileID: 3148837102515968416}
+  - {fileID: 8276295810810212063}
+  - {fileID: 482329365984467436}
+  - {fileID: 5575420986535886368}
+  - {fileID: 9141087743241971490}
+  - {fileID: 4779623924289214484}
 --- !u!1 &8052172800436041571
 GameObject:
   m_ObjectHideFlags: 0
@@ -11915,11 +11934,11 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4438054732958132013}
   toggleTransition: 1
   graphic: {fileID: 0}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 8398625613499642785}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &8131580338825613872
 GameObject:
   m_ObjectHideFlags: 0
@@ -12215,11 +12234,11 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6311403278999000697}
   toggleTransition: 1
   graphic: {fileID: 4532850807283640682}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 4548280265025496287}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &8233569309243916535
 GameObject:
   m_ObjectHideFlags: 0
@@ -13103,6 +13122,7 @@ GameObject:
   - component: {fileID: 65863723402229754}
   - component: {fileID: 1110461657254824305}
   - component: {fileID: 2742356521133222693}
+  - component: {fileID: 8398625613499642785}
   m_Layer: 5
   m_Name: CONTENTS
   m_TagString: Untagged
@@ -13173,6 +13193,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 1
+--- !u!114 &8398625613499642785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8866745210440391694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fafe2cfe61f6974895a912c3755e8f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AllowSwitchOff: 0
 --- !u!1 &8989637825762097724
 GameObject:
   m_ObjectHideFlags: 0
@@ -13369,6 +13402,7 @@ GameObject:
   - component: {fileID: 6633038017108237745}
   - component: {fileID: 8176321359255755929}
   - component: {fileID: 9015281986786125172}
+  - component: {fileID: 4548280265025496287}
   m_Layer: 5
   m_Name: CONTENTS
   m_TagString: Untagged
@@ -13438,6 +13472,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 1
+--- !u!114 &4548280265025496287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9015488213193998482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fafe2cfe61f6974895a912c3755e8f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AllowSwitchOff: 0
 --- !u!1 &9018295972763678412
 GameObject:
   m_ObjectHideFlags: 0
