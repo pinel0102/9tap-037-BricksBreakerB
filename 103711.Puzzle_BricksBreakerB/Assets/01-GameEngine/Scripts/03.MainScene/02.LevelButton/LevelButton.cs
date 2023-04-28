@@ -42,12 +42,11 @@ public class LevelButton : MonoBehaviour
                 levelType = 0;
             }
 
-            
-            //TODO: temp values
-            isOpen = level == 1 || level <= GlobalDefine.UserInfo.LevelCurrent;
+            isOpen = (level == 1) || level <= GlobalDefine.UserInfo.LevelCurrent;
+
+            //TODO: temp values            
             isClear = true;
             starCount = 3;
-
 
             SetButton();
             SetArrow(_levelCount);

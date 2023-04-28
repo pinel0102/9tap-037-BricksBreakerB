@@ -7,6 +7,8 @@ public class TabItem : MonoBehaviour
     public Vector2 showPosition = new Vector2(0, 0);
     public Vector2 hidePosition = new Vector2(0, 0);
 
+    public System.Action callbackOnActive;
+
     public bool isMoving {get; private set;}
     private float moveSpeed = 12f;
     private float moveTime = 0.3f;
@@ -17,6 +19,8 @@ public class TabItem : MonoBehaviour
         if (!gameObject.activeInHierarchy && !isMoving)
         {
             gameObject.SetActive(true);
+            callbackOnActive?.Invoke();
+
             StartCoroutine(CO_ShowItem());
         }
     }

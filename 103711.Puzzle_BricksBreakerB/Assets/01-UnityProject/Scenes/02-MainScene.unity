@@ -647,6 +647,7 @@ MonoBehaviour:
   - {fileID: 416110355}
   levelButtonParent: {fileID: 520595782}
   userProfile: {fileID: 2309311342966553326}
+  scrollFocus: {fileID: 2309311342966553327}
   tabList:
   - {fileID: 362692765}
   - {fileID: 968281067}
@@ -1034,6 +1035,14 @@ PrefabInstance:
     - target: {fileID: 466550758, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 520595784, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 520595784, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.00012739778
       objectReference: {fileID: 0}
     - target: {fileID: 688789953, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
       propertyPath: m_AnchorMax.y
@@ -4554,5 +4563,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 03a53a096b4254dc3b7e343551745496, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2309311342966553327 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1793326817456732038, guid: 53dcc7736b768ed4d9a60ab6dbcb74b7, type: 3}
+  m_PrefabInstance: {fileID: 2309311342966553323}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a30be279d3104a21b90f9c4843daf88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

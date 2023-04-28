@@ -14,6 +14,7 @@ namespace MainScene {
 		#region 변수
 		public Transform levelButtonParent;
         public UserProfile userProfile;
+        public ScrollFocus scrollFocus;
         
         #endregion // 변수
 
@@ -33,6 +34,7 @@ namespace MainScene {
         private void InitLevelMapButtons()
         {
             int levelCount = CLevelInfoTable.Inst.levelCount;
+            int focusIndex = (GlobalDefine.UserInfo.LevelCurrent - 1) / 5;
             
             Debug.Log(CodeManager.GetMethodName() + string.Format("Level Count : {0}", levelCount));
             
@@ -40,6 +42,11 @@ namespace MainScene {
             {
                 GameObject ga = GameObject.Instantiate(Resources.Load<GameObject>(i%2 == 0 ? GlobalDefine.PREFAB_LEVEL_LIST_LEFT : GlobalDefine.PREFAB_LEVEL_LIST_RIGHT), levelButtonParent);
                 ga.GetComponent<LevelList>().Initialize(i * 5, levelCount);
+
+                if (i == focusIndex)
+                {
+                    scrollFocus.objectToFocus = ga.GetComponent<RectTransform>();
+                }
             }
         }
 

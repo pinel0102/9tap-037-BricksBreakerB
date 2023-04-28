@@ -110,10 +110,10 @@ RectTransform:
   m_Father: {fileID: 3835423531150455450}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -778}
+  m_SizeDelta: {x: 720, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &520595783
 MonoBehaviour:
@@ -2761,8 +2761,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3835423531150455450}
-  - component: {fileID: 5958439094689968473}
   - component: {fileID: 9138896515620065907}
+  - component: {fileID: 5958439094689968473}
   - component: {fileID: 8448485908283891040}
   - component: {fileID: 944895248195604241}
   m_Layer: 5
@@ -2793,6 +2793,14 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -63}
   m_SizeDelta: {x: 0, y: -202}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &9138896515620065907
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4745483982470650009}
+  m_CullTransparentMesh: 1
 --- !u!114 &5958439094689968473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2823,14 +2831,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!222 &9138896515620065907
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4745483982470650009}
-  m_CullTransparentMesh: 1
 --- !u!114 &8448485908283891040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2973,13 +2973,14 @@ GameObject:
   m_Component:
   - component: {fileID: 9084603007063047558}
   - component: {fileID: 5030268664625471471}
+  - component: {fileID: 1793326817456732038}
   m_Layer: 5
   m_Name: Tab.LevelMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &9084603007063047558
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3015,6 +3016,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showPosition: {x: 0, y: 0}
   hidePosition: {x: -1000, y: 0}
+--- !u!114 &1793326817456732038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8635087018525322279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a30be279d3104a21b90f9c4843daf88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollRect: {fileID: 5958439094689968473}
+  objectToFocus: {fileID: 0}
+  tabItem: {fileID: 5030268664625471471}
 --- !u!1 &8798897406666340533
 GameObject:
   m_ObjectHideFlags: 0
