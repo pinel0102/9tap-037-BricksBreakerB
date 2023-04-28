@@ -56,7 +56,7 @@ public class UserProfile : MonoBehaviour
 
     private void SetAvatar(int index)
     {
-        Debug.Log(CodeManager.GetMethodName() + index);
+        //Debug.Log(CodeManager.GetMethodName() + index);
         currentAvatar.sprite = avatarItem[index].transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite;
 
         for (int i=0; i < currentAvatarOut.Count; i++)
@@ -67,7 +67,7 @@ public class UserProfile : MonoBehaviour
 
     private void SetFrame(int index)
     {
-        Debug.Log(CodeManager.GetMethodName() + index);
+        //Debug.Log(CodeManager.GetMethodName() + index);
         currentFrame.sprite = frameItem[index].transform.GetChild(0).GetComponent<Image>().sprite;
 
         for (int i=0; i < currentFrameOut.Count; i++)

@@ -27,6 +27,8 @@ public static partial class GlobalDefine
     public const float AIM_LENGTH_SHORT = 220.0f;
     public const float AIM_DOT_OFFSET = 35.0f;
 
+    public const int shootBallCount_Default = 50;
+
     // [Item] Ruby
     public const int GetItem_Ruby = 1;
 
@@ -89,5 +91,13 @@ public static partial class GlobalDefine
             default:
                 return Vector2.zero;
         }
+    }
+
+    public static int GetShootBallCount()
+    {
+        int count = shootBallCount_Default + ((UserInfo.LevelCurrent - 1) / 10);
+
+        Debug.Log(CodeManager.GetMethodName() + count);
+        return count;
     }
 }

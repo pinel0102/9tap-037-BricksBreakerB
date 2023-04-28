@@ -33,10 +33,6 @@ public struct STEpisodeInfo {
 	public Dictionary<ulong, STTargetInfo> m_oDropItemTargetInfoDict;
 	public Dictionary<ulong, STTargetInfo> m_oEnemyObjTargetInfoDict;
 
-	#region 추가
-	public int m_nNumBalls;
-	#endregion // 추가
-
 	#region 상수
 	public static STEpisodeInfo INVALID = new STEpisodeInfo() {
 		m_stIDInfo = STIDInfo.INVALID, m_stPrevIDInfo = STIDInfo.INVALID, m_stNextIDInfo = STIDInfo.INVALID
@@ -88,10 +84,6 @@ public struct STEpisodeInfo {
 		m_oUnlockTargetInfoDict = Factory.MakeTargetInfos(a_oEpisodeInfo, KCDefine.U_KEY_FMT_UNLOCK_TARGET_INFO);
 		m_oDropItemTargetInfoDict = Factory.MakeTargetInfos(a_oEpisodeInfo, KCDefine.U_KEY_FMT_DROP_ITEM_TARGET_INFO);
 		m_oEnemyObjTargetInfoDict = Factory.MakeTargetInfos(a_oEpisodeInfo, KCDefine.U_KEY_FMT_ENEMY_OBJ_TARGET_INFO);
-
-		#region 추가
-		m_nNumBalls = a_oEpisodeInfo[KDefine.G_KEY_NUM_BALLS].ExIsValid() ? a_oEpisodeInfo[KDefine.G_KEY_NUM_BALLS].AsInt : 50;
-		#endregion // 추가
 	}
 	#endregion // 함수
 

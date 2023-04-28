@@ -72,6 +72,7 @@ namespace NSEngine {
 		public SpriteRenderer DownBoundsSprite => m_oSubSpriteDict[ESubKey.DOWN_BOUNDS_SPRITE];
 		public CEObj SelPlayerObj => this.PlayerObjList[this.SelPlayerObjIdx];
 		public CEObj SelBallObj => this.BallObjList[KCDefine.B_VAL_0_INT];
+        public int m_nNumBalls;
 		#endregion // 프로퍼티
 
 		#region 함수
@@ -202,6 +203,8 @@ namespace NSEngine {
             isTutorial = GlobalDefine.TUTORIAL_LEVEL_BOTTOM_ITEM.Contains(currentLevel);
             isWarning = false;
 
+            m_nNumBalls = GlobalDefine.GetShootBallCount();
+
 #if NEVER_USE_THIS
 			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) {
 			var stObjInfo = CObjInfoTable.Inst.GetObjInfo(EObjKinds.PLAYABLE_COMMON_CHARACTER_01);
@@ -211,7 +214,7 @@ namespace NSEngine {
 			// FIXME: dante (비활성 처리 - 필요 시 활성 및 사용 가능) }
 #endif // #if NEVER_USE_THIS
 
-			for(int i = 0; i < CGameInfoStorage.Inst.PlayEpisodeInfo.m_nNumBalls; ++i) {
+			for(int i = 0; i < m_nNumBalls; ++i) {
                 CreateBall(i);
 			}
 
