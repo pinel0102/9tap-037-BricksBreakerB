@@ -69,15 +69,6 @@ public static partial class GlobalDefine
         SaveUserData();
     }
 
-    public static void SetStar(int newCount)
-    {
-        Debug.Log(CodeManager.GetMethodName() + newCount);
-
-        GlobalDefine.UserInfo.Star = Mathf.Max(0, newCount);
-
-        SaveUserData();
-    }
-
     public static void SetItem(int newCount)
     {
         Debug.Log(CodeManager.GetMethodName() + newCount);

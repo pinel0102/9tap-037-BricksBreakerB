@@ -3030,7 +3030,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scrollRect: {fileID: 5958439094689968473}
   objectToFocus: {fileID: 0}
-  tabItem: {fileID: 5030268664625471471}
 --- !u!1 &8798897406666340533
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 using TMPro;
+using DG.Tweening;
 
 /** 결과 팝업 */
 public partial class CResultPopup : CSubPopup {
@@ -47,17 +48,37 @@ public partial class CResultPopup : CSubPopup {
 	public STParams Params { get; private set; }
 	public override bool IsIgnoreCloseBtn => true;
 
+    [Header("★ [Reference] Top")]
+    public GameObject failBack;
     public TMP_Text rubyText;
     public TMP_Text[] levelText;
     public GameObject[] starObject;
+
+    [Header("★ [Reference] Star Reward")]
+    public Image gageImage;    
+    public List<RectTransform> starRewardPoint = new List<RectTransform>();
+    public List<GameObject> starRewardCheck = new List<GameObject>();
+    public List<Image> starRewardIcon = new List<Image>();
+    public List<TMP_Text> starRewardText = new List<TMP_Text>();
+    public List<RewardIcons> rewardIcons = new List<RewardIcons>();
+    public int currentPhase;
+    public int currentRewardStar;
+
+    [Header("★ [Reference] Preview")]
     public SpriteMask previewMask;
     public RectTransform previewArea;
+
+    [Header("★ [Reference] Button")]
     public Button shopButton;
     public Button ADBlockButton;
     public Button piggyBankButton;
     
     private const string formatLevel = "Level {0}";
-    private const string U_OBJ_N_LEAVE_BTN_2 = "LEAVE_BTN_2";    
+    private const string U_OBJ_N_LEAVE_BTN_2 = "LEAVE_BTN_2";
+    private const float gageDelay = 1f;
+    private const float gageDelayHalf = 0.5f;
+    private WaitForSecondsRealtime wDelay = new WaitForSecondsRealtime(gageDelay);
+    private WaitForSecondsRealtime wDelayHalf = new WaitForSecondsRealtime(gageDelayHalf);
 	#endregion // 프로퍼티
 
 	#region 함수
@@ -115,8 +136,6 @@ public partial class CResultPopup : CSubPopup {
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
 
-        Debug.Log(CodeManager.GetMethodName());
-
         Params.Engine.SetupPreview(previewArea, previewMask);
 
         GlobalDefine.RefreshShopText(rubyText);
@@ -129,6 +148,7 @@ public partial class CResultPopup : CSubPopup {
 		// 객체를 갱신한다
 		m_oUIsDict.GetValueOrDefault(EKey.CLEAR_UIS)?.SetActive(this.Params.m_stRecordInfo.m_bIsSuccess);
 		m_oUIsDict.GetValueOrDefault(EKey.CLEAR_FAIL_UIS)?.SetActive(!this.Params.m_stRecordInfo.m_bIsSuccess);
+        failBack.SetActive(!this.Params.m_stRecordInfo.m_bIsSuccess);
 
 		// 텍스트를 갱신한다
 		m_oTextDict.GetValueOrDefault(EKey.RECORD_TEXT)?.ExSetText($"{this.Params.m_stRecordInfo.m_nIntRecord}", EFontSet._1, false);
@@ -139,9 +159,13 @@ public partial class CResultPopup : CSubPopup {
             starObject[i].SetActive(this.Params.m_stRecordInfo.m_bIsSuccess && this.Params.m_stRecordInfo.m_starCount > i);
         }
 
+        RefreshStarReward();
+
         if (this.Params.m_stRecordInfo.m_bIsSuccess)
         {
             GlobalDefine.PlaySoundFX(ESoundSet.SOUND_LEVEL_CLEAR);
+            GlobalDefine.ResultCalculate(Params.Engine);
+            StarCalcurate();
         }
         else
         {
@@ -150,6 +174,115 @@ public partial class CResultPopup : CSubPopup {
         
 		this.SubUpdateUIsState();
 	}
+
+    private void RefreshStarReward()
+    {
+        currentPhase = (GlobalDefine.UserInfo.Star / GlobalDefine.starRewardPoint[2]) % GlobalDefine.starReward.Count;
+        currentRewardStar = GlobalDefine.UserInfo.Star % GlobalDefine.starRewardPoint[2];
+
+        Debug.Log(CodeManager.GetMethodName() + string.Format("Phase : {0} / RewardStar : {1}", currentPhase, currentRewardStar));
+
+        gageImage.fillAmount = ((float)currentRewardStar / (float)GlobalDefine.starRewardPoint[2]);
+
+        RefreshIcons(currentPhase, currentRewardStar);
+    }
+
+    private void RefreshIcons(int phase, int rewardStar)
+    {
+        RectTransform gage = gageImage.transform as RectTransform;
+
+        for(int i=0; i < starRewardPoint.Count; i++)
+        {
+            starRewardPoint[i].anchoredPosition = new Vector2(gage.sizeDelta.x * ((float)GlobalDefine.starRewardPoint[i] / (float)GlobalDefine.starRewardPoint[2]), starRewardPoint[i].anchoredPosition.y);
+            starRewardIcon[i].sprite = rewardIcons.Find(item => item.kinds == GlobalDefine.starReward[phase][i].Key).sprite;
+            starRewardText[i].text = GlobalDefine.starReward[phase][i].Value.ToString();
+            starRewardCheck[i].SetActive(rewardStar >= GlobalDefine.starRewardPoint[i]);
+        }
+    }
+
+    private void StarCalcurate()
+    {
+        StartCoroutine(CO_FillGage());
+    }
+
+    private IEnumerator CO_FillGage()
+    {
+        if (GlobalDefine.starIncrease > 0)
+        {
+            int newPhase = (GlobalDefine.UserInfo.Star / GlobalDefine.starRewardPoint[2]) % GlobalDefine.starReward.Count;
+            if (newPhase == currentPhase)
+            {
+                int newStar = GlobalDefine.UserInfo.Star % GlobalDefine.starRewardPoint[2];
+                float endFillAmount = ((float)newStar / (float)GlobalDefine.starRewardPoint[2]);
+
+                Debug.Log(CodeManager.GetMethodName() + string.Format("Phase : {0} / RewardStar : {1}", currentPhase, newStar));
+
+                for(int i=0; i < GlobalDefine.starRewardPoint.Count; i++)
+                {
+                    if (currentRewardStar < GlobalDefine.starRewardPoint[i] && newStar >= GlobalDefine.starRewardPoint[i])
+                    {
+                        GlobalDefine.AddItem(GlobalDefine.starReward[currentPhase][i].Key, GlobalDefine.starReward[currentPhase][i].Value);
+                        GlobalDefine.PlaySoundFX(ESoundSet.SOUND_GET_STAR);
+                    }
+                }
+                
+                //Debug.Log(CodeManager.GetMethodName() + string.Format("Gage : {0} -> {1}", gageImage.fillAmount, endFillAmount));
+                gageImage.DOFillAmount(endFillAmount, gageDelay).SetUpdate(true);
+                yield return wDelay;
+
+                for(int i=0; i < starRewardCheck.Count; i++)
+                {
+                    starRewardCheck[i].SetActive(newStar >= GlobalDefine.starRewardPoint[i]);
+                }
+
+                GlobalDefine.RefreshShopText(rubyText);
+            }
+            else
+            {
+                int newStar = GlobalDefine.UserInfo.Star % GlobalDefine.starRewardPoint[2];
+                float endFillAmount = ((float)newStar / (float)GlobalDefine.starRewardPoint[2]);
+
+                // get 3rd reward
+                GlobalDefine.AddItem(GlobalDefine.starReward[currentPhase][2].Key, GlobalDefine.starReward[currentPhase][2].Value);
+                GlobalDefine.PlaySoundFX(ESoundSet.SOUND_GET_STAR);
+
+                Debug.Log(CodeManager.GetMethodName() + string.Format("Change Phase : {0} -> {1}", currentPhase, newPhase));
+                Debug.Log(CodeManager.GetMethodName() + string.Format("Phase : {0} / RewardStar : {1}", newPhase, newStar));
+
+                for(int i=0; i < GlobalDefine.starRewardPoint.Count; i++)
+                {
+                    if (newStar >= GlobalDefine.starRewardPoint[i])
+                    {
+                        GlobalDefine.AddItem(GlobalDefine.starReward[newPhase][i].Key, GlobalDefine.starReward[newPhase][i].Value);
+                        GlobalDefine.PlaySoundFX(ESoundSet.SOUND_GET_STAR);
+                    }
+                }
+
+                //Debug.Log(CodeManager.GetMethodName() + string.Format("Gage : {0} -> {1}", gageImage.fillAmount, 1f));
+                gageImage.DOFillAmount(1f, gageDelayHalf).SetUpdate(true);
+                yield return wDelayHalf;
+
+                starRewardCheck[2].SetActive(true);
+                
+                yield return wDelayHalf;
+
+                gageImage.fillAmount = 0;
+
+                RefreshIcons(newPhase, newStar);
+
+                //Debug.Log(CodeManager.GetMethodName() + string.Format("Gage : {0} -> {1}", gageImage.fillAmount, endFillAmount));
+                gageImage.DOFillAmount(endFillAmount, gageDelayHalf).SetUpdate(true);
+                yield return wDelayHalf;
+
+                for(int i=0; i < starRewardCheck.Count; i++)
+                {
+                    starRewardCheck[i].SetActive(newStar >= GlobalDefine.starRewardPoint[i]);
+                }
+
+                GlobalDefine.RefreshShopText(rubyText);
+            }
+        }
+    }
 
 	/** 다음 버튼을 눌렀을 경우 */
 	public void OnTouchNextBtn() {
@@ -191,3 +324,10 @@ public partial class CResultPopup : CSubPopup {
 	#endregion // 클래스 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
+
+[System.Serializable]
+public struct RewardIcons
+{
+    public EItemKinds kinds;
+    public Sprite sprite;
+}

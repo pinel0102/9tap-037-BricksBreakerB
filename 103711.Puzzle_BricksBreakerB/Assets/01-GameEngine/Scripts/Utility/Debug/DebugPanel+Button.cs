@@ -11,7 +11,7 @@ public partial class DebugPanel : MonoBehaviour
 
     [Header("★ [Reference] Input Field")]
     public InputField rubyInput;
-    public InputField starInput;
+    public InputField scoreInput;
     public InputField itemInput;
     public InputField boosterInput;
     public InputField setClearInput;
@@ -49,14 +49,17 @@ public partial class DebugPanel : MonoBehaviour
         }
     }
 
-    public void OnClick_SetStar()
+    public void OnClick_SetScore()
     {
-        if (int.TryParse(starInput.text, out int value))
+        if (int.TryParse(scoreInput.text, out int value))
         {
-            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>[Debug] Set Star : {0}</color>", value));
+            if (CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME) == null)
+                return;
+            
+            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>[Debug] Set Score : {0}</color>", value));
 
-            GlobalDefine.SetStar(value);
-            GlobalDefine.RefreshStarText(CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.starText);
+            CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).Engine.currentScore = value;
+            CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).ScoreUpdate();
         }
     }
 

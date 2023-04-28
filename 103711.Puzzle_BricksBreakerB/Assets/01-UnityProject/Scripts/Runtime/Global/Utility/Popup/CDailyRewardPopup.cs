@@ -108,7 +108,7 @@ public partial class CDailyRewardPopup : CSubPopup {
 
     private IEnumerator CO_UpdateRemainTime()
     {
-        Debug.Log(CodeManager.GetMethodName() + string.Format("IsEnableGetDailyReward : {0} / GetDailyRewardID : {1}", isEnableGetDailyReward, dailyRewardID));
+        //Debug.Log(CodeManager.GetMethodName() + string.Format("IsEnableGetDailyReward : {0} / GetDailyRewardID : {1}", isEnableGetDailyReward, dailyRewardID));
 
         while(true)
         {
