@@ -111,13 +111,13 @@
 		"Flags_01": "0",
 		"Flags_02": "0",
 		"Flags_03": "0",
-		"Name": "",
-		"Desc": "",
+		"Name": "EXTRA_DAILY_REWARD_01",
+		"Desc": "EXTRA_DAILY_REWARD_01",
 		"RewardKinds": "1000000000",
 		"PrevRewardKinds": "999999999",
 		"NextRewardKinds": "1000000001",
 		"RewardQuality": "-1",
-		"AcquireTargetInfo_01": ["300", "-1", "0", "0", "5"]
+		"AcquireTargetInfo_01": ["300", "-1", "1000000100", "0", "1"]
 	}, {
 		"NOEX_T": "10",
 		"NOEX_ST": "0",
@@ -128,13 +128,13 @@
 		"Flags_01": "0",
 		"Flags_02": "0",
 		"Flags_03": "0",
-		"Name": "",
-		"Desc": "",
+		"Name": "EXTRA_DAILY_REWARD_02",
+		"Desc": "EXTRA_DAILY_REWARD_02",
 		"RewardKinds": "1000000001",
 		"PrevRewardKinds": "1000000000",
 		"NextRewardKinds": "1000000002",
 		"RewardQuality": "-1",
-		"AcquireTargetInfo_01": ["300", "-1", "0", "0", "5"]
+		"AcquireTargetInfo_01": ["300", "-1", "1000000101", "0", "1"]
 	}, {
 		"NOEX_T": "10",
 		"NOEX_ST": "0",
@@ -145,13 +145,13 @@
 		"Flags_01": "0",
 		"Flags_02": "0",
 		"Flags_03": "0",
-		"Name": "",
-		"Desc": "",
+		"Name": "EXTRA_DAILY_REWARD_03",
+		"Desc": "EXTRA_DAILY_REWARD_03",
 		"RewardKinds": "1000000002",
 		"PrevRewardKinds": "1000000001",
 		"NextRewardKinds": "1000000003",
 		"RewardQuality": "-1",
-		"AcquireTargetInfo_01": ["300", "-1", "0", "0", "10"]
+		"AcquireTargetInfo_01": ["300", "-1", "0", "0", "50"]
 	}, {
 		"NOEX_T": "10",
 		"NOEX_ST": "0",
@@ -162,13 +162,13 @@
 		"Flags_01": "0",
 		"Flags_02": "0",
 		"Flags_03": "0",
-		"Name": "",
-		"Desc": "",
+		"Name": "EXTRA_DAILY_REWARD_04",
+		"Desc": "EXTRA_DAILY_REWARD_04",
 		"RewardKinds": "1000000003",
 		"PrevRewardKinds": "1000000002",
 		"NextRewardKinds": "1000000004",
 		"RewardQuality": "-1",
-		"AcquireTargetInfo_01": ["300", "-1", "0", "0", "10"]
+		"AcquireTargetInfo_01": ["300", "-1", "1000000102", "0", "1"]
 	}, {
 		"NOEX_T": "10",
 		"NOEX_ST": "0",
@@ -179,13 +179,13 @@
 		"Flags_01": "0",
 		"Flags_02": "0",
 		"Flags_03": "0",
-		"Name": "",
-		"Desc": "",
+		"Name": "EXTRA_DAILY_REWARD_05",
+		"Desc": "EXTRA_DAILY_REWARD_05",
 		"RewardKinds": "1000000004",
 		"PrevRewardKinds": "1000000003",
 		"NextRewardKinds": "1000000005",
 		"RewardQuality": "-1",
-		"AcquireTargetInfo_01": ["300", "-1", "0", "0", "15"]
+		"AcquireTargetInfo_01": ["300", "-1", "0", "0", "100"]
 	}, {
 		"NOEX_T": "10",
 		"NOEX_ST": "0",
@@ -196,13 +196,13 @@
 		"Flags_01": "0",
 		"Flags_02": "0",
 		"Flags_03": "0",
-		"Name": "",
-		"Desc": "",
+		"Name": "EXTRA_DAILY_REWARD_06",
+		"Desc": "EXTRA_DAILY_REWARD_06",
 		"RewardKinds": "1000000005",
 		"PrevRewardKinds": "1000000004",
 		"NextRewardKinds": "1000000006",
 		"RewardQuality": "-1",
-		"AcquireTargetInfo_01": ["300", "-1", "0", "0", "15"]
+		"AcquireTargetInfo_01": ["300", "-1", "1000000104", "0", "1"]
 	}, {
 		"NOEX_T": "10",
 		"NOEX_ST": "0",
@@ -213,13 +213,13 @@
 		"Flags_01": "0",
 		"Flags_02": "0",
 		"Flags_03": "0",
-		"Name": "",
-		"Desc": "",
+		"Name": "EXTRA_DAILY_REWARD_07",
+		"Desc": "EXTRA_DAILY_REWARD_07",
 		"RewardKinds": "1000000006",
 		"PrevRewardKinds": "1000000005",
 		"NextRewardKinds": "1000000007",
 		"RewardQuality": "-1",
-		"AcquireTargetInfo_01": ["300", "-1", "0", "0", "30"]
+		"AcquireTargetInfo_01": ["300", "-1", "0", "0", "150"]
 	}, {
 		"NOEX_T": "11",
 		"NOEX_ST": "0",
@@ -236,6 +236,6 @@
 		"PrevRewardKinds": "1099999999",
 		"NextRewardKinds": "1100000001",
 		"RewardQuality": "-1",
-		"AcquireTargetInfo_01": ["300", "-1", "0", "0", "20"]
+		"AcquireTargetInfo_01": ["300", "-1", "0", "0", "50"]
 	}]
 }

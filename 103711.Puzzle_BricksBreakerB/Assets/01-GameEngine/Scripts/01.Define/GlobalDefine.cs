@@ -4,6 +4,8 @@ using UnityEngine;
 
 public static partial class GlobalDefine
 {
+    public static bool isMainSceneOpened;
+
     public const float SCREEN_WIDTH = 720f;
     public const float SCREEN_HEIGHT = 1280f;
 

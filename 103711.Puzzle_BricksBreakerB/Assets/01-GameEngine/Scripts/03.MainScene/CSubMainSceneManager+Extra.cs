@@ -29,6 +29,12 @@ namespace MainScene {
             userProfile.Initialize();
 
             GlobalDefine.RequestBannerAD();
+
+            if (!GlobalDefine.isLevelEditor && !GlobalDefine.isMainSceneOpened && Access.IsEnableGetDailyReward(CGameInfoStorage.Inst.PlayCharacterID))
+            {
+                GlobalDefine.isMainSceneOpened = true;
+                OnClick_OpenPopup_CheckIn();
+            }
 		}
 
         private void InitLevelMapButtons()
@@ -51,8 +57,10 @@ namespace MainScene {
                 }
             }
 
-            scrollFocus.SetFocus();
-            scrollFocus.gameObject.SetActive(false);
+            this.ExLateCallFunc((sender) => {
+                scrollFocus.SetFocus();
+                scrollFocus.gameObject.SetActive(false);
+            }, KCDefine.U_DELAY_INIT);
         }
 
         #endregion // 함수

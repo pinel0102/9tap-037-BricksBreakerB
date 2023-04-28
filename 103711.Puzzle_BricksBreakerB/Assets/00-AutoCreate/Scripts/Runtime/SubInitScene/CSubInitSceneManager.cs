@@ -32,6 +32,7 @@ namespace InitScene {
 			base.Awake();
 
             GlobalDefine.ThisIsLevelEditor(false);
+            GlobalDefine.isMainSceneOpened = false;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 			// 이미지를 설정한다 {
