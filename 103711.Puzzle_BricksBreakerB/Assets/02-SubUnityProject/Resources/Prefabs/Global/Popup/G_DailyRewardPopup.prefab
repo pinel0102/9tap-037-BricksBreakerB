@@ -2950,8 +2950,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -181, y: 15}
-  m_SizeDelta: {x: 220, y: 114}
+  m_AnchoredPosition: {x: -150, y: 15}
+  m_SizeDelta: {x: 280, y: 114}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2471609119051024776
 CanvasRenderer:
@@ -3101,8 +3101,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 128, y: 15}
-  m_SizeDelta: {x: 328, y: 114}
+  m_AnchoredPosition: {x: 150, y: 15}
+  m_SizeDelta: {x: 280, y: 114}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8815882822448670213
 CanvasRenderer:
@@ -6030,6 +6030,7 @@ MonoBehaviour:
   - {fileID: 945191329334928356}
   remainTimeText: {fileID: 6417892572734963250}
   isEnableGetDailyReward: 0
+  isEnableGetDailyAD: 0
   dailyRewardID: 0
 --- !u!1 &8031666766082964098
 GameObject:

@@ -30,6 +30,7 @@ public partial class CDailyRewardPopup : CSubPopup {
 	#region 프로퍼티
     public TMP_Text remainTimeText;
     public bool isEnableGetDailyReward;
+    public bool isEnableGetDailyAD;
     public int dailyRewardID;
     public DateTime nextRewardTime;
 
@@ -77,15 +78,21 @@ public partial class CDailyRewardPopup : CSubPopup {
 
     private void RefreshState()
     {
+        GlobalDefine.RefreshShopText(CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.rubyText);
+
         isEnableGetDailyReward = Access.IsEnableGetDailyReward(CGameInfoStorage.Inst.PlayCharacterID);
+        isEnableGetDailyAD = Access.IsEnableGetFreeReward(CGameInfoStorage.Inst.PlayCharacterID);
         dailyRewardID = Access.GetDailyRewardID(CGameInfoStorage.Inst.PlayCharacterID);
 
         var oCharacterGameInfo = CGameInfoStorage.Inst.GetCharacterGameInfo(CGameInfoStorage.Inst.PlayCharacterID);
         nextRewardTime = oCharacterGameInfo.PrevDailyRewardTime.AddDays(KCDefine.B_VAL_1_INT);
 
+        Debug.Log(CodeManager.GetMethodName() + string.Format("[DailyReward] {0} / {1}", isEnableGetDailyReward, oCharacterGameInfo.PrevDailyRewardTime.ToString(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS)));
+        Debug.Log(CodeManager.GetMethodName() + string.Format("[DailyAD]     {0} / {1}", isEnableGetDailyAD, oCharacterGameInfo.PrevFreeRewardTime.ToString(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS)));
+
         // 버튼을 갱신한다
-		m_oBtnDict[EKey.ADS_BTN]?.ExSetInteractable(isEnableGetDailyReward);
-		m_oBtnDict[EKey.ACQUIRE_BTN]?.ExSetInteractable(isEnableGetDailyReward);
+        m_oBtnDict[EKey.ACQUIRE_BTN]?.ExSetInteractable(isEnableGetDailyReward);
+		m_oBtnDict[EKey.ADS_BTN]?.ExSetInteractable(isEnableGetDailyAD);
 
 		// 보상 UI 상태를 갱신한다
 		for(int i = 0; i < m_oRewardUIsList.Count; ++i) {
@@ -95,6 +102,9 @@ public partial class CDailyRewardPopup : CSubPopup {
 			}
 		}
     }
+
+
+#region Daily Reward
 
     private IEnumerator CO_UpdateRemainTime()
     {
@@ -118,24 +128,12 @@ public partial class CDailyRewardPopup : CSubPopup {
         RefreshState();
     }
 
-	/** 광고 버튼을 눌렀을 경우 */
-	private void OnTouchAdsBtn() 
-    {
-        GlobalDefine.RequestRewardVideo(RewardVideoType.DAILY_REWARD, this);        
-#if ADS_MODULE_ENABLE
-		Func.ShowRewardAds(this.OnCloseRewardAds);
-#endif // #if ADS_MODULE_ENABLE
-	}
-
 	/** 획득 버튼을 눌렀을 경우 */
 	private void OnTouchAcquireBtn() {
-#if NEVER_USE_THIS
-		this.ShowRewardAcquirePopup(false);
-#endif // #if NEVER_USE_THIS
 
 		#region 추가
-		m_oBtnDict[EKey.ADS_BTN].ExSetInteractable(false);
         m_oBtnDict[EKey.ACQUIRE_BTN].ExSetInteractable(false);
+		//m_oBtnDict[EKey.ADS_BTN].ExSetInteractable(false);
 
         int index = Access.GetDailyRewardID(CGameInfoStorage.Inst.PlayCharacterID);
 		var stRewardInfo = CRewardInfoTable.Inst.GetRewardInfo(KDefine.G_REWARDS_KINDS_DAILY_REWARD_LIST[index]);
@@ -148,52 +146,41 @@ public partial class CDailyRewardPopup : CSubPopup {
 		CGameInfoStorage.Inst.SaveGameInfo();
         GlobalDefine.RefreshShopText(CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.rubyText);
 
+        GlobalDefine.PlaySoundFX(ESoundSet.SOUND_GET_STAR);
+
         UpdateUIsState();
 		
-        //this.StartAcquireAni(m_oRewardUIsList[index]);
-		
         LogFunc.Send_C_Item_Get(KCDefine.B_IDX_INVALID, KDefine.L_SCENE_N_MAIN, LogFunc.MakeLogItemInfo(stRewardInfo.m_oAcquireTargetInfoDict));
+
+        //this.ShowRewardAcquirePopup(false);
 		
         #endregion // 추가
 	}
 
-	/** 보상 획득 팝업이 닫혔을 경우 */
-	private void OnCloseRewardAcquirePopup(CPopup a_oSender) {
-		Func.SetupNextDailyRewardID(CGameInfoStorage.Inst.PlayCharacterID);
-		CGameInfoStorage.Inst.SaveGameInfo();
+#endregion Daily Reward
 
-		// UI 상태를 갱신한다
-		CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
-		CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
-		CSceneManager.GetSceneManager<TitleScene.CSubTitleSceneManager>(KCDefine.B_SCENE_N_TITLE)?.gameObject.ExSendMsg(string.Empty, KCDefine.U_FUNC_N_UPDATE_UIS_STATE, a_bIsEnableAssert: false);
 
-		this.Close();
+#region Reward Ads Button
+
+    /** 광고 버튼을 눌렀을 경우 */
+	private void OnTouchAdsBtn() 
+    {
+        if (GlobalDefine.isLevelEditor)
+        {
+            this.ShowRewardAcquirePopup(true);
+        }
+        else
+        {
+            GlobalDefine.RequestRewardVideo(RewardVideoType.DAILY_FREE_REWARD, this);
+#if ADS_MODULE_ENABLE
+		    Func.ShowRewardAds(this.OnCloseRewardAds);
+#else
+            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>ADS TEST</color>"));
+            this.ShowRewardAcquirePopup(true);
+#endif // #if ADS_MODULE_ENABLE
+        }
 	}
 
-	/** 보상 획득 팝업을 출력한다 */
-	private void ShowRewardAcquirePopup(bool a_bIsWatchRewardAds) {
-		Func.ShowRewardAcquirePopup(this.transform.parent.gameObject, (a_oSender) => {
-			var oTargetInfoDict = CCollectionManager.Inst.SpawnDict<ulong, STTargetInfo>();
-
-			try {
-				var eRewardKinds = Access.GetDailyRewardKinds(CGameInfoStorage.Inst.PlayCharacterID);
-				var stRewardInfo = CRewardInfoTable.Inst.GetRewardInfo(eRewardKinds);
-
-				foreach(var stKeyVal in stRewardInfo.m_oAcquireTargetInfoDict) {
-                    var stValInfo = new STValInfo(stKeyVal.Value.m_stValInfo01.m_eValType, a_bIsWatchRewardAds ? stKeyVal.Value.m_stValInfo01.m_dmVal * KCDefine.B_VAL_2_INT : stKeyVal.Value.m_stValInfo01.m_dmVal);
-					oTargetInfoDict.TryAdd(stKeyVal.Key, new STTargetInfo(stKeyVal.Value.m_eTargetKinds, stKeyVal.Value.m_nKinds, stValInfo));
-				}
-				
-				oTargetInfoDict.ExCopyTo(stRewardInfo.m_oAcquireTargetInfoDict, (a_stTargetInfo) => a_stTargetInfo);
-				(a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(stRewardInfo.m_eRewardQuality, ERewardAcquirePopupType.DAILY, stRewardInfo.m_oAcquireTargetInfoDict));
-			} finally {
-				CCollectionManager.Inst.DespawnDict(oTargetInfoDict);
-			}
-		}, null, this.OnCloseRewardAcquirePopup);
-	}
-	#endregion // 함수
-
-	#region 조건부 함수
 #if ADS_MODULE_ENABLE
 	/** 보상 광고가 닫혔을 경우 */
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
@@ -203,6 +190,28 @@ public partial class CDailyRewardPopup : CSubPopup {
 		}
 	}
 #endif // #if ADS_MODULE_ENABLE
-	#endregion // 조건부 함수
+
+	/** 보상 획득 팝업을 출력한다 */
+	public void ShowRewardAcquirePopup(bool a_bIsWatchRewardAds) {
+		Func.ShowRewardAcquirePopup(this.transform.parent.gameObject, (a_oSender) => {
+			var oTargetInfoDict = CCollectionManager.Inst.SpawnDict<ulong, STTargetInfo>();
+
+			try {
+				(a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(EItemKinds.GOODS_RUBY, GlobalDefine.RewardRuby_Daily, false, () => { RefreshState(); }, this));
+			} finally {
+				CCollectionManager.Inst.DespawnDict(oTargetInfoDict);
+			}
+		}, null, this.OnCloseRewardAcquirePopup);
+	}
+
+    /** 보상 획득 팝업이 닫혔을 경우 */
+	private void OnCloseRewardAcquirePopup(CPopup a_oSender) {
+
+		//this.Close();
+	}
+
+#endregion Reward Ads Button
+
+	#endregion // 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE

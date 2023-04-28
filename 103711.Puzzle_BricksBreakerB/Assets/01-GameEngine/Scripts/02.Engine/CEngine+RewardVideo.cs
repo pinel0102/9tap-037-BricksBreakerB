@@ -5,7 +5,7 @@ using UnityEngine;
 namespace NSEngine {
     public partial class CEngine : CComponent
     {
-        public void RequestVideo(RewardVideoType type, CPopup popup)
+        /*public void RequestVideo(RewardVideoType type, CPopup popup)
         {
             Debug.Log(CodeManager.GetMethodName());
 
@@ -17,7 +17,7 @@ namespace NSEngine {
             {
                 GlobalDefine.RequestRewardVideo(type, popup);
             }
-        }
+        }*/
 
         public void GetReward(RewardVideoType type, CPopup popup, bool isRewardVideo = true)
         {
@@ -60,17 +60,6 @@ namespace NSEngine {
                         this.isLevelFail = false;
                             
                     }, KCDefine.B_VAL_0_5_REAL);
-
-                    break;
-
-                case RewardVideoType.CONTINUE_RUBY:
-                    GlobalDefine.AddRuby(GlobalDefine.RewardRuby_Continue);
-
-                    if (popup != null)
-                    {
-                        GlobalDefine.RefreshShopText((popup as CContinuePopup).rubyText);
-                        (popup as CContinuePopup).rewardVideoButton.gameObject.SetActive(false);
-                    }
 
                     break;
             }

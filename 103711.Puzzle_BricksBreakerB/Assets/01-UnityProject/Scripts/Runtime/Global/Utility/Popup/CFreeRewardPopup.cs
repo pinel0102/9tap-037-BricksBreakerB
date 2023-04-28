@@ -77,9 +77,9 @@ public partial class CFreeRewardPopup : CSubPopup {
 		var eRewardKinds = ERewardKinds.FREE_COINS + (CGameInfoStorage.Inst.GetCharacterGameInfo(CGameInfoStorage.Inst.PlayCharacterID).FreeRewardAcquireTimes + KCDefine.B_VAL_1_INT);
 		var stRewardInfo = CRewardInfoTable.Inst.GetRewardInfo(eRewardKinds);
 
-		Func.ShowRewardAcquirePopup(this.transform.parent.gameObject, (a_oSender) => {
+		/*Func.ShowRewardAcquirePopup(this.transform.parent.gameObject, (a_oSender) => {
 			(a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(stRewardInfo.m_eRewardQuality, ERewardAcquirePopupType.FREE, stRewardInfo.m_oAcquireTargetInfoDict));
-		}, null, this.OnCloseRewardAcquirePopup);
+		}, null, this.OnCloseRewardAcquirePopup);*/
 	}
 	#endregion // 함수
 

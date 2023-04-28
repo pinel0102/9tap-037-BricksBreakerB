@@ -66,5 +66,5 @@ public enum RewardVideoType
 {
     CONTINUE_3LINE,
     CONTINUE_RUBY,
-    DAILY_REWARD,
+    DAILY_FREE_REWARD,
 }

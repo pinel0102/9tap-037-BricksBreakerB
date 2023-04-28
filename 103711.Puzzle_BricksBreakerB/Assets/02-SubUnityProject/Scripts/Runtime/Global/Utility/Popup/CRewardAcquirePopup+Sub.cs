@@ -48,8 +48,8 @@ public partial class CRewardAcquirePopup : CSubPopup {
 
 	/** 보상 아이템 UI 상태를 갱신한다 */
 	private void UpdateItemUIsState(GameObject a_oItemUIs, STTargetInfo a_stTargetInfo) {
-		var oNumText = a_oItemUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_TEXT);
-		oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_CROSS, a_stTargetInfo.m_stValInfo01.m_dmVal), EFontSet._1, false);
+		//var oNumText = a_oItemUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NUM_TEXT);
+		//oNumText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_CROSS, a_stTargetInfo.m_stValInfo01.m_dmVal), EFontSet._1, false);
 	}
 	#endregion // 함수
 }

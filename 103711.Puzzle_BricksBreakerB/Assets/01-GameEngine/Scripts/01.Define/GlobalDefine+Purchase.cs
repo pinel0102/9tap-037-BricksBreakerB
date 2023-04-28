@@ -13,8 +13,10 @@ public static partial class GlobalDefine
     ///<Summary>[레벨 실패 - 광고 시청으로 대체 가능] 3줄 제거 및 컨티뉴 가격.</Summary>
     public const int CostRuby_Continue_Remove3Lines = 200;
 
-    ///<Summary>[레벨 실패 - 광고 시청] 루비+20 (3회).</Summary>
+    ///<Summary>[레벨 실패 - 광고 시청] 루비+20.</Summary>
     public const int RewardRuby_Continue = 20;
+    ///<Summary>[출석 체크 - 광고 시청] 루비+50 (1회).</Summary>
+    public const int RewardRuby_Daily = 50;
 
     public static void OpenShop()
     {

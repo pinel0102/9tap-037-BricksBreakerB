@@ -99,6 +99,18 @@ public static partial class Func {
 		}
 	}
 
+    public static void SetupNextFreeRewardID(int a_nCharacterID, bool a_bIsResetFreeRewardTime = true, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo));
+
+		// 캐릭터 정보가 존재 할 경우
+		if(CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out oCharacterGameInfo)) {
+			// 일일 보상 시간 리셋 모드 일 경우
+			if(a_bIsResetFreeRewardTime) {
+				oCharacterGameInfo.PrevFreeRewardTime = System.DateTime.Today;
+			}
+		}
+	}
+
 	/** 무료 보상 획득 횟수를 증가시킨다 */
 	public static void IncrFreeRewardAcquireTimes(int a_nCharacterID, int a_nRewardTimes, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo));

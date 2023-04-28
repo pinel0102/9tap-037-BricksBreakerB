@@ -200,7 +200,7 @@ namespace MainScene {
 				// 무료 보상 획득이 가능 할 경우
 				if(Access.IsEnableGetFreeReward(CGameInfoStorage.Inst.PlayCharacterID)) {
 					oCharacterGameInfo.FreeRewardAcquireTimes = KCDefine.B_VAL_0_INT;
-					oCharacterGameInfo.PrevFreeRewardTime = System.DateTime.Today;
+					oCharacterGameInfo.PrevFreeRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL);
 				}
 
 				CGameInfoStorage.Inst.SaveGameInfo();

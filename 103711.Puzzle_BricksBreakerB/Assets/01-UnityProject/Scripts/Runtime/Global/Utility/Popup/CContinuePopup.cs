@@ -132,6 +132,12 @@ public partial class CContinuePopup : CSubPopup {
 		this.SubUpdateUIsState();
 	}
 
+    private void AfterGetReward()
+    {
+        GlobalDefine.RefreshShopText(rubyText);
+        rewardVideoButton.gameObject.SetActive(false);
+    }
+
 	/** 닫기 버튼을 눌렀을 경우 */
 	protected override void OnTouchCloseBtn() {
         base.OnTouchCloseBtn();
@@ -153,6 +159,9 @@ public partial class CContinuePopup : CSubPopup {
         GlobalDefine.OpenShop();
     }
 
+
+#region Continue Button
+
     /** 이어하기 버튼을 눌렀을 경우 */
 	private void OnTouchContinueBtn() 
     {   
@@ -164,22 +173,101 @@ public partial class CContinuePopup : CSubPopup {
                 return;
             }
             else
+            {
                 GlobalDefine.AddRuby(-GlobalDefine.CostRuby_Continue_Remove3Lines);
+                GlobalDefine.RefreshShopText(rubyText);
+            }
         }
 
         Params.Engine.GetReward(RewardVideoType.CONTINUE_3LINE, this, false);
 	}
 
+#endregion Continue Button
+
+
+#region Continue Ads Button
+
     private void OnTouchContinueBtn_AD() 
     {   
-        Params.Engine.RequestVideo(RewardVideoType.CONTINUE_3LINE, this);
+        if (GlobalDefine.isLevelEditor)
+        {
+            Params.Engine.GetReward(RewardVideoType.CONTINUE_3LINE, this, false);
+        }
+        else
+        {
+#if ADS_MODULE_ENABLE
+		    Func.ShowRewardAds(this.OnCloseContinueAds);
+#else
+            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>ADS TEST</color>"));
+            Params.Engine.GetReward(RewardVideoType.CONTINUE_3LINE, this, false);
+#endif // #if ADS_MODULE_ENABLE
+        }
 	}
+
+#if ADS_MODULE_ENABLE
+    /** 보상 광고가 닫혔을 경우 */
+	private void OnCloseContinueAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
+		// 광고를 시청했을 경우
+		if(a_bIsSuccess) {
+			Params.Engine.GetReward(RewardVideoType.CONTINUE_3LINE, this, false);
+		}
+	}
+#endif // #if ADS_MODULE_ENABLE
+
+#endregion Continue Ads Button
+
+
+#region Reward Ads Button
 
     private void OnTouchRewardVideoButton()
     {
-        Params.Engine.RequestVideo(RewardVideoType.CONTINUE_RUBY, this);
+        if (GlobalDefine.isLevelEditor)
+        {
+            this.ShowRewardAcquirePopup(true);
+        }
+        else
+        {   
+#if ADS_MODULE_ENABLE
+		    Func.ShowRewardAds(this.OnCloseRewardAds);
+#else
+            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>ADS TEST</color>"));
+            this.ShowRewardAcquirePopup(true);
+#endif // #if ADS_MODULE_ENABLE
+        }
     }
-	#endregion // 함수
+
+    /** 보상 획득 팝업을 출력한다 */
+	public void ShowRewardAcquirePopup(bool a_bIsWatchRewardAds) {
+		Func.ShowRewardAcquirePopup(this.transform.parent.gameObject, (a_oSender) => {
+			var oTargetInfoDict = CCollectionManager.Inst.SpawnDict<ulong, STTargetInfo>();
+
+			try {
+				(a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(EItemKinds.GOODS_RUBY, GlobalDefine.RewardRuby_Continue, false, () => { AfterGetReward(); }, this));
+			} finally {
+				CCollectionManager.Inst.DespawnDict(oTargetInfoDict);
+			}
+		}, null, this.OnCloseRewardAcquirePopup);
+	}
+
+    /** 보상 획득 팝업이 닫혔을 경우 */
+	private void OnCloseRewardAcquirePopup(CPopup a_oSender) {
+
+		//this.Close();
+	}
+
+#if ADS_MODULE_ENABLE
+	/** 보상 광고가 닫혔을 경우 */
+	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
+		// 광고를 시청했을 경우
+		if(a_bIsSuccess) {
+			this.ShowRewardAcquirePopup(true);
+		}
+	}
+#endif // #if ADS_MODULE_ENABLE
+
+#endregion Reward Ads Button
+
+    #endregion // 함수
 
 	#region 클래스 함수
 	/** 매개 변수를 생성한다 */

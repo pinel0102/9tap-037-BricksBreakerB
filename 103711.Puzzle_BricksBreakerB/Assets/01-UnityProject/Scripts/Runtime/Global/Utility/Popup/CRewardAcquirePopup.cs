@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using TMPro;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 using System.Linq;
@@ -19,10 +20,11 @@ public partial class CRewardAcquirePopup : CSubPopup {
 
 	/** 매개 변수 */
 	public struct STParams {
-		public ERewardQuality m_eQuality;
-		public ERewardAcquirePopupType m_eAgreePopup;
-
-		public Dictionary<ulong, STTargetInfo> m_oRewardTargetInfoDict;
+		public System.Action m_oCallback;
+        public CPopup parentPopup;
+        public EItemKinds kinds;
+        public int count;
+        public bool isEnableAD;
 	}
 
 	#region 변수
@@ -30,8 +32,12 @@ public partial class CRewardAcquirePopup : CSubPopup {
 	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 
 	/** =====> 객체 <===== */
-	[SerializeField] private GameObject m_oRewardUIs = null;
-	[SerializeField] private List<GameObject> m_oItemUIsList = new List<GameObject>();
+    public List<GameObject> itemList = new List<GameObject>();
+    public TMP_Text countText;
+    public Button GetButton;
+    public Button ADButton;
+    public bool isRewardAD;
+
 	#endregion // 변수
 
 	#region 프로퍼티
@@ -71,32 +77,27 @@ public partial class CRewardAcquirePopup : CSubPopup {
 
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
-		var oRewardTargetInfoKeyList = this.Params.m_oRewardTargetInfoDict.Keys.ToList();
-
-		// 보상 아이템 UI 상태를 갱신한다
-		for(int i = 0; i < m_oItemUIsList.Count; ++i) {
-			m_oItemUIsList[i].SetActive(i < oRewardTargetInfoKeyList.Count);
-
-			// 보상 정보가 존재 할 경우
-			if(i < oRewardTargetInfoKeyList.Count) {
-				ulong nUniqueTargetInfoID = oRewardTargetInfoKeyList[i];
-				this.UpdateItemUIsState(m_oItemUIsList[i], this.Params.m_oRewardTargetInfoDict.GetValueOrDefault(nUniqueTargetInfoID));
-			}
+		
+        // 보상 아이템 UI 상태를 갱신한다
+		for(int i = 0; i < itemList.Count; ++i) {
+			itemList[i].SetActive(itemList[i].gameObject.name.Equals($"{Params.kinds}"));
 		}
+
+        countText.text = string.Format(GlobalDefine.FORMAT_ITEM_COUNT, Params.count);
+        ADButton.gameObject.SetActive(Params.isEnableAD);
+
+        isRewardAD = false;
+
+        GlobalDefine.PlaySoundFX(ESoundSet.SOUND_GET_STAR);
 
 		this.SubUpdateUIsState();
 	}
 
-	/** 광고 버튼을 눌렀을 경우 */
-	private void OnTouchAdsBtn() {
-#if ADS_MODULE_ENABLE
-		Func.ShowRewardAds(this.OnCloseRewardAds);
-#endif // #if ADS_MODULE_ENABLE
-	}
+#region Reward Get Button
 
-	/** 획득 버튼을 눌렀을 경우 */
+    /** 획득 버튼을 눌렀을 경우 */
 	private void OnTouchAcquireBtn() {
-		this.AcquireRewards(false);
+		this.AcquireRewards(isRewardAD);
 	}
 
 	/** 보상을 획득한다 */
@@ -110,35 +111,77 @@ public partial class CRewardAcquirePopup : CSubPopup {
 
 		var oRewardTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 
-		foreach(var stKeyVal in this.Params.m_oRewardTargetInfoDict) {
-			var stValInfo = new STValInfo(stKeyVal.Value.m_stValInfo01.m_eValType, a_bIsWatchRewardAds ? stKeyVal.Value.m_stValInfo01.m_dmVal * KCDefine.B_VAL_2_INT : stKeyVal.Value.m_stValInfo01.m_dmVal);
-			oRewardTargetInfoDict.TryAdd(stKeyVal.Key, new STTargetInfo(stKeyVal.Value.m_eTargetKinds, stKeyVal.Value.m_nKinds, stValInfo));
-		}
+		GlobalDefine.AddItem(Params.kinds, a_bIsWatchRewardAds ? Params.count * KCDefine.B_VAL_2_INT : Params.count);
+        
+        //GlobalDefine.RefreshShopText(CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.rubyText);
+        //GlobalDefine.RefreshShopText((Params.parentPopup as CResultPopup)?.rubyText);
+        //GlobalDefine.RefreshShopText((Params.parentPopup as CContinuePopup)?.rubyText);
 
-		Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, this.Params.m_oRewardTargetInfoDict, true);
+        Func.SetupNextFreeRewardID(CGameInfoStorage.Inst.PlayCharacterID);
+
+        this.Params.m_oCallback?.Invoke();
+
 		this.OnTouchCloseBtn();
 	}
-	#endregion // 함수
 
-	#region 클래스 함수
-	/** 매개 변수를 생성한다 */
-	public static STParams MakeParams(ERewardQuality a_eQuality, ERewardAcquirePopupType a_eAgreePopup, Dictionary<ulong, STTargetInfo> a_oRewardTargetInfoDict) {
-		return new STParams() {
-			m_eQuality = a_eQuality, m_eAgreePopup = a_eAgreePopup, m_oRewardTargetInfoDict = a_oRewardTargetInfoDict
-		};
+#endregion Reward Get Button
+
+
+#region Reward Ads Button
+
+	/** 광고 버튼을 눌렀을 경우 */
+	private void OnTouchAdsBtn() {
+        if (GlobalDefine.isLevelEditor)
+        {
+            SetBonusReward();
+        }
+        else
+        {
+            //GlobalDefine.RequestRewardVideo(RewardVideoType.DAILY_FREE_REWARD, this);
+#if ADS_MODULE_ENABLE
+		    Func.ShowRewardAds(this.OnCloseRewardAds);
+#else
+            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>ADS TEST</color>"));
+            SetBonusReward();
+#endif // #if ADS_MODULE_ENABLE
+        }
 	}
-	#endregion // 클래스 함수
 
-	#region 조건부 함수
+    private void SetBonusReward()
+    {
+        isRewardAD = true;
+        ADButton.gameObject.SetActive(false);
+        countText.text = string.Format(GlobalDefine.FORMAT_ITEM_COUNT, Params.count * KCDefine.B_VAL_2_INT);
+    }
+
 #if ADS_MODULE_ENABLE
 	/** 보상 광고가 닫혔을 경우 */
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
-			this.AcquireRewards(true);
+			SetBonusReward();
 		}
 	}
 #endif // #if ADS_MODULE_ENABLE
-	#endregion // 조건부 함수
+
+#endregion Reward Ads Button
+
+
+	#endregion // 함수
+
+	#region 클래스 함수
+	/** 매개 변수를 생성한다 */
+	/*public static STParams MakeParams(ERewardQuality a_eQuality, ERewardAcquirePopupType a_eAgreePopup, Dictionary<ulong, STTargetInfo> a_oRewardTargetInfoDict) {
+		return new STParams() {
+			m_eQuality = a_eQuality, m_eAgreePopup = a_eAgreePopup, m_oRewardTargetInfoDict = a_oRewardTargetInfoDict
+		};
+	}*/
+
+    public static STParams MakeParams(EItemKinds _kinds, int _count, bool _isEnableAD, System.Action _m_oCallback, CPopup _parentPopup) {
+		return new STParams() {
+			kinds = _kinds, count = _count, isEnableAD = _isEnableAD, m_oCallback = _m_oCallback, parentPopup = _parentPopup
+		};
+	}
+	#endregion // 클래스 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
