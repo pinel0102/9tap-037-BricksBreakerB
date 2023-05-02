@@ -188,7 +188,9 @@ namespace NSEngine {
 
 		/** 초기화한다 */
 		private void SubInit() {
-            
+
+            Input.multiTouchEnabled = false;
+
             InitResoulution();
             InitPreview();
             InitCellRoot();

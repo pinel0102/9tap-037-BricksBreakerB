@@ -360,6 +360,18 @@ namespace NSEngine {
 
                 switch(kindsType)
                 {
+                    case EObjKinds.NORM_BRICKS_SQUARE_01:
+                    case EObjKinds.NORM_BRICKS_TRIANGLE_01:
+                    case EObjKinds.NORM_BRICKS_TRIANGLE_02:
+                    case EObjKinds.NORM_BRICKS_TRIANGLE_03:
+                    case EObjKinds.NORM_BRICKS_TRIANGLE_04:
+                    case EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_01:
+                    case EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_02:
+                    case EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_03:
+                    case EObjKinds.NORM_BRICKS_RIGHT_TRIANGLE_04:
+                    case EObjKinds.NORM_BRICKS_DIAMOND_01:
+                        PlaySoundDestroy(isSoundPlay);
+                        break;
                     case EObjKinds.OBSTACLE_BRICKS_KEY_01:
                         GetObstacle_Key(kindsType);
                         break;
@@ -421,6 +433,7 @@ namespace NSEngine {
                         break;
                     default:
                         //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=red>{0}</color>", kindsType));
+                        //PlaySoundDestroy(isSoundPlay);
                         break;
                 }
             }

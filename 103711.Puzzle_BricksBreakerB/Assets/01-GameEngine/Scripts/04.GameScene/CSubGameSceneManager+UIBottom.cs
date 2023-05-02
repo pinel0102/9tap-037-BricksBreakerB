@@ -18,12 +18,6 @@ namespace GameScene {
         
         private void SetupBottomButtons()
         {
-            bottomItemsButton[0]?.ExAddListener(OnClick_Bottom_Earthquake);
-            bottomItemsButton[1]?.ExAddListener(OnClick_Bottom_AddBall);
-            bottomItemsButton[2]?.ExAddListener(OnClick_Bottom_BricksDelete);
-            bottomItemsButton[3]?.ExAddListener(OnClick_Bottom_AddLaserBricks);
-            bottomItemsButton[4]?.ExAddListener(OnClick_Bottom_AddSteelBricks);
-
             for(int i=0; i < bottomItemsButton.Count; i++)
             {
                 bottomItemsButton[i].gameObject.SetActive(Engine.currentLevel >= GlobalDefine.TUTORIAL_LEVEL_BOTTOM_ITEM[i]);
@@ -133,7 +127,7 @@ namespace GameScene {
 
             int addCount = 30;
 
-            Engine.AddNormalBallsOnce(Engine.BallObjList[0].transform.position, addCount, false);
+            Engine.AddNormalBallsOnce(Engine.startPosition, addCount, false);
 
             Engine.BallObjList[0].NumText.text = GlobalDefine.GetBallText(Engine.BallObjList.Count - Engine.DeleteBallList.Count, Engine.DeleteBallList.Count);
 

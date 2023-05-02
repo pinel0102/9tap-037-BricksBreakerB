@@ -9,6 +9,7 @@ namespace GameScene {
     public partial class CSubGameSceneManager : CGameSceneManager
     {
         [Header("★ [Reference] Aim mode")]
+        public List<Image> aimDisableRaycast = new List<Image>();
         public GameObject aimLayer;
         public GameObject aimLayerOn;
         public RectTransform aimDragArea;
@@ -43,6 +44,7 @@ namespace GameScene {
         public void InitAimLayer()
         {
             isAimLayerOn = false;
+            isAimDragOn = false;
 
             aimAreaChangeArea = aimDragArea.sizeDelta.x * 0.2f;
             aimAreaWidthHalf = aimDragArea.sizeDelta.x * 0.5f;
@@ -50,6 +52,8 @@ namespace GameScene {
             aimLayerOn.SetActive(isAimLayerOn);
             aimLayer.SetActive(isAimLayerOn);
             itemLayer.SetActive(!isAimLayerOn);
+            
+            SetAimDisableRaycast(!isAimDragOn);
             SetAimControl(aimControlDefaultPosition);
         }
 
@@ -58,10 +62,13 @@ namespace GameScene {
         public void ToggleAimLayer()
         {
             isAimLayerOn = !isAimLayerOn;
+            isAimDragOn = false;
 
             aimLayerOn.SetActive(isAimLayerOn);
             aimLayer.SetActive(isAimLayerOn);
             itemLayer.SetActive(!isAimLayerOn);
+            
+            SetAimDisableRaycast(!isAimDragOn);
             SetAimControl(aimControlDefaultPosition);
         }
 
@@ -87,6 +94,7 @@ namespace GameScene {
         {
             //Debug.Log(CodeManager.GetMethodName());
             isAimDragOn = true;
+            SetAimDisableRaycast(!isAimDragOn);
         }
 
         public void OnAimDragEnd()
@@ -102,6 +110,7 @@ namespace GameScene {
                 Engine.CallShoot(stPos);
                 
                 isAimDragOn = false;
+                SetAimDisableRaycast(!isAimDragOn);
                 SetAimControl(aimControlDefaultPosition);
             }
         }
@@ -112,7 +121,16 @@ namespace GameScene {
             Engine.ResetGuideLine();
             
             isAimDragOn = false;
+            SetAimDisableRaycast(!isAimDragOn);
             SetAimControl(aimControlDefaultPosition);
+        }
+
+        private void SetAimDisableRaycast(bool value)
+        {
+            for(int i=0; i < aimDisableRaycast.Count; i++)
+            {
+                aimDisableRaycast[i].raycastTarget = value;
+            }
         }
 
 #endregion Buttons

@@ -44,7 +44,7 @@ namespace NSEngine {
         ///<Summary>볼 증폭. (2개가 되어 확산.)</Summary>
         private void Refract_Amplification(CEBallObjController ballController)
         {
-            CEBallObjController ballController2 = Engine.AddExtraBall(ballController.transform.position);
+            CEBallObjController ballController2 = Engine.AddExtraBall(ballController.transform.localPosition);
             
             //ballController.GetOwner<CEObj>().SetSpriteColor(EObjKinds.BALL_NORM_03);
 
