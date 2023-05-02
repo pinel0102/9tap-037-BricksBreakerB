@@ -24,7 +24,7 @@ namespace NSEngine {
                 subGameSceneManager.warningObject.SetActive(false);
                 currentShootCount = 0;
 
-                SetupGuideLine(this.SelBallObj.transform.localPosition, stPos, this.SelBallObj.TargetSprite.sprite.textureRect.size.ExToWorld(this.Params.m_oAimRoot).x / KCDefine.B_VAL_2_REAL, isGoldAim ? GlobalDefine.AIM_BOUND_COUNT_GOLDEN : GlobalDefine.AIM_BOUND_COUNT_NORMAL);
+                SetupGuideLine(this.SelBallObj.transform.localPosition, stPos, (this.SelBallObj.TargetSprite.sprite.textureRect.size.ExToWorld(this.Params.m_oAimRoot).x * 0.5f), isGoldAim ? GlobalDefine.AIM_BOUND_COUNT_GOLDEN : GlobalDefine.AIM_BOUND_COUNT_NORMAL);
             } 
             else 
             {
@@ -36,6 +36,7 @@ namespace NSEngine {
         {
             var stDirection = (toPosition - fromPosition).normalized;
             //Debug.Log(CodeManager.GetMethodName() + string.Format("{0} -> {1} / {2}", fromPosition, toPosition, stDirection));
+            //Debug.Log(CodeManager.GetMethodName() + string.Format("radius : {0}", radius));
 
             //float fAngle = Vector3.Angle(stDirection, Vector3.right * Mathf.Sign(stDirection.x));
             //fAngle = fAngle.ExIsLess(KDefine.E_MIN_ANGLE_AIMING) ? KDefine.E_MIN_ANGLE_AIMING : fAngle;            
