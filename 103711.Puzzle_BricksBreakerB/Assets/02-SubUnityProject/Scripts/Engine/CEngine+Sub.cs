@@ -73,6 +73,7 @@ namespace NSEngine {
 		public CEObj SelPlayerObj => this.PlayerObjList[this.SelPlayerObjIdx];
 		public CEObj SelBallObj => this.BallObjList[KCDefine.B_VAL_0_INT];
         public int m_nNumBalls;
+        public int pointerID;
 		#endregion // 프로퍼티
 
 		#region 함수
@@ -190,6 +191,7 @@ namespace NSEngine {
 		private void SubInit() {
 
             Input.multiTouchEnabled = false;
+            pointerID = -1;
 
             InitResoulution();
             InitPreview();
@@ -425,15 +427,10 @@ namespace NSEngine {
 		private void HandleTouchBeginEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
 			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
-                var stPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize);
-				var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
 
-#if NEVER_USE_THIS
-				// 인덱스가 유효 할 경우
-				if(this.CellObjLists.ExIsValidIdx(stIdx)) {
-					// Do Something
-				}
-#endif // #if NEVER_USE_THIS
+                //pointerID = a_oEventData.pointerId;
+
+                var stPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize);
 
 				// 조준 가능 할 경우
 				if(this.IsEnableAiming(stPos)) {
@@ -446,6 +443,9 @@ namespace NSEngine {
 		private void HandleTouchMoveEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
 			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
+                
+                //if (a_oEventData.pointerId != pointerID) return;
+
 				var stPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize);
 				//var stIdx = stPos.ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
 
@@ -458,16 +458,10 @@ namespace NSEngine {
 		private void HandleTouchEndEvent(CTouchDispatcher a_oSender, PointerEventData a_oEventData) {
 			// 구동 모드 일 경우
 			if(m_oBoolDict.GetValueOrDefault(EKey.IS_RUNNING)) {
-                
-                var stPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize);
-				var stIdx = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize).ExToIdx(this.SelGridInfo.m_stPivotPos, Access.CellSize);
 
-#if NEVER_USE_THIS
-				// 인덱스가 유효 할 경우
-				if(this.CellObjLists.ExIsValidIdx(stIdx)) {
-					// Do Something
-				}
-#endif // #if NEVER_USE_THIS
+                //if (a_oEventData.pointerId != pointerID) return;
+
+                var stPos = a_oEventData.ExGetLocalPos(this.Params.m_oObjRoot, CSceneManager.ActiveSceneManager.ScreenSize);
                 
                 this.CallShoot(stPos);
 			}
