@@ -37,7 +37,7 @@ EXIT_FOR:
 			var stDirection = a_stPos - this.SelBallObj.transform.localPosition;
 
 			return this.PlayState == EPlayState.IDLE && !isShooting && !isLevelClear && !isGridMoving && !isExplosionAll && 
-                    (this.SelGridInfo.m_stAimBounds.Contains(a_stPos) && stDirection.y.ExIsGreate(KCDefine.B_VAL_0_REAL) && a_stPos.y.ExIsGreateEquals(GlobalDefine.aimYPositionMin) || 
+                    (this.SelGridInfo.m_stAimBounds.Contains(a_stPos) && stDirection.y.ExIsGreate(KCDefine.B_VAL_0_REAL) && a_stPos.y.ExIsGreateEquals(GlobalDefine.aimYPositionMin / SelGridInfo.m_stScale.x) || 
                     (!this.SelGridInfo.m_stAimBounds.Contains(a_stPos) && subGameSceneManager.isAimLayerOn && subGameSceneManager.isAimDragOn));
 		}
 

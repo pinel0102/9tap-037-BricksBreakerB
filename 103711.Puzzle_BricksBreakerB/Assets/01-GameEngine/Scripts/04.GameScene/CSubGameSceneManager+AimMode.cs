@@ -30,7 +30,7 @@ namespace GameScene {
                 var localPosition = ExToLocal(worldPosition, Engine.Params.m_oObjRoot);
                 var stPos = GetAimPosition(localPosition);
 
-                SetAimControl(new Vector3(Mathf.Clamp(localPosition.x, -aimAreaWidthHalf, aimAreaWidthHalf), 0, 0));
+                SetAimControl(new Vector3(Mathf.Clamp(localPosition.x * Engine.SelGridInfo.m_stScale.x, -aimAreaWidthHalf, aimAreaWidthHalf), 0, 0));
 
                 if (Engine.IsEnableAiming(stPos))
                 {
@@ -132,6 +132,7 @@ namespace GameScene {
         {
             float xPosition = 0;
             float yPosition = 0;
+            float scaleAdjust = Engine.SelGridInfo.m_stScale.x;
 
             if(Mathf.Abs(mousePosition.x) < aimAreaChangeArea)
             {
@@ -140,13 +141,13 @@ namespace GameScene {
             }
             else
             {
-                xPosition = Mathf.Clamp(mousePosition.x, -aimAreaWidthHalf, aimAreaWidthHalf) * 2f;
+                xPosition = Mathf.Clamp(mousePosition.x, -aimAreaWidthHalf / scaleAdjust, aimAreaWidthHalf / scaleAdjust) * 2f;
 
                 float distance = Mathf.Min(Mathf.Abs(xPosition * 0.5f) - aimAreaChangeArea, aimAreaWidthHalf) * 2.5f;
                 yPosition = Mathf.Max(GlobalDefine.aimYPositionDefault - distance, GlobalDefine.aimYPositionMin);
             }
 
-            return new Vector3(xPosition, yPosition, 0);
+            return new Vector3(xPosition * scaleAdjust, yPosition / scaleAdjust, 0);
         }
 
         private Vector3 ExGetWorldPos(Vector3 a_stSender, Vector3 a_stScreenSize) 
