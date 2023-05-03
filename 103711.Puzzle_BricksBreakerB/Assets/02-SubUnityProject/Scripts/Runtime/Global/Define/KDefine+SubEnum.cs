@@ -331,6 +331,7 @@ public enum EItemKinds {
 	#region 비소모
 	// 200,000,000
 	NON_CONSUMABLE_REMOVE_ADS = (EEnumVal.T * EItemType.NON_CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+    NON_CONSUMABLE_GOLDEN_AIM = (EEnumVal.T * EItemType.NON_CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
 	#endregion // 비소모
 
 	#region 무기
@@ -826,31 +827,38 @@ public enum EProductKinds {
 
 	#region 패키지
 	// 0
-	PKGS_PRODUCT_BRICK_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
-	PKGS_PRODUCT_CRUSH_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
-	PKGS_PRODUCT_SMASH_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 2),
-	PKGS_PRODUCT_SHATTER_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 3),
-	PKGS_PRODUCT_SPLINTER_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 4),
-	PKGS_PRODUCT_BURST_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 5),
+	PKGS_PRODUCT_POWER_PACKAGE_1 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+    PKGS_PRODUCT_POWER_PACKAGE_2,
+    PKGS_PRODUCT_POWER_PACKAGE_3,
+    // 100
+	PKGS_PRODUCT_SPECIAL_PACKAGE_1 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
+    PKGS_PRODUCT_SPECIAL_PACKAGE_2,
+    PKGS_PRODUCT_SPECIAL_PACKAGE_3,
+    // 200
+	//PKGS_PRODUCT_SMASH_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 2),
+	//PKGS_PRODUCT_SHATTER_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 3),
+	//PKGS_PRODUCT_SPLINTER_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 4),
+	//PKGS_PRODUCT_BURST_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 5),
 
 	// 10,000,000
-	PKGS_PRODUCT_SPECIAL_STARTER_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	//PKGS_PRODUCT_SPECIAL_STARTER_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	#endregion // 패키지
 
 	#region 단일
 	// 100,000,000 {
-	SINGLE_PRODUCT_DIAMOND_01 = (EEnumVal.T * EProductType.SINGLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
-	SINGLE_PRODUCT_DIAMOND_02,
-	SINGLE_PRODUCT_DIAMOND_03,
-	SINGLE_PRODUCT_DIAMOND_04,
-	SINGLE_PRODUCT_DIAMOND_05,
-	SINGLE_PRODUCT_DIAMOND_06,
+	SINGLE_PRODUCT_GEMS_01 = (EEnumVal.T * EProductType.SINGLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	SINGLE_PRODUCT_GEMS_02,
+	SINGLE_PRODUCT_GEMS_03,
+	SINGLE_PRODUCT_GEMS_04,
+	SINGLE_PRODUCT_GEMS_05,
+	SINGLE_PRODUCT_GEMS_06,
 
-	SINGLE_PRODUCT_COINS_BOX_01 = (EEnumVal.T * EProductType.SINGLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
-	// 100,000,000 }
+	//SINGLE_PRODUCT_COINS_BOX_01 = (EEnumVal.T * EProductType.SINGLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
+    // 100,000,000 }
 
 	// 110,000,000
-	SINGLE_PRODUCT_REMOVE_ADS_01 = (EEnumVal.T * EProductType.SINGLE) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	SINGLE_PRODUCT_REMOVE_ADS = (EEnumVal.T * EProductType.SINGLE) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+    SINGLE_PRODUCT_GOLDEN_AIM = (EEnumVal.T * EProductType.SINGLE) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
 	#endregion // 단일
 
 	[HideInInspector] MAX_VAL

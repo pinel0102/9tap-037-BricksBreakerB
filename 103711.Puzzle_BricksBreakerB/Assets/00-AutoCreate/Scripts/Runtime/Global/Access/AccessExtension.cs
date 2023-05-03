@@ -19,8 +19,28 @@ public static partial class AccessExtension {
 		oTouchInteractable?.SetInteractable(a_bIsEnable);
 	}
 
+    /** 텍스트를 변경한다 */
+	public static void ExSetText(this Text a_oSender, string a_oStr, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null));
+
+		// 텍스트가 존재 할 경우
+		if(a_oSender != null) {
+			a_oSender.text = a_oStr;
+		}
+	}
+
+    /** 텍스트를 변경한다 */
+	public static void ExSetText(this TMP_Text a_oSender, string a_oStr, bool a_bIsEnableAssert = true) {
+		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null));
+
+		// 텍스트가 존재 할 경우
+		if(a_oSender != null) {
+			a_oSender.text = a_oStr;
+		}
+	}
+
 	/** 텍스트를 변경한다 */
-	public static void ExSetText(this Text a_oSender, string a_oStr, EFontSet a_eFontSet = EFontSet._1, bool a_bIsEnableAssert = true) {
+	public static void ExSetText(this Text a_oSender, string a_oStr, EFontSet a_eFontSet, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_eFontSet.ExIsValid()));
 
 		// 텍스트가 존재 할 경우
@@ -30,7 +50,7 @@ public static partial class AccessExtension {
 	}
 
 	/** 텍스트를 변경한다 */
-	public static void ExSetText(this TMP_Text a_oSender, string a_oStr, EFontSet a_eFontSet = EFontSet._1, bool a_bIsEnableAssert = true) {
+	public static void ExSetText(this TMP_Text a_oSender, string a_oStr, EFontSet a_eFontSet, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_eFontSet.ExIsValid()));
 
 		// 텍스트가 존재 할 경우

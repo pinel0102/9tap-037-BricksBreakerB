@@ -79,7 +79,7 @@ namespace NSEngine {
             {
                 for (int j = Mathf.Max(0, _cCol - 1); j < Mathf.Min(_cCol + 2, Engine.CellObjLists.GetLength(KCDefine.B_VAL_1_INT)); j++)
                 {
-                    if (i != _cRow && j != _cCol)
+                    if (i != _cRow || j != _cCol)
                         Engine.CellDestroy_SkillTarget(i, j);
                 }
             }

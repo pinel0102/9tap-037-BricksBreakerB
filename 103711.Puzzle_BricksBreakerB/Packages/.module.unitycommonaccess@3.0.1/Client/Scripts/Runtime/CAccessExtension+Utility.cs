@@ -559,7 +559,7 @@ public static partial class CAccessExtension {
 		}
 	}
 
-	/** 텍스트를 변경한다 */
+    /** 텍스트를 변경한다 */
 	public static void ExSetText(this Text a_oSender, string a_oStr, STFontSetInfo a_stFontSetInfo, bool a_bIsEnableAssert = true) {
 		CAccess.Assert(!a_bIsEnableAssert || (a_oSender != null && a_stFontSetInfo.m_oPath.ExIsValid()));
 

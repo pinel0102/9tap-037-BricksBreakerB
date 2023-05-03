@@ -113,23 +113,22 @@ public static partial class KDefine {
 
 	// 상점 상품 종류
 	public static readonly List<EProductKinds> G_PRODUCT_KINDS_STORE_LIST = new List<EProductKinds>() {
-		EProductKinds.PKGS_PRODUCT_SPECIAL_STARTER_01,
+		EProductKinds.PKGS_PRODUCT_POWER_PACKAGE_1,
+        EProductKinds.PKGS_PRODUCT_POWER_PACKAGE_2,
+        EProductKinds.PKGS_PRODUCT_POWER_PACKAGE_3,        
+        EProductKinds.PKGS_PRODUCT_SPECIAL_PACKAGE_1,
+        EProductKinds.PKGS_PRODUCT_SPECIAL_PACKAGE_2,
+        EProductKinds.PKGS_PRODUCT_SPECIAL_PACKAGE_3,
 
-		EProductKinds.PKGS_PRODUCT_BRICK_01,
-		EProductKinds.PKGS_PRODUCT_CRUSH_01,
-		EProductKinds.PKGS_PRODUCT_SMASH_01,
-		EProductKinds.PKGS_PRODUCT_SHATTER_01,
-		EProductKinds.PKGS_PRODUCT_SPLINTER_01,
-		EProductKinds.PKGS_PRODUCT_BURST_01,
-
-		EProductKinds.SINGLE_PRODUCT_DIAMOND_01,
-		EProductKinds.SINGLE_PRODUCT_DIAMOND_02,
-		EProductKinds.SINGLE_PRODUCT_DIAMOND_03,
-		EProductKinds.SINGLE_PRODUCT_DIAMOND_04,
-		EProductKinds.SINGLE_PRODUCT_DIAMOND_05,
-		EProductKinds.SINGLE_PRODUCT_DIAMOND_06,
+		EProductKinds.SINGLE_PRODUCT_GEMS_01,
+		EProductKinds.SINGLE_PRODUCT_GEMS_02,
+		EProductKinds.SINGLE_PRODUCT_GEMS_03,
+		EProductKinds.SINGLE_PRODUCT_GEMS_04,
+		EProductKinds.SINGLE_PRODUCT_GEMS_05,
+		EProductKinds.SINGLE_PRODUCT_GEMS_06,
 		
-		EProductKinds.SINGLE_PRODUCT_REMOVE_ADS_01
+		EProductKinds.SINGLE_PRODUCT_REMOVE_ADS,
+        EProductKinds.SINGLE_PRODUCT_GOLDEN_AIM,
 	};
 
 	// 특수 패키지 상품 종류

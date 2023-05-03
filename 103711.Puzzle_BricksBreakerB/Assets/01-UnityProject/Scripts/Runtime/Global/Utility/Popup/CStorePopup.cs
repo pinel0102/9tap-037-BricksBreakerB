@@ -129,20 +129,21 @@ public partial class CStorePopup : CSubPopup {
 
 			// 텍스트를 갱신한다 {
 			var oPriceText = a_oProductBuyUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_PRICE_TEXT);
-			oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stProductTradeInfo.m_oPayTargetInfoDict.FirstOrDefault().Value.m_stValInfo01.m_dmVal), EFontSet._1, false);
+            oPriceText?.ExSetText(string.Format(KCDefine.B_TEXT_FMT_USD_PRICE, a_stProductTradeInfo.m_oPayTargetInfoDict.FirstOrDefault().Value.m_stValInfo01.m_dmVal));
 
 			var oAcquireTargetInfoKeyList = a_stProductTradeInfo.m_oAcquireTargetInfoDict.Keys.ToList();
-			a_oProductBuyUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NAME_TEXT)?.ExSetText(a_stProductTradeInfo.m_stCommonInfo.m_oName, EFontSet._1, false);
+			var oNameText = a_oProductBuyUIs.ExFindComponent<TMP_Text>(KCDefine.U_OBJ_N_NAME_TEXT);
+            oNameText?.ExSetText(a_stProductTradeInfo.m_stCommonInfo.m_oName);
 
 			for(int i = 0; i < oAcquireTargetInfoKeyList.Count; ++i) {
 				var nUniqueTargetInfoID = oAcquireTargetInfoKeyList[i];
-				a_oProductBuyUIs.ExFindComponent<TMP_Text>(string.Format(KCDefine.U_OBJ_N_FMT_NUM_TEXT, i + KCDefine.B_VAL_1_INT))?.ExSetText($"{a_stProductTradeInfo.m_oAcquireTargetInfoDict.GetValueOrDefault(nUniqueTargetInfoID).m_stValInfo01.m_dmVal}", EFontSet._1, false);
+				a_oProductBuyUIs.ExFindComponent<TMP_Text>(string.Format(KCDefine.U_OBJ_N_FMT_NUM_TEXT, i + KCDefine.B_VAL_1_INT))?.ExSetText($"{a_stProductTradeInfo.m_oAcquireTargetInfoDict.GetValueOrDefault(nUniqueTargetInfoID).m_stValInfo01.m_dmVal}", false);
 			}
 
 #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
 			// 인앱 결제 상품 일 경우
 			if(a_stProductTradeInfo.m_ePurchaseType == EPurchaseType.IN_APP_PURCHASE && Access.GetProduct(a_stProductTradeInfo.m_nProductIdx) != null) {
-				oPriceText?.ExSetText(Access.GetPriceStr(a_stProductTradeInfo.m_nProductIdx), EFontSet._1, false);
+				oPriceText?.ExSetText(Access.GetPriceStr(a_stProductTradeInfo.m_nProductIdx), false);
 			}
 #endif // #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
 			// 텍스트를 갱신한다 }
@@ -186,6 +187,8 @@ public partial class CStorePopup : CSubPopup {
 			case EPurchaseType.IN_APP_PURCHASE: {
 #if PURCHASE_MODULE_ENABLE
 				CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.PurchaseProduct(a_stProductTradeInfo.m_eProductKinds, this.OnPurchaseProduct);
+#else
+                //OnPurchaseProduct(a_stProductTradeInfo.m_eProductKinds);
 #endif // #if PURCHASE_MODULE_ENABLE
 
 				break;
