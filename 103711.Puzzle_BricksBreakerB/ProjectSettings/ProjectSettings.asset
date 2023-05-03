@@ -1199,7 +1199,7 @@ PlayerSettings:
     Collab: 0
     Game Performance: 0
     Legacy Analytics: 1
-    Purchasing: 0
+    Purchasing: 1
     UDP: 0
     Unity Ads: 0
   luminIcon:
@@ -1216,11 +1216,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 
+  cloudProjectId: 37431dc0-b19d-4fcb-8827-5c3aa20bd3d0
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: 103711.Puzzle_BricksBreakerB
+  organizationId: ninetapstudio
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
