@@ -433,7 +433,7 @@
 		"Name": "100 Gems",
 		"Desc": "SINGLE_PRODUCT_GEMS_01",
 		"ID": "com.ninetap.bricksbreaker.iap.100gems",
-		"ProductType": "1"
+		"ProductType": "0"
 	}, {
 		"NOEX_T": "1",
 		"NOEX_ST": "0",
@@ -447,7 +447,7 @@
 		"Name": "550 Gems",
 		"Desc": "SINGLE_PRODUCT_GEMS_02",
 		"ID": "com.ninetap.bricksbreaker.iap.550gems",
-		"ProductType": "1"
+		"ProductType": "0"
 	}, {
 		"NOEX_T": "1",
 		"NOEX_ST": "0",
@@ -461,7 +461,7 @@
 		"Name": "1150 Gems",
 		"Desc": "SINGLE_PRODUCT_GEMS_03",
 		"ID": "com.ninetap.bricksbreaker.iap.1150gems",
-		"ProductType": "1"
+		"ProductType": "0"
 	}, {
 		"NOEX_T": "1",
 		"NOEX_ST": "0",
@@ -475,7 +475,7 @@
 		"Name": "3600 Gems",
 		"Desc": "SINGLE_PRODUCT_GEMS_04",
 		"ID": "com.ninetap.bricksbreaker.iap.3600gems",
-		"ProductType": "1"
+		"ProductType": "0"
 	}, {
 		"NOEX_T": "1",
 		"NOEX_ST": "0",
@@ -489,7 +489,7 @@
 		"Name": "6500 Gems",
 		"Desc": "SINGLE_PRODUCT_GEMS_05",
 		"ID": "com.ninetap.bricksbreaker.iap.6500gems",
-		"ProductType": "1"
+		"ProductType": "0"
 	}, {
 		"NOEX_T": "1",
 		"NOEX_ST": "0",
@@ -503,7 +503,7 @@
 		"Name": "15000 Gems",
 		"Desc": "SINGLE_PRODUCT_GEMS_06",
 		"ID": "com.ninetap.bricksbreaker.iap.15000gems",
-		"ProductType": "1"
+		"ProductType": "0"
 	}, {
 		"NOEX_T": "1",
 		"NOEX_ST": "1",

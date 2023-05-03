@@ -1,0 +1,33 @@
+{
+    "name": "Module.UnityCommonPurchase",
+    "rootNamespace": "",
+    "references": [
+        "UnityEditor.Purchasing",
+        "Module.UnityCommonDefine",
+        "Module.UnityCommonAccess",
+        "Module.UnityCommonFactory",
+        "Module.UnityCommonExtension",
+        "Module.UnityCommonFunc",
+        "Module.UnityCommonUtility",
+        "Module.UnityCommonExternals",
+        "Module.UnityUnityPurchasing",
+        "Unity.Services.Core",
+        "Unity.Services.Core.Environments",
+        "UnityEngine.Purchasing",
+        "UnityEngine.Purchasing.Stores",
+        "UnityEngine.Purchasing.Security",
+        "UnityEngine.Purchasing.SecurityCore",
+        "UnityEngine.Purchasing.SecurityStub",
+        "MessagePack",
+        "MessagePack.Annotations"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

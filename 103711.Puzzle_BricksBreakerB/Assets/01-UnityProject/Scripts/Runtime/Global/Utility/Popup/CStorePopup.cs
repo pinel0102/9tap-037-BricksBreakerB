@@ -149,7 +149,7 @@ public partial class CStorePopup : CSubPopup {
 			// 텍스트를 갱신한다 }
 
 			// 버튼을 갱신한다 {
-			var oPurchaseBtn = oPriceUIsDict[EPurchaseType.IN_APP_PURCHASE]?.ExFindComponentInParent<Button>(KCDefine.U_OBJ_N_PURCHASE_BTN);
+			var oPurchaseBtn = oPriceUIsDict[EPurchaseType.IN_APP_PURCHASE]?.ExFindComponent<Button>(KCDefine.U_OBJ_N_PURCHASE_BTN);
 			oPurchaseBtn?.ExAddListener(() => this.OnTouchPurchaseBtn(a_stProductTradeInfo));
 
 #if PURCHASE_MODULE_ENABLE
@@ -157,17 +157,12 @@ public partial class CStorePopup : CSubPopup {
 
 			// 비소모 상품 일 경우
 			if(stProductInfo.m_eProductType == ProductType.NonConsumable) {
+                Debug.Log(CodeManager.GetMethodName() + string.Format("NonConsumable Check : {0} : {1}", stProductInfo.m_stCommonInfo.m_oName, CPurchaseManager.Inst.IsPurchaseNonConsumableProduct(stProductInfo.m_oID)));
 				oPurchaseBtn?.ExSetInteractable(!CPurchaseManager.Inst.IsPurchaseNonConsumableProduct(stProductInfo.m_oID));
 			}
 #endif // #if PURCHASE_MODULE_ENABLE
 			// 버튼을 갱신한다 }
 
-			// 패키지 상품 일 경우
-			if(a_stProductTradeInfo.ProductType == EProductType.PKGS) {
-				this.UpdatePkgsProductBuyUIsState(a_oProductBuyUIs, a_stProductTradeInfo);
-			} else {
-				this.UpdateSingleProductBuyUIsState(a_oProductBuyUIs, a_stProductTradeInfo);
-			}
 		} finally {
 			CCollectionManager.Inst.DespawnDict(oPriceUIsDict);
 		}
@@ -175,7 +170,7 @@ public partial class CStorePopup : CSubPopup {
 
 	/** 결제 버튼을 눌렀을 경우 */
 	private void OnTouchPurchaseBtn(STProductTradeInfo a_stProductTradeInfo) {
-		switch(a_stProductTradeInfo.m_ePurchaseType) {
+        switch(a_stProductTradeInfo.m_ePurchaseType) {
 			case EPurchaseType.ADS: {
 #if ADS_MODULE_ENABLE
 				m_oProductKindsDict[EKey.SEL_PRODUCT_KINDS] = a_stProductTradeInfo.m_eProductKinds;
@@ -260,6 +255,7 @@ public partial class CStorePopup : CSubPopup {
 		if(a_bIsSuccess) {
 			m_oRestoreProductList = a_oProductList;
 			Func.AcquireRestoreProducts(a_oProductList);
+            this.UpdateUIsState();
 		}
 
 #if FIREBASE_MODULE_ENABLE

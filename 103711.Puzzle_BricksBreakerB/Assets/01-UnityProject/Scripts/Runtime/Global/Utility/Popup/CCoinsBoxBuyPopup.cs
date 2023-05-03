@@ -78,7 +78,7 @@ public partial class CCoinsBoxBuyPopup : CSubPopup {
 	/** 결제 버튼을 눌렀을 경우 */
 	private void OnTouchPurchaseBtn() {
 #if PURCHASE_MODULE_ENABLE
-		Func.PurchaseProduct(EProductKinds.SINGLE_COINS_BOX, this.OnPurchaseProduct);
+		//Func.PurchaseProduct(EProductKinds.SINGLE_COINS_BOX, this.OnPurchaseProduct);
 #endif // #if PURCHASE_MODULE_ENABLE
 	}
 	#endregion // 함수

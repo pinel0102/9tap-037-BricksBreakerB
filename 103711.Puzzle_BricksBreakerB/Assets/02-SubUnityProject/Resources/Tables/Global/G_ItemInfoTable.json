@@ -216,6 +216,23 @@
 		"PayTargetInfo_01": ["-1", "-1", "-1", "-1", "0"],
 		"AcquireTargetInfo_01": ["-1", "-1", "-1", "-1", "0"]
 	}, {
+		"NOEX_T": "1",
+		"NOEX_ST": "0",
+		"NOEX_KT": "1",
+		"NOEX_SKT": "1",
+		"NOEX_DSKT": "0",
+		"Replace": "0",
+		"Flags_01": "0",
+		"Flags_02": "0",
+		"Flags_03": "0",
+		"Name": "CONSUMABLE_GAME_ITEM_CONTINUE",
+		"Desc": "Continue",
+		"ItemKinds": "100100100",
+		"PrevItemKinds": "-1",
+		"NextItemKinds": "1",
+		"PayTargetInfo_01": ["-1", "-1", "-1", "-1", "0"],
+		"AcquireTargetInfo_01": ["-1", "-1", "-1", "-1", "0"]
+	}, {
 		"NOEX_T": "2",
 		"NOEX_ST": "0",
 		"NOEX_KT": "0",
