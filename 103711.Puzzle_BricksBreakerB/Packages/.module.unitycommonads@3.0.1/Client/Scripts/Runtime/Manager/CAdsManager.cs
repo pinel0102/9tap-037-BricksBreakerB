@@ -61,6 +61,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 		SHOW_FULLSCREEN_ADS,
 
 		CLOSE_BANNER_ADS,
+        HIDE_BANNER_ADS,
 		[HideInInspector] MAX_VAL
 	}
 
@@ -131,7 +132,8 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 		[EAdsFunc.SHOW_REWARD_ADS] = new Dictionary<EAdsPlatform, System.Action>(),
 		[EAdsFunc.SHOW_FULLSCREEN_ADS] = new Dictionary<EAdsPlatform, System.Action>(),
 
-		[EAdsFunc.CLOSE_BANNER_ADS] = new Dictionary<EAdsPlatform, System.Action>()
+		[EAdsFunc.CLOSE_BANNER_ADS] = new Dictionary<EAdsPlatform, System.Action>(),
+        [EAdsFunc.HIDE_BANNER_ADS] = new Dictionary<EAdsPlatform, System.Action>()
 	};
 
 	private Dictionary<EAdsFunc, Dictionary<EAdsPlatform, System.Func<bool>>> m_oFuncDictContainer02 = new Dictionary<EAdsFunc, Dictionary<EAdsPlatform, System.Func<bool>>>() {
@@ -217,6 +219,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 		m_oFuncDictContainer01[EAdsFunc.SHOW_FULLSCREEN_ADS].TryAdd(EAdsPlatform.IRON_SRC, this.ShowIronSrcFullscreenAds);
 
 		m_oFuncDictContainer01[EAdsFunc.CLOSE_BANNER_ADS].TryAdd(EAdsPlatform.IRON_SRC, this.CloseIronSrcBannerAds);
+        m_oFuncDictContainer01[EAdsFunc.HIDE_BANNER_ADS].TryAdd(EAdsPlatform.IRON_SRC, this.HideIronSrcBannerAds);
 		m_oFuncDictContainer02[EAdsFunc.IS_INIT].TryAdd(EAdsPlatform.IRON_SRC, this.IsInitIronSrc);
 
 		m_oFuncDictContainer02[EAdsFunc.IS_LOAD_BANNER_ADS].TryAdd(EAdsPlatform.IRON_SRC, this.IsLoadIronSrcBannerAds);
@@ -414,6 +417,20 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 			// 배너 광고 닫기가 가능 할 경우
 			if(this.IsLoadBannerAds(a_eAdsPlatform)) {
 				m_oFuncDictContainer01[EAdsFunc.CLOSE_BANNER_ADS][a_eAdsPlatform]();
+			}
+		}
+	}
+
+    public void HideBannerAds(EAdsPlatform a_eAdsPlatform, System.Action<CAdsManager, bool> a_oCallback) {
+		CFunc.ShowLog($"CAdsManager.HideBannerAds: {a_eAdsPlatform}", KCDefine.B_LOG_COLOR_PLUGIN);
+		CAccess.Assert(a_eAdsPlatform.ExIsValid());
+
+		try {
+			CFunc.Invoke(ref a_oCallback, this, this.IsLoadBannerAds(a_eAdsPlatform));
+		} finally {
+			// 배너 광고 닫기가 가능 할 경우
+			if(this.IsLoadBannerAds(a_eAdsPlatform)) {
+				m_oFuncDictContainer01[EAdsFunc.HIDE_BANNER_ADS][a_eAdsPlatform]();
 			}
 		}
 	}

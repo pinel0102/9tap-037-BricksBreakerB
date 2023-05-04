@@ -324,6 +324,14 @@ public static partial class Func {
 		CAdsManager.Inst.CloseBannerAds(a_eAdsPlatform, a_oCallback);
 	}
 
+    public static void HideBannerAds(System.Action<CAdsManager, bool> a_oCallback) {
+		Func.HideBannerAds(CPluginInfoTable.Inst.AdsPlatform, a_oCallback);
+	}
+
+    public static void HideBannerAds(EAdsPlatform a_eAdsPlatform, System.Action<CAdsManager, bool> a_oCallback) {
+		CAdsManager.Inst.HideBannerAds(a_eAdsPlatform, a_oCallback);
+	}
+
 	/** 보상 광고를 출력한다 */
 	public static void ShowRewardAds(System.Action<CAdsManager, STAdsRewardInfo, bool> a_oCallback) {
 		Func.ShowRewardAds(CPluginInfoTable.Inst.AdsPlatform, a_oCallback);

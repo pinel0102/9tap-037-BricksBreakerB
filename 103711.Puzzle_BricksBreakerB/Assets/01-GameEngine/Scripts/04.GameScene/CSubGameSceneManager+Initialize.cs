@@ -27,7 +27,7 @@ namespace GameScene {
         private void Initialize()
         {
             GlobalDefine.HideBannerAD();
-            
+
             ApplyDarkMode(GlobalDefine.UserInfo.Settings_DarkMode);
             warningObject.SetActive(false);
             

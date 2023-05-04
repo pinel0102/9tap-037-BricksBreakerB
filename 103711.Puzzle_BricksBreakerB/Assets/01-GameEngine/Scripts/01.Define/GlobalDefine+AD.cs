@@ -6,11 +6,19 @@ public static partial class GlobalDefine
 {
     public const float Time_FullscreenAD = 90f;
 
-    public static void HideBannerAD()
+    public static void CloseBannerAD()
     {
         Debug.Log(CodeManager.GetMethodName());
 #if ADS_MODULE_ENABLE
         Func.CloseBannerAds(null);
+#endif
+    }
+
+    public static void HideBannerAD()
+    {
+        Debug.Log(CodeManager.GetMethodName());
+#if ADS_MODULE_ENABLE
+        Func.HideBannerAds(null);
 #endif
     }
 
@@ -23,7 +31,7 @@ public static partial class GlobalDefine
         }
         else
         {
-            HideBannerAD();
+            CloseBannerAD();
         }
     }
 
@@ -31,7 +39,7 @@ public static partial class GlobalDefine
     {
         if(isLevelEditor)
             return true;
-            
+
 #if ADS_MODULE_ENABLE && !UNITY_EDITOR && !UNITY_STANDALONE
         return CAdsManager.Inst.IsLoadRewardAds(CCommonAppInfoStorage.Inst.AdsPlatform);
 #else

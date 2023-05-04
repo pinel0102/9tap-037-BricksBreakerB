@@ -75,6 +75,14 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 		m_oRealDict[EKey.BANNER_ADS_HEIGHT] = KCDefine.B_VAL_0_REAL;
 #endif // #if (UNITY_IOS || UNITY_ANDROID) && IRON_SRC_ADS_ENABLE
 	}
+
+    private void HideIronSrcBannerAds() {
+		CAccess.Assert(this.IsValidIronSrcBannerAdsID());
+
+#if(UNITY_IOS || UNITY_ANDROID) && IRON_SRC_ADS_ENABLE
+		IronSource.Agent.hideBanner();
+#endif // #if (UNITY_IOS || UNITY_ANDROID) && IRON_SRC_ADS_ENABLE
+	}
 #endregion // 함수
 
 #region 접근자 함수
