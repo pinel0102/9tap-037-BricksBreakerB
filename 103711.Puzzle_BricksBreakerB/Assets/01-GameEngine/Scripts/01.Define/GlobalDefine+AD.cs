@@ -22,7 +22,7 @@ public static partial class GlobalDefine
         if(IsEnableAD())
         {
             Debug.Log(CodeManager.GetMethodName());
-            //
+            Func.ShowBannerAds(null);
         }
         else
         {
@@ -35,7 +35,7 @@ public static partial class GlobalDefine
         if(IsEnableAD())
         {
             Debug.Log(CodeManager.GetMethodName());
-            //
+            Func.ShowFullscreenAds(null);
         }
     }
 
@@ -44,7 +44,7 @@ public static partial class GlobalDefine
         if(IsEnableRewardVideo())
         {
             Debug.Log(CodeManager.GetMethodName());
-            //
+            Func.ShowRewardAds(null);
         }
     }
 

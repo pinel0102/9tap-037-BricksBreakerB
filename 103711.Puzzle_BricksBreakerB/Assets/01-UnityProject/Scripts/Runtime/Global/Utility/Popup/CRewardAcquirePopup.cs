@@ -105,18 +105,10 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		m_oBtnDict.GetValueOrDefault(EKey.ADS_BTN)?.ExSetInteractable(false);
 		m_oBtnDict.GetValueOrDefault(EKey.ACQUIRE_BTN)?.ExSetInteractable(false);
 
-#if ADS_MODULE_ENABLE
-		m_oBtnDict.GetValueOrDefault(EKey.ADS_BTN)?.gameObject.ExRemoveComponent<CRewardAdsTouchInteractable>();
-#endif // #if ADS_MODULE_ENABLE
-
 		var oRewardTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
 
 		GlobalDefine.AddItem(Params.kinds, a_bIsWatchRewardAds ? Params.count * KCDefine.B_VAL_2_INT : Params.count);
         
-        //GlobalDefine.RefreshShopText(CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.rubyText);
-        //GlobalDefine.RefreshShopText((Params.parentPopup as CResultPopup)?.rubyText);
-        //GlobalDefine.RefreshShopText((Params.parentPopup as CContinuePopup)?.rubyText);
-
         Func.SetupNextFreeRewardID(CGameInfoStorage.Inst.PlayCharacterID);
 
         this.Params.m_oCallback?.Invoke();
@@ -138,7 +130,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
         else
         {
             //GlobalDefine.RequestRewardVideo(RewardVideoType.DAILY_FREE_REWARD, this);
-#if ADS_MODULE_ENABLE
+#if ADS_MODULE_ENABLE && !UNITY_EDITOR && !UNITY_STANDALONE
 		    Func.ShowRewardAds(this.OnCloseRewardAds);
 #else
             Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>ADS TEST</color>"));

@@ -195,7 +195,7 @@ public partial class CContinuePopup : CSubPopup {
         }
         else
         {
-#if ADS_MODULE_ENABLE
+#if ADS_MODULE_ENABLE && !UNITY_EDITOR && !UNITY_STANDALONE
 		    Func.ShowRewardAds(this.OnCloseContinueAds);
 #else
             Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>ADS TEST</color>"));
@@ -227,7 +227,7 @@ public partial class CContinuePopup : CSubPopup {
         }
         else
         {   
-#if ADS_MODULE_ENABLE
+#if ADS_MODULE_ENABLE && !UNITY_EDITOR && !UNITY_STANDALONE
 		    Func.ShowRewardAds(this.OnCloseRewardAds);
 #else
             Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>ADS TEST</color>"));

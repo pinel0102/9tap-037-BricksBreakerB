@@ -171,8 +171,7 @@ public partial class CDailyRewardPopup : CSubPopup {
         }
         else
         {
-            GlobalDefine.RequestRewardVideo(RewardVideoType.DAILY_FREE_REWARD, this);
-#if ADS_MODULE_ENABLE
+#if ADS_MODULE_ENABLE && !UNITY_EDITOR && !UNITY_STANDALONE
 		    Func.ShowRewardAds(this.OnCloseRewardAds);
 #else
             Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>ADS TEST</color>"));

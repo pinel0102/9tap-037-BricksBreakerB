@@ -309,7 +309,15 @@ public partial class CResultPopup : CSubPopup {
 
     private void OnTouchADBlockButton()
     {
-        Params.Engine.Buy_ADBlock();
+        CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.PurchaseProduct(EProductKinds.SINGLE_PRODUCT_REMOVE_ADS, this.OnPurchaseProduct);
+    }
+
+    private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) 
+    {
+        // 결제 되었을 경우
+        if(a_bIsSuccess) {
+            ADBlockButton.gameObject.SetActive(!CUserInfoStorage.Inst.IsPurchaseRemoveAds);
+        }
     }
 	#endregion // 함수
 
