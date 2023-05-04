@@ -58,7 +58,7 @@ public static partial class GlobalDefine
 
     public static bool IsEnableAD()
     {
-        return !GlobalDefine.UserInfo.Item_ADBlock;
+        return !CUserInfoStorage.Inst.IsPurchaseRemoveAds;
     }
 }
 

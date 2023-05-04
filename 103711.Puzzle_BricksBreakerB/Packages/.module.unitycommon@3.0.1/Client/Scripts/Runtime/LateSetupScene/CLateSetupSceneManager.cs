@@ -27,6 +27,7 @@ namespace LateSetupScene {
 		#endregion // 프로퍼티
 
 		#region 클래스 프로퍼티
+        public static bool IsPurchaseGoldenAim { get; private set; } = false;
 #if ADS_MODULE_ENABLE
 		public static bool IsPurchaseRemoveAds { get; private set; } = false;
 		public static bool IsAutoLoadBannerAds { get; private set; } = false;
@@ -383,6 +384,9 @@ namespace LateSetupScene {
 		#endregion // 조건부 클래스 함수
 
 		#region 조건부 접근자 클래스 함수
+        public static void SetPurchaseGoldenAim(bool a_bIsPurchase) {
+			CLateSetupSceneManager.IsPurchaseGoldenAim = a_bIsPurchase;
+		}
 #if ADS_MODULE_ENABLE
 		/** 광고 제거 결제 여부를 변경한다 */
 		public static void SetPurchaseRemoveAds(bool a_bIsPurchase) {

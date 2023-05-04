@@ -69,17 +69,17 @@ public partial class CUserInfo : CBaseInfo
 		set { m_oStrDict.ExReplaceVal(KEY_STAR_SUM, $"{(int)value}"); }
 	}
 
-    [IgnoreMember]
+    /*[IgnoreMember]
 	public bool Item_ADBlock {
 		get { return bool.Parse(m_oStrDict.GetValueOrDefault(KEY_AD_BLOCK, GlobalDefine.STRING_FALSE)); }
 		set { m_oStrDict.ExReplaceVal(KEY_AD_BLOCK, $"{(bool)value}"); }
-	}
+	}*/
 
-    [IgnoreMember]
+    /*[IgnoreMember]
 	public bool Item_GoldenAim {
 		get { return bool.Parse(m_oStrDict.GetValueOrDefault(KEY_GOLDEN_AIM, GlobalDefine.STRING_FALSE)); }
 		set { m_oStrDict.ExReplaceVal(KEY_GOLDEN_AIM, $"{(bool)value}"); }
-	}
+	}*/
 
     [IgnoreMember]
 	public int Item_Earthquake {

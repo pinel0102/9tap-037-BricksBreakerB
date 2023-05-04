@@ -24,7 +24,7 @@ namespace NSEngine {
                 subGameSceneManager.warningObject.SetActive(false);
                 currentShootCount = 0;
 
-                SetupGuideLine(this.SelBallObj.transform.localPosition, stPos, (this.SelBallObj.TargetSprite.sprite.textureRect.size.ExToWorld(this.Params.m_oAimRoot).x * 0.5f), isGoldAim ? GlobalDefine.AIM_BOUND_COUNT_GOLDEN : GlobalDefine.AIM_BOUND_COUNT_NORMAL);
+                SetupGuideLine(this.SelBallObj.transform.localPosition, stPos, (this.SelBallObj.TargetSprite.sprite.textureRect.size.ExToWorld(this.Params.m_oAimRoot).x * 0.5f), isGoldenAim ? GlobalDefine.AIM_BOUND_COUNT_GOLDEN : GlobalDefine.AIM_BOUND_COUNT_NORMAL);
             } 
             else 
             {
@@ -46,7 +46,7 @@ namespace NSEngine {
             var stRaycastHit = Physics2D.CircleCast(stWorldPos, radius, stDirection, GlobalDefine.RAYCAST_DISTANCE, currentAimLayer);            
             if (stRaycastHit.collider != null) 
             {
-                var stHitPos = (stWorldPos + (stDirection * ((!isGoldAim && boundCount == 0) ? Mathf.Min(stRaycastHit.distance, GlobalDefine.AIM_LENGTH_SHORT) : stRaycastHit.distance))).ExToLocal(this.Params.m_oAimRoot);
+                var stHitPos = (stWorldPos + (stDirection * ((!isGoldenAim && boundCount == 0) ? Mathf.Min(stRaycastHit.distance, GlobalDefine.AIM_LENGTH_SHORT) : stRaycastHit.distance))).ExToLocal(this.Params.m_oAimRoot);
                     
                 this.SetupDots(fromPosition, stHitPos, m_oAimDotList);
 

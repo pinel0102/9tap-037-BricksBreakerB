@@ -9,8 +9,8 @@ namespace NSEngine {
 
         public void ToggleAimLayer()
         {
-            isGoldAim = !isGoldAim;
-            SetAimLayer(isGoldAim);
+            isGoldenAim = !isGoldenAim;
+            SetAimLayer(isGoldenAim);
         }
 
         public void CheckClear(bool _waitDelay = false, bool _isBottomItem = false)

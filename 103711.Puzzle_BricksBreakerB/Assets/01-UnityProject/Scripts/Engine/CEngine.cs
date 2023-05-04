@@ -84,7 +84,7 @@ namespace NSEngine {
             this.isLevelFail = false;
             this.isAddSteelBricks = false;
             this.isExplosionAll = false;
-            this.isGoldAimOneTime = false;
+            this.isGoldenAimOneTime = false;
 
 			this.SetupEngine();
 			this.SetupLevel();

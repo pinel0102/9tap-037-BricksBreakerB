@@ -74,7 +74,7 @@ namespace GameScene {
 
         public void ToggleGoldenAim()
         {
-            if (GlobalDefine.isLevelEditor || GlobalDefine.UserInfo.Item_GoldenAim || Engine.isGoldAimOneTime)
+            if (GlobalDefine.isLevelEditor || GlobalDefine.hasGoldenAim || Engine.isGoldenAimOneTime)
             {
                 m_oEngine.ToggleAimLayer();
                 RefreshGoldenAimButton();
@@ -87,7 +87,7 @@ namespace GameScene {
 
         public void RefreshGoldenAimButton()
         {
-            goldenAimButton.color = m_oEngine.isGoldAim ? GlobalDefine.COLOR_GOLDEN_AIM_ON : GlobalDefine.COLOR_GOLDEN_AIM_OFF;
+            goldenAimButton.color = m_oEngine.isGoldenAim ? GlobalDefine.COLOR_GOLDEN_AIM_ON : GlobalDefine.COLOR_GOLDEN_AIM_OFF;
         }
 
         public void OnAimDragBegin()

@@ -5,7 +5,7 @@ using UnityEngine;
 public static partial class GlobalDefine
 {
     public static CUserInfo UserInfo => CUserInfoStorage.Inst.UserInfo;
-
+    public static bool hasGoldenAim { get; private set; }
     public static List<int> UserStarList;
     public static List<int> UserScoreList;
 
@@ -16,6 +16,11 @@ public static partial class GlobalDefine
         Debug.Log(CodeManager.GetMethodName());
         
         CUserInfoStorage.Inst.LoadUserInfo();
+    }
+
+    public static void SetGoldenAim(bool value)
+    {
+        hasGoldenAim = value;
     }
 
     public static void InitUserDataList()
@@ -69,7 +74,6 @@ public static partial class GlobalDefine
             Settings_DarkMode = false,
             Ruby = 0,
             Star = 0,
-            Item_ADBlock = false, 
             Item_Earthquake = 0,
             Item_AddBall = 0,
             Item_BricksDelete = 0,

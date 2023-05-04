@@ -963,6 +963,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5805755444172302670, guid: b2cd881333beccb4584a3731301a9e9f, type: 3}
+      propertyPath: m_DragThreshold
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5805755444317152653, guid: b2cd881333beccb4584a3731301a9e9f, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0

@@ -52,6 +52,7 @@ namespace LateSetupScene {
 				this.UserPermissionList.ExAddVal(Permission.ExternalStorageWrite);
 #endif // #if UNITY_ANDROID && EXTERNAL_STORAGE_ENABLE
 
+                CLateSetupSceneManager.SetPurchaseGoldenAim(CUserInfoStorage.Inst.IsPurchaseGoldenAim);
 #if ADS_MODULE_ENABLE
 #if(EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE)
 				CLateSetupSceneManager.SetPurchaseRemoveAds(CUserInfoStorage.Inst.IsPurchaseRemoveAds);
@@ -69,6 +70,8 @@ namespace LateSetupScene {
 		/** 씬을 설정한다 */
 		protected override void Setup() {
 			base.Setup();
+
+            GlobalDefine.SetGoldenAim(CUserInfoStorage.Inst.IsPurchaseGoldenAim);
 
 #if ADS_MODULE_ENABLE && (EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE)
 			CAdsManager.Inst.IsEnableBannerAds = !CUserInfoStorage.Inst.IsPurchaseRemoveAds;

@@ -154,7 +154,7 @@ public partial class CPreviewPopup : CSubPopup {
         boosterBuy[2].SetActive(GlobalDefine.UserInfo.Booster_Bomb <= 0);
 
         tooltip.gameObject.SetActive(false);
-        goldenAimButton.gameObject.SetActive(!GlobalDefine.UserInfo.Item_GoldenAim);
+        goldenAimButton.gameObject.SetActive(!GlobalDefine.hasGoldenAim);
         goldenAimOK.SetActive(false);
         
         GlobalDefine.PlaySoundFX(ESoundSet.SOUND_LEVEL_READY);
@@ -258,7 +258,7 @@ public partial class CPreviewPopup : CSubPopup {
 
     private void OnTouchGoldenAimButton()
     {
-        if (!GlobalDefine.isLevelEditor && !GlobalDefine.UserInfo.Item_GoldenAim) 
+        if (!GlobalDefine.isLevelEditor && !GlobalDefine.hasGoldenAim) 
         {
             if (GlobalDefine.UserInfo.Ruby < GlobalDefine.CostRuby_GoldenAim)
             {
@@ -269,8 +269,8 @@ public partial class CPreviewPopup : CSubPopup {
                 GlobalDefine.AddRuby(-GlobalDefine.CostRuby_GoldenAim);
         }
 
-        Params.Engine.isGoldAimOneTime = true;
-        Params.Engine.isGoldAim = true;
+        Params.Engine.isGoldenAimOneTime = true;
+        Params.Engine.isGoldenAim = true;
         Params.Engine.SetAimLayer(true);
         Params.Engine.subGameSceneManager.RefreshGoldenAimButton();
         

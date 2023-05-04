@@ -398,19 +398,25 @@ public static partial class Func {
 
 		// 타겟 정보가 존재 할 경우
 		if(bIsValid && a_oTargetInfo != null) {
+            Func.DoAcquire(a_nCharacterID, a_stTargetInfo, a_oTargetInfo, stItemInfo.m_stCommonInfo.m_bIsFlags01, a_bIsEnableAssert);
+
 			// 광고 제거 아이템 일 경우
-			if(a_stTargetInfo.m_eTargetKinds == ETargetKinds.ITEM_NUMS && (EItemKinds)a_stTargetInfo.Kinds == EItemKinds.NON_CONSUMABLE_REMOVE_ADS) {
+			if(a_stTargetInfo.m_eTargetKinds == ETargetKinds.ITEM_NUMS)
+            {
+                if((EItemKinds)a_stTargetInfo.Kinds == EItemKinds.NON_CONSUMABLE_REMOVE_ADS) 
+                {
 #if ADS_MODULE_ENABLE
 				Func.CloseBannerAds(null);
 
 				CAdsManager.Inst.IsEnableBannerAds = false;
 				CAdsManager.Inst.IsEnableFullscreenAds = false;
 #endif // #if ADS_MODULE_ENABLE
+                }
+                else if((EItemKinds)a_stTargetInfo.Kinds == EItemKinds.NON_CONSUMABLE_GOLDEN_AIM) 
+                {
+                    GlobalDefine.SetGoldenAim(true);
+                }
 			}
-            else
-            {
-                GlobalDefine.AddItem((EItemKinds)a_stTargetInfo.Kinds, (int)a_stTargetInfo.m_stValInfo01.m_dmVal);
-            }
 		}
 	}
 
@@ -480,6 +486,8 @@ public static partial class Func {
 
 			a_oTargetInfo.m_oAbilityTargetInfoDict.ExTryGetTargetInfo(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, out STTargetInfo stNumsAbilityTargetInfo);
 			a_oTargetInfo.m_oAbilityTargetInfoDict.ExReplaceTargetVal(ETargetKinds.ABILITY, (int)EAbilityKinds.STAT_NUMS, System.Math.Clamp(stNumsAbilityTargetInfo.m_stValInfo01.m_dmVal, KCDefine.B_VAL_1_INT, long.MaxValue), a_bIsEnableAssert);
+
+            GlobalDefine.AddItem((EItemKinds)a_stTargetInfo.Kinds, (int)a_stTargetInfo.m_stValInfo01.m_dmVal);
 		}
 	}
 	#endregion // 클래스 함수
