@@ -11,9 +11,6 @@ public static partial class GlobalDefine
         Debug.Log(CodeManager.GetMethodName());
 #if ADS_MODULE_ENABLE
         Func.CloseBannerAds(null);
-
-        CAdsManager.Inst.IsEnableBannerAds = false;
-        CAdsManager.Inst.IsEnableFullscreenAds = false;
 #endif
     }
 
@@ -27,24 +24,6 @@ public static partial class GlobalDefine
         else
         {
             HideBannerAD();
-        }
-    }
-
-    public static void RequestFullscreenAD()
-    {
-        if(IsEnableAD())
-        {
-            Debug.Log(CodeManager.GetMethodName());
-            Func.ShowFullscreenAds(null);
-        }
-    }
-
-    public static void RequestRewardVideo(RewardVideoType type, CPopup popup)
-    {
-        if(IsEnableRewardVideo())
-        {
-            Debug.Log(CodeManager.GetMethodName());
-            Func.ShowRewardAds(null);
         }
     }
 

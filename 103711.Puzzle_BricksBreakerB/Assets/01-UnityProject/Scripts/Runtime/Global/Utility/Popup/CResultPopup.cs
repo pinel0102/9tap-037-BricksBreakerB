@@ -286,21 +286,62 @@ public partial class CResultPopup : CSubPopup {
 
 	/** 다음 버튼을 눌렀을 경우 */
 	public void OnTouchNextBtn() {
-        GlobalDefine.RequestFullscreenAD();
-		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.NEXT)?.Invoke(this);
+        this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.NEXT)?.Invoke(this);
+        /*if (GlobalDefine.isLevelEditor)
+        {
+            this.OnAdsFinished(ECallback.NEXT);
+        }
+        else
+        {
+#if ADS_MODULE_ENABLE && !UNITY_EDITOR && !UNITY_STANDALONE
+		    Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => OnAdsFinished(ECallback.NEXT));
+#else
+            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>ADS TEST</color>"));
+            this.OnAdsFinished(ECallback.NEXT);
+#endif // #if ADS_MODULE_ENABLE
+        }*/
 	}
 
 	/** 재시도 버튼을 눌렀을 경우 */
 	public void OnTouchRetryBtn() {
-        GlobalDefine.RequestFullscreenAD();
-		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.RETRY)?.Invoke(this);
+        this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.RETRY)?.Invoke(this);
+        /*if (GlobalDefine.isLevelEditor)
+        {
+            this.OnAdsFinished(ECallback.RETRY);
+        }
+        else
+        {
+#if ADS_MODULE_ENABLE && !UNITY_EDITOR && !UNITY_STANDALONE
+		    Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => OnAdsFinished(ECallback.RETRY));
+#else
+            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>ADS TEST</color>"));
+            this.OnAdsFinished(ECallback.RETRY);
+#endif // #if ADS_MODULE_ENABLE
+        }*/
 	}
 
 	/** 나가기 버튼을 눌렀을 경우 */
 	public void OnTouchLeaveBtn() {
-        GlobalDefine.RequestFullscreenAD();
-		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.LEAVE)?.Invoke(this);
+        this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.LEAVE)?.Invoke(this);
+        /*if (GlobalDefine.isLevelEditor)
+        {
+            this.OnAdsFinished(ECallback.LEAVE);
+        }
+        else
+        {
+#if ADS_MODULE_ENABLE && !UNITY_EDITOR && !UNITY_STANDALONE
+		    Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => OnAdsFinished(ECallback.LEAVE));
+#else
+            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>ADS TEST</color>"));
+            this.OnAdsFinished(ECallback.LEAVE);
+#endif // #if ADS_MODULE_ENABLE
+        }*/
 	}
+
+    public void OnAdsFinished(ECallback callback) 
+    {
+        this.Params.m_oCallbackDict?.GetValueOrDefault(callback)?.Invoke(this);
+    }
 
     private void OnTouchShopButton()
     {

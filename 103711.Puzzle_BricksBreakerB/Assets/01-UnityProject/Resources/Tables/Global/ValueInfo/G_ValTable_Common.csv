@@ -1,5 +1,5 @@
 Description,Replace,ID,Val,ValType
-광고 지연,0,DELAY_ADS,60,1
+광고 지연,0,DELAY_ADS,90,1
 광고 시간 간격,0,DELTA_T_ADS,10,1
 기본 퀄리티 수준,0,DEF_QUALITY_LEVEL,2,0
 모바일 퀄리티 수준,0,MOBILE_QUALITY_LEVEL,3,0
