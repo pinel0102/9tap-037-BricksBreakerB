@@ -12,27 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58fe7bf1704a94c71bb2465f76ce9aa9, type: 3}
   m_Name: G_PluginInfoTable
   m_EditorClassIdentifier: 
-  m_eAdsPlatform: -1
+  m_eAdsPlatform: 1
   m_eBannerAdsPos: 1
-  m_stiOSAdmobPluginInfo:
-    m_oAppID: 
-    m_oBannerAdsID: 
-    m_oRewardAdsID: 
-    m_oFullscreenAdsID: 
-  m_stAndroidAdmobPluginInfo:
-    m_oAppID: 
-    m_oBannerAdsID: 
-    m_oRewardAdsID: 
-    m_oFullscreenAdsID: 
+  m_bIsEnableIronSrcBannerAds: 1
+  m_bIsEnableIronSrcRewardAds: 1
+  m_bIsEnableIronSrcFullscreenAds: 1
   m_stiOSIronSrcPluginInfo:
-    m_bIsEnableBannerAds: 0
-    m_bIsEnableRewardAds: 0
-    m_bIsEnableFullscreenAds: 0
-    m_oAppKey: 
+    m_oAppKey: 198791d5d
   m_stAndroidIronSrcPluginInfo:
-    m_bIsEnableBannerAds: 0
-    m_bIsEnableRewardAds: 0
-    m_bIsEnableFullscreenAds: 0
-    m_oAppKey: 
-  m_oiOSFlurryAPIKey: 
-  m_oAndroidFlurryAPIKey: 
+    m_oAppKey: 19878e3d5
