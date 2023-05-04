@@ -36,8 +36,8 @@ public static class ProjectManager
     // Assets/IronSource/Plugins/Android/AndroidManifest.xml : AdMob 키 입력 필요. (Android)
     public const string ironSource_AppKey_AOS = "19878e3d5";
     public const string ironSource_AppKey_iOS = "198791d5d";
-    public const string ironSource_Admob_AppID_AOS = "ca-app-pub-9834260879045639~9072776983"; // need update
-    public const string ironSource_Admob_AppID_iOS = "ca-app-pub-9834260879045639~1357938495"; // need update
+    public const string ironSource_Admob_AppID_AOS = "ca-app-pub-9834260879045639~1874030232";
+    public const string ironSource_Admob_AppID_iOS = "ca-app-pub-9834260879045639~5430131864";
 
     // AppsFlyerManager.cs : 추가 작업 필요 없음.
     public const string appsflyer_dev_key = "J7eXAem8sBRuHTr3iX58d5";

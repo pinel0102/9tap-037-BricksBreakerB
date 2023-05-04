@@ -19,7 +19,7 @@ Puzzle - BricksBreakerB 클라이언트 프로젝트
    - //Facebook : 14.1.0
    - //Firebase : 10.1.1
    - //Flurry : 6.0.0
-   - //IronSource : 7.2.5.1
+   - IronSource : 7.3.0.1
    - In App Purchasing : 4.8.0
 
 </details>
