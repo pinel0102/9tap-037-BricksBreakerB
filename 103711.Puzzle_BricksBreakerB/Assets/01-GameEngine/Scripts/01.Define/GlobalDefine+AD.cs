@@ -31,8 +31,12 @@ public static partial class GlobalDefine
     {
         if(isLevelEditor)
             return true;
-
+            
+#if ADS_MODULE_ENABLE && !UNITY_EDITOR && !UNITY_STANDALONE
+        return CAdsManager.Inst.IsLoadRewardAds(CCommonAppInfoStorage.Inst.AdsPlatform);
+#else
         return true;
+#endif
     }
 
     public static bool IsEnableAD()
