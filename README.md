@@ -14,13 +14,13 @@ Puzzle - BricksBreakerB 클라이언트 프로젝트
 
 ---
 + UnityPackage Version
+   - External Dependency Manager : 1.2.176
    - //AppsFlyer : 6.8.5
    - //Facebook : 14.1.0
    - //Firebase : 10.1.1
    - //Flurry : 6.0.0
    - //IronSource : 7.2.5.1
-   - //External Dependency Manager : 1.2.175
-   - //In App Purchasing : 4.5.1
+   - In App Purchasing : 4.8.0
 
 </details>
 
@@ -29,7 +29,7 @@ Puzzle - BricksBreakerB 클라이언트 프로젝트
 # ChangeLog
 
 <details>
-<summary markdown="span"><em>last update : 0.0.20</em></summary>
+<summary markdown="span"><em>last update : 0.0.22</em></summary>
 <br>
 
 ---
