@@ -2,3 +2,4 @@ FirebaseAnalytics_10.7.0.unitypackage
 FirebaseCrashlytics_10.7.0.unitypackage
 IronSource_IntegrationManager_v7.3.0.1.unitypackage
 external-dependency-manager-1.2.176.unitypackage
+flurry-sdk-6.2.0.unitypackage
