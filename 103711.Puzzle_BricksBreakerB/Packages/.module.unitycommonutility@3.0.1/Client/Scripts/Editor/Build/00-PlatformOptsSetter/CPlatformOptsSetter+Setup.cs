@@ -683,8 +683,8 @@ public static partial class CPlatformOptsSetter {
 		}
 
 		var oIsSetupSplashOptsList = new List<bool>() {
-			PlayerSettings.SplashScreen.show == !Application.isBatchMode,
-			PlayerSettings.SplashScreen.showUnityLogo == !Application.isBatchMode,
+			//PlayerSettings.SplashScreen.show == !Application.isBatchMode,
+			//PlayerSettings.SplashScreen.showUnityLogo == !Application.isBatchMode,
 			PlayerSettings.SplashScreen.blurBackgroundImage == false,
 
 			PlayerSettings.SplashScreen.drawMode == PlayerSettings.SplashScreen.DrawMode.AllSequential,
@@ -695,8 +695,8 @@ public static partial class CPlatformOptsSetter {
 
 		// 설정 갱신이 필요 할 경우
 		if(oIsSetupSplashOptsList.Contains(false)) {
-			PlayerSettings.SplashScreen.show = !Application.isBatchMode;
-			PlayerSettings.SplashScreen.showUnityLogo = !Application.isBatchMode;
+			//PlayerSettings.SplashScreen.show = !Application.isBatchMode;
+			//PlayerSettings.SplashScreen.showUnityLogo = !Application.isBatchMode;
 			PlayerSettings.SplashScreen.blurBackgroundImage = false;
 
 			PlayerSettings.SplashScreen.drawMode = PlayerSettings.SplashScreen.DrawMode.AllSequential;
