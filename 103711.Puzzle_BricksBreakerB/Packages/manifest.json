@@ -27,6 +27,7 @@
     "module.unitycommonads": "3.0.1",
     "module.unitycommonpurchase": "3.0.1",
     "module.unitycommonappsflyer": "3.0.1",
+    "module.unitycommonfacebook": "3.0.1",
     "module.unitycommonfirebase": "3.0.1",
     "module.unitycommonflurry": "3.0.1",
     "com.unity.modules.ai": "1.0.0",

@@ -123,10 +123,10 @@ public class VersionManager
             
             EditorApplication.delayCall += () =>
             {
-                Menu.SetChecked(menuUseManager, useManager);
+                UnityEditor.Menu.SetChecked(menuUseManager, useManager);
                 
                 #if USE_NINETAP_MODULE
-                Menu.SetChecked(menuOverrideProjInfoTable, overrideProjInfoTable);
+                UnityEditor.Menu.SetChecked(menuOverrideProjInfoTable, overrideProjInfoTable);
                 #endif
             };
 
@@ -247,7 +247,7 @@ public class VersionManager
     {	
         useManager = !useManager;
         EditorPrefs.SetBool(Application.identifier + prefUseManager, useManager);
-        Menu.SetChecked(menuUseManager, useManager);
+        UnityEditor.Menu.SetChecked(menuUseManager, useManager);
         LogVersionManager();
 
         CheckVersionArray();	
@@ -599,7 +599,7 @@ public class VersionManager
     {	
         overrideProjInfoTable = !overrideProjInfoTable;
         EditorPrefs.SetBool(Application.identifier + prefOverrideProjInfoTable, overrideProjInfoTable);
-        Menu.SetChecked(menuOverrideProjInfoTable, overrideProjInfoTable);
+        UnityEditor.Menu.SetChecked(menuOverrideProjInfoTable, overrideProjInfoTable);
         LogOverrideProjInfoTable();
         
         OverrideProjInfoTable(PlayerSettings.bundleVersion, PlayerSettings.Android.bundleVersionCode);
