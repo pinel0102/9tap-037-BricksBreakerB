@@ -28,7 +28,10 @@ apply plugin: 'com.android.library'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 // Android Resolver Dependencies Start
+    implementation 'com.android.installreferrer:installreferrer:2.1' // Assets/AppsFlyer/Editor/AppsFlyerDependencies.xml:10
     implementation 'com.applovin:applovin-sdk:11.7.1' // Assets/IronSource/Editor/ISAppLovinAdapterDependencies.xml:15
+    implementation 'com.appsflyer:af-android-sdk:6.10.3' // Assets/AppsFlyer/Editor/AppsFlyerDependencies.xml:6
+    implementation 'com.appsflyer:unity-wrapper:6.10.30' // Assets/AppsFlyer/Editor/AppsFlyerDependencies.xml:8
     implementation 'com.facebook.android:audience-network-sdk:6.13.7' // Assets/IronSource/Editor/ISFacebookAdapterDependencies.xml:8
     implementation 'com.google.android.gms:play-services-ads:21.5.0' // Assets/IronSource/Editor/ISAdMobAdapterDependencies.xml:8
     implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1' // Assets/IronSource/Editor/IronSourceSDKDependencies.xml:17

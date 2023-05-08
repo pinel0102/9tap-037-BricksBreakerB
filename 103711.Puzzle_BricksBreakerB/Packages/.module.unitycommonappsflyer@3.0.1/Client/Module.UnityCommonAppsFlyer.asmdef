@@ -1,0 +1,25 @@
+{
+    "name": "Module.UnityCommonAppsFlyer",
+    "rootNamespace": "",
+    "references": [
+        "AppsFlyer",
+        "Module.UnityCommonDefine",
+        "Module.UnityCommonAccess",
+        "Module.UnityCommonFactory",
+        "Module.UnityCommonExtension",
+        "Module.UnityCommonFunc",
+        "Module.UnityCommonUtility",
+        "Module.UnityCommonExternals",
+        "UnityEngine.Purchasing",
+        "UnityEngine.Purchasing.Stores"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

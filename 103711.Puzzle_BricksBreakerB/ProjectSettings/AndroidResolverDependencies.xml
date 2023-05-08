@@ -1,6 +1,9 @@
 <dependencies>
   <packages>
+    <package>com.android.installreferrer:installreferrer:2.1</package>
     <package>com.applovin:applovin-sdk:11.7.1</package>
+    <package>com.appsflyer:af-android-sdk:6.10.3</package>
+    <package>com.appsflyer:unity-wrapper:6.10.30</package>
     <package>com.facebook.android:audience-network-sdk:6.13.7</package>
     <package>com.google.android.gms:play-services-ads:21.5.0</package>
     <package>com.google.android.gms:play-services-ads-identifier:18.0.1</package>
