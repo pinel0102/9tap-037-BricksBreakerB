@@ -61,6 +61,8 @@ namespace NSEngine {
                             
                     }, KCDefine.B_VAL_0_5_REAL);
 
+                    //LogFunc.Send_C_Item_Get(currentLevel - 1, global::KDefine.L_SCENE_N_PLAY, LogFunc.MakeLogItemInfo(CRewardInfoTable.Inst.GetRewardInfo(ERewardKinds.ADS_REWARD_FAIL_CONTINUE).m_oAcquireTargetInfoDict));
+
                     break;
             }
         }

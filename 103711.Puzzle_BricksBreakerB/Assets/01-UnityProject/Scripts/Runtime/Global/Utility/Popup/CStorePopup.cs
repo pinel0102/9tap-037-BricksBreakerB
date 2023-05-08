@@ -244,7 +244,7 @@ public partial class CStorePopup : CSubPopup {
 	private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {
-			// Do Something
+			//
 		}
 
 		this.UpdateUIsState();

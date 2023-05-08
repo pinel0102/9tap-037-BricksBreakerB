@@ -134,7 +134,9 @@ public enum ERewardKinds {
 
 	#region 일일
 	// 100,000,000
-	DAILY_REWARD_SAMPLE = (EEnumVal.T * ERewardType.DAILY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	ADS_REWARD_DAILY_RUBY = (EEnumVal.T * ERewardType.DAILY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+    ADS_REWARD_FAIL_RUBY,
+    ADS_REWARD_FAIL_CONTINUE,
 	#endregion // 일일
 
 	#region 이벤트

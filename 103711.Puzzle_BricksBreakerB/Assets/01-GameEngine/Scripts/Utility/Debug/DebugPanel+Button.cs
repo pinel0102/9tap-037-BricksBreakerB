@@ -91,7 +91,10 @@ public partial class DebugPanel : MonoBehaviour
             Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>[Debug] Level Play : {0}</color>", value));
 
             Func.SetupPlayEpisodeInfo(KDefine.G_CHARACTER_ID_COMMON, value - 1, EPlayMode.NORM);
+
+            LogFunc.Send_I_Scene_Play(value - 1);
             CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
+            CGameInfoStorage.Inst.SetPlayStartingTime(System.DateTime.Now);
         }
     }
 

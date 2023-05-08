@@ -196,7 +196,7 @@ public partial class CDailyRewardPopup : CSubPopup {
 			var oTargetInfoDict = CCollectionManager.Inst.SpawnDict<ulong, STTargetInfo>();
 
 			try {
-				(a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(EItemKinds.GOODS_RUBY, GlobalDefine.RewardRuby_Daily, false, () => { RefreshState(); }, this));
+				(a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(KDefine.L_SCENE_N_MAIN, 0, ERewardKinds.ADS_REWARD_DAILY_RUBY, EItemKinds.GOODS_RUBY, GlobalDefine.RewardRuby_Daily, false, () => { RefreshState(); }, this));
 			} finally {
 				CCollectionManager.Inst.DespawnDict(oTargetInfoDict);
 			}

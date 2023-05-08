@@ -33,7 +33,10 @@ namespace MainScene {
             Debug.Log(CodeManager.GetMethodName() + string.Format(GlobalDefine.FORMAT_INT, shortcutLevel));
 
             Func.SetupPlayEpisodeInfo(KDefine.G_CHARACTER_ID_COMMON, shortcutLevel - 1, EPlayMode.NORM);
+            
+            LogFunc.Send_I_Scene_Play(shortcutLevel - 1);
             CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
+            CGameInfoStorage.Inst.SetPlayStartingTime(System.DateTime.Now);
         }
 
         public void RefreshNameText()

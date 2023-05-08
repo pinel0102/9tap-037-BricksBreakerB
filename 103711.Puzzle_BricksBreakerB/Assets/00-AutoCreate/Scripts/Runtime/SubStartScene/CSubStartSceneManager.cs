@@ -52,6 +52,11 @@ namespace StartScene {
 		protected override void Setup() {
 			base.Setup();
 			this.UpdateUIsState();
+
+            // 로그 전송이 가능 할 경우
+			if(CCommonAppInfoStorage.Inst.AppInfo.AppRunningTimes >= KDefine.L_TIMES_APP_OPEN) {
+				LogFunc.Send_I_App_Open();
+			}
 		}
 
 		/** 시작 씬 이벤트를 수신했을 경우 */

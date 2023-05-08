@@ -212,6 +212,7 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public EPlayMode PlayMode { get; private set; } = EPlayMode.NONE;
 	public STEpisodeInfo PlayEpisodeInfo { get; private set; } = STEpisodeInfo.INVALID;
 	public CLevelInfo PlayLevelInfo { get; private set; } = null;
+    public System.DateTime PlayStartingTime { get; private set; } = System.DateTime.Now;
 
 	public List<EItemKinds> SelItemKindsList { get; } = new List<EItemKinds>();
 	public List<EItemKinds> FreeSelItemKindsList { get; } = new List<EItemKinds>();
@@ -355,6 +356,11 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	/** 플레이 레벨 정보를 변경한다 */
 	public void SetPlayLevelInfo(CLevelInfo a_oLevelInfo) {
 		this.PlayLevelInfo = a_oLevelInfo;
+	}
+
+    /** 플레이 시작 시간을 변경한다 */
+	public void SetPlayStartingTime(System.DateTime a_stTime) {
+		this.PlayStartingTime = a_stTime;
 	}
 
 	/** 레벨 클리어 정보를 추가한다 */

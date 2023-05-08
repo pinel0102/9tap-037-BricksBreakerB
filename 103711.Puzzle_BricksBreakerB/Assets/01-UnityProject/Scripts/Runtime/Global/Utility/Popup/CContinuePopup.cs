@@ -242,7 +242,7 @@ public partial class CContinuePopup : CSubPopup {
 			var oTargetInfoDict = CCollectionManager.Inst.SpawnDict<ulong, STTargetInfo>();
 
 			try {
-				(a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(EItemKinds.GOODS_RUBY, GlobalDefine.RewardRuby_Continue, false, () => { AfterGetReward(); }, this));
+				(a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(KDefine.L_SCENE_N_PLAY, Params.Engine.currentLevel, ERewardKinds.ADS_REWARD_FAIL_RUBY, EItemKinds.GOODS_RUBY, GlobalDefine.RewardRuby_Continue, false, () => { AfterGetReward(); }, this));
 			} finally {
 				CCollectionManager.Inst.DespawnDict(oTargetInfoDict);
 			}

@@ -22,7 +22,10 @@ public partial class CRewardAcquirePopup : CSubPopup {
 	public struct STParams {
 		public System.Action m_oCallback;
         public CPopup parentPopup;
+        public ERewardKinds rewardKinds;
         public EItemKinds kinds;
+        public string sceneName;
+        public int currentLevel;
         public int count;
         public bool isEnableAD;
 	}
@@ -109,6 +112,8 @@ public partial class CRewardAcquirePopup : CSubPopup {
 
 		GlobalDefine.AddItem(Params.kinds, a_bIsWatchRewardAds ? Params.count * KCDefine.B_VAL_2_INT : Params.count);
         
+        //LogFunc.Send_C_Item_Get(Params.currentLevel - 1, Params.sceneName, LogFunc.MakeLogItemInfo(CRewardInfoTable.Inst.GetRewardInfo(Params.rewardKinds).m_oAcquireTargetInfoDict));
+        
         Func.SetupNextFreeRewardID(CGameInfoStorage.Inst.PlayCharacterID);
 
         this.Params.m_oCallback?.Invoke();
@@ -169,9 +174,10 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		};
 	}*/
 
-    public static STParams MakeParams(EItemKinds _kinds, int _count, bool _isEnableAD, System.Action _m_oCallback, CPopup _parentPopup) {
+    public static STParams MakeParams(string _sceneName, int _currentLevel, ERewardKinds _rewardKinds, EItemKinds _kinds, int _count, bool _isEnableAD, System.Action _m_oCallback, CPopup _parentPopup) {
 		return new STParams() {
-			kinds = _kinds, count = _count, isEnableAD = _isEnableAD, m_oCallback = _m_oCallback, parentPopup = _parentPopup
+			sceneName = _sceneName, currentLevel = _currentLevel, rewardKinds = _rewardKinds, 
+            kinds = _kinds, count = _count, isEnableAD = _isEnableAD, m_oCallback = _m_oCallback, parentPopup = _parentPopup
 		};
 	}
 	#endregion // 클래스 함수

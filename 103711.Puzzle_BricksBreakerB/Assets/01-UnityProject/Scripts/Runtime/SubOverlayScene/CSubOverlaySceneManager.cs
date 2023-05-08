@@ -156,8 +156,10 @@ namespace OverlayScene {
 		private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
 			// 결제 되었을 경우
 			if(a_bIsSuccess) {
-				Func.AcquireProduct(a_oProductID);
-				m_oStrDict[EKey.PURCHASE_PRODUCT_ID] = a_oProductID;
+                Func.AcquireProduct(a_oProductID);
+                m_oStrDict[EKey.PURCHASE_PRODUCT_ID] = a_oProductID;
+
+                LogFunc.SendPurchaseLog(CPurchaseManager.Inst.GetProduct(a_oProductID));
 
 #if FIREBASE_MODULE_ENABLE
 				this.ExLateCallFunc((a_oFuncSender) => Func.SaveUserInfo(this.OnSaveUserInfo));

@@ -166,10 +166,16 @@ public partial class CResultPopup : CSubPopup {
             GlobalDefine.PlaySoundFX(ESoundSet.SOUND_LEVEL_CLEAR);
             GlobalDefine.ResultCalculate(Params.Engine);
             StarCalcurate();
+
+            LogFunc.Send_I_Scene_Clear(this.Params.Engine.currentLevel - 1);
+			LogFunc.Send_Playtime_Clear(this.Params.Engine.currentLevel - 1, (System.DateTime.Now - CGameInfoStorage.Inst.PlayStartingTime).TotalSeconds);
         }
         else
         {
             GlobalDefine.PlaySoundFX(ESoundSet.SOUND_LEVEL_FAIL);
+
+            LogFunc.Send_I_Scene_Fail(this.Params.Engine.currentLevel - 1);
+			LogFunc.Send_Playtime_Fail(this.Params.Engine.currentLevel - 1, (System.DateTime.Now - CGameInfoStorage.Inst.PlayStartingTime).TotalSeconds);
         }
         
 		this.SubUpdateUIsState();
@@ -221,8 +227,9 @@ public partial class CResultPopup : CSubPopup {
                 {
                     if (currentRewardStar < GlobalDefine.starRewardPoint[i] && newStar >= GlobalDefine.starRewardPoint[i])
                     {
-                        GlobalDefine.AddItem(GlobalDefine.starReward[currentPhase][i].Key, GlobalDefine.starReward[currentPhase][i].Value);
                         GlobalDefine.PlaySoundFX(ESoundSet.SOUND_GET_STAR);
+                        GlobalDefine.AddItem(GlobalDefine.starReward[currentPhase][i].Key, GlobalDefine.starReward[currentPhase][i].Value);
+                        LogFunc.Send_C_Item_Get(Params.Engine.currentLevel - 1, KDefine.L_SCENE_N_PLAY, LogFunc.MakeLogItemInfo(GlobalDefine.starReward[currentPhase][i].Key, GlobalDefine.starReward[currentPhase][i].Value));
                     }
                 }
                 
@@ -243,8 +250,9 @@ public partial class CResultPopup : CSubPopup {
                 float endFillAmount = ((float)newStar / (float)GlobalDefine.starRewardPoint[2]);
 
                 // get 3rd reward
-                GlobalDefine.AddItem(GlobalDefine.starReward[currentPhase][2].Key, GlobalDefine.starReward[currentPhase][2].Value);
                 GlobalDefine.PlaySoundFX(ESoundSet.SOUND_GET_STAR);
+                GlobalDefine.AddItem(GlobalDefine.starReward[currentPhase][2].Key, GlobalDefine.starReward[currentPhase][2].Value);
+                LogFunc.Send_C_Item_Get(Params.Engine.currentLevel - 1, KDefine.L_SCENE_N_PLAY, LogFunc.MakeLogItemInfo(GlobalDefine.starReward[currentPhase][2].Key, GlobalDefine.starReward[currentPhase][2].Value));
 
                 Debug.Log(CodeManager.GetMethodName() + string.Format("Change Phase : {0} -> {1}", currentPhase, newPhase));
                 Debug.Log(CodeManager.GetMethodName() + string.Format("Phase : {0} / RewardStar : {1}", newPhase, newStar));
@@ -253,8 +261,9 @@ public partial class CResultPopup : CSubPopup {
                 {
                     if (newStar >= GlobalDefine.starRewardPoint[i])
                     {
-                        GlobalDefine.AddItem(GlobalDefine.starReward[newPhase][i].Key, GlobalDefine.starReward[newPhase][i].Value);
                         GlobalDefine.PlaySoundFX(ESoundSet.SOUND_GET_STAR);
+                        GlobalDefine.AddItem(GlobalDefine.starReward[newPhase][i].Key, GlobalDefine.starReward[newPhase][i].Value);
+                        LogFunc.Send_C_Item_Get(Params.Engine.currentLevel - 1, KDefine.L_SCENE_N_PLAY, LogFunc.MakeLogItemInfo(GlobalDefine.starReward[currentPhase][i].Key, GlobalDefine.starReward[currentPhase][i].Value));
                     }
                 }
 
@@ -286,56 +295,41 @@ public partial class CResultPopup : CSubPopup {
 
 	/** 다음 버튼을 눌렀을 경우 */
 	public void OnTouchNextBtn() {
+
+        // 클리어 상태 일 경우
+		if(this.Params.m_stRecordInfo.m_bIsSuccess) {
+			LogFunc.Send_C_Scene_Clear(this.Params.Engine.currentLevel - 1, $"{ECallback.NEXT}");
+		} else {
+			LogFunc.Send_C_Scene_Fail(this.Params.Engine.currentLevel - 1, $"{ECallback.NEXT}");
+		}
+
         this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.NEXT)?.Invoke(this);
-        /*if (GlobalDefine.isLevelEditor)
-        {
-            this.OnAdsFinished(ECallback.NEXT);
-        }
-        else
-        {
-#if ADS_MODULE_ENABLE && !UNITY_EDITOR && !UNITY_STANDALONE
-		    Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => OnAdsFinished(ECallback.NEXT));
-#else
-            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>ADS TEST</color>"));
-            this.OnAdsFinished(ECallback.NEXT);
-#endif // #if ADS_MODULE_ENABLE
-        }*/
 	}
 
 	/** 재시도 버튼을 눌렀을 경우 */
 	public void OnTouchRetryBtn() {
+
+        // 클리어 상태 일 경우
+		if(this.Params.m_stRecordInfo.m_bIsSuccess) {
+			LogFunc.Send_C_Scene_Clear(this.Params.Engine.currentLevel - 1, $"{ECallback.RETRY}");
+		} else {
+			LogFunc.Send_C_Scene_Fail(this.Params.Engine.currentLevel - 1, $"{ECallback.RETRY}");
+		}
+
         this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.RETRY)?.Invoke(this);
-        /*if (GlobalDefine.isLevelEditor)
-        {
-            this.OnAdsFinished(ECallback.RETRY);
-        }
-        else
-        {
-#if ADS_MODULE_ENABLE && !UNITY_EDITOR && !UNITY_STANDALONE
-		    Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => OnAdsFinished(ECallback.RETRY));
-#else
-            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>ADS TEST</color>"));
-            this.OnAdsFinished(ECallback.RETRY);
-#endif // #if ADS_MODULE_ENABLE
-        }*/
 	}
 
 	/** 나가기 버튼을 눌렀을 경우 */
 	public void OnTouchLeaveBtn() {
+
+        // 클리어 상태 일 경우
+		if(this.Params.m_stRecordInfo.m_bIsSuccess) {
+			LogFunc.Send_C_Scene_Clear(this.Params.Engine.currentLevel - 1, $"{ECallback.LEAVE}");
+		} else {
+			LogFunc.Send_C_Scene_Fail(this.Params.Engine.currentLevel - 1, $"{ECallback.LEAVE}");
+		}
+
         this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.LEAVE)?.Invoke(this);
-        /*if (GlobalDefine.isLevelEditor)
-        {
-            this.OnAdsFinished(ECallback.LEAVE);
-        }
-        else
-        {
-#if ADS_MODULE_ENABLE && !UNITY_EDITOR && !UNITY_STANDALONE
-		    Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => OnAdsFinished(ECallback.LEAVE));
-#else
-            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>ADS TEST</color>"));
-            this.OnAdsFinished(ECallback.LEAVE);
-#endif // #if ADS_MODULE_ENABLE
-        }*/
 	}
 
     public void OnAdsFinished(ECallback callback) 

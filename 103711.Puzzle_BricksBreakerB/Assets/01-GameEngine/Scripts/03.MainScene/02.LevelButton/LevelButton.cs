@@ -64,7 +64,10 @@ public class LevelButton : MonoBehaviour
     {
         GlobalDefine.PlaySoundFX(ESoundSet.SOUND_BUTTON);
         Func.SetupPlayEpisodeInfo(KDefine.G_CHARACTER_ID_COMMON, level - 1, EPlayMode.NORM);
+
+        LogFunc.Send_I_Scene_Play(level - 1);
         CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
+        CGameInfoStorage.Inst.SetPlayStartingTime(System.DateTime.Now);
     }
 
     private void SetButton()

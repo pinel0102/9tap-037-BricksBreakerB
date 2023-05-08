@@ -78,6 +78,8 @@ namespace GameScene {
                     GlobalDefine.SaveUserData();
                 }
             }
+
+            LogFunc.Send_C_Item_Use(Engine.currentLevel - 1, KDefine.L_SCENE_N_PLAY, LogFunc.MakeLogItemInfo(EItemKinds.GAME_ITEM_01_EARTHQUAKE, 1));
             
             float damageRatio = 0.4f;
 
@@ -125,6 +127,8 @@ namespace GameScene {
                 }
             }
 
+            LogFunc.Send_C_Item_Use(Engine.currentLevel - 1, KDefine.L_SCENE_N_PLAY, LogFunc.MakeLogItemInfo(EItemKinds.GAME_ITEM_02_ADD_BALLS, 1));
+
             int addCount = 30;
 
             Engine.AddNormalBallsOnce(Engine.startPosition, addCount, false);
@@ -158,6 +162,8 @@ namespace GameScene {
                     GlobalDefine.SaveUserData();
                 }
             }
+
+            LogFunc.Send_C_Item_Use(Engine.currentLevel - 1, KDefine.L_SCENE_N_PLAY, LogFunc.MakeLogItemInfo(EItemKinds.GAME_ITEM_03_BRICKS_DELETE, 1));
 
             var lastClearTarget = Engine.GetLastClearTarget();
             if (lastClearTarget != null)
@@ -202,6 +208,8 @@ namespace GameScene {
                 }
             }
 
+            LogFunc.Send_C_Item_Use(Engine.currentLevel - 1, KDefine.L_SCENE_N_PLAY, LogFunc.MakeLogItemInfo(EItemKinds.GAME_ITEM_04_ADD_LASER_BRICKS, 1));
+
             int addCount = 4;
 
             var targetList = Engine.GetRandomEmptyCells(Mathf.Max(0, Engine.viewSize.y - Engine.viewSize.x), Engine.viewSize.y, addCount);
@@ -241,6 +249,8 @@ namespace GameScene {
                 }
             }
 
+            LogFunc.Send_C_Item_Use(Engine.currentLevel - 1, KDefine.L_SCENE_N_PLAY, LogFunc.MakeLogItemInfo(EItemKinds.GAME_ITEM_05_ADD_STEEL_BRICKS, 1));
+
             int addCount = Mathf.CeilToInt(Engine.viewSize.x / 2f) - 1;
 
             var targetList = Engine.GetBottomEmptyCells(addCount, Engine.SelBallObj.transform.position.x < 0);
@@ -268,6 +278,7 @@ namespace GameScene {
         private void PurchaseBottomItem()
         {
             GlobalDefine.AddRuby(-GlobalDefine.CostRuby_BottomItem);
+            LogFunc.Send_C_Item_Use(Engine.currentLevel - 1, KDefine.L_SCENE_N_PLAY, LogFunc.MakeLogItemInfo(EItemKinds.GOODS_RUBY, GlobalDefine.CostRuby_BottomItem));
         }
 
         private void OpenPopup_Store()

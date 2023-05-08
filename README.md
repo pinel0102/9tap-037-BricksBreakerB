@@ -17,7 +17,6 @@ Puzzle - BricksBreakerB 클라이언트 프로젝트
    - External Dependency Manager : 1.2.176
    - AppsFlyer : 6.10.30
    - Firebase : 10.7.0
-   - //Flurry : 6.0.2
    - //Facebook : 16.0.0
    - IronSource : 7.3.0.1
    - In App Purchasing : 4.8.0
@@ -29,8 +28,12 @@ Puzzle - BricksBreakerB 클라이언트 프로젝트
 # ChangeLog
 
 <details>
-<summary markdown="span"><em>last update : 0.1.0</em></summary>
+<summary markdown="span"><em>last update : 1.0.0</em></summary>
 <br>
+
+---
++ 1.0.0
+   - 정식 버전 출시
 
 ---
 + 0.0.15

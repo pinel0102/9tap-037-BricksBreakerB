@@ -334,6 +334,7 @@ public static partial class Func {
 
 	/** 보상 광고를 출력한다 */
 	public static void ShowRewardAds(System.Action<CAdsManager, STAdsRewardInfo, bool> a_oCallback) {
+        LogFunc.Send_I_Ad_Rewerd_View();
 		Func.ShowRewardAds(CPluginInfoTable.Inst.AdsPlatform, a_oCallback);
 	}
 
@@ -357,6 +358,7 @@ public static partial class Func {
 
 	/** 전면 광고를 출력한다 */
 	public static void ShowFullscreenAds(System.Action<CAdsManager, bool> a_oCallback) {
+        LogFunc.Send_I_Ad_Interstitial_View();
 		Func.ShowFullscreenAds(CPluginInfoTable.Inst.AdsPlatform, a_oCallback);
 	}
 

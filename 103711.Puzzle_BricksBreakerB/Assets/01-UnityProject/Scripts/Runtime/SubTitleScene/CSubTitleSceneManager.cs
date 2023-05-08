@@ -203,6 +203,7 @@ namespace TitleScene {
 		private void UpdateFirstStartState() {
 			LogFunc.SendLaunchLog();
 			LogFunc.SendSplashLog();
+            LogFunc.SendUserLog();
 
 			CCommonAppInfoStorage.Inst.SetFirstStart(false);
 		}

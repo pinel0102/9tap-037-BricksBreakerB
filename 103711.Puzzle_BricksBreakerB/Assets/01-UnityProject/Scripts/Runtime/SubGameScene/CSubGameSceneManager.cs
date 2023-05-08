@@ -337,10 +337,6 @@ namespace GameScene {
                     //Debug.Log(CodeManager.GetMethodName() + string.Format("Access.GetNumLevelClearInfos() : {0}", Access.GetNumLevelClearInfos(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03)));
                     //Debug.Log(CodeManager.GetMethodName() + string.Format("PlayCharacterID : {0} / m_stIDInfo.m_nID02 : {1} / m_stIDInfo.m_nID03 : {2}", CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03));
 					
-                    // 레벨 로드가 가능 할 경우
-					//if(a_stEpisodeInfo.m_stIDInfo.m_nID01 > KCDefine.B_IDX_INVALID && a_stEpisodeInfo.m_stIDInfo.m_nID01 <= Access.GetNumLevelClearInfos(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03)) {
-                    //  Func.SetupPlayEpisodeInfo(CGameInfoStorage.Inst.PlayCharacterID, a_stEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayMode, a_stEpisodeInfo.m_stIDInfo.m_nID02, a_stEpisodeInfo.m_stIDInfo.m_nID03);
-                    
                     if (m_oEngine.currentLevel < CLevelInfoTable.Inst.levelCount)
                     {
                         Debug.Log(CodeManager.GetMethodName() + string.Format(GlobalDefine.FORMAT_INT, m_oEngine.currentLevel + 1));
@@ -348,9 +344,15 @@ namespace GameScene {
                         Func.SetupPlayEpisodeInfo(CGameInfoStorage.Inst.PlayCharacterID, (int)CGameInfoStorage.Inst.PlayLevelInfo.ULevelID + 1, CGameInfoStorage.Inst.PlayMode);
 
 #if ADS_MODULE_ENABLE
-						Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME));
+						Func.ShowFullscreenAds((a_oSender, a_bIsSuccess) => {
+                            LogFunc.Send_I_Scene_Play((int)CGameInfoStorage.Inst.PlayLevelInfo.ULevelID + 1);
+                            CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
+                            CGameInfoStorage.Inst.SetPlayStartingTime(System.DateTime.Now);
+                        });
 #else
+                        LogFunc.Send_I_Scene_Play((int)CGameInfoStorage.Inst.PlayLevelInfo.ULevelID + 1);
 						CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_GAME);
+                        CGameInfoStorage.Inst.SetPlayStartingTime(System.DateTime.Now);
 #endif // #if ADS_MODULE_ENABLE
 					} else {
 						this.LeavePlayLevel(a_oPopup);

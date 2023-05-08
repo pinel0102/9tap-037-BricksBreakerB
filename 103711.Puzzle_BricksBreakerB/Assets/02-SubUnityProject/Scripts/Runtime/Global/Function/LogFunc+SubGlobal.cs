@@ -184,6 +184,26 @@ public static partial class LogFunc {
 
 		return stLogItemInfo;
 	}
+
+    public static STLogItemInfo MakeLogItemInfo(EItemKinds kinds, int count) {
+		var stLogItemInfo = new STLogItemInfo();
+
+		switch((EItemKinds)kinds) {
+            case EItemKinds.GOODS_RUBY: stLogItemInfo.m_nNumCoins = count; break;
+
+            case EItemKinds.GAME_ITEM_01_EARTHQUAKE: stLogItemInfo.m_nGameItem01 = count; break;
+            case EItemKinds.GAME_ITEM_02_ADD_BALLS: stLogItemInfo.m_nGameItem02 = count; break;
+            case EItemKinds.GAME_ITEM_03_BRICKS_DELETE: stLogItemInfo.m_nGameItem03 = count; break;
+            case EItemKinds.GAME_ITEM_04_ADD_LASER_BRICKS: stLogItemInfo.m_nGameItem04 = count; break;
+            case EItemKinds.GAME_ITEM_05_ADD_STEEL_BRICKS: stLogItemInfo.m_nGameItem05 = count; break;
+
+            case EItemKinds.BOOSTER_ITEM_01_MISSILE: stLogItemInfo.m_nBoosterItem01 = count; break;
+            case EItemKinds.BOOSTER_ITEM_02_LIGHTNING: stLogItemInfo.m_nBoosterItem02 = count; break;
+            case EItemKinds.BOOSTER_ITEM_03_BOMB: stLogItemInfo.m_nBoosterItem03 = count; break;
+        }
+
+		return stLogItemInfo;
+	}
 	#endregion // 클래스 함수
 }
 #endif // #if EXTRA_SCRIPT_MODULE_ENABLE
