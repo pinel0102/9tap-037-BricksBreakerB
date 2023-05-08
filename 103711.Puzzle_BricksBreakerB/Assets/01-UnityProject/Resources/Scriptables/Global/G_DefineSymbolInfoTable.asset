@@ -39,7 +39,6 @@ MonoBehaviour:
   - FIREBASE_CRASHLYTICS_ENABLE
   - FLURRY_ANALYTICS_DISABLE
   - APPS_FLYER_ANALYTICS_ENABLE
-  - ANALYTICS_TEST_ENABLE
   m_oiOSAppleDefineSymbolList: []
   m_oAndroidDefineSymbolList: []
   m_oAndroidGoogleDefineSymbolList: []
