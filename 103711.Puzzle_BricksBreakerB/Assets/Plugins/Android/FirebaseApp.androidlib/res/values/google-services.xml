@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_web_client_id">
+  <string name="gcm_defaultSenderId" translatable="false">891532496724</string>
+  <string name="google_storage_bucket" translatable="false">brick-breaker---shoot-the-ball.appspot.com</string>
+  <string name="project_id" translatable="false">brick-breaker---shoot-the-ball</string>
+  <string name="google_api_key" translatable="false">AIzaSyDJ6ZZHcd6g09mM0TnRW53c4kq3sKXSSv4</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDJ6ZZHcd6g09mM0TnRW53c4kq3sKXSSv4</string>
+  <string name="google_app_id" translatable="false">1:891532496724:android:7ffabb49aa3b16827982c1</string>
+  <string name="default_web_client_id" translatable="false">891532496724-jcrrlioks0t40fq9qdtuihkmv39m491b.apps.googleusercontent.com</string>
+</resources>

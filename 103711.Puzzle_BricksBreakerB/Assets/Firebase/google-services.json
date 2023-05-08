@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "891532496724",
+    "project_id": "brick-breaker---shoot-the-ball",
+    "storage_bucket": "brick-breaker---shoot-the-ball.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:891532496724:android:7ffabb49aa3b16827982c1",
+        "android_client_info": {
+          "package_name": "com.ninetap.brickbreaker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "891532496724-jcrrlioks0t40fq9qdtuihkmv39m491b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJ6ZZHcd6g09mM0TnRW53c4kq3sKXSSv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "891532496724-jcrrlioks0t40fq9qdtuihkmv39m491b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
