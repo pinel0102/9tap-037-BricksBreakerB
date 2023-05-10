@@ -229,6 +229,9 @@ namespace NSEngine {
                     break;
             }
 
+            if (!this.GetOwner<CEObj>().IsActiveCell())
+                return;
+
             if (hitCoroutine != null)
                 StopCoroutine(hitCoroutine);
             
@@ -237,6 +240,9 @@ namespace NSEngine {
 
         public void HitEffectNoSound()
         {
+            if (!this.GetOwner<CEObj>().IsActiveCell())
+                return;
+            
             if (hitCoroutine != null)
                 StopCoroutine(hitCoroutine);
             

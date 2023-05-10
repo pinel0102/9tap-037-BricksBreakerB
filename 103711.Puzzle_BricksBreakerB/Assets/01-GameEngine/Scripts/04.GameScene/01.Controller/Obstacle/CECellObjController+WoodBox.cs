@@ -8,6 +8,9 @@ namespace NSEngine {
 
         private void GetObstacle_WoodBox(EObjKinds kindsType, EObjKinds kinds, int _ATK = KCDefine.B_VAL_1_INT)
         {
+            if (!ExtraObjKindsList.ExIsValid())
+                return;
+            
             //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kinds));
             
             switch(kinds)

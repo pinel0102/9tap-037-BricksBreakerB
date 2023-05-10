@@ -8,7 +8,7 @@ namespace NSEngine {
 
         private void GetObstacle_Wormhole(CEBallObjController ballController, EObjKinds kindsType, EObjKinds kinds, int _ATK = KCDefine.B_VAL_1_INT)
         {
-            if (ballController.usedWormholes.Contains(this))
+            if (ballController.usedWormholes.Contains(this) || !ExtraObjKindsList.ExIsValid())
                 return;
 
             //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", kindsType));
