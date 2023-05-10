@@ -53,7 +53,7 @@ public partial class CUserInfo : CBaseInfo
 
     [IgnoreMember]
 	public bool Settings_DarkMode {
-		get { return bool.Parse(m_oStrDict.GetValueOrDefault(KEY_SETTINGS_DARKMODE, GlobalDefine.STRING_FALSE)); }
+		get { return bool.Parse(m_oStrDict.GetValueOrDefault(KEY_SETTINGS_DARKMODE, GlobalDefine.STRING_TRUE)); }
 		set { m_oStrDict.ExReplaceVal(KEY_SETTINGS_DARKMODE, $"{(bool)value}"); }
 	}
 
