@@ -15,7 +15,7 @@ public static class ProjectManager
     // 6. 완료 후 APK를 빌드하면 기존 앱과 별개로 설치된다.
     public const string projectName = "103711.Puzzle_BricksBreakerB";
     public const string appIdentifier = "com.ninetap.brickbreaker";
-    public const string appStoreConnectId = "1610049465";
+    public const string appStoreConnectId = "6449016807";
     public const string appStoreAppId = "Ninetap";
 
 #if UNITY_ANDROID
