@@ -385,11 +385,11 @@ PlayerSettings:
     Standalone: com.ninetap.brickbreaker
     iPhone: com.ninetap.brickbreaker
   buildNumber:
-    Standalone: 25
-    iPhone: 25
+    Standalone: 26
+    iPhone: 26
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
-  AndroidBundleVersionCode: 25
+  AndroidBundleVersionCode: 26
   AndroidMinSdkVersion: 22
   AndroidTargetSdkVersion: 31
   AndroidPreferredInstallLocation: 1
