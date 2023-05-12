@@ -24,8 +24,8 @@ MonoBehaviour:
   m_stiOSBuildInfo:
     m_oTeamID: A9997B8HR5
     m_oTargetOSVer: 12.0
-    m_oDevProfileID: 
-    m_oStoreProfileID: 
+    m_oDevProfileID: 543745a5-35c4-40db-a74e-44b4e3ce701c
+    m_oStoreProfileID: 9140a454-c146-4ce4-9411-51485141ca66
   m_stAndroidBuildInfo:
     m_oKeystorePath: Keystore.keystore
     m_oKeyaliasName: Keystore
