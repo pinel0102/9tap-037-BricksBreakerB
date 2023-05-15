@@ -16,7 +16,7 @@ Puzzle - BricksBreakerB 클라이언트 프로젝트
 + UnityPackage Version
    - External Dependency Manager : 1.2.176
    - AppsFlyer : 6.10.30
-   - Firebase : 10.7.0
+   - Firebase : 11.0.0
    - Facebook : 16.0.0
    - IronSource : 7.3.0.1
    - In App Purchasing : 4.8.0

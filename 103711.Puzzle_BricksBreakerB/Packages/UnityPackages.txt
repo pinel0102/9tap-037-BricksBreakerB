@@ -1,5 +1,5 @@
-FirebaseAnalytics_10.7.0.unitypackage
-FirebaseCrashlytics_10.7.0.unitypackage
+FirebaseAnalytics_11.0.0.unitypackage
+FirebaseCrashlytics_11.0.0.unitypackage
 IronSource_IntegrationManager_v7.3.0.1.unitypackage
 appsflyer-unity-plugin-6.10.30.unitypackage
 external-dependency-manager-1.2.176.unitypackage
