@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "891532496724",
+    "firebase_url": "https://brick-breaker---shoot-the-ball-default-rtdb.firebaseio.com",
     "project_id": "brick-breaker---shoot-the-ball",
     "storage_bucket": "brick-breaker---shoot-the-ball.appspot.com"
   },
@@ -29,6 +30,14 @@
             {
               "client_id": "891532496724-jcrrlioks0t40fq9qdtuihkmv39m491b.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "891532496724-cv7rsmil51mrlip6b07j8pm4si4da6g2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ninetap.brickbreaker",
+                "app_store_id": "6449016807"
+              }
             }
           ]
         }

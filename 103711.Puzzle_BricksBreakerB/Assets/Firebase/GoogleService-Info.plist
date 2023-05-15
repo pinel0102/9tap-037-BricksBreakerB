@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>891532496724-h8mhjoec05184pj3qhkt67r0oqg7eiql.apps.googleusercontent.com</string>
+	<string>891532496724-cv7rsmil51mrlip6b07j8pm4si4da6g2.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.891532496724-h8mhjoec05184pj3qhkt67r0oqg7eiql</string>
+	<string>com.googleusercontent.apps.891532496724-cv7rsmil51mrlip6b07j8pm4si4da6g2</string>
 	<key>API_KEY</key>
 	<string>AIzaSyAzWUcUM4HAHMHICq98kuO4uav7GM8A2k8</string>
 	<key>GCM_SENDER_ID</key>
@@ -30,5 +30,7 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:891532496724:ios:1d34bc91e69aceee7982c1</string>
+	<key>DATABASE_URL</key>
+	<string>https://brick-breaker---shoot-the-ball-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>
