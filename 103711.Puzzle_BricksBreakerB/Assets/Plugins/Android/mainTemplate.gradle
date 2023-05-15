@@ -36,7 +36,7 @@ dependencies {
     implementation 'com.applovin:applovin-sdk:11.7.1' // Assets/IronSource/Editor/ISAppLovinAdapterDependencies.xml:15
     implementation 'com.appsflyer:af-android-sdk:6.10.3' // Assets/AppsFlyer/Editor/AppsFlyerDependencies.xml:6
     implementation 'com.appsflyer:unity-wrapper:6.10.30' // Assets/AppsFlyer/Editor/AppsFlyerDependencies.xml:8
-    implementation 'com.facebook.android:audience-network-sdk:6.13.7' // Assets/IronSource/Editor/ISFacebookAdapterDependencies.xml:8
+    implementation 'com.facebook.android:audience-network-sdk:6.14.0' // Assets/IronSource/Editor/ISFacebookAdapterDependencies.xml:8
     implementation 'com.facebook.android:facebook-applinks:[16.0,17)' // Assets/FacebookSDK/Plugins/Editor/Dependencies.xml:6
     implementation 'com.facebook.android:facebook-core:[16.0,17)' // Assets/FacebookSDK/Plugins/Editor/Dependencies.xml:5
     implementation 'com.facebook.android:facebook-gamingservices:[16.0,17)' // Assets/FacebookSDK/Plugins/Editor/Dependencies.xml:9
@@ -54,7 +54,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics-unity:10.7.0' // Assets/Firebase/Editor/CrashlyticsDependencies.xml:20
     implementation 'com.ironsource.adapters:admobadapter:4.3.36' // Assets/IronSource/Editor/ISAdMobAdapterDependencies.xml:16
     implementation 'com.ironsource.adapters:applovinadapter:4.3.37' // Assets/IronSource/Editor/ISAppLovinAdapterDependencies.xml:8
-    implementation 'com.ironsource.adapters:facebookadapter:4.3.40' // Assets/IronSource/Editor/ISFacebookAdapterDependencies.xml:16
+    implementation 'com.ironsource.adapters:facebookadapter:4.3.41' // Assets/IronSource/Editor/ISFacebookAdapterDependencies.xml:16
     implementation 'com.ironsource.adapters:unityadsadapter:4.3.28' // Assets/IronSource/Editor/ISUnityAdsAdapterDependencies.xml:8
     implementation 'com.ironsource.adapters:vungleadapter:4.3.20' // Assets/IronSource/Editor/ISVungleAdapterDependencies.xml:16
     implementation 'com.ironsource.sdk:mediationsdk:7.3.0.1' // Assets/IronSource/Editor/IronSourceSDKDependencies.xml:9
