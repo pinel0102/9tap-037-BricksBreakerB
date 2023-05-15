@@ -3,7 +3,7 @@
 Puzzle - BricksBreakerB 클라이언트 프로젝트
 
 + aOS : [Brick Breaker - Shoot the Ball](https://play.google.com/store/apps/details?id=com.ninetap.brickbreaker&hl=en&gl=US)
-+ iOS : [Brick Breaker - Shoot the Ball](https://apps.apple.com/app/id1610049465)
++ iOS : [Brick Breaker - Shoot the Ball](https://apps.apple.com/app/id6449016807)
 
 <br>
 
