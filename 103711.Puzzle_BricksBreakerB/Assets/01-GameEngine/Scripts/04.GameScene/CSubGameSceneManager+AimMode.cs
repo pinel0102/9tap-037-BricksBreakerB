@@ -81,7 +81,19 @@ namespace GameScene {
             }
             else
             {
-                GlobalDefine.OpenShop();
+                //GlobalDefine.OpenShop();
+                CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.PurchaseProduct(EProductKinds.SINGLE_PRODUCT_GOLDEN_AIM, this.OnPurchaseProduct);
+            }
+        }
+
+        private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) 
+        {
+            // 결제 되었을 경우
+            if(a_bIsSuccess) 
+            {
+                GlobalDefine.SetGoldenAim(true);
+                m_oEngine.ToggleAimLayer();
+                RefreshGoldenAimButton();
             }
         }
 
