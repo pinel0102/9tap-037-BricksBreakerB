@@ -41,6 +41,7 @@ public partial class CPreviewPopup : CSubPopup {
     public Button buttonPlayAD;
 
     [Header("★ [Reference] Booster")]
+    public GameObject leaveButton;
     public List<Button> buttonBooster = new List<Button>();
     public List<Button> boosterLock = new List<Button>();
     public List<GameObject> boosterOn = new List<GameObject>();
@@ -274,6 +275,7 @@ public partial class CPreviewPopup : CSubPopup {
         Params.Engine.SetAimLayer(true);
         Params.Engine.subGameSceneManager.RefreshGoldenAimButton();
         
+        leaveButton.SetActive(false);
         goldenAimButton.gameObject.SetActive(false);
         goldenAimOK.SetActive(true);
     }

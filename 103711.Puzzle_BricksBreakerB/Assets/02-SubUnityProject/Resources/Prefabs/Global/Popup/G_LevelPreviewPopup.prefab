@@ -7540,6 +7540,7 @@ MonoBehaviour:
   - {fileID: 2908451205969571552}
   - {fileID: 3578806163825137452}
   buttonPlayAD: {fileID: 5365733478802762407}
+  leaveButton: {fileID: 2866747035497696495}
   buttonBooster:
   - {fileID: 8378872187176382493}
   - {fileID: 968826919910551255}
