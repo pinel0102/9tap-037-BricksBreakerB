@@ -28,7 +28,7 @@ MonoBehaviour:
   excludeFiles:
   - StringData.csv
   currentGroup: 7
-  currentTarget: 13
+  currentTarget: 9
   isBuildEditorScene: 0
   buildTargetGroup: 7
   buildTarget: 13
