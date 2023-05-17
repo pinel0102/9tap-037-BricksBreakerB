@@ -26,7 +26,7 @@ namespace FlurrySDKInternal
 {
     public class FlurryAgentIOS : FlurryAgent
     {
-        static FlurrySDK.Flurry.IFlurryPublisherSegmentationListener _publisherSegmentationListener;
+        static FlurrySDK.Flurry.IPublisherSegmentationListener _publisherSegmentationListener;
         static FlurrySDK.Flurry.IMessagingListener _messagingListener;
 
         public FlurryAgentIOS()

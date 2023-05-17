@@ -260,7 +260,7 @@ public partial class CPurchaseManager : CSingleton<CPurchaseManager>, IDetailedS
 
 			oStoreExtension.RestoreTransactions(this.OnRestoreProducts);
 #else
-			this.OnRestoreProducts(true);
+			this.OnRestoreProducts(true, string.Empty);
 #endif // #if UNITY_IOS || (UNITY_ANDROID && ANDROID_GOOGLE_PLATFORM)
 		} else {
 			CFunc.Invoke(ref a_oCallback, this, null, false);
@@ -317,7 +317,7 @@ public partial class CPurchaseManager : CSingleton<CPurchaseManager>, IDetailedS
 	}
 
 	/** 상품이 복원 되었을 경우 */
-	private void OnRestoreProducts(bool a_bIsSuccess) {
+	private void OnRestoreProducts(bool a_bIsSuccess, string errorMsg) {
 		CFunc.ShowLog($"CPurchaseManager.OnRestoreProducts: {a_bIsSuccess}", KCDefine.B_LOG_COLOR_PLUGIN);
 
 		CScheduleManager.Inst.AddCallback(KCDefine.U_KEY_PURCHASE_M_RESTORE_CALLBACK, () => {
@@ -334,12 +334,16 @@ public partial class CPurchaseManager : CSingleton<CPurchaseManager>, IDetailedS
 					this.RemovePurchaseProductID(m_oStoreController.products.all[i].definition.id);
 				}
 			}
+            else
+            {
+                CFunc.ShowLog(string.Format("errorMsg : {0}", errorMsg), KCDefine.B_LOG_COLOR_PLUGIN);
+            }
 
 			m_oCallbackDict02.GetValueOrDefault(EPurchaseCallback.RESTORE)?.Invoke(this, oProductList, a_bIsSuccess && oProductList.ExIsValid());
 		});
 	}
 
-	/** 결제 상품 식별자를 추가한다 */
+    /** 결제 상품 식별자를 추가한다 */
 	private void AddPurchaseProductID(string a_oID) {
 		m_oPurchaseProductIDList.ExAddVal(a_oID);
 		this.SavePurchaseProductIDs(m_oPurchaseProductIDList);
