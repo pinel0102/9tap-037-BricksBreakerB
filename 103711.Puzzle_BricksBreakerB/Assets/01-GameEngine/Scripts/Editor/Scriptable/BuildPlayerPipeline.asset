@@ -27,8 +27,8 @@ MonoBehaviour:
   - LevelData
   excludeFiles:
   - StringData.csv
-  currentGroup: 4
-  currentTarget: 13
+  currentGroup: 7
+  currentTarget: 9
   isBuildEditorScene: 0
   buildTargetGroup: 7
   buildTarget: 13

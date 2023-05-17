@@ -8,6 +8,16 @@ using UnityEngine.Events;
 public partial class CSizeCorrector : CComponent {
 	#region 변수
 	[SerializeField] private Vector3 m_stSizeRate = Vector3.one;
+    private Vector3 canvasArea = Vector3.zero;
+    private float screenHeightDevice;
+    private float safeHeightDevice;
+    private float notchSizeTopDevice;
+    private float notchSizeBottomDevice;
+    private float screenHeightCanvas;
+    private float safeHeightCanvas;
+    private float notchSizeTopCanvas;
+    private float notchSizeBottomCanvas;
+    private float positionOffset;
 	#endregion // 변수
 
 	#region 함수
@@ -20,8 +30,46 @@ public partial class CSizeCorrector : CComponent {
 	/** 초기화 */
 	public override void Start() {
 		base.Start();
-		this.SetSizeRate(m_stSizeRate);
+
+        GetNotchSize_Device();
+        GetNotchSize_Canvas((float)KCDefine.B_PORTRAIT_SCREEN_HEIGHT);
+        SetCanvasArea();
+
+        this.SetSizeRate(m_stSizeRate);
 	}
+
+    private void GetNotchSize_Device()
+    {
+        var safeRect = Screen.safeArea;
+        
+        // [iPhone X] (1125 x 2436)
+        // Screen.safeArea = Rect (0, 102, 1125, 2202)
+        
+		screenHeightDevice = Screen.height; // [iPhone X] 2436
+        safeHeightDevice = safeRect.height; // [iPhone X] 2202
+        notchSizeTopDevice = screenHeightDevice - (safeRect.y + safeRect.height); // [iPhone X] 132
+        notchSizeBottomDevice = safeRect.y; // [iPhone X] 102
+    }
+
+    private void GetNotchSize_Canvas(float canvasHeight)
+    {
+        float ratio = (canvasHeight / screenHeightDevice);
+
+        screenHeightCanvas = screenHeightDevice * ratio;
+        safeHeightCanvas = safeHeightDevice * ratio;
+        notchSizeTopCanvas = notchSizeTopDevice * ratio;
+        notchSizeBottomCanvas = notchSizeBottomDevice * ratio;
+    }
+
+    private void SetCanvasArea()
+    {
+        canvasArea = new Vector3(CSceneManager.CanvasSize.x, CSceneManager.CanvasSize.y - (notchSizeTopCanvas + notchSizeBottomCanvas), 0);
+        
+        //positionOffset = (notchSizeTopCanvas - notchSizeBottomCanvas) * 0.5f;
+        //this.transform.localPosition = new Vector3(this.transform.localPosition.x, this.transform.localPosition.y - positionOffset, this.transform.localPosition.z);
+
+        //CFunc.ShowLog(string.Format("canvasArea : {0} / positionOffset : {1}", canvasArea, positionOffset));
+    }
     
 #if !UNITY_STANDALONE && !UNITY_STANDALONE_OSX
 	/** 상태를 갱신한다 */
@@ -30,7 +78,7 @@ public partial class CSizeCorrector : CComponent {
 
 		// 앱이 실행 중 일 경우
 		if(CSceneManager.IsAppRunning) {
-			var stSize = CSceneManager.CanvasSize.ExGetScaleVec(m_stSizeRate);
+			var stSize = canvasArea.ExGetScaleVec(m_stSizeRate);
 			(this.transform as RectTransform).SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, stSize.x);
 			(this.transform as RectTransform).SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, stSize.y);
 		}

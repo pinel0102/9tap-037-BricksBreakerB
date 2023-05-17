@@ -95,11 +95,11 @@ public static partial class CAccess {
 
 	public static Rect SafeArea {
 		get {
-#if UNITY_EDITOR
-			return new Rect(KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL, Camera.main.pixelWidth, Camera.main.pixelHeight);
-#else
+//#if UNITY_EDITOR
+//			return new Rect(KCDefine.B_VAL_0_REAL, KCDefine.B_VAL_0_REAL, Camera.main.pixelWidth, Camera.main.pixelHeight);
+//#else
 			return Screen.safeArea;
-#endif // #if UNITY_EDITOR
+//#endif // #if UNITY_EDITOR
 		}
 	}
 
