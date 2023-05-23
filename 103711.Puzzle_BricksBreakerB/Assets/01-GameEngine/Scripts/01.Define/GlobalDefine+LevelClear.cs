@@ -57,7 +57,7 @@ public static partial class GlobalDefine
     {
         int level = Engine.currentLevel - 1;
 
-        Debug.Log(CodeManager.GetMethodName() + level);
+        Debug.Log(CodeManager.GetMethodName() + Engine.currentLevel);
 
         starIncrease = 0;
 

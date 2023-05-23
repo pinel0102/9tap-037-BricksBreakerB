@@ -169,6 +169,8 @@ public partial class CResultPopup : CSubPopup {
 
             LogFunc.Send_I_Scene_Clear(this.Params.Engine.currentLevel - 1);
 			LogFunc.Send_Playtime_Clear(this.Params.Engine.currentLevel - 1, (System.DateTime.Now - CGameInfoStorage.Inst.PlayStartingTime).TotalSeconds);
+
+            CheckLastLevel(this.Params.Engine.currentLevel);
         }
         else
         {
@@ -209,6 +211,14 @@ public partial class CResultPopup : CSubPopup {
     private void StarCalcurate()
     {
         StartCoroutine(CO_FillGage());
+    }
+
+    private void CheckLastLevel(int level)
+    {
+        if (level == CLevelInfoTable.Inst.levelCount)
+        {
+            Debug.Log(CodeManager.GetMethodName() + string.Format("Cleared Last Level : {0}", level));
+        }
     }
 
     private IEnumerator CO_FillGage()

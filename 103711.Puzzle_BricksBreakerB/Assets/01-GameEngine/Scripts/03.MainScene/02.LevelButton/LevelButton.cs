@@ -15,7 +15,7 @@ public class LevelButton : MonoBehaviour
     public int starCount;
     public int score;
     public bool isOpen;
-    public bool isClear;
+    //public bool isClear;
 
     [Header("★ [Reference] Reference")]
     public GameObject openObject;
@@ -44,7 +44,7 @@ public class LevelButton : MonoBehaviour
             }
 
             isOpen = (level == 1) || level <= GlobalDefine.UserInfo.LevelCurrent;
-            isClear = level < GlobalDefine.UserInfo.LevelCurrent;
+            //isClear = level < GlobalDefine.UserInfo.LevelCurrent;
             starCount = GlobalDefine.UserStarList[_level];
             score = GlobalDefine.UserScoreList[_level];
 
@@ -127,8 +127,8 @@ public class LevelButton : MonoBehaviour
     {
         for(int i=0; i < starObjectNormal.Count; i++)
         {
-            starObjectNormal[i].SetActive(isClear && i < starCount);
-            starObjectColor[i].SetActive(isClear && i < starCount);
+            starObjectNormal[i].SetActive(i < starCount);
+            starObjectColor[i].SetActive(i < starCount);
         }
     }
 }
