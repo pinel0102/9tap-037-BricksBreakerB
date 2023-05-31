@@ -1,5 +1,5 @@
 <dependencies>
-    <unityversion>4.3.54.0</unityversion>
+    <unityversion>4.3.55.0</unityversion>
     <androidPackages>
         <androidPackage spec="com.facebook.android:audience-network-sdk:6.14.0">
             <repositories>
@@ -9,7 +9,7 @@
     </androidPackages>
     
     <androidPackages>
-        <androidPackage spec="com.ironsource.adapters:facebookadapter:4.3.41">
+        <androidPackage spec="com.ironsource.adapters:facebookadapter:4.3.42">
             <repositories>
                 <repository>https://android-sdk.is.com/</repository>
             </repositories>
