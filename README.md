@@ -9,7 +9,7 @@ Puzzle - BricksBreakerB 클라이언트 프로젝트
 
 # SDK Versions
 <details>
-<summary markdown="span"><em>Unity Engine : 2021.3.25f1</em></summary>
+<summary markdown="span"><em>Unity Engine : 2021.3.26f1</em></summary>
 <br>
 
 ---
@@ -28,8 +28,12 @@ Puzzle - BricksBreakerB 클라이언트 프로젝트
 # ChangeLog
 
 <details>
-<summary markdown="span"><em>last update : 1.0.1</em></summary>
+<summary markdown="span"><em>last update : 1.0.2</em></summary>
 <br>
+
+---
++ 1.0.2
+   - iOS LZ4 해제
 
 ---
 + 1.0.1
