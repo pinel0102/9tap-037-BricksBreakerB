@@ -744,9 +744,9 @@ public static partial class CPlatformOptsSetter {
 		for(int i = 0; i < KCEditorDefine.B_BUILD_TARGET_GROUP_LIST.Count; ++i) {
 			var oCompressionTypeParamsList = new List<object>() {
 #if DEBUG || DEVELOPMENT_BUILD
-				KCEditorDefine.B_BUILD_TARGET_GROUP_LIST[i], (int)CompressionType.Lz4
+				KCEditorDefine.B_BUILD_TARGET_GROUP_LIST[i], i == 0 ? (int)CompressionType.None : (int)CompressionType.Lz4
 #else
-				KCEditorDefine.B_BUILD_TARGET_GROUP_LIST[i], (int)CompressionType.Lz4HC
+				KCEditorDefine.B_BUILD_TARGET_GROUP_LIST[i], i == 0 ? (int)CompressionType.None : (int)CompressionType.Lz4HC
 #endif // #if DEBUG || DEVELOPMENT_BUILD
 			};
 

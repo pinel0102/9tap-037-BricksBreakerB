@@ -140,9 +140,9 @@ public static partial class CPlatformBuilder {
 		a_oPlayerOpts.options &= ~(BuildOptions.SymlinkSources | BuildOptions.CleanBuildCache | BuildOptions.CompressWithLz4 | BuildOptions.CompressWithLz4HC);
 
 #if DEBUG || DEVELOPMENT_BUILD
-		a_oPlayerOpts.options |= BuildOptions.CompressWithLz4;
+		a_oPlayerOpts.options |= a_oPlayerOpts.targetGroup == BuildTargetGroup.iOS ? BuildOptions.None : BuildOptions.CompressWithLz4;
 #else
-		a_oPlayerOpts.options |= BuildOptions.CleanBuildCache | BuildOptions.CompressWithLz4HC;
+		a_oPlayerOpts.options |= BuildOptions.CleanBuildCache | a_oPlayerOpts.targetGroup == BuildTargetGroup.iOS ? BuildOptions.None : BuildOptions.CompressWithLz4HC;
 #endif // #if DEBUG || DEVELOPMENT_BUILD
 
 		CPlatformOptsSetter.SetupQuality();
