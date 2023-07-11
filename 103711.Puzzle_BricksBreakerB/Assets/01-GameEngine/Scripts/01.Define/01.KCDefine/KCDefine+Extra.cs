@@ -82,3 +82,11 @@ public enum EColliderType {
 	CUSTOM_DIAMOND,
 	[HideInInspector] MAX_VAL
 }
+
+/** 색상 테이블 */
+public enum EColorTable {
+	NONE = -1,
+	_0 = 0,
+	_256 = 256,
+	[HideInInspector] MAX_VAL
+}

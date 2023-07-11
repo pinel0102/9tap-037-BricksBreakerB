@@ -327,6 +327,8 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
     private const string KEY_SCORE_2 = "Score2";
     private const string KEY_SCORE_3 = "Score3";
     private const string KEY_LEVEL_TYPE = "LevelType";
+    private const string KEY_COLOR_TABLE = "ColorTable";
+
 	#endregion // 상수
 
 	#region 프로퍼티
@@ -345,6 +347,13 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 		set { m_oStrDict.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
 	}
 
+    [JsonIgnore]
+	[IgnoreMember]
+	public EColorTable ColorTable {
+		get { return (EColorTable)int.Parse(m_oStrDict.GetValueOrDefault(KEY_COLOR_TABLE, $"{(int)EColorTable._0}")); }
+		set { m_oStrDict.ExReplaceVal(KEY_COLOR_TABLE, $"{(int)value}"); }
+	}
+
     [JsonIgnore] [IgnoreMember] public Dictionary<ulong, STTargetInfo> ClearTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
 	[JsonIgnore] [IgnoreMember] public Dictionary<ulong, STTargetInfo> UnlockTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
 
@@ -361,6 +370,12 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	public System.Version CellInfoVer {
 		get { return System.Version.Parse(m_oStrDict.GetValueOrDefault(KEY_CELL_INFO_VER, KCDefine.B_DEF_VER)); }
 		set { m_oStrDict.ExReplaceVal(KEY_CELL_INFO_VER, value.ToString(KCDefine.B_VAL_3_INT)); }
+	}
+
+    [IgnoreMember]
+	public EColorTable ColorTable {
+		get { return (EColorTable)int.Parse(m_oStrDict.GetValueOrDefault(KEY_COLOR_TABLE, $"{(int)EColorTable._0}")); }
+		set { m_oStrDict.ExReplaceVal(KEY_COLOR_TABLE, $"{(int)value}"); }
 	}
 
     [IgnoreMember] public Dictionary<ulong, STTargetInfo> ClearTargetInfoDict { get; } = new Dictionary<ulong, STTargetInfo>();
