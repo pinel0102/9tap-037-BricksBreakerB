@@ -98,27 +98,27 @@ public class IronSourceConfig
 	#else		
 	public void setLanguage (string language)
 	{
-		Debug.Log (unsupportedPlatformStr);
+		//Debug.Log (unsupportedPlatformStr);
 	}
 	
 	public void setClientSideCallbacks (bool status)
 	{
-		Debug.Log (unsupportedPlatformStr);
+		//Debug.Log (unsupportedPlatformStr);
 	}
 	
 	public void setRewardedVideoCustomParams (Dictionary<string,string> rewardedVideoCustomParams)
 	{ 
-		Debug.Log (unsupportedPlatformStr);
+		//Debug.Log (unsupportedPlatformStr);
 	}
 	
 	public void setOfferwallCustomParams (Dictionary<string,string> offerwallCustomParams)
 	{
-		Debug.Log (unsupportedPlatformStr);
+		//Debug.Log (unsupportedPlatformStr);
 	}
 
 	public IronSourceConfig ()
 	{
-		Debug.Log (unsupportedPlatformStr);
+		//Debug.Log (unsupportedPlatformStr);
 	}
 	
 	#endif

@@ -7,7 +7,7 @@ public class IronSource : IronSourceIAgent
 {
 	private IronSourceIAgent _platformAgent;
 	private static IronSource _instance;
-	public static string UNITY_PLUGIN_VERSION = "7.3.0.1-r";
+	public static string UNITY_PLUGIN_VERSION = "7.3.1.1-r";
 	private static bool isUnsupportedPlatform;
 
 	private IronSource()
@@ -66,6 +66,16 @@ public class IronSource : IronSourceIAgent
 	}
 
 	//******************* Base API *******************//
+
+	/// <summary>
+	/// Allows publishers to set configurations for a waterfall of a given ad type.
+	/// </summary>
+	/// <param name="waterfallConfiguration">The configuration for the given ad types waterfall. </param>
+	/// <param name="adFormat">The AdFormat for which to configure the waterfall.</param>
+	public void SetWaterfallConfiguration(WaterfallConfiguration waterfallConfiguration, AdFormat adFormat)
+	{
+		_platformAgent.SetWaterfallConfiguration(waterfallConfiguration, adFormat);
+	}
 
 	public void onApplicationPause(bool pause)
 	{
@@ -256,22 +266,26 @@ public class IronSource : IronSourceIAgent
 
 	//******************* Offerwall API *******************//
 
+	[Obsolete("This API call is for the ironSource Offerwall, which will soon be deprecated. Please migrate to the Tapjoy Offerwall using the 'Offerwall migration checklist'.", false)]
 	public void showOfferwall()
 	{
 		_platformAgent.showOfferwall();
 	}
 
-	public void showOfferwall(string placementName)
+    [Obsolete("This API call is for the ironSource Offerwall, which will soon be deprecated. Please migrate to the Tapjoy Offerwall using the 'Offerwall migration checklist'.", false)]
+    public void showOfferwall(string placementName)
 	{
 		_platformAgent.showOfferwall(placementName);
 	}
 
-	public void getOfferwallCredits()
+    [Obsolete("This API call is for the ironSource Offerwall, which will soon be deprecated. Please migrate to the Tapjoy Offerwall using the 'Offerwall migration checklist'.", false)]
+    public void getOfferwallCredits()
 	{
 		_platformAgent.getOfferwallCredits();
 	}
 
-	public bool isOfferwallAvailable()
+    [Obsolete("This API call is for the ironSource Offerwall, which will soon be deprecated. Please migrate to the Tapjoy Offerwall using the 'Offerwall migration checklist'.", false)]
+    public bool isOfferwallAvailable()
 	{
 		return _platformAgent.isOfferwallAvailable();
 	}

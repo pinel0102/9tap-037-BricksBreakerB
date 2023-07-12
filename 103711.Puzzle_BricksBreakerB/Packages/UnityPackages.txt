@@ -1,6 +1,6 @@
 FirebaseAnalytics_11.0.0.unitypackage
 FirebaseCrashlytics_11.0.0.unitypackage
-IronSource_IntegrationManager_v7.3.0.1.unitypackage
+IronSource_IntegrationManager_v7.3.1.1.unitypackage
 appsflyer-unity-plugin-6.10.30.unitypackage
 external-dependency-manager-1.2.176.unitypackage
 facebook-unity-sdk-16.0.1.unitypackage
