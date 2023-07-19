@@ -34,6 +34,10 @@ public partial class CPreviewPopup : CSubPopup {
 
 	#region 변수
 
+    [Header("★ [Live] Reward Video")]
+    public RewardVideoType rewardVideoType = RewardVideoType.NONE;
+    public bool isLoadRewardAds;
+
     [Header("★ [Reference] Play Button")]
     public GameObject playObject;
     public GameObject playObject_AD;
@@ -157,6 +161,10 @@ public partial class CPreviewPopup : CSubPopup {
         tooltip.gameObject.SetActive(false);
         goldenAimButton.gameObject.SetActive(!GlobalDefine.hasGoldenAim);
         goldenAimOK.SetActive(false);
+
+        isLoadRewardAds = GlobalDefine.IsEnableRewardVideo();
+        playObject.SetActive(!isLoadRewardAds);
+        playObject_AD.SetActive(isLoadRewardAds);
         
         GlobalDefine.PlaySoundFX(ESoundSet.SOUND_LEVEL_READY);
 
@@ -170,7 +178,7 @@ public partial class CPreviewPopup : CSubPopup {
 
     private void OnTouchPlayButtonAD()
     {
-        this.OnTouchResumeBtn();
+        this.OnTouchRewardBoosterButton();
     }
 
     private void OnTouchBoosterButton(int index)
@@ -295,6 +303,47 @@ public partial class CPreviewPopup : CSubPopup {
         this.Params.Engine.subGameSceneManager.CheckTutorial();
 		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.RESUME)?.Invoke(this);
 	}
+
+#region Reward Video
+
+    private void OnTouchRewardBoosterButton() 
+    {
+        rewardVideoType = RewardVideoType.READY_BOOSTER;
+        
+        if (GlobalDefine.isLevelEditor)
+        {
+            this.OnCloseRewardAds(null, STAdsRewardInfo.INVALID, true);
+        }
+        else
+        {
+#if ADS_MODULE_ENABLE && !UNITY_EDITOR && !UNITY_STANDALONE
+		    Func.ShowRewardAds(this.OnCloseRewardAds);
+#else
+            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>ADS TEST : {0}</color>", rewardVideoType));
+            this.OnCloseRewardAds(null, STAdsRewardInfo.INVALID, true);
+#endif // #if ADS_MODULE_ENABLE
+        }
+	}
+
+#if ADS_MODULE_ENABLE
+    /** 보상 광고가 닫혔을 경우 */
+	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
+		// 광고를 시청했을 경우
+		if(a_bIsSuccess) {
+			if (rewardVideoType != RewardVideoType.NONE)
+            {
+                Params.Engine.GetReward(rewardVideoType, this, true);
+            }
+            else
+            {
+                //this.ShowRewardAcquirePopup(true);
+            }
+		}
+	}
+#endif // #if ADS_MODULE_ENABLE
+
+#endregion Reward Video
+
 	#endregion // 함수
 
 	#region 클래스 함수

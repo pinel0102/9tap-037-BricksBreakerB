@@ -505,7 +505,8 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 #region 클래스 함수
 	/** 매개 변수를 생성한다 */
 	public static STParams MakeParams(EAdsPlatform a_eAdsPlatform, EBannerAdsPos a_eBannerAdsPos, Dictionary<ECallback, System.Action<CAdsManager, EAdsPlatform, bool>> a_oCallbackDict = null) {
-		return new STParams() {
+		Debug.Log("==================="+ a_eAdsPlatform);
+        return new STParams() {
 			m_eAdsPlatform = a_eAdsPlatform,
 			m_eBannerAdsPos = a_eBannerAdsPos,
 			m_oCallbackDict = a_oCallbackDict ?? new Dictionary<ECallback, System.Action<CAdsManager, EAdsPlatform, bool>>(),

@@ -133,8 +133,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
             SetBonusReward();
         }
         else
-        {
-            //GlobalDefine.RequestRewardVideo(RewardVideoType.DAILY_FREE_REWARD, this);
+        {   
 #if ADS_MODULE_ENABLE && !UNITY_EDITOR && !UNITY_STANDALONE
 		    Func.ShowRewardAds(this.OnCloseRewardAds);
 #else

@@ -114,7 +114,6 @@ public static partial class KDefine {
     public static readonly List<ERewardKinds> G_REWARDS_KINDS_ADS_LIST = new List<ERewardKinds>() {
 		ERewardKinds.ADS_REWARD_DAILY_RUBY,
         ERewardKinds.ADS_REWARD_FAIL_RUBY,
-        ERewardKinds.ADS_REWARD_FAIL_CONTINUE,
     };
 
 	// 상점 상품 종류

@@ -41,6 +41,10 @@ public partial class CContinuePopup : CSubPopup {
 	public STParams Params { get; private set; }
 	public override bool IsIgnoreCloseBtn => false;
 
+    [Header("★ [Live] Reward Video")]
+    public RewardVideoType rewardVideoType = RewardVideoType.NONE;
+    public bool isLoadRewardAds;
+
     [Header("★ [Reference] Shop Button")]
     public Button shopButton;
     public TMP_Text rubyText;
@@ -123,9 +127,10 @@ public partial class CContinuePopup : CSubPopup {
         rewardText_ruby.text = string.Format(GlobalDefine.FORMAT_INT, GlobalDefine.RewardRuby_Continue);
 		// 텍스트를 갱신한다 }
 
-        ContinueObject.SetActive(!GlobalDefine.IsEnableRewardVideo());
-        ContinueObject_AD.SetActive(GlobalDefine.IsEnableRewardVideo());
-        rewardVideoButton.gameObject.SetActive(GlobalDefine.IsEnableRewardVideo());
+        isLoadRewardAds = GlobalDefine.IsEnableRewardVideo();
+        ContinueObject.SetActive(!isLoadRewardAds);
+        ContinueObject_AD.SetActive(isLoadRewardAds);
+        rewardVideoButton.gameObject.SetActive(isLoadRewardAds);
 
         GlobalDefine.PlaySoundFX(ESoundSet.SOUND_LEVEL_FAIL);
 
@@ -185,53 +190,42 @@ public partial class CContinuePopup : CSubPopup {
 #endregion Continue Button
 
 
-#region Continue Ads Button
+#region Reward Video
 
     private void OnTouchContinueBtn_AD() 
     {   
+        rewardVideoType = RewardVideoType.CONTINUE_3LINE;
+
         if (GlobalDefine.isLevelEditor)
         {
-            Params.Engine.GetReward(RewardVideoType.CONTINUE_3LINE, this, false);
+            this.OnCloseRewardAds(null, STAdsRewardInfo.INVALID, true);
         }
         else
         {
 #if ADS_MODULE_ENABLE && !UNITY_EDITOR && !UNITY_STANDALONE
-		    Func.ShowRewardAds(this.OnCloseContinueAds);
+		    Func.ShowRewardAds(this.OnCloseRewardAds);
 #else
-            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>ADS TEST</color>"));
-            Params.Engine.GetReward(RewardVideoType.CONTINUE_3LINE, this, false);
+            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>ADS TEST : {0}</color>", rewardVideoType));
+            this.OnCloseRewardAds(null, STAdsRewardInfo.INVALID, true);
 #endif // #if ADS_MODULE_ENABLE
         }
 	}
 
-#if ADS_MODULE_ENABLE
-    /** 보상 광고가 닫혔을 경우 */
-	private void OnCloseContinueAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
-		// 광고를 시청했을 경우
-		if(a_bIsSuccess) {
-			Params.Engine.GetReward(RewardVideoType.CONTINUE_3LINE, this, false);
-		}
-	}
-#endif // #if ADS_MODULE_ENABLE
-
-#endregion Continue Ads Button
-
-
-#region Reward Ads Button
-
     private void OnTouchRewardVideoButton()
     {
+        rewardVideoType = RewardVideoType.NONE;
+
         if (GlobalDefine.isLevelEditor)
         {
-            this.ShowRewardAcquirePopup(true);
+            this.OnCloseRewardAds(null, STAdsRewardInfo.INVALID, true);
         }
         else
         {   
 #if ADS_MODULE_ENABLE && !UNITY_EDITOR && !UNITY_STANDALONE
 		    Func.ShowRewardAds(this.OnCloseRewardAds);
 #else
-            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>ADS TEST</color>"));
-            this.ShowRewardAcquirePopup(true);
+            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>ADS TEST : {0}</color>", rewardVideoType));
+            this.OnCloseRewardAds(null, STAdsRewardInfo.INVALID, true);
 #endif // #if ADS_MODULE_ENABLE
         }
     }
@@ -260,7 +254,14 @@ public partial class CContinuePopup : CSubPopup {
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
-			this.ShowRewardAcquirePopup(true);
+            if (rewardVideoType != RewardVideoType.NONE)
+            {
+                Params.Engine.GetReward(rewardVideoType, this, true);
+            }
+            else
+            {
+                this.ShowRewardAcquirePopup(true);
+            }
 		}
 	}
 #endif // #if ADS_MODULE_ENABLE

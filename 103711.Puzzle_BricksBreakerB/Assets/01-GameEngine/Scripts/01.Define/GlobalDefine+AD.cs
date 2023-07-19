@@ -53,9 +53,12 @@ public static partial class GlobalDefine
     }
 }
 
+///<Summary>리워드 광고 특수 보상 (1회성).</Summary>
 public enum RewardVideoType
 {
+    NONE,
     CONTINUE_3LINE,
-    CONTINUE_RUBY,
-    DAILY_FREE_REWARD,
+    LEVELMAP_BOOSTER,
+    READY_BOOSTER,
+    INGAME_BALLPLUS,
 }

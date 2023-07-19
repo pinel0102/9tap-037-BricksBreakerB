@@ -21,7 +21,7 @@ namespace NSEngine {
 
         public void GetReward(RewardVideoType type, CPopup popup, bool isRewardVideo = true)
         {
-            Debug.Log(CodeManager.GetMethodName() + type);
+            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0}</color>", type));
 
             switch(type)
             {
@@ -62,6 +62,18 @@ namespace NSEngine {
                     }, KCDefine.B_VAL_0_5_REAL);
 
                     //LogFunc.Send_C_Item_Get(currentLevel - 1, global::KDefine.L_SCENE_N_PLAY, LogFunc.MakeLogItemInfo(CRewardInfoTable.Inst.GetRewardInfo(ERewardKinds.ADS_REWARD_FAIL_CONTINUE).m_oAcquireTargetInfoDict));
+
+                    break;
+
+                case RewardVideoType.LEVELMAP_BOOSTER:
+
+                    break;
+
+                case RewardVideoType.READY_BOOSTER:
+
+                    break;
+
+                case RewardVideoType.INGAME_BALLPLUS:
 
                     break;
             }
