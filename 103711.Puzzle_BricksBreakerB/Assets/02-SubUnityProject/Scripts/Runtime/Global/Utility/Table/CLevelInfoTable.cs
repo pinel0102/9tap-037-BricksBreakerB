@@ -308,7 +308,7 @@ public struct STCellInfo : System.ICloneable, IMessagePackSerializationCallbackR
 public partial class CLevelInfo : CBaseInfo, System.ICloneable {
 	#region 변수
 	[Key(165)] public Dictionary<int, Dictionary<int, STCellInfo>> m_oCellInfoDictContainer = new Dictionary<int, Dictionary<int, STCellInfo>>();
-
+    
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
 	[JsonIgnore] [IgnoreMember] [System.NonSerialized] public STIDInfo m_stIDInfo;
 #else
@@ -498,6 +498,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 #endif // #if (UNITY_EDITOR || UNITY_STANDALONE) && (DEBUG || DEVELOPMENT_BUILD)
 
     public int levelCount;
+    public int currentLoadedLevel;
 
 	#endregion // 프로퍼티
 
@@ -535,7 +536,7 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 	/** 레벨 정보를 로드한다 */
 	private CLevelInfo LoadLevelInfo(string a_oFilePath, int a_nLevelID, int a_nStageID = KCDefine.B_VAL_0_INT, int a_nChapterID = KCDefine.B_VAL_0_INT) {
-		//CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfo: {a_oFilePath}");
+		//CFunc.ShowLog($"CLevelInfoTable.LoadLevelInfo: {a_nLevelID}");
         
 #if MSG_PACK_SERIALIZE_DESERIALIZE_ENABLE
         var oLevelInfo = File.Exists(a_oFilePath) ? CFunc.ReadMsgPackObj<CLevelInfo>(a_oFilePath, false) : CFunc.ReadMsgPackObjFromRes<CLevelInfo>(a_oFilePath, false);
@@ -557,9 +558,11 @@ public partial class CLevelInfoTable : CSingleton<CLevelInfoTable> {
 
 		var oLevelIDList = File.Exists(a_oFilePath) ? CFunc.ReadMsgPackJSONObj<List<ulong>>(a_oFilePath, false) : CFunc.ReadMsgPackJSONObjFromRes<List<ulong>>(a_oFilePath, false);
         levelCount = oLevelIDList.Count;
+        currentLoadedLevel = 0;
 
         for(int i = 0; i < oLevelIDList.Count; ++i) {
-			this.AddLevelInfo(this.LoadLevelInfo(oLevelIDList[i].ExULevelIDToLevelID(), oLevelIDList[i].ExULevelIDToStageID(), oLevelIDList[i].ExULevelIDToChapterID()));
+            this.AddLevelInfo(this.LoadLevelInfo(oLevelIDList[i].ExULevelIDToLevelID(), oLevelIDList[i].ExULevelIDToStageID(), oLevelIDList[i].ExULevelIDToChapterID()));
+            currentLoadedLevel++;
 		}
 
         Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>Level Count : {0}</color>", levelCount));

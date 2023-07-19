@@ -14,6 +14,8 @@ using Newtonsoft.Json;
 
 public partial class CLevelInfo : CBaseInfo, System.ICloneable
 {
+    public int LevelNumber;
+
 #if NEWTON_SOFT_JSON_SERIALIZE_DESERIALIZE_ENABLE
     [JsonIgnore]
     [IgnoreMember]
@@ -113,6 +115,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable
 
     private void SetExtraValues()
     {
+        this.LevelNumber = CLevelInfoTable.Inst.currentLoadedLevel + 1;
         this.GridPivot = EGridPivot.DOWN;
         this.ViewSizeX = NumCells.x;
         this.ViewSizeY = NumCells.y;
@@ -121,6 +124,13 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable
         this.Score2 = Score2;
         this.Score3 = Score3;
         this.LevelType = LevelType;
+        //this.ColorTable = ColorTable;
+
+        // 색상 테이블이 없을 경우
+		if(!m_oStrDict.ContainsKey(KEY_COLOR_TABLE)) {
+            Debug.LogWarning(CodeManager.GetMethodName() + string.Format("<color=yellow>Not exist ColorTable : Level {0}</color>", this.LevelNumber));
+			this.ColorTable = EColorTable._0;
+		}
         
         //Debug.Log(CodeManager.GetMethodName() + string.Format("{0} / {1}", this.NumCells, this.ViewSize));
     }
