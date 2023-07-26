@@ -35,6 +35,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 	private Dictionary<EKey, Button> m_oBtnDict = new Dictionary<EKey, Button>();
 
 	/** =====> 객체 <===== */
+    public Canvas canvas;
     public List<GameObject> itemList = new List<GameObject>();
     public TMP_Text countText;
     public Button GetButton;
@@ -60,6 +61,8 @@ public partial class CRewardAcquirePopup : CSubPopup {
 			(EKey.ADS_BTN, $"{EKey.ADS_BTN}", this.Contents, this.OnTouchAdsBtn),
 			(EKey.ACQUIRE_BTN, $"{EKey.ACQUIRE_BTN}", this.Contents, this.OnTouchAcquireBtn)
 		}, m_oBtnDict);
+
+        canvas.ExSetSortingOrder(GlobalDefine.SortingInfo_RewardCanvas);
 
 		this.SubAwake();
 	}
@@ -87,6 +90,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		}
 
         countText.text = string.Format(GlobalDefine.FORMAT_ITEM_COUNT, Params.count);
+        countText.gameObject.SetActive(Params.count > 0);
         ADButton.gameObject.SetActive(Params.isEnableAD);
 
         isRewardAD = false;
@@ -108,14 +112,10 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		m_oBtnDict.GetValueOrDefault(EKey.ADS_BTN)?.ExSetInteractable(false);
 		m_oBtnDict.GetValueOrDefault(EKey.ACQUIRE_BTN)?.ExSetInteractable(false);
 
-		var oRewardTargetInfoDict = new Dictionary<ulong, STTargetInfo>();
-
 		GlobalDefine.AddItem(Params.kinds, a_bIsWatchRewardAds ? Params.count * KCDefine.B_VAL_2_INT : Params.count);
         
         //LogFunc.Send_C_Item_Get(Params.currentLevel - 1, Params.sceneName, LogFunc.MakeLogItemInfo(CRewardInfoTable.Inst.GetRewardInfo(Params.rewardKinds).m_oAcquireTargetInfoDict));
         
-        Func.SetupNextFreeRewardID(CGameInfoStorage.Inst.PlayCharacterID);
-
         this.Params.m_oCallback?.Invoke();
 
 		this.OnTouchCloseBtn();

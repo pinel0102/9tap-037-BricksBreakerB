@@ -8,7 +8,11 @@ using DG.Tweening;
 namespace GameScene {
     public partial class CSubGameSceneManager : CGameSceneManager
     {
+        [Header("★ [Live] Reward Video")]
+        public RewardVideoType rewardVideoType = RewardVideoType.NONE;
+
         [Header("★ [Reference] UI Top")]
+        public Button rewardBallPlusButton;
         public List<RectTransform> starTransform;
         public List<GameObject> starOn;
         public RectTransform scoreGageFrame;
@@ -30,6 +34,8 @@ namespace GameScene {
 
             ScoreUpdate(false);
             RefreshNameText();
+
+            rewardBallPlusButton.interactable = true;
 
             userProfile.Initialize();
         }
@@ -119,6 +125,29 @@ namespace GameScene {
 				(a_oSender as CSettingsPopup).Init();
 			});
 		}
+
+        public void OnClick_Reward_BallPlusButton()
+        {
+            rewardVideoType = RewardVideoType.INGAME_ADDBALLS;
+
+            Func.ShowRewardVideoAlertPopup(this.PopupUIs, (a_oSender) => {
+                var oTargetInfoDict = CCollectionManager.Inst.SpawnDict<ulong, STTargetInfo>();
+
+                try {
+                    switch(rewardVideoType)
+                    {
+                        case RewardVideoType.INGAME_ADDBALLS:
+                            (a_oSender as CRewardVideoAlertPopup).Init(CRewardVideoAlertPopup.MakeParams(KDefine.L_SCENE_N_PLAY, Engine.currentLevel, rewardVideoType, ERewardKinds.ADS_REWARD_INGAME_ADDBALLS, EItemKinds.GAME_ITEM_02_ADD_BALLS, 
+                            GlobalDefine.RewardVideo_AddBalls_Count, 
+                            GlobalDefine.RewardVideoDesc_AddBalls, 
+                            () => {  }, null));
+                            break;
+                    }				
+                } finally {
+                    CCollectionManager.Inst.DespawnDict(oTargetInfoDict);
+                }
+            }, null, null);
+        }
 
 		/** 광고 버튼을 눌렀을 경우 */
 		private void OnTouchAdsBtn(ERewardAdsUIs a_eRewardAdsUIs) {

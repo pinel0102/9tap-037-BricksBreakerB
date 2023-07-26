@@ -124,7 +124,7 @@ public partial class CLevelInfo : CBaseInfo, System.ICloneable
         this.Score2 = Score2;
         this.Score3 = Score3;
         this.LevelType = LevelType;
-        //this.ColorTable = ColorTable;
+        this.ColorTable = ColorTable;
 
         // 색상 테이블이 없을 경우
 		if(!m_oStrDict.ContainsKey(KEY_COLOR_TABLE)) {

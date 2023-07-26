@@ -43,6 +43,10 @@ public static partial class Func {
 		Func.ShowPopup<CCoinsBoxBuyPopup>(KDefine.G_OBJ_N_COINS_BOX_POPUP, KCDefine.U_OBJ_P_G_COINS_BOX_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
 	}
 
+    public static void ShowRewardVideoAlertPopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
+		Func.ShowPopup<CRewardVideoAlertPopup>(KDefine.G_OBJ_N_REWARD_VIDEO_ALERT_POPUP, KCDefine.U_OBJ_P_G_REWARD_VIDEO_ALERT_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);
+	}
+
 	/** 보상 획득 팝업을 출력한다 */
 	public static void ShowRewardAcquirePopup(GameObject a_oParent, System.Action<CPopup> a_oInitCallback, System.Action<CPopup> a_oShowCallback = null, System.Action<CPopup> a_oCloseCallback = null) {
 		Func.ShowPopup<CRewardAcquirePopup>(KDefine.G_OBJ_N_REWARD_ACQUIRE_POPUP, KCDefine.U_OBJ_P_G_REWARD_ACQUIRE_POPUP, a_oParent, a_oInitCallback, a_oShowCallback, a_oCloseCallback);

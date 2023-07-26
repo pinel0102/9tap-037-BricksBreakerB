@@ -10,21 +10,24 @@ namespace NSEngine {
         public List<bool> boosterList = new List<bool>();
         public List<bool> boosterItem = new List<bool>();
         public List<bool> boosterRuby = new List<bool>();
+        public List<bool> boosterReward = new List<bool>();
 
         private void InitBooster()
         {
             boosterList = new List<bool>() { false, false, false };
             boosterItem = new List<bool>() { false, false, false };
             boosterRuby = new List<bool>() { false, false, false };
+            boosterReward = new List<bool>() { false, false, false };
         }
 
-        public void ChangeBooster(int index, bool isOn, bool _useItem, bool _useRuby)
+        public void ChangeBooster(int index, bool isOn, bool _useItem, bool _useRuby, bool _useReward)
         {
             if (index >= 0 && index < boosterList.Count)
             {    
                 boosterList[index] = isOn;
                 boosterItem[index] = isOn ? _useItem : false;
                 boosterRuby[index] = isOn ? _useRuby : false;
+                boosterReward[index] = isOn ? _useReward : false;
             }
         }
 
@@ -73,6 +76,21 @@ namespace NSEngine {
                                         break;
                             }
                         }
+                        else if (boosterReward[i])
+                        {
+                            switch(i)
+                            {
+                                case 0: Debug.Log(CodeManager.GetMethodName() + string.Format("[REWARD BOOSTER] {0}", EItemKinds.BOOSTER_ITEM_01_MISSILE)); 
+                                        LogFunc.Send_C_Item_Use(currentLevel - 1, global::KDefine.L_SCENE_N_PLAY, LogFunc.MakeLogItemInfo(EItemKinds.BOOSTER_ITEM_01_MISSILE, 1));
+                                        break;
+                                case 1: Debug.Log(CodeManager.GetMethodName() + string.Format("[REWARD BOOSTER] {0}", EItemKinds.BOOSTER_ITEM_02_LIGHTNING)); 
+                                        LogFunc.Send_C_Item_Use(currentLevel - 1, global::KDefine.L_SCENE_N_PLAY, LogFunc.MakeLogItemInfo(EItemKinds.BOOSTER_ITEM_02_LIGHTNING, 1));
+                                        break;
+                                case 2: Debug.Log(CodeManager.GetMethodName() + string.Format("[REWARD BOOSTER] {0}", EItemKinds.BOOSTER_ITEM_03_BOMB)); 
+                                        LogFunc.Send_C_Item_Use(currentLevel - 1, global::KDefine.L_SCENE_N_PLAY, LogFunc.MakeLogItemInfo(EItemKinds.BOOSTER_ITEM_03_BOMB, 1));
+                                        break;
+                            }
+                        }
 
                         for (int j=0; j < targetList.Count; j++)
                         {
@@ -84,6 +102,7 @@ namespace NSEngine {
                 }
             }
 
+            CGameInfoStorage.Inst.InitRewardBooster();
             GlobalDefine.SaveUserData();
         }
 

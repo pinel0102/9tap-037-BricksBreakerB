@@ -266,7 +266,7 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 
 	/** 게임 정보를 로드한다 */
 	public CGameInfo LoadGameInfo() {
-		return this.LoadGameInfo(KDefine.G_DATA_P_GAME_INFO);
+        return this.LoadGameInfo(KDefine.G_DATA_P_GAME_INFO);
 	}
 
 	/** 게임 정보를 로드한다 */

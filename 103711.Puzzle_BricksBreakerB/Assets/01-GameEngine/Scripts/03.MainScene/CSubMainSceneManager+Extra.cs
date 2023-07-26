@@ -25,10 +25,13 @@ namespace MainScene {
 			this.InitTabs();
             this.InitLobbyButtons();
             this.InitLevelMapButtons();
+            this.InitRewardButtons();
 
             userProfile.Initialize();
+            CGameInfoStorage.Inst.Initialize();
 
             GlobalDefine.RequestBannerAD();
+            isLoadRewardAds = GlobalDefine.IsEnableRewardVideo();
 
             if (!GlobalDefine.isLevelEditor && !GlobalDefine.isMainSceneOpened && Access.IsEnableGetDailyReward(CGameInfoStorage.Inst.PlayCharacterID))
             {

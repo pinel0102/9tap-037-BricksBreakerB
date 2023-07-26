@@ -29,8 +29,9 @@ namespace NSEngine {
 
                     if (popup != null)
                     {
-                        (popup as CContinuePopup).Params.m_oCallbackDict?.GetValueOrDefault(CContinuePopup.ECallback.CONTINUE)?.Invoke(popup as CContinuePopup);
-                        (popup as CContinuePopup).Close();
+                        var _popup = popup as CContinuePopup;
+                        _popup.Params.m_oCallbackDict?.GetValueOrDefault(CContinuePopup.ECallback.CONTINUE)?.Invoke(_popup);
+                        _popup.Close();
                     }
 
                     int deleteCount = 3;
@@ -61,20 +62,12 @@ namespace NSEngine {
                             
                     }, KCDefine.B_VAL_0_5_REAL);
 
-                    //LogFunc.Send_C_Item_Get(currentLevel - 1, global::KDefine.L_SCENE_N_PLAY, LogFunc.MakeLogItemInfo(CRewardInfoTable.Inst.GetRewardInfo(ERewardKinds.ADS_REWARD_FAIL_CONTINUE).m_oAcquireTargetInfoDict));
-
-                    break;
-
-                case RewardVideoType.LEVELMAP_BOOSTER:
-
                     break;
 
                 case RewardVideoType.READY_BOOSTER:
-
                     break;
 
-                case RewardVideoType.INGAME_BALLPLUS:
-
+                case RewardVideoType.INGAME_ADDBALLS:
                     break;
             }
         }

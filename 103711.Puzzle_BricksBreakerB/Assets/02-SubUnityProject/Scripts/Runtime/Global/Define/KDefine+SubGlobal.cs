@@ -56,6 +56,7 @@ public static partial class KDefine {
 	public const string G_OBJ_N_FREE_REWARD_POPUP = "FREE_REWARD_POPUP";
 	public const string G_OBJ_N_DAILY_REWARD_POPUP = "DAILY_REWARD_POPUP";
 	public const string G_OBJ_N_COINS_BOX_POPUP = "COINS_BOX_POPUP";
+    public const string G_OBJ_N_REWARD_VIDEO_ALERT_POPUP = "REWARD_VIDEO_ALERT_POPUP";
 	public const string G_OBJ_N_REWARD_ACQUIRE_POPUP = "REWARD_ACQUIRE_POPUP";
 	public const string G_OBJ_N_COINS_BOX_ACQUIRE_POPUP = "COINS_BOX_ACQUIRE_POPUP";
 	public const string G_OBJ_N_CONTINUE_POPUP = "CONTINUE_POPUP";

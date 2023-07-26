@@ -9,7 +9,7 @@ using System.IO;
 using System.Linq;
 using MessagePack;
 
-public partial class CUserInfo : CBaseInfo
+public partial class CUserInfo
 {
     private const string KEY_SETTINGS_PLAYER_NAME = "Settings_PlayerName";
     private const string KEY_SETTINGS_AVATAR = "Settings_Avatar";

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System.Linq;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 using TMPro;
@@ -38,6 +39,13 @@ public partial class CPreviewPopup : CSubPopup {
     public RewardVideoType rewardVideoType = RewardVideoType.NONE;
     public bool isLoadRewardAds;
 
+    [Header("★ [Live] Booster")]
+    public int boosterEnableCount;
+    public List<bool> rubyBooster = new List<bool>();
+    public List<int> rewardBoosterIndex = new List<int>();
+    public int rewardBoosterIndex_balloon = -1;
+    public int rewardBoosterIndex_ready = -1;
+
     [Header("★ [Reference] Play Button")]
     public GameObject playObject;
     public GameObject playObject_AD;
@@ -49,11 +57,11 @@ public partial class CPreviewPopup : CSubPopup {
     public List<Button> buttonBooster = new List<Button>();
     public List<Button> boosterLock = new List<Button>();
     public List<GameObject> boosterOn = new List<GameObject>();
+    public List<GameObject> boosterOnAds = new List<GameObject>();
     public List<GameObject> boosterCount = new List<GameObject>();
     public List<GameObject> boosterBuy = new List<GameObject>();
     public List<TMP_Text> boosterTextCount = new List<TMP_Text>();
     public List<TMP_Text> boosterTextCost = new List<TMP_Text>();
-    public List<bool> rubyBooster = new List<bool>();
 
     [Header("★ [Reference] Golden Aim")]
     public Button goldenAimButton;
@@ -92,6 +100,8 @@ public partial class CPreviewPopup : CSubPopup {
 		});
 
         currentTooltip = -1;
+        rewardBoosterIndex_balloon = -1;
+        rewardBoosterIndex_ready = -1;
 
         for(int i=0; i < buttonPlay.Count; i++)
         {
@@ -108,6 +118,7 @@ public partial class CPreviewPopup : CSubPopup {
         }
 
         rubyBooster = new List<bool>() { false, false, false };
+        rewardBoosterIndex.Clear();
 
         goldenAimButton.ExAddListener(this.OnTouchGoldenAimButton);
 
@@ -135,12 +146,14 @@ public partial class CPreviewPopup : CSubPopup {
 	private void UpdateUIsState() {
 
         Params.Engine.SetupPreview(previewArea, previewMask);
-
+        
+        boosterEnableCount = GetEnableBoosterCount();
         levelText.text = string.Format(GlobalDefine.FORMAT_LEVEL, Params.Engine.currentLevel);
 
         for(int i=0; i< buttonBooster.Count; i++)
         {
             boosterOn[i].SetActive(false);
+            boosterOnAds[i].SetActive(false);
             buttonBooster[i].gameObject.SetActive(Params.Engine.currentLevel >= GlobalDefine.BOOSTER_LEVEL[i]);
             boosterLock[i].gameObject.SetActive(Params.Engine.currentLevel < GlobalDefine.BOOSTER_LEVEL[i]);
             boosterTextCost[i].text = string.Format(GlobalDefine.FORMAT_INT, GlobalDefine.CostRuby_Booster);
@@ -163,22 +176,103 @@ public partial class CPreviewPopup : CSubPopup {
         goldenAimOK.SetActive(false);
 
         isLoadRewardAds = GlobalDefine.IsEnableRewardVideo();
-        playObject.SetActive(!isLoadRewardAds);
-        playObject_AD.SetActive(isLoadRewardAds);
+        bool enableRewardBooster = boosterEnableCount > 0 && isLoadRewardAds;
+        playObject.SetActive(!enableRewardBooster);
+        playObject_AD.SetActive(enableRewardBooster);
+
+        CheckRewardBooster();
+        RefreshBoosterState();
         
         GlobalDefine.PlaySoundFX(ESoundSet.SOUND_LEVEL_READY);
 
 		this.SubUpdateUIsState();
 	}
 
-    private void OnTouchPlayButton()
+
+#region Booster
+
+    public void GetRewardBooster()
     {
-        this.OnTouchResumeBtn();
+        playObject.SetActive(true);
+        playObject_AD.SetActive(false);
+
+        CGameInfoStorage.Inst.GetRewardBooster(RewardVideoType.READY_BOOSTER);
+
+        CheckRewardBooster();
     }
 
-    private void OnTouchPlayButtonAD()
+    private void CheckRewardBooster()
     {
-        this.OnTouchRewardBoosterButton();
+        int enableCount = boosterEnableCount;
+
+        SetRewardBooster(ref enableCount, ref rewardBoosterIndex_balloon, CGameInfoStorage.Inst.rewardBooster_balloon);
+        SetRewardBooster(ref enableCount, ref rewardBoosterIndex_ready, CGameInfoStorage.Inst.rewardBooster_ready);
+
+        //RefreshBoosterState();
+    }
+
+    public void RefreshBoosterState()
+    {
+        for(int i=0; i < buttonBooster.Count; i++)
+        {
+            bool isBoosterOn = this.Params.Engine.boosterList[i];
+            bool isRewardOn = rewardBoosterIndex.Contains(i);
+
+            if(isRewardOn)
+            {
+                boosterCount[i].SetActive(false);
+                boosterBuy[i].SetActive(false);
+            }
+
+            boosterOn[i].SetActive(isBoosterOn && !isRewardOn);
+            boosterOnAds[i].SetActive(isBoosterOn && isRewardOn);            
+            buttonBooster[i].interactable = !(isBoosterOn && isRewardOn);
+        }
+    }
+
+    private void SetRewardBooster(ref int _enableCount, ref int _index, bool _isBoosterOn)
+    {
+        if (_enableCount > 0 && _isBoosterOn)
+        {
+            if (_index == -1)
+            {
+                // index가 설정되어 있지 않았으면 새로 부여한다.
+                List<int> enableList = new List<int>();
+                for(int i=0; i < boosterEnableCount; i++)
+                {
+                    if(!rewardBoosterIndex.Contains(i))
+                        enableList.Add(i);
+                }
+                
+                if (enableList.Count > 0)
+                    _index = enableList.OrderBy(g => System.Guid.NewGuid())
+                                        .Take(1).ToList()[0];
+            }
+
+            if (_index > -1)
+            {
+                Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>enableCount : {0} / index : {1}</color>", _enableCount, _index));
+
+                // Reward로 받은 것이 아닌 부스터가 켜져 있으면 해제한다.
+                if (this.Params.Engine.boosterList[_index] && !this.Params.Engine.boosterReward[_index])
+                    OnTouchBoosterButton(_index);
+                
+                rewardBoosterIndex.Add(_index);
+                this.Params.Engine.ChangeBooster(_index, true, false, false, _isBoosterOn);
+                _enableCount--;
+            }
+        }
+    }
+
+    private int GetEnableBoosterCount()
+    {
+        int enableCount = 0;
+        for(int i=0; i < GlobalDefine.BOOSTER_LEVEL.Count; i++)
+        {
+            if(Params.Engine.currentLevel >= GlobalDefine.BOOSTER_LEVEL[i])
+                enableCount++;
+        }
+        return enableCount;
     }
 
     private void OnTouchBoosterButton(int index)
@@ -234,7 +328,7 @@ public partial class CPreviewPopup : CSubPopup {
             }
         }
 
-        this.Params.Engine.ChangeBooster(index, newValue, useItem, useRuby);
+        this.Params.Engine.ChangeBooster(index, newValue, useItem, useRuby, false);
         boosterOn[index].SetActive(newValue);
     }
 
@@ -248,6 +342,9 @@ public partial class CPreviewPopup : CSubPopup {
         }
         return count;
     }
+
+#endregion Booster
+
 
     private void OnTouchTooltipButton(int index)
     {
@@ -288,6 +385,16 @@ public partial class CPreviewPopup : CSubPopup {
         goldenAimOK.SetActive(true);
     }
 
+    private void OnTouchPlayButton()
+    {
+        this.OnTouchResumeBtn();
+    }
+
+    private void OnTouchPlayButtonAD()
+    {
+        this.OnTouchRewardBoosterButton();
+    }
+
     /** 재시도 버튼을 눌렀을 경우 */
 	public void OnTouchRetryBtn() {
 		this.Params.m_oCallbackDict?.GetValueOrDefault(ECallback.RETRY)?.Invoke(this);
@@ -309,8 +416,25 @@ public partial class CPreviewPopup : CSubPopup {
     private void OnTouchRewardBoosterButton() 
     {
         rewardVideoType = RewardVideoType.READY_BOOSTER;
+
+        Func.ShowRewardVideoAlertPopup(this.transform.parent.gameObject, (a_oSender) => {
+                var oTargetInfoDict = CCollectionManager.Inst.SpawnDict<ulong, STTargetInfo>();
+
+                try {
+                    switch(rewardVideoType)
+                    {
+                        case RewardVideoType.READY_BOOSTER:
+                            (a_oSender as CRewardVideoAlertPopup).Init(CRewardVideoAlertPopup.MakeParams(KDefine.L_SCENE_N_PLAY, Params.Engine.currentLevel, rewardVideoType, ERewardKinds.ADS_REWARD_READY_BOOSTER, EItemKinds.BOOSTER_ITEM_04_RANDOM, KCDefine.B_VAL_0_INT, 
+                            GlobalDefine.RewardVideoDesc_RandomBooster, 
+                            () => { RefreshBoosterState(); }, this));
+                            break;
+                    }				
+                } finally {
+                    CCollectionManager.Inst.DespawnDict(oTargetInfoDict);
+                }
+            }, null, null);
         
-        if (GlobalDefine.isLevelEditor)
+        /*if (GlobalDefine.isLevelEditor)
         {
             this.OnCloseRewardAds(null, STAdsRewardInfo.INVALID, true);
         }
@@ -322,24 +446,41 @@ public partial class CPreviewPopup : CSubPopup {
             Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>ADS TEST : {0}</color>", rewardVideoType));
             this.OnCloseRewardAds(null, STAdsRewardInfo.INVALID, true);
 #endif // #if ADS_MODULE_ENABLE
-        }
+        }*/
 	}
 
 #if ADS_MODULE_ENABLE
     /** 보상 광고가 닫혔을 경우 */
-	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
+	/*private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
 			if (rewardVideoType != RewardVideoType.NONE)
             {
                 Params.Engine.GetReward(rewardVideoType, this, true);
-            }
-            else
-            {
-                //this.ShowRewardAcquirePopup(true);
+                ShowRewardAcquirePopup(true);
             }
 		}
-	}
+	}*/
+
+    /** 보상 획득 팝업을 출력한다 */
+	/*public void ShowRewardAcquirePopup(bool a_bIsWatchRewardAds) {
+		Func.ShowRewardAcquirePopup(this.transform.parent.gameObject, (a_oSender) => {
+			var oTargetInfoDict = CCollectionManager.Inst.SpawnDict<ulong, STTargetInfo>();
+
+			try {
+                switch(rewardVideoType)
+                {
+                    case RewardVideoType.READY_BOOSTER:
+                        (a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(KDefine.L_SCENE_N_PLAY, Params.Engine.currentLevel, ERewardKinds.ADS_REWARD_READY_BOOSTER, EItemKinds.BOOSTER_ITEM_01_MISSILE + rewardBoosterIndex_ready, KCDefine.B_VAL_0_INT, false, 
+                        () => { RefreshBoosterState(); }, this));
+                    break;
+                }				
+			} finally {
+				CCollectionManager.Inst.DespawnDict(oTargetInfoDict);
+			}
+		}, null, null);
+	}*/
+
 #endif // #if ADS_MODULE_ENABLE
 
 #endregion Reward Video

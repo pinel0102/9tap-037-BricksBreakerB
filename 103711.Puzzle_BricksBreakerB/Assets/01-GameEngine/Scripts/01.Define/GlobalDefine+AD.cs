@@ -5,6 +5,10 @@ using UnityEngine;
 public static partial class GlobalDefine
 {
     public const float Time_FullscreenAD = 90f;
+    public const float RewardVideo_Balloon_Cooltime = 180f;
+    public const int RewardVideo_AddBalls_Count = 30;
+    public const string RewardVideoDesc_RandomBooster = "Get Random Booster";
+    public const string RewardVideoDesc_AddBalls = "Get Extra Balls";
 
     public static void CloseBannerAD()
     {
@@ -58,7 +62,7 @@ public enum RewardVideoType
 {
     NONE,
     CONTINUE_3LINE,
-    LEVELMAP_BOOSTER,
+    BALLOON_BOOSTER,
     READY_BOOSTER,
-    INGAME_BALLPLUS,
+    INGAME_ADDBALLS,
 }

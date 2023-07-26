@@ -136,6 +136,9 @@ public enum ERewardKinds {
 	// 100,000,000
 	ADS_REWARD_DAILY_RUBY = (EEnumVal.T * ERewardType.DAILY) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
     ADS_REWARD_FAIL_RUBY,
+    ADS_REWARD_BALLOON_BOOSTER,
+    ADS_REWARD_READY_BOOSTER,
+    ADS_REWARD_INGAME_ADDBALLS,
 	#endregion // 일일
 
 	#region 이벤트
@@ -355,7 +358,7 @@ public enum EItemKinds {
 	BOOSTER_ITEM_01_MISSILE = (EEnumVal.T * EItemType.EXTRA_CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
 	BOOSTER_ITEM_02_LIGHTNING,
 	BOOSTER_ITEM_03_BOMB,
-	BOOSTER_ITEM_04,
+	BOOSTER_ITEM_04_RANDOM,
 
 	GAME_ITEM_01_EARTHQUAKE = (EEnumVal.T * EItemType.EXTRA_CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
 	GAME_ITEM_02_ADD_BALLS,
