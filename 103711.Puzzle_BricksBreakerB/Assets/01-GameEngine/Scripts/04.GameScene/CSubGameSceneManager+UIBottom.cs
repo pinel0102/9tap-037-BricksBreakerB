@@ -27,6 +27,11 @@ namespace GameScene {
             RefreshItemCount();
         }
 
+        public void RefreshLimitedItems()
+        {
+            //TODO: RefreshLimitedItems
+        }
+
         public void HideShootUIs()
         {
             for(int i = 0; i < m_oShootUIsList.Count; ++i) {

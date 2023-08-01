@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace MainScene {
     public partial class CSubMainSceneManager
@@ -8,32 +9,34 @@ namespace MainScene {
         [Header("★ [Live] Reward Video")]
         public RewardVideoType rewardVideoType = RewardVideoType.NONE;
         public GameObject rewardBalloon;
-        public bool isBalloonEnable;
-        public bool isLoadRewardAds;
-
-        private WaitForSecondsRealtime wBalloonDelay = new WaitForSecondsRealtime(1f);
 
 #region Reward Balloon
 
         private void InitRewardButtons()
         {
-            CheckBalloonCooltime();
+            //
         }
 
-        private void CheckBalloonCooltime()
+        public void RefreshLimitedItems()
         {
-            RewardBalloon_Show();
-            //StartCoroutine(CO_BalloonCooltime());
+            //TODO: RefreshLimitedItems
         }
 
-        public void RewardBalloon_Show()
+        public void RefreshRewardBalloon(bool isShow)
         {
-            rewardBalloon.SetActive(true);
+            rewardBalloon.SetActive(isShow);
         }
 
         public void RewardBalloon_Hide()
         {
             rewardBalloon.SetActive(false);
+            
+            DateTime now = DateTime.Now;
+            GlobalDefine.UserInfo.LimitedStartTime_Balloon = now.ExToLongStr();
+            GlobalDefine.UserInfo.LimitedItemCount_Balloon++;
+            CGameInfoStorage.Inst.InitCooltime();
+
+            GlobalDefine.SaveUserData();
         }
 
         public void OnClick_Reward_BalloonBoosterButton() 
@@ -56,13 +59,6 @@ namespace MainScene {
                     CCollectionManager.Inst.DespawnDict(oTargetInfoDict);
                 }
             }, null, null);
-        }
-
-        private IEnumerator CO_BalloonCooltime()
-        {
-            yield return wBalloonDelay;
-
-            RewardBalloon_Show();
         }
 
 #endregion Reward Balloon

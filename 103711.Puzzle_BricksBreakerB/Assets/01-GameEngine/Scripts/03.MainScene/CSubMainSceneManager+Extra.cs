@@ -28,10 +28,9 @@ namespace MainScene {
             this.InitRewardButtons();
 
             userProfile.Initialize();
-            CGameInfoStorage.Inst.Initialize();
+            CGameInfoStorage.Inst.InitRewardBooster();
 
             GlobalDefine.RequestBannerAD();
-            isLoadRewardAds = GlobalDefine.IsEnableRewardVideo();
 
             if (!GlobalDefine.isLevelEditor && !GlobalDefine.isMainSceneOpened && Access.IsEnableGetDailyReward(CGameInfoStorage.Inst.PlayCharacterID))
             {

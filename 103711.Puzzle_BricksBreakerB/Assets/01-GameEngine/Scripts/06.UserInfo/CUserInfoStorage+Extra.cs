@@ -28,6 +28,18 @@ public partial class CUserInfo
     private const string KEY_ITEM_BRICKS_DELETE = "Item_BricksDelete";
     private const string KEY_ITEM_ADD_LASER_BRICKS = "Item_AddLaserBricks";
     private const string KEY_ITEM_ADD_STEEL_BRICKS = "Item_AddSteelBricks";
+    private const string KEY_LIMITED_ITEM_COUNT_BALLOON = "LimitedItemCount_Balloon";
+    private const string KEY_LIMITED_ITEM_COUNT_EARTHQUAKE = "LimitedItemCount_Earthquake";
+    private const string KEY_LIMITED_ITEM_COUNT_ADD_BALL = "LimitedItemCount_AddBall";
+    private const string KEY_LIMITED_ITEM_COUNT_BRICKS_DELETE = "LimitedItemCount_BricksDelete";
+    private const string KEY_LIMITED_ITEM_COUNT_ADD_LASER_BRICKS = "LimitedItemCount_AddLaserBricks";
+    private const string KEY_LIMITED_ITEM_COUNT_ADD_STEEL_BRICKS = "LimitedItemCount_AddSteelBricks";
+    private const string KEY_LIMITED_START_TIME_BALLOON = "LimitedStartTime_Balloon";
+    private const string KEY_LIMITED_START_TIME_EARTHQUAKE = "LimitedStartTime_Earthquake";
+    private const string KEY_LIMITED_START_TIME_ADD_BALL = "LimitedStartTime_AddBall";
+    private const string KEY_LIMITED_START_TIME_BRICKS_DELETE = "LimitedStartTime_BricksDelete";
+    private const string KEY_LIMITED_START_TIME_ADD_LASER_BRICKS = "LimitedStartTime_AddLaserBricks";
+    private const string KEY_LIMITED_START_TIME_ADD_STEEL_BRICKS = "LimitedStartTime_AddSteelBricks";
     private const string KEY_LEVEL_CURRENT = "Level_Current";
     private const string KEY_LEVEL_STAR = "Level_Star";
     private const string KEY_LEVEL_SCORE = "Level_Score";
@@ -54,7 +66,7 @@ public partial class CUserInfo
     [IgnoreMember]
 	public bool Settings_DarkMode {
 		get { return bool.Parse(m_oStrDict.GetValueOrDefault(KEY_SETTINGS_DARKMODE, GlobalDefine.STRING_TRUE)); }
-		set { m_oStrDict.ExReplaceVal(KEY_SETTINGS_DARKMODE, $"{(bool)value}"); }
+		set { m_oStrDict.ExReplaceVal(KEY_SETTINGS_DARKMODE, $"{value}"); }
 	}
 
     [IgnoreMember]
@@ -109,6 +121,78 @@ public partial class CUserInfo
 	public int Item_AddSteelBricks {
 		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_ITEM_ADD_STEEL_BRICKS, GlobalDefine.STRING_0)); }
 		set { m_oStrDict.ExReplaceVal(KEY_ITEM_ADD_STEEL_BRICKS, $"{(int)value}"); }
+	}
+
+    [IgnoreMember]
+	public int LimitedItemCount_Balloon {
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_LIMITED_ITEM_COUNT_BALLOON, GlobalDefine.STRING_0)); }
+		set { m_oStrDict.ExReplaceVal(KEY_LIMITED_ITEM_COUNT_BALLOON, $"{(int)value}"); }
+	}
+
+    [IgnoreMember]
+	public int LimitedItemCount_Earthquake {
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_LIMITED_ITEM_COUNT_EARTHQUAKE, GlobalDefine.STRING_0)); }
+		set { m_oStrDict.ExReplaceVal(KEY_LIMITED_ITEM_COUNT_EARTHQUAKE, $"{(int)value}"); }
+	}
+
+    [IgnoreMember]
+	public int LimitedItemCount_AddBall {
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_LIMITED_ITEM_COUNT_ADD_BALL, GlobalDefine.STRING_0)); }
+		set { m_oStrDict.ExReplaceVal(KEY_LIMITED_ITEM_COUNT_ADD_BALL, $"{(int)value}"); }
+	}
+
+    [IgnoreMember]
+	public int LimitedItemCount_BricksDelete {
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_LIMITED_ITEM_COUNT_BRICKS_DELETE, GlobalDefine.STRING_0)); }
+		set { m_oStrDict.ExReplaceVal(KEY_LIMITED_ITEM_COUNT_BRICKS_DELETE, $"{(int)value}"); }
+	}
+
+    [IgnoreMember]
+	public int LimitedItemCount_AddLaserBricks {
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_LIMITED_ITEM_COUNT_ADD_LASER_BRICKS, GlobalDefine.STRING_0)); }
+		set { m_oStrDict.ExReplaceVal(KEY_LIMITED_ITEM_COUNT_ADD_LASER_BRICKS, $"{(int)value}"); }
+	}
+
+    [IgnoreMember]
+	public int LimitedItemCount_AddSteelBricks {
+		get { return int.Parse(m_oStrDict.GetValueOrDefault(KEY_LIMITED_ITEM_COUNT_ADD_STEEL_BRICKS, GlobalDefine.STRING_0)); }
+		set { m_oStrDict.ExReplaceVal(KEY_LIMITED_ITEM_COUNT_ADD_STEEL_BRICKS, $"{(int)value}"); }
+	}
+
+    [IgnoreMember]
+	public string LimitedStartTime_Balloon {
+		get { return m_oStrDict.GetValueOrDefault(KEY_LIMITED_START_TIME_BALLOON, GlobalDefine.STRING_DATE_EMPTY); }
+		set { m_oStrDict.ExReplaceVal(KEY_LIMITED_START_TIME_BALLOON, $"{value}"); }
+	}
+
+    [IgnoreMember]
+	public string LimitedStartTime_Earthquake {
+		get { return m_oStrDict.GetValueOrDefault(KEY_LIMITED_START_TIME_EARTHQUAKE, GlobalDefine.STRING_DATE_EMPTY); }
+		set { m_oStrDict.ExReplaceVal(KEY_LIMITED_START_TIME_EARTHQUAKE, $"{value}"); }
+	}
+
+    [IgnoreMember]
+	public string LimitedStartTime_AddBall {
+		get { return m_oStrDict.GetValueOrDefault(KEY_LIMITED_START_TIME_ADD_BALL, GlobalDefine.STRING_DATE_EMPTY); }
+		set { m_oStrDict.ExReplaceVal(KEY_LIMITED_START_TIME_ADD_BALL, $"{value}"); }
+	}
+
+    [IgnoreMember]
+	public string LimitedStartTime_BricksDelete {
+		get { return m_oStrDict.GetValueOrDefault(KEY_LIMITED_START_TIME_BRICKS_DELETE, GlobalDefine.STRING_DATE_EMPTY); }
+		set { m_oStrDict.ExReplaceVal(KEY_LIMITED_START_TIME_BRICKS_DELETE, $"{value}"); }
+	}
+
+    [IgnoreMember]
+	public string LimitedStartTime_AddLaserBricks {
+		get { return m_oStrDict.GetValueOrDefault(KEY_LIMITED_START_TIME_ADD_LASER_BRICKS, GlobalDefine.STRING_DATE_EMPTY); }
+		set { m_oStrDict.ExReplaceVal(KEY_LIMITED_START_TIME_ADD_LASER_BRICKS, $"{value}"); }
+	}
+
+    [IgnoreMember]
+	public string LimitedStartTime_AddSteelBricks {
+		get { return m_oStrDict.GetValueOrDefault(KEY_LIMITED_START_TIME_ADD_STEEL_BRICKS, GlobalDefine.STRING_DATE_EMPTY); }
+		set { m_oStrDict.ExReplaceVal(KEY_LIMITED_START_TIME_ADD_STEEL_BRICKS, $"{value}"); }
 	}
 
     [IgnoreMember]

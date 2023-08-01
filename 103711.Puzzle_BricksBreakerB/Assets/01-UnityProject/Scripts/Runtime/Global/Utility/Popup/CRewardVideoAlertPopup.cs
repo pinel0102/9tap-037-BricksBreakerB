@@ -94,7 +94,7 @@ public partial class CRewardVideoAlertPopup : CSubPopup {
 
         isRewardAD = false;
 
-        GlobalDefine.PlaySoundFX(ESoundSet.SOUND_GET_STAR);
+        GlobalDefine.PlaySoundFX(ESoundSet.SOUND_BUTTON);
 
 		this.SubUpdateUIsState();
 	}
@@ -161,9 +161,10 @@ public partial class CRewardVideoAlertPopup : CSubPopup {
                 {
                     case RewardVideoType.BALLOON_BOOSTER:
                         CGameInfoStorage.Inst.GetRewardBooster(RewardVideoType.BALLOON_BOOSTER);
+                        CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN).RewardBalloon_Hide();
 
                         (a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(KDefine.L_SCENE_N_MAIN, KCDefine.B_VAL_0_INT, ERewardKinds.ADS_REWARD_BALLOON_BOOSTER, EItemKinds.BOOSTER_ITEM_04_RANDOM, KCDefine.B_VAL_0_INT, false, 
-                        () => { CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN).RewardBalloon_Hide(); }, this));
+                        () => {  }, this));
                         break;
                     case RewardVideoType.READY_BOOSTER:
                         var parentPopup = Params.parentPopup as CPreviewPopup;

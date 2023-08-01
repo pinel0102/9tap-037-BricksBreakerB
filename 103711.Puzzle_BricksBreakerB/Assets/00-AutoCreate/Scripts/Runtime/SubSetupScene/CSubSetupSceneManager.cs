@@ -22,6 +22,7 @@ namespace SetupScene {
 			CAppInfoStorage.Inst.LoadAppInfo();
             GlobalDefine.LoadUserData();
 			CGameInfoStorage.Inst.LoadGameInfo();
+            CGameInfoStorage.Inst.Initialize();
 
 			// 테이블을 로드한다
 			CEtcInfoTable.Inst.LoadEtcInfos();
