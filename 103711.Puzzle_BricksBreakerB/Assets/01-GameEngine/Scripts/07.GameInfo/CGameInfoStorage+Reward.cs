@@ -64,7 +64,7 @@ public partial class CGameInfoStorage
         RefreshCooltimeUI();
 
         int currentTick = 0;
-        
+
         while(true)
         {
             yield return wCheckCooltimeDelay;
@@ -105,10 +105,12 @@ public partial class CGameInfoStorage
                 isChanged = true;
                 currentItem.DecreaseCount();
 
-                Debug.Log(CodeManager.GetMethodName() + string.Format("[{0}] startTime : {1} / limitedItems[{2}].count: {3}", index, now.ExToLongStr(), index, currentItem.count));
+                Debug.Log(CodeManager.GetMethodName() + string.Format("limitedItems[{0}] / count : {1} / startTime : {2}", index, currentItem.count, now.ExToLongStr()));
 
                 if (currentItem.count > 0)
+                {
                     currentItem.SetCooltime(now, now);
+                }
             }
         }
 
@@ -205,6 +207,6 @@ public struct LimitedItem
 
         int totalSeconds = (int)_now.Subtract(_startTime.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS)).TotalSeconds;
         count = Mathf.Max(0, count - (totalSeconds / cooltimeMax));
-        cooltime = count > 0 ? Mathf.Max(GlobalDefine.cooltime_none, cooltimeMax - totalSeconds) : GlobalDefine.cooltime_none;
+        cooltime = count > 0 ? Mathf.Max(GlobalDefine.cooltime_none, (cooltimeMax - 1) - totalSeconds) : GlobalDefine.cooltime_none;
     }
 }
