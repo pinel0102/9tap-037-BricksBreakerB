@@ -1,24 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 namespace MainScene {
     public partial class CSubMainSceneManager
     {
-        [Header("★ [Live] Reward Video")]
+        [Header("★ [Reference] Reward Video")]
         public RewardVideoType rewardVideoType = RewardVideoType.NONE;
         public GameObject rewardBalloon;
+        public Button rewardBalloonButton;
 
 #region Reward Balloon
 
         private void InitRewardButtons()
         {
-            //
+            //Debug.Log(CodeManager.GetMethodName());
+            rewardBalloonButton?.ExAddListener(this.OnClick_Reward_BalloonBoosterButton);
         }
 
         public void RefreshLimitedItems()
         {
+            //Debug.Log(CodeManager.GetMethodName());
             //TODO: RefreshLimitedItems
         }
 
@@ -32,11 +36,9 @@ namespace MainScene {
             rewardBalloon.SetActive(false);
             
             DateTime now = DateTime.Now;
-            GlobalDefine.UserInfo.LimitedStartTime_Balloon = now.ExToLongStr();
             GlobalDefine.UserInfo.LimitedItemCount_Balloon++;
-            CGameInfoStorage.Inst.InitCooltime();
-
-            GlobalDefine.SaveUserData();
+            GlobalDefine.UserInfo.LimitedStartTime_Balloon = now.ExToLongStr();
+            CGameInfoStorage.Inst.InitCooltime(now);
         }
 
         public void OnClick_Reward_BalloonBoosterButton() 

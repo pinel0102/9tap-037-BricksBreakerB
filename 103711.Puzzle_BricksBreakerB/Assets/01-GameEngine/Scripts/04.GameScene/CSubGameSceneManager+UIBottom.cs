@@ -29,6 +29,7 @@ namespace GameScene {
 
         public void RefreshLimitedItems()
         {
+            //Debug.Log(CodeManager.GetMethodName());
             //TODO: RefreshLimitedItems
         }
 

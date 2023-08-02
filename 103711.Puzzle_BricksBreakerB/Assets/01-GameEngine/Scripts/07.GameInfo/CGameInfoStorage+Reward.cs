@@ -5,69 +5,52 @@ using System;
 
 public partial class CGameInfoStorage
 {
+    [Header("★ [Reference] Limited Items")]
     public bool isLoadRewardAds;
     public bool rewardBooster_balloon;
     public bool rewardBooster_ready;
-    public List<int> limitedCooltime = new List<int>();
-    public List<int> limitedItemCount = new List<int>();
+    public List<LimitedItem> limitedItems = new List<LimitedItem>();
     
+    private const float checkCooltimeDelay = 0.5f;
+    private const int checkCooltimeTick = (int)(1f/checkCooltimeDelay);
+    private WaitForSecondsRealtime wCheckCooltimeDelay = new WaitForSecondsRealtime(checkCooltimeDelay);
     private Coroutine coCheckCooltime;
-    private WaitForSecondsRealtime wOneSecond = new WaitForSecondsRealtime(1f);
 
     public void Initialize()
     {
-        InitCooltime();
+        Debug.Log(CodeManager.GetMethodName());
+
         InitRewardBooster();
+        InitCooltime(DateTime.Now);
+        CheckCooltime();
     }
 
 #region Reward Cooltime
 
-    public void InitCooltime()
+    public void InitCooltime(DateTime _now)
     {
-        DateTime now = DateTime.Now;
+        limitedItems.Clear();
+        limitedItems.Add(new LimitedItem(_now, GlobalDefine.UserInfo.LimitedStartTime_Balloon, GlobalDefine.UserInfo.LimitedItemCount_Balloon, GlobalDefine.cooltime_balloon));
+        limitedItems.Add(new LimitedItem(_now, GlobalDefine.UserInfo.LimitedStartTime_Earthquake, GlobalDefine.UserInfo.LimitedItemCount_Earthquake, GlobalDefine.cooltime_item));
+        limitedItems.Add(new LimitedItem(_now, GlobalDefine.UserInfo.LimitedStartTime_AddBall, GlobalDefine.UserInfo.LimitedItemCount_AddBall, GlobalDefine.cooltime_item));
+        limitedItems.Add(new LimitedItem(_now, GlobalDefine.UserInfo.LimitedStartTime_BricksDelete, GlobalDefine.UserInfo.LimitedItemCount_BricksDelete, GlobalDefine.cooltime_item));
+        limitedItems.Add(new LimitedItem(_now, GlobalDefine.UserInfo.LimitedStartTime_AddLaserBricks, GlobalDefine.UserInfo.LimitedItemCount_AddLaserBricks, GlobalDefine.cooltime_item));
+        limitedItems.Add(new LimitedItem(_now, GlobalDefine.UserInfo.LimitedStartTime_AddSteelBricks, GlobalDefine.UserInfo.LimitedItemCount_AddSteelBricks, GlobalDefine.cooltime_item));
 
-        List<KeyValuePair<int, int>> kv = new List<KeyValuePair<int, int>>();
-        kv.Add(CalulateCooltime(now, GlobalDefine.UserInfo.LimitedStartTime_Balloon, GlobalDefine.UserInfo.LimitedItemCount_Balloon, GlobalDefine.cooltime_balloon));
-        kv.Add(CalulateCooltime(now, GlobalDefine.UserInfo.LimitedStartTime_Earthquake, GlobalDefine.UserInfo.LimitedItemCount_Earthquake, GlobalDefine.cooltime_item));
-        kv.Add(CalulateCooltime(now, GlobalDefine.UserInfo.LimitedStartTime_AddBall, GlobalDefine.UserInfo.LimitedItemCount_AddBall, GlobalDefine.cooltime_item));
-        kv.Add(CalulateCooltime(now, GlobalDefine.UserInfo.LimitedStartTime_BricksDelete, GlobalDefine.UserInfo.LimitedItemCount_BricksDelete, GlobalDefine.cooltime_item));
-        kv.Add(CalulateCooltime(now, GlobalDefine.UserInfo.LimitedStartTime_AddLaserBricks, GlobalDefine.UserInfo.LimitedItemCount_AddLaserBricks, GlobalDefine.cooltime_item));
-        kv.Add(CalulateCooltime(now, GlobalDefine.UserInfo.LimitedStartTime_AddSteelBricks, GlobalDefine.UserInfo.LimitedItemCount_AddSteelBricks, GlobalDefine.cooltime_item));
-
-        GlobalDefine.UserInfo.LimitedItemCount_Balloon = kv[0].Key;
-        GlobalDefine.UserInfo.LimitedItemCount_Earthquake = kv[1].Key;
-        GlobalDefine.UserInfo.LimitedItemCount_AddBall = kv[2].Key;
-        GlobalDefine.UserInfo.LimitedItemCount_BricksDelete = kv[3].Key;
-        GlobalDefine.UserInfo.LimitedItemCount_AddLaserBricks = kv[4].Key;
-        GlobalDefine.UserInfo.LimitedItemCount_AddSteelBricks = kv[5].Key;
-        GlobalDefine.SaveUserData();
-
-        limitedCooltime.Clear();        
-        limitedCooltime.Add(kv[0].Value);
-        limitedCooltime.Add(kv[1].Value);
-        limitedCooltime.Add(kv[2].Value);
-        limitedCooltime.Add(kv[3].Value);
-        limitedCooltime.Add(kv[4].Value);
-        limitedCooltime.Add(kv[5].Value);
-        
-        limitedItemCount.Clear();
-        limitedItemCount.Add(GlobalDefine.UserInfo.LimitedItemCount_Balloon);
-        limitedItemCount.Add(GlobalDefine.UserInfo.LimitedItemCount_Earthquake);
-        limitedItemCount.Add(GlobalDefine.UserInfo.LimitedItemCount_AddBall);
-        limitedItemCount.Add(GlobalDefine.UserInfo.LimitedItemCount_BricksDelete);
-        limitedItemCount.Add(GlobalDefine.UserInfo.LimitedItemCount_AddLaserBricks);
-        limitedItemCount.Add(GlobalDefine.UserInfo.LimitedItemCount_AddSteelBricks);
-
-        CheckCooltime();
+        SaveUserData_LimitedItems();
     }
 
-    private KeyValuePair<int, int> CalulateCooltime(DateTime now, string startTime, int itemCount, int cooltimeMax)
+    private void SaveUserData_LimitedItems()
     {
-        int totalSeconds = (int)now.Subtract(startTime.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS)).TotalSeconds;
-        int newCount = Mathf.Max(0, itemCount - (totalSeconds / cooltimeMax));
-        int newCooltime = newCount > 0 ? Mathf.Max(GlobalDefine.cooltime_none, cooltimeMax - totalSeconds) : GlobalDefine.cooltime_none;
-        
-        return new KeyValuePair<int, int>(newCount, newCooltime);
+        Debug.Log(CodeManager.GetMethodName());
+
+        GlobalDefine.UserInfo.LimitedItemCount_Balloon = limitedItems[0].count;
+        GlobalDefine.UserInfo.LimitedItemCount_Earthquake = limitedItems[1].count;
+        GlobalDefine.UserInfo.LimitedItemCount_AddBall = limitedItems[2].count;
+        GlobalDefine.UserInfo.LimitedItemCount_BricksDelete = limitedItems[3].count;
+        GlobalDefine.UserInfo.LimitedItemCount_AddLaserBricks = limitedItems[4].count;
+        GlobalDefine.UserInfo.LimitedItemCount_AddSteelBricks = limitedItems[5].count;
+        GlobalDefine.SaveUserData();
     }
 
     private void CheckCooltime()
@@ -78,60 +61,58 @@ public partial class CGameInfoStorage
 
     private IEnumerator CO_CheckCooltime()
     {
+        RefreshCooltimeUI();
+
+        int currentTick = 0;
+        
         while(true)
         {
-            yield return wOneSecond;
+            yield return wCheckCooltimeDelay;
 
-            DateTime now = DateTime.Now;
-            bool isChanged = false;
-
-            isChanged = AfterOneSecond(now, 0, GlobalDefine.cooltime_balloon) || isChanged;
-            isChanged = AfterOneSecond(now, 1, GlobalDefine.cooltime_item) || isChanged;
-            isChanged = AfterOneSecond(now, 2, GlobalDefine.cooltime_item) || isChanged;
-            isChanged = AfterOneSecond(now, 3, GlobalDefine.cooltime_item) || isChanged;
-            isChanged = AfterOneSecond(now, 4, GlobalDefine.cooltime_item) || isChanged;
-            isChanged = AfterOneSecond(now, 5, GlobalDefine.cooltime_item) || isChanged;
-
-            if (isChanged)
+            currentTick++;
+            if(currentTick % checkCooltimeTick == 0)
             {
-                Debug.Log(CodeManager.GetMethodName() + string.Format("isChanged : {0}", isChanged));
+                currentTick = 0;
+                DateTime now = DateTime.Now;
+                bool isChanged = false;
 
-                GlobalDefine.UserInfo.LimitedItemCount_Balloon = limitedItemCount[0];
-                GlobalDefine.UserInfo.LimitedItemCount_Earthquake = limitedItemCount[1];
-                GlobalDefine.UserInfo.LimitedItemCount_AddBall = limitedItemCount[2];
-                GlobalDefine.UserInfo.LimitedItemCount_BricksDelete = limitedItemCount[3];
-                GlobalDefine.UserInfo.LimitedItemCount_AddLaserBricks = limitedItemCount[4];
-                GlobalDefine.UserInfo.LimitedItemCount_AddSteelBricks = limitedItemCount[5];
+                for(int i=0; i<limitedItems.Count; i++)
+                {
+                    isChanged = AfterOneSecond(now, i) || isChanged;
+                }
 
-                GlobalDefine.SaveUserData();
+                if (isChanged)
+                {
+                    SaveUserData_LimitedItems();
+                }
             }
 
             RefreshCooltimeUI();
         }
     }
 
-    private bool AfterOneSecond(DateTime now, int index, int cooltimeMax)
+    private bool AfterOneSecond(DateTime now, int index)
     {
         bool isChanged = false;
+        LimitedItem currentItem = limitedItems[index];
 
-        if (limitedCooltime[index] > GlobalDefine.cooltime_none)
-        {
-            limitedCooltime[index]--;
-        }
+        currentItem.DecreaseCoolTime();
 
-        if (limitedCooltime[index] == GlobalDefine.cooltime_none)
+        if (currentItem.cooltime == GlobalDefine.cooltime_none)
         {
-            if(limitedItemCount[index] > 0)
+            if (currentItem.count > 0)
             {
                 isChanged = true;
-                limitedItemCount[index] = Mathf.Max(0, limitedItemCount[index] - 1);
+                currentItem.DecreaseCount();
 
-                Debug.Log(CodeManager.GetMethodName() + string.Format("[{0}] currentCooltime : {1} / limitedItem_Count[{2}]: {3}", index, now.ExToLongStr(), index, limitedItemCount[index]));
+                Debug.Log(CodeManager.GetMethodName() + string.Format("[{0}] startTime : {1} / limitedItems[{2}].count: {3}", index, now.ExToLongStr(), index, currentItem.count));
 
-                if (limitedItemCount[index] > 0)
-                    limitedCooltime[index] = CalulateCooltime(now, now.ExToLongStr(), limitedItemCount[index], cooltimeMax).Value;
+                if (currentItem.count > 0)
+                    currentItem.SetCooltime(now, now);
             }
         }
+
+        limitedItems[index] = currentItem;
 
         return isChanged;
     }
@@ -142,7 +123,7 @@ public partial class CGameInfoStorage
 
         isLoadRewardAds = GlobalDefine.IsEnableRewardVideo();
 
-        RefreshRewardBalloon(isLoadRewardAds && limitedCooltime[0] == GlobalDefine.cooltime_none);
+        RefreshRewardBalloon(isLoadRewardAds && limitedItems[0].cooltime == GlobalDefine.cooltime_none);
         RefreshLimitedItems();
     }
 
@@ -183,4 +164,47 @@ public partial class CGameInfoStorage
 
 #endregion Reward Booster
 
+}
+
+[System.Serializable]
+public struct LimitedItem
+{
+    public string startTime;
+    public int cooltimeMax;
+    public int cooltime;
+    public int count;
+
+    public LimitedItem(DateTime _now, string _startTime, int _count, int _cooltimeMax)
+    {
+        startTime = _startTime;
+        cooltimeMax = _cooltimeMax;
+        cooltime = GlobalDefine.cooltime_none;
+        count = _count;
+
+        SetCooltime(_now, _startTime);
+    }
+
+    public void DecreaseCoolTime()
+    {
+        cooltime = Mathf.Max(GlobalDefine.cooltime_none, cooltime - 1);
+    }
+
+    public void DecreaseCount()
+    {
+        count = Mathf.Max(0, count - 1);
+    }
+
+    public void SetCooltime(DateTime _now, DateTime _startTime)
+    {
+        SetCooltime(_now, _startTime.ExToLongStr());
+    }
+
+    private void SetCooltime(DateTime _now, string _startTime)
+    {
+        if (cooltimeMax == 0) return;
+
+        int totalSeconds = (int)_now.Subtract(_startTime.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS)).TotalSeconds;
+        count = Mathf.Max(0, count - (totalSeconds / cooltimeMax));
+        cooltime = count > 0 ? Mathf.Max(GlobalDefine.cooltime_none, cooltimeMax - totalSeconds) : GlobalDefine.cooltime_none;
+    }
 }

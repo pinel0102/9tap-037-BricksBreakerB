@@ -10,6 +10,7 @@ namespace MainScene {
 	/** 서브 메인 씬 관리자 - 추가 */
 	public partial class CSubMainSceneManager : CMainSceneManager, IEnhancedScrollerDelegate 
     {
+        [Header("★ [Reference] Tab List")]
         public List<TabItem> tabList = new List<TabItem>();
         public int currentTab = -1;
 
