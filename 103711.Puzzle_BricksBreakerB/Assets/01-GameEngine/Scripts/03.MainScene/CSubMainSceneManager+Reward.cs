@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
+using TMPro;
 
 namespace MainScene {
     public partial class CSubMainSceneManager
@@ -12,18 +12,35 @@ namespace MainScene {
         public GameObject rewardBalloon;
         public Button rewardBalloonButton;
 
+        [Header("★ [Reference] Limited Items")]
+        public List<GameObject> limitedItem = new List<GameObject>();
+        public List<TMP_Text> limitedItem_Count = new List<TMP_Text>();
+        public List<TMP_Text> limitedItem_Time = new List<TMP_Text>();
+
 #region Reward Balloon
 
         private void InitRewardButtons()
         {
             //Debug.Log(CodeManager.GetMethodName());
+
+            for(int i=0; i < limitedItem.Count; i++)
+            {
+                limitedItem[i].SetActive(false);
+            }
+
             rewardBalloonButton?.ExAddListener(this.OnClick_Reward_BalloonBoosterButton);
         }
 
         public void RefreshLimitedItems()
         {
             //Debug.Log(CodeManager.GetMethodName());
-            //TODO: RefreshLimitedItems
+            
+            for(int i=0; i < limitedItem.Count; i++)
+            {
+                limitedItem[i].SetActive(CGameInfoStorage.Inst.limitedItems[i+1].count > 0);
+                limitedItem_Count[i].text = CGameInfoStorage.Inst.limitedItems[i+1].count.ToString();
+                limitedItem_Time[i].text = GlobalDefine.SecondsToTimeText(CGameInfoStorage.Inst.limitedItems[i+1].cooltime);
+            }
         }
 
         public void RefreshRewardBalloon(bool isShow)
@@ -34,11 +51,6 @@ namespace MainScene {
         public void RewardBalloon_Hide()
         {
             rewardBalloon.SetActive(false);
-            
-            DateTime now = DateTime.Now;
-            GlobalDefine.UserInfo.LimitedItemCount_Balloon++;
-            GlobalDefine.UserInfo.LimitedStartTime_Balloon = now.ExToLongStr();
-            CGameInfoStorage.Inst.InitCooltime(now);
         }
 
         public void OnClick_Reward_BalloonBoosterButton() 

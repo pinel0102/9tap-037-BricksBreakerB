@@ -11,10 +11,22 @@ public static partial class GlobalDefine
 
     public const string formatVersion = "v{0}";
     public const string formatVersionWithAppName = "{1} v{0}";
+    public const string formatTime_mm_ss = "{0:00}:{1:00}";
+
+    public static void InitRandomSeed()
+    {
+        UnityEngine.Random.InitState((int)DateTime.Now.Ticks);
+    }
 
     public static void ThisIsLevelEditor(bool _isLevelEditor)
     {
         isLevelEditor = _isLevelEditor;
+    }
+
+    public static string SecondsToTimeText(int _seconds)
+    {
+        _seconds = Mathf.Max(0, _seconds);
+        return string.Format(formatTime_mm_ss, _seconds / 60, _seconds % 60);
     }
 
     public static float GetAngle(Vector2 from, Vector2 to)

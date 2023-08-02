@@ -147,4 +147,11 @@ public partial class DebugPanel : MonoBehaviour
         GlobalDefine.SaveUserData();
         CSceneLoader.Inst.LoadScene(KCDefine.B_SCENE_N_INIT);
     }
+
+    public void OnClick_GetLimitedItem(int index)
+    {
+        Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>[Debug] Get Limited Item : {0}</color>", index));
+
+        CGameInfoStorage.Inst.GetLimitedItem(index);
+    }
 }

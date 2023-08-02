@@ -22,6 +22,8 @@ namespace MainScene {
 		/** 씬을 설정한다 */
 		private void SubSetupAwake() {
 
+            GlobalDefine.InitRandomSeed();
+            
 			this.InitTabs();
             this.InitLobbyButtons();
             this.InitLevelMapButtons();

@@ -22,10 +22,9 @@ public partial class CGameInfoStorage
 
         InitRewardBooster();
         InitCooltime(DateTime.Now);
-        CheckCooltime();
     }
 
-#region Reward Cooltime
+#region Cooltime
 
     public void InitCooltime(DateTime _now)
     {
@@ -38,12 +37,11 @@ public partial class CGameInfoStorage
         limitedItems.Add(new LimitedItem(_now, GlobalDefine.UserInfo.LimitedStartTime_AddSteelBricks, GlobalDefine.UserInfo.LimitedItemCount_AddSteelBricks, GlobalDefine.cooltime_item));
 
         SaveUserData_LimitedItems();
+        CheckCooltime();
     }
 
     private void SaveUserData_LimitedItems()
     {
-        Debug.Log(CodeManager.GetMethodName());
-
         GlobalDefine.UserInfo.LimitedItemCount_Balloon = limitedItems[0].count;
         GlobalDefine.UserInfo.LimitedItemCount_Earthquake = limitedItems[1].count;
         GlobalDefine.UserInfo.LimitedItemCount_AddBall = limitedItems[2].count;
@@ -54,8 +52,7 @@ public partial class CGameInfoStorage
     }
 
     private void CheckCooltime()
-    {
-        if (coCheckCooltime != null) StopCoroutine(coCheckCooltime);        
+    {           
         coCheckCooltime = StartCoroutine(CO_CheckCooltime());
     }
 
@@ -105,12 +102,7 @@ public partial class CGameInfoStorage
                 isChanged = true;
                 currentItem.DecreaseCount();
 
-                Debug.Log(CodeManager.GetMethodName() + string.Format("limitedItems[{0}] / count : {1} / startTime : {2}", index, currentItem.count, now.ExToLongStr()));
-
-                if (currentItem.count > 0)
-                {
-                    currentItem.SetCooltime(now, now);
-                }
+                Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>(-) Limited Item : {0}</color>", index));
             }
         }
 
@@ -140,7 +132,62 @@ public partial class CGameInfoStorage
         CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME)?.RefreshLimitedItems();
     }
 
-#endregion Reward Cooltime
+#endregion Cooltime
+
+
+#region Limited Items
+
+    public void GetLimitedItem(int index)
+    {
+        Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>(+) Limited Item : {0}</color>", index));
+
+        DateTime now = DateTime.Now;
+        
+        switch(index)
+        {
+            case 0:
+                if (GlobalDefine.UserInfo.LimitedItemCount_Balloon == 0)
+                    GlobalDefine.UserInfo.LimitedStartTime_Balloon = now.ExToLongStr();
+                GlobalDefine.UserInfo.LimitedItemCount_Balloon++;
+                break;
+            case 1:
+                if (GlobalDefine.UserInfo.LimitedItemCount_Earthquake == 0)
+                    GlobalDefine.UserInfo.LimitedStartTime_Earthquake = now.ExToLongStr();
+                GlobalDefine.UserInfo.LimitedItemCount_Earthquake++;
+                break;
+            case 2:
+                if (GlobalDefine.UserInfo.LimitedItemCount_AddBall == 0)
+                    GlobalDefine.UserInfo.LimitedStartTime_AddBall = now.ExToLongStr();
+                GlobalDefine.UserInfo.LimitedItemCount_AddBall++;
+                break;
+            case 3:
+                if (GlobalDefine.UserInfo.LimitedItemCount_BricksDelete == 0)
+                    GlobalDefine.UserInfo.LimitedStartTime_BricksDelete = now.ExToLongStr();
+                GlobalDefine.UserInfo.LimitedItemCount_BricksDelete++;
+                break;
+            case 4:
+                if (GlobalDefine.UserInfo.LimitedItemCount_AddLaserBricks == 0)
+                    GlobalDefine.UserInfo.LimitedStartTime_AddLaserBricks = now.ExToLongStr();
+                GlobalDefine.UserInfo.LimitedItemCount_AddLaserBricks++;
+                break;
+            case 5:
+                if (GlobalDefine.UserInfo.LimitedItemCount_AddSteelBricks == 0)
+                    GlobalDefine.UserInfo.LimitedStartTime_AddSteelBricks = now.ExToLongStr();
+                GlobalDefine.UserInfo.LimitedItemCount_AddSteelBricks++;
+                break;
+            default:
+                break;
+        }
+
+        GlobalDefine.SaveUserData();
+
+        LimitedItem currentItem = limitedItems[index];
+        currentItem.IncreaseCount();
+        limitedItems[index] = currentItem;
+    }
+
+
+#endregion Limited Items
 
 
 #region Reward Booster
@@ -183,7 +230,20 @@ public struct LimitedItem
         cooltime = GlobalDefine.cooltime_none;
         count = _count;
 
-        SetCooltime(_now, _startTime);
+        InitCooltime(_now, _startTime);
+    }
+
+    public void IncreaseCount()
+    {
+        count++;        
+        if (count == 1)
+            StartCooltime();
+    }
+
+    public void DecreaseCount()
+    {
+        count = Mathf.Max(0, count - 1);
+        ResetCooltime();
     }
 
     public void DecreaseCoolTime()
@@ -191,22 +251,27 @@ public struct LimitedItem
         cooltime = Mathf.Max(GlobalDefine.cooltime_none, cooltime - 1);
     }
 
-    public void DecreaseCount()
+    private void StartCooltime()
     {
-        count = Mathf.Max(0, count - 1);
+        cooltime = Mathf.Max(GlobalDefine.cooltime_none, cooltimeMax - 1);
     }
 
-    public void SetCooltime(DateTime _now, DateTime _startTime)
+    private void ResetCooltime()
     {
-        SetCooltime(_now, _startTime.ExToLongStr());
+        cooltime = CalculateCooltime(0);
     }
 
-    private void SetCooltime(DateTime _now, string _startTime)
+    private void InitCooltime(DateTime _now, string _startTime)
     {
         if (cooltimeMax == 0) return;
+        int _totalSeconds = (int)_now.Subtract(_startTime.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS)).TotalSeconds;
+        
+        count = Mathf.Max(0, count - (_totalSeconds / cooltimeMax));
+        cooltime = CalculateCooltime(_totalSeconds);
+    }
 
-        int totalSeconds = (int)_now.Subtract(_startTime.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS)).TotalSeconds;
-        count = Mathf.Max(0, count - (totalSeconds / cooltimeMax));
-        cooltime = count > 0 ? Mathf.Max(GlobalDefine.cooltime_none, (cooltimeMax - 1) - totalSeconds) : GlobalDefine.cooltime_none;
+    private int CalculateCooltime(int _elapsedSeconds)
+    {
+        return count > 0 ? Mathf.Max(GlobalDefine.cooltime_none, (cooltimeMax - 1) - _elapsedSeconds) : GlobalDefine.cooltime_none;
     }
 }

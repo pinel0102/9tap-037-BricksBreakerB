@@ -10,6 +10,15 @@ public static partial class GlobalDefine
     public const string FORMAT_TOOLTIP_UNLOCK = "Unlock on level {0}";
     public const string SETTINGS_SOUND_ON = "Sound ON";
     public const string SETTINGS_SOUND_OFF = "Sound OFF";
+    public const string PLAYER_NAME_DEFAULT = "My Name";
+    public const string STRING_TRUE = "True";
+    public const string STRING_FALSE = "False";
+    public const string STRING_1 = "1";
+    public const string STRING_0 = "0";
+    public const string STRING_DATE_EMPTY = "2023/08/01 00:00:00";
+    public const string FORMAT_INT = "{0}";
+    public const string FORMAT_BALL_TEXT_EXTRA = "{0}+{1}";
+    public const string TAG_WALL = "Wall";
 
     public static STSortingOrderInfo SortingInfo_HPText = new STSortingOrderInfo()  { m_nOrder = 200, m_oLayer = KCDefine.U_SORTING_L_CELL };
     public static STSortingOrderInfo SortingInfo_NumText = new STSortingOrderInfo() { m_nOrder = 200, m_oLayer = KCDefine.U_SORTING_L_BALL };
@@ -18,16 +27,6 @@ public static partial class GlobalDefine
     public static STSortingOrderInfo SortingInfo_RewardAlertCanvas = new STSortingOrderInfo(){ m_nOrder = 800, m_oLayer = KCDefine.U_SORTING_L_FOREGROUND };
     public static STSortingOrderInfo SortingInfo_RewardCanvas = new STSortingOrderInfo(){ m_nOrder = 900, m_oLayer = KCDefine.U_SORTING_L_FOREGROUND };
     public static STSortingOrderInfo SortingInfo_StoreCanvas = new STSortingOrderInfo(){ m_nOrder = 1000, m_oLayer = KCDefine.U_SORTING_L_FOREGROUND };
-
-    public const string PLAYER_NAME_DEFAULT = "My Name";
-    public const string STRING_TRUE = "True";
-    public const string STRING_FALSE = "False";
-    public const string STRING_1 = "1";
-    public const string STRING_0 = "0";
-    public const string STRING_DATE_EMPTY = "2023/08/01 00:00:00";
-
-    public const string FORMAT_INT = "{0}";
-    private const string FORMAT_BALL_TEXT_EXTRA = "{0}+{1}";
 
     public static string GetBallText(int ballCount, int extraBallCount)
     {

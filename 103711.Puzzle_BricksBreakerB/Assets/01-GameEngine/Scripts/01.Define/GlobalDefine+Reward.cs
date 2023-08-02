@@ -5,7 +5,7 @@ using UnityEngine;
 public static partial class GlobalDefine
 {
     public const int cooltime_balloon = 180; // 180
-    public const int cooltime_item = 1800; // 1800
+    public const int cooltime_item = 20; // 1800
     public const int cooltime_none = -1;
 
     public static void AddRuby(int addCount)

@@ -10,6 +10,7 @@ TagManager:
   - AdditionalLight
   - AdditionalCamera
   - SceneManager
+  - Wall
   layers:
   - Default
   - TransparentFX

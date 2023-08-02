@@ -26,6 +26,7 @@ namespace GameScene {
 
         private void Initialize()
         {
+            GlobalDefine.InitRandomSeed();
             GlobalDefine.HideBannerAD();
 
             ApplyDarkMode(GlobalDefine.UserInfo.Settings_DarkMode);

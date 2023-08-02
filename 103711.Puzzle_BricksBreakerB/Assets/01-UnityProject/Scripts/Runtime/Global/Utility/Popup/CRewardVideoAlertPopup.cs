@@ -160,6 +160,7 @@ public partial class CRewardVideoAlertPopup : CSubPopup {
                 switch(Params.rewardVideoType)
                 {
                     case RewardVideoType.BALLOON_BOOSTER:
+                        CGameInfoStorage.Inst.GetLimitedItem(0);
                         CGameInfoStorage.Inst.GetRewardBooster(RewardVideoType.BALLOON_BOOSTER);
                         CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN).RewardBalloon_Hide();
 
