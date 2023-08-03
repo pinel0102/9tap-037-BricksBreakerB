@@ -11,10 +11,18 @@ namespace GameScene {
         [Header("★ [Reference] UI Bottom")]
         public GameObject itemLayer;
         public List<Button> bottomItemsButton = new List<Button>();
+        public List<Image> bottomItemsBack = new List<Image>();
         public List<GameObject> bottomItemsDisabled = new List<GameObject>();
         public List<GameObject> bottomItemsRuby = new List<GameObject>();
         public List<TMP_Text> bottomItemsText = new List<TMP_Text>();
         public List<TMP_Text> bottomItemsCost = new List<TMP_Text>();
+
+        [Header("★ [Reference] Limited Items")]
+        public List<GameObject> limitedItem = new List<GameObject>();
+        public List<TMP_Text> limitedItem_Count = new List<TMP_Text>();
+        public List<TMP_Text> limitedItem_Time = new List<TMP_Text>();
+        public Color itemBackColor_Normal = new Color();
+        public Color itemBackColor_Limited = new Color();
         
         private void SetupBottomButtons()
         {
@@ -30,7 +38,8 @@ namespace GameScene {
         public void RefreshLimitedItems()
         {
             //Debug.Log(CodeManager.GetMethodName());
-            //TODO: RefreshLimitedItems
+
+            RefreshItemCount();
         }
 
         public void HideShootUIs()
@@ -42,10 +51,10 @@ namespace GameScene {
 
         public void RefreshItemCount()
         {
-            for(int index = 0; index < bottomItemsText.Count; index++)
+            for(int i = 0; i < bottomItemsText.Count; i++)
             {
                 int count = 0;
-                switch(index)
+                switch(i)
                 {
                     case 0: count = GlobalDefine.UserInfo.Item_Earthquake; break;
                     case 1: count = GlobalDefine.UserInfo.Item_AddBall; break;
@@ -54,10 +63,16 @@ namespace GameScene {
                     case 4: count = GlobalDefine.UserInfo.Item_AddSteelBricks; break;
                 }
 
-                bottomItemsCost[index].text = string.Format(GlobalDefine.FORMAT_INT, GlobalDefine.CostRuby_BottomItem);
-                bottomItemsText[index].text = string.Format(GlobalDefine.FORMAT_ITEM_COUNT, count);
-                bottomItemsText[index].gameObject.SetActive(count > 0);
-                bottomItemsRuby[index].gameObject.SetActive(count <= 0);
+                LimitedItem currentItem = CGameInfoStorage.Inst.limitedItems[i+1];
+                limitedItem[i].SetActive(currentItem.count > 0);
+                limitedItem_Count[i].text = currentItem.count.ToString();
+                limitedItem_Time[i].text = GlobalDefine.SecondsToTimeText(currentItem.cooltime);
+
+                bottomItemsCost[i].text = string.Format(GlobalDefine.FORMAT_INT, GlobalDefine.CostRuby_BottomItem);
+                bottomItemsText[i].text = string.Format(GlobalDefine.FORMAT_ITEM_COUNT, count);
+                bottomItemsText[i].gameObject.SetActive(count > 0 && currentItem.count <= 0);
+                bottomItemsRuby[i].gameObject.SetActive(count <= 0 && currentItem.count <= 0);
+                bottomItemsBack[i].ExSetColor<Image>(currentItem.count > 0 ? itemBackColor_Limited : itemBackColor_Normal);
             }
         }
 
@@ -68,20 +83,27 @@ namespace GameScene {
             if (!CanUseBottomItem()) return;
             if (!GlobalDefine.isLevelEditor && !Engine.isTutorial)
             {
-                if (GlobalDefine.UserInfo.Item_Earthquake < 1)
+                if (GlobalDefine.UserInfo.LimitedItemCount_Earthquake > 0)
                 {
-                    if (GlobalDefine.UserInfo.Ruby < GlobalDefine.CostRuby_BottomItem)
-                    {
-                        OpenPopup_Store();
-                        return;
-                    }
-                    else
-                        PurchaseBottomItem();
+                    CGameInfoStorage.Inst.UseLimitedItem(1);
                 }
                 else
                 {
-                    GlobalDefine.UserInfo.Item_Earthquake = Mathf.Max(0, GlobalDefine.UserInfo.Item_Earthquake - 1);                    
-                    GlobalDefine.SaveUserData();
+                    if (GlobalDefine.UserInfo.Item_Earthquake < 1)
+                    {
+                        if (GlobalDefine.UserInfo.Ruby < GlobalDefine.CostRuby_BottomItem)
+                        {
+                            OpenPopup_Store();
+                            return;
+                        }
+                        else
+                            PurchaseBottomItem();
+                    }
+                    else
+                    {
+                        GlobalDefine.UserInfo.Item_Earthquake = Mathf.Max(0, GlobalDefine.UserInfo.Item_Earthquake - 1);                    
+                        GlobalDefine.SaveUserData();
+                    }
                 }
             }
 
@@ -116,20 +138,27 @@ namespace GameScene {
             if (!CanUseBottomItem()) return;
             if (!GlobalDefine.isLevelEditor && !Engine.isTutorial)
             {
-                if (GlobalDefine.UserInfo.Item_AddBall < 1) 
+                if (GlobalDefine.UserInfo.LimitedItemCount_AddBall > 0)
                 {
-                    if (GlobalDefine.UserInfo.Ruby < GlobalDefine.CostRuby_BottomItem)
-                    {
-                        OpenPopup_Store();
-                        return;
-                    }
-                    else
-                        PurchaseBottomItem();
+                    CGameInfoStorage.Inst.UseLimitedItem(2);
                 }
                 else
                 {
-                    GlobalDefine.UserInfo.Item_AddBall = Mathf.Max(0, GlobalDefine.UserInfo.Item_AddBall - 1);
-                    GlobalDefine.SaveUserData();
+                    if (GlobalDefine.UserInfo.Item_AddBall < 1) 
+                    {
+                        if (GlobalDefine.UserInfo.Ruby < GlobalDefine.CostRuby_BottomItem)
+                        {
+                            OpenPopup_Store();
+                            return;
+                        }
+                        else
+                            PurchaseBottomItem();
+                    }
+                    else
+                    {
+                        GlobalDefine.UserInfo.Item_AddBall = Mathf.Max(0, GlobalDefine.UserInfo.Item_AddBall - 1);
+                        GlobalDefine.SaveUserData();
+                    }
                 }
             }
 
@@ -152,20 +181,27 @@ namespace GameScene {
             if (!CanUseBottomItem()) return;
             if (!GlobalDefine.isLevelEditor && !Engine.isTutorial)
             {
-                if (GlobalDefine.UserInfo.Item_BricksDelete < 1) 
+                if (GlobalDefine.UserInfo.LimitedItemCount_BricksDelete > 0)
                 {
-                    if (GlobalDefine.UserInfo.Ruby < GlobalDefine.CostRuby_BottomItem)
-                    {
-                        OpenPopup_Store();
-                        return;
-                    }
-                    else
-                        PurchaseBottomItem();
+                    CGameInfoStorage.Inst.UseLimitedItem(3);
                 }
                 else
                 {
-                    GlobalDefine.UserInfo.Item_BricksDelete = Mathf.Max(0, GlobalDefine.UserInfo.Item_BricksDelete - 1);
-                    GlobalDefine.SaveUserData();
+                    if (GlobalDefine.UserInfo.Item_BricksDelete < 1) 
+                    {
+                        if (GlobalDefine.UserInfo.Ruby < GlobalDefine.CostRuby_BottomItem)
+                        {
+                            OpenPopup_Store();
+                            return;
+                        }
+                        else
+                            PurchaseBottomItem();
+                    }
+                    else
+                    {
+                        GlobalDefine.UserInfo.Item_BricksDelete = Mathf.Max(0, GlobalDefine.UserInfo.Item_BricksDelete - 1);
+                        GlobalDefine.SaveUserData();
+                    }
                 }
             }
 
@@ -197,20 +233,27 @@ namespace GameScene {
             if (!CanUseBottomItem()) return;
             if (!GlobalDefine.isLevelEditor && !Engine.isTutorial)
             {
-                if (GlobalDefine.UserInfo.Item_AddLaserBricks < 1) 
+                if (GlobalDefine.UserInfo.LimitedItemCount_AddLaserBricks > 0)
                 {
-                    if (GlobalDefine.UserInfo.Ruby < GlobalDefine.CostRuby_BottomItem)
-                    {
-                        OpenPopup_Store();
-                        return;
-                    }
-                    else
-                        PurchaseBottomItem();
+                    CGameInfoStorage.Inst.UseLimitedItem(4);
                 }
                 else
                 {
-                    GlobalDefine.UserInfo.Item_AddLaserBricks = Mathf.Max(0, GlobalDefine.UserInfo.Item_AddLaserBricks - 1);
-                    GlobalDefine.SaveUserData();
+                    if (GlobalDefine.UserInfo.Item_AddLaserBricks < 1) 
+                    {
+                        if (GlobalDefine.UserInfo.Ruby < GlobalDefine.CostRuby_BottomItem)
+                        {
+                            OpenPopup_Store();
+                            return;
+                        }
+                        else
+                            PurchaseBottomItem();
+                    }
+                    else
+                    {
+                        GlobalDefine.UserInfo.Item_AddLaserBricks = Mathf.Max(0, GlobalDefine.UserInfo.Item_AddLaserBricks - 1);
+                        GlobalDefine.SaveUserData();
+                    }
                 }
             }
 
@@ -238,20 +281,27 @@ namespace GameScene {
             if (!CanUseBottomItem() || Engine.isAddSteelBricks) return;
             if (!GlobalDefine.isLevelEditor && !Engine.isTutorial)
             {
-                if (GlobalDefine.UserInfo.Item_AddSteelBricks < 1) 
+                if (GlobalDefine.UserInfo.LimitedItemCount_AddSteelBricks > 0)
                 {
-                    if (GlobalDefine.UserInfo.Ruby < GlobalDefine.CostRuby_BottomItem)
-                    {
-                        OpenPopup_Store();
-                        return;
-                    }
-                    else
-                        PurchaseBottomItem();
+                    CGameInfoStorage.Inst.UseLimitedItem(5);
                 }
                 else
                 {
-                    GlobalDefine.UserInfo.Item_AddSteelBricks = Mathf.Max(0, GlobalDefine.UserInfo.Item_AddSteelBricks - 1);
-                    GlobalDefine.SaveUserData();
+                    if (GlobalDefine.UserInfo.Item_AddSteelBricks < 1) 
+                    {
+                        if (GlobalDefine.UserInfo.Ruby < GlobalDefine.CostRuby_BottomItem)
+                        {
+                            OpenPopup_Store();
+                            return;
+                        }
+                        else
+                            PurchaseBottomItem();
+                    }
+                    else
+                    {
+                        GlobalDefine.UserInfo.Item_AddSteelBricks = Mathf.Max(0, GlobalDefine.UserInfo.Item_AddSteelBricks - 1);
+                        GlobalDefine.SaveUserData();
+                    }
                 }
             }
 

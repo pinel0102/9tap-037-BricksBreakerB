@@ -5,23 +5,23 @@ using UnityEngine;
 public static partial class GlobalDefine
 {
     public const int cooltime_balloon = 180; // 180
-    public const int cooltime_item = 20; // 1800
+    public const int cooltime_item = 1800; // 1800
     public const int cooltime_none = -1;
 
     public static void AddRuby(int addCount)
     {
-        Debug.Log(CodeManager.GetMethodName() + string.Format("{0} + {1} = {2}", GlobalDefine.UserInfo.Ruby, addCount, GlobalDefine.UserInfo.Ruby + addCount));
+        Debug.Log(CodeManager.GetMethodName() + string.Format("{0} + {1} = {2}", UserInfo.Ruby, addCount, UserInfo.Ruby + addCount));
 
-        GlobalDefine.UserInfo.Ruby = Mathf.Max(0, GlobalDefine.UserInfo.Ruby + addCount);
+        UserInfo.Ruby = Mathf.Max(0, UserInfo.Ruby + addCount);
 
         SaveUserData();
     }
 
     public static void AddStar(int addCount)
     {
-        Debug.Log(CodeManager.GetMethodName() + string.Format("{0} + {1} = {2}", GlobalDefine.UserInfo.Star, addCount, GlobalDefine.UserInfo.Star + addCount));
+        Debug.Log(CodeManager.GetMethodName() + string.Format("{0} + {1} = {2}", UserInfo.Star, addCount, UserInfo.Star + addCount));
 
-        GlobalDefine.UserInfo.Star = Mathf.Max(0, GlobalDefine.UserInfo.Star + addCount);
+        UserInfo.Star = Mathf.Max(0, UserInfo.Star + addCount);
 
         SaveUserData();
     }
@@ -36,28 +36,28 @@ public static partial class GlobalDefine
                 AddRuby(addCount);
                 break;
             case EItemKinds.GAME_ITEM_01_EARTHQUAKE:
-                GlobalDefine.UserInfo.Item_Earthquake = Mathf.Max(0, GlobalDefine.UserInfo.Item_Earthquake + addCount);
+                UserInfo.Item_Earthquake = Mathf.Max(0, UserInfo.Item_Earthquake + addCount);
                 break;
             case EItemKinds.GAME_ITEM_02_ADD_BALLS:
-                GlobalDefine.UserInfo.Item_AddBall = Mathf.Max(0, GlobalDefine.UserInfo.Item_AddBall + addCount);
+                UserInfo.Item_AddBall = Mathf.Max(0, UserInfo.Item_AddBall + addCount);
                 break;
             case EItemKinds.GAME_ITEM_03_BRICKS_DELETE:
-                GlobalDefine.UserInfo.Item_BricksDelete = Mathf.Max(0, GlobalDefine.UserInfo.Item_BricksDelete + addCount);
+                UserInfo.Item_BricksDelete = Mathf.Max(0, UserInfo.Item_BricksDelete + addCount);
                 break;
             case EItemKinds.GAME_ITEM_04_ADD_LASER_BRICKS:
-                GlobalDefine.UserInfo.Item_AddLaserBricks = Mathf.Max(0, GlobalDefine.UserInfo.Item_AddLaserBricks + addCount);
+                UserInfo.Item_AddLaserBricks = Mathf.Max(0, UserInfo.Item_AddLaserBricks + addCount);
                 break;
             case EItemKinds.GAME_ITEM_05_ADD_STEEL_BRICKS:
-                GlobalDefine.UserInfo.Item_AddSteelBricks = Mathf.Max(0, GlobalDefine.UserInfo.Item_AddSteelBricks + addCount);
+                UserInfo.Item_AddSteelBricks = Mathf.Max(0, UserInfo.Item_AddSteelBricks + addCount);
                 break;
             case EItemKinds.BOOSTER_ITEM_01_MISSILE:
-                GlobalDefine.UserInfo.Booster_Missile = Mathf.Max(0, GlobalDefine.UserInfo.Booster_Missile + addCount);
+                UserInfo.Booster_Missile = Mathf.Max(0, UserInfo.Booster_Missile + addCount);
                 break;
             case EItemKinds.BOOSTER_ITEM_02_LIGHTNING:
-                GlobalDefine.UserInfo.Booster_Lightning = Mathf.Max(0, GlobalDefine.UserInfo.Booster_Lightning + addCount);
+                UserInfo.Booster_Lightning = Mathf.Max(0, UserInfo.Booster_Lightning + addCount);
                 break;
             case EItemKinds.BOOSTER_ITEM_03_BOMB:
-                GlobalDefine.UserInfo.Booster_Bomb = Mathf.Max(0, GlobalDefine.UserInfo.Booster_Bomb + addCount);
+                UserInfo.Booster_Bomb = Mathf.Max(0, UserInfo.Booster_Bomb + addCount);
                 break;
         }
 
@@ -68,7 +68,7 @@ public static partial class GlobalDefine
     {
         Debug.Log(CodeManager.GetMethodName() + newCount);
 
-        GlobalDefine.UserInfo.Ruby = Mathf.Max(0, newCount);
+        UserInfo.Ruby = Mathf.Max(0, newCount);
 
         SaveUserData();
     }
@@ -77,11 +77,11 @@ public static partial class GlobalDefine
     {
         Debug.Log(CodeManager.GetMethodName() + newCount);
 
-        GlobalDefine.UserInfo.Item_Earthquake = Mathf.Max(0, newCount);
-        GlobalDefine.UserInfo.Item_AddBall = Mathf.Max(0, newCount);
-        GlobalDefine.UserInfo.Item_BricksDelete = Mathf.Max(0, newCount);
-        GlobalDefine.UserInfo.Item_AddLaserBricks = Mathf.Max(0, newCount);
-        GlobalDefine.UserInfo.Item_AddSteelBricks = Mathf.Max(0, newCount);
+        UserInfo.Item_Earthquake = Mathf.Max(0, newCount);
+        UserInfo.Item_AddBall = Mathf.Max(0, newCount);
+        UserInfo.Item_BricksDelete = Mathf.Max(0, newCount);
+        UserInfo.Item_AddLaserBricks = Mathf.Max(0, newCount);
+        UserInfo.Item_AddSteelBricks = Mathf.Max(0, newCount);
 
         SaveUserData();
     }
@@ -90,9 +90,9 @@ public static partial class GlobalDefine
     {
         Debug.Log(CodeManager.GetMethodName() + newCount);
 
-        GlobalDefine.UserInfo.Booster_Missile = Mathf.Max(0, newCount);
-        GlobalDefine.UserInfo.Booster_Lightning = Mathf.Max(0, newCount);
-        GlobalDefine.UserInfo.Booster_Bomb = Mathf.Max(0, newCount);
+        UserInfo.Booster_Missile = Mathf.Max(0, newCount);
+        UserInfo.Booster_Lightning = Mathf.Max(0, newCount);
+        UserInfo.Booster_Bomb = Mathf.Max(0, newCount);
 
         SaveUserData();
     }
@@ -101,7 +101,7 @@ public static partial class GlobalDefine
     {
         Debug.Log(CodeManager.GetMethodName() + level);
 
-        GlobalDefine.UserInfo.LevelCurrent = Mathf.Min(CLevelInfoTable.Inst.levelCount, level + 1);
+        UserInfo.LevelCurrent = Mathf.Min(CLevelInfoTable.Inst.levelCount, level + 1);
         
         SaveUserData();
     }

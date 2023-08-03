@@ -28,6 +28,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
         public int currentLevel;
         public int count;
         public bool isEnableAD;
+        public string description;
 	}
 
 	#region 변수
@@ -38,6 +39,7 @@ public partial class CRewardAcquirePopup : CSubPopup {
     public Canvas canvas;
     public List<GameObject> itemList = new List<GameObject>();
     public TMP_Text countText;
+    public TMP_Text descText;
     public Button GetButton;
     public Button ADButton;
     public bool isRewardAD;
@@ -92,6 +94,9 @@ public partial class CRewardAcquirePopup : CSubPopup {
         countText.text = string.Format(GlobalDefine.FORMAT_ITEM_COUNT, Params.count);
         countText.gameObject.SetActive(Params.count > 0);
         ADButton.gameObject.SetActive(Params.isEnableAD);
+
+        descText.text = Params.description;
+        descText.gameObject.SetActive(Params.description != null);
 
         isRewardAD = false;
 
@@ -173,10 +178,10 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		};
 	}*/
 
-    public static STParams MakeParams(string _sceneName, int _currentLevel, ERewardKinds _rewardKinds, EItemKinds _kinds, int _count, bool _isEnableAD, System.Action _m_oCallback, CPopup _parentPopup) {
+    public static STParams MakeParams(string _sceneName, int _currentLevel, ERewardKinds _rewardKinds, EItemKinds _kinds, int _count, bool _isEnableAD, System.Action _m_oCallback, CPopup _parentPopup, string _description = null) {
 		return new STParams() {
 			sceneName = _sceneName, currentLevel = _currentLevel, rewardKinds = _rewardKinds, 
-            kinds = _kinds, count = _count, isEnableAD = _isEnableAD, m_oCallback = _m_oCallback, parentPopup = _parentPopup
+            kinds = _kinds, count = _count, isEnableAD = _isEnableAD, m_oCallback = _m_oCallback, parentPopup = _parentPopup, description = _description
 		};
 	}
 	#endregion // 클래스 함수

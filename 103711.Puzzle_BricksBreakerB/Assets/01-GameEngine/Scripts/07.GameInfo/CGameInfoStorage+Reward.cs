@@ -137,6 +137,50 @@ public partial class CGameInfoStorage
 
 #region Limited Items
 
+    public void UseLimitedItem(int index)
+    {
+        Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>(use) Limited Item : {0}</color>", index));
+
+        DateTime now = DateTime.Now;
+
+        switch(index)
+        {
+            case 1:
+                GlobalDefine.UserInfo.LimitedItemCount_Earthquake--;
+                if (GlobalDefine.UserInfo.LimitedItemCount_Earthquake > 0)
+                    GlobalDefine.UserInfo.LimitedStartTime_Earthquake = now.ExToLongStr();
+                break;
+            case 2:
+                GlobalDefine.UserInfo.LimitedItemCount_AddBall--;
+                if (GlobalDefine.UserInfo.LimitedItemCount_AddBall > 0)
+                    GlobalDefine.UserInfo.LimitedStartTime_AddBall = now.ExToLongStr();
+                break;
+            case 3:
+                GlobalDefine.UserInfo.LimitedItemCount_BricksDelete--;
+                if (GlobalDefine.UserInfo.LimitedItemCount_BricksDelete > 0)
+                    GlobalDefine.UserInfo.LimitedStartTime_BricksDelete = now.ExToLongStr();
+                break;
+            case 4:
+                GlobalDefine.UserInfo.LimitedItemCount_AddLaserBricks--;
+                if (GlobalDefine.UserInfo.LimitedItemCount_AddLaserBricks > 0)
+                    GlobalDefine.UserInfo.LimitedStartTime_AddLaserBricks = now.ExToLongStr();
+                break;
+            case 5:
+                GlobalDefine.UserInfo.LimitedItemCount_AddSteelBricks--;
+                if (GlobalDefine.UserInfo.LimitedItemCount_AddSteelBricks > 0)
+                    GlobalDefine.UserInfo.LimitedStartTime_AddSteelBricks = now.ExToLongStr();
+                break;
+            default:
+                break;
+        }
+
+        GlobalDefine.SaveUserData();
+
+        LimitedItem currentItem = limitedItems[index];
+        currentItem.DecreaseCount();
+        limitedItems[index] = currentItem;
+    }
+
     public void GetLimitedItem(int index)
     {
         Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>(+) Limited Item : {0}</color>", index));
@@ -184,6 +228,25 @@ public partial class CGameInfoStorage
         LimitedItem currentItem = limitedItems[index];
         currentItem.IncreaseCount();
         limitedItems[index] = currentItem;
+
+        switch(index)
+        {
+            case 1: case 2: case 3: case 4: case 5: 
+
+            var mainSceneManager = CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN);
+            var PopupUIs = mainSceneManager != null ? mainSceneManager?.PopupUIs : CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME)?.PopupUIs;
+            EItemKinds kinds = EItemKinds.GAME_ITEM_01_EARTHQUAKE + (index - 1);
+
+            Func.ShowRewardAcquirePopup(PopupUIs, (a_oSender) => {            
+            try {
+                (a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(KDefine.L_SCENE_N_MAIN, KCDefine.B_VAL_0_INT, ERewardKinds.NONE, kinds, KCDefine.B_VAL_0_INT, false, 
+                () => {  }, null, GlobalDefine.SecondsToTimeText(GlobalDefine.cooltime_item)));
+                } 
+                finally 
+                { }
+            }, null, null);            
+            break;
+        }
     }
 
 

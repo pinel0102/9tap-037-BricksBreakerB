@@ -37,9 +37,10 @@ namespace MainScene {
             
             for(int i=0; i < limitedItem.Count; i++)
             {
-                limitedItem[i].SetActive(CGameInfoStorage.Inst.limitedItems[i+1].count > 0);
-                limitedItem_Count[i].text = CGameInfoStorage.Inst.limitedItems[i+1].count.ToString();
-                limitedItem_Time[i].text = GlobalDefine.SecondsToTimeText(CGameInfoStorage.Inst.limitedItems[i+1].cooltime);
+                LimitedItem currentItem = CGameInfoStorage.Inst.limitedItems[i+1];
+                limitedItem[i].SetActive(currentItem.count > 0);
+                limitedItem_Count[i].text = currentItem.count.ToString();
+                limitedItem_Time[i].text = GlobalDefine.SecondsToTimeText(currentItem.cooltime);
             }
         }
 
