@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 using System.Linq;
@@ -48,6 +49,20 @@ public partial class CStorePopup : CSubPopup {
     public Canvas storeCanvas;
     public TMP_Text rubyText;
     public TMP_Text starText;
+    public Button AdsButton;
+
+    public TMP_Text remainTimeTextDaily;
+    public TMP_Text remainTimeTextWeekly;
+
+    public bool isEnableGetDailyStore;
+    public bool isEnableGetWeeklyStore;
+    public DateTime nextRewardTimeDaily;
+    public DateTime nextRewardTimeWeekly;
+    private Coroutine remainTimeCoroutineDaily;
+    private Coroutine remainTimeCoroutineWeekly;
+    private WaitForSecondsRealtime wDelay = new WaitForSecondsRealtime(0.1f);
+    private const string TimeFormatDaily = "{0:00}:{1:00}:{2:00}";
+    private const string TimeFormatWeekly = "{3}D+{0:00}:{1:00}:{2:00}";
 
 	private Dictionary<EKey, EProductKinds> m_oProductKindsDict = new Dictionary<EKey, EProductKinds>() {
 		[EKey.SEL_PRODUCT_KINDS] = EProductKinds.NONE
@@ -72,8 +87,10 @@ public partial class CStorePopup : CSubPopup {
 
 		// 버튼을 설정한다
 		CFunc.SetupButtons(new List<(string, GameObject, UnityAction)>() {
-			(KCDefine.U_OBJ_N_RESTORE_BTN, this.Contents, this.OnTouchRestoreBtn)
+            (KCDefine.U_OBJ_N_RESTORE_BTN, this.Contents, this.OnTouchRestoreBtn)
 		});
+
+        AdsButton.ExAddListener(this.OnTouchAdsBtn);
 
         storeCanvas.ExSetSortingOrder(GlobalDefine.SortingInfo_StoreCanvas);
 
@@ -99,7 +116,9 @@ public partial class CStorePopup : CSubPopup {
 
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
-        
+
+        RefreshState();
+
         GlobalDefine.RefreshShopText(CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.rubyText);
         GlobalDefine.RefreshStarText(CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.starText);
         GlobalDefine.RefreshShopText(rubyText);
@@ -110,8 +129,41 @@ public partial class CStorePopup : CSubPopup {
 			this.UpdateProductBuyUIsState(m_oProductBuyUIsList[i], this.Params.m_oProductTradeInfoList[i]);
 		}
 
+        if (remainTimeCoroutineDaily != null) StopCoroutine(remainTimeCoroutineDaily);
+        remainTimeCoroutineDaily = StartCoroutine(CO_UpdateRemainTime());
+
 		this.SubUpdateUIsState();
 	}
+    
+    private void RefreshState()
+    {
+        var oCharacterGameInfo = CGameInfoStorage.Inst.GetCharacterGameInfo(CGameInfoStorage.Inst.PlayCharacterID);
+
+        Debug.Log(CodeManager.GetMethodName() + string.Format("[DailyStore]  {0} / {1}", isEnableGetDailyStore, oCharacterGameInfo.PrevStoreDailyTime.ToString(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS)));
+        Debug.Log(CodeManager.GetMethodName() + string.Format("[WeeklyStore] {0} / {1}", isEnableGetWeeklyStore, oCharacterGameInfo.PrevStoreWeeklyTime.ToString(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS)));
+    }
+
+    private IEnumerator CO_UpdateRemainTime()
+    {
+        //Debug.Log(CodeManager.GetMethodName() + string.Format("IsEnableGetDailyReward : {0} / GetDailyRewardID : {1}", isEnableGetDailyReward, dailyRewardID));
+
+        while(true)
+        {
+            TimeSpan ts = TimeSpan.FromTicks(nextRewardTimeDaily.Subtract(DateTime.Now).Ticks);
+            if (ts.Ticks > 0)
+            {
+                remainTimeTextDaily.text = string.Format(TimeFormatDaily, ts.Hours, ts.Minutes, ts.Seconds);
+                yield return wDelay;
+            }
+            else
+            {
+                remainTimeTextDaily.text = string.Empty;
+                break;
+            }
+        }
+
+        RefreshState();
+    }
 
 	/** 상품 구입 UI 상태를 갱신한다 */
 	private void UpdateProductBuyUIsState(GameObject a_oProductBuyUIs, STProductTradeInfo a_stProductTradeInfo) {
@@ -173,14 +225,14 @@ public partial class CStorePopup : CSubPopup {
 	/** 결제 버튼을 눌렀을 경우 */
 	private void OnTouchPurchaseBtn(STProductTradeInfo a_stProductTradeInfo) {
         switch(a_stProductTradeInfo.m_ePurchaseType) {
-			case EPurchaseType.ADS: {
+			/*case EPurchaseType.ADS: {
 #if ADS_MODULE_ENABLE
 				m_oProductKindsDict[EKey.SEL_PRODUCT_KINDS] = a_stProductTradeInfo.m_eProductKinds;
 				Func.ShowRewardAds(this.OnCloseRewardAds);
 #endif // #if ADS_MODULE_ENABLE
 
 				break;
-			}
+			}*/
 			case EPurchaseType.IN_APP_PURCHASE: {
 #if PURCHASE_MODULE_ENABLE
 				CSceneManager.GetSceneManager<OverlayScene.CSubOverlaySceneManager>(KCDefine.B_SCENE_N_OVERLAY)?.PurchaseProduct(a_stProductTradeInfo.m_eProductKinds, this.OnPurchaseProduct);
@@ -225,8 +277,54 @@ public partial class CStorePopup : CSubPopup {
 	#endregion // 클래스 함수
 
 	#region 조건부 함수
+    private void OnTouchAdsBtn()
+    {
+        if (GlobalDefine.isLevelEditor)
+        {
+            this.ShowRewardAcquirePopup(true);
+        }
+        else
+        {
+#if ADS_MODULE_ENABLE && !UNITY_EDITOR && !UNITY_STANDALONE
+		    Func.ShowRewardAds(this.OnCloseRewardAds);
+#else
+            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>ADS TEST</color>"));
+            this.ShowRewardAcquirePopup(true);
+#endif // #if ADS_MODULE_ENABLE
+        }
+    }
+
 #if ADS_MODULE_ENABLE
 	/** 보상 광고가 닫혔을 경우 */
+	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
+		// 광고를 시청했을 경우
+		if(a_bIsSuccess) {
+			this.ShowRewardAcquirePopup(true);
+		}
+	}
+#endif // #if ADS_MODULE_ENABLE
+
+	/** 보상 획득 팝업을 출력한다 */
+	public void ShowRewardAcquirePopup(bool a_bIsWatchRewardAds) {
+		Func.ShowRewardAcquirePopup(this.transform.parent.gameObject, (a_oSender) => {
+			var oTargetInfoDict = CCollectionManager.Inst.SpawnDict<ulong, STTargetInfo>();
+
+			try {
+				(a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(KDefine.L_SCENE_N_MAIN, 0, ERewardKinds.ADS_REWARD_DAILY_RUBY, EItemKinds.GOODS_RUBY, UnityEngine.Random.Range(GlobalDefine.RewardRuby_Daily_Store_Min, GlobalDefine.RewardRuby_Daily_Store_Max), false, 
+                () => { RefreshState(); }, this));
+			} finally {
+				CCollectionManager.Inst.DespawnDict(oTargetInfoDict);
+			}
+		}, null, this.OnCloseRewardAcquirePopup);
+	}
+
+    /** 보상 획득 팝업이 닫혔을 경우 */
+	private void OnCloseRewardAcquirePopup(CPopup a_oSender) {
+
+		//this.Close();
+	}
+
+/*#if ADS_MODULE_ENABLE
 	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
 		// 광고를 시청했을 경우
 		if(a_bIsSuccess) {
@@ -237,7 +335,7 @@ public partial class CStorePopup : CSubPopup {
 		this.UpdateUIsState();
 		this.Params.m_oAdsCallbackDict?.GetValueOrDefault(ECallback.ADS)?.Invoke(a_oSender, a_stAdsRewardInfo, a_bIsSuccess);
 	}
-#endif // #if ADS_MODULE_ENABLE
+#endif*/ // #if ADS_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
 	/** 상품이 결제 되었을 경우 */

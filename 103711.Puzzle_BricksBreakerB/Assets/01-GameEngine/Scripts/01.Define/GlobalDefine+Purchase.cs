@@ -17,6 +17,8 @@ public static partial class GlobalDefine
     public const int RewardRuby_Continue = 20;
     ///<Summary>[출석 체크 - 광고 시청] 루비+50 (1회).</Summary>
     public const int RewardRuby_Daily = 50;
+    public const int RewardRuby_Daily_Store_Min = 5;
+    public const int RewardRuby_Daily_Store_Max = 41;
 
     public static void OpenShop()
     {

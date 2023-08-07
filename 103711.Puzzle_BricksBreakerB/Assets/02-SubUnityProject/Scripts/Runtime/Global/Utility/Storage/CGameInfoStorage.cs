@@ -69,6 +69,8 @@ public partial class CCharacterGameInfo : CBaseInfo {
 	private const string KEY_DAILY_REWARD_ID = "DailyRewardID";
 	private const string KEY_FREE_REWARD_ACQUIRE_TIMES = "FreeRewardAcquireTimes";
 
+    private const string KEY_PREV_STORE_DAILY_TIME = "PrevStoreDailyTime";
+    private const string KEY_PREV_STORE_WEEKLY_TIME = "PrevStoreWeeklyTime";
 	private const string KEY_PREV_FREE_REWARD_TIME = "PrevFreeRewardTime";
 	private const string KEY_PREV_DAILY_REWARD_TIME = "PrevDailyRewardTime";
 	private const string KEY_PREV_DAILY_MISSION_TIME = "PrevDailyMissionTime";
@@ -125,13 +127,29 @@ public partial class CCharacterGameInfo : CBaseInfo {
 		set { m_oStrDict.ExReplaceVal(KEY_PREV_FREE_REWARD_TIME, value.ExToLongStr()); }
 	}
 
+    [IgnoreMember]
+	public System.DateTime PrevStoreDailyTime {
+		get { return this.PrevStoreDailyTimeStr.ExIsValid() ? this.CorrectPrevStoreDailyTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
+		set { m_oStrDict.ExReplaceVal(KEY_PREV_STORE_DAILY_TIME, value.ExToLongStr()); }
+	}
+
+    [IgnoreMember]
+	public System.DateTime PrevStoreWeeklyTime {
+		get { return this.PrevStoreWeeklyTimeStr.ExIsValid() ? this.CorrectPrevStoreWeeklyTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_7_INT); }
+		set { m_oStrDict.ExReplaceVal(KEY_PREV_STORE_WEEKLY_TIME, value.ExToLongStr()); }
+	}
+
 	[IgnoreMember] private string PrevDailyMissionTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_DAILY_MISSION_TIME, string.Empty);
 	[IgnoreMember] private string PrevDailyRewardTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_DAILY_REWARD_TIME, string.Empty);
 	[IgnoreMember] private string PrevFreeRewardTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_FREE_REWARD_TIME, string.Empty);
+    [IgnoreMember] private string PrevStoreDailyTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_STORE_DAILY_TIME, string.Empty);
+    [IgnoreMember] private string PrevStoreWeeklyTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_STORE_WEEKLY_TIME, string.Empty);
 
 	[IgnoreMember] private string CorrectPrevDailyMissionTimeStr => this.PrevDailyMissionTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevDailyMissionTimeStr : this.PrevDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	[IgnoreMember] private string CorrectPrevDailyRewardTimeStr => this.PrevDailyRewardTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevDailyRewardTimeStr : this.PrevDailyRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	[IgnoreMember] private string CorrectPrevFreeRewardTimeStr => this.PrevFreeRewardTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevFreeRewardTimeStr : this.PrevFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
+    [IgnoreMember] private string CorrectPrevStoreDailyTimeStr => this.PrevStoreDailyTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevStoreDailyTimeStr : this.PrevStoreDailyTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
+    [IgnoreMember] private string CorrectPrevStoreWeeklyTimeStr => this.PrevStoreWeeklyTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevStoreWeeklyTimeStr : this.PrevStoreWeeklyTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	#endregion // 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
@@ -220,7 +238,11 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 	public CGameInfo GameInfo { get; private set; } = new CGameInfo() {
 		m_oCharacterGameInfoDict = new Dictionary<int, CCharacterGameInfo>() {
 			[KDefine.G_CHARACTER_ID_COMMON] = new CCharacterGameInfo() {
-				PrevDailyMissionTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL), PrevDailyRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL), PrevFreeRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL)
+				PrevDailyMissionTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL), 
+                PrevDailyRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL), 
+                PrevFreeRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL),
+                PrevStoreDailyTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL),
+                PrevStoreWeeklyTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_7_REAL),
 			}
 		}
 	};
