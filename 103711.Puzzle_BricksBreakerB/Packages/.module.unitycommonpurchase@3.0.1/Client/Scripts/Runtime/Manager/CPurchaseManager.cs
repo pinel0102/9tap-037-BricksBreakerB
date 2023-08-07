@@ -280,13 +280,17 @@ public partial class CPurchaseManager : CSingleton<CPurchaseManager>, IDetailedS
 			var oProduct = this.GetProduct(a_oID);
 			bool bIsEnablePurchase = m_oBoolDict[EKey.IS_PURCHASING] && (oProduct != null && oProduct.availableToPurchase);
 
+            bool isFinallyCanPurchase = m_oBoolDict[EKey.IS_INIT] && bIsEnablePurchase;
+#if UNITY_EDITOR
+            isFinallyCanPurchase = true;
+#else
 			// 결제 가능 할 경우
-			if(m_oBoolDict[EKey.IS_INIT] && bIsEnablePurchase) {
+			if(isFinallyCanPurchase) {
 				m_oStoreController.ConfirmPendingPurchase(oProduct);
 			}
-
-			this.HandlePurchaseResult(a_oID, m_oBoolDict[EKey.IS_INIT] && bIsEnablePurchase, false, true);
-			CFunc.Invoke(ref a_oCallback, this, a_oID, m_oBoolDict[EKey.IS_INIT] && bIsEnablePurchase);
+#endif
+			this.HandlePurchaseResult(a_oID, isFinallyCanPurchase, false, true);
+			CFunc.Invoke(ref a_oCallback, this, a_oID, isFinallyCanPurchase);
 #else
 			CFunc.Invoke(ref a_oCallback, this, a_oID, false);
 #endif // #if UNITY_EDITOR || (UNITY_IOS || UNITY_ANDROID)
@@ -306,7 +310,7 @@ public partial class CPurchaseManager : CSingleton<CPurchaseManager>, IDetailedS
 			
 			for(int i = 0; i < this.Params.m_oProductInfoList.Count; ++i) {
 				CFunc.ShowLog($"CPurchaseManager.OnInit: {this.Params.m_oProductInfoList[i].m_oID}, {this.Params.m_oProductInfoList[i].m_eProductType}");
-				CAccess.Assert(this.Params.m_oProductInfoList[i].m_oID.ExIsValid() && this.Params.m_oProductInfoList[i].m_eProductType != ProductType.Subscription);
+				CAccess.Assert(this.Params.m_oProductInfoList[i].m_oID.ExIsValid());// && this.Params.m_oProductInfoList[i].m_eProductType != ProductType.Subscription);
 
 				oProductDefinitionList.ExAddVal(new ProductDefinition(this.Params.m_oProductInfoList[i].m_oID, this.Params.m_oProductInfoList[i].m_eProductType));
 			}
@@ -379,7 +383,7 @@ public partial class CPurchaseManager : CSingleton<CPurchaseManager>, IDetailedS
 
 			// 콜백 호출이 가능 할 경우
 			if(a_bIsInvoke) {
-				m_oCallbackDict01.GetValueOrDefault(EPurchaseCallback.PURCHASE)?.Invoke(this, a_oProductID, a_bIsSuccess);
+                m_oCallbackDict01.GetValueOrDefault(EPurchaseCallback.PURCHASE)?.Invoke(this, a_oProductID, a_bIsSuccess);
 			}
 		});
 	}

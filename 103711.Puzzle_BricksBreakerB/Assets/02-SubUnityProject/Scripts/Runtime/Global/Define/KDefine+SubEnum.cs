@@ -822,6 +822,7 @@ public enum EProductType {
 	NONE = -1,
 	PKGS,
 	SINGLE,
+    SUBSCRIBE,
 	[HideInInspector] MAX_VAL
 }
 
@@ -839,10 +840,13 @@ public enum EProductKinds {
     PKGS_PRODUCT_SPECIAL_PACKAGE_2,
     PKGS_PRODUCT_SPECIAL_PACKAGE_3,
     // 200
-	//PKGS_PRODUCT_SMASH_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 2),
-	//PKGS_PRODUCT_SHATTER_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 3),
-	//PKGS_PRODUCT_SPLINTER_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 4),
-	//PKGS_PRODUCT_BURST_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 5),
+    PKGS_PRODUCT_DAILY_PACKAGE_1 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 2),
+    PKGS_PRODUCT_DAILY_PACKAGE_2,
+    PKGS_PRODUCT_DAILY_PACKAGE_3,
+	// 300
+    PKGS_PRODUCT_WEEKLY_PACKAGE_1 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 3),
+    PKGS_PRODUCT_WEEKLY_PACKAGE_2,
+    PKGS_PRODUCT_WEEKLY_PACKAGE_3,
 
 	// 10,000,000
 	//PKGS_PRODUCT_SPECIAL_STARTER_01 = (EEnumVal.T * EProductType.PKGS) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
@@ -864,6 +868,14 @@ public enum EProductKinds {
 	SINGLE_PRODUCT_REMOVE_ADS = (EEnumVal.T * EProductType.SINGLE) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
     SINGLE_PRODUCT_GOLDEN_AIM = (EEnumVal.T * EProductType.SINGLE) + (EEnumVal.ST * 1) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 1),
 	#endregion // 단일
+
+    #region 구독
+    // 200,000,000
+    SUBSCRIBE_PRODUCT_WEEKLY = (EEnumVal.T * EProductType.SUBSCRIBE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 0),
+	SUBSCRIBE_PRODUCT_MONTHLY,
+	SUBSCRIBE_PRODUCT_YEARLY,
+
+    #endregion 구독
 
 	[HideInInspector] MAX_VAL
 }

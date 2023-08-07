@@ -121,20 +121,29 @@ public static partial class KDefine {
 	public static readonly List<EProductKinds> G_PRODUCT_KINDS_STORE_LIST = new List<EProductKinds>() {
 		EProductKinds.PKGS_PRODUCT_POWER_PACKAGE_1,
         EProductKinds.PKGS_PRODUCT_POWER_PACKAGE_2,
-        EProductKinds.PKGS_PRODUCT_POWER_PACKAGE_3,        
+        EProductKinds.PKGS_PRODUCT_POWER_PACKAGE_3,
         EProductKinds.PKGS_PRODUCT_SPECIAL_PACKAGE_1,
         EProductKinds.PKGS_PRODUCT_SPECIAL_PACKAGE_2,
         EProductKinds.PKGS_PRODUCT_SPECIAL_PACKAGE_3,
+        EProductKinds.PKGS_PRODUCT_DAILY_PACKAGE_1,
+        EProductKinds.PKGS_PRODUCT_DAILY_PACKAGE_2,
+        EProductKinds.PKGS_PRODUCT_DAILY_PACKAGE_3,        
+        EProductKinds.PKGS_PRODUCT_WEEKLY_PACKAGE_1,
+        EProductKinds.PKGS_PRODUCT_WEEKLY_PACKAGE_2,
+        EProductKinds.PKGS_PRODUCT_WEEKLY_PACKAGE_3,
 
 		EProductKinds.SINGLE_PRODUCT_GEMS_01,
 		EProductKinds.SINGLE_PRODUCT_GEMS_02,
 		EProductKinds.SINGLE_PRODUCT_GEMS_03,
 		EProductKinds.SINGLE_PRODUCT_GEMS_04,
 		EProductKinds.SINGLE_PRODUCT_GEMS_05,
-		EProductKinds.SINGLE_PRODUCT_GEMS_06,
-		
+		EProductKinds.SINGLE_PRODUCT_GEMS_06,		
 		EProductKinds.SINGLE_PRODUCT_REMOVE_ADS,
         EProductKinds.SINGLE_PRODUCT_GOLDEN_AIM,
+
+        EProductKinds.SUBSCRIBE_PRODUCT_WEEKLY,
+        EProductKinds.SUBSCRIBE_PRODUCT_MONTHLY,
+        EProductKinds.SUBSCRIBE_PRODUCT_YEARLY,
 	};
 
 	// 특수 패키지 상품 종류
