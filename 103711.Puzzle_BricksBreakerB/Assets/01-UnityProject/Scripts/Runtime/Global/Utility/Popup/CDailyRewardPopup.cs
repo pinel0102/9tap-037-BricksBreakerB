@@ -66,9 +66,6 @@ public partial class CDailyRewardPopup : CSubPopup {
 	protected override void SetupContents() {
 		base.SetupContents();
 		this.UpdateUIsState();
-
-        if (remainTimeCoroutine != null) StopCoroutine(remainTimeCoroutine);
-        remainTimeCoroutine = StartCoroutine(CO_UpdateRemainTime());
 	}
 
 	/** UI 상태를 갱신한다 */
@@ -76,6 +73,9 @@ public partial class CDailyRewardPopup : CSubPopup {
 
         RefreshState();        
         this.SubUpdateUIsState();
+
+        if (remainTimeCoroutine != null) StopCoroutine(remainTimeCoroutine);
+        remainTimeCoroutine = StartCoroutine(CO_UpdateRemainTime());
 	}
 
     private void RefreshState()
@@ -89,8 +89,8 @@ public partial class CDailyRewardPopup : CSubPopup {
 
         nextRewardTime = characterGameInfo.PrevDailyRewardTime.AddDays(KCDefine.B_VAL_1_INT);
 
-        Debug.Log(CodeManager.GetMethodName() + string.Format("[DailyReward] {0} / {1}", isEnableGetDailyReward, characterGameInfo.PrevDailyRewardTime.ToString(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS)));
-        Debug.Log(CodeManager.GetMethodName() + string.Format("[DailyAD]     {0} / {1}", isEnableGetDailyAD, characterGameInfo.PrevFreeRewardTime.ToString(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS)));
+        //Debug.Log(CodeManager.GetMethodName() + string.Format("[DailyReward] {0} / {1}", isEnableGetDailyReward, characterGameInfo.PrevDailyRewardTime.ToString(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS)));
+        //Debug.Log(CodeManager.GetMethodName() + string.Format("[DailyAD]     {0} / {1}", isEnableGetDailyAD, characterGameInfo.PrevFreeRewardTime.ToString(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS)));
 
         // 버튼을 갱신한다
         m_oBtnDict[EKey.ACQUIRE_BTN]?.ExSetInteractable(isEnableGetDailyReward);
@@ -127,7 +127,7 @@ public partial class CDailyRewardPopup : CSubPopup {
             }
         }
 
-        UpdateUIsState();
+        RefreshState();
     }
 
 	/** 획득 버튼을 눌렀을 경우 */

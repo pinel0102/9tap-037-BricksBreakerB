@@ -63,13 +63,12 @@ public partial class CStorePopup : CSubPopup {
     [Header("★ [Parameter] Weekly Store")]
     public List<bool> weeklyStoreBought = new List<bool>();
     public bool isEnableGetWeeklyStore;
-    public DateTime nextRewardTimeDaily;
-    public DateTime nextRewardTimeWeekly;
 
     [Header("★ [Parameter] Privates")]
     private int currentIndex = -1;
-    private Coroutine remainTimeCoroutineDaily;
-    private Coroutine remainTimeCoroutineWeekly;
+    private long prevDailyTicks = -1;
+    private long prevWeeklyTicks = -1;
+    private Coroutine remainTimeCoroutine;
     private WaitForSecondsRealtime wDelay = new WaitForSecondsRealtime(0.1f);
     private const string TimeFormatDaily = "{0:00}:{1:00}:{2:00}";
     private const string TimeFormatWeekly = "{3}D+{0:00}:{1:00}:{2:00}";
@@ -117,6 +116,8 @@ public partial class CStorePopup : CSubPopup {
 		this.Params = a_stParams;
 
         currentIndex = -1;
+        prevDailyTicks = GlobalDefine.GetTime_UntilTommorow().Ticks;
+        prevWeeklyTicks = GlobalDefine.GetTime_UntilMonday().Ticks;
 
 		// 상품 교환 정보를 설정한다
 		a_stParams.m_oProductTradeInfoList.Sort((a_stLhs, a_stRhs) => a_stLhs.m_nProductIdx.CompareTo(a_stRhs.m_nProductIdx));
@@ -129,8 +130,8 @@ public partial class CStorePopup : CSubPopup {
 		base.SetupContents();
 		this.UpdateUIsState();
 
-        if (remainTimeCoroutineDaily != null) StopCoroutine(remainTimeCoroutineDaily);
-        remainTimeCoroutineDaily = StartCoroutine(CO_UpdateRemainTime());
+        if (remainTimeCoroutine != null) StopCoroutine(remainTimeCoroutine);
+        remainTimeCoroutine = StartCoroutine(CO_UpdateRemainTime());
 	}
 
 	/** UI 상태를 갱신한다 */
@@ -146,12 +147,6 @@ public partial class CStorePopup : CSubPopup {
         GlobalDefine.RefreshStarText(CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.starText);
         GlobalDefine.RefreshShopText(rubyText);
         GlobalDefine.RefreshStarText(starText);
-
-        nextRewardTimeDaily = DateTime.Today.AddDays(KCDefine.B_VAL_1_INT);
-        //isEnableGetWeeklyStore = ;
-
-        //Debug.Log(CodeManager.GetMethodName() + string.Format("[DailyStore]  {0} / {1}", isEnableGetDailyStore, oCharacterGameInfo.PrevStoreDailyTime.ToString(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS)));
-        Debug.Log(CodeManager.GetMethodName() + string.Format("[WeeklyStore] {0} / {1}", isEnableGetWeeklyStore, characterGameInfo.PrevWeeklyStoreTime.ToString(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS)));
 
         // 상품 UI 상태를 갱신한다
 		for(int i = 0; i < m_oProductBuyUIsList.Count; ++i) {
@@ -195,20 +190,46 @@ public partial class CStorePopup : CSubPopup {
 
         while(true)
         {
-            TimeSpan ts = TimeSpan.FromTicks(nextRewardTimeDaily.Subtract(DateTime.Now).Ticks);
-            if (ts.Ticks > 0)
+            bool isNeedRefresh = false;
+            TimeSpan ts1 = GlobalDefine.GetTime_UntilTommorow();
+            TimeSpan ts2 = GlobalDefine.GetTime_UntilMonday();
+
+            if (ts1.Ticks < prevDailyTicks)
             {
-                remainTimeTextDaily.text = string.Format(TimeFormatDaily, ts.Hours, ts.Minutes, ts.Seconds);
-                yield return wDelay;
+                remainTimeTextDaily.text = string.Format(TimeFormatDaily, ts1.Hours, ts1.Minutes, ts1.Seconds);
             }
             else
             {
                 remainTimeTextDaily.text = string.Empty;
-                break;
+                characterGameInfo.ResetDailyStore();
+                isNeedRefresh = true;
+            }
+            
+            if (ts2.Ticks < prevWeeklyTicks)
+            {
+                if (ts2.Days > 0)
+                    remainTimeTextWeekly.text = string.Format(TimeFormatWeekly, ts2.Hours, ts2.Minutes, ts2.Seconds, ts2.Days);
+                else
+                    remainTimeTextWeekly.text = string.Format(TimeFormatDaily, ts2.Hours, ts2.Minutes, ts2.Seconds);
+            }
+            else
+            {
+                remainTimeTextWeekly.text = string.Empty;
+                characterGameInfo.ResetWeeklyStore();
+                isNeedRefresh = true;
+            }
+
+            prevDailyTicks = ts1.Ticks;
+            prevWeeklyTicks = ts2.Ticks;
+            
+            yield return wDelay;
+
+            if (isNeedRefresh)
+            {
+                gameInfoStorage.SaveGameInfo();
+                RefreshState();
             }
         }
-
-        UpdateUIsState();
     }
 
 #endregion Daily Store

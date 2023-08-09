@@ -246,6 +246,27 @@ public partial class CCharacterGameInfo : CBaseInfo {
         return list;
     }
 
+    public void ResetDailyStore()
+    {
+        DailyStoreBought_Ads = false;
+        DailyStoreBought_0 = false;
+        DailyStoreBought_1 = false;
+        DailyStoreBought_2 = false;
+		PrevDailyStoreTime = System.DateTime.Today;
+
+        Debug.Log(CodeManager.GetMethodName() + string.Format("Daily Store Reset : {0}", PrevDailyStoreTime.ExToLongStr()));
+    }
+
+    public void ResetWeeklyStore()
+    {
+        WeeklyStoreBought_0 = false;
+        WeeklyStoreBought_1 = false;
+        WeeklyStoreBought_2 = false;
+		PrevWeeklyStoreTime = System.DateTime.Today;
+
+        Debug.Log(CodeManager.GetMethodName() + string.Format("Weekly Store Reset : {0}", PrevWeeklyStoreTime.ExToLongStr()));
+    }
+
 	/** 생성자 */
 	public CCharacterGameInfo() : base(KDefine.G_VER_CHARACTER_GAME_INFO) {
 		// Do Something
@@ -305,6 +326,7 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 				PrevDailyMissionTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL), 
                 PrevDailyRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL), 
                 PrevFreeRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL),
+                PrevDailyStoreTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL),
                 PrevWeeklyStoreTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_7_REAL),
 			}
 		}
