@@ -262,7 +262,7 @@ public partial class CCharacterGameInfo : CBaseInfo {
         WeeklyStoreBought_0 = false;
         WeeklyStoreBought_1 = false;
         WeeklyStoreBought_2 = false;
-		PrevWeeklyStoreTime = System.DateTime.Today;
+		PrevWeeklyStoreTime = GlobalDefine.GetMondayOfThisWeek();
 
         Debug.Log(CodeManager.GetMethodName() + string.Format("Weekly Store Reset : {0}", PrevWeeklyStoreTime.ExToLongStr()));
     }

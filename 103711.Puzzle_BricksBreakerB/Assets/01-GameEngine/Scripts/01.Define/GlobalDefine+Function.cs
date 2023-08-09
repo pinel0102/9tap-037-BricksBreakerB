@@ -78,6 +78,19 @@ public static partial class GlobalDefine
         return new TimeSpan(0, 0, 0);
     }
 
+    public static DateTime GetMondayOfThisWeek()
+    {
+        for(int i=0; i < 7; i++)
+        {
+            if (DateTime.Today.AddDays(-i).DayOfWeek == DayOfWeek.Monday)
+            {
+                return DateTime.Today.AddDays(-i);
+            }
+        }
+
+        return DateTime.Today;
+    }
+
 #endregion Handle Time
 
     public static List<string> SortList(List<string> origin, int startIndex)

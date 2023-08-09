@@ -206,6 +206,9 @@ namespace MainScene {
                 if(Access.IsEnableGetDailyStore(CGameInfoStorage.Inst.PlayCharacterID)) {
                     oCharacterGameInfo.ResetDailyStore();
 				}
+                if(Access.IsEnableGetWeeklyStore(CGameInfoStorage.Inst.PlayCharacterID)) {
+                    oCharacterGameInfo.ResetWeeklyStore();
+				}
 
 				CGameInfoStorage.Inst.SaveGameInfo();
 			}

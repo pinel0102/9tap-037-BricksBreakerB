@@ -57,12 +57,11 @@ public partial class CStorePopup : CSubPopup {
     public List<Button> weeklyStoreButtons = new List<Button>();
 
     [Header("★ [Parameter] Daily Store")]
-    public List<bool> dailyStoreBought = new List<bool>();
     public bool dailyStoreBoughtAds;
+    public List<bool> dailyStoreBought = new List<bool>();
 
     [Header("★ [Parameter] Weekly Store")]
     public List<bool> weeklyStoreBought = new List<bool>();
-    public bool isEnableGetWeeklyStore;
 
     [Header("★ [Parameter] Privates")]
     private int currentIndex = -1;
@@ -148,6 +147,8 @@ public partial class CStorePopup : CSubPopup {
         GlobalDefine.RefreshShopText(rubyText);
         GlobalDefine.RefreshStarText(starText);
 
+        CheckResetStore();
+
         // 상품 UI 상태를 갱신한다
 		for(int i = 0; i < m_oProductBuyUIsList.Count; ++i) {
 			this.UpdateProductBuyUIsState(i, m_oProductBuyUIsList[i], this.Params.m_oProductTradeInfoList[i]);
@@ -155,6 +156,25 @@ public partial class CStorePopup : CSubPopup {
 
         RefreshDailyStoreState();
         RefreshWeeklyStoreState();
+    }
+
+    private void CheckResetStore()
+    {
+        bool isNeedSave = false; 
+
+        if(Access.IsEnableGetDailyStore(gameInfoStorage.PlayCharacterID)) 
+        {
+            characterGameInfo.ResetDailyStore();
+            isNeedSave = true;
+		}
+        if(Access.IsEnableGetWeeklyStore(gameInfoStorage.PlayCharacterID)) 
+        {
+            characterGameInfo.ResetWeeklyStore();
+            isNeedSave = true;
+		}
+
+        if (isNeedSave)
+            gameInfoStorage.SaveGameInfo();
     }
 
     private void RefreshDailyStoreState()
@@ -201,7 +221,6 @@ public partial class CStorePopup : CSubPopup {
             else
             {
                 remainTimeTextDaily.text = string.Empty;
-                characterGameInfo.ResetDailyStore();
                 isNeedRefresh = true;
             }
             
@@ -215,7 +234,6 @@ public partial class CStorePopup : CSubPopup {
             else
             {
                 remainTimeTextWeekly.text = string.Empty;
-                characterGameInfo.ResetWeeklyStore();
                 isNeedRefresh = true;
             }
 
@@ -226,7 +244,6 @@ public partial class CStorePopup : CSubPopup {
 
             if (isNeedRefresh)
             {
-                gameInfoStorage.SaveGameInfo();
                 RefreshState();
             }
         }
