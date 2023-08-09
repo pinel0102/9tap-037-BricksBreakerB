@@ -173,11 +173,11 @@ public static partial class Access {
 	}
 
     public static bool IsEnableGetDailyStore(int a_nCharacterID) {
-		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? System.DateTime.Now.ExGetDeltaTimePerDays(oCharacterGameInfo.PrevStoreDailyTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL) : false;
+		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? System.DateTime.Now.ExGetDeltaTimePerDays(oCharacterGameInfo.PrevDailyStoreTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL) : false;
 	}
 
     public static bool IsEnableGetWeeklyStore(int a_nCharacterID) {
-		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? System.DateTime.Now.ExGetDeltaTimePerDays(oCharacterGameInfo.PrevStoreWeeklyTime).ExIsGreateEquals(KCDefine.B_VAL_7_REAL) : false;
+		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? System.DateTime.Now.ExGetDeltaTimePerDays(oCharacterGameInfo.PrevWeeklyStoreTime).ExIsGreateEquals(KCDefine.B_VAL_7_REAL) : false;
 	}
 
 	/** 일일 미션 리셋 가능 여부를 검사한다 */
@@ -186,9 +186,9 @@ public static partial class Access {
 	}
 
 	/** 일일 보상 지속 가능 여부를 검사한다 */
-	public static bool IsContinueGetDailyReward(int a_nCharacterID) {
+	/*public static bool IsContinueGetDailyReward(int a_nCharacterID) {
 		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? System.DateTime.Now.ExGetDeltaTimePerDays(oCharacterGameInfo.PrevDailyRewardTime).ExIsLess(KCDefine.B_VAL_2_REAL) : false;
-	}
+	}*/
 
 	/** 교환 가능 여부를 검사한다 */
 	public static bool IsEnableTrade(int a_nCharacterID, STTargetInfo a_stTargetInfo) {

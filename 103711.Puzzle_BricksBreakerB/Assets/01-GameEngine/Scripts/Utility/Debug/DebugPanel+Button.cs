@@ -136,8 +136,15 @@ public partial class DebugPanel : MonoBehaviour
         var oCharacterGameInfo = CGameInfoStorage.Inst.GetCharacterGameInfo(CGameInfoStorage.Inst.PlayCharacterID);
         oCharacterGameInfo.PrevDailyRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT);
         oCharacterGameInfo.PrevFreeRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT);
-        oCharacterGameInfo.PrevStoreDailyTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT);
-        oCharacterGameInfo.PrevStoreWeeklyTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_7_INT);
+        oCharacterGameInfo.PrevDailyStoreTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT);
+        oCharacterGameInfo.PrevWeeklyStoreTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_7_INT);
+        oCharacterGameInfo.DailyStoreBought_Ads = false;
+        oCharacterGameInfo.DailyStoreBought_0 = false;
+        oCharacterGameInfo.DailyStoreBought_1 = false;
+        oCharacterGameInfo.DailyStoreBought_2 = false;
+        oCharacterGameInfo.WeeklyStoreBought_0 = false;
+        oCharacterGameInfo.WeeklyStoreBought_1 = false;
+        oCharacterGameInfo.WeeklyStoreBought_2 = false;
         CGameInfoStorage.Inst.SaveGameInfo();
     }
 

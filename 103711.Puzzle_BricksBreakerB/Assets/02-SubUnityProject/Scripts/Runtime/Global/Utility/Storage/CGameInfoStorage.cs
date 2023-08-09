@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEditor.Rendering;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 using System.IO;
@@ -69,8 +70,16 @@ public partial class CCharacterGameInfo : CBaseInfo {
 	private const string KEY_DAILY_REWARD_ID = "DailyRewardID";
 	private const string KEY_FREE_REWARD_ACQUIRE_TIMES = "FreeRewardAcquireTimes";
 
-    private const string KEY_PREV_STORE_DAILY_TIME = "PrevStoreDailyTime";
-    private const string KEY_PREV_STORE_WEEKLY_TIME = "PrevStoreWeeklyTime";
+    private const string KEY_DAILY_STORE_BOUGHT_ADS = "DailyStoreBought_Ads";
+    private const string KEY_DAILY_STORE_BOUGHT_0 = "DailyStoreBought_0";
+    private const string KEY_DAILY_STORE_BOUGHT_1 = "DailyStoreBought_1";
+    private const string KEY_DAILY_STORE_BOUGHT_2 = "DailyStoreBought_2";
+    private const string KEY_WEEKLY_STORE_BOUGHT_0 = "WeeklyStoreBought_0";
+    private const string KEY_WEEKLY_STORE_BOUGHT_1 = "WeeklyStoreBought_1";
+    private const string KEY_WEEKLY_STORE_BOUGHT_2 = "WeeklyStoreBought_2";
+
+    private const string KEY_PREV_DAILY_STORE_TIME = "PrevDailyStoreTime";
+    private const string KEY_PREV_WEEKLY_STORE_TIME = "PrevWeeklyStoreTime";
 	private const string KEY_PREV_FREE_REWARD_TIME = "PrevFreeRewardTime";
 	private const string KEY_PREV_DAILY_REWARD_TIME = "PrevDailyRewardTime";
 	private const string KEY_PREV_DAILY_MISSION_TIME = "PrevDailyMissionTime";
@@ -109,47 +118,80 @@ public partial class CCharacterGameInfo : CBaseInfo {
 		set { m_oStrDict.ExReplaceVal(KEY_FREE_REWARD_ACQUIRE_TIMES, $"{value}"); }
 	}
 
+    [IgnoreMember]
+	public bool DailyStoreBought_Ads {
+		get { return bool.Parse(m_oStrDict.GetValueOrDefault(KEY_DAILY_STORE_BOUGHT_ADS, KCDefine.B_TEXT_FALSE)); }
+		set { m_oStrDict.ExReplaceVal(KEY_DAILY_STORE_BOUGHT_ADS, $"{value}"); }
+	}
+    [IgnoreMember]
+	public bool DailyStoreBought_0 {
+		get { return bool.Parse(m_oStrDict.GetValueOrDefault(KEY_DAILY_STORE_BOUGHT_0, KCDefine.B_TEXT_FALSE)); }
+		set { m_oStrDict.ExReplaceVal(KEY_DAILY_STORE_BOUGHT_0, $"{value}"); }
+	}
+    [IgnoreMember]
+	public bool DailyStoreBought_1 {
+		get { return bool.Parse(m_oStrDict.GetValueOrDefault(KEY_DAILY_STORE_BOUGHT_1, KCDefine.B_TEXT_FALSE)); }
+		set { m_oStrDict.ExReplaceVal(KEY_DAILY_STORE_BOUGHT_1, $"{value}"); }
+	}
+    [IgnoreMember]
+	public bool DailyStoreBought_2 {
+		get { return bool.Parse(m_oStrDict.GetValueOrDefault(KEY_DAILY_STORE_BOUGHT_2, KCDefine.B_TEXT_FALSE)); }
+		set { m_oStrDict.ExReplaceVal(KEY_DAILY_STORE_BOUGHT_2, $"{value}"); }
+	}
+
+    [IgnoreMember]
+	public bool WeeklyStoreBought_0 {
+		get { return bool.Parse(m_oStrDict.GetValueOrDefault(KEY_WEEKLY_STORE_BOUGHT_0, KCDefine.B_TEXT_FALSE)); }
+		set { m_oStrDict.ExReplaceVal(KEY_WEEKLY_STORE_BOUGHT_0, $"{value}"); }
+	}
+    [IgnoreMember]
+	public bool WeeklyStoreBought_1 {
+		get { return bool.Parse(m_oStrDict.GetValueOrDefault(KEY_WEEKLY_STORE_BOUGHT_1, KCDefine.B_TEXT_FALSE)); }
+		set { m_oStrDict.ExReplaceVal(KEY_WEEKLY_STORE_BOUGHT_1, $"{value}"); }
+	}
+    [IgnoreMember]
+	public bool WeeklyStoreBought_2 {
+		get { return bool.Parse(m_oStrDict.GetValueOrDefault(KEY_WEEKLY_STORE_BOUGHT_2, KCDefine.B_TEXT_FALSE)); }
+		set { m_oStrDict.ExReplaceVal(KEY_WEEKLY_STORE_BOUGHT_2, $"{value}"); }
+	}
+
 	[IgnoreMember]
 	public System.DateTime PrevDailyMissionTime {
 		get { return this.PrevDailyMissionTimeStr.ExIsValid() ? this.CorrectPrevDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
 		set { m_oStrDict.ExReplaceVal(KEY_PREV_DAILY_MISSION_TIME, value.ExToLongStr()); }
 	}
-
 	[IgnoreMember]
 	public System.DateTime PrevDailyRewardTime {
 		get { return this.PrevDailyRewardTimeStr.ExIsValid() ? this.CorrectPrevDailyRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
 		set { m_oStrDict.ExReplaceVal(KEY_PREV_DAILY_REWARD_TIME, value.ExToLongStr()); }
 	}
-
 	[IgnoreMember]
 	public System.DateTime PrevFreeRewardTime {
 		get { return this.PrevFreeRewardTimeStr.ExIsValid() ? this.CorrectPrevFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
 		set { m_oStrDict.ExReplaceVal(KEY_PREV_FREE_REWARD_TIME, value.ExToLongStr()); }
 	}
-
     [IgnoreMember]
-	public System.DateTime PrevStoreDailyTime {
-		get { return this.PrevStoreDailyTimeStr.ExIsValid() ? this.CorrectPrevStoreDailyTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
-		set { m_oStrDict.ExReplaceVal(KEY_PREV_STORE_DAILY_TIME, value.ExToLongStr()); }
+	public System.DateTime PrevDailyStoreTime {
+		get { return this.PrevDailyStoreTimeStr.ExIsValid() ? this.CorrectPrevDailyStoreTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
+		set { m_oStrDict.ExReplaceVal(KEY_PREV_DAILY_STORE_TIME, value.ExToLongStr()); }
 	}
-
     [IgnoreMember]
-	public System.DateTime PrevStoreWeeklyTime {
-		get { return this.PrevStoreWeeklyTimeStr.ExIsValid() ? this.CorrectPrevStoreWeeklyTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_7_INT); }
-		set { m_oStrDict.ExReplaceVal(KEY_PREV_STORE_WEEKLY_TIME, value.ExToLongStr()); }
+	public System.DateTime PrevWeeklyStoreTime {
+		get { return this.PrevWeeklyStoreTimeStr.ExIsValid() ? this.CorrectPrevWeeklyStoreTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_7_INT); }
+		set { m_oStrDict.ExReplaceVal(KEY_PREV_WEEKLY_STORE_TIME, value.ExToLongStr()); }
 	}
 
 	[IgnoreMember] private string PrevDailyMissionTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_DAILY_MISSION_TIME, string.Empty);
 	[IgnoreMember] private string PrevDailyRewardTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_DAILY_REWARD_TIME, string.Empty);
 	[IgnoreMember] private string PrevFreeRewardTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_FREE_REWARD_TIME, string.Empty);
-    [IgnoreMember] private string PrevStoreDailyTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_STORE_DAILY_TIME, string.Empty);
-    [IgnoreMember] private string PrevStoreWeeklyTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_STORE_WEEKLY_TIME, string.Empty);
+    [IgnoreMember] private string PrevDailyStoreTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_DAILY_STORE_TIME, string.Empty);
+    [IgnoreMember] private string PrevWeeklyStoreTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_WEEKLY_STORE_TIME, string.Empty);
 
 	[IgnoreMember] private string CorrectPrevDailyMissionTimeStr => this.PrevDailyMissionTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevDailyMissionTimeStr : this.PrevDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	[IgnoreMember] private string CorrectPrevDailyRewardTimeStr => this.PrevDailyRewardTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevDailyRewardTimeStr : this.PrevDailyRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	[IgnoreMember] private string CorrectPrevFreeRewardTimeStr => this.PrevFreeRewardTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevFreeRewardTimeStr : this.PrevFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
-    [IgnoreMember] private string CorrectPrevStoreDailyTimeStr => this.PrevStoreDailyTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevStoreDailyTimeStr : this.PrevStoreDailyTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
-    [IgnoreMember] private string CorrectPrevStoreWeeklyTimeStr => this.PrevStoreWeeklyTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevStoreWeeklyTimeStr : this.PrevStoreWeeklyTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
+    [IgnoreMember] private string CorrectPrevDailyStoreTimeStr => this.PrevDailyStoreTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevDailyStoreTimeStr : this.PrevDailyStoreTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
+    [IgnoreMember] private string CorrectPrevWeeklyStoreTimeStr => this.PrevWeeklyStoreTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevWeeklyStoreTimeStr : this.PrevWeeklyStoreTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	#endregion // 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
@@ -182,6 +224,28 @@ public partial class CCharacterGameInfo : CBaseInfo {
 	#endregion // IMessagePackSerializationCallbackReceiver
 
 	#region 함수
+    public List<bool> GetDailyBoughtList()
+    {
+        List<bool> list = new List<bool>();
+
+        list.Add(DailyStoreBought_0);
+        list.Add(DailyStoreBought_1);
+        list.Add(DailyStoreBought_2);
+
+        return list;
+    }
+
+    public List<bool> GetWeeklyBoughtList()
+    {
+        List<bool> list = new List<bool>();
+
+        list.Add(WeeklyStoreBought_0);
+        list.Add(WeeklyStoreBought_1);
+        list.Add(WeeklyStoreBought_2);
+
+        return list;
+    }
+
 	/** 생성자 */
 	public CCharacterGameInfo() : base(KDefine.G_VER_CHARACTER_GAME_INFO) {
 		// Do Something
@@ -241,8 +305,7 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 				PrevDailyMissionTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL), 
                 PrevDailyRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL), 
                 PrevFreeRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL),
-                PrevStoreDailyTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL),
-                PrevStoreWeeklyTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_7_REAL),
+                PrevWeeklyStoreTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_7_REAL),
 			}
 		}
 	};

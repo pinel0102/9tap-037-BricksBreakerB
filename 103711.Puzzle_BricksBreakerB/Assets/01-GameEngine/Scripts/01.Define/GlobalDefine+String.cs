@@ -24,9 +24,9 @@ public static partial class GlobalDefine
     public static STSortingOrderInfo SortingInfo_NumText = new STSortingOrderInfo() { m_nOrder = 200, m_oLayer = KCDefine.U_SORTING_L_BALL };
     public static STSortingOrderInfo SortingInfo_PreviewTooltips = new STSortingOrderInfo(){ m_nOrder = 100, m_oLayer = KCDefine.U_SORTING_L_FOREGROUND };
     public static STSortingOrderInfo SortingInfo_PreviewTips = new STSortingOrderInfo(){ m_nOrder = 101, m_oLayer = KCDefine.U_SORTING_L_FOREGROUND };
-    public static STSortingOrderInfo SortingInfo_RewardAlertCanvas = new STSortingOrderInfo(){ m_nOrder = 800, m_oLayer = KCDefine.U_SORTING_L_FOREGROUND };
-    public static STSortingOrderInfo SortingInfo_RewardCanvas = new STSortingOrderInfo(){ m_nOrder = 900, m_oLayer = KCDefine.U_SORTING_L_FOREGROUND };
-    public static STSortingOrderInfo SortingInfo_StoreCanvas = new STSortingOrderInfo(){ m_nOrder = 1000, m_oLayer = KCDefine.U_SORTING_L_FOREGROUND };
+    public static STSortingOrderInfo SortingInfo_StoreCanvas = new STSortingOrderInfo(){ m_nOrder = 800, m_oLayer = KCDefine.U_SORTING_L_FOREGROUND };
+    public static STSortingOrderInfo SortingInfo_RewardAlertCanvas = new STSortingOrderInfo(){ m_nOrder = 900, m_oLayer = KCDefine.U_SORTING_L_FOREGROUND };
+    public static STSortingOrderInfo SortingInfo_RewardCanvas = new STSortingOrderInfo(){ m_nOrder = 1000, m_oLayer = KCDefine.U_SORTING_L_FOREGROUND };
 
     public static string GetBallText(int ballCount, int extraBallCount)
     {

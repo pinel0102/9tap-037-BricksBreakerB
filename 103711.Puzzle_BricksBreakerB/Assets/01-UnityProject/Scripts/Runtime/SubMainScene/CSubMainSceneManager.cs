@@ -203,6 +203,15 @@ namespace MainScene {
 					oCharacterGameInfo.PrevFreeRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL);
 				}
 
+                if(Access.IsEnableGetDailyStore(CGameInfoStorage.Inst.PlayCharacterID)) {
+                    oCharacterGameInfo.DailyStoreBought_Ads = false;
+                    oCharacterGameInfo.DailyStoreBought_0 = false;
+                    oCharacterGameInfo.DailyStoreBought_1 = false;
+                    oCharacterGameInfo.DailyStoreBought_2 = false;
+					oCharacterGameInfo.PrevDailyStoreTime = System.DateTime.Today;
+                    Debug.Log(CodeManager.GetMethodName() + string.Format("Daily Store Reset : {0}", oCharacterGameInfo.PrevDailyStoreTime.ExToLongStr()));
+				}
+
 				CGameInfoStorage.Inst.SaveGameInfo();
 			}
 

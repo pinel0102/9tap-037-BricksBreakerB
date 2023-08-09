@@ -61,7 +61,7 @@ public partial class CFreeRewardPopup : CSubPopup {
 
 	/** 보상 획득 팝업이 닫혔을 경우 */
 	private void OnCloseRewardAcquirePopup(CPopup a_oSender) {
-		Func.IncrFreeRewardAcquireTimes(CGameInfoStorage.Inst.PlayCharacterID, KCDefine.B_VAL_1_INT);
+		/*Func.IncrFreeRewardAcquireTimes(CGameInfoStorage.Inst.PlayCharacterID, KCDefine.B_VAL_1_INT);
 		var oCharacterGameInfo = CGameInfoStorage.Inst.GetCharacterGameInfo(CGameInfoStorage.Inst.PlayCharacterID);
 
 		// 무료 보상을 모두 획득했을 경우
@@ -69,7 +69,7 @@ public partial class CFreeRewardPopup : CSubPopup {
 			oCharacterGameInfo.PrevFreeRewardTime = System.DateTime.Today;
 		}
 
-		CGameInfoStorage.Inst.SaveGameInfo();
+		CGameInfoStorage.Inst.SaveGameInfo();*/
 	}
 
 	/** 보상 획득 팝업을 출력한다 */

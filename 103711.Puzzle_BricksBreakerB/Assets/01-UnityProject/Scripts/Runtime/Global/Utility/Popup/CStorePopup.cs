@@ -46,23 +46,36 @@ public partial class CStorePopup : CSubPopup {
 	}
 
 	#region 변수
+    [Header("★ [Reference] UI")]
     public Canvas storeCanvas;
     public TMP_Text rubyText;
     public TMP_Text starText;
-    public Button AdsButton;
-
     public TMP_Text remainTimeTextDaily;
     public TMP_Text remainTimeTextWeekly;
+    public Button dailyAdsButton;
+    public List<Button> dailyStoreButtons = new List<Button>();
+    public List<Button> weeklyStoreButtons = new List<Button>();
 
-    public bool isEnableGetDailyStore;
+    [Header("★ [Parameter] Daily Store")]
+    public List<bool> dailyStoreBought = new List<bool>();
+    public bool dailyStoreBoughtAds;
+
+    [Header("★ [Parameter] Weekly Store")]
+    public List<bool> weeklyStoreBought = new List<bool>();
     public bool isEnableGetWeeklyStore;
     public DateTime nextRewardTimeDaily;
     public DateTime nextRewardTimeWeekly;
+
+    [Header("★ [Parameter] Privates")]
+    private int currentIndex = -1;
     private Coroutine remainTimeCoroutineDaily;
     private Coroutine remainTimeCoroutineWeekly;
     private WaitForSecondsRealtime wDelay = new WaitForSecondsRealtime(0.1f);
     private const string TimeFormatDaily = "{0:00}:{1:00}:{2:00}";
     private const string TimeFormatWeekly = "{3}D+{0:00}:{1:00}:{2:00}";
+
+    private CGameInfoStorage gameInfoStorage { get { return CGameInfoStorage.Inst; } }
+    private CCharacterGameInfo characterGameInfo { get { return gameInfoStorage.GetCharacterGameInfo(gameInfoStorage.PlayCharacterID); } }
 
 	private Dictionary<EKey, EProductKinds> m_oProductKindsDict = new Dictionary<EKey, EProductKinds>() {
 		[EKey.SEL_PRODUCT_KINDS] = EProductKinds.NONE
@@ -73,6 +86,7 @@ public partial class CStorePopup : CSubPopup {
 #endif // #if PURCHASE_MODULE_ENABLE
 
 	/** =====> 객체 <===== */
+    [Header("★ [Reference] Products")]
 	[SerializeField] private List<GameObject> m_oProductBuyUIsList = new List<GameObject>();
 	#endregion // 변수
 
@@ -90,7 +104,7 @@ public partial class CStorePopup : CSubPopup {
             (KCDefine.U_OBJ_N_RESTORE_BTN, this.Contents, this.OnTouchRestoreBtn)
 		});
 
-        AdsButton.ExAddListener(this.OnTouchAdsBtn);
+        dailyAdsButton.ExAddListener(this.OnTouchAdsBtn);
 
         storeCanvas.ExSetSortingOrder(GlobalDefine.SortingInfo_StoreCanvas);
 
@@ -102,6 +116,8 @@ public partial class CStorePopup : CSubPopup {
 		base.Init();
 		this.Params = a_stParams;
 
+        currentIndex = -1;
+
 		// 상품 교환 정보를 설정한다
 		a_stParams.m_oProductTradeInfoList.Sort((a_stLhs, a_stRhs) => a_stLhs.m_nProductIdx.CompareTo(a_stRhs.m_nProductIdx));
 
@@ -112,36 +128,66 @@ public partial class CStorePopup : CSubPopup {
 	protected override void SetupContents() {
 		base.SetupContents();
 		this.UpdateUIsState();
+
+        if (remainTimeCoroutineDaily != null) StopCoroutine(remainTimeCoroutineDaily);
+        remainTimeCoroutineDaily = StartCoroutine(CO_UpdateRemainTime());
 	}
 
 	/** UI 상태를 갱신한다 */
 	private void UpdateUIsState() {
 
         RefreshState();
-
+        this.SubUpdateUIsState();
+	}
+    
+    private void RefreshState()
+    {
         GlobalDefine.RefreshShopText(CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.rubyText);
         GlobalDefine.RefreshStarText(CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.starText);
         GlobalDefine.RefreshShopText(rubyText);
         GlobalDefine.RefreshStarText(starText);
 
-		// 상품 UI 상태를 갱신한다
+        nextRewardTimeDaily = DateTime.Today.AddDays(KCDefine.B_VAL_1_INT);
+        //isEnableGetWeeklyStore = ;
+
+        //Debug.Log(CodeManager.GetMethodName() + string.Format("[DailyStore]  {0} / {1}", isEnableGetDailyStore, oCharacterGameInfo.PrevStoreDailyTime.ToString(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS)));
+        Debug.Log(CodeManager.GetMethodName() + string.Format("[WeeklyStore] {0} / {1}", isEnableGetWeeklyStore, characterGameInfo.PrevWeeklyStoreTime.ToString(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS)));
+
+        // 상품 UI 상태를 갱신한다
 		for(int i = 0; i < m_oProductBuyUIsList.Count; ++i) {
-			this.UpdateProductBuyUIsState(m_oProductBuyUIsList[i], this.Params.m_oProductTradeInfoList[i]);
+			this.UpdateProductBuyUIsState(i, m_oProductBuyUIsList[i], this.Params.m_oProductTradeInfoList[i]);
 		}
 
-        if (remainTimeCoroutineDaily != null) StopCoroutine(remainTimeCoroutineDaily);
-        remainTimeCoroutineDaily = StartCoroutine(CO_UpdateRemainTime());
-
-		this.SubUpdateUIsState();
-	}
-    
-    private void RefreshState()
-    {
-        var oCharacterGameInfo = CGameInfoStorage.Inst.GetCharacterGameInfo(CGameInfoStorage.Inst.PlayCharacterID);
-
-        Debug.Log(CodeManager.GetMethodName() + string.Format("[DailyStore]  {0} / {1}", isEnableGetDailyStore, oCharacterGameInfo.PrevStoreDailyTime.ToString(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS)));
-        Debug.Log(CodeManager.GetMethodName() + string.Format("[WeeklyStore] {0} / {1}", isEnableGetWeeklyStore, oCharacterGameInfo.PrevStoreWeeklyTime.ToString(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS)));
+        RefreshDailyStoreState();
+        RefreshWeeklyStoreState();
     }
+
+    private void RefreshDailyStoreState()
+    {
+        dailyStoreBought.Clear();
+        dailyStoreBought = characterGameInfo.GetDailyBoughtList();
+        dailyStoreBoughtAds = characterGameInfo.DailyStoreBought_Ads;
+
+        for(int i=0; i < dailyStoreButtons.Count; i++)
+        {
+            dailyStoreButtons[i]?.ExSetInteractable(!dailyStoreBought[i]);
+        }
+
+        dailyAdsButton?.ExSetInteractable(!dailyStoreBoughtAds);
+    }
+
+    private void RefreshWeeklyStoreState()
+    {
+        weeklyStoreBought.Clear();
+        weeklyStoreBought = characterGameInfo.GetWeeklyBoughtList();
+
+        for(int i=0; i < weeklyStoreButtons.Count; i++)
+        {
+            weeklyStoreButtons[i]?.ExSetInteractable(!weeklyStoreBought[i]);
+        }
+    }
+
+#region Daily Store
 
     private IEnumerator CO_UpdateRemainTime()
     {
@@ -162,11 +208,13 @@ public partial class CStorePopup : CSubPopup {
             }
         }
 
-        RefreshState();
+        UpdateUIsState();
     }
 
+#endregion Daily Store
+
 	/** 상품 구입 UI 상태를 갱신한다 */
-	private void UpdateProductBuyUIsState(GameObject a_oProductBuyUIs, STProductTradeInfo a_stProductTradeInfo) {
+	private void UpdateProductBuyUIsState(int _index, GameObject a_oProductBuyUIs, STProductTradeInfo a_stProductTradeInfo) {
 		var oPriceUIsDict = CCollectionManager.Inst.SpawnDict<EPurchaseType, GameObject>();
 
 		try {
@@ -191,7 +239,7 @@ public partial class CStorePopup : CSubPopup {
 
 			for(int i = 0; i < oAcquireTargetInfoKeyList.Count; ++i) {
 				var nUniqueTargetInfoID = oAcquireTargetInfoKeyList[i];
-				a_oProductBuyUIs.ExFindComponent<TMP_Text>(string.Format(KCDefine.U_OBJ_N_FMT_NUM_TEXT, i + KCDefine.B_VAL_1_INT))?.ExSetText($"{a_stProductTradeInfo.m_oAcquireTargetInfoDict.GetValueOrDefault(nUniqueTargetInfoID).m_stValInfo01.m_dmVal}", false);
+				a_oProductBuyUIs.ExFindComponent<TMP_Text>(string.Format(KCDefine.U_OBJ_N_FMT_NUM_TEXT, i + KCDefine.B_VAL_1_INT))?.ExSetText($"x{a_stProductTradeInfo.m_oAcquireTargetInfoDict.GetValueOrDefault(nUniqueTargetInfoID).m_stValInfo01.m_dmVal}", false);
 			}
 
 #if !UNITY_EDITOR && PURCHASE_MODULE_ENABLE
@@ -204,7 +252,8 @@ public partial class CStorePopup : CSubPopup {
 
 			// 버튼을 갱신한다 {
 			var oPurchaseBtn = oPriceUIsDict[EPurchaseType.IN_APP_PURCHASE]?.ExFindComponent<Button>(KCDefine.U_OBJ_N_PURCHASE_BTN);
-			oPurchaseBtn?.ExAddListener(() => this.OnTouchPurchaseBtn(a_stProductTradeInfo));
+			oPurchaseBtn?.ExAddListener(() => { currentIndex = _index;
+                                                this.OnTouchPurchaseBtn(a_stProductTradeInfo); });
 
 #if PURCHASE_MODULE_ENABLE
 			var stProductInfo = CProductInfoTable.Inst.GetProductInfo(a_stProductTradeInfo.m_nProductIdx);
@@ -243,7 +292,7 @@ public partial class CStorePopup : CSubPopup {
 				break;
 			}
 			case EPurchaseType.TARGET: {
-				Func.Trade(CGameInfoStorage.Inst.PlayCharacterID, a_stProductTradeInfo);
+				Func.Trade(gameInfoStorage.PlayCharacterID, a_stProductTradeInfo);
 				break;
 			}
 		}
@@ -310,8 +359,12 @@ public partial class CStorePopup : CSubPopup {
 			var oTargetInfoDict = CCollectionManager.Inst.SpawnDict<ulong, STTargetInfo>();
 
 			try {
-				(a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(KDefine.L_SCENE_N_MAIN, 0, ERewardKinds.ADS_REWARD_DAILY_RUBY, EItemKinds.GOODS_RUBY, UnityEngine.Random.Range(GlobalDefine.RewardRuby_Daily_Store_Min, GlobalDefine.RewardRuby_Daily_Store_Max), false, 
-                () => { RefreshState(); }, this));
+				(a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(KDefine.L_SCENE_N_MAIN, 0, ERewardKinds.ADS_REWARD_DAILY_RUBY, EItemKinds.GOODS_RUBY, UnityEngine.Random.Range(GlobalDefine.RewardRuby_Daily_Store_Min, GlobalDefine.RewardRuby_Daily_Store_Max + KCDefine.B_VAL_1_INT), false, 
+                () => { 
+                        characterGameInfo.DailyStoreBought_Ads = true;
+                        gameInfoStorage.SaveGameInfo();
+                        UpdateUIsState(); 
+                    }, this));
 			} finally {
 				CCollectionManager.Inst.DespawnDict(oTargetInfoDict);
 			}
@@ -320,29 +373,48 @@ public partial class CStorePopup : CSubPopup {
 
     /** 보상 획득 팝업이 닫혔을 경우 */
 	private void OnCloseRewardAcquirePopup(CPopup a_oSender) {
-
 		//this.Close();
 	}
-
-/*#if ADS_MODULE_ENABLE
-	private void OnCloseRewardAds(CAdsManager a_oSender, STAdsRewardInfo a_stAdsRewardInfo, bool a_bIsSuccess) {
-		// 광고를 시청했을 경우
-		if(a_bIsSuccess) {
-			var eSelProductKinds = m_oProductKindsDict[EKey.SEL_PRODUCT_KINDS];
-			Func.Trade(CGameInfoStorage.Inst.PlayCharacterID, CProductTradeInfoTable.Inst.GetBuyProductTradeTradeInfo(eSelProductKinds));
-		}
-
-		this.UpdateUIsState();
-		this.Params.m_oAdsCallbackDict?.GetValueOrDefault(ECallback.ADS)?.Invoke(a_oSender, a_stAdsRewardInfo, a_bIsSuccess);
-	}
-#endif*/ // #if ADS_MODULE_ENABLE
 
 #if PURCHASE_MODULE_ENABLE
 	/** 상품이 결제 되었을 경우 */
 	private void OnPurchaseProduct(CPurchaseManager a_oSender, string a_oProductID, bool a_bIsSuccess) {
 		// 결제 되었을 경우
 		if(a_bIsSuccess) {
-			//
+            Debug.Log(CodeManager.GetMethodName() + string.Format("currentIndex : {0}", currentIndex));
+			switch(currentIndex)
+            {
+                case 14: 
+                    characterGameInfo.DailyStoreBought_0 = true;
+                    gameInfoStorage.SaveGameInfo();
+                    break;
+
+                case 15: 
+                    characterGameInfo.DailyStoreBought_1 = true;
+                    gameInfoStorage.SaveGameInfo();
+                    break;
+
+                case 16: 
+                    characterGameInfo.DailyStoreBought_2 = true;
+                    gameInfoStorage.SaveGameInfo();
+                    break;
+
+                case 17:
+                    characterGameInfo.WeeklyStoreBought_0 = true;
+                    gameInfoStorage.SaveGameInfo();
+                    break;
+
+                case 18:
+                    characterGameInfo.WeeklyStoreBought_1 = true;
+                    gameInfoStorage.SaveGameInfo();
+                    break;
+
+                case 19:
+                    characterGameInfo.WeeklyStoreBought_2 = true;
+                    gameInfoStorage.SaveGameInfo();
+                    break;
+            }
+            currentIndex = -1;
 		}
 
 		this.UpdateUIsState();
@@ -374,7 +446,7 @@ public partial class CStorePopup : CSubPopup {
 		// 로드 되었을 경우
 		if(a_bIsSuccess && a_oJSONStr.ExIsValid()) {
 			var oTargetInfoDict = a_oJSONStr.ExJSONStrToTargetInfos();
-			Func.Acquire(CGameInfoStorage.Inst.PlayCharacterID, oTargetInfoDict, true);
+			Func.Acquire(gameInfoStorage.PlayCharacterID, oTargetInfoDict, true);
 
 			this.ExLateCallFunc((a_oFuncSender) => { oTargetInfoDict.Clear(); Func.SaveTargetInfos(oTargetInfoDict, this.OnSaveTargetInfos); });
 		} else {
