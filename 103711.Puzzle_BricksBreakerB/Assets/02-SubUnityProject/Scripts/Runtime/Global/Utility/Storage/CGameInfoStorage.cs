@@ -172,27 +172,27 @@ public partial class CCharacterGameInfo : CBaseInfo {
 		set { m_oStrDict.ExReplaceVal(KEY_PREV_FREE_REWARD_TIME, value.ExToLongStr()); }
 	}
     [IgnoreMember]
-	public System.DateTime DailyStoreResetTime {
-		get { return this.DailyStoreResetTimeStr.ExIsValid() ? this.CorrectDailyStoreResetTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
+	public System.DateTime DailyStoreStartTime {
+		get { return this.DailyStoreStartTimeStr.ExIsValid() ? this.CorrectDailyStoreStartTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
 		set { m_oStrDict.ExReplaceVal(KEY_DAILY_STORE_RESET_TIME, value.ExToLongStr()); }
 	}
     [IgnoreMember]
-	public System.DateTime WeeklyStoreResetTime {
-		get { return this.WeeklyStoreResetTimeStr.ExIsValid() ? this.CorrectWeeklyStoreResetTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_7_INT); }
+	public System.DateTime WeeklyStoreStartTime {
+		get { return this.WeeklyStoreStartTimeStr.ExIsValid() ? this.CorrectWeeklyStoreStartTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_7_INT); }
 		set { m_oStrDict.ExReplaceVal(KEY_WEEKLY_STORE_RESET_TIME, value.ExToLongStr()); }
 	}
 
 	[IgnoreMember] private string PrevDailyMissionTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_DAILY_MISSION_TIME, string.Empty);
 	[IgnoreMember] private string PrevDailyRewardTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_DAILY_REWARD_TIME, string.Empty);
 	[IgnoreMember] private string PrevFreeRewardTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_FREE_REWARD_TIME, string.Empty);
-    [IgnoreMember] private string DailyStoreResetTimeStr => m_oStrDict.GetValueOrDefault(KEY_DAILY_STORE_RESET_TIME, string.Empty);
-    [IgnoreMember] private string WeeklyStoreResetTimeStr => m_oStrDict.GetValueOrDefault(KEY_WEEKLY_STORE_RESET_TIME, string.Empty);
+    [IgnoreMember] private string DailyStoreStartTimeStr => m_oStrDict.GetValueOrDefault(KEY_DAILY_STORE_RESET_TIME, string.Empty);
+    [IgnoreMember] private string WeeklyStoreStartTimeStr => m_oStrDict.GetValueOrDefault(KEY_WEEKLY_STORE_RESET_TIME, string.Empty);
 
 	[IgnoreMember] private string CorrectPrevDailyMissionTimeStr => this.PrevDailyMissionTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevDailyMissionTimeStr : this.PrevDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	[IgnoreMember] private string CorrectPrevDailyRewardTimeStr => this.PrevDailyRewardTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevDailyRewardTimeStr : this.PrevDailyRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	[IgnoreMember] private string CorrectPrevFreeRewardTimeStr => this.PrevFreeRewardTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevFreeRewardTimeStr : this.PrevFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
-    [IgnoreMember] private string CorrectDailyStoreResetTimeStr => this.DailyStoreResetTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.DailyStoreResetTimeStr : this.DailyStoreResetTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
-    [IgnoreMember] private string CorrectWeeklyStoreResetTimeStr => this.WeeklyStoreResetTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.WeeklyStoreResetTimeStr : this.WeeklyStoreResetTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
+    [IgnoreMember] private string CorrectDailyStoreStartTimeStr => this.DailyStoreStartTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.DailyStoreStartTimeStr : this.DailyStoreStartTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
+    [IgnoreMember] private string CorrectWeeklyStoreStartTimeStr => this.WeeklyStoreStartTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.WeeklyStoreStartTimeStr : this.WeeklyStoreStartTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	#endregion // 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
@@ -253,9 +253,9 @@ public partial class CCharacterGameInfo : CBaseInfo {
         DailyStoreBought_0 = false;
         DailyStoreBought_1 = false;
         DailyStoreBought_2 = false;
-		DailyStoreResetTime = System.DateTime.Today;
+		DailyStoreStartTime = System.DateTime.Today;
 
-        Debug.Log(CodeManager.GetMethodName() + string.Format("Reset Daily Store : {0}", DailyStoreResetTime.ExToLongStr()));
+        Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>Daily Store Reset : {0}</color>", DailyStoreStartTime.ExToLongStr()));
     }
 
     public void ResetWeeklyStore()
@@ -263,9 +263,9 @@ public partial class CCharacterGameInfo : CBaseInfo {
         WeeklyStoreBought_0 = false;
         WeeklyStoreBought_1 = false;
         WeeklyStoreBought_2 = false;
-		WeeklyStoreResetTime = GlobalDefine.GetMondayOfThisWeek();
+		WeeklyStoreStartTime = GlobalDefine.GetMondayOfThisWeek();
 
-        Debug.Log(CodeManager.GetMethodName() + string.Format("Reset Weekly Store : {0}", WeeklyStoreResetTime.ExToLongStr()));
+        Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>Weekly Store Reset : {0}</color>", WeeklyStoreStartTime.ExToLongStr()));
     }
 
 	/** 생성자 */
@@ -327,8 +327,8 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 				PrevDailyMissionTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL), 
                 PrevDailyRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL), 
                 PrevFreeRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL),
-                DailyStoreResetTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL),
-                WeeklyStoreResetTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_7_REAL),
+                DailyStoreStartTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL),
+                WeeklyStoreStartTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_7_REAL),
 			}
 		}
 	};

@@ -206,9 +206,14 @@ namespace MainScene {
                 if(Access.IsDailyStoreResetTime(CGameInfoStorage.Inst.PlayCharacterID)) {
                     oCharacterGameInfo.ResetDailyStore();
 				}
+                else
+                    Debug.Log(CodeManager.GetMethodName() + string.Format("Daily Store Start : {0}", oCharacterGameInfo.DailyStoreStartTime.ExToLongStr()));
+
                 if(Access.IsWeeklyStoreResetTime(CGameInfoStorage.Inst.PlayCharacterID)) {
                     oCharacterGameInfo.ResetWeeklyStore();
 				}
+                else
+                    Debug.Log(CodeManager.GetMethodName() + string.Format("Weekly Store Start : {0}", oCharacterGameInfo.WeeklyStoreStartTime.ExToLongStr()));
 
 				CGameInfoStorage.Inst.SaveGameInfo();
 			}

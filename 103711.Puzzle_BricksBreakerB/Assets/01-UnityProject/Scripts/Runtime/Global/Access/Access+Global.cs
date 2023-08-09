@@ -183,11 +183,11 @@ public static partial class Access {
 	}*/
 
     public static bool IsDailyStoreResetTime(int a_nCharacterID) {
-		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? System.DateTime.Now.ExGetDeltaTimePerDays(oCharacterGameInfo.DailyStoreResetTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL) : false;
+		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? System.DateTime.Now.ExGetDeltaTimePerDays(oCharacterGameInfo.DailyStoreStartTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL) : false;
 	}
 
     public static bool IsWeeklyStoreResetTime(int a_nCharacterID) {
-		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? System.DateTime.Now.ExGetDeltaTimePerDays(oCharacterGameInfo.WeeklyStoreResetTime).ExIsGreateEquals(KCDefine.B_VAL_7_REAL) : false;
+		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? System.DateTime.Now.ExGetDeltaTimePerDays(oCharacterGameInfo.WeeklyStoreStartTime).ExIsGreateEquals(KCDefine.B_VAL_7_REAL) : false;
 	}
 
 	/** 교환 가능 여부를 검사한다 */
