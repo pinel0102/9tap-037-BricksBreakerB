@@ -147,7 +147,7 @@ public partial class CStorePopup : CSubPopup {
         GlobalDefine.RefreshShopText(rubyText);
         GlobalDefine.RefreshStarText(starText);
 
-        CheckResetStore();
+        CheckResetTime();
 
         // 상품 UI 상태를 갱신한다
 		for(int i = 0; i < m_oProductBuyUIsList.Count; ++i) {
@@ -158,16 +158,16 @@ public partial class CStorePopup : CSubPopup {
         RefreshWeeklyStoreState();
     }
 
-    private void CheckResetStore()
+    private void CheckResetTime()
     {
         bool isNeedSave = false; 
 
-        if(Access.IsEnableGetDailyStore(gameInfoStorage.PlayCharacterID)) 
+        if(Access.IsDailyStoreResetTime(gameInfoStorage.PlayCharacterID)) 
         {
             characterGameInfo.ResetDailyStore();
             isNeedSave = true;
 		}
-        if(Access.IsEnableGetWeeklyStore(gameInfoStorage.PlayCharacterID)) 
+        if(Access.IsWeeklyStoreResetTime(gameInfoStorage.PlayCharacterID)) 
         {
             characterGameInfo.ResetWeeklyStore();
             isNeedSave = true;

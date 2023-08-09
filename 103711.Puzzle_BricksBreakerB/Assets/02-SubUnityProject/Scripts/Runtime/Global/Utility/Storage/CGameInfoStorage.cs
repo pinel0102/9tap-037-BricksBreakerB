@@ -78,11 +78,12 @@ public partial class CCharacterGameInfo : CBaseInfo {
     private const string KEY_WEEKLY_STORE_BOUGHT_1 = "WeeklyStoreBought_1";
     private const string KEY_WEEKLY_STORE_BOUGHT_2 = "WeeklyStoreBought_2";
 
-    private const string KEY_PREV_DAILY_STORE_TIME = "PrevDailyStoreTime";
-    private const string KEY_PREV_WEEKLY_STORE_TIME = "PrevWeeklyStoreTime";
-	private const string KEY_PREV_FREE_REWARD_TIME = "PrevFreeRewardTime";
+    private const string KEY_DAILY_STORE_RESET_TIME = "DailyStoreResetTime";
+    private const string KEY_WEEKLY_STORE_RESET_TIME = "WeeklyStoreResetTime";
+    private const string KEY_PREV_FREE_REWARD_TIME = "PrevFreeRewardTime";
 	private const string KEY_PREV_DAILY_REWARD_TIME = "PrevDailyRewardTime";
 	private const string KEY_PREV_DAILY_MISSION_TIME = "PrevDailyMissionTime";
+    
 	#endregion // 상수
 
 	#region 변수
@@ -171,27 +172,27 @@ public partial class CCharacterGameInfo : CBaseInfo {
 		set { m_oStrDict.ExReplaceVal(KEY_PREV_FREE_REWARD_TIME, value.ExToLongStr()); }
 	}
     [IgnoreMember]
-	public System.DateTime PrevDailyStoreTime {
-		get { return this.PrevDailyStoreTimeStr.ExIsValid() ? this.CorrectPrevDailyStoreTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
-		set { m_oStrDict.ExReplaceVal(KEY_PREV_DAILY_STORE_TIME, value.ExToLongStr()); }
+	public System.DateTime DailyStoreResetTime {
+		get { return this.DailyStoreResetTimeStr.ExIsValid() ? this.CorrectDailyStoreResetTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT); }
+		set { m_oStrDict.ExReplaceVal(KEY_DAILY_STORE_RESET_TIME, value.ExToLongStr()); }
 	}
     [IgnoreMember]
-	public System.DateTime PrevWeeklyStoreTime {
-		get { return this.PrevWeeklyStoreTimeStr.ExIsValid() ? this.CorrectPrevWeeklyStoreTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_7_INT); }
-		set { m_oStrDict.ExReplaceVal(KEY_PREV_WEEKLY_STORE_TIME, value.ExToLongStr()); }
+	public System.DateTime WeeklyStoreResetTime {
+		get { return this.WeeklyStoreResetTimeStr.ExIsValid() ? this.CorrectWeeklyStoreResetTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_SLASH_YYYY_MM_DD_HH_MM_SS) : System.DateTime.Today.AddDays(-KCDefine.B_VAL_7_INT); }
+		set { m_oStrDict.ExReplaceVal(KEY_WEEKLY_STORE_RESET_TIME, value.ExToLongStr()); }
 	}
 
 	[IgnoreMember] private string PrevDailyMissionTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_DAILY_MISSION_TIME, string.Empty);
 	[IgnoreMember] private string PrevDailyRewardTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_DAILY_REWARD_TIME, string.Empty);
 	[IgnoreMember] private string PrevFreeRewardTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_FREE_REWARD_TIME, string.Empty);
-    [IgnoreMember] private string PrevDailyStoreTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_DAILY_STORE_TIME, string.Empty);
-    [IgnoreMember] private string PrevWeeklyStoreTimeStr => m_oStrDict.GetValueOrDefault(KEY_PREV_WEEKLY_STORE_TIME, string.Empty);
+    [IgnoreMember] private string DailyStoreResetTimeStr => m_oStrDict.GetValueOrDefault(KEY_DAILY_STORE_RESET_TIME, string.Empty);
+    [IgnoreMember] private string WeeklyStoreResetTimeStr => m_oStrDict.GetValueOrDefault(KEY_WEEKLY_STORE_RESET_TIME, string.Empty);
 
 	[IgnoreMember] private string CorrectPrevDailyMissionTimeStr => this.PrevDailyMissionTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevDailyMissionTimeStr : this.PrevDailyMissionTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	[IgnoreMember] private string CorrectPrevDailyRewardTimeStr => this.PrevDailyRewardTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevDailyRewardTimeStr : this.PrevDailyRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	[IgnoreMember] private string CorrectPrevFreeRewardTimeStr => this.PrevFreeRewardTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevFreeRewardTimeStr : this.PrevFreeRewardTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
-    [IgnoreMember] private string CorrectPrevDailyStoreTimeStr => this.PrevDailyStoreTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevDailyStoreTimeStr : this.PrevDailyStoreTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
-    [IgnoreMember] private string CorrectPrevWeeklyStoreTimeStr => this.PrevWeeklyStoreTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.PrevWeeklyStoreTimeStr : this.PrevWeeklyStoreTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
+    [IgnoreMember] private string CorrectDailyStoreResetTimeStr => this.DailyStoreResetTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.DailyStoreResetTimeStr : this.DailyStoreResetTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
+    [IgnoreMember] private string CorrectWeeklyStoreResetTimeStr => this.WeeklyStoreResetTimeStr.Contains(KCDefine.B_TOKEN_SLASH) ? this.WeeklyStoreResetTimeStr : this.WeeklyStoreResetTimeStr.ExToTime(KCDefine.B_DATE_T_FMT_YYYY_MM_DD_HH_MM_SS).ExToLongStr();
 	#endregion // 프로퍼티
 
 	#region IMessagePackSerializationCallbackReceiver
@@ -252,9 +253,9 @@ public partial class CCharacterGameInfo : CBaseInfo {
         DailyStoreBought_0 = false;
         DailyStoreBought_1 = false;
         DailyStoreBought_2 = false;
-		PrevDailyStoreTime = System.DateTime.Today;
+		DailyStoreResetTime = System.DateTime.Today;
 
-        Debug.Log(CodeManager.GetMethodName() + string.Format("Daily Store Reset : {0}", PrevDailyStoreTime.ExToLongStr()));
+        Debug.Log(CodeManager.GetMethodName() + string.Format("Reset Daily Store : {0}", DailyStoreResetTime.ExToLongStr()));
     }
 
     public void ResetWeeklyStore()
@@ -262,9 +263,9 @@ public partial class CCharacterGameInfo : CBaseInfo {
         WeeklyStoreBought_0 = false;
         WeeklyStoreBought_1 = false;
         WeeklyStoreBought_2 = false;
-		PrevWeeklyStoreTime = GlobalDefine.GetMondayOfThisWeek();
+		WeeklyStoreResetTime = GlobalDefine.GetMondayOfThisWeek();
 
-        Debug.Log(CodeManager.GetMethodName() + string.Format("Weekly Store Reset : {0}", PrevWeeklyStoreTime.ExToLongStr()));
+        Debug.Log(CodeManager.GetMethodName() + string.Format("Reset Weekly Store : {0}", WeeklyStoreResetTime.ExToLongStr()));
     }
 
 	/** 생성자 */
@@ -326,8 +327,8 @@ public partial class CGameInfoStorage : CSingleton<CGameInfoStorage> {
 				PrevDailyMissionTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL), 
                 PrevDailyRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL), 
                 PrevFreeRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL),
-                PrevDailyStoreTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL),
-                PrevWeeklyStoreTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_7_REAL),
+                DailyStoreResetTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL),
+                WeeklyStoreResetTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_7_REAL),
 			}
 		}
 	};

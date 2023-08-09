@@ -203,10 +203,10 @@ namespace MainScene {
 					oCharacterGameInfo.PrevFreeRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_REAL);
 				}
 
-                if(Access.IsEnableGetDailyStore(CGameInfoStorage.Inst.PlayCharacterID)) {
+                if(Access.IsDailyStoreResetTime(CGameInfoStorage.Inst.PlayCharacterID)) {
                     oCharacterGameInfo.ResetDailyStore();
 				}
-                if(Access.IsEnableGetWeeklyStore(CGameInfoStorage.Inst.PlayCharacterID)) {
+                if(Access.IsWeeklyStoreResetTime(CGameInfoStorage.Inst.PlayCharacterID)) {
                     oCharacterGameInfo.ResetWeeklyStore();
 				}
 
