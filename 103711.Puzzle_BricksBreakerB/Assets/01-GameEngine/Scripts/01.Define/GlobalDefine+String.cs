@@ -16,6 +16,7 @@ public static partial class GlobalDefine
     public const string STRING_1 = "1";
     public const string STRING_0 = "0";
     public const string STRING_DATE_EMPTY = "2023/08/01 00:00:00";
+    public const string STRING_SOLD_OUT = "SOLD_OUT";
     public const string FORMAT_INT = "{0}";
     public const string FORMAT_BALL_TEXT_EXTRA = "{0}+{1}";
     public const string TAG_WALL = "Wall";

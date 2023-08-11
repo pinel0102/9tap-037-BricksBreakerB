@@ -79,7 +79,7 @@ public partial class CStorePopup : CSubPopup {
     private WaitForSecondsRealtime wDelay = new WaitForSecondsRealtime(0.1f);
     private const string TimeFormatDaily = "{0:00}:{1:00}:{2:00}";
     private const string TimeFormatWeekly = "{3}D+{0:00}:{1:00}:{2:00}";
-
+    
     private CGameInfoStorage gameInfoStorage { get { return CGameInfoStorage.Inst; } }
     private CCharacterGameInfo characterGameInfo { get { return gameInfoStorage.GetCharacterGameInfo(gameInfoStorage.PlayCharacterID); } }
 
@@ -309,8 +309,13 @@ public partial class CStorePopup : CSubPopup {
 
 			// 비소모 상품 일 경우
 			if(stProductInfo.m_eProductType == ProductType.NonConsumable) {
-                Debug.Log(CodeManager.GetMethodName() + string.Format("NonConsumable Check : {0} : {1}", stProductInfo.m_stCommonInfo.m_oName, CPurchaseManager.Inst.IsPurchaseNonConsumableProduct(stProductInfo.m_oID)));
-				oPurchaseBtn?.ExSetInteractable(!CPurchaseManager.Inst.IsPurchaseNonConsumableProduct(stProductInfo.m_oID));
+                bool isPurchased = CPurchaseManager.Inst.IsPurchaseNonConsumableProduct(stProductInfo.m_oID);
+                
+                Debug.Log(CodeManager.GetMethodName() + string.Format("NonConsumable Check : {0} : {1}", stProductInfo.m_stCommonInfo.m_oName, isPurchased));
+				oPurchaseBtn?.ExSetInteractable(!isPurchased);
+
+                var soldout = a_oProductBuyUIs.ExFindComponent<Transform>(GlobalDefine.STRING_SOLD_OUT);
+                soldout?.gameObject.SetActive(isPurchased);
 			}
 #endif // #if PURCHASE_MODULE_ENABLE
 			// 버튼을 갱신한다 }
