@@ -237,7 +237,7 @@ public partial class CGameInfoStorage
             var PopupUIs = mainSceneManager != null ? mainSceneManager?.PopupUIs : CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME)?.PopupUIs;
             EItemKinds kinds = EItemKinds.GAME_ITEM_01_EARTHQUAKE + (index - 1);
 
-            Func.ShowRewardAcquirePopup(PopupUIs, (a_oSender) => {            
+            Func.ShowRewardAcquirePopup(PopupUIs, (a_oSender) => {
             try {
                 (a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(KDefine.L_SCENE_N_MAIN, KCDefine.B_VAL_0_INT, ERewardKinds.NONE, kinds, KCDefine.B_VAL_0_INT, false, 
                 () => {  }, null, GlobalDefine.SecondsToTimeText(GlobalDefine.cooltime_item)));

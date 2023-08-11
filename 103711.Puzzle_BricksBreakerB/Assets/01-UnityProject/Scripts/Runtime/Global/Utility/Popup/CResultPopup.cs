@@ -49,6 +49,7 @@ public partial class CResultPopup : CSubPopup {
 	public override bool IsIgnoreCloseBtn => true;
 
     [Header("★ [Reference] Top")]
+    public GameObject touchLock;
     public GameObject failBack;
     public TMP_Text rubyText;
     public TMP_Text[] levelText;
@@ -107,6 +108,7 @@ public partial class CResultPopup : CSubPopup {
             (U_OBJ_N_LEAVE_BTN_2, this.Contents, this.OnTouchLeaveBtn)
 		});
 
+        touchLock.SetActive(false);
         shopButton.ExAddListener(OnTouchShopButton);
         ADBlockButton.ExAddListener(OnTouchADBlockButton);
 
@@ -225,6 +227,8 @@ public partial class CResultPopup : CSubPopup {
     {
         if (GlobalDefine.starIncrease > 0)
         {
+            touchLock.SetActive(true);
+
             int newPhase = (GlobalDefine.UserInfo.Star / GlobalDefine.starRewardPoint[2]) % GlobalDefine.starReward.Count;
             if (newPhase == currentPhase)
             {
@@ -232,19 +236,18 @@ public partial class CResultPopup : CSubPopup {
                 float endFillAmount = ((float)newStar / (float)GlobalDefine.starRewardPoint[2]);
 
                 Debug.Log(CodeManager.GetMethodName() + string.Format("Phase : {0} / RewardStar : {1}", currentPhase, newStar));
-
-                for(int i=0; i < GlobalDefine.starRewardPoint.Count; i++)
-                {
-                    if (currentRewardStar < GlobalDefine.starRewardPoint[i] && newStar >= GlobalDefine.starRewardPoint[i])
-                    {
-                        GlobalDefine.PlaySoundFX(ESoundSet.SOUND_GET_STAR);
-                        GlobalDefine.AddItem(GlobalDefine.starReward[currentPhase][i].Key, GlobalDefine.starReward[currentPhase][i].Value);
-                        LogFunc.Send_C_Item_Get(Params.Engine.currentLevel - 1, KDefine.L_SCENE_N_PLAY, LogFunc.MakeLogItemInfo(GlobalDefine.starReward[currentPhase][i].Key, GlobalDefine.starReward[currentPhase][i].Value));
-                    }
-                }
                 
                 //Debug.Log(CodeManager.GetMethodName() + string.Format("Gage : {0} -> {1}", gageImage.fillAmount, endFillAmount));
-                gageImage.DOFillAmount(endFillAmount, gageDelay).SetUpdate(true);
+                gageImage.DOFillAmount(endFillAmount, gageDelay).SetUpdate(true).OnComplete(() => { 
+                    for(int i=0; i < GlobalDefine.starRewardPoint.Count; i++)
+                    {
+                        if (currentRewardStar < GlobalDefine.starRewardPoint[i] && newStar >= GlobalDefine.starRewardPoint[i])
+                        {
+                            GetStarReward(GlobalDefine.starReward[currentPhase][i].Key, GlobalDefine.starReward[currentPhase][i].Value);
+                        }
+                    }
+                });
+
                 yield return wDelay;
 
                 for(int i=0; i < starRewardCheck.Count; i++)
@@ -259,26 +262,15 @@ public partial class CResultPopup : CSubPopup {
                 int newStar = GlobalDefine.UserInfo.Star % GlobalDefine.starRewardPoint[2];
                 float endFillAmount = ((float)newStar / (float)GlobalDefine.starRewardPoint[2]);
 
-                // get 3rd reward
-                GlobalDefine.PlaySoundFX(ESoundSet.SOUND_GET_STAR);
-                GlobalDefine.AddItem(GlobalDefine.starReward[currentPhase][2].Key, GlobalDefine.starReward[currentPhase][2].Value);
-                LogFunc.Send_C_Item_Get(Params.Engine.currentLevel - 1, KDefine.L_SCENE_N_PLAY, LogFunc.MakeLogItemInfo(GlobalDefine.starReward[currentPhase][2].Key, GlobalDefine.starReward[currentPhase][2].Value));
-
                 Debug.Log(CodeManager.GetMethodName() + string.Format("Change Phase : {0} -> {1}", currentPhase, newPhase));
                 Debug.Log(CodeManager.GetMethodName() + string.Format("Phase : {0} / RewardStar : {1}", newPhase, newStar));
 
-                for(int i=0; i < GlobalDefine.starRewardPoint.Count; i++)
-                {
-                    if (newStar >= GlobalDefine.starRewardPoint[i])
-                    {
-                        GlobalDefine.PlaySoundFX(ESoundSet.SOUND_GET_STAR);
-                        GlobalDefine.AddItem(GlobalDefine.starReward[newPhase][i].Key, GlobalDefine.starReward[newPhase][i].Value);
-                        LogFunc.Send_C_Item_Get(Params.Engine.currentLevel - 1, KDefine.L_SCENE_N_PLAY, LogFunc.MakeLogItemInfo(GlobalDefine.starReward[currentPhase][i].Key, GlobalDefine.starReward[currentPhase][i].Value));
-                    }
-                }
-
                 //Debug.Log(CodeManager.GetMethodName() + string.Format("Gage : {0} -> {1}", gageImage.fillAmount, 1f));
-                gageImage.DOFillAmount(1f, gageDelayHalf).SetUpdate(true);
+                gageImage.DOFillAmount(1f, gageDelayHalf).SetUpdate(true).OnComplete(() => { 
+                    // get 3rd reward
+                    GetStarReward(GlobalDefine.starReward[currentPhase][2].Key, GlobalDefine.starReward[currentPhase][2].Value); 
+                });
+
                 yield return wDelayHalf;
 
                 starRewardCheck[2].SetActive(true);
@@ -290,7 +282,16 @@ public partial class CResultPopup : CSubPopup {
                 RefreshIcons(newPhase, newStar);
 
                 //Debug.Log(CodeManager.GetMethodName() + string.Format("Gage : {0} -> {1}", gageImage.fillAmount, endFillAmount));
-                gageImage.DOFillAmount(endFillAmount, gageDelayHalf).SetUpdate(true);
+                gageImage.DOFillAmount(endFillAmount, gageDelayHalf).SetUpdate(true).OnComplete(() => { 
+                    for(int i=0; i < GlobalDefine.starRewardPoint.Count; i++)
+                    {
+                        if (newStar >= GlobalDefine.starRewardPoint[i])
+                        {
+                            GetStarReward(GlobalDefine.starReward[newPhase][i].Key, GlobalDefine.starReward[newPhase][i].Value);
+                        }
+                    }
+                });
+
                 yield return wDelayHalf;
 
                 for(int i=0; i < starRewardCheck.Count; i++)
@@ -300,7 +301,25 @@ public partial class CResultPopup : CSubPopup {
 
                 GlobalDefine.RefreshShopText(rubyText);
             }
+
+            touchLock.SetActive(false);
         }
+    }
+
+    private void GetStarReward(EItemKinds kinds, int addCount)
+    {
+        //Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>{0} x {1}</color>", kinds, addCount));
+        
+        var PopupUIs = CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).PopupUIs;
+        
+        Func.ShowRewardAcquirePopup(PopupUIs, (a_oSender) => {
+            try {
+                (a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(KDefine.L_SCENE_N_PLAY, Params.Engine.currentLevel, ERewardKinds.NONE, kinds, addCount, true, 
+                () => { GlobalDefine.RefreshShopText(rubyText); }, this, null));
+            } 
+            finally 
+            { }
+        }, null, null);   
     }
 
 	/** 다음 버튼을 눌렀을 경우 */

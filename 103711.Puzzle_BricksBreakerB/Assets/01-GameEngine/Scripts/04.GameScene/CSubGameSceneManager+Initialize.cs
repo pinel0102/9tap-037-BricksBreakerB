@@ -12,6 +12,7 @@ namespace GameScene {
         public Transform startLine;
         public Transform deadLine;
         public GameObject warningObject;
+        public GameObject fastForwardObject;
         public GameObject[] darkModeButton;
         public GameObject[] darkModeBackground;
         public GameObject[] darkModeTopPanel;
@@ -31,6 +32,7 @@ namespace GameScene {
 
             ApplyDarkMode(GlobalDefine.UserInfo.Settings_DarkMode);
             warningObject.SetActive(false);
+            fastForwardObject.SetActive(false);
             
             InitAimLayer();
             InitCamera();

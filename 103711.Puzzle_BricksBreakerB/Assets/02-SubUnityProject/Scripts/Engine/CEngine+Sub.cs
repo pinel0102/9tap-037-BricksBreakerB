@@ -290,6 +290,7 @@ namespace NSEngine {
                     // 클리어했을 경우
 					if(this.IsClear()) {
 						m_oSubRealDict[ESubKey.TIME_SCALE] = KCDefine.B_VAL_3_REAL;
+                        subGameSceneManager.fastForwardObject.SetActive(true);
 					}
 
 					break;

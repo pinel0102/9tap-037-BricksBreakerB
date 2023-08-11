@@ -117,7 +117,12 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		m_oBtnDict.GetValueOrDefault(EKey.ADS_BTN)?.ExSetInteractable(false);
 		m_oBtnDict.GetValueOrDefault(EKey.ACQUIRE_BTN)?.ExSetInteractable(false);
 
-		GlobalDefine.AddItem(Params.kinds, a_bIsWatchRewardAds ? Params.count * KCDefine.B_VAL_2_INT : Params.count);
+        int count = a_bIsWatchRewardAds ? Params.count * KCDefine.B_VAL_2_INT : Params.count;
+
+		GlobalDefine.AddItem(Params.kinds, count);
+        
+        if (count > 0)
+            LogFunc.Send_C_Item_Get(Params.currentLevel - 1, Params.sceneName, LogFunc.MakeLogItemInfo(Params.kinds, count));
         
         //LogFunc.Send_C_Item_Get(Params.currentLevel - 1, Params.sceneName, LogFunc.MakeLogItemInfo(CRewardInfoTable.Inst.GetRewardInfo(Params.rewardKinds).m_oAcquireTargetInfoDict));
         

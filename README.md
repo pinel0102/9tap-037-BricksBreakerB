@@ -28,8 +28,16 @@ Puzzle - BricksBreakerB 클라이언트 프로젝트
 # ChangeLog
 
 <details>
-<summary markdown="span"><em>last update : 1.0.2</em></summary>
+<summary markdown="span"><em>last update : 1.0.3</em></summary>
 <br>
+
+---
++ 1.0.3
+   - 레벨맵 풍선 리워드 추가
+   - 준비화면 리워드 추가
+   - 시간제한 아이템 추가
+   - IAP 추가
+   - UI 개선
 
 ---
 + 1.0.2
