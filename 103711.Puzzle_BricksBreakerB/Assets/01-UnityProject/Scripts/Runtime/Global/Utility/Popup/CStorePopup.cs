@@ -472,6 +472,7 @@ public partial class CStorePopup : CSubPopup {
 
 		this.UpdateUIsState();
 		this.Params.m_oPurchaseCallbackDict01?.GetValueOrDefault(ECallback.PURCHASE)?.Invoke(a_oSender, a_oProductID, a_bIsSuccess);
+        CIndicatorManager.Inst.Close();
 	}
 
 	/** 상품이 복원 되었을 경우 */
