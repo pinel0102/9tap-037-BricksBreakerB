@@ -239,11 +239,12 @@ public partial class CGameInfoStorage
 
             Func.ShowRewardAcquirePopup(PopupUIs, (a_oSender) => {
             try {
-                (a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(KDefine.L_SCENE_N_MAIN, KCDefine.B_VAL_0_INT, ERewardKinds.NONE, kinds, KCDefine.B_VAL_0_INT, false, 
-                () => {  }, null, GlobalDefine.SecondsToTimeText(GlobalDefine.cooltime_item)));
+                (a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(
+                    KDefine.L_SCENE_N_MAIN, KCDefine.B_VAL_0_INT, 
+                    kinds, KCDefine.B_VAL_0_INT, false, 
+                    () => {  }, GlobalDefine.SecondsToTimeText(GlobalDefine.cooltime_item)));
                 } 
-                finally 
-                { }
+                finally { }
             }, null, null);            
             break;
         }

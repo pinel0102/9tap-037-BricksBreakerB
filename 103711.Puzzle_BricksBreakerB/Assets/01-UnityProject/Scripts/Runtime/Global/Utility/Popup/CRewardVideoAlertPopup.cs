@@ -164,15 +164,21 @@ public partial class CRewardVideoAlertPopup : CSubPopup {
                         CGameInfoStorage.Inst.GetRewardBooster(RewardVideoType.BALLOON_BOOSTER);
                         CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN).RewardBalloon_Hide();
 
-                        (a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(KDefine.L_SCENE_N_MAIN, KCDefine.B_VAL_0_INT, ERewardKinds.ADS_REWARD_BALLOON_BOOSTER, EItemKinds.BOOSTER_ITEM_04_RANDOM, KCDefine.B_VAL_0_INT, false, 
-                        () => {  }, this));
+                        (a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(
+                            KDefine.L_SCENE_N_MAIN, KCDefine.B_VAL_0_INT, 
+                            EItemKinds.BOOSTER_ITEM_04_RANDOM, KCDefine.B_VAL_0_INT, false, 
+                            () => {  }
+                        ));
                         break;
                     case RewardVideoType.READY_BOOSTER:
                         var parentPopup = Params.parentPopup as CPreviewPopup;
                         parentPopup.GetRewardBooster();
 
-                        (a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(KDefine.L_SCENE_N_MAIN, KCDefine.B_VAL_0_INT, ERewardKinds.ADS_REWARD_READY_BOOSTER, EItemKinds.BOOSTER_ITEM_01_MISSILE + parentPopup.rewardBoosterIndex_ready, KCDefine.B_VAL_0_INT, false, 
-                        () => { parentPopup.RefreshBoosterState(); }, this));
+                        (a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(
+                            KDefine.L_SCENE_N_MAIN, KCDefine.B_VAL_0_INT, 
+                            EItemKinds.BOOSTER_ITEM_01_MISSILE + parentPopup.rewardBoosterIndex_ready, KCDefine.B_VAL_0_INT, false, 
+                            () => { parentPopup.RefreshBoosterState(); }
+                        ));
                         break;
                     case RewardVideoType.INGAME_ADDBALLS:
                         var Engine = CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).Engine;
@@ -180,8 +186,13 @@ public partial class CRewardVideoAlertPopup : CSubPopup {
                         Engine.AddNormalBalls(Engine.startPosition, Params.count, false);
                         Engine.BallObjList[0].NumText.text = GlobalDefine.GetBallText(Engine.BallObjList.Count - Engine.DeleteBallList.Count, Engine.DeleteBallList.Count);
                         
-                        (a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(KDefine.L_SCENE_N_PLAY, 0, ERewardKinds.ADS_REWARD_INGAME_ADDBALLS, EItemKinds.GAME_ITEM_02_ADD_BALLS, Params.count, false, 
-                        () => { CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).rewardBallPlusButton.interactable = false; }, this));
+                        (a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(
+                            KDefine.L_SCENE_N_PLAY, Engine.currentLevel, 
+                            EItemKinds.GAME_ITEM_02_ADD_BALLS, KCDefine.B_VAL_1_INT, false, 
+                            () => { 
+                                CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).rewardBallPlusButton.interactable = false; 
+                            }
+                        ));
                         break;
                 }
                 

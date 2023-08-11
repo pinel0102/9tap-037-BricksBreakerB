@@ -8,6 +8,17 @@ public static partial class GlobalDefine
     public const int cooltime_item = 1800; // 1800
     public const int cooltime_none = -1;
 
+    public static readonly List<KeyValuePair<EItemKinds, int>> dailyReward = new List<KeyValuePair<EItemKinds, int>>()
+    {
+        new KeyValuePair<EItemKinds, int>(EItemKinds.GAME_ITEM_01_EARTHQUAKE, 1),
+        new KeyValuePair<EItemKinds, int>(EItemKinds.GAME_ITEM_02_ADD_BALLS, 1),
+        new KeyValuePair<EItemKinds, int>(EItemKinds.GOODS_RUBY, 50),
+        new KeyValuePair<EItemKinds, int>(EItemKinds.GAME_ITEM_03_BRICKS_DELETE, 1),
+        new KeyValuePair<EItemKinds, int>(EItemKinds.GOODS_RUBY, 100),
+        new KeyValuePair<EItemKinds, int>(EItemKinds.GAME_ITEM_05_ADD_STEEL_BRICKS, 1),
+        new KeyValuePair<EItemKinds, int>(EItemKinds.GOODS_RUBY, 150),
+    };
+
     public static void AddRuby(int addCount)
     {
         Debug.Log(CodeManager.GetMethodName() + string.Format("{0} + {1} = {2}", UserInfo.Ruby, addCount, UserInfo.Ruby + addCount));

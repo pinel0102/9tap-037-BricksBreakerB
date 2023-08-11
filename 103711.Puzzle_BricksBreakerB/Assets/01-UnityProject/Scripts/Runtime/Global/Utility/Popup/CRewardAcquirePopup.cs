@@ -21,8 +21,6 @@ public partial class CRewardAcquirePopup : CSubPopup {
 	/** 매개 변수 */
 	public struct STParams {
 		public System.Action m_oCallback;
-        public CPopup parentPopup;
-        public ERewardKinds rewardKinds;
         public EItemKinds kinds;
         public string sceneName;
         public int currentLevel;
@@ -118,16 +116,13 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		m_oBtnDict.GetValueOrDefault(EKey.ACQUIRE_BTN)?.ExSetInteractable(false);
 
         int count = a_bIsWatchRewardAds ? Params.count * KCDefine.B_VAL_2_INT : Params.count;
-
-		GlobalDefine.AddItem(Params.kinds, count);
+        
+        GlobalDefine.AddItem(Params.kinds, count);
         
         if (count > 0)
             LogFunc.Send_C_Item_Get(Params.currentLevel - 1, Params.sceneName, LogFunc.MakeLogItemInfo(Params.kinds, count));
         
-        //LogFunc.Send_C_Item_Get(Params.currentLevel - 1, Params.sceneName, LogFunc.MakeLogItemInfo(CRewardInfoTable.Inst.GetRewardInfo(Params.rewardKinds).m_oAcquireTargetInfoDict));
-        
         this.Params.m_oCallback?.Invoke();
-
 		this.OnTouchCloseBtn();
 	}
 
@@ -183,10 +178,11 @@ public partial class CRewardAcquirePopup : CSubPopup {
 		};
 	}*/
 
-    public static STParams MakeParams(string _sceneName, int _currentLevel, ERewardKinds _rewardKinds, EItemKinds _kinds, int _count, bool _isEnableAD, System.Action _m_oCallback, CPopup _parentPopup, string _description = null) {
+    public static STParams MakeParams(string _sceneName, int _currentLevel, EItemKinds _kinds, int _count, bool _isEnableAD, System.Action _m_oCallback, string _description = null) {
 		return new STParams() {
-			sceneName = _sceneName, currentLevel = _currentLevel, rewardKinds = _rewardKinds, 
-            kinds = _kinds, count = _count, isEnableAD = _isEnableAD, m_oCallback = _m_oCallback, parentPopup = _parentPopup, description = _description
+			sceneName = _sceneName, currentLevel = _currentLevel, 
+            kinds = _kinds, count = _count, isEnableAD = _isEnableAD, 
+            m_oCallback = _m_oCallback, description = _description
 		};
 	}
 	#endregion // 클래스 함수

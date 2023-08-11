@@ -314,11 +314,15 @@ public partial class CResultPopup : CSubPopup {
         
         Func.ShowRewardAcquirePopup(PopupUIs, (a_oSender) => {
             try {
-                (a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(KDefine.L_SCENE_N_PLAY, Params.Engine.currentLevel, ERewardKinds.NONE, kinds, addCount, true, 
-                () => { GlobalDefine.RefreshShopText(rubyText); }, this, null));
-            } 
-            finally 
-            { }
+                (a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(
+                    KDefine.L_SCENE_N_PLAY, Params.Engine.currentLevel, 
+                    kinds, addCount, true, 
+                    () => { 
+                        GlobalDefine.RefreshShopText(rubyText);
+                        touchLock.SetActive(false);
+                    }
+                ));
+            } finally { }
         }, null, null);   
     }
 

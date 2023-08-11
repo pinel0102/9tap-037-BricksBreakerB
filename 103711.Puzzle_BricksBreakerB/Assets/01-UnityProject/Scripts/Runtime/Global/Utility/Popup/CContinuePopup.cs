@@ -233,13 +233,13 @@ public partial class CContinuePopup : CSubPopup {
     /** 보상 획득 팝업을 출력한다 */
 	public void ShowRewardAcquirePopup(bool a_bIsWatchRewardAds) {
 		Func.ShowRewardAcquirePopup(this.transform.parent.gameObject, (a_oSender) => {
-			var oTargetInfoDict = CCollectionManager.Inst.SpawnDict<ulong, STTargetInfo>();
-
 			try {
-				(a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(KDefine.L_SCENE_N_PLAY, Params.Engine.currentLevel, ERewardKinds.ADS_REWARD_FAIL_RUBY, EItemKinds.GOODS_RUBY, GlobalDefine.RewardRuby_Continue, false, () => { AfterGetReward(); }, this));
-			} finally {
-				CCollectionManager.Inst.DespawnDict(oTargetInfoDict);
-			}
+				(a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(
+                    KDefine.L_SCENE_N_PLAY, Params.Engine.currentLevel, 
+                    EItemKinds.GOODS_RUBY, GlobalDefine.RewardRuby_Continue, false, 
+                    () => { AfterGetReward(); }
+                ));
+			} finally { }
 		}, null, this.OnCloseRewardAcquirePopup);
 	}
 

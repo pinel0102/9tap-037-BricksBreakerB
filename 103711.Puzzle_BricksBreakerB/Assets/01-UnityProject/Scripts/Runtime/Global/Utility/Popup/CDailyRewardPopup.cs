@@ -135,26 +135,31 @@ public partial class CDailyRewardPopup : CSubPopup {
 
 		#region 추가
         m_oBtnDict[EKey.ACQUIRE_BTN].ExSetInteractable(false);
-		//m_oBtnDict[EKey.ADS_BTN].ExSetInteractable(false);
 
         int index = Access.GetDailyRewardID(gameInfoStorage.PlayCharacterID);
-		var stRewardInfo = CRewardInfoTable.Inst.GetRewardInfo(KDefine.G_REWARDS_KINDS_DAILY_REWARD_LIST[index]);
-
+        
+		//var stRewardInfo = CRewardInfoTable.Inst.GetRewardInfo(KDefine.G_REWARDS_KINDS_DAILY_REWARD_LIST[index]);
         //Debug.Log(CodeManager.GetMethodName() + string.Format("{0}", stRewardInfo.m_eRewardKinds));
+		//Func.Acquire(gameInfoStorage.PlayCharacterID, stRewardInfo.m_oAcquireTargetInfoDict);
 
-		Func.Acquire(gameInfoStorage.PlayCharacterID, stRewardInfo.m_oAcquireTargetInfoDict);
+        Func.ShowRewardAcquirePopup(this.transform.parent.gameObject, (a_oSender) => {
+			try {
+				(a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(
+                    KDefine.L_SCENE_N_MAIN, 0, 
+                    GlobalDefine.dailyReward[index].Key, GlobalDefine.dailyReward[index].Value, true, 
+                    () => { }
+                ));
+			} finally { }
+		}, null, null);
 
         Func.SetupNextDailyRewardID(gameInfoStorage.PlayCharacterID);
-		gameInfoStorage.SaveGameInfo();
+		gameInfoStorage.SaveGameInfo();        
         GlobalDefine.RefreshShopText(CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.rubyText);
-
         GlobalDefine.PlaySoundFX(ESoundSet.SOUND_GET_STAR);
 
         UpdateUIsState();
 		
-        LogFunc.Send_C_Item_Get(KCDefine.B_IDX_INVALID, KDefine.L_SCENE_N_MAIN, LogFunc.MakeLogItemInfo(stRewardInfo.m_oAcquireTargetInfoDict));
-
-        //this.ShowRewardAcquirePopup(false);
+        //LogFunc.Send_C_Item_Get(KCDefine.B_IDX_INVALID, KDefine.L_SCENE_N_MAIN, LogFunc.MakeLogItemInfo(stRewardInfo.m_oAcquireTargetInfoDict));
 		
         #endregion // 추가
 	}
@@ -195,19 +200,18 @@ public partial class CDailyRewardPopup : CSubPopup {
 	/** 보상 획득 팝업을 출력한다 */
 	public void ShowRewardAcquirePopup(bool a_bIsWatchRewardAds) {
 		Func.ShowRewardAcquirePopup(this.transform.parent.gameObject, (a_oSender) => {
-			var oTargetInfoDict = CCollectionManager.Inst.SpawnDict<ulong, STTargetInfo>();
-
 			try {
-				(a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(KDefine.L_SCENE_N_MAIN, 0, ERewardKinds.ADS_REWARD_DAILY_RUBY, EItemKinds.GOODS_RUBY, GlobalDefine.RewardRuby_Daily, false, 
-                () => { 
+				(a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(
+                    KDefine.L_SCENE_N_MAIN, 0, 
+                    EItemKinds.GOODS_RUBY, GlobalDefine.RewardRuby_Daily, false, 
+                    () => { 
                         Func.SetupNextFreeRewardID(gameInfoStorage.PlayCharacterID); 
                         gameInfoStorage.SaveGameInfo();
                         UpdateUIsState(); 
-                    }, this));
-			} finally {
-				CCollectionManager.Inst.DespawnDict(oTargetInfoDict);
-			}
-		}, null, this.OnCloseRewardAcquirePopup);
+                    }
+                ));
+			} finally { }
+		}, null, null);
 	}
 
     /** 보상 획득 팝업이 닫혔을 경우 */

@@ -405,18 +405,17 @@ public partial class CStorePopup : CSubPopup {
 	/** 보상 획득 팝업을 출력한다 */
 	public void ShowRewardAcquirePopup(bool a_bIsWatchRewardAds) {
 		Func.ShowRewardAcquirePopup(this.transform.parent.gameObject, (a_oSender) => {
-			var oTargetInfoDict = CCollectionManager.Inst.SpawnDict<ulong, STTargetInfo>();
-
 			try {
-				(a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(KDefine.L_SCENE_N_MAIN, 0, ERewardKinds.ADS_REWARD_DAILY_RUBY, EItemKinds.GOODS_RUBY, UnityEngine.Random.Range(GlobalDefine.RewardRuby_Daily_Store_Min, GlobalDefine.RewardRuby_Daily_Store_Max + KCDefine.B_VAL_1_INT), false, 
-                () => { 
-                        characterGameInfo.DailyStoreBought_Ads = true;
-                        gameInfoStorage.SaveGameInfo();
-                        UpdateUIsState(); 
-                    }, this));
-			} finally {
-				CCollectionManager.Inst.DespawnDict(oTargetInfoDict);
-			}
+				(a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(
+                    KDefine.L_SCENE_N_MAIN, 0, 
+                    EItemKinds.GOODS_RUBY, UnityEngine.Random.Range(GlobalDefine.RewardRuby_Daily_Store_Min, GlobalDefine.RewardRuby_Daily_Store_Max + KCDefine.B_VAL_1_INT), false, 
+                    () => { 
+                            characterGameInfo.DailyStoreBought_Ads = true;
+                            gameInfoStorage.SaveGameInfo();
+                            UpdateUIsState(); 
+                    }
+                ));
+			} finally { }
 		}, null, this.OnCloseRewardAcquirePopup);
 	}
 
