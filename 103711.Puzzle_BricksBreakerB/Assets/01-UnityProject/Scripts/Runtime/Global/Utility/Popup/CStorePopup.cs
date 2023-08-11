@@ -50,11 +50,19 @@ public partial class CStorePopup : CSubPopup {
     public Canvas storeCanvas;
     public TMP_Text rubyText;
     public TMP_Text starText;
+    public Button defaultTab;
+
+    [Header("★ [Reference] Daily Store")]
     public TMP_Text remainTimeTextDaily;
-    public TMP_Text remainTimeTextWeekly;
     public Button dailyAdsButton;
+    public GameObject dailyAdsSoldout;
     public List<Button> dailyStoreButtons = new List<Button>();
+    public List<GameObject> dailyStoreSoldout = new List<GameObject>();
+    
+    [Header("★ [Reference] Weekly Store")]
+    public TMP_Text remainTimeTextWeekly;
     public List<Button> weeklyStoreButtons = new List<Button>();
+    public List<GameObject> weeklyStoreSoldout = new List<GameObject>();
 
     [Header("★ [Parameter] Daily Store")]
     public bool dailyStoreBoughtAds;
@@ -103,8 +111,8 @@ public partial class CStorePopup : CSubPopup {
 		});
 
         dailyAdsButton.ExAddListener(this.OnTouchAdsBtn);
-
         storeCanvas.ExSetSortingOrder(GlobalDefine.SortingInfo_StoreCanvas);
+        defaultTab.onClick.Invoke();
 
 		this.SubAwake();
 	}
@@ -185,9 +193,11 @@ public partial class CStorePopup : CSubPopup {
 
         for(int i=0; i < dailyStoreButtons.Count; i++)
         {
+            dailyStoreSoldout[i]?.SetActive(dailyStoreBought[i]);
             dailyStoreButtons[i]?.ExSetInteractable(!dailyStoreBought[i]);
         }
 
+        dailyAdsSoldout?.SetActive(dailyStoreBoughtAds);
         dailyAdsButton?.ExSetInteractable(!dailyStoreBoughtAds);
     }
 
@@ -198,6 +208,7 @@ public partial class CStorePopup : CSubPopup {
 
         for(int i=0; i < weeklyStoreButtons.Count; i++)
         {
+            weeklyStoreSoldout[i]?.SetActive(weeklyStoreBought[i]);
             weeklyStoreButtons[i]?.ExSetInteractable(!weeklyStoreBought[i]);
         }
     }
