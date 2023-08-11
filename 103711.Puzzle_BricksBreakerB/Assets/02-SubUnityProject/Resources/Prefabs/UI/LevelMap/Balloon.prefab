@@ -61,7 +61,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b72ac624dd3344d1b13c4607a849371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speedMin: 4
+  speedMax: 8
 --- !u!58 &6937929884644363779
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -111,8 +112,10 @@ GameObject:
   - component: {fileID: 5843069927971993226}
   - component: {fileID: 3186699680672114302}
   - component: {fileID: 6523827651702222761}
+  - component: {fileID: 2870027163140337545}
+  - component: {fileID: 8774005419961336126}
   m_Layer: 5
-  m_Name: Balloon.Button
+  m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -220,3 +223,27 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2870027163140337545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5116386121419925908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d994b2cfc4aa4c81abfc36a1948f78e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8774005419961336126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5116386121419925908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f37fe9c78b141f7a61df1122ffd016, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

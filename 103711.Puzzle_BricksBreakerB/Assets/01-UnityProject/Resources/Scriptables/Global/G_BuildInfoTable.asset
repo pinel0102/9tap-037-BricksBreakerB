@@ -32,7 +32,7 @@ MonoBehaviour:
     m_oKeystorePassword: NT9studio!
     m_oKeyaliasPassword: NT9studio!
     m_eMinSDKVer: 22
-    m_eTargetSDKVer: 0
+    m_eTargetSDKVer: 33
   m_stStandaloneBuildInfo:
     m_oCategory: public.app-category.games
     m_oTargetOSVer: 10.13.0

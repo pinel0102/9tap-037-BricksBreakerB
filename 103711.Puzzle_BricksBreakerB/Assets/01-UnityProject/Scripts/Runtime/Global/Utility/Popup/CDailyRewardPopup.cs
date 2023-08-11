@@ -155,8 +155,7 @@ public partial class CDailyRewardPopup : CSubPopup {
         Func.SetupNextDailyRewardID(gameInfoStorage.PlayCharacterID);
 		gameInfoStorage.SaveGameInfo();        
         GlobalDefine.RefreshShopText(CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.rubyText);
-        GlobalDefine.PlaySoundFX(ESoundSet.SOUND_GET_STAR);
-
+        
         UpdateUIsState();
 		
         //LogFunc.Send_C_Item_Get(KCDefine.B_IDX_INVALID, KDefine.L_SCENE_N_MAIN, LogFunc.MakeLogItemInfo(stRewardInfo.m_oAcquireTargetInfoDict));

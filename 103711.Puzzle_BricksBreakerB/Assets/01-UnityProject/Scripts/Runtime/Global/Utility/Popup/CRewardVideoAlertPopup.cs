@@ -94,9 +94,7 @@ public partial class CRewardVideoAlertPopup : CSubPopup {
 
         isRewardAD = false;
 
-        GlobalDefine.PlaySoundFX(ESoundSet.SOUND_BUTTON);
-
-		this.SubUpdateUIsState();
+        this.SubUpdateUIsState();
 	}
 
 #region Reward Get Button

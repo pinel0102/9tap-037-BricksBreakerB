@@ -65,7 +65,7 @@ public partial class GlobalDefine
     {
         if(!SoundContainer.ContainsKey(_sound)) return;
 
-        Debug.Log(CodeManager.GetMethodName() + string.Format(FORMAT_INT, _sound));
+        //Debug.Log(CodeManager.GetMethodName() + string.Format(FORMAT_INT, _sound));
 
         KeyValuePair<string, float> _kv = SoundContainer[_sound];
         CSndManager.Inst.PlayFXSnds(string.Format(formatSoundPath_Global, _kv.Key), _kv.Value);
