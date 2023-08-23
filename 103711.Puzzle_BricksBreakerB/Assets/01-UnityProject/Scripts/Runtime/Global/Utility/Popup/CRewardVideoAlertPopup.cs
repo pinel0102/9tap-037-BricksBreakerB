@@ -164,7 +164,7 @@ public partial class CRewardVideoAlertPopup : CSubPopup {
 
                         (a_oSender as CRewardAcquirePopup).Init(CRewardAcquirePopup.MakeParams(
                             KDefine.L_SCENE_N_MAIN, KCDefine.B_VAL_0_INT, 
-                            EItemKinds.BOOSTER_ITEM_04_RANDOM, KCDefine.B_VAL_0_INT, false, 
+                            EItemKinds.BOOSTER_ITEM_01_MISSILE + CGameInfoStorage.Inst.rewardBoosterIndex_balloon, KCDefine.B_VAL_0_INT, false, 
                             () => {  }
                         ));
                         break;

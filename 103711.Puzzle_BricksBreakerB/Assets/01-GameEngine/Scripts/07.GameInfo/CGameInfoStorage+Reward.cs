@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 public partial class CGameInfoStorage
 {
@@ -10,6 +11,8 @@ public partial class CGameInfoStorage
     public bool rewardBooster_balloon;
     public bool rewardBooster_ready;
     public List<LimitedItem> limitedItems = new List<LimitedItem>();
+    public List<int> rewardBoosterIndex = new List<int>();
+    public int rewardBoosterIndex_balloon = -1;
     
     private const float checkCooltimeDelay = 0.5f;
     private const int checkCooltimeTick = (int)(1f/checkCooltimeDelay);
@@ -260,6 +263,8 @@ public partial class CGameInfoStorage
     {
         rewardBooster_balloon = false;
         rewardBooster_ready = false;
+        rewardBoosterIndex.Clear();
+        rewardBoosterIndex_balloon = -1;
     }
 
     public void GetRewardBooster(RewardVideoType type)
@@ -268,11 +273,38 @@ public partial class CGameInfoStorage
         {
             case RewardVideoType.BALLOON_BOOSTER:
                 rewardBooster_balloon = true;
+                rewardBoosterIndex_balloon = GetRandomBoosterIndex();
                 break;
             case RewardVideoType.READY_BOOSTER:
                 rewardBooster_ready = true;
                 break;
         }
+    }
+
+    public int GetRandomBoosterIndex()
+    {
+        int boosterEnableCount = GlobalDefine.GetEnableBoosterCount();
+        int _index = 0;
+
+        List<int> enableList = new List<int>();
+        for(int i=0; i < boosterEnableCount; i++)
+        {
+            if(!rewardBoosterIndex.Contains(i))
+                enableList.Add(i);
+        }
+        
+        if (enableList.Count > 0)
+            _index = enableList.OrderBy(g => System.Guid.NewGuid())
+                                .Take(1).ToList()[0];
+
+        if (_index > -1)
+        {
+            Debug.Log(CodeManager.GetMethodName() + string.Format("<color=yellow>enableCount : {0} / index : {1}</color>", boosterEnableCount, _index));
+
+            rewardBoosterIndex.Add(_index);
+        }
+
+        return _index;
     }
 
 #endregion Reward Booster

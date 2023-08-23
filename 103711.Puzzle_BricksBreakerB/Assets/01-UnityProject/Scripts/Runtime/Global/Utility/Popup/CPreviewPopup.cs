@@ -100,7 +100,7 @@ public partial class CPreviewPopup : CSubPopup {
 		});
 
         currentTooltip = -1;
-        rewardBoosterIndex_balloon = -1;
+        rewardBoosterIndex_balloon = CGameInfoStorage.Inst.rewardBoosterIndex_balloon;
         rewardBoosterIndex_ready = -1;
 
         for(int i=0; i < buttonPlay.Count; i++)
@@ -147,15 +147,15 @@ public partial class CPreviewPopup : CSubPopup {
 
         Params.Engine.SetupPreview(previewArea, previewMask);
         
-        boosterEnableCount = GetEnableBoosterCount();
+        boosterEnableCount = GlobalDefine.GetEnableBoosterCount();
         levelText.text = string.Format(GlobalDefine.FORMAT_LEVEL, Params.Engine.currentLevel);
 
         for(int i=0; i< buttonBooster.Count; i++)
         {
             boosterOn[i].SetActive(false);
             boosterOnAds[i].SetActive(false);
-            buttonBooster[i].gameObject.SetActive(Params.Engine.currentLevel >= GlobalDefine.BOOSTER_LEVEL[i]);
-            boosterLock[i].gameObject.SetActive(Params.Engine.currentLevel < GlobalDefine.BOOSTER_LEVEL[i]);
+            buttonBooster[i].gameObject.SetActive(GlobalDefine.UserInfo.LevelCurrent >= GlobalDefine.BOOSTER_LEVEL[i]);
+            boosterLock[i].gameObject.SetActive(GlobalDefine.UserInfo.LevelCurrent < GlobalDefine.BOOSTER_LEVEL[i]);
             boosterTextCost[i].text = string.Format(GlobalDefine.FORMAT_INT, GlobalDefine.CostRuby_Booster);
         }
 
@@ -176,7 +176,8 @@ public partial class CPreviewPopup : CSubPopup {
         goldenAimOK.SetActive(false);
 
         isLoadRewardAds = GlobalDefine.IsEnableRewardVideo();
-        bool enableRewardBooster = boosterEnableCount > 0 && isLoadRewardAds;
+        int balloonBoosterCount = CGameInfoStorage.Inst.rewardBooster_balloon ? 1 : 0;
+        bool enableRewardBooster = (boosterEnableCount - balloonBoosterCount) > 0 && isLoadRewardAds;
         playObject.SetActive(!enableRewardBooster);
         playObject_AD.SetActive(enableRewardBooster);
 
@@ -262,17 +263,6 @@ public partial class CPreviewPopup : CSubPopup {
                 _enableCount--;
             }
         }
-    }
-
-    private int GetEnableBoosterCount()
-    {
-        int enableCount = 0;
-        for(int i=0; i < GlobalDefine.BOOSTER_LEVEL.Count; i++)
-        {
-            if(Params.Engine.currentLevel >= GlobalDefine.BOOSTER_LEVEL[i])
-                enableCount++;
-        }
-        return enableCount;
     }
 
     private void OnTouchBoosterButton(int index)

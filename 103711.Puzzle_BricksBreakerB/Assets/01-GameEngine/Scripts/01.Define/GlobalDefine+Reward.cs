@@ -116,4 +116,15 @@ public static partial class GlobalDefine
         
         SaveUserData();
     }
+
+    public static int GetEnableBoosterCount()
+    {
+        int enableCount = 0;
+        for(int i=0; i < BOOSTER_LEVEL.Count; i++)
+        {
+            if(UserInfo.LevelCurrent >= BOOSTER_LEVEL[i])
+                enableCount++;
+        }
+        return enableCount;
+    }
 }
