@@ -71,6 +71,7 @@ public partial class CPurchaseManager : CSingleton<CPurchaseManager>, IDetailedS
 	#region 프로퍼티
 	public STParams Params { get; private set; }
 	public bool IsInit => m_oBoolDict[EKey.IS_INIT];
+    public List<string> SubscriptionList = new List<string>();
 	#endregion // 프로퍼티
 
 	#region IStoreListener
@@ -307,13 +308,24 @@ public partial class CPurchaseManager : CSingleton<CPurchaseManager>, IDetailedS
 		// 초기화 되었을 경우
 		if(a_oTask.ExIsCompleteSuccess()) {
 			var oProductDefinitionList = new List<ProductDefinition>();
+            SubscriptionList = new List<string>();
 			
 			for(int i = 0; i < this.Params.m_oProductInfoList.Count; ++i) {
 				CFunc.ShowLog($"CPurchaseManager.OnInit: {this.Params.m_oProductInfoList[i].m_oID}, {this.Params.m_oProductInfoList[i].m_eProductType}");
 				CAccess.Assert(this.Params.m_oProductInfoList[i].m_oID.ExIsValid());// && this.Params.m_oProductInfoList[i].m_eProductType != ProductType.Subscription);
 
 				oProductDefinitionList.ExAddVal(new ProductDefinition(this.Params.m_oProductInfoList[i].m_oID, this.Params.m_oProductInfoList[i].m_eProductType));
+
+                if (this.Params.m_oProductInfoList[i].m_eProductType == ProductType.Subscription)
+                {
+                    SubscriptionList.Add(this.Params.m_oProductInfoList[i].m_oID);
+                }
 			}
+
+            for(int i=0; i < SubscriptionList.Count; i++)
+            {
+                CFunc.ShowLog($"CPurchaseManager.SubscriptionList: {SubscriptionList[i]}");
+            }
 
 			var oModule = StandardPurchasingModule.Instance();
 			UnityPurchasing.Initialize(this, ConfigurationBuilder.Instance(oModule).AddProducts(oProductDefinitionList));
