@@ -52,7 +52,7 @@ public static partial class GlobalDefine
 
     public static int GetSeconds_UntilMonday()
     {
-        for(int i=1; i < 7; i++)
+        for(int i=1; i < 8; i++)
         {
             if (DateTime.Today.AddDays(i).DayOfWeek == DayOfWeek.Monday)
             {
@@ -66,7 +66,7 @@ public static partial class GlobalDefine
 
     public static TimeSpan GetTime_UntilMonday()
     {
-        for(int i=1; i < 7; i++)
+        for(int i=1; i < 8; i++)
         {
             if (DateTime.Today.AddDays(i).DayOfWeek == DayOfWeek.Monday)
             {
