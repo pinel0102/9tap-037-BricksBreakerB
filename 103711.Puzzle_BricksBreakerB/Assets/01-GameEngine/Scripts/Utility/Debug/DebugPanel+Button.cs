@@ -136,6 +136,7 @@ public partial class DebugPanel : MonoBehaviour
         var oCharacterGameInfo = CGameInfoStorage.Inst.GetCharacterGameInfo(CGameInfoStorage.Inst.PlayCharacterID);
         oCharacterGameInfo.PrevDailyRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT);
         oCharacterGameInfo.PrevFreeRewardTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT);
+        oCharacterGameInfo.SubscriptionAlertTime = System.DateTime.Today.AddDays(-KCDefine.B_VAL_1_INT);
         oCharacterGameInfo.ResetDailyStore();
         oCharacterGameInfo.ResetWeeklyStore();
         CGameInfoStorage.Inst.SaveGameInfo();

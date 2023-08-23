@@ -172,7 +172,7 @@ public partial class CPreviewPopup : CSubPopup {
         boosterBuy[2].SetActive(GlobalDefine.UserInfo.Booster_Bomb <= 0);
 
         tooltip.gameObject.SetActive(false);
-        goldenAimButton.gameObject.SetActive(!GlobalDefine.hasGoldenAim);
+        goldenAimButton.gameObject.SetActive(!GlobalDefine.hasGoldenAim && !CUserInfoStorage.Inst.subs_isActivate);
         goldenAimOK.SetActive(false);
 
         isLoadRewardAds = GlobalDefine.IsEnableRewardVideo();
@@ -354,7 +354,7 @@ public partial class CPreviewPopup : CSubPopup {
 
     private void OnTouchGoldenAimButton()
     {
-        if (!GlobalDefine.isLevelEditor && !GlobalDefine.hasGoldenAim) 
+        if (!GlobalDefine.isLevelEditor && !GlobalDefine.hasGoldenAim && !CUserInfoStorage.Inst.subs_isActivate) 
         {
             if (GlobalDefine.UserInfo.Ruby < GlobalDefine.CostRuby_GoldenAim)
             {

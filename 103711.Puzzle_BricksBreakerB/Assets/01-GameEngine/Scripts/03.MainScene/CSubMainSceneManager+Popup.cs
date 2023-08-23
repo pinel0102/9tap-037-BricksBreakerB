@@ -25,6 +25,13 @@ namespace MainScene {
 			});
         }
 
+        public void OnClick_OpenPopup_Subscription()
+        {
+            Func.ShowMembershipPopup(this.PopupUIs, (a_oSender) => {
+				(a_oSender as CMembershipPopup).Init();
+			});
+        }
+
         public void OnClick_OpenPopup_SkipLevel()
         {
             Func.ShowSkipLevelPopup(this.PopupUIs, (a_oSender) => {

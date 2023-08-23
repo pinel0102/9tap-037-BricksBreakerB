@@ -53,7 +53,7 @@ public static partial class GlobalDefine
 
     public static bool IsEnableAD()
     {
-        return !CUserInfoStorage.Inst.IsPurchaseRemoveAds;
+        return !CUserInfoStorage.Inst.IsPurchaseRemoveAds && !CUserInfoStorage.Inst.subs_isActivate;
     }
 }
 

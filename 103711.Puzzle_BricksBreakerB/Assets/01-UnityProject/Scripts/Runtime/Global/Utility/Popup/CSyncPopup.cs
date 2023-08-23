@@ -152,7 +152,7 @@ public partial class CSyncPopup : CSubPopup {
 
 #if ADS_MODULE_ENABLE
 			// 광고 제거 상품을 결제했을 경우
-			if(CUserInfoStorage.Inst.IsPurchaseRemoveAds) {
+			if(CUserInfoStorage.Inst.IsPurchaseRemoveAds || CUserInfoStorage.Inst.subs_isActivate) {
 				Func.CloseBannerAds(null);
 
 				CAdsManager.Inst.IsEnableBannerAds = false;

@@ -177,6 +177,11 @@ public static partial class Access {
 		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? System.DateTime.Now.ExGetDeltaTimePerDays(oCharacterGameInfo.PrevDailyMissionTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL) : false;
 	}
 
+    /** 구독 알람 갱신 여부를 검사한다 */
+	public static bool IsEnableSubscriptionAlert(int a_nCharacterID) {
+		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? System.DateTime.Now.ExGetDeltaTimePerDays(oCharacterGameInfo.SubscriptionAlertTime).ExIsGreateEquals(KCDefine.B_VAL_1_REAL) : false;
+	}
+
     /** 일일 보상 지속 가능 여부를 검사한다 */
 	/*public static bool IsContinueGetDailyReward(int a_nCharacterID) {
 		return CGameInfoStorage.Inst.TryGetCharacterGameInfo(a_nCharacterID, out CCharacterGameInfo oCharacterGameInfo) ? System.DateTime.Now.ExGetDeltaTimePerDays(oCharacterGameInfo.PrevDailyRewardTime).ExIsLess(KCDefine.B_VAL_2_REAL) : false;

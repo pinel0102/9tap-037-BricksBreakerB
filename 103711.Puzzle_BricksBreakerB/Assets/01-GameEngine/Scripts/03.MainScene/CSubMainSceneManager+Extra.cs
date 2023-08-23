@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
 using TMPro;
@@ -28,16 +29,24 @@ namespace MainScene {
             this.InitLobbyButtons();
             this.InitLevelMapButtons();
             this.InitRewardButtons();
+            
+#if PURCHASE_MODULE_ENABLE
+            this.InitSubscriptions();
+#endif
 
             userProfile.Initialize();
-            CGameInfoStorage.Inst.InitRewardBooster();
+
+            CGameInfoStorage gameInfoStorage = CGameInfoStorage.Inst;
+            gameInfoStorage.InitRewardBooster();
 
             GlobalDefine.RequestBannerAD();
 
-            if (!GlobalDefine.isLevelEditor && !GlobalDefine.isMainSceneOpened && Access.IsEnableGetDailyReward(CGameInfoStorage.Inst.PlayCharacterID))
+            if (!GlobalDefine.isLevelEditor && !GlobalDefine.isMainSceneOpened)
             {
                 GlobalDefine.isMainSceneOpened = true;
-                OnClick_OpenPopup_CheckIn();
+
+                if (Access.IsEnableGetDailyReward(gameInfoStorage.PlayCharacterID))
+                    OnClick_OpenPopup_CheckIn();
             }
 		}
 
