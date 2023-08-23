@@ -120,7 +120,7 @@ public partial class CGameInfoStorage
 
         isLoadRewardAds = GlobalDefine.IsEnableRewardVideo();
 
-        RefreshRewardBalloon(isLoadRewardAds && limitedItems[0].cooltime == GlobalDefine.cooltime_none);
+        RefreshRewardBalloon(isLoadRewardAds && GlobalDefine.UserInfo.LevelCurrent >= GlobalDefine.BOOSTER_LEVEL[0] && limitedItems[0].cooltime == GlobalDefine.cooltime_none);
         RefreshLimitedItems();
     }
 
