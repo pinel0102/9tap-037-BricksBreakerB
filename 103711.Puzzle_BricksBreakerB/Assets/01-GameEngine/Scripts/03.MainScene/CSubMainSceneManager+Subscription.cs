@@ -64,7 +64,7 @@ namespace MainScene {
                 if (stProductInfo.m_eProductType == ProductType.Subscription)
                 {
                     Product _product = cPurchaseManager.GetProduct(stProductInfo.m_oID);
-                    if (_product != null)
+                    if (_product != null && _product.receipt != null)
                     {
                         SubscriptionInfo info = GetSubscriptionInfo(_product);
                         
@@ -95,6 +95,9 @@ namespace MainScene {
 
         private SubscriptionInfo GetSubscriptionInfo(Product _product)
         {
+            if (_product.receipt == null)
+                return null;
+            
             if (_product.definition.type == ProductType.Subscription)
             {
                 SubscriptionManager p = new SubscriptionManager(_product, null);
