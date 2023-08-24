@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using System;
 using System.Linq;
+using UnityEngine.Purchasing;
 using Unity.VisualScripting;
 
 #if EXTRA_SCRIPT_MODULE_ENABLE && UTILITY_SCRIPT_TEMPLATES_MODULE_ENABLE
@@ -43,6 +44,7 @@ public partial class CMembershipPopup : CSubPopup {
     public Button buttonService;
     public Button buttonPolicy;
     public List<TMP_Text> textSubs = new List<TMP_Text>();
+    public TMP_Text textRenewing;
     public TMP_Text textRemainDays;
     public TMP_Text textDescription;
 
@@ -142,7 +144,6 @@ public partial class CMembershipPopup : CSubPopup {
     {
         activatedUI.SetActive(isActivated);
         defaultUI.SetActive(!isActivated);
-
         objectGet.SetActive(canGetReward);
         objectCheck.SetActive(!canGetReward);
     }
@@ -154,10 +155,16 @@ public partial class CMembershipPopup : CSubPopup {
             textSubs[i]?.ExSetText(string.Format(GlobalDefine.FORMAT_SUBSCRIPTION_PRICE[i], GetPrice(subscriptionList[i])), false);
         }
 
+        bool isRenewing = true;
         int remainDays = 0;
+
         if (cUserInfoStorage.subscriptionInfo != null)
+        {
+            isRenewing = cUserInfoStorage.subscriptionInfo.isAutoRenewing() == Result.True;
             remainDays = cUserInfoStorage.subscriptionInfo.getRemainingTime().Days;
-        
+        }
+
+        textRenewing?.ExSetText(isRenewing ? GlobalDefine.FORMAT_SUBSCRIPTION_RENEWING : string.Empty, false);
         textRemainDays?.ExSetText((remainDays == 1) ? string.Format(GlobalDefine.FORMAT_SUBSCRIPTION_1DAY_LEFT):
                                                       string.Format(GlobalDefine.FORMAT_SUBSCRIPTION_DAYS_LEFT, remainDays), false);
 

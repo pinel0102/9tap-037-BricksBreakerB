@@ -23,6 +23,7 @@ public static partial class GlobalDefine
 
     public const string FORMAT_SUBSCRIPTION_DAYS_LEFT = "{0} Days Left";
     public const string FORMAT_SUBSCRIPTION_1DAY_LEFT = "1 Day Left";
+    public const string FORMAT_SUBSCRIPTION_RENEWING = "Auto Renewing";
     public const string FORMAT_SUBSCRIPTION_DESC = "Weekly Diamond Membership offers weekly subscription for {0} after 3-day free trial. Monthly Diamond Membership offers monthly subscription for {1}. Yearly Diamond Membership offers yearly subscription for {2}. Automatic renewal within 24 hours before the end. This price is established for United States Customers. Pricing in other countries may vary and actual charges may be converted to your local currency depending on the country of residence. Remove banners and interstitial ads between games.";
     public static readonly string[] FORMAT_SUBSCRIPTION_PRICE = new string[3]
     {
