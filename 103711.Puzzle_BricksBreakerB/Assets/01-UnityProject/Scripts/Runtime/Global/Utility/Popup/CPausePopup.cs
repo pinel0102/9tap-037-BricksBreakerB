@@ -90,7 +90,7 @@ public partial class CPausePopup : CSubPopup {
         Params.Engine.SetupPreview(previewArea, previewMask);
         
         levelText.text = string.Format(formatLevel, CSceneManager.GetSceneManager<GameScene.CSubGameSceneManager>(KCDefine.B_SCENE_N_GAME).Engine.currentLevel);
-        ADBlockButton.gameObject.SetActive(!CUserInfoStorage.Inst.IsPurchaseRemoveAds && !CUserInfoStorage.Inst.subs_isActivate);
+        ADBlockButton.gameObject.SetActive(!CUserInfoStorage.Inst.IsPurchaseRemoveAds && !CUserInfoStorage.Inst.subscriptionActivated);
 
         var oBtnKeyInfoList = CCollectionManager.Inst.SpawnList<(EKey, string, string, string, bool)>();
 
@@ -150,7 +150,7 @@ public partial class CPausePopup : CSubPopup {
     {
         // 결제 되었을 경우
         if(a_bIsSuccess) {
-            ADBlockButton.gameObject.SetActive(!CUserInfoStorage.Inst.IsPurchaseRemoveAds && !CUserInfoStorage.Inst.subs_isActivate);
+            ADBlockButton.gameObject.SetActive(!CUserInfoStorage.Inst.IsPurchaseRemoveAds && !CUserInfoStorage.Inst.subscriptionActivated);
         }
     }
 	#endregion // 함수

@@ -110,7 +110,7 @@ namespace NSEngine {
                      | 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_OBSTACLE_THROUGH)| 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_CELL_SPECIAL_THROUGH);
             layerBall = 1 << LayerMask.NameToLayer(GlobalDefine.LAYER_BALL);
 
-            isGoldenAim = GlobalDefine.hasGoldenAim || CUserInfoStorage.Inst.subs_isActivate;
+            isGoldenAim = GlobalDefine.hasGoldenAim || CUserInfoStorage.Inst.subscriptionActivated;
             SetAimLayer(isGoldenAim);
         }
 

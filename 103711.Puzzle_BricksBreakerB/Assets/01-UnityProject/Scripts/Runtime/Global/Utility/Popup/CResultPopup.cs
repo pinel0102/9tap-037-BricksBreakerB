@@ -142,7 +142,7 @@ public partial class CResultPopup : CSubPopup {
 
         GlobalDefine.RefreshShopText(rubyText);
         
-        ADBlockButton.gameObject.SetActive(!CUserInfoStorage.Inst.IsPurchaseRemoveAds && !CUserInfoStorage.Inst.subs_isActivate);
+        ADBlockButton.gameObject.SetActive(!CUserInfoStorage.Inst.IsPurchaseRemoveAds && !CUserInfoStorage.Inst.subscriptionActivated);
         levelText[0].text = levelText[1].text = string.Format(formatLevel, Params.Engine.currentLevel);
         
 		var oClearLevelInfo = Access.GetLevelClearInfo(CGameInfoStorage.Inst.PlayCharacterID, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID01, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID02, CGameInfoStorage.Inst.PlayEpisodeInfo.m_stIDInfo.m_nID03, false);
@@ -384,7 +384,7 @@ public partial class CResultPopup : CSubPopup {
     {
         // 결제 되었을 경우
         if(a_bIsSuccess) {
-            ADBlockButton.gameObject.SetActive(!CUserInfoStorage.Inst.IsPurchaseRemoveAds && !CUserInfoStorage.Inst.subs_isActivate);
+            ADBlockButton.gameObject.SetActive(!CUserInfoStorage.Inst.IsPurchaseRemoveAds && !CUserInfoStorage.Inst.subscriptionActivated);
         }
     }
 	#endregion // 함수

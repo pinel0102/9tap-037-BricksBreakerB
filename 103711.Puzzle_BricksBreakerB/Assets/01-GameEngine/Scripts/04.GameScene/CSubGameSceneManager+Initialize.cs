@@ -17,6 +17,7 @@ namespace GameScene {
         public GameObject[] darkModeBackground;
         public GameObject[] darkModeTopPanel;
         private Camera mainCamera;
+        private WaitForSecondsRealtime wHideBannerDelay = new WaitForSecondsRealtime(1f);
         
         private void AssignEngine()
         {
@@ -29,6 +30,8 @@ namespace GameScene {
         {
             GlobalDefine.InitRandomSeed();
             GlobalDefine.HideBannerAD();
+
+            StartCoroutine(CO_HideBannerAD());
 
             ApplyDarkMode(GlobalDefine.UserInfo.Settings_DarkMode);
             warningObject.SetActive(false);
@@ -48,6 +51,15 @@ namespace GameScene {
             SetupBottomButtons();
             SetupTutorialButtons();
             RefreshGoldenAimButton();
+        }
+
+        private IEnumerator CO_HideBannerAD()
+        {
+            while(true)
+            {
+                yield return wHideBannerDelay;
+                GlobalDefine.HideBannerAD(false);
+            }
         }
     }
 }

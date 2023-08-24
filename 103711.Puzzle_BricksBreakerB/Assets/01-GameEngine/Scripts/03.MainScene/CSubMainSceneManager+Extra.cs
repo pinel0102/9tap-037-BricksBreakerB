@@ -29,9 +29,9 @@ namespace MainScene {
             this.InitLobbyButtons();
             this.InitLevelMapButtons();
             this.InitRewardButtons();
-            
+
 #if PURCHASE_MODULE_ENABLE
-            this.InitSubscriptions();
+            this.InitSubscriptions(true);
 #endif
 
             userProfile.Initialize();

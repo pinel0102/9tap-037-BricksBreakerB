@@ -8,6 +8,9 @@ public static partial class GlobalDefine
     public const int cooltime_item = 1800; // 1800
     public const int cooltime_none = -1;
 
+    public const int subscription_ruby = 200;
+    public const int subscription_bricks_delete = 1;
+
     public static readonly List<KeyValuePair<EItemKinds, int>> dailyReward = new List<KeyValuePair<EItemKinds, int>>()
     {
         new KeyValuePair<EItemKinds, int>(EItemKinds.GAME_ITEM_01_EARTHQUAKE, 1),
@@ -69,6 +72,14 @@ public static partial class GlobalDefine
                 break;
             case EItemKinds.BOOSTER_ITEM_03_BOMB:
                 UserInfo.Booster_Bomb = Mathf.Max(0, UserInfo.Booster_Bomb + addCount);
+                break;
+            case EItemKinds.REWARD_ITEM_SUBSCRIPTION:
+                AddRuby(subscription_ruby);
+                Debug.Log(CodeManager.GetMethodName() + string.Format("[{0}] x {1}", EItemKinds.GAME_ITEM_03_BRICKS_DELETE, subscription_bricks_delete));
+                UserInfo.Item_BricksDelete = Mathf.Max(0, UserInfo.Item_BricksDelete + subscription_bricks_delete);
+
+                LogFunc.Send_C_Item_Get(-1, KDefine.L_SCENE_N_MAIN, LogFunc.MakeLogItemInfo(EItemKinds.GOODS_RUBY, subscription_ruby));
+                LogFunc.Send_C_Item_Get(-1, KDefine.L_SCENE_N_MAIN, LogFunc.MakeLogItemInfo(EItemKinds.GAME_ITEM_03_BRICKS_DELETE, subscription_bricks_delete));
                 break;
         }
 

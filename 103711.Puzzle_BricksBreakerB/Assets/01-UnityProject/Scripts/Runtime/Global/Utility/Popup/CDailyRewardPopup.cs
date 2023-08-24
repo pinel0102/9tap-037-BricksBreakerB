@@ -153,7 +153,7 @@ public partial class CDailyRewardPopup : CSubPopup {
 		}, null, null);
 
         Func.SetupNextDailyRewardID(gameInfoStorage.PlayCharacterID);
-		gameInfoStorage.SaveGameInfo();        
+		gameInfoStorage.SaveGameInfo();
         GlobalDefine.RefreshShopText(CSceneManager.GetSceneManager<MainScene.CSubMainSceneManager>(KCDefine.B_SCENE_N_MAIN)?.rubyText);
         
         UpdateUIsState();

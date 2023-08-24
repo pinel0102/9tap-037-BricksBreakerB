@@ -7,19 +7,26 @@ using System;
 public partial class CUserInfoStorage
 {
     [Header("★ [Parameter] Subscription")]
-    public bool subs_isActivate;
-    public DateTime subs_ExpireDate;
-    public TimeSpan subs_RemainingTime;
+    public bool subscriptionActivated;
+    public SubscriptionInfo subscriptionInfo;
 
     public void InitSubscriptionInfo()
     {
-        subs_isActivate = false;
-        subs_ExpireDate = DateTime.Today;
-        subs_RemainingTime = TimeSpan.Zero;
+        subscriptionActivated = false;
+        subscriptionInfo = null;
+
+#if UNITY_EDITOR
+        //SubscriptionTest();
+#endif
     }
 
     public void SetSubscriptionInfo(SubscriptionInfo info)
     {
+        subscriptionActivated = true;
+        subscriptionInfo = info;
+        
+        GlobalDefine.HideBannerAD();
+
         /*Debug.Log("product id is: " + info.getProductId());
         Debug.Log("purchase date is: " + info.getPurchaseDate());
         Debug.Log("subscription next billing date is: " + info.getExpireDate());
@@ -33,9 +40,10 @@ public partial class CUserInfoStorage
         Debug.Log("the product introductory localized price is: " + info.getIntroductoryPrice());
         Debug.Log("the product introductory price period is: " + info.getIntroductoryPricePeriod());
         Debug.Log("the number of product introductory price period cycles is: " + info.getIntroductoryPricePeriodCycles());*/
+    }
 
-        subs_isActivate = true;
-        subs_ExpireDate = info.getExpireDate();
-        subs_RemainingTime = info.getRemainingTime();
+    private void SubscriptionTest()
+    {
+        subscriptionActivated = true;
     }
 }

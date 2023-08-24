@@ -140,8 +140,10 @@ public static partial class KDefine {
 		EProductKinds.SINGLE_PRODUCT_GEMS_06,		
 		EProductKinds.SINGLE_PRODUCT_REMOVE_ADS,
         EProductKinds.SINGLE_PRODUCT_GOLDEN_AIM,
+	};
 
-        EProductKinds.SUBSCRIBE_PRODUCT_WEEKLY,
+    public static readonly List<EProductKinds> G_PRODUCT_KINDS_SUBSCRIPTION_LIST = new List<EProductKinds>() {
+		EProductKinds.SUBSCRIBE_PRODUCT_WEEKLY,
         EProductKinds.SUBSCRIBE_PRODUCT_MONTHLY,
         EProductKinds.SUBSCRIBE_PRODUCT_YEARLY,
 	};

@@ -422,7 +422,7 @@ public partial class CAdsManager : CSingleton<CAdsManager> {
 	}
 
     public void HideBannerAds(EAdsPlatform a_eAdsPlatform, System.Action<CAdsManager, bool> a_oCallback) {
-		CFunc.ShowLog($"CAdsManager.HideBannerAds: {a_eAdsPlatform}", KCDefine.B_LOG_COLOR_PLUGIN);
+		//CFunc.ShowLog($"CAdsManager.HideBannerAds: {a_eAdsPlatform}", KCDefine.B_LOG_COLOR_PLUGIN);
 		CAccess.Assert(a_eAdsPlatform.ExIsValid());
 
 		try {

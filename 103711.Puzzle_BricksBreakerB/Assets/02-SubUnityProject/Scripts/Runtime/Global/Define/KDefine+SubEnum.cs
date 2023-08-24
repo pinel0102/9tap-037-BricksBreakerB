@@ -367,6 +367,8 @@ public enum EItemKinds {
 	GAME_ITEM_05_ADD_STEEL_BRICKS,
 	GAME_ITEM_06,
 	GAME_ITEM_MAX_VAL,
+
+    REWARD_ITEM_SUBSCRIPTION = (EEnumVal.T * EItemType.EXTRA_CONSUMABLE) + (EEnumVal.ST * 0) + (EEnumVal.KT * 0) + (EEnumVal.SKT * 2),
 	// 1,000,000,000 }
 	#endregion // 추가 소모
 

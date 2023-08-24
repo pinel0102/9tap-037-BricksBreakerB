@@ -18,93 +18,74 @@ using UnityEditor.Purchasing;
 namespace MainScene {
     public partial class CSubMainSceneManager
     {
+        public List<STProductTradeInfo> subscriptionList;
+
         private CPurchaseManager cPurchaseManager { get { return CPurchaseManager.Inst; } }
+        private CUserInfoStorage cUserInfoStorage { get { return CUserInfoStorage.Inst; } }
+        private CGameInfoStorage cGameInfoStorage { get { return CGameInfoStorage.Inst; } }
         private Coroutine cCheckSubscriptions;
 
-        public void InitSubscriptions()
+        public void InitSubscriptions(bool checkAlertPopup = false)
         {
             Debug.Log(CodeManager.GetMethodName());
 
+            subscriptionList = Factory.MakeProductTradeInfos(KDefine.G_PRODUCT_KINDS_SUBSCRIPTION_LIST).Values.ToList();
+
             if (cCheckSubscriptions != null) StopCoroutine(cCheckSubscriptions);
-            cCheckSubscriptions = StartCoroutine(CO_CheckSubscriptions());
+            cCheckSubscriptions = StartCoroutine(CO_CheckSubscriptions(checkAlertPopup));
         }
 
-        private IEnumerator CO_CheckSubscriptions()
+        private IEnumerator CO_CheckSubscriptions(bool checkAlertPopup)
         {
-            CUserInfoStorage.Inst.InitSubscriptionInfo();
+            cUserInfoStorage.InitSubscriptionInfo();
 
             yield return null;
 
-#if UNITY_EDITOR
-            RefreshSubscriptions();
-#else
+#if !UNITY_EDITOR && !UNITY_STANDALONE && PURCHASE_MODULE_ENABLE
             while(!cPurchaseManager.IsInit)
             {
                 yield return null;
             }
 
             CheckSubscriptions();
-            RefreshSubscriptions();
 #endif
+
+            if (checkAlertPopup)
+                CheckAlertPopup();
         }
 
         private void CheckSubscriptions()
         {
-            Debug.Log(CodeManager.GetMethodName());
+            //Debug.Log(CodeManager.GetMethodName());
 
-            var productTradeInfoList = Factory.MakeProductTradeInfos(KDefine.G_PRODUCT_KINDS_STORE_LIST).Values.ToList();
-            
-            for(int i=0; i < productTradeInfoList.Count; i++)
+            for(int i=0; i < subscriptionList.Count; i++)
             {
-                var stProductInfo = CProductInfoTable.Inst.GetProductInfo(productTradeInfoList[i].m_nProductIdx);
+                var stProductInfo = CProductInfoTable.Inst.GetProductInfo(subscriptionList[i].m_nProductIdx);
                 if (stProductInfo.m_eProductType == ProductType.Subscription)
                 {
                     Product _product = cPurchaseManager.GetProduct(stProductInfo.m_oID);
                     if (_product != null)
                     {
                         SubscriptionInfo info = GetSubscriptionInfo(_product);
-                        switch(info.isSubscribed())
-                        {
-                            case Result.True:
-                                CUserInfoStorage.Inst.SetSubscriptionInfo(info);
-                                break;
-                        }
+                        
+                        if (info.isSubscribed() == Result.True && info.isExpired() == Result.False)
+                            cUserInfoStorage.SetSubscriptionInfo(info);
                     }
                 }
             }
         }
 
-        private void RefreshSubscriptions()
+        private void CheckAlertPopup()
         {
             if (!GlobalDefine.isLevelEditor)
             {
-                Debug.Log(CodeManager.GetMethodName());
+                //Debug.Log(CodeManager.GetMethodName());
             
-                CGameInfoStorage gameInfoStorage = CGameInfoStorage.Inst;
-
-                if (Access.IsEnableSubscriptionAlert(gameInfoStorage.PlayCharacterID))
+                if (Access.IsEnableSubscriptionAlert(cGameInfoStorage.PlayCharacterID) || (cUserInfoStorage.subscriptionActivated && Access.IsEnableGetSubscriptionReward(cGameInfoStorage.PlayCharacterID)))
                 {
-                    CCharacterGameInfo characterGameinfo = gameInfoStorage.GetCharacterGameInfo(gameInfoStorage.PlayCharacterID);
-                    characterGameinfo.SubscriptionAlertTime = DateTime.Today;
-                    gameInfoStorage.SaveGameInfo();
-
-                    if (CUserInfoStorage.Inst.subs_isActivate)
-                    {
-                        GetSubscriptionRewards();
-                    }
-                    else
-                    {
-                        OnClick_OpenPopup_Subscription();
-                    }
+                    OnClick_OpenPopup_Subscription();
                 }
             }
-        }
-
-        private void GetSubscriptionRewards()
-        {
-            Debug.Log(CodeManager.GetMethodName());
-
-            //
         }
 
         private SubscriptionInfo GetSubscriptionInfo(string _productID)
@@ -117,8 +98,7 @@ namespace MainScene {
             if (_product.definition.type == ProductType.Subscription)
             {
                 SubscriptionManager p = new SubscriptionManager(_product, null);
-                SubscriptionInfo info = p.getSubscriptionInfo();
-                return info;
+                return p.getSubscriptionInfo();
             }
             else
             {

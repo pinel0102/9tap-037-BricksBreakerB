@@ -18,9 +18,11 @@ public static partial class GlobalDefine
 #endif
     }
 
-    public static void HideBannerAD()
+    public static void HideBannerAD(bool showLog = true)
     {
-        Debug.Log(CodeManager.GetMethodName());
+        if (showLog)
+            Debug.Log(CodeManager.GetMethodName());
+            
 #if ADS_MODULE_ENABLE
         Func.HideBannerAds(null);
 #endif
@@ -53,7 +55,7 @@ public static partial class GlobalDefine
 
     public static bool IsEnableAD()
     {
-        return !CUserInfoStorage.Inst.IsPurchaseRemoveAds && !CUserInfoStorage.Inst.subs_isActivate;
+        return !CUserInfoStorage.Inst.IsPurchaseRemoveAds && !CUserInfoStorage.Inst.subscriptionActivated;
     }
 }
 
